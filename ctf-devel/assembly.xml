@@ -14,15 +14,7 @@
 				<exclude>pom.xml</exclude>
 				<exclude>target</exclude>
 				<exclude>target/**/*</exclude>
-				<exclude>*.tpl</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>
-	<files>
-		<file>
-			<outputDirectory>\</outputDirectory>
-			<destName>MASTER.TPL</destName>
-			<source>${project.basedir}\master.tpl</source>
-		</file>
-	</files>
 </assembly>

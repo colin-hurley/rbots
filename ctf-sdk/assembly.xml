@@ -22,11 +22,8 @@
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
 				<include>ui\**\*</include>
-				<include>*.TPL</include>
+				<include>*.tpl</include>
 			</includes>
-			<excludes>
-				<exclude>3do\respawn.3do</exclude>
-			</excludes>
 		</fileSet>
 	</fileSets>
 	<files>
@@ -39,16 +36,6 @@
 			<outputDirectory>\</outputDirectory>
 			<destName>rbots-patch-nohotkeys.gob</destName>
 			<source>${project.build.directory}\dependency\rbots-jk-patch-nohotkeys.gob</source>
-		</file>
-		<file>
-			<outputDirectory>\</outputDirectory>
-			<destName>MASTER.TPL</destName>
-			<source>${project.basedir}\..\jk-devel\master.tpl</source>
-		</file>
-		<file>
-			<outputDirectory>\3do</outputDirectory>
-			<destName>respawn.3DO</destName>
-			<source>${project.basedir}\..\jk-devel\3do\respawn.3do</source>
 		</file>
 	</files>
 </assembly>

@@ -17,6 +17,7 @@
 			<outputDirectory>\</outputDirectory>
 			<directory>${project.basedir}\..\mots-devel</directory>
 			<includes>
+				<include>3do\**\*</include>
 				<include>cog\**\*</include>
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
@@ -37,43 +38,8 @@
 		</file>
 		<file>
 			<outputDirectory>\</outputDirectory>
-			<destName>rbots-patch-nohotkeys.Goo</destName>
+			<destName>rbots-patch-nohotkeys.goo</destName>
 			<source>${project.build.directory}\dependency\rbots-mots-patch-nohotkeys.goo</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>respawn.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\respawn.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabgblue.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabgblue.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabggreen.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabggreen.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabgorange.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabgorange.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabgpurple.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabgpurple.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabgred.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabgred.3do</source>
-		</file>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>sabgyellow.3DO</destName>
-			<source>${project.basedir}\..\mots-devel\3do\sabgyellow.3do</source>
 		</file>
 	</files>
 </assembly>

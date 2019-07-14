@@ -26,7 +26,7 @@
 		</file>
 		<file>
 			<outputDirectory>\</outputDirectory>
-			<destName>rbots-patch-nohotkeys.Goo</destName>
+			<destName>rbots-patch-nohotkeys.goo</destName>
 			<source>${project.build.directory}\dependency\rbots-mots-patch-nohotkeys.goo</source>
 		</file>
 	</files>

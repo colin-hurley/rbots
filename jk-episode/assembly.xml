@@ -18,7 +18,6 @@
 				<include>episode.jk</include>
 			</includes>
 			<excludes>
-				<exclude>3do\respawn.3DO</exclude>
 				<exclude>cog\rbot-elev-nar.cog</exclude>
 				<exclude>cog\rbot-elev-switch.cog</exclude>
 				<exclude>cog\rbot-nav-old.cog</exclude>
@@ -27,11 +26,4 @@
 			</excludes>
 		</fileSet>
 	</fileSets>
-	<files>
-		<file>
-			<outputDirectory>3do</outputDirectory>
-			<destName>respawn.3do</destName>
-			<source>${project.basedir}\..\jk-devel\3do\respawn.3DO</source>
-		</file>
-	</files>
 </assembly>

@@ -1,0 +1,139 @@
+# Jedi Knight Cog Script
+#
+# CTF_DISPLAYSCORE.COG
+#
+# Called from CTF_MAIN.COG when the score changes, this
+# will display the score for both the Red and Gold teams.
+# Up to 4 copies of the 6 surfaces needed for the
+# score display may be linked.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+surface     rl0                              nolink,desc=rl0
+surface     rl1                              nolink,desc=rl1
+surface     rl2                              nolink,desc=rl2
+surface     rl3                              nolink,desc=rl3
+surface     rm0                              nolink,desc=rm0
+surface     rm1                              nolink,desc=rm1
+surface     rm2                              nolink,desc=rm2
+surface     rm3                              nolink,desc=rm3
+surface     rr0                              nolink,desc=rr0
+surface     rr1                              nolink,desc=rr1
+surface     rr2                              nolink,desc=rr2
+surface     rr3                              nolink,desc=rr3
+surface     gl0                              nolink,desc=gl0
+surface     gl1                              nolink,desc=gl1
+surface     gl2                              nolink,desc=gl2
+surface     gl3                              nolink,desc=gl3
+surface     gm0                              nolink,desc=gm0
+surface     gm1                              nolink,desc=gm1
+surface     gm2                              nolink,desc=gm2
+surface     gm3                              nolink,desc=gm3
+surface     gr0                              nolink,desc=gr0
+surface     gr1                              nolink,desc=gr1
+surface     gr2                              nolink,desc=gr2
+surface     gr3                              nolink,desc=gr3
+int         copies=4                         nolink,desc=copies
+
+int         red_left=0                       local
+int         red_mid=0                        local
+int         red_right=0                      local
+int         gold_left=0                      local
+int         gold_mid=0                       local
+int         gold_right=0                     local
+int         n=0                              local
+
+int         dummy=0                          local
+
+int         ctf_score_red=0                  local
+int         ctf_score_gold=0                 local
+int         old_ctf_score_red=-1             local
+int         old_ctf_score_gold=-1            local
+
+message     trigger
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+   // Handle only TRIGGER_SCORE
+   if(GetSourceRef() != 1002) Return;
+
+   ctf_score_red =  GetParam(0);
+   ctf_score_gold = GetParam(1);
+
+   if(ctf_score_red > 999)
+   {
+      red_right  = 9;
+      red_mid    = 9;
+      red_left   = 9;
+   }
+   else
+   {
+      red_right  = ctf_score_red % 10;
+      red_mid    = (ctf_score_red % 100) / 10;
+      red_left   = ctf_score_red / 100;
+   }
+
+   if(ctf_score_gold > 999)
+   {
+      gold_right  = 9;
+      gold_mid    = 9;
+      gold_left   = 9;
+   }
+   else
+   {
+      gold_right  = ctf_score_gold % 10;
+      gold_mid    = (ctf_score_gold % 100) / 10;
+      gold_left   = ctf_score_gold / 100;
+   }
+
+   for(n=0; n<copies; n=n+1)
+   {
+      dummy = SetWallCel(rl0[n], red_left);
+      dummy = SetWallCel(rm0[n], red_mid);
+      dummy = SetWallCel(rr0[n], red_right);
+      dummy = SetWallCel(gl0[n], gold_left);
+      dummy = SetWallCel(gm0[n], gold_mid);
+      dummy = SetWallCel(gr0[n], gold_right);
+   }
+
+   // if the score is different from the earlier score
+   // raise the lights in the scoring sectors then let
+   // that light fall back to the normal value
+
+   if(old_ctf_score_red != ctf_score_red)
+   {
+      for(n=0; n<copies; n=n+1)
+      {
+         SectorLight(GetSurfaceSector(rl0[n]), 1.0, 0.0);
+         SectorLight(GetSurfaceSector(rl0[n]), 0.0, 5.0);
+      }
+   }
+
+   if(old_ctf_score_gold != ctf_score_gold)
+   {
+      for(n=0; n<copies; n=n+1)
+      {
+         SectorLight(GetSurfaceSector(gl0[n]), 1.0, 0.0);
+         SectorLight(GetSurfaceSector(gl0[n]), 0.0, 5.0);
+      }
+   }
+
+   old_ctf_score_red = ctf_score_red;
+   old_ctf_score_gold = ctf_score_gold;
+
+   Return;
+
+end
+
+

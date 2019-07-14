@@ -1,0 +1,1777 @@
+# Jedi Knight Cog Script
+#
+# CTF_MAIN.COG (CTF v 1.9)
+#
+# Heavily modified for Rbots 0.32
+#
+#
+# Rules :
+# -----
+#
+# The aim of the game is to capture the other team's flag and then reach your own
+# flag room to score. Touch your flag with the enemy's flag to score. Note that this
+# means that you cannot score if your flag is not there. Get someone on your team to
+# recapture your flag to let you score !
+#
+# Each player appears in a common "start room".
+# He must chose a team color by entering the red or gold corridor.
+#
+# Some doors in the game will normally only open for a player of a certain team.
+# These doors will always be marked with the colour of the team.
+# Keys may allow players from the other team to open those doors too...
+#
+# * Flag captures limit option :
+#   selectable in the start room by activating the big textured numbers,
+#   default from the UI.
+#
+# * Time limit option :
+#   implemented at COG level only or via the callback interface,
+#   default from the UI.
+#
+#
+# History :
+# -------
+#
+# What's new in 1.9 ?
+#
+# * removed the ties in score_limit
+# * removed the ties in time_limit
+# * scores sent via SendTrigger, gains dozens of packets
+#
+# What's new in 1.8 ? "fighting lost packets version"
+#
+# * periodically sending the flags positions and attachment info
+# * periodically sending the values of the score limit faces
+# * added recovery teleports at the bottom of the marking corridors
+#   in the case the server misses the entered: message packet
+# * trippled all the player and flag teleport packets
+#
+# What's new in 1.7 ?
+#
+# * Negative points for suicides (team scores don't go below 0)
+# * Added display of number of players per team in the start room
+# * Flags totally static (no more dynamic creation), removed all
+#   CaptureThing() and ReleaseThing()
+# * Team scores passed to HUD score display
+# * Icons synched through SendTrigger interface
+# * Fixed the teleportsnd bug
+#
+# What's new in 1.6 ?
+#
+# * Add some points to all team members when someone of the team CTF
+# * Added scoring in overlay score table, by team and by player
+# * Get score and time limits from the UI
+# * Infos displayed when players join the game
+# * Rework the announcers with TimerEx
+# * Score text announcers work on the network
+# * Score sound announcers done with PlaySoundGlobal
+# * Converted the spawn spots to client-side respawn masking
+#
+# What's new in 1.5 ?
+#
+# * Added the leave: handler to remove the flag from a leaving or
+#   disconnected player. Also clears the team in case the player
+#   comes back immediately.
+# * Added CTF Callback messages 15 and 25 to differentiate the case
+#   of the flag taken out of its base.
+# * Solved the teleport into the ground bug
+# * Visually distinguish the teams with different models
+# * Manage a score by player in addition to the total team score
+#
+# What's new in 1.4x ?
+#
+# * remove all additions CTF makes to the player bins at shutdown:
+# * use inventory icons for CTF keys
+# * Set the lightsabers colors to the team colors
+# * Killed a scoring bug where you would get full capture score when
+#   you had the enemy flag and touched your flag dropped by an enemy.
+# * Added some voice samples.
+# * Solved the "dead player taking the flag" bug.
+# * Added some SFX to the teleports (green tint, particles and sound).
+# * Added new messages to the CTF Callback Interface to handle new players
+#   entering the game.
+# * The player now visually carries the flag, and a flag icon is shown too.
+# * Changed the way the players are teleported from random to cycle,
+#   this will avoid possible telefrags between members of the same team.
+#
+# What's new in 1.3 ?
+#
+# * Added callback interface. Another COG can now register in CTF_MAIN to
+#   receive notifications of important CTF events. I wanted to be able to
+#   do level specific things without maintaining more than one CTF_MAIN.COG
+#   This interface also allows to set time_limit, verbose level and sounds
+#   capabilities remotely.
+#   See details in user0: comments.
+#
+# What's new in 1.2x ?
+#
+# * when the score is 1, "point" is shown instead of "points".
+# * the score is now kept in local variables, and transmitted to the score display
+#   COG via SendMessageEx(). CTF doesn't use globals anymore.
+# * removed some useless calls and variables
+#
+# What's new in 1.1 ?
+#
+# * it is now forbidden to change the score limit after a player has entered the game
+#
+# What's new in 1.0 ?
+#
+# * capture the enemy flag just by touching it, no need to activate it anymore
+# * the flag behavior has changed : it will now be dropped if the carrier is killed
+#   instead of returning to its base immediately. It can then be picked up by an enemy
+#   again, sent home by a friendly player, or just left there in which case it will
+#   teleport home after a defined delay.
+# * the flag is now a dynamic light that slowly pulsates
+# * removed some debugging code and simplified a lot of things
+#   - scoring sectors have disappeared, since you score simply by touching your flag now
+#   - Own Flag Not Captured rule is always enabled
+#   - display_score disappeared to be replaced by more "verbose" functionality
+# * scoring system, score display and in-game messages have been enhanced
+#   - get bonus for killing the flag carrier, retrieving your flag, etc.
+#   - all scoring values have been made into variables, nothing hardcoded anymore
+#   - there are now in-game messages for all CTF events
+#   - score is announced at specified intervals, with messages like
+#     "RED team leads by 15 6"
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing		flag_red
+thing		flag_gold
+thing       flag_ghost_red                   nolink,desc=flagpos_red
+thing       flag_ghost_gold                  nolink,desc=flagpos_gold
+
+sector      start_room                       desc=start_room
+sector      mark_red                         desc=mark_red_team
+sector      mark_gold                        desc=mark_gold_team
+
+surface     limit1                           desc=limit1
+surface     limit2                           desc=limit2
+surface     limit3                           desc=limit3
+
+cog         score_display_cog                desc=score_cog
+
+thing       red_start                        nolink,desc=red_start
+thing       red_start1                       nolink,desc=red_start1
+thing       red_start2                       nolink,desc=red_start2
+thing       red_start3                       nolink,desc=red_start3
+thing       red_start4                       nolink,desc=red_start4
+thing       red_start5                       nolink,desc=red_start5
+thing       red_start6                       nolink,desc=red_start6
+thing       red_start7                       nolink,desc=red_start7
+thing       gold_start                       nolink,desc=gold_start
+thing       gold_start1                      nolink,desc=gold_start1
+thing       gold_start2                      nolink,desc=gold_start2
+thing       gold_start3                      nolink,desc=gold_start3
+thing       gold_start4                      nolink,desc=gold_start4
+thing       gold_start5                      nolink,desc=gold_start5
+thing       gold_start6                      nolink,desc=gold_start6
+thing       gold_start7                      nolink,desc=gold_start7
+
+surface     players_red1                     nolink,desc=players_red1
+surface     players_red2                     nolink,desc=players_red2
+surface     players_gold1                    nolink,desc=players_gold1
+surface     players_gold2                    nolink,desc=players_gold2
+
+int         captured_red=0                   local
+int         captured_gold=0                  local
+int         verbose=3                        local
+int         time_limit=0                     local
+int         score_limit=0                    local
+int         level_started=0                  local
+int         level_ended=0                    local
+
+int         player                           local
+int         leaveplayer=0                    local
+int         killer                           local
+int         senderRef=0                      local
+int         sourceRef=0                      local
+
+int         lock_touch=0                     local
+int         bot_lock_touch=0                 local
+int         play_sounds=1                    local
+int         anim                             local
+int         dummy                            local
+int         teleport_red=0                   local
+int         teleport_gold=0                  local
+
+int         ctf_score_red=0                  local
+int         ctf_score_gold=0                 local
+
+int         ctf_capture_flag=12              local
+int         ctf_capture_flag_team=3          local
+int         ctf_take_flag=3                  local
+int         ctf_kill_flag_carrier=2          local
+int         ctf_return_flag=3                local
+int         ctf_suicide=-2                   local
+
+int         ctf_flag_return_time=60          local
+
+int         ctf_callback=-1                  local
+int         ctf_keys=0                       local
+
+template    teleport_particles=+telesparks   local
+
+keyframe    flag_anim=FLGRanim.key           local
+
+sound       teleportsnd=ForceThrow01.WAV     local
+sound       droidsnd=SProbeHover01.WAV       local
+
+sound       pickupsnd=I00an08z.wav           local
+sound       scoresnd=I00an04z.wav            local
+sound       returnsnd=ForceThrow01.WAV       local
+sound       pickupsnd2=I00an01z.wav          local
+sound       scoresnd2=I00an02z.wav           local
+sound       returnsnd2=ForceThrow01.WAV      local
+
+sound       leadsnd=I00an06z.wav             local
+sound       leadsnd2=I00an07z.wav            local
+sound       winsnd=I00an03z.wav              local
+sound       winsnd2=I00an05z.wav             local
+
+sound       alarmsnd=00AlarmLoop01.WAV       local
+sound       successsnd=Accomplish1.WAV       local
+
+model       neutral_mdl=ky.3do               local
+model       red_mdl=kyX0.3do                 local
+model       gold_mdl=kyU0.3do                local
+
+material    rtip_mat=saberred0.mat           local
+material    rside_mat=saberred1.mat          local
+material    gtip_mat=saberyellow0.mat        local
+material    gside_mat=saberyellow1.mat       local
+
+template    tpl_wall=+ssparks_wall           local
+template    tpl_blood=+ssparks_blood         local
+template    tpl_saber=+ssparks_saber         local
+
+int         numplayers                       local
+int         tmp_score_changed                local
+
+int         ban_red=-1                       local
+int         ban_gold=-1                      local
+
+int         msgbase=1000                     local
+int			flag_team						local
+
+thing		redflag_taken				local
+thing		goldflag_taken				local
+
+int			bottouched=0		local
+int			rbot				local
+#int			red_touchlock=0		local
+#int			gold_touchlock=0		local
+
+message     startup
+message     activated
+message     touched
+message     entered
+message     shutdown
+message     timer
+message     killed
+message     leave
+message     join
+message     pulse
+message     user0
+message     user1
+message     user2
+message		trigger
+
+# Triggers
+#
+# 1001 - ICONS
+# 1002 - SCORE
+# 1003 - KEYS
+#
+# 10001 - BREAKINGGLASS (C2)
+# 10001 - LEVELSIZE (C3)
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // Debug level
+   verbose = 2;
+
+   if(verbose > 2) Print("CTF Startup Evt");
+
+   player = GetLocalPlayerThing();
+
+   // SERVER ONLY startup:
+   if(IsServer() || !IsMulti())
+   {
+      // Team mode                   (1)
+      // No damage to teammates      (2)
+      // CTF computes its own score  (4)
+      // No custom costumes         (20)
+      SetMultiModeFlags(0x27);
+
+      // Auto assign teams          (100)
+      // This also disallow the command to change teams
+      ClearMultiModeFlags(0x100);
+
+      // Initialize Time limit
+      if(GetMultiModeFlags() & 0x8)
+      {
+         time_limit = GetTimeLimit();
+         ClearMultiModeFlags(0x8);
+      }
+
+      // Initialize Score limit
+      if(GetMultiModeFlags() & 0x10)
+      {
+         score_limit = GetScoreLimit();
+         if(score_limit > 999) score_limit = 0;
+         ClearMultiModeFlags(0x10);
+      }
+
+      // Sets the score panels (out of startup:)
+      SetTimerEx(0.5, 9980, 0, 0);
+
+      // Prepare the Red Flag
+      anim = ThingLightAnim(flag_red, 0.0, 0.5, 3);
+      PlaySoundThing(droidsnd, flag_red, 0.35, 1.0, 5.0, 0x81);
+      captured_red = 0;
+
+      // Prepare the Gold Flag
+      anim = ThingLightAnim(flag_gold, 0.0, 0.5, 3);
+      PlaySoundThing(droidsnd, flag_gold, 0.35, 1.0, 5.0, 0x81);
+      captured_gold = 0;
+
+      // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+      // Send a TRIGGER_SCORE with its parameters
+      SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+
+      // Send the Welcome information to the server player
+      SetTimerEx(2, 9996, player, 0);
+
+      // ensure that the score is displayed once in a while even if noone scores...
+      KillTimerEx(9997);
+      SetTimerEx(90, 9997, 0, 0);
+
+      // Because team mode might have assigned the server player to team 1
+      SetPlayerTeam(player, 0);
+
+      call show_players;
+
+      // Start flags positions synching
+      SetPulse(1.5);
+   }
+
+   // Set the Master COG
+   SetMasterCOG(GetSelfCOG());
+
+   // CTF Team
+   SetPlayerTeam(player, 0);
+
+   // CTF Inventory
+   SetInv(player, 81, 0.0);
+   SetInv(player, 82, 0.0);
+   SetInvActivated(player, 81, 0);
+   SetInvActivated(player, 82, 0);
+
+   // CTF Score
+   SetPlayerTeam(player, 0);
+   SetPlayerScore(player, 0);
+
+   // Play the flag bobbing anims locally on each machine
+   PlayKey(flag_red, flag_anim, 1, 0);
+   PlayKey(flag_gold, flag_anim, 1, 0);
+
+	redflag_taken=-1;
+	goldflag_taken=-1;
+   Return;
+
+# ........................................................................................
+
+pulse:
+   // This resynchs the position of the flags over the network
+   // this is just a fix for the case packets with flag position
+   // updates are dropped (mostly an Internet problem).
+
+   if(captured_red != 2)
+      SyncThingPos(flag_red);
+   else
+      SyncThingAttachment(flag_red);
+
+   if(captured_gold != 2)
+      SyncThingPos(flag_gold);
+   else
+      SyncThingAttachment(flag_gold);
+
+	// Update CTF info to all other cogs (rbots)
+	SendTrigger(-1, 12210 , captured_red, captured_gold, redflag_taken, goldflag_taken);
+
+   Return;
+
+# ........................................................................................
+
+join:
+   if(verbose > 2) Print("CTF Join Evt");
+
+   player = GetSenderRef();
+
+   SetPlayerTeam(player, 0);
+   SetPlayerScore(player, 0);
+
+   // CTF Keys
+   SetInv(player, 83, 0.0);
+   SetInv(player, 84, 0.0);
+
+   // This is only on the server (inventory is NOT synched)
+   // so we need to tell the player to display the keys correctly
+   // Send a TRIGGER_KEYS with its parameters
+   SendTrigger(player, 1003, 83, 0, 0, 0);
+   SendTrigger(player, 1003, 84, 0, 0, 0);
+
+   // Send the Welcome information, but delay it by 2 seconds
+   SetTimerEx(2, 9996, player, 0);
+
+   call show_players;
+
+   // This resynchs the score surfaces
+   // Problems only happen if one of the surfaces is changed
+   // while a new player synchs (not joins, only synchs)
+   SyncSurface(limit1);
+   SyncSurface(limit2);
+   SyncSurface(limit3);
+
+   // Send a TRIGGER_SCORE with its parameters
+   SendTrigger(player, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+
+   // SyncSurface(players_red1);
+   // SyncSurface(players_red2);
+   // SyncSurface(players_gold1);
+   // SyncSurface(players_gold2);
+
+   Return;
+
+# ........................................................................................
+
+leave:
+   if(verbose > 2) Print("CTF Leave Evt");
+
+   leaveplayer = GetSenderRef();
+
+   if(GetInv(leaveplayer, 81) > 0.0)
+   {
+      // Remove the flag from the leaving player's model
+      DetachThing(flag_red);
+
+      // Remove the icon
+      // Send a TRIGGER_ICON with its parameters
+      SendTrigger(leaveplayer, 1001, 81, 0, 0, 0);
+
+      // Remove the flag from the player's inventory
+	  redflag_taken=-1;
+      SetInv(leaveplayer, 81, 0.0);
+
+      captured_red = 1;
+
+      // return the flag after 2 seconds only
+      SetTimerEx(2, 1, 0, 0);
+   }
+
+   if(GetInv(leaveplayer, 82) > 0.0)
+   {
+      // Remove the flag from the leaving player's model
+      DetachThing(flag_gold);
+
+      // Remove the icon
+      // Send a TRIGGER_ICON with its parameters
+      SendTrigger(leaveplayer, 1001, 82, 0, 0, 0);
+
+      // Remove the flag from the player's inventory
+	  goldflag_taken=-1;
+      SetInv(leaveplayer, 82, 0.0);
+
+      captured_gold = 1;
+
+      // return the flag after 2 seconds only
+      SetTimerEx(2, 2, 0, 0);
+   }
+
+   // Give the player a neutral costume
+   SetThingModel(leaveplayer, neutral_mdl);
+
+   call show_players;
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   if(verbose > 2) Print("CTF Activated Evt");
+
+   // Exit if activated: was sent by anything else than a surface
+   if(GetSenderType() != 6) Return;
+
+   // Exit if one of the limits has been reached
+   if(level_ended != 0) Return;
+
+   // Event coming from the Flag Limit surfaces (those are the only linked surfaces)
+   if(level_started == 0)
+   {
+      if(GetSenderRef() == limit1) dummy = SetWallCel(limit1, (GetWallCel(limit1) + 1) % 10);
+      if(GetSenderRef() == limit2) dummy = SetWallCel(limit2, (GetWallCel(limit2) + 1) % 10);
+      if(GetSenderRef() == limit3) dummy = SetWallCel(limit3, (GetWallCel(limit3) + 1) % 10);
+      score_limit = 100 * GetWallCel(limit1) + 10 * GetWallCel(limit2) + GetWallCel(limit3);
+
+      if(verbose > 1)
+      {
+         // Print("Score Limit Altered To");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 5);
+         jkStringConcatSpace();
+         jkStringConcatInt(score_limit);
+         // Output to Everybody (-3), source is Silent (-1)
+         jkStringOutput(-3, -1);
+      }
+
+      // Callback #00 : Score Limit changed
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 0, score_limit, 0.0, 0.0);
+   }
+
+   Return;
+
+# ........................................................................................
+trigger:
+	if (GetSourceRef() == 1000) // bot died
+	{
+		sourceRef=GetParam(2);
+		rbot=GetParam(3);
+		if (rbot == redflag_taken)
+		{
+			DetachThing(flag_red);
+			captured_red = 1;
+			redflag_taken=-1;
+
+			// if SITH_SECTOR_FALLDEATH return the flag nearly immediately
+			if (GetSectorFlags(GetThingSector(rbot)) & 0x40) SetTimerEx(0.6, 1, 0, 0); else SetTimerEx(ctf_flag_return_time, 1, 0, 0);
+			if (verbose > 0)
+			{
+				// Print("Gold Team lost the Red Flag !");
+				jkPrintUNIString(-3, msgbase + 14);
+			}
+
+			// add to the red score, but only if it is not a gold suicide
+			killer = GetThingParent(sourceRef);
+			if (killer != rbot)
+			{
+				ctf_score_red = ctf_score_red + ctf_kill_flag_carrier;
+				SetTeamScore(1, ctf_score_red);
+				tmp_score_changed = 1;
+
+				// Increment player score
+				SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+			}
+
+			// Callback #13 : Red flag lost by Gold team
+			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 13, player, ctf_score_red, ctf_score_gold);
+		}
+		else if (rbot == goldflag_taken)
+		{
+			DetachThing(flag_gold);
+			captured_gold = 1;
+			goldflag_taken=-1;
+
+			// if SITH_SECTOR_FALLDEATH return the flag nearly immediately
+			if (GetSectorFlags(GetThingSector(rbot)) & 0x40) SetTimerEx(0.6, 2, 0, 0); else SetTimerEx(ctf_flag_return_time, 2, 0, 0);
+			if (verbose > 0)
+			{
+				// Print("Red Team lost the Gold Flag !");
+				jkPrintUNIString(-3, msgbase + 24);
+			}
+
+			// add to the gold score, but only if it is not a red suicide
+			killer = GetThingParent(sourceRef);
+			if (killer != rbot)
+			{
+				ctf_score_gold = ctf_score_gold + ctf_kill_flag_carrier;
+				SetTeamScore(2, ctf_score_gold);
+				tmp_score_changed = 1;
+
+				// Increment player score
+				SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+			}
+
+			// Callback #23 : Gold flag lost by Red team
+			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 23, player, ctf_score_red, ctf_score_gold);
+		}
+		return;
+	}
+	else if (GetSourceRef() != 12200 || (GetParam(1) != flag_red && GetParam(1) != flag_gold)) return;
+	// bot has touched a flag
+	senderRef=GetParam(1);
+	player=GetParam(2);
+	if (senderRef == flag_red && player == redflag_taken) return; // bot already has the redflag
+	if (senderRef == flag_gold && player == goldflag_taken) return; // bot already has the goldflag
+	bottouched=1;
+
+touched:
+	// Exit if one of the limits has been reached or flag locked
+	if(level_ended != 0 || lock_touch == 1)
+	{
+		bottouched=0;
+		Return;
+	}
+	if (!bottouched)
+	{
+		if(GetSenderType() != 3) Return; // Exit if touched: was sent by anything else than a thing
+		player = GetSourceRef();
+		senderRef = GetSenderRef();
+	}
+
+	// sometimes a dead/dying player can touch the flag and snatch it...
+	// Health is not synched, so use SITH_TF_DYING instead
+	if (GetThingFlags(player) & 0x200) Return;
+
+	// Don't allow more than one touch per 0.5 second
+	lock_touch = 1;
+	SetTimerEx(0.5, 9990, 0, 0);
+
+	// *** RED FLAG ***
+	if(senderRef == flag_red)
+	{
+		if(captured_red == 2) Return;
+
+		// GOLD PLAYER takes it
+		if((!bottouched && GetPlayerTeam(player) == 2) || (bottouched && GetThingUserData(player) == 2))
+		{
+			// this is to avoid the same player retaking the flag
+			// while it is only detached and not teleported yet
+			if(player == ban_gold) Return;
+
+			if(play_sounds)
+			{
+				PlaySoundGlobal(pickupsnd, 1, 0, 4);
+				// Play an alarm sound in 2 seconds
+				KillTimerEx(9995);
+				SetTimerEx(2, 9995, 0, 0);
+			}
+
+			if(!bottouched && verbose > 0)
+			{
+				// Print("You got the Red Flag !");
+				jkPrintUNIString(player, msgbase + 10);
+			}
+
+			// Give the Red flag to the player
+			redflag_taken=player;
+			if (!bottouched) SetInv(player, 81, 1.0);
+
+			// Move the RED flag up relative to the player
+			SetThingPos(flag_red, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
+
+			// Attach the flag to the player
+			SetThingLook(flag_red, GetThingLVec(player));
+
+			// AttachThingToThing(flag_red, player);
+			// SetThingAttachFlags(flag_red, 0x8);
+			AttachThingToThingEx(flag_red, player, 0x8);
+
+			if (!bottouched)
+			{
+				// Set a red flag icon
+				// Send a TRIGGER_ICON with its parameters
+				SendTrigger(player, 1001, 81, 1, 0, 0);
+
+				// Increment player score
+				SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
+			}
+
+			// Increment team score
+			ctf_score_gold = ctf_score_gold + ctf_take_flag;
+			SetTeamScore(2, ctf_score_gold);
+
+			// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+			// Send a TRIGGER_SCORE with its parameters
+			SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+			call check_score_limit;
+
+			// Announce the score in 5 seconds
+			KillTimerEx(9997);
+			SetTimerEx(5, 9997, 0, 0);
+
+			if(ctf_callback != -1)
+				if(captured_red == 0)
+					dummy = SendMessageEx(ctf_callback, user0, 10, player, ctf_score_red, ctf_score_gold); // Callback #10 : Red flag taken
+				else
+					dummy = SendMessageEx(ctf_callback, user0, 15, player, ctf_score_red, ctf_score_gold); // Callback #15 : Red flag retaken
+
+			captured_red = 2;
+			bottouched=0;
+			lock_touch = 0;
+			Return;
+		}
+
+		// RED PLAYER
+		if((!bottouched && GetPlayerTeam(player) == 1) || (bottouched && GetThingUserData(player) == 1))
+		{
+			// Scores (has the gold flag and red flag is at home)
+			if ((!bottouched && GetInv(player, 82) == 1.0 && captured_red == 0) || (bottouched && goldflag_taken == player && captured_red == 0))
+			{
+				// this is to avoid the same player scoring multiple times due to lag
+				if(player == ban_red) Return;
+				ban_red = player;
+				SetTimerEx(5, 3, 0, 0);
+
+				// Remove the flag from the player's inventory
+				goldflag_taken=-1;
+				if (!bottouched) SetInv(player, 82, 0.0); 
+
+				ctf_score_red = ctf_score_red + ctf_capture_flag + ctf_capture_flag_team;
+				SetTeamScore(1, ctf_score_red);
+
+				// Teammates score a little here too
+				AddScoreToTeamMembers(1, ctf_capture_flag_team);
+
+				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag); // But this guy's getting the big score
+
+				// Announce the score in 3 seconds
+				KillTimerEx(9997);
+				SetTimerEx(5, 9997, 0, 0);
+
+				if(play_sounds)
+				{
+					PlaySoundGlobal(scoresnd2, 1, 0, 4);
+					// Play a success sound in 2 seconds
+					KillTimerEx(9994);
+					SetTimerEx(2, 9994, 0, 0);
+				}
+
+				if(verbose > 0)
+				{
+					// Print("Red Team Captured The Flag !");
+					jkPrintUNIString(-3, msgbase + 12);
+				}
+
+				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+				// Send a TRIGGER_SCORE with its parameters
+				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+
+				// Callback #12 : Red team captured the flag
+				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 12, player, ctf_score_red, ctf_score_gold);
+
+				// Remove the flag from the player's model
+				DetachThing(flag_gold);
+
+				// Remove the icon
+				// Send a TRIGGER_ICON with its parameters
+				if (!bottouched) SendTrigger(player, 1001, 82, 0, 0, 0);
+
+				// Teleport the flag back home
+				TeleportThing(flag_gold, flag_ghost_gold);
+
+				call check_score_limit;
+
+				captured_gold = 0;
+				bottouched=0;
+				lock_touch = 0;
+				Return;
+			}
+
+			// Returns it
+			if(captured_red == 1)
+			{
+				KillTimerEx(1);
+				TeleportThing(flag_red, flag_ghost_red);
+
+				if(play_sounds) dummy = PlaySoundThing(returnsnd, player, 1.0, -1, -1, 0);
+
+				if(verbose > 0)
+				{
+					// Print("Red Flag has been returned !");
+					jkPrintUNIString(-3, msgbase + 11);
+				}
+
+				ctf_score_red = ctf_score_red + ctf_return_flag;
+				SetTeamScore(1, ctf_score_red);
+
+				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+				// Send a TRIGGER_SCORE with its parameters
+				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+				call check_score_limit;
+
+	            if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag); // Increment player score
+
+				// Announce the score in 3 seconds
+				KillTimerEx(9997);
+				SetTimerEx(3, 9997, 0, 0);
+
+				// Callback #11 : Red flag returned
+				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 11, player, ctf_score_red, ctf_score_gold);
+
+				captured_red = 0;
+				bottouched=0;
+				lock_touch = 0;
+				Return;
+			}
+		}
+	}
+	// *** END RED FLAG ***
+
+	// *** GOLD FLAG ***
+	if(senderRef == flag_gold)
+	{
+		if(captured_gold == 2) Return;
+
+		// RED PLAYER takes it
+		if((!bottouched && GetPlayerTeam(player) == 1) || (bottouched && GetThingUserData(player) == 1))
+		{
+			// this is to avoid the same player retaking the flag
+			// while it is only detached and not teleported yet
+			if(player == ban_red) Return;
+
+			if(play_sounds)
+			{
+				PlaySoundGlobal(pickupsnd2, 1, 0, 4);
+				// Play an alarm sound in 2 seconds
+				KillTimerEx(9995);
+				SetTimerEx(2, 9995, 0, 0);
+			}
+
+			if(!bottouched && verbose > 0)
+			{
+				// Print("You got the Gold Flag !");
+				jkPrintUNIString(player, msgbase + 20);
+			}
+
+			// Give the Gold flag to the player
+			goldflag_taken=player;
+			if (!bottouched) SetInv(player, 82, 1.0);
+
+			// Move the GOLD flag up relative to the player
+			SetThingPos(flag_gold, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
+
+			// Attach the flag to the player
+			SetThingLook(flag_gold, GetThingLVec(player));
+
+			//AttachThingToThing(flag_gold, player);
+			//SetThingAttachFlags(flag_gold, 0x8);
+			AttachThingToThingEx(flag_gold, player, 0x8);
+
+			if (!bottouched)
+			{
+				// Set a gold flag icon
+				// Send a TRIGGER_ICON with its parameters
+				SendTrigger(player, 1001, 82, 1, 0, 0);
+
+				// Increment player score
+				SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
+			}
+
+			// Increment team score
+			ctf_score_red = ctf_score_red + ctf_take_flag;
+			SetTeamScore(1, ctf_score_red);
+
+			// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+			// Send a TRIGGER_SCORE with its parameters
+			SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+			call check_score_limit;
+
+			// Announce the score in 3 seconds
+			KillTimerEx(9997);
+			SetTimerEx(5, 9997, 0, 0);
+
+			if(ctf_callback != -1)
+				if(captured_gold == 0)
+					dummy = SendMessageEx(ctf_callback, user0, 20, player, ctf_score_red, ctf_score_gold); // Callback #20 : Gold flag taken
+				else
+					dummy = SendMessageEx(ctf_callback, user0, 25, player, ctf_score_red, ctf_score_gold); // Callback #25 : Gold flag retaken
+
+			captured_gold = 2;
+			bottouched=0;
+			lock_touch = 0;
+			Return;
+		}
+
+		// GOLD PLAYER
+		if((!bottouched && GetPlayerTeam(player) == 2) || (bottouched && GetThingUserData(player) == 2))
+		{
+			// Scores (has the red flag and gold flag is at home)
+			if ((!bottouched && GetInv(player, 81) == 1.0 && captured_gold == 0) || (bottouched && redflag_taken == player && captured_gold == 0))
+			{
+				// this is to avoid the same player scoring multiple times due to lag
+				if(player == ban_gold) Return;
+
+				ban_gold = player;
+				SetTimerEx(5, 4, 0, 0);
+
+				redflag_taken=-1;
+				if (!bottouched) SetInv(player, 81, 0.0); // Remove the flag from the player's inventory
+
+				ctf_score_gold = ctf_score_gold + ctf_capture_flag + ctf_capture_flag_team;
+				SetTeamScore(2, ctf_score_gold);
+
+				// Teammates score a little here too
+				AddScoreToTeamMembers(2, ctf_capture_flag_team);
+
+				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag); // But this guy's getting the big score
+
+				// Announce the score in 3 seconds
+				KillTimerEx(9997);
+				SetTimerEx(5, 9997, 0, 0);
+
+				if(play_sounds)
+				{
+					PlaySoundGlobal(scoresnd, 1, 0, 4);
+					// Play a success sound in 2 seconds
+					KillTimerEx(9994);
+					SetTimerEx(2, 9994, 0, 0);
+				}
+
+				if(verbose > 0)
+				{
+					// Print("Gold Team Captured The Flag !");
+					jkPrintUNIString(-3, msgbase + 22);
+				}
+
+				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+				// Send a TRIGGER_SCORE with its parameters
+				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+				call check_score_limit;
+
+				// Callback #22 : Gold flag captured
+				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 22, player, ctf_score_red, ctf_score_gold);
+
+				// Remove the flag from the player's model
+				DetachThing(flag_red);
+
+				// Remove the icon
+				// Send a TRIGGER_ICON with its parameters
+				if (!bottouched) SendTrigger(player, 1001, 81, 0, 0, 0);
+
+				// Teleport the flag back home
+				TeleportThing(flag_red, flag_ghost_red);
+
+				call check_score_limit;
+
+				captured_red = 0;
+				bottouched=0;
+				lock_touch = 0;
+				Return;
+			}
+
+			// Returns it
+			if(captured_gold == 1)
+			{
+				KillTimerEx(2);
+				TeleportThing(flag_gold, flag_ghost_gold);
+
+				if(play_sounds) dummy = PlaySoundThing(returnsnd2, player, 1.0, -1, -1, 0);
+
+				if(verbose > 0)
+				{
+					// Print("Gold Flag has been returned !");
+					jkPrintUNIString(-3, msgbase + 21);
+				}
+
+				ctf_score_gold = ctf_score_gold + ctf_return_flag;
+				SetTeamScore(2, ctf_score_gold);
+
+				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+				// Send a TRIGGER_SCORE with its parameters
+				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+				call check_score_limit;
+
+				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag); // Increment player score
+
+				// Announce the score in 3 seconds
+				KillTimerEx(9997);
+				SetTimerEx(3, 9997, 0, 0);
+
+				// Callback #21 : Gold flag returned
+				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 21, player, ctf_score_red, ctf_score_gold);
+
+				captured_gold = 0;
+				bottouched=0;
+				lock_touch = 0;
+				Return;
+			}
+		}
+	}
+	// *** END GOLD FLAG ***
+
+	Return;
+
+# ........................................................................................
+
+entered:
+   if(verbose > 2) Print("CTF Entered Evt");
+
+   // Exit if entered: was sent by anything else than a sector
+   if(GetSenderType() != 5) Return;
+
+   player = GetSourceRef();
+   senderRef = GetSenderRef();
+
+   // CTF must have permanent access to the players' events !!!
+   CaptureThing(player);
+
+   // These are the Team selection sectors
+   // The player is marked with the correct color, then teleported into the game
+   // on the next start point of his color (i.e. cycling through the start points).
+
+   if(senderRef == mark_red)
+   {
+      if(verbose > 2) Print("Player marked Red");
+
+      SetPlayerTeam(player, 1);
+      SetPlayerScore(player, 0);
+      SetPlayerKills(player, 0);
+      SetPlayerKilled(player, 0);
+      SetPlayerSuicides(player, 0);
+
+      // Give the player a red costume
+      SetThingModel(player, red_mdl);
+
+      // Give the player a red lightsaber
+      // First make sure he's got a saber
+      SetInv(player, 10, 1);
+
+      // We change the blade color
+      jkSetSaberInfo(player, rside_mat, rtip_mat, 0.003, 0.001, 0.100, tpl_wall, tpl_blood, tpl_saber);
+
+      // Give the player the Red key and make it available in his inventory
+      if(ctf_keys)
+      {
+         // This is only on the server (inventory is NOT synched)
+         SetInv(player, 83, 1.0);
+
+         // so we need to tell the player to display the keys correctly
+         SendTrigger(player, 1003, 83, 1, 0, 0);
+      }
+
+      AddDynamicTint(player, 0.0, 0.75, 0.0);
+      teleport_red = (teleport_red + 1) % 8;
+      StopThing(player);
+      TeleportThing(player, red_start[teleport_red]);
+      dummy = CreateThingAtPos(teleport_particles, GetThingSector(player), GetThingPos(player), '0 0 0');
+      if(play_sounds) dummy = PlaySoundThing(teleportsnd, player, 1.0, -1, -1, 0x80);
+
+      // Callback #03 : New Red Player was marked
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 3, player, ctf_score_red, ctf_score_gold);
+
+      if((level_started == 0) && (time_limit > 0)) SetTimerEx(time_limit * 60, 9998, 0, 0);
+
+      // Lock the score limit so that it cannot be changed anymore...
+      level_started = 1;
+
+      // update the number of players
+      call show_players;
+
+      Return;
+   }
+   else
+   if(senderRef == mark_gold)
+   {
+      if(verbose > 2) Print("Player marked Gold");
+
+      SetPlayerTeam(player, 2);
+      SetPlayerScore(player, 0);
+      SetPlayerKills(player, 0);
+      SetPlayerKilled(player, 0);
+      SetPlayerSuicides(player, 0);
+
+      // Give the player a gold costume
+      SetThingModel(player, gold_mdl);
+
+      // Give the player a yellow lightsaber
+      // First make sure he's got a saber
+      SetInv(player, 10, 1);
+
+      // We change the blade color
+      jkSetSaberInfo(player, gside_mat, gtip_mat, 0.003, 0.001, 0.100, tpl_wall, tpl_blood, tpl_saber);
+
+      // Give the player the Gold key and make it available in his inventory
+      if(ctf_keys)
+      {
+         // This is only on the server (inventory is NOT synched)
+         SetInv(player, 84, 1.0);
+
+         // so we need to tell the player to display the keys correctly
+         SendTrigger(player, 1003, 84, 1, 0, 0);
+      }
+
+      teleport_gold = (teleport_gold + 1) % 8;
+      AddDynamicTint(player, 0.0, 0.75, 0.0);
+      StopThing(player);
+      TeleportThing(player, gold_start[teleport_gold]);
+      dummy = CreateThingAtPos(teleport_particles, GetThingSector(player), GetThingPos(player), '0 0 0');
+      if(play_sounds) dummy = PlaySoundThing(teleportsnd, player, 1.0, -1, -1, 0x80);
+
+      // Callback #04 : New Gold Player was marked
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 4, player, ctf_score_red, ctf_score_gold);
+
+      if((level_started == 0) && (time_limit > 0)) SetTimerEx(time_limit * 60, 9998, 0, 0);
+
+      // Lock the score limit so that it cannot be changed anymore...
+      level_started = 1;
+
+      // update the number of players
+      call show_players;
+
+      Return;
+   }
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   // Send Red flag home ?
+   if(GetSenderId() == 1)
+   {
+      if(captured_red == 1)
+      {
+         if(play_sounds) dummy = PlaySoundThing(returnsnd, flag_red, 1.0, -1, -1, 0);
+
+         TeleportThing(flag_red, flag_ghost_red);
+
+         // Callback #14 : Red flag auto returned home
+         if(ctf_callback != -1)
+            dummy = SendMessageEx(ctf_callback, user0, 14, -1.0, ctf_score_red, ctf_score_gold);
+
+         if(verbose > 0)
+         {
+            // Print("Red Flag has returned !");
+            jkPrintUNIString(-3, msgbase + 13);
+         }
+
+         captured_red = 0;
+         Return;
+      }
+   }
+   else
+   // Send Gold flag home ?
+   if(GetSenderId() == 2)
+   {
+      if(captured_gold == 1)
+      {
+         if(play_sounds) dummy = PlaySoundThing(returnsnd2, flag_gold, 1.0, -1, -1, 0);
+
+         TeleportThing(flag_gold, flag_ghost_gold);
+
+         // Callback #24 : Gold flag auto returned home
+         if(ctf_callback != -1)
+            dummy = SendMessageEx(ctf_callback, user0, 24, -1.0, ctf_score_red, ctf_score_gold);
+
+         if(verbose > 0)
+         {
+            // Print("Gold Flag has returned !");
+            jkPrintUNIString(-3, msgbase + 23);
+         }
+
+         captured_gold = 0;
+         Return;
+      }
+   }
+   else
+   // unban red player
+   if(GetSenderId() == 3)
+   {
+      ban_red = -1;
+   }
+   else
+   // unban gold player
+   if(GetSenderId() == 4)
+   {
+      ban_gold = -1;
+   }
+   else
+   // changes in startup would not be synched
+   if(GetSenderId() == 9980)
+   {
+      // compute the score display just after startup:
+      dummy = SetWallCel(limit1, score_limit / 100);
+      dummy = SetWallCel(limit2, (score_limit % 100) / 10);
+      dummy = SetWallCel(limit3, score_limit % 10);
+
+      // initialize both teams scores
+      SetTeamScore(1, 0);
+      SetTeamScore(2, 0);
+   }
+   else
+   // unlock touched: messages
+   if(GetSenderId() == 9990)
+   {
+      lock_touch = 0;
+   }
+   else
+   if(GetSenderId() == 9991)
+   {
+      bot_lock_touch = 0;
+   }
+   else
+   // play success sound
+   if(GetSenderId() == 9994)
+   {
+      PlaySoundGlobal(successsnd, 1, 0, 4);
+   }
+   else
+   // play alarm sound
+   if(GetSenderId() == 9995)
+   {
+      PlaySoundGlobal(alarmsnd, 1, 0, 4);
+   }
+   else
+   // Time to display the welcome info for a new player
+   if(GetSenderId() == 9996)
+   {
+      if(verbose > 1)
+      {
+         player = GetParam(0);
+
+         // Print("Welcome to Jedi Knight CTF!");
+         jkPrintUNIString(player, msgbase + 1);
+
+         jkStringClear();
+         jkStringConcatFormattedInt(ctf_score_red, "RED: %d  (");
+         jkStringConcatFormattedInt(GetNumPlayersInTeam(1), "%d pl.) -- ");
+         jkStringConcatFormattedInt(ctf_score_gold, "GOLD: %d  (");
+         jkStringConcatFormattedInt(GetNumPlayersInTeam(2), "%d pl.)");
+         jkStringOutput(player, -1);
+
+         jkStringClear();
+         if(time_limit != 0)
+            jkStringConcatFormattedInt(time_limit, "Time Limit = %d  ");
+         if(score_limit != 0)
+            jkStringConcatFormattedInt(score_limit, "Score Limit = %d");
+         jkStringOutput(player, -1);
+      }
+   }
+   else
+   // Time to display the score
+   if(GetSenderId() == 9997)
+   {
+      // Level Time in seconds
+      // PrintFlex(GetLevelTime());
+      call show_score;
+
+      // Schedule the next display in 90 seconds
+      // but any score change in the mean time will kill this timer anyway
+      if(level_ended == 0) SetTimerEx(90, 9997, 0, 0);
+   }
+   else
+   // The event comes from the level's timelimit being reached
+   // Just check that a limit has not been reached before...
+   if(GetSenderId() == 9998)
+   {
+      if(level_ended != 0) Return;
+
+      // end the level if the score is not a tie
+      if(ctf_score_red != ctf_score_gold)
+      {
+         if(verbose > 2) Print("CTF Time limit reached");
+         level_ended = 2;
+
+         // Callback #02 : Time Limit reached
+         if(ctf_callback != -1)
+            dummy = SendMessageEx(ctf_callback, user0, 2, -1, ctf_score_red, ctf_score_gold);
+
+         call end_level;
+      }
+      else
+      {
+         // if the score is a tie switch to a already reached score_limit
+         // so behavior would be the same : first to capture now WINS.
+         if(verbose > 2) Print("CTF Time limit reached, but game is a tie");
+         score_limit = ctf_score_red;
+      }
+   }
+   else
+   // End the level
+   if(GetSenderId() == 9999)
+   {
+      SyncScores();
+      jkEndLevel(1);
+   }
+
+   Return;
+
+# ........................................................................................
+
+killed:
+   if(verbose > 2) Print("CTF Killed Evt");
+
+   senderRef = GetSenderRef();
+   sourceRef = GetSourceRef();
+
+   // Exit if killed: was sent by anything else than a thing
+   if(GetSenderType() != 3) Return;
+
+   // Exit if killed: was sent by one of the flags
+   // (powerups send killed: event when taken too...)
+
+   if(senderRef == flag_red) Return;
+   if(senderRef == flag_gold) Return;
+
+   player = senderRef;
+
+   tmp_score_changed = 0;
+
+   // Drop the red flag where the carrier died
+   if(GetInv(player, 81) > 0.0)
+   {
+      // Remove the flag from the dead player's model
+      DetachThing(flag_red);
+
+      // Remove the icon
+      // Send a TRIGGER_ICON with its parameters
+      SendTrigger(player, 1001, 81, 0, 0, 0);
+
+      // Remove the flag from the player's inventory
+	  redflag_taken=-1;
+      SetInv(player, 81, 0.0);
+
+      captured_red = 1;
+
+      // if SITH_SECTOR_FALLDEATH return the flag nearly immediately
+      if(GetSectorFlags(GetThingSector(player)) & 0x40)
+         SetTimerEx(0.6, 1, 0, 0);
+      else
+         SetTimerEx(ctf_flag_return_time, 1, 0, 0);
+
+      if(verbose > 0)
+      {
+         // Print("Gold Team lost the Red Flag !");
+         jkPrintUNIString(-3, msgbase + 14);
+      }
+
+      // add to the red score, but only if it is not a gold suicide
+      killer = GetThingParent(sourceRef);
+      if(killer != player)
+      {
+         ctf_score_red = ctf_score_red + ctf_kill_flag_carrier;
+         SetTeamScore(1, ctf_score_red);
+         tmp_score_changed = 1;
+
+         // Increment player score
+         SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+      }
+
+      // Callback #13 : Red flag lost by Gold team
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 13, player, ctf_score_red, ctf_score_gold);
+   }
+
+   // Drop the gold flag where the carrier died
+   if(GetInv(player, 82) > 0.0)
+   {
+      // Remove the flag from the dead player's model
+      DetachThing(flag_gold);
+
+      // Remove the icon
+      // Send a TRIGGER_ICON with its parameters
+      SendTrigger(player, 1001, 82, 0, 0, 0);
+
+      // Remove the flag from the player's inventory
+	  goldflag_taken=-1;
+      SetInv(player, 82, 0.0);
+
+      captured_gold = 1;
+
+      // if SITH_SECTOR_FALLDEATH return the flag nearly immediately
+      if(GetSectorFlags(GetThingSector(player)) & 0x40)
+         SetTimerEx(0.6, 2, 0, 0);
+      else
+         SetTimerEx(ctf_flag_return_time, 2, 0, 0);
+
+      if(verbose > 0)
+      {
+         // Print("Red Team lost the Gold Flag !");
+         jkPrintUNIString(-3, msgbase + 24);
+      }
+
+      // add to the gold score, but only if it is not a red suicide
+      killer = GetThingParent(sourceRef);
+      if(killer != player)
+      {
+         ctf_score_gold = ctf_score_gold + ctf_kill_flag_carrier;
+         SetTeamScore(2, ctf_score_gold);
+         tmp_score_changed = 1;
+
+         // Increment player score
+         SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+      }
+
+      // Callback #23 : Gold flag lost by Red team
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 23, player, ctf_score_red, ctf_score_gold);
+   }
+
+   // add to the killer score, but only if it is not a suicide
+   killer = GetThingParent(sourceRef);
+   if(killer != player)
+   {
+      // and the players are not in the same team
+      if(GetPlayerTeam(killer) != GetPlayerTeam(player))
+      {
+         if(GetPlayerTeam(killer) == 1)
+         {
+            ctf_score_red = ctf_score_red + 1;
+            SetTeamScore(1, ctf_score_red);
+            SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+            tmp_score_changed = 1;
+         }
+         else
+         if(GetPlayerTeam(killer) == 2)
+         {
+            ctf_score_gold = ctf_score_gold + 1;
+            SetTeamScore(2, ctf_score_gold);
+            SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+            tmp_score_changed = 1;
+         }
+      }
+   }
+   // else it is a player suicide
+   else
+   {
+      if(GetPlayerTeam(player) == 1)
+      {
+         ctf_score_red = ctf_score_red + ctf_suicide;
+         if(ctf_score_red < 0) ctf_score_red = 0;
+         SetTeamScore(1, ctf_score_red);
+         SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+         tmp_score_changed = 1;
+      }
+      else
+      if(GetPlayerTeam(player) == 2)
+      {
+         ctf_score_gold = ctf_score_gold + ctf_suicide;
+         if(ctf_score_gold < 0) ctf_score_gold = 0;
+         SetTeamScore(2, ctf_score_gold);
+         SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+         tmp_score_changed = 1;
+      }
+   }
+
+   if(tmp_score_changed)
+   {
+      // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+      // Send a TRIGGER_SCORE with its parameters
+      SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+      call check_score_limit;
+
+      // Announce the score in 3 seconds
+      KillTimerEx(9997);
+      SetTimerEx(3, 9997, 0, 0);
+   }
+
+
+   // Remove the other team's key if the player had it
+   if(ctf_keys)
+   {
+      if(GetPlayerTeam(player) == 1)
+      {
+         // This is only on the server (inventory is NOT synched)
+         SetInv(player, 84, 0.0);
+
+         // so we need to tell the player to display the keys correctly
+         SendTrigger(player, 1003, 84, 0, 0, 0);
+      }
+      else
+      if(GetPlayerTeam(player) == 2)
+      {
+         // This is only on the server (inventory is NOT synched)
+         SetInv(player, 83, 0.0);
+
+         // so we need to tell the player to display the keys correctly
+         SendTrigger(player, 1003, 83, 0, 0, 0);
+      }
+   }
+
+   Return;
+
+# ........................................................................................
+
+shutdown:
+   if(verbose > 2) Print("CTF Shutdown Evt");
+
+   Return;
+
+# ========================================================================================
+
+show_players:
+   numplayers = GetNumPlayersInTeam(1);
+   dummy = SetWallCel(players_red1, numplayers / 10);
+   dummy = SetWallCel(players_red2, numplayers % 10);
+
+   numplayers = GetNumPlayersInTeam(2);
+   dummy = SetWallCel(players_gold1, numplayers / 10);
+   dummy = SetWallCel(players_gold2, numplayers % 10);
+
+   Return;
+
+# ........................................................................................
+
+show_score:
+
+   if(level_ended == 0)
+   {
+      if(ctf_score_red > ctf_score_gold)
+      {
+         PlaySoundGlobal(leadsnd, 1, 0, 4);
+
+         // Print("RED Team Leads by");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 30);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 38);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_gold);
+         jkStringOutput(-3, -1);
+      }
+
+      if(ctf_score_red < ctf_score_gold)
+      {
+         PlaySoundGlobal(leadsnd2, 1, 0, 4);
+
+         // Print("GOLD Team Leads by");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 31);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_gold);
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 38);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringOutput(-3, -1);
+      }
+
+      if(ctf_score_red == ctf_score_gold)
+      {
+         // Print("Both teams have");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 32);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringConcatSpace();
+
+         if(ctf_score_red == 1)
+         {
+            // Print("point.");
+            jkStringConcatUNIString(msgbase + 36);
+         }
+         else
+         {
+            // Print("points.");
+            jkStringConcatUNIString(msgbase + 37);
+         }
+
+         jkStringOutput(-3, -1);
+
+      }
+   }
+   else
+   {
+      if(ctf_score_red > ctf_score_gold)
+      {
+         PlaySoundGlobal(winsnd, 1, 0, 4);
+
+         // Print("RED Team Wins by");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 33);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 38);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_gold);
+         jkStringOutput(-3, -1);
+      }
+
+      if(ctf_score_red < ctf_score_gold)
+      {
+         PlaySoundGlobal(winsnd2, 1, 0, 4);
+
+         // Print("GOLD Team Wins by");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 31);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_gold);
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 38);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringOutput(-3, -1);
+      }
+
+      if(ctf_score_red == ctf_score_gold)
+      {
+         // Print("Final Score is a DRAW at");
+         jkStringClear();
+         jkStringConcatUNIString(msgbase + 32);
+         jkStringConcatSpace();
+         jkStringConcatInt(ctf_score_red);
+         jkStringConcatSpace();
+
+         if(ctf_score_red == 1)
+         {
+            // Print("point.");
+            jkStringConcatUNIString(msgbase + 36);
+         }
+         else
+         {
+            // Print("points.");
+            jkStringConcatUNIString(msgbase + 37);
+         }
+
+         jkStringOutput(-3, -1);
+
+      }
+   }
+
+   Return;
+
+# ........................................................................................
+
+show_end:
+   if(verbose > 0)
+   {
+      // Space
+      jkPrintUNIString(-3, msgbase + 39);
+
+      if(level_ended == 1)
+      {
+         // Print("--==<< Score Limit Reached >>==--");
+         jkPrintUNIString(-3, msgbase + 2);
+      }
+
+      if(level_ended == 2)
+      {
+         // Print("--==<< Time Limit Reached >>==--");
+         jkPrintUNIString(-3, msgbase + 3);
+      }
+
+      // Space
+      jkPrintUNIString(-3, msgbase + 39);
+   }
+
+   Return;
+
+# ........................................................................................
+
+end_level:
+
+   SyncScores();
+
+   call show_end;
+
+   // display final scores
+   KillTimerEx(9997);
+   SetTimerEx(4, 9997, 0, 0);
+
+   // until it is time to quit the level
+   SetTimerEx(5, 9999, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+check_score_limit:
+
+   // there must be a score limit
+   if(score_limit <= 0) Return;
+
+   // don't allow ties
+   if(ctf_score_red == ctf_score_gold) Return;
+
+   if((ctf_score_red >= score_limit) || (ctf_score_gold >= score_limit))
+   {
+      level_ended = 1;
+
+      // Callback #01 : Score Limit reached
+      if(ctf_callback != -1)
+         dummy = SendMessageEx(ctf_callback, user0, 1, player, ctf_score_red, ctf_score_gold);
+
+      call end_level;
+   }
+
+   Return;
+
+# ........................................................................................
+
+// CTF Callback interface
+// This will allow the other COG to do some level specific actions on CTF events.
+// Another script may SendMessageEx() here, passing its own cog reference in p0.
+// p1 should contain -1 or the time_limit (counting from message reception)
+// p2 should contain -1 or the new verbose level
+// p3 should contain -1 or the play_sounds value
+//
+// CTF_MAIN will always send it a User0 when an important CTF event occurs,
+// with the following parameters:
+//
+// p0 = 00 : Score Limit Changed          p1 = new score limit
+// p0 = 01 : Score Limit Reached          p1 = player who last scored
+// p0 = 02 : Time Limit Reached
+//
+// p0 = 03 : New Red Player was marked    p1 = player who was marked
+// p0 = 04 : New Gold Player was marked   p1 = player who was marked
+//
+// p0 = 10 : Red Flag Taken               p1 = player who took the flag
+// p0 = 11 : Red Flag Returned            p1 = player who returned the flag
+// p0 = 12 : Red team captured the flag   p1 = player who scored
+// p0 = 13 : Red flag lost by Gold team   p1 = player who was killed
+// p0 = 14 : Red flag auto returned home
+// p0 = 15 : Red Flag ReTaken             p1 = player who took the flag
+// p0 = 20 : Gold Flag Taken              p1 = player who took the flag
+// p0 = 21 : Gold Flag Returned           p1 = player who returned the flag
+// p0 = 22 : Gold team captured the flag  p1 = player who scored
+// p0 = 23 : Gold flag lost by Red team   p1 = player who was killed
+// p0 = 24 : Gold flag auto returned home
+// p0 = 25 : Gold Flag ReTaken            p1 = player who took the flag
+//
+// p2 = red score and p3 = gold score for all messages.
+
+user0:
+   ctf_callback                      = GetParam(0);
+   if(GetParam(1) != -1)
+   {
+      time_limit  = GetParam(1);
+      KillTimerEx(9998);
+      SetTimerEx(time_limit * 60, 9998, 0, 0);
+   }
+
+   if(GetParam(2) != -1) verbose     = GetParam(2);
+   if(GetParam(3) != -1) play_sounds = GetParam(3);
+
+   Return;
+
+# ........................................................................................
+
+// CTF Keys interface
+// This allows a per level use of the CTF Keys
+// The CTF Keys powerups cogs will manage this.
+
+user1:
+   ctf_keys = 1;
+
+   Return;
+
+# ........................................................................................
+
+// this is just a quick hack to communicate the keys bins contents
+// from client to server, because they are not synched...
+
+user2:
+   SetInv(GetParam(0), GetParam(1), GetParam(2));
+   SetInvAvailable(GetParam(0), GetParam(1), GetParam(2));
+   Return;
+
+end
+
+

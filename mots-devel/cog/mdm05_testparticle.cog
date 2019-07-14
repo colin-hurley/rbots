@@ -1,0 +1,35 @@
+#MDM05_testparticle.cog
+
+symbols
+
+message user1
+message user5
+message pulse
+
+thing			ghost0
+template		spray=+upenergyhi
+
+int     dummy1=1
+end
+#======================================
+code
+
+user1:
+
+        SetPulse(0.1);
+        return;
+        
+user5:
+
+        SetPulse(0.0);
+        return;
+
+pulse:
+       
+	
+	dummy1 = CreateThing(spray,ghost0);
+
+	return;
+        
+end
+

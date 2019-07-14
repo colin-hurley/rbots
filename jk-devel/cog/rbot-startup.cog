@@ -1,0 +1,477 @@
+# Rbot Startup Cog - Alpha 0.32
+# Server - unsynch
+#
+# Created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x280
+
+symbols
+
+message		startup
+message		trigger
+message		timer
+message		user0
+
+int		debug=0			local
+
+# Initial number of bots
+int		numbots=4
+int		maxbots=4
+
+# Game setup options
+int		allowsaber=1
+int		allowguns=1
+int		allowforce=1
+int		teams=0
+int		difficulty=2
+int		gamemode		local
+
+# Respawn locations
+thing	respawn00		local
+thing	respawn01		local
+thing	respawn02		local
+thing	respawn03		local
+thing	respawn04		local
+thing	respawn05		local
+thing	respawn06		local
+thing	respawn07		local
+thing	respawn08		local
+thing	respawn09		local
+thing	respawn10		local
+thing	respawn11		local
+thing	respawn12		local
+thing	respawn13		local
+thing	respawn14		local
+thing	respawn15		local
+thing	respawn16		local
+thing	respawn17		local
+thing	respawn18		local
+thing	respawn19		local
+thing	respawn20		local
+thing	respawn21		local
+thing	respawn22		local
+thing	respawn23		local
+thing	respawn24		local
+thing	respawn25		local
+thing	respawn26		local
+thing	respawn27		local
+thing	respawn28		local
+thing	respawn29		local
+thing	respawn30		local
+thing	respawn31		local
+
+# Respawn flags
+int		respawnflag00=0		local
+int		respawnflag01=0		local
+int		respawnflag02=0		local
+int		respawnflag03=0		local
+int		respawnflag04=0		local
+int		respawnflag05=0		local
+int		respawnflag06=0		local
+int		respawnflag07=0		local
+int		respawnflag08=0		local
+int		respawnflag09=0		local
+int		respawnflag10=0		local
+int		respawnflag11=0		local
+int		respawnflag12=0		local
+int		respawnflag13=0		local
+int		respawnflag14=0		local
+int		respawnflag15=0		local
+int		respawnflag16=0		local
+int		respawnflag17=0		local
+int		respawnflag18=0		local
+int		respawnflag19=0		local
+int		respawnflag20=0		local
+int		respawnflag21=0		local
+int		respawnflag22=0		local
+int		respawnflag23=0		local
+int		respawnflag24=0		local
+int		respawnflag25=0		local
+int		respawnflag26=0		local
+int		respawnflag27=0		local
+int		respawnflag28=0		local
+int		respawnflag29=0		local
+int		respawnflag30=0		local
+int		respawnflag31=0		local
+
+# Bot UIDs - allows up to 32 bots
+int		botuid0			local
+int		botuid1			local
+int		botuid2			local
+int		botuid3			local
+int		botuid4			local
+int		botuid5			local
+int		botuid6			local
+int		botuid7			local
+int		botuid8			local
+int		botuid9			local
+int		botuid10		local
+int		botuid11		local
+int		botuid12		local
+int		botuid13		local
+int		botuid14		local
+int		botuid15		local
+int		botuid16		local
+int		botuid17		local
+int		botuid18		local
+int		botuid19		local
+int		botuid20		local
+int		botuid21		local
+int		botuid22		local
+int		botuid23		local
+int		botuid24		local
+int		botuid25		local
+int		botuid26		local
+int		botuid27		local
+int		botuid28		local
+int		botuid29		local
+int		botuid30		local
+int		botuid31		local
+
+# Bot names - allows up to 32 bots
+int		botname0		local
+int		botname1		local
+int		botname2		local
+int		botname3		local
+int		botname4		local
+int		botname5		local
+int		botname6		local
+int		botname7		local
+int		botname8		local
+int		botname9		local
+int		botname10		local
+int		botname11		local
+int		botname12		local
+int		botname13		local
+int		botname14		local
+int		botname15		local
+int		botname16		local
+int		botname17		local
+int		botname18		local
+int		botname19		local
+int		botname20		local
+int		botname21		local
+int		botname22		local
+int		botname23		local
+int		botname24		local
+int		botname25		local
+int		botname26		local
+int		botname27		local
+int		botname28		local
+int		botname29		local
+int		botname30		local
+int		botname31		local
+
+# Bot scores
+int		botscore0		local
+int		botscore1		local
+int		botscore2		local
+int		botscore3		local
+int		botscore4		local
+int		botscore5		local
+int		botscore6		local
+int		botscore7		local
+int		botscore8		local
+int		botscore9		local
+int		botscore10		local
+int		botscore11		local
+int		botscore12		local
+int		botscore13		local
+int		botscore14		local
+int		botscore15		local
+int		botscore16		local
+int		botscore17		local
+int		botscore18		local
+int		botscore19		local
+int		botscore20		local
+int		botscore21		local
+int		botscore22		local
+int		botscore23		local
+int		botscore24		local
+int		botscore25		local
+int		botscore26		local
+int		botscore27		local
+int		botscore28		local
+int		botscore29		local
+int		botscore30		local
+int		botscore31		local
+
+
+# Internal bot reference
+thing	rbot			local
+
+# Misc vars
+int		botnum			local
+int		deadbot			local
+int		botid			local
+int		index			local
+int		index2			local
+int		rndpos			local
+flex	newpos			local
+int		maxrespawn		local
+int		killer			local
+int		killertype		local
+int		killerid		local
+int		notok			local
+int		maxthings		local
+int		highscore		local
+thing	highscorer		local
+vector	lookvec			local
+template	walkplayer_temp=walkplayer	local
+template	ghost_temp=rbot_respawn		local
+int		lastkilled		local
+int		player			local
+
+end
+
+# Code Section
+
+code
+
+startup:
+	if(!IsServer()) return;
+	sleep(2.0);
+	// Create respawn locations from walkplayers
+	maxthings = GetThingCount();
+	maxrespawn=0;
+	for (index=0;index<maxthings;index=index+1)
+	{
+		if (GetThingTemplate(index) == walkplayer_temp)
+		{
+			respawn00[maxrespawn]=CreateThing(ghost_temp,index);
+			//respawn00[maxrespawn]=index;
+			maxrespawn=maxrespawn+1;
+		}
+	}
+
+	// Broadcast game setup options
+	gamemode=0;
+	if (allowguns) gamemode=BitSet(gamemode,0x01); else gamemode=BitClear(gamemode,0x01); // allow guns or not
+	if (allowsaber) gamemode=BitSet(gamemode,0x02); else gamemode=BitClear(gamemode,0x02); // allow sabers or not
+	if (allowforce) gamemode=BitSet(gamemode,0x04); else gamemode=BitClear(gamemode,0x04); // allow force or not
+	if (teams) gamemode=BitSet(gamemode,0x08); else gamemode=BitClear(gamemode,0x08); // team play or not
+	SendTrigger(-1, 800, gamemode, difficulty, -1, -1);
+
+	// Startup each bot
+	for (botid=0;botid<numbots;botid=botid+1)
+	{
+		call addbot;
+	}
+
+	lastkilled=-1; // hack to make sure multiple triggers do not respawn more than 1 bot
+	return;
+
+trigger:
+	if (!IsServer()) return;
+	if (getsourceref() == 910) // Change number of bots
+	{
+		numbots=numbots+1;
+		if (numbots > maxbots)
+		{
+			jkStringClear();
+			jkStringConcatAsciiString("Number of bots: 0");
+			jkStringOutput(-3, -1);
+			// Kill all bots
+			numbots=0;
+			SetTimerEx(0.5, 110, -1, -1); // wait 0.5 secs before killing off all bots
+		}
+		else 
+		{
+			jkStringClear();
+			jkStringConcatAsciiString("Number of bots: ");
+			jkStringConcatInt(numbots);
+			jkStringOutput(-3, -1);
+			botid=numbots-1;
+			call addbot;
+		}
+	}
+	else if (getsourceref() == 930) // Set difficulty level
+	{
+		difficulty=difficulty+1;
+		if (difficulty > 4) difficulty=0;
+		SendTrigger(-1, 800, gamemode, difficulty, -1, -1);
+		jkStringClear();
+		jkStringConcatAsciiString("Difficulty: ");
+		jkStringConcatUNIString(-1, 3000+difficulty);
+		jkStringOutput(-3, -1);
+
+	}
+	else if (getsourceref() == 950) // Confirm bot UID
+	{
+		botuid0[getparam(0)]=getparam(1); // set botuid to the bot's 'thing' number
+		botname0[getparam(0)]=getparam(2);
+	}
+	else if (GetSourceRef() == 990) // Bot Killed Player [HR]
+	{
+		player=GetSenderRef();
+		if (lastkilled == player) return; // hack to stop multiple 'player killed' messages
+		lastkilled=player;
+		SetTimerEx(3.0,120,-1,-1); // wait 3 secs before reseting 'lastkilled'
+		botnum=-1;
+		for (index=0;index<32;index=index+1) // Get Bot Number [HR]
+		{
+			if(botuid0[index] == GetGuidThing(GetParam(1))) botnum = index;
+		}
+		if (botnum != -1)
+		{
+			// JK will count bot killing player as a suicide, so cancel it out [HR]
+			SetPlayerScore(GetParam(0), GetPlayerScore(GetParam(0))+1);
+			SetPlayerSuicides(GetParam(0), GetPlayerSuicides(GetParam(0))-1); 
+
+			jkStringClear();
+			jkStringConcatPlayerName(player);
+			jkStringConcatAsciiString(" was killed by ");
+			jkStringConcatUNIString(-1, 1000+botname0[botnum]);
+			jkStringOutput(-3, -1);
+			// Figure bot score and spit it out [HR]
+			botscore0[botnum] = botscore0[botnum]+1;
+			jkStringClear();
+			jkStringConcatUNIString(-1, 1000+botname0[botnum]);
+			jkStringConcatAsciiString("'s Score: ");
+			jkStringConcatInt(botscore0[botnum]);
+			jkStringOutput(-3, -1);
+		}
+	}
+	else if (getsourceref() == 1000) // bot died
+	{
+//print("startup-killed!");
+		botid=getparam(0);
+		if (lastkilled == botid) return; // hack to stop multiple 'bot killed' messages
+//print("passed lastkilled hack");
+		lastkilled=botid;
+		SetTimerEx(3.0,120,-1,-1); // wait 3 secs before reseting 'lastkilled'
+		if (botid >= numbots) return; // bot removed from game - failsafe
+//print("passed numbots hack");
+		deadbot=getparam(1);
+		settimerex(5.0,100,botid,deadbot); // set timer to 5 secs, and send 'who died'
+		killer=getparam(2);
+		killertype=getthingtype(killer); // 2-actor  10-player
+		jkstringclear();
+		jkStringConcatUNIString(-1, 1000+botname0[botid]); // print bot name
+		killerid=-1;
+		for (index=0;index<numbots;index=index+1) // work out botid of killer
+		{
+			if (killer == botuid0[index]) killerid=index;
+		}
+
+		if (killertype == 2) // actor
+		{
+			if (killerid == botid) // bot killed itself 
+			{
+				jkStringConcatUNIString(-1, 2000+rand()*5); // print death message
+				jkStringOutput(-3,-1);
+				// Figure bot score and spit it out [HR]
+				botscore0[botid] = botscore0[botid]-1;					
+				jkStringClear();
+				jkStringConcatUNIString(-1, 1000+botname0[botid]);
+				jkStringConcatAsciiString("'s Score: ");
+				jkStringConcatInt(botscore0[botid]);
+				jkStringOutput(-3, -1);
+			}
+			else
+			{
+				jkStringConcatAsciiString(" was killed by ");
+				if (killerid > -1) jkStringConcatUNIString(-1, 1000+botname0[killerid]); else jkStringConcatAsciiString("unknown");
+				jkStringOutput(-3,-1);
+				// Figure bot score and spit it out [HR]
+				botscore0[killerid] = botscore0[killerid]+1;					
+				jkStringClear();
+				jkStringConcatUNIString(-1, 1000+botname0[killerid]);
+				jkStringConcatAsciiString("'s Score: ");
+				jkStringConcatInt(botscore0[killerid]);
+				jkStringOutput(-3, -1);
+			}
+		}
+		else if (killertype == 10) //player
+		{
+			jkStringConcatAsciiString(" was killed by ");
+			jkStringConcatPlayerName(killer); 
+			jkStringOutput(-3,-1);
+			setplayerkills(killer,getplayerkills(killer)+1); // give player credit
+			setplayerscore(killer,getplayerscore(killer)+1); // give player a point [HR]
+		}
+		else // bot killed itself
+		{
+			jkStringConcatUNIString(-1, 2000+rand()*5); // print death message
+			jkStringOutput(-3,-1);
+			// Figure bot score and spit it out [HR]
+			botscore0[botid] = botscore0[botid]-1;					
+			jkStringClear();
+			jkStringConcatUNIString(-1, 1000+botname0[botid]);
+			jkStringConcatAsciiString("'s Score: ");
+			jkStringConcatInt(botscore0[botid]);
+			jkStringOutput(-3, -1);
+		}
+	}
+	else if (getsourceref() == 101050) // ask for highest scorer
+	{
+		botid=getparam(0);
+		highscore=0;
+		highscorer=-1;
+		for (index=0;index<numbots;index=index+1)
+		{
+			if (botscore0[index] > highscore)
+			{
+				highscore=botscore0[index];
+				highscorer=botuid0[index];
+			}
+		}
+		SendTrigger(0, 101051, botid, highscorer, -1, -1); // return highest scorer
+	}
+	return;
+
+timer:
+	if(!IsServer()) return;
+	if (getsenderid() < 32) // respawn flag reset
+	{
+		respawnflag00[getsenderid()]=0; // allow to use the respawn position again
+	}
+	else if (getsenderid() == 100) // respawn new bot
+	{
+		destroything(getparam(1)); // Remove corpse from the game
+		botid=getparam(0);
+		if (botid < numbots) call addbot; // make sure that the killed bot is allowed to respawn (altered number of bots)
+	}
+	else if (getsenderid() == 110) // kill off all bots
+	{
+		for (botid=0;botid<maxbots;botid=botid+1)
+		{
+			SendTrigger(-1, 901,botid, -1, -1, -1); // tell srv to remove bot
+		}
+	}
+	else if (getsenderid() == 120) // Reset lastkilled
+	{
+		lastkilled=-1;
+	}
+	return;
+
+addbot:
+	newpos=0;
+	while (newpos == 0)
+	{
+		if ((botid==0) || (botid==2) || (botid==4) || (botid==6) || (botid==8)) // red team - even botid (respawn 0-7)
+		{
+			rndpos=1+7*rand();
+		}
+		else // gold team - odd botid (respawn 8-15)
+		{
+			rndpos=8+8*rand();
+		}
+		newpos=respawn00[rndpos];
+	}
+	//jkstringclear();
+	//jkStringConcatAsciiString("Respawn - botid: ");
+	//jkStringConcatInt(botid);  
+	//jkStringConcatAsciiString(": rndpos: ");
+	//jkStringConcatInt(rndpos);  
+	//jkStringConcatAsciiString(" newpos: ");
+	//jkStringConcatInt(newpos);
+	//jkStringOutput();
+
+	//respawnflag00[rndpos]=1; // set this position as no longer available
+	//SetTimerEx(5.0,rndpos,-1,-1); // allow the position to be used again after 5 secs
+	SendTrigger(-1, 900, botid, newpos, gamemode, difficulty); // tell srv to spawn bot
+	return;
+
+end

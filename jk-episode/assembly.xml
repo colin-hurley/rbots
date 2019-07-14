@@ -1,0 +1,37 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>bin</id>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<formats>
+		<format>gob</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<outputDirectory>\</outputDirectory>
+			<directory>${project.basedir}\..\jk-devel</directory>
+			<includes>
+				<include>3do\**\*</include>
+				<include>cog\**\*</include>
+				<include>mat\**\*</include>
+				<include>misc\**\*</include>
+				<include>jkl\**\*</include>
+				<include>ui\**\*</include>
+				<include>episode.jk</include>
+			</includes>
+			<excludes>
+				<exclude>3do\respawn.3DO</exclude>
+				<exclude>cog\rbot-elev-nar.cog</exclude>
+				<exclude>cog\rbot-elev-switch.cog</exclude>
+				<exclude>cog\rbot-nav-old.cog</exclude>
+				<exclude>misc\ai\rbot-0-new.ai</exclude>
+				<exclude>misc\ai\rbot-0-old.ai</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+	<files>
+		<file>
+			<outputDirectory>3do</outputDirectory>
+			<destName>respawn.3do</destName>
+			<source>${project.basedir}\..\jk-devel\3do\respawn.3DO</source>
+		</file>
+	</files>
+</assembly>

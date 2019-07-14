@@ -1,0 +1,114 @@
+# Jedi Knight Cog Script
+#
+# 00_TWOONEBEE.COG
+#
+# TwoOneBee handler script
+#
+# Note : only 1 TwoOneBee per level, "active" is a global.
+#        Could hack it, for instance by storing both track
+#        and active in userData...
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing		twoonebee		mask=0x404
+
+int         player                           local
+flex        health                           local
+
+keyframe    healKey=medheal.key              local
+keyframe    idleKey=medidle.key              local
+keyframe    offKey=medoff.key                local
+sound       healSnd=MedDroidHeal01.wav       local
+sound       stopSnd=MDroidShutOff01.wav      local
+
+int         active=1                         local
+int         Track=-1                         local
+
+message     activated
+message		touched
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+touched:
+activated:
+   if(active)
+   {
+      player = GetSourceRef();
+      health = GetThingHealth(player);
+
+      if (health > 0.0 && health < 100.0)
+      {
+         // Do effects.
+         track = GetThingUserData(twoonebee);
+         if(track != -1)
+         {
+            StopKey(twoonebee, track, 0);
+            SetThingUserData(twoonebee, -1);
+         }
+         track = PlayKey(twoonebee, healKey, 2, 32);
+         SetThingUserData(twoonebee, track);
+
+         PlaySoundThing(healSnd, twoonebee, 1.0, -1, -1, 0);
+         AddDynamicTint(player, 0.0, 0.0, 0.2);
+
+         // Do the healing.
+         HealThing(player, 100.0);
+
+         active = 0;
+
+         SetTimerEx(GetKeyLen(healKey) + 0.2, 1, twoonebee, 0);
+         SetTimerEx(60.0, 2, twoonebee, 0);
+      }
+   }
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   if(GetSenderID() == 1)
+   {
+      twoonebee = GetParam(0);
+      track = GetThingUserData(twoonebee);
+      if(track != -1)
+      {
+         StopKey(twoonebee, track, 0);
+         SetThingUserData(twoonebee, -1);
+      }
+      track = PlayKey(twoonebee, offKey, 2, 4);
+      SetThingUserData(twoonebee, track);
+      PlaySoundThing(stopSnd, twoonebee, 1.0, -1, -1, 0);
+      Return;
+   }
+   else
+   if(GetSenderID() == 2)
+   {
+      twoonebee = GetParam(0);
+      track = GetThingUserData(twoonebee);
+      if(track != -1)
+      {
+         StopKey(twoonebee, track, 0);
+         SetThingUserData(twoonebee, -1);
+      }
+      track = PlayKey(twoonebee, idleKey, 2, 0);
+      SetThingUserData(twoonebee, track);
+
+      active = 1;
+      Return;
+   }
+
+   Return;
+
+end
+
+

@@ -1,0 +1,77 @@
+# Jedi Knight Cog Script
+#
+# CTF_KEYGOLD.COG
+#
+# CTF Gold Key cog script to handle the Gold Key powerup
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       powerup                          local
+thing       player                           local
+int         dummy                            local
+
+int         msgbase=1000                     local
+
+sound       pickupsnd=bactapu1.wav           local
+
+message     startup
+message     timer
+message     touched
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // Wait a while to ensure that MasterCOG is set and
+   // that we are not executing LOCAL|NOSYNC anymore...
+   SetTimer(1);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   // Tell CTF_MAIN that CTF Keys are going to be used in this level
+   SendMessage(GetMasterCOG(), user1);
+   Return;
+
+# ........................................................................................
+
+touched:
+   player = GetSourceRef();
+
+   if(GetInv(player, 80) == 2.0) Stop;       // Exit if player is in gold team
+
+   if(GetInv(player, 84) < 1.0)              // player can only carry 1.0 key
+   {
+      // Print("You got the Gold Key !");
+      jkPrintUNIString(player, msgbase + 73);
+
+      powerup = GetSenderRef();
+      dummy = PlaySoundThing(pickupsnd, powerup, 1.0, -1, -1, 0);
+      AddDynamicTint(player, 0.0, 0.0, 0.2);
+      SetInv(player, 84, 1.0);               // set the gold key inventory bin to 1.0
+      SetInvAvailable(player, 84, 1);        // Make it available in the inventory
+
+      // Inventory is not synched, what is important is that
+      //  the SERVER bin for the player contains the key...
+      SendMessageEx(GetMasterCOG(), user2, player, 84, 1, 0);
+   }
+
+   Return;
+
+end
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+# Jedi Knight Cog Script
+#
+# MDM05_CORECLIENT.COG
+#
+# Client side part of the core script.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+sector      coreSector
+surface     switch1
+surface     switch2
+surface     switch3
+surface     switch4
+
+thing       particleGhost
+
+vector      vec0                             desc=thrust_direction
+flex        speed=1.0                        desc=thrust_speed
+
+template    spray=+upenergyhi                local
+
+sound       powerSnd=forcejump01.wav         local
+sound       blastSnd=18AirBurst01.wav        local
+sound       alarmSnd=00alarmloop01.wav       local
+
+int         alarmLoop=-1                     local
+
+int         dummy                            local
+int      creditplayer            local
+
+message     trigger
+message     timer
+message     pulse
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+
+   // Handle only TRIGGER_TESTCORE
+   if(GetSourceRef() != 10001) Return;
+
+   creditplayer=GetParam(0);  
+   
+   // Set the switches to hilighted
+   SetWallCel(switch1, 1);
+   SetWallCel(switch2, 1);
+   SetWallCel(switch3, 1);
+   SetWallCel(switch4, 1);
+
+   // Play alarm sound loop
+   if(alarmLoop == -1)
+      alarmLoop=PlaySoundLocal(alarmSnd, .75, -1.0, 0x1);
+
+   // Play a powering up sound
+   SetTimerEx(1.0, 0, 0, 0);
+
+   // Play a blast sound
+   SetTimerEx(1.5, 1, 0, 0);
+
+   // This is the duration of the effect
+   SetTimerEx(GetParam(1), 100, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+
+   if(GetSenderId() == 0)
+   {
+      // Start creating particles
+      SetPulse(0.1);
+
+      // Start sector thrust
+      SectorThrust(coreSector, vec0, speed);
+
+      PlaySoundLocal(powerSnd, 1, 1, 0x0);
+   }
+   else
+   if(GetSenderId() == 1)
+   {
+      // if the local player is in the reactor sector give him damage now
+      if(GetThingSector(GetLocalPlayerThing()) == coreSector)
+         DamageThing(GetLocalPlayerThing(), 80, 0x4, creditplayer);
+
+      PlaySoundLocal(blastSnd, 1, 0, 0x0);
+   }
+   else
+   if(GetSenderId() == 100)
+   {
+      // Stop the sector thrust
+      SectorThrust(coreSector, vec0, 0.0);
+
+      // Stop the particles effect
+      SetPulse(0);
+
+      // Stop the alarm sound
+      if(alarmLoop != -1)
+      {
+         StopSound(alarmLoop, 0.5);
+         alarmLoop = -1;
+      }
+
+      // Set the switches back to normal
+      SetWallCel(switch1, 0);
+      SetWallCel(switch2, 0);
+      SetWallCel(switch3, 0);
+      SetWallCel(switch4, 0);
+   }
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+
+   dummy = CreateThing(spray, particleGhost);
+   Return;
+
+end
+
+

@@ -1,0 +1,95 @@
+# Jedi Knight Cog Script
+#
+# K5_ELEVDOOR.COG
+#
+# Script for K5_ELEVDOOR.COG Multiple Triggers Elevators.
+#
+# [SD]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       elevator                      desc=elev_thing
+thing       door                          desc=door_thing
+
+flex        speedelev=8.0                 desc=elevator_speed
+flex        speeddoor=8.0                 desc=door_speed
+flex        delay=3.0                     desc=delay
+
+surface     plate0                        desc=plate0
+surface     switch                        desc=switch mask=0x408
+
+int         doorsector=-1                 local
+
+message     startup
+message     entered
+message     activated
+message     damaged
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   doorsector = GetThingSector(door);
+   SectorAdjoins(doorsector, 0);
+   SetWallCel(switch, 1);
+
+   Return;
+
+# ........................................................................................
+
+entered:
+   call move_elev;
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   if((GetSenderRef() != switch) && (GetSenderRef() != door)) Return;
+
+   call move_elev;
+   
+   Return;
+
+# ........................................................................................
+
+damaged:
+   if(GetSenderRef() != switch) Return;
+   
+   call move_elev;
+   
+   Return;
+
+# ........................................................................................
+
+move_elev:
+   if(IsMoving(elevator) == 1) Return;
+   if(GetCurFrame(elevator) == 1) Return;
+
+   SetWallCel(switch, 0);
+   MoveToFrame(elevator, 1, speedelev);
+   WaitForStop(elevator);
+
+   SectorAdjoins(doorsector, 1);
+   MoveToFrame(door, 1, speeddoor);
+   WaitForStop(door);
+   
+   Sleep(delay);
+   
+   MoveToFrame(door, 0, speeddoor);
+   WaitForStop(door);
+   SectorAdjoins(doorsector, 0);
+
+   MoveToFrame(elevator, 0, speedelev);
+   WaitForStop(elevator);
+   SetWallCel(switch, 1);
+
+   Return;
+
+end

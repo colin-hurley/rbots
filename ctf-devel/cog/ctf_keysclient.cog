@@ -1,0 +1,44 @@
+# Jedi Knight Cog Script
+#
+# CTF_KEYSCLIENT.COG
+#
+# Client side script to display icons.
+# SetInv and SetInvAvailable are NOT synched over the network,
+# this is a more generic way to do this kind of things
+#
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+int         iconnum                          local
+int         onoff                            local
+
+message     trigger
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+
+   // Handle only TRIGGER_KEYS
+   if(GetSourceRef() != 1003) Return;
+
+   keynum      = GetParam(0);
+   onoff       = GetParam(1);
+
+   SetInv(GetLocalPlayerThing(), keynum, onoff);
+   SetInvAvailable(GetLocalPlayerThing(), keynum, onoff);
+
+   Return;
+
+end
+
+

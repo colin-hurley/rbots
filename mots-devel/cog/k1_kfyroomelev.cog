@@ -1,0 +1,54 @@
+# Jedi Knight Cog Script
+#
+# K1_KFYROOMELEV.COG
+#
+# Elevator Script for K1
+#
+# This will simply move an elevator between its two frames.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing    elevator                         desc=elevator_object
+flex     speed=6.0                        desc=movement_speed
+flex     waittime=1.5                     desc=wait_time_at_stop
+
+message  startup
+message  pulse
+message  arrived
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+
+   // SERVER ONLY startup:
+   if(IsServer() || !IsMulti())
+   {
+      SetPulse(1);
+   }
+   Return;
+
+# ........................................................................................
+
+pulse:
+   SetPulse(0);
+   MoveToFrame(elevator, 1, speed);
+   Return;
+
+# ........................................................................................
+
+arrived:
+   Sleep(waittime);
+   MoveToFrame(elevator, 1 - GetCurFrame(elevator), speed);
+   Return;
+
+end
+

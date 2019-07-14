@@ -1,0 +1,99 @@
+Rbots final release
+-------------------
+Development staff: Raynar
+Additional code  : Hell Raiser
+
+What is Rbots?
+--------------
+Rbots is a project to create a 'bot' for Jedi Knight. A bot is a computer
+controlled player for multiplayer games. It should react and play just like a
+human player - it has health, shields, limited ammo & weapons and when it dies
+it will 'respawn' to allow the game to continue. Multiple bots will battle
+amongst themselves as well as any number of human players. 
+
+Requirements
+------------
+* Patch Commander - http://www.jediknight.net/commander/
+
+Patch Commander is necessary to use force powers and other enhancements including
+the use of 'hotkeys' with Rbots. 
+
+Installation
+------------
+Unzip the file and copy the 'rbots-jk.gob' to the episodes directory. In most
+cases this will be 'C:\Program Files\LucasArts\Jedi Knight\Episode'. Copy the
+'rbots-patch.gob' & 'rbots-patch-nohotkeys.gob' to Patch Commander patch
+directory. In most cases this will be 'C:\Program Files\LucasArts\Jedi Knight\JKPatch'.
+Run Patch Commander, in JK mode, and activate the 'rbots-patch.gob' patch. Now run JK
+from Patch Commander.
+
+* If you wish to use third party mods with Rbots, activate the 'rbots-patch-nohotkeys.gob'
+  instead.
+
+Upgrading from previous versions
+--------------------------------
+Remove all previous gob files, including the patches, before following the above.
+
+Features 
+--------
+* Full lightsaber support with glowsabers
+* Bots can use all JK force powers - light, dark or both!
+* All levels supports up to 16 bots per level
+* Comes complete with 18 different bot models (skins)
+  (16 deathmatch & 2 teamplay)
+* Each level comes ready for action with for No Force or Full Force battles
+* 3 different gameplay modes - Deathmatch, Sabers & Teamplay
+* 5 difficulty settings - set via hotkey
+* Add/remove bots via hotkey
+* Botcam - hotkeyable camera mode which will follow each bot around the level
+* Bot Scoring system - keeps track of scores for the bots
+* Special path node properties - allows bots to do extra things like activate
+  switches, jump over ledges, lay mines etc.
+* Intelligent weapon selection - bots will change weapons based on current
+  situation, rather than just using the 'biggest' gun it has
+* Secondary fire - bots use secondary fire for concussion rifle & railgun
+* Bots will dodge incoming projectiles based on difficulty
+
+Capture The Flag
+----------------
+In order to play Rbots in CTF mode, make sure you enable 'Teamplay' in
+the options. You can also change teams just as you would in a 'normal'
+CTF or Teamplay game.
+
+Add/Removing Bots
+-----------------
+Enter setup mode, go to 'Controls' then 'Keyboard'. Assign the hotkey you want
+to use for altering the number of bots. You can now use this function at
+anytime during gameplay. The included levels are set to 4 bots by default. Press
+the hotkey until you have the number of bots you want, it will cycle through
+the maximum number of bots allowed before returning to no bots at all. When
+bots are removed, they are first killed - this is to ensure proper conditions
+when the bot is restarted.
+
+Botcam
+------
+As per Add/Removing Bots, set up a new hotkey to use. Anytime during play you
+can select either of this new mode. Botcam will change the camera view to a
+3rd person view of one of the bots - allowing you to watch exactly what the bot
+does in any given circumstance. Pressing the hotkey repeatedly will cycle
+through all the bots currently in the game before finally switching off.
+
+Reporting Problems
+------------------
+As this is the final version, any reported bugs may never be fixed. However it may
+help anyone who has decided to take over the project at a later time.
+
+If you find any problems with Rbots, please refer to the 'Known Problems' list
+on the website. If the problem is not listed, please post a bug report on the
+Rbots forum - there's a link to it from the Rbots website http://rbots.massassi.net
+Please include a complete description of the problem along with as much information
+as you can about what you (and the bots) were doing at the time the problem
+occurred.
+
+Adding Rbots to your own levels
+-------------------------------
+There is a separate version of Rbots available which allows you to create your own
+Rbots levels. First you will need the Rbots SDK - this has all the files you need.
+There is also a very comprehensive set of tutorial available. Download both the SDK
+and tutorials and follow the instructions. Both will be available where you downloaded
+this file, or from the Rbots website http://rbots.massassi.net

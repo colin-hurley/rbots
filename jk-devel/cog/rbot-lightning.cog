@@ -1,0 +1,119 @@
+# Jedi Knight Cog Script
+#
+# Generic Lightning Trap Cog
+#
+# Generates Lighting From a ghost position
+#
+# [SXC]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for Rbots 0.22 by Raynar
+# ** added user0 message to allow bots to activate trap
+
+symbols
+   message  startup
+   message  activate
+   message  pulse
+   message  entered
+   message  exited
+   message	trigger
+
+   thing    ghost0
+   thing    ghost1
+   thing    ghost2
+   surface  switch0
+   sector   zapsector                        mask=0x404
+
+   int      fireChannel0                     local
+   int      fireChannel1                     local
+   int      fireChannel2                     local
+   int      flag=0                           local
+   int      dummy                            local
+   flex		autoAimXFOV=60							local
+   flex     autoAimZFOV=60                   local
+   template lightning=+force_lightning       local
+   sound    fireSound=LTSaberHit05.wav       local
+   sound    butnsound=Activate04.wav         local
+
+thing	rbot	local
+
+end
+
+# Code Section
+
+code
+
+//-------------------------------------------------------------------------------------------------
+
+startup:
+   SetWallCel(switch0, 0);
+   return;
+
+//-------------------------------------------------------------------------------------------------
+
+activate:
+   if (GetWallCel(switch0) == 1)
+      {
+         PlaySoundPos(butnsound, SurfaceCenter(switch0), 1, -1, -1, 0);
+         SetWallCel(switch0, 0);
+         flag = 0;
+      }
+   else if (GetWallCel(switch0) == 0)
+      {
+         PlaySoundPos(butnsound, SurfaceCenter(switch0), 1, -1, -1, 0);
+         SetWallCel(switch0, 1);
+         flag = 1;
+         SetPulse(0);
+      }
+   return;
+
+trigger:
+	if (getsourceref() == 11030)
+	{
+		rbot = GetParam(1);
+		if (VectorDist(GetThingPos(rbot), SurfaceCenter(switch0)) < 0.3) call activate; // bot is close enough to activate
+	}
+	return;
+
+//-------------------------------------------------------------------------------------------------
+
+entered:
+   if (flag == 1)
+      {
+        SetPulse(0.5);
+      }
+   return;
+
+//-------------------------------------------------------------------------------------------------
+
+exited:
+   if (GetSenderRef() == zapsector)
+      {
+      SetPulse(0);
+      StopSound(fireChannel, 0.1);
+      }
+   return;
+
+//-------------------------------------------------------------------------------------------------
+
+pulse:
+   if (ghost0 >= 0)
+      {
+//       fireChannel0 = PlaySoundThing(fireSound, ghost0, 1.0, -1, -1, 0x00);
+       dummy = FireProjectile(ghost0, lightning, fireSound, 24, '0 0 0', '0 0 0', 1.0, 0x60, autoAimXFOV, autoaimZFOV);
+      }
+   if (ghost1 >= 0)
+      {
+//       fireChannel1 = PlaySoundThing(fireSound, ghost1, 1.0, -1, -1, 0x00);
+       dummy = FireProjectile(ghost1, lightning, fireSound, 24, '0 0 0', '0 0 0', 1.0, 0x60, autoAimXFOV, autoaimZFOV);
+      }
+   if (ghost2 >= 0)
+      {
+//       fireChannel2 = PlaySoundThing(fireSound, ghost2, 1.0, -1, -1, 0x00);
+       dummy = FireProjectile(ghost2, lightning, fireSound, 24, '0 0 0', '0 0 0', 1.0, 0x60, autoAimXFOV, autoaimZFOV);
+      }
+   return;
+
+end
+

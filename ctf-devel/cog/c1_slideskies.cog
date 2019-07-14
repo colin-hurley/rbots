@@ -1,0 +1,33 @@
+# Jedi Knight Cog Script
+#
+# C1_SLIDESKIES.COG
+#
+# Script to make C1 Skies scrolling
+#
+# Note that the Start Room has an HORIZON sky, 
+# but the rest of the level has a CEILING sky.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+message		startup
+
+end
+
+# ========================================================================================
+
+code
+
+startup:	
+	SlideHorizonSky(5, 1);
+	SlideCeilingSky(8, 4);
+	
+	Return;
+
+end
+

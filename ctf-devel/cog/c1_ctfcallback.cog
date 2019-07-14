@@ -1,0 +1,282 @@
+# Jedi Knight Cog Script
+#
+# C1_CTFCALLBACK.COG
+#
+# Get CTF events in this script via the CTF Callback interface
+#
+# The goal is to set force fields on in the lower exits of a flag room
+# for a certain delay, just when the flag is taken. This could give more
+# furious gameplay, especially when playing with only a few players.
+# If you dislike this, comment out the dummy = SendMessageEx... line
+# in the startup: handler.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     red_forcefield1                  desc=red_forcefld1   mask=0x408
+surface     red_forcefield2                  desc=red_forcefld2   mask=0x408
+surface     red_forcefield3                  desc=red_forcefld3   mask=0x408
+surface     red_forcefield4                  desc=red_forcefld4   mask=0x408
+
+surface     gold_forcefield1                 desc=gold_forcefld1  mask=0x408
+surface     gold_forcefield2                 desc=gold_forcefld2  mask=0x408
+surface     gold_forcefield3                 desc=gold_forcefld3  mask=0x408
+surface     gold_forcefield4                 desc=gold_forcefld4  mask=0x408
+
+int         ctf_main                         local
+int         this_cog                         local
+
+int         delay=10                         local
+
+int         red_field_on=0                   local
+int         gold_field_on=0                  local
+int         ffred1_sound                     local
+int         ffred2_sound                     local
+int         ffgold1_sound                    local
+int         ffgold2_sound                    local
+int         dummy                            local
+
+flex        currenttime                      local
+
+flex        oldredtime1=0                    local
+flex        oldredtime2=0                    local
+flex        oldredtime3=0                    local
+flex        oldredtime4=0                    local
+
+flex        oldgoldtime1=0                   local
+flex        oldgoldtime2=0                   local
+flex        oldgoldtime3=0                   local
+flex        oldgoldtime4=0                   local
+
+int         dodamage=0                       local
+
+sound       forcefield_snd=ForceFieldHum01.WAV  local
+sound       ffdamage_snd=ForceFieldHit01.WAV local
+
+int         sourceRef=-1                     local
+int         senderRef=-1                     local
+int         lock_touched=0                   local
+
+message     startup
+message     user0
+message     touched
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+      SetFaceGeoMode(red_forcefield1, 0);
+      SetFaceGeoMode(red_forcefield2, 0);
+      SetFaceGeoMode(red_forcefield3, 0);
+      SetFaceGeoMode(red_forcefield4, 0);
+
+      SetFaceGeoMode(gold_forcefield1, 0);
+      SetFaceGeoMode(gold_forcefield2, 0);
+      SetFaceGeoMode(gold_forcefield3, 0);
+      SetFaceGeoMode(gold_forcefield4, 0);
+
+      this_cog = GetSelfCOG();
+
+      Sleep(1.0);                            // CTF startup is heavy enough as it is
+                                             // give it a 1 sec break...
+                                             // This also ensures that MasterCOG is set
+
+      ctf_main = GetMasterCOG();
+      dummy = SendMessageEx(ctf_main, user0, this_cog, -1, -1, -1);
+                                             // CTF please register me
+                                             // I am cog reference 'this_cog'
+                                             // I want default time_limit, verbose and sounds
+
+   Return;
+
+# ........................................................................................
+
+user0:
+   if(GetParam(0) == 10)                     // CTF Event : Red Flag taken
+   {
+      if(red_field_on == 1) Stop;
+      red_field_on = 1;
+
+      ffred1_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(red_forcefield1), 1.0, -1, -1, 0x41);
+      ffred2_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(red_forcefield3), 1.0, -1, -1, 0x41);
+
+      SetFaceGeoMode(red_forcefield1, 3);
+      SetFaceGeoMode(red_forcefield2, 3);
+      SetFaceGeoMode(red_forcefield3, 3);
+      SetFaceGeoMode(red_forcefield4, 3);
+      SetFaceLightMode(red_forcefield1, 0);
+      SetFaceLightMode(red_forcefield2, 0);
+      SetFaceLightMode(red_forcefield3, 0);
+      SetFaceLightMode(red_forcefield4, 0);
+      ClearAdjoinFlags(red_forcefield1, 2);
+      ClearAdjoinFlags(red_forcefield2, 2);
+      ClearAdjoinFlags(red_forcefield3, 2);
+      ClearAdjoinFlags(red_forcefield4, 2);
+      SetSurfaceFlags(red_forcefield1, 16384);
+      SetSurfaceFlags(red_forcefield2, 16384);
+      SetSurfaceFlags(red_forcefield3, 16384);
+      SetSurfaceFlags(red_forcefield4, 16384);
+
+      Sleep(delay);
+
+      SetFaceGeoMode(red_forcefield1, 0);
+      SetFaceGeoMode(red_forcefield2, 0);
+      SetFaceGeoMode(red_forcefield3, 0);
+      SetFaceGeoMode(red_forcefield4, 0);
+      SetFaceLightMode(red_forcefield1, 3);
+      SetFaceLightMode(red_forcefield2, 3);
+      SetFaceLightMode(red_forcefield3, 3);
+      SetFaceLightMode(red_forcefield4, 3);
+      SetAdjoinFlags(red_forcefield1, 2);
+      SetAdjoinFlags(red_forcefield2, 2);
+      SetAdjoinFlags(red_forcefield3, 2);
+      SetAdjoinFlags(red_forcefield4, 2);
+      ClearSurfaceFlags(red_forcefield1, 16384);
+      ClearSurfaceFlags(red_forcefield2, 16384);
+      ClearSurfaceFlags(red_forcefield3, 16384);
+      ClearSurfaceFlags(red_forcefield4, 16384);
+
+      StopSound(ffred1_sound, 0);
+      StopSound(ffred2_sound, 0);
+
+      red_field_on = 0;
+   }
+
+
+   if(GetParam(0) == 20)                     // CTF Event : Gold Flag taken
+   {
+      if(gold_field_on == 1) Stop;
+      gold_field_on = 1;
+
+      ffgold1_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(gold_forcefield1), 1.0, -1, -1, 0x41);
+      ffgold2_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(gold_forcefield3), 1.0, -1, -1, 0x41);
+
+      SetFaceGeoMode(gold_forcefield1, 3);
+      SetFaceGeoMode(gold_forcefield2, 3);
+      SetFaceGeoMode(gold_forcefield3, 3);
+      SetFaceGeoMode(gold_forcefield4, 3);
+      SetFaceLightMode(gold_forcefield1, 0);
+      SetFaceLightMode(gold_forcefield2, 0);
+      SetFaceLightMode(gold_forcefield3, 0);
+      SetFaceLightMode(gold_forcefield4, 0);
+      ClearAdjoinFlags(gold_forcefield1, 2);
+      ClearAdjoinFlags(gold_forcefield2, 2);
+      ClearAdjoinFlags(gold_forcefield3, 2);
+      ClearAdjoinFlags(gold_forcefield4, 2);
+      SetSurfaceFlags(gold_forcefield1, 16384);
+      SetSurfaceFlags(gold_forcefield2, 16384);
+      SetSurfaceFlags(gold_forcefield3, 16384);
+      SetSurfaceFlags(gold_forcefield4, 16384);
+
+      Sleep(delay);
+
+      SetFaceGeoMode(gold_forcefield1, 0);
+      SetFaceGeoMode(gold_forcefield2, 0);
+      SetFaceGeoMode(gold_forcefield3, 0);
+      SetFaceGeoMode(gold_forcefield4, 0);
+      SetFaceLightMode(gold_forcefield1, 3);
+      SetFaceLightMode(gold_forcefield2, 3);
+      SetFaceLightMode(gold_forcefield3, 3);
+      SetFaceLightMode(gold_forcefield4, 3);
+      SetAdjoinFlags(gold_forcefield1, 2);
+      SetAdjoinFlags(gold_forcefield2, 2);
+      SetAdjoinFlags(gold_forcefield3, 2);
+      SetAdjoinFlags(gold_forcefield4, 2);
+      ClearSurfaceFlags(gold_forcefield1, 16384);
+      ClearSurfaceFlags(gold_forcefield2, 16384);
+      ClearSurfaceFlags(gold_forcefield3, 16384);
+      ClearSurfaceFlags(gold_forcefield4, 16384);
+
+      StopSound(ffgold1_sound, 0);
+      StopSound(ffgold2_sound, 0);
+
+      gold_field_on = 0;
+   }
+
+   Return;
+
+// ........................................................................................
+//
+// Apply damage when someone tries to cross any forcefield
+//
+// touched: is very framerate dependant, so we'll apply damage only
+// when 0.5 second have elapsed. Note that we have to remember the
+// time for each of the forcefields.
+
+touched:
+   if(lock_touched == 1) Return;
+   lock_touched = 1;
+
+   currenttime = GetLevelTime();
+   dodamage = 0;
+
+   senderRef = GetSenderRef();
+   sourceRef = GetSourceRef();
+
+   if((senderRef == red_forcefield1) && (currenttime > oldredtime1 + 0.50))
+   {
+      oldredtime1 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == red_forcefield2) && (currenttime > oldredtime2 + 0.50))
+   {
+      oldredtime2 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == red_forcefield3) && (currenttime > oldredtime3 + 0.50))
+   {
+      oldredtime3 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == red_forcefield4) && (currenttime > oldredtime4 + 0.50))
+   {
+      oldredtime4 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == gold_forcefield1) && (currenttime > oldgoldtime1 + 0.50))
+   {
+      oldgoldtime1 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == gold_forcefield2) && (currenttime > oldgoldtime2 + 0.50))
+   {
+      oldgoldtime2 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == gold_forcefield3) && (currenttime > oldgoldtime3 + 0.50))
+   {
+      oldgoldtime3 = currenttime;
+      dodamage = 1;
+   }
+   else
+   if((senderRef == gold_forcefield4) && (currenttime > oldgoldtime4 + 0.50))
+   {
+      oldgoldtime4 = currenttime;
+      dodamage = 1;
+   }
+
+   if(dodamage == 1)
+   {
+      dummy  = PlaySoundPos(ffdamage_snd, GetSurfaceCenter(senderRef), 1.0, -1, -1, 0);
+      dummy  = DamageThing(sourceRef, 10, 0x2, sourceRef);
+   }
+
+   lock_touched = 0;
+
+   Return;
+
+end
+

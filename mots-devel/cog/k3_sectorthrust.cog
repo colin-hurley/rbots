@@ -1,0 +1,48 @@
+# Jedi Knight Cog Script
+#
+# K3_SECTORTHRUST.COG
+#
+# This script will control 1-8 sector thrust sectors thrusting in the same direction
+# and with the same velocity.  The thrusts run continuously.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+vector   vec0                             desc=thrust_direction
+flex     speed=1.0                        desc=thrust_speed
+
+sector   sector0  
+sector   sector1  
+sector   sector2  
+sector   sector3  
+sector   sector4  
+sector   sector5  
+sector   sector6  
+sector   sector7  
+
+message  startup
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   if (sector0 >= 0) SectorThrust(sector0, vec0, speed);
+   if (sector1 >= 0) SectorThrust(sector1, vec0, speed);
+   if (sector2 >= 0) SectorThrust(sector2, vec0, speed);
+   if (sector3 >= 0) SectorThrust(sector3, vec0, speed);
+   if (sector4 >= 0) SectorThrust(sector4, vec0, speed);
+   if (sector5 >= 0) SectorThrust(sector5, vec0, speed);
+   if (sector6 >= 0) SectorThrust(sector6, vec0, speed);
+   if (sector7 >= 0) SectorThrust(sector7, vec0, speed);
+
+   Return;
+
+end
+

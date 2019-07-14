@@ -1,0 +1,78 @@
+# Jedi Knight Cog Script
+#
+# CTF_KEYRED.COG
+#
+# CTF Red Key cog script to handle the Red Key powerup
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       powerup                          local
+thing       player                           local
+int         dummy                            local
+
+int         msgbase=1000                     local
+
+sound       pickupsnd=bactapu1.wav           local
+
+message     startup
+message     timer
+message     touched
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // Wait a while to ensure that MasterCOG is set and
+   // that we are not executing LOCAL|NOSYNC anymore...
+   SetTimer(1);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   // Tell CTF_MAIN that CTF Keys are going to be used in this level
+   SendMessage(GetMasterCOG(), user1);
+   Return;
+
+# ........................................................................................
+
+touched:
+   player = GetSourceRef();
+
+   if(GetInv(player, 80) == 1.0) Return;     // Exit if player is in red team
+
+   if(GetInv(player, 83) < 1.0)              // player can only carry 1.0 key
+   {
+      // Print("You got the Red Key !");
+      jkPrintUNIString(player, msgbase + 72);
+
+      powerup = GetSenderRef();
+      dummy = PlaySoundThing(pickupsnd, powerup, 1.0, -1, -1, 0);
+      AddDynamicTint(player, 0.0, 0.0, 0.2);
+
+      SetInv(player, 83, 1.0);               // set the red key inventory bin to 1.0
+      SetInvAvailable(player, 83, 1);        // Make it available in the inventory
+
+      // Inventory is not synched, what is important is that
+      //  the SERVER bin for the player contains the key...
+      SendMessageEx(GetMasterCOG(), user2, player, 83, 1, 0);
+   }
+
+   Return;
+
+end
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>bin</id>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<formats>
+		<format>gob</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<outputDirectory>\</outputDirectory>
+			<directory>${project.basedir}</directory>
+			<includes>
+				<include>*.txt</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<outputDirectory>\</outputDirectory>
+			<directory>${project.basedir}\..\jk-devel</directory>
+			<includes>
+				<include>cog\force_*.cog</include>
+				<include>cog\rbot-botcam.cog</include>
+				<include>cog\rbot-difficulty.cog</include>
+				<include>cog\rbot-setup.cog</include>
+				<include>misc\items.dat</include>
+				<include>ui\jkstrings.uni</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

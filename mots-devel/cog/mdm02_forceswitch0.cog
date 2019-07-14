@@ -1,0 +1,50 @@
+# Jedi Knight Cog Script
+#
+# MDM02_forceswitch0.cog
+#
+# Switch 0
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       switch                           local
+thing       player                           local
+
+message     activated
+message     skill
+
+end
+
+# ========================================================================================
+
+code
+
+activated:
+   SendMessageEx(GetMasterCog(), user0, 0, 0, 0, 0);
+   Return;
+
+# ........................................................................................
+
+skill:
+   if (GetParam(0) == 24)                            // Force Pull
+   {
+      SendMessageEx(GetMasterCog(), user0, 0, 0, 0, 0);
+      ReturnEx(0);
+      Return;
+   }
+
+   ReturnEx(-1);
+   Return;
+
+end
+
+
+
+
+
+
+

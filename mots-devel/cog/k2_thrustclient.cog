@@ -1,0 +1,111 @@
+# Jedi Knight Cog Script
+#
+# K2_THRUSTCLIENT.COG
+#
+# Client side part of the K2_THRUST.COG script
+# It will handle the switch togglings, the sounds,
+# and the sector thrust changes.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+sector      tube                             nolink
+sector      up0                              nolink
+sector      up1                              nolink
+sector      up2                              nolink
+sector      up3                              nolink
+sector      up4                              nolink
+
+int         switch                           local
+
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+int         dummy                            local
+
+message     startup
+message     trigger
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // Set the initial THRUSTs for the upper sectors
+   SectorThrust(up0, '0 0 8', 1.0);
+   SectorThrust(up1, '-0.5 0 8', 1.0);
+   SectorThrust(up2, '-1 0 8', 1.0);
+   SectorThrust(up3, '-2 0 6', 1.0);
+   SectorThrust(up4, '-4 0 3.5', 1.0);
+
+   // and for the tube
+   SectorThrust(tube, '0 0 3.75', 1.0);
+
+   Return;
+
+# ........................................................................................
+
+trigger:
+
+   // Handle only TRIGGER_THRUST
+   if(GetSourceRef() != 20001) Return;
+
+   switch      = GetParam(0);
+
+   SetTimer(20);
+
+   // Change the switch material
+   dummy = SetWallCel(switch, 1);
+
+   // and play a switch activation sound
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+
+   // Do the thrust change for the tube
+   SectorThrust(tube, '0 0 120', 1.0);
+
+   call newclient_sync;
+
+   Return;
+
+# ........................................................................................
+
+timer:
+
+   // Change the switch material
+   dummy = SetWallCel(switch, 0);
+
+   // and play a switch activation sound
+   dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+
+   // Do the thrust change for the tube
+   SectorThrust(tube, '0 0 3.75', 1.0);
+
+   call newclient_sync;
+
+   Return;
+
+# ........................................................................................
+
+newclient_sync:
+
+   // So it will be transmitted to future joining clients
+   // SyncXYZ functions do override the NOSYNC flag...
+   if(IsServer())
+   {
+      SyncSurface(switch);
+      SyncSector(tube);
+   }
+
+   Return;
+
+end
+
+

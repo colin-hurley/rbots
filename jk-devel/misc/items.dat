@@ -1,0 +1,218 @@
+# Item definition file for Jedi Knight
+# ========================================================================================
+# name                  id              min     max     flags   args
+# ========================================================================================
+
+###########
+# Weapons #
+###########
+
+# ========================================================================================
+none                    0               0       0       0x004
+fists                   1               0       1       0x024   cog=weap_fists.cog
+bryar_pistol            2               0       1       0x0a4   cog=weap_bryar.cog
+stormtrooper_rifle      3               0       1       0x0a4   cog=weap_strifle.cog
+thermal_detonator       4               0       30      0x0a4   cog=weap_thermdet.cog
+tusken_prod             5               0       1       0x0a4   cog=weap_crossbow.cog
+repeater                6               0       1       0x0a4   cog=weap_repeater.cog
+rail_detonator          7               0       1       0x0a4   cog=weap_raildet.cog
+sequencer_charge        8               0       30      0x0a4   cog=weap_seqcharge.cog
+concussion_rifle        9               0       1       0x0a4   cog=weap_concrifle.cog
+lightsaber              10              0       1       0x0a4   cog=weap_saber.cog
+# ========================================================================================
+
+
+###################
+# Ammo and Energy #
+###################
+
+# ========================================================================================
+#energy is used for bryar pistol and stormtrooper rifle.
+energy                  11              0       500     0x080
+
+#power is used for the the bowcaster, repeater and concussion rifle.
+power                   12              0       500     0x080
+
+#battery is used for other inventory items.
+battery                 13              0       200     0x020
+
+#force is used for the force powers.
+forcemana               14              0       400     0x000
+
+#rail charges
+railcharges             15              0       30      0x080
+# ========================================================================================
+
+
+###########
+# Bonuses #
+###########
+
+#new force stars gained in a level.
+new_stars               16              0       32      0x000
+
+#spendable stars
+spend_stars             17              0       32      0x000
+
+#the choice
+choice                  18              0       2      0x000
+
+#############################
+# Damage multiplier powerup #
+#############################
+
+# ========================================================================================
+# Bin 19 is reserved !!!
+# Damage multiplier powerup should come before force powers...
+# ========================================================================================
+
+
+##############
+#Force Powers#
+##############
+
+# Note that the icon names are taken from these names:
+# ========================================================================================
+# Attributes
+jedi_rank               20              0       8.0     0x000   cog=force_well.cog
+# ........................................................................................
+
+# Basic Powers
+f_jump                  21              0       4.0     0x108   cog=force_jump.cog
+f_speed                 22              0       4.0     0x108   cog=force_speed.cog
+f_seeing                23              0       4.0     0x108   cog=force_seeing.cog
+f_pull                  24              0       4.0     0x108   cog=force_pull.cog
+# ........................................................................................
+
+# Light Side Powers
+f_healing               25              0       4.0     0x108    cog=force_heal.cog
+f_persuasion            26              0       4.0     0x108    cog=force_persuasion.cog
+f_blinding              27              0       4.0     0x108    cog=force_blinding.cog
+f_absorb                28              0       4.0     0x118    cog=force_absorb.cog
+# ........................................................................................
+
+# Light Side Bonus Powers
+f_protection            29              0       4.0     0x118    cog=force_protection.cog
+# ........................................................................................
+
+# Dark Side Powers
+f_throw                 30              0       4.0     0x108   cog=force_throw.cog
+f_grip                  31              0       4.0     0x108    cog=force_grip.cog
+f_lightning             32              0       4.0     0x108    cog=force_lightning.cog
+f_destruction           33              0       4.0     0x108    cog=force_destruction.cog
+# ........................................................................................
+
+# Dark Side Bonus Powers
+f_deadlysight           34              0       4.0     0x108    cog=force_deadlysight.cog
+# ========================================================================================
+
+#################
+#Inventory Items#
+#################
+
+# Note that the icon names are taken from these names:
+# ========================================================================================
+bactatank               40              0       5       0x102   cog=item_bacta.cog
+irgoggles               41              0       1       0x102   cog=item_irgoggles.cog
+fieldlight              42              1       1       0x122   cog=item_fieldlight.cog
+keyimperial             43              0       1       0x042   cog=item_keyimperial.cog
+wrench                  44              0       1       0x042   cog=item_wrench.cog
+datadisk                45              0       1       0x042   cog=item_datadisk.cog
+keyred                  46              0       1       0x042   cog=item_keyred.cog
+keyblue                 47              0       1       0x042   cog=item_keyblue.cog
+keyyellow               48              0       1       0x042   cog=item_keyyellow.cog
+wrchblue                49              0       1       0x042   cog=item_wrenchblue.cog
+wrchyellow              50              0       1       0x042   cog=item_wrenchyellow.cog
+keygreen                51              0       1       0x042   cog=item_keygreen.cog
+# ========================================================================================
+
+
+#####################
+# Player Statistics #
+#####################
+
+# ========================================================================================
+shields                 60              0       200.0   0x030   cog=item_shields.cog
+force_armor             61              0       200.0   0x000
+supershields            62              0         1.0   0x010   #cog=item_supershields.cog
+powerboost              63              1.0       2.0   0x000
+s_dark                  64              0         1.0   0x000
+s_light                 65              0         1.0   0x000
+revive                  66              0         1.0   0x000
+# ========================================================================================
+
+###########
+# Scoring #
+###########
+
+# ========================================================================================
+secrets                 70              0       20      0x000
+maxsecrets              71              0       20      0x000
+
+# morality
+
+peds_killed             72              0       1000    0x000
+peds_total              73              0       1000    0x000
+force_morality          74              -40     40      0x000
+alignment               75              -100    100     0x000
+
+# ========================================================================================
+
+
+#####################
+# Multiplayer Modes #
+#####################
+
+# ========================================================================================
+teamcolor               80              0       2       0x040
+redflag                 81              0       1       0x048
+goldflag                82              0       1       0x048
+redkey                  83              0       1       0x042    cog=ctf_itemkeyred.cog
+goldkey                 84              0       1       0x042    cog=ctf_itemkeygold.cog
+
+# ========================================================================================
+
+
+############################
+# Goals & Level Completion #
+############################
+
+# ========================================================================================
+# Bins 99 - 115 are RESERVED
+# ========================================================================================
+# They will store the number of the first goal description text in cogStrings.uni, and the
+# display status of up to 16 goals (0 to 15).
+# ========================================================================================
+
+stringOffset            99              0       99999   0x000
+
+goal00                  100             0       1000    0x040
+goal01                  101             0       1000    0x040
+goal02                  102             0       1000    0x040
+goal03                  103             0       1000    0x040
+goal04                  104             0       1000    0x040
+goal05                  105             0       1000    0x040
+goal06                  106             0       1000    0x040
+goal07                  107             0       1000    0x040
+goal08                  108             0       1000    0x040
+goal09                  109             0       1000    0x040
+goal10                  110             0       1000    0x040
+goal11                  111             0       1000    0x040
+goal12                  112             0       1000    0x040
+goal13                  113             0       1000    0x040
+goal14                  114             0       1000    0x040
+goal15                  115             0       1000    0x040
+
+botcam			116		1	1	0x120	cog=rbot-botcam.cog
+numbots			117		1	1	0x120	cog=rbot-setup.cog
+difficulty		118		1	1	0x120	cog=rbot-difficulty.cog
+
+hotkeyOffset            150             0       99999   0x000
+
+
+# =============== #
+# MAX Bins =  199 #
+# =============== #
+
+end
+

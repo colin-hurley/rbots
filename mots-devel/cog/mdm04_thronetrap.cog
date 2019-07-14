@@ -1,0 +1,263 @@
+# Jedi Knight Missions Cog Script
+#
+# MDM04_THRONETRAP.COG
+#
+# Script operating door leading to the Rancor Pit.
+#
+# [TT]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+message  startup
+message  timer
+message  activated
+message  arrived
+message  touched
+message  pulse
+message  user2
+message  trigger
+
+thing    door0                               linkid=1
+thing    ghostweapon
+thing    thermal11
+thing    thermal12
+thing    thermal13
+thing    thermal14
+thing    thermal15
+thing    thermal21
+thing    thermal22
+thing    thermal23
+thing    thermal24
+thing    thermal25
+thing    thermal31
+thing    thermal32
+thing    thermal33
+thing    thermal34
+thing    thermal35
+thing    thermal41
+thing    thermal42
+thing    thermal43
+thing    thermal44
+thing    thermal45
+
+surface  switch0                             linkid=2
+
+surface  trapfloor                           nolink
+
+flex     movespeed=8.0
+flex     sleeptime=2.0
+flex     lightvalue=0.5
+flex     rate=0.1
+flex     interval=1.0
+
+template weapon_tpl=+MDM04ConcRifle          local
+template fake_tpl=+MDM04ConcRifleDecoy       local
+template thermal_tpl=+grenade2               local
+template spray=+dustcloud2                   local
+
+sound    onSound=activate01.wav              local
+sound    offSound=lgclick1.wav               local
+sound    locksound=df_door2-3.wav            local
+sound    respawn0
+
+int      doorsector                          local
+int      doorstatus=0                        local
+int      movestatus=0                        local
+int      weapon=0                            local
+int      realthing=0                         local
+int      notrealthing=0                      local
+int      trapset=0                           local
+int      dummy=0                             local
+int      garbage=0                           local
+int      alive=0                             local
+int      time=0                              local
+int      player                              local
+int      creditplayer                        local
+int      lockpause=0                         local
+int      trappause=0                         local
+
+sector   dungeon1
+sector   dungeon2
+sector   dungeon3
+
+cog      rancorcog
+cog      rancorbackup                        local
+
+end
+
+
+code
+
+startup:
+   doorsector = GetThingSector(door0);
+   SectorLight(doorsector, lightvalue, 0.0); // add some light to door sector
+   PlaySoundThing(respawn0, ghostweapon, 1.0, -1, -1, 0);
+   weapon = 1;
+   if(IsMulti()) if(IsServer()) SetTimerEx(0.25, 1, 0, 0);
+   return;
+
+timer:
+   if(GetSenderID() == 1)
+   {
+      SectorAdjoins(doorsector, 0);
+      realthing = CreateThing(weapon_tpl, ghostweapon);
+      CaptureThing(realthing);
+   }
+   else
+   if(GetSenderID() == 2)
+   {
+      weapon = 0;
+      trapset = 0;
+      SetPulse(1);
+   }
+
+   Return;
+
+touched:
+   if((GetSenderID() != 1) && (GetSenderID() != 2))
+   {
+      if(weapon == 0) Return;
+
+      if(weapon == 2)
+      {
+         player = GetSourceRef();
+         SendMessage(rancorcog, user0);
+         SendMessage(rancorbackup, user0);
+      }
+
+      weapon = 0;
+      SetPulse(1.0);
+   }
+   Return;
+
+trigger:
+   if(GetSourceRef() != 15000) Return;
+   call open_door;
+   Return;
+
+activated:
+   if (GetSenderId() == 1)
+   {
+      if (lockpause) return;
+      lockpause=1;
+      dummy=PlaySoundThing(locksound, door0, 1.0, -1, -1, 0);
+      Sleep(GetSoundLen(locksound)+1);
+      lockpause=0;
+   }
+   else
+   if (GetSenderId() == 2)
+   {
+      if(trapset==1)
+      {
+         if (trappause)return;
+         trappause=1;
+         dummy=PlaySoundPos(locksound, GetSurfaceCenter(switch0), 1.0, -1, -1, 0);
+         Sleep(GetSoundLen(locksound)+1);
+         trappause=0;
+         return;
+      }
+
+      trapset = 1;
+      creditplayer = GetSourceRef();
+      SetPulse(0);
+      time = 0;
+
+      if(weapon == 1)
+      {
+         DestroyThing(realthing);
+         call create_fake_weapon;
+         SetTimerEx(56, 2, 0, 0);
+      }
+      else
+      if(weapon == 0)
+      {
+         call create_fake_weapon;
+         SetTimerEx(56, 2, 0, 0);
+      }
+    }
+    return;
+
+
+create_fake_weapon:
+   PlaySoundPos(onSound, GetSurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
+   SetWallCel(switch0, 1);
+   // Print("Activated switch created notreal weapon");
+   CreateThingNR(spray, ghostweapon);
+   PlaySoundThing(respawn0, ghostweapon, 1.0, -1, -1, 0);
+   notrealthing=CreateThing(fake_tpl, ghostweapon);
+   CaptureThing(notrealthing);
+   weapon = 2;
+   sleep(0.5);
+   SetWallCel(switch0, 0);
+   Return;
+
+pulse:
+   If(weapon >= 1)
+   {
+      setpulse(0);
+      time=0;
+      return;
+   }
+   If(time < 60)
+   {
+      time=time+1;
+      // Print("Time");
+      // Printint(time);
+   }
+   else
+   If(time>=60)
+   {
+      time=0;
+      PlaySoundThing(respawn0, ghostweapon, 1.0, -1, -1, 0);
+      realthing=creatething(weapon_tpl, ghostweapon);
+      Capturething(realthing);
+      weapon=1;
+      setpulse(0);
+   }
+   return;
+
+arrived:
+   doorstatus = GetCurFrame(door0);
+   if(IsMoving(door0)) return;
+
+   If(GetSenderID() == 1)
+   {
+      if(doorstatus == 1)
+      {                                      // all pieces are at frame 1
+         SetAdjoinFlags(trapfloor, 2);       // move
+         Sleep(sleeptime);
+         call close_doors;
+      }
+      else if(doorstatus == 0)
+      {                                         // all pieces are at frame 0
+         garbage = PlaySoundThing(offSound, door0, 0.6, -1, -1, 0);
+         sectoradjoins(doorsector, 0);
+         call dropdets;
+      }
+   }
+   return;
+
+open_door:
+   ClearAdjoinFlags(trapfloor, 2);     // no move
+   SectorAdjoins(doorsector, 1);
+   DetachThing(player);
+   MoveToFrame(door0, 1, movespeed);
+   return;
+
+close_doors:
+   MoveToFrame(door0, 0, movespeed);
+   return;
+
+dropdets:
+   SendTrigger(-1, 11003, GetThingGuid(creditplayer), 0, 0, 0);
+   return;
+
+user2:
+   rancorbackup=GetSenderRef();
+   return;
+
+end
+

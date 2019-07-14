@@ -1,0 +1,40 @@
+# Jedi Knight Cog Script
+#
+# MDM05_CoreElevator2.cog
+#
+# Control elevators down to the platform area of MDM05.
+#
+# [cm]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# ========================================================================================
+
+symbols
+
+message  startup
+message	 pulse
+
+thing    elevator       
+
+end
+
+# ========================================================================================
+
+code
+startup:                
+        SetPulse(1);
+	return;
+
+Pulse:
+	SetPulse(0);
+   	MoveToFrame(elevator, 1, 9);
+	WaitForStop(elevator);
+	Sleep(3);
+	MoveToFrame(elevator, 0, 9);
+	WaitForStop(elevator);
+	Sleep(2);
+	SetPulse(1);
+	return;
+end
+
+ 

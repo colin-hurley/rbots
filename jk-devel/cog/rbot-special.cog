@@ -1,0 +1,93 @@
+# Rbot Special Cog - Alpha 0.32
+# Server - unsynch
+#
+# Created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+
+# Special nodes
+thing		sp0=-1
+thing		sp1=-1
+thing		sp2=-1
+thing		sp3=-1
+thing		sp4=-1
+thing		sp5=-1
+thing		sp6=-1
+thing		sp7=-1
+thing		sp8=-1
+thing		sp9=-1
+thing		sp10=-1
+thing		sp11=-1
+thing		sp12=-1
+thing		sp13=-1
+thing		sp14=-1
+thing		sp15=-1
+thing		sp16=-1
+thing		sp17=-1
+thing		sp18=-1
+thing		sp19=-1
+
+# Flags for each special node
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+int			spinf10=0
+int			spinf11=0
+int			spinf12=0
+int			spinf13=0
+int			spinf14=0
+int			spinf15=0
+int			spinf16=0
+int			spinf17=0
+int			spinf18=0
+int			spinf19=0
+
+# Misc
+int			index		local
+int			special		local
+int			activ		local
+int			botid		local
+thing		node		local
+thing		rbot		local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (!IsServer()) return;
+	
+	if (getsourceref() == 11010) // Special info request from bot
+	{
+		botid=getparam(0);   // which bot requested the info
+		rbot=getparam(1);
+		node=getparam(2);
+
+		// work out special node info
+		special=0;
+		for (index=0;index < 20;index=index+1)
+		{
+			if (sp0[index] == node) special = spinf0[index]; // current pos is also a special node
+		}
+		if (special)
+		{
+			SendTrigger(-1, 11020, botid, special, -1, -1); // send special info to bot
+		}
+	}
+	return;
+
+end
+

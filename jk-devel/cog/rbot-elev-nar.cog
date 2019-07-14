@@ -1,0 +1,52 @@
+# Jedi Knight Cog Script
+#
+# This elevator will go up to frame one, sleep, then come back down to frame 0 when
+# entered from the bottom.  When entered from the top, it should stay at the bottom.
+# The button surface is a call switch you can put at the top to call the thing up there.
+# Elevator will react to "blocked" message.
+#
+# Modified for Rbots - Nar Shadaa Loading Terminal by Raynar
+
+symbols
+
+message	arrived
+message	timer
+message	blocked
+message	touched
+message	entered
+
+thing	elevator	mask=0x404
+
+flex	start_wait=0.25
+flex	sleeptime=2.0
+flex	speed=4.0
+sound	wav0=Activate02.wav
+
+end
+
+# ========================================================================================
+
+code
+
+entered:
+touched:
+	sleep(sleeptime);
+	MoveToFrame(elevator, 1, speed);
+	SetTimer(sleeptime);
+	return;
+
+arrived:
+	if (GetCurFrame(elevator)==0) return;
+	SetTimer(sleepTime);
+	return;
+
+blocked:
+	MoveToFrame(elevator, 1-GetGoalFrame(elevator), speed);
+	return;
+
+timer:
+	MoveToFrame(elevator, 0, speed);
+	return;
+
+end
+

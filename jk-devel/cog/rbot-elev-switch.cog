@@ -1,0 +1,104 @@
+# Jedi Knight Cog Script
+#
+# 00_elev_switch2.cog
+#
+# This elevator will go up to its next frame and hold there.  The elevator can be recalled to a floor by hitting the
+# respective "Call" button.
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# ========================================================================================
+
+symbols
+
+message	crossed
+message	activate
+message	arrived
+message trigger
+message	entered
+
+surface	lower_adjoin0	linkid=1
+surface	lower_adjoin1	linkid=1
+surface	lower_adjoin2	linkid=1
+surface	call0			linkid=1
+surface	call1			linkid=1
+surface	call2			linkid=1
+surface	call3			linkid=1
+
+thing	elevator		mask=0x404
+
+int		curframe=0		Local
+int		index			local
+flex	start_wait=0.25
+flex	speed=4.0
+sound	wav0=lvrclik1.wav
+
+thing	rbot	local
+	
+end
+
+# ========================================================================================
+
+code
+entered:
+activate:						// If player presses button
+	if (GetWallCel(call0) == 1) return;
+	if (GetSenderId() != 1) return;
+	setwallcel(call0,1);
+	setwallcel(call1,1);
+	setwallcel(call2,1);
+	setwallcel(call3,1);
+	PlaySoundPos(wav0, SurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
+	curframe=getcurframe(elevator);
+	movetoframe(elevator, 1-curframe, speed);
+	return;
+
+# ........................................................................................
+
+trigger:						// If bot presses button
+
+	if (getsourceref() == 11030)
+	{
+		//if (GetWallCel(call0) == 1) return;
+
+		rbot = GetParam(1);
+		if ((VectorDist(GetThingPos(rbot), SurfaceCenter(call0)) < 0.3) || (VectorDist(GetThingPos(rbot), SurfaceCenter(call1)) < 0.3) || (VectorDist(GetThingPos(rbot), SurfaceCenter(call2)) < 0.3) || (VectorDist(GetThingPos(rbot), SurfaceCenter(call3)) < 0.3)) // bot is close enough to activate
+		{
+			setwallcel(call0,1);
+			setwallcel(call1,1);
+			setwallcel(call2,1);
+			setwallcel(call3,1);
+			for (index=1;index<4;index=index+1)
+			{
+				if (call0[index] != -1) PlaySoundPos(wav0, SurfaceCenter(call0[index]), 1, -1, -1, 0);
+			}
+			curframe=getcurframe(elevator);
+			movetoframe(elevator, 1-curframe, speed);
+		}
+	}
+	return;
+
+
+
+# ........................................................................................
+
+arrived:
+	setwallcel(call0,0);
+	setwallcel(call1,0);
+	setwallcel(call2,0);
+	setwallcel(call3,0);
+	PlaySoundPos(wav0, SurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
+	SendTrigger(-1, 11040, elevator, -1,-1,-1); // tell bot elevator has arrived
+	return;		
+
+# ........................................................................................
+
+crossed:						// If player crosses adjoin(s)
+	if (IsMoving(elevator)) return;
+	sleep(start_wait);				// pause before moving up
+
+	curframe=getcurframe(elevator);
+	movetoframe(elevator, 1-curframe, speed);
+	return;
+
+end
+

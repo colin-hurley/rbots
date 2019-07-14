@@ -1,0 +1,26 @@
+# Jedi Knight AI File
+#
+# YUN.AI
+#
+# Yun AI
+# Medium levels
+#
+# [CR]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+alignment=-1.0, rank=1.0, fov=270, maxstep=4.0, sightdist=10.0, heardist=4.0
+
+#instinct			args
+##########################################
+
+Jump            	2000.0, 2.0, 2.0
+#SaberFighting		0.40, 0.225, 45.0, 900.0, 0.25, 25.0, 1100.0
+Listen          	0.90, 2.0
+#Follow          	0.5, 2.0
+#Dodge                   0.2, 0.1
+#RandomTurn      	1000.0, 0.5
+OpenDoors
+#ForcePowers		5000.0, 0.0, 5.0, 0.0, 4.0, 0.0, 0.0, 0.20, 0.60, 0.0, 12000.0, 15000.0, 0.0
+#CircleStrafe    	5000.0, 30.0, 1.5, 500.0, 0.7
+

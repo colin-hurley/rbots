@@ -1,0 +1,33 @@
+
+# Jedi Knight Cog Script
+#
+# MDM10_pipe.cog
+#
+# Damaged message hacks pipe in half.
+#
+# [JS]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# ========================================================================================
+
+symbols
+
+message	damaged
+
+thing		pipe					desc=undamaged_pipe
+thing		broken_pos			desc=ghost_pos_of_broken_pipe
+template	pipe_tpl				desc=object_to_generate
+
+end
+
+# ========================================================================================
+
+code
+
+damaged:
+	DestroyThing(pipe);
+	CreateThing(pipe_tpl, broken_pos); 
+
+	return;
+
+end

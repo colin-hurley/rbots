@@ -1,0 +1,55 @@
+# Jedi Knight Cog Script
+#
+# CTF_RESPAWN.COG
+#
+# Sets the allowed respawn points on a CTF player.
+# This uses a reversed mask; i.e. respawn is NOT allowed on
+# playerstart numbers corresponding to a set bit in the mask.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+sector      mark_red                         desc=mark_red_team
+sector      mark_gold                        desc=mark_gold_team
+
+int         player=0                         local
+
+message     startup
+message     entered
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   player = GetLocalPlayerThing();
+
+   // The player can only spawn on 16 to 31 the first time
+   SetRespawnMask(player, 0x0000FFFF);
+   Return;
+
+# ........................................................................................
+
+entered:
+   if(GetSenderRef() == mark_red)
+   {
+      // spawnpoints 0 to 7 are red, so it is 0xFFFFFF00
+      SetRespawnMask(player, 0xFFFFFF00);
+   }
+   else
+   {
+      // spawnpoints 8 to 15 are gold, so it is 0xFFFF00FF
+      SetRespawnMask(player, 0xFFFF00FF);
+   }
+   Return;
+
+end
+
+

@@ -1,0 +1,108 @@
+# Jedi Knight Cog Script
+#
+#
+# [CM]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# MDM05_CoreTest.cog
+#
+# This script will start a test cycle in the reactor when any of 4 switches is hit.
+
+symbols
+
+message	activated
+message	timer
+
+surface         switch1    linkid=1
+surface         switch2    linkid=1
+surface         switch3    linkid=1
+surface         switch4    linkid=1
+
+cog		forcefield1
+cog		forcefield2
+cog		forcefield3
+cog		forcefield4
+
+cog             particle
+cog             thrust
+cog		damage
+
+sound		alarm=00alarmloop01.wav  local
+sound		power=forcejump01.wav  local
+sound		blast=18AirBurst01.wav  local
+
+
+int		alarmloop=1	local
+int		powerup=1	local
+int		blastoff=1	        local
+end
+
+
+code
+
+//-----------------------------------------------------------------------------
+
+activated:
+
+        if (getsenderid()==1)
+        
+        setwallcel(switch1, 1);
+        setwallcel(switch2, 1);
+        setwallcel(switch3, 1);
+        setwallcel(switch4, 1);
+        
+        sendmessage(forcefield1, user0);
+        sendmessage(forcefield2, user0);
+        sendmessage(forcefield3, user0);
+        sendmessage(forcefield4, user0);
+		  
+        
+        
+        alarmloop=playsoundlocal(alarm, .75, -1.0, 0x1);
+        
+        // sleep(1);
+		  SetTimerEx(1.0, 1, 0, 0);
+		  SetTimerEx(1.5, 2, 0, 0);
+		  SetTimerEx(2.5, 3, 0, 0);
+		  return;
+		  
+timer:
+	if (GetSenderId() == 1)
+	{
+		// ID 1
+		powerup=playsoundlocal(power, 1, 1, 0x0);
+		sendmessage(particle, user1);
+		sendmessage(thrust, user1);
+	}
+	else
+	if (GetSenderId() == 2)
+	{
+		// ID 2
+		//sendmessage(damage,user1);
+		playsoundlocal(blast, 1, 0, 0x0);
+	}
+	else 
+	if (GetSenderId() == 3)
+	{
+		// ID 3
+		stopsound(alarmloop, .5);
+        
+        sendmessage(forcefield1, user5);
+        sendmessage(forcefield2, user5);
+        sendmessage(forcefield3, user5);
+        sendmessage(forcefield4, user5);
+        sendmessage(particle, user5);
+        sendmessage(thrust, user5);
+        //sendmessage(damage, user5);
+        
+        setwallcel(switch1, 0);
+        setwallcel(switch2, 0);
+        setwallcel(switch3, 0);
+        setwallcel(switch4, 0);
+	}
+	
+
+	return;
+	
+end
+ 

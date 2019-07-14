@@ -1,0 +1,160 @@
+# Jedi Knight Cog Script
+#
+# C2_SIMPLEFORCEFIELD.COG
+#
+# This script handles one simple forcefield in C2
+#
+# The forcefield (two faces) may be toggled on and off by a (shootable) switch.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch                           desc=switch    mask=0x408
+surface     forcefield1                      desc=forcefld1 mask=0x408
+surface     forcefield2                      desc=forcefld2 mask=0x408
+
+int         field_is_on=0                    local
+
+flex        maxDamage=10.0                   local
+flex        minDamage=5.0                    local
+int         ff_sound                         local
+int         dummy                            local
+
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+sound       forcefield_snd=ForceFieldHum01.WAV  local
+sound       ffdamage_snd=ForceFieldHit01.WAV local
+
+
+flex        currenttime                      local
+flex        oldtime1=0                       local
+flex        oldtime2=0                       local
+int         dodamage=0                       local
+
+int         sourceRef=-1                     local
+int         senderRef=-1                     local
+int         lock_touched=0                   local
+int         lock_damaged=0                   local
+
+message     startup
+message     activated
+message     damaged
+message     touched
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+
+   SetFaceGeoMode(forcefield1, 0);        // GEOMETRY_NONE    (don't draw the face)
+   SetFaceGeoMode(forcefield2, 0);
+   SetWallCel(switch, 1);
+
+   Return;
+
+# ........................................................................................
+
+damaged:
+activated:
+   if(GetSenderRef() != switch) Return;
+
+   if(lock_damaged) Return;
+   lock_damaged = 1;
+   SetTimerEx(1, 1, 0, 0);
+
+   if(field_is_on == 0)
+   {
+      field_is_on = 1;
+
+      ff_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(forcefield1), 1.0, -1, -1, 0x41);
+
+      SetFaceGeoMode(forcefield1, 3);        // GEOMETRY_SOLID
+      SetFaceGeoMode(forcefield2, 3);
+      SetFaceLightMode(forcefield1, 0);      // LIGHTING_LIT      (light fully)
+      SetFaceLightMode(forcefield2, 0);
+      ClearAdjoinFlags(forcefield1, 2);      // Clear ADJOIN_MOVE (disallow passage)
+      ClearAdjoinFlags(forcefield2, 2);
+      SetSurfaceFlags(forcefield1,16384);    // Set SURFACE_MAGSEALED
+      SetSurfaceFlags(forcefield2,16384);
+      SetWallCel(switch, 0);
+      dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+   }
+   else
+   {
+      SetFaceGeoMode(forcefield1, 0);        // GEOMETRY_NONE    (don't draw the face)
+      SetFaceGeoMode(forcefield2, 0);
+      SetFaceLightMode(forcefield1, 3);      // LIGHTING_GOURAUD (normal lighting)
+      SetFaceLightMode(forcefield2, 3);
+      SetAdjoinFlags(forcefield1, 2);        // Set ADJOIN_MOVE  (allow passage)
+      SetAdjoinFlags(forcefield2, 2);
+      ClearSurfaceFlags(forcefield1,16384);  // Clear SURFACE_MAGSEALED
+      ClearSurfaceFlags(forcefield2,16384);
+      SetWallCel(switch, 1);
+      dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+      StopSound(ff_sound, 0);
+      field_is_on = 0;
+   }
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   lock_damaged = 0;
+   Return;
+
+// ........................................................................................
+//
+// Apply damage when someone tries to cross the forcefield
+//
+// touched: is very framerate dependant, so we'll apply damage only
+// when 0.5 second have elapsed. Note that we have to remember the
+// time for each of the forcefields.
+
+touched:
+   if(GetSenderRef() == switch) Return;
+
+   if(lock_touched == 1) Return;
+   lock_touched = 1;
+
+   senderRef = GetSenderRef();
+   sourceRef = GetSourceRef();
+
+   if (field_is_on == 1)
+   {
+      currenttime = GetLevelTime();
+      dodamage = 0;
+
+      if((senderRef == forcefield1) && (currenttime > oldtime1 + 0.50))
+      {
+         oldtime1 = currenttime;
+         dodamage = 1;
+      }
+      else
+      if((senderRef == forcefield2) && (currenttime > oldtime2 + 0.50))
+      {
+         oldtime2 = currenttime;
+         dodamage = 1;
+      }
+
+      if(dodamage == 1)
+      {
+         dummy  = PlaySoundPos(ffdamage_snd, GetSurfaceCenter(senderRef), 1.0, -1, -1, 0);
+         dummy  = DamageThing(sourceRef, 10, 0x2, sourceRef);
+      }
+   }
+
+   lock_touched = 0;
+
+   Return;
+
+end
+

@@ -1,0 +1,68 @@
+# Jedi Knight Cog Script
+#
+# MDM05_2Switch.cog
+#
+# Switch for reactor.
+#
+# [CM]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved		
+
+symbols
+	message	activate
+	message	entered
+	message	arrived
+
+	surface	callSwitch0		linkid=0
+	surface	callSwitch1		linkid=1
+	
+	sound	wav0=Activate01.wav	local
+	
+	thing		elevator			linkid=5
+
+	float		moveSpeed=8.0
+
+	int		i=0				local
+end
+
+code
+activate:
+	if (GetWallCel(switch0)==1)return;
+	if (GetSenderId()==GetCurFrame(elevator)) return;
+    	if(IsMoving(elevator)) Return;
+	if (GetSenderId() == 5) return;
+
+	// call switch was pressed
+	MoveToFrame(elevator, GetSenderId(), moveSpeed);
+
+	PlaySoundPos(wav0, GetSurfaceCenter(GetSenderRef()), 1.5, -1, -1, 0x0);
+
+	SetWallCel(callSwitch0, 1);
+	SetWallCel(callSwitch1, 1);
+	return;
+	
+	
+entered:
+	if (GetWallCel(switch0)==1)return;
+	if (GetSenderId() != 5) return;
+	if (IsMoving(elevator)) return;
+	SetWallCel(callSwitch0, 1);
+	SetWallCel(callSwitch1, 1);
+
+	if (GetCurFrame(elevator) == 0)
+	{
+		MoveToFrame(elevator, 1, moveSpeed);
+	}
+	else
+	{
+		MoveToFrame(elevator, 0, moveSpeed);
+	}	
+	return;
+	
+arrived:
+	// set all switches to frame 0
+	SetWallCel(callSwitch0, 0);
+	SetWallCel(callSwitch1, 0);
+	return;			
+
+end

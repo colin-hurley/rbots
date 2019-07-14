@@ -1,0 +1,93 @@
+# Jedi Knight Cog Script
+#
+# K3_FUELEXPLODE.COG
+#
+# This script makes a section of fuel pipes "explode" when
+# a weapon bolt hits the fuel.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+surface  surf0                            mask=0x8,linkid=0
+surface  surf1                            mask=0x8,linkid=1
+surface  surf2                            mask=0x8,linkid=2
+surface  surf3                            mask=0x8,linkid=3
+surface  surf4                            mask=0x8,linkid=4
+surface  surf5                            mask=0x8,linkid=5
+surface  surf6                            mask=0x8,linkid=6
+surface  surf7                            mask=0x8,linkid=7
+surface  surf8                            mask=0x8,linkid=8
+
+int      num_surfaces
+
+template explosion_tpl=+grenade_exp       local
+
+int      i=0                              local
+int      j=0                              local
+int      explosion                        local
+int      locked=0                         local
+int      numbooms=0                       local
+
+message  crossed
+message  timer
+
+end
+
+# ========================================================================================
+
+code
+
+crossed:
+
+   // This makes an explosion at the "impact" point.
+   numbooms = numbooms + 1;
+   explosion = CreateThing(explosion_tpl, GetSourceRef());
+
+   // Ignore any new cross while in the loops,
+   // except the impact point explosion above.
+
+   if(locked == 1) Return;
+   locked = 1; 
+
+   for(i=GetSenderId(); i>=0; i=i-1)
+   {
+      for(j=0; j<1+1*Rand(); j=j+1)
+      {
+      numbooms = numbooms + 1;
+      explosion = CreateThingAtPos(explosion_tpl,
+               GetSurfaceSector(surf0[i]),
+                  VectorAdd(SurfaceCenter(surf0[i]), VectorAdd(VectorScale(RandVec(), 0.75), '0.0 0.0 0.0')),
+                     '0.0 0.0 0.0');
+            }
+   }
+
+   for(i=GetSenderId()+1; i<num_surfaces; i=i+1)
+   {
+      for(j=0; j<1+1*Rand(); j=j+1)
+      {
+      numbooms = numbooms + 1;
+      explosion = CreateThingAtPos(explosion_tpl,
+               GetSurfaceSector(surf0[i]),
+                  VectorAdd(SurfaceCenter(surf0[i]), VectorAdd(VectorScale(RandVec(), 0.75), '0.0 0.0 0.0')),
+                     '0.0 0.0 0.0');
+      }
+   }
+
+   // Don't go crazy with explosions... :-)
+   SetTimerEx(0.50, 0, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   locked = 0;
+   Return;
+
+end
+

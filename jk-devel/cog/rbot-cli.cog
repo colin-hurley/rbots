@@ -1,0 +1,258 @@
+# Rbot AI Cog - Alpha 0.30
+# Client side - unsynch
+#
+# Created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x240
+
+symbols
+
+message		trigger
+
+int			botid=0
+
+# Weapon mesh models
+model		weapmesh0=red-0.3do			
+model		weapmesh1=red-1.3do			
+model		weapmesh2=red-2.3do
+model		weapmesh3=red-3.3do
+model		weapmesh4=red-4.3do
+model		weapmesh5=red-5.3do
+model		weapmesh6=red-6.3do
+model		weapmesh7=red-7.3do
+model		weapmesh8=red-8.3do
+model		weapmesh9=red-9.3do
+model		weapmesh10=red-10.3do
+
+# Respawn Effects
+template	teleport_particles=+telesparks		local
+sound		teleportsnd=ForceThrow01.WAV		local
+
+# Weapon sounds
+sound		mountSoundgun0=df_bry_ready.wav		local
+sound       mountSoundgun1=df_rif_ready.wav		local
+sound		mountSoundgun2=RailChargeArm01.WAV	local
+sound		mountSoundsaber=LtSaberOn01.WAV		local
+sound    	dismountSoundsaber=LtSaberOff01.WAV	local
+sound		humSound01=LtSaberLp01.WAV			local
+
+# Weapon fire sounds
+sound		snd_fireweap01=SwingFist01.wav		local
+sound		snd_fireweap01a=SwingFist04.wav		local
+sound		snd_fireweap02=pistol-1.wav			local
+sound		snd_fireweap03=trprsht2.wav			local
+sound		snd_fireweap05=BCFire01.wav			local
+sound		snd_fireweap05a=BCFire02.wav		local
+sound		snd_fireweap06=rpeatrlp.wav			local
+sound		snd_fireweap06a=repeat-1.wav		local
+sound		snd_fireweap07=RailChargeFire01.WAV	local
+sound		snd_fireweap09=concuss5.wav			local
+
+# Saber attack sounds
+sound	swingSound0=LtSaberSwing01.WAV			local
+sound	swingSound1=LtSaberSwing02.WAV			local
+sound	swingSound2=LtSaberSwing03.WAV			local
+sound	swingSound3=LtSaberSwing04.WAV			local
+sound	swingSound4=LtSaberSwing05.WAV			local
+sound	swingSound5=LtSaberSwing06.WAV			local
+sound	swingSound6=LtSaberSwing07.WAV			local
+sound	swingSound7=LtSaberSwing08.WAV			local
+sound	swingSoundDbl01=LtSaberSwingDbl01.WAV	local
+
+# Saber attack animation
+keyframe	fireAnimR1=KYsabrr1.key		local
+keyframe	fireAnimL1=KYsabrl1.key		local
+keyframe	fireAnimB1=KYsabrb1.key		local
+keyframe	fireAnimB2=KYsabrb2.key		local
+keyframe	fireAnimF1=KYsnap1.key		local
+keyframe	fireAnimF2=KYsnap2.key		local
+keyframe	snapAnim0=KYsabrf1.key		local
+keyframe	snapAnim1=KYsabrf2.key		local
+keyframe	snapAnim2=KYsabrf1.key		local
+keyframe	chargeAnim=KYcharge.key		local
+
+# Saber block animation
+keyframe    blockAnim0=KYblock0.key		local
+keyframe    blockAnim1=KYblock1.key		local
+keyframe    blockAnim2=KYblock2.key		local
+
+# Force sound effects
+sound		pullSound=FPush.WAV			local
+
+# Force animations
+
+
+template	smoke_tpl=+heavysmoke		local
+thing		rbot		local
+
+# Misc
+int			humChannel=-1	local
+int			curweap			local
+int			slashsound		local
+int			blocktrack=-1	local
+int			nextblock=0		local
+int			mode			local
+int			nextanim		local
+	
+end
+
+# Code Section
+
+code
+
+trigger:
+	if (getparam(0) != botid) return;
+	if (getsourceref() == 950) // bot has respawned
+	{
+		rbot=getparam(1);
+		// Do respawn effects
+		CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
+		PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
+		curweap=0;
+		setpulse(1.0);
+	}
+	else if (getsourceref() == 1000) // bot killed
+	{
+		setpulse(0);
+		if (curweap == 10) // current weapon is saber
+		{
+			PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
+			if(humChannel != -1)
+			{
+				StopSound(humChannel, 0.5); // Stop resident saber noise
+				humChannel = -1;
+			}
+			curweap=0;
+			SetThingModel(rbot,weapmesh0[curweap]); // show model with saber turned off
+		}
+	}
+	else if (getsourceref() == 2004) // Create smoke at bot's location
+	{
+	  CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
+	}
+	else if (getsourceref() == 2100) // Play saber block animation
+	{
+		if (blocktrack != -1)
+		{
+			StopKey(rbot, blocktrack, 0.1 );
+			blocktrack = -1;
+		}
+		blocktrack=PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
+		nextblock = nextblock + 1;
+		if (nextblock > 2) nextblock = 0;
+	}
+	else if (getsourceref() == 2101) // Stop saber block animation
+	{
+		if (blocktrack != -1)
+		{
+			StopKey(rbot, blocktrack, 0.1 );
+			blocktrack = -1;
+		}
+	}
+	else if (getsourceref() == 101000) // change weapon
+	{
+		if (curweap == 10) // old weapon was saber
+		{
+			PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
+			if(humChannel != -1)
+			{
+				StopSound(humChannel, 0.5); // Stop resident saber noise
+				humChannel = -1;
+			}
+		}
+		curweap=getparam(1);
+		SetThingModel(rbot,weapmesh0[curweap]);
+		if (curweap == 10) // saber
+		{
+			PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
+			humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
+		}
+		if (curweap == 2 || curweap == 5 || curweap == 6) // bryar, crossbow, repeater
+		{
+			PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+		if (curweap == 3 || curweap == 9) // strifle, conc rifle
+		{
+			PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+		if (curweap == 7) // railgun
+		{
+			PlaySoundThing(mountSoundgun2, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+	}
+	else if (getsourceref() == 101010) // take item
+	{
+		TakeItem(getparam(1), rbot);
+	}
+	else if (getsourceref() == 101020) // weapon fired
+	{
+		curweap=getparam(1);
+		mode=getparam(2);
+		nextanim=getparam(3);
+		if (curweap == 1 && nextanim == 0) PlaySoundThing(snd_fireweap01, rbot, 3.0, 0.5, 2.5, 0x80); // fists
+		else if (curweap == 1 && nextanim == 1) PlaySoundThing(snd_fireweap01a, rbot, 3.0, 0.5, 2.5, 0x80); // fists - alternate
+		else if (curweap == 2) PlaySoundThing(snd_fireweap02, rbot, 4.0, 0.5, 2.5, 0x80); // bryar
+		else if (curweap == 3) PlaySoundThing(snd_fireweap03, rbot, 4.0, 0.5, 2.5, 0x80); // st-rifle
+		else if (curweap == 5) PlaySoundThing(snd_fireweap05a, rbot, 4.0, 0.5, 2.5, 0x80); // bowcaster
+		else if (curweap == 6 && nextanim == 0) PlaySoundThing(snd_fireweap06, rbot, 5.0, 0.5, 2.5, 0x80); // repeater
+		else if (curweap == 6 && nextanim == 1) PlaySoundThing(snd_fireweap06a, rbot, 5.0, 0.5, 2.5, 0x80); // repeater - alternate
+		else if (curweap == 7) PlaySoundThing(snd_fireweap07, rbot, 5.0, 0.5, 2.5, 0x80); // railgun
+		else if (curweap == 9)
+		{
+			PlaySoundThing(snd_fireweap09, rbot, 5.0, 0.1, 2.5, 0x180); // conc rifle
+		}
+		else if (curweap == 10) // lightsaber
+		{
+			if (mode == 0) // underwater saber attack
+			{
+				if (nextanim == 0) PlayMode(rbot, 8); else PlayMode(rbot, 18);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 1) // RIGHT Regular Strike
+			{
+				PlayKey(rbot, fireAnimR1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 2) // LEFT Regular Strike
+			{
+				PlayKey(rbot, fireAnimL1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 3) // BACKWARDS Strike
+			{
+				if (nextanim == 0) PlayKey(rbot, fireAnimB1, 2, 0x38); else PlayKey(rbot, fireAnimB2, 2, 0x38);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 4) // STANDING Strike
+			{
+				if (nextanim == 0) PlayKey(rbot, fireAnimF1, 2, 0x38); else PlayKey(rbot, fireAnimF2, 2, 0x38);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 5) // QUICK Slash
+			{
+				PlayKey(rbot, snapAnim0[GetParam(3)], 1, 0x38);
+				PlaySoundThing(swingSound0[GetParam(3)], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 6) // HEAVY Slash
+			{
+				PlayKey(rbot, chargeAnim, 2, 0x38);
+				PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
+			}
+		}
+	}
+	else if (getsourceref() == 102000) // force pull
+	{
+		PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80);
+	}
+	return;
+
+
+end
+
+

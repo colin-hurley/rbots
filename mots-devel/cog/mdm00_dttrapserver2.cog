@@ -1,0 +1,48 @@
+# Jedi Knight Cog Script
+#
+# MDM00_DTTRAPERVER.cog
+#
+# This will generate a series of 4 TD's per 'round' when the switch is activated.
+# The trap resets in 'delay' seconds afterwards. Server side.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface  switch
+flex     totaltime=8.0                       // 4 * rate * rounds + delay + 0.05
+
+int      active=0                            local
+
+message  activated
+message  timer
+
+end
+
+# ========================================================================================
+
+code
+
+activated:
+   if(active == 1) Return;
+   active = 1;
+
+   // Send a TRIGGER_DTTRAP with its parameters
+   SendTrigger(-1, 11002, GetThingGuid(GetSourceRef()), 0, 0, 0);
+
+   SetTimer(totalTime);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   active = 0;
+
+   Return;
+
+end
+

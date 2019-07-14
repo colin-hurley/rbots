@@ -1,0 +1,6 @@
+target/
+.flattened-pom.xml
+.project
+.classpath
+.settings/
+*.bat

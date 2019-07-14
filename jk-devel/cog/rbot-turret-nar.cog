@@ -1,0 +1,109 @@
+# Jedi Knight Cog Script
+#
+# Multiplayer turrets activated by switch.
+#
+# This will generate a series of 3 laser bursts per 'round' when
+# the switch is activated. 
+# The trap resets in 'delay' seconds afterwards.
+#
+# Modified for Rbots - Nar Shadaa Loading Terminal by Raynar
+
+symbols
+
+message	activate
+message trigger
+
+surface	switch			desc=switch
+
+thing	turret1			nolink,desc=turret1
+thing	turret2			nolink,desc=turret2
+thing	turret3			nolink,desc=turret3
+thing	turret4			nolink,desc=turret4
+thing	ghost1			nolink,desc=ghost1
+thing	ghost2			nolink,desc=ghost2
+thing	ghost3			nolink,desc=ghost3
+thing	ghost4			nolink,desc=ghost4
+
+int		rounds=5		desc=rounds
+
+flex	rate=0.33		desc=rate
+flex	delay=2.0		desc=delay
+flex	movespeed=2.0
+flex	autoAimXFOV=90
+flex	autoAimZFOV=180
+
+int		firing=0		local
+int		cur_round=0		local
+
+template	projectile=+stlaser		local
+
+sound		fireSound=turret-1.wav	local
+sound		on_snd=set_hi2.wav		local
+sound		off_snd=lgclick1.wav	local
+
+thing	rbot			local
+flex	dist			local
+thing	potentional		local
+vector	aimvector		local
+
+end
+
+# ========================================================================================
+
+code
+
+activate:
+	if(firing == 1) Return;
+
+	firing = 1;
+	SetWallCel(switch, 1);
+	PlaySoundPos(on_snd, SurfaceCenter(switch), 1.0, 5.0, 10.0, 0);
+	MoveToFrame(turret1, 1, movespeed);
+	MoveToFrame(turret2, 1, movespeed);
+	MoveToFrame(turret3, 1, movespeed);
+	MoveToFrame(turret4, 1, movespeed);
+
+	cur_round = 0;
+	while(cur_round < rounds)
+	{
+		potential = FirstThingInView(ghost1, 270, 8.0, 0x404);  // find (0x404 - player or actor)
+		if (potential != -1) aimvector=VectorSub(VectorNorm(GetThingPos(potential)), VectorNorm(GetThingPos(ghost1))); else aimvector=VectorSet(0,0,0);
+		FireProjectile(ghost1, projectile, fireSound, -1, '0 0 0', aimvector, 1.0, 0x60, autoAimXFOV, autoAimZFOV);
+		Sleep(rate);
+		potential = FirstThingInView(ghost2, 270, 8.0, 0x404);  // find (0x404 - player or actor)
+		if (potential != -1) aimvector=VectorSub(VectorNorm(GetThingPos(potential)), VectorNorm(GetThingPos(ghost2))); else aimvector=VectorSet(0,0,0);
+		FireProjectile(ghost2, projectile, fireSound, -1, '0 0 0', aimvector, 1.0, 0x60, autoAimXFOV, autoAimZFOV);
+		Sleep(rate);
+		potential = FirstThingInView(ghost3, 270, 8.0, 0x404);  // find (0x404 - player or actor)
+		if (potential != -1) aimvector=VectorSub(VectorNorm(GetThingPos(potential)), VectorNorm(GetThingPos(ghost3))); else aimvector=VectorSet(0,0,0);
+		FireProjectile(ghost3, projectile, fireSound, -1, '0 0 0', aimvector, 1.0, 0x60, autoAimXFOV, autoAimZFOV);
+		Sleep(rate);
+		potential = FirstThingInView(ghost4, 270, 8.0, 0x404);  // find (0x404 - player or actor)
+		if (potential != -1) aimvector=VectorSub(VectorNorm(GetThingPos(potential)), VectorNorm(GetThingPos(ghost4))); else aimvector=VectorSet(0,0,0);
+		FireProjectile(ghost4, projectile, fireSound, -1, '0 0 0', aimvector, 1.0, 0x60, autoAimXFOV, autoAimZFOV);
+		Sleep(rate);
+		cur_round = cur_round + 1;
+	}
+
+	Sleep(delay);
+	dummy = SetWallCel(switch, 0);
+	dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 1.0, 5.0, 10.0, 0);
+	firing = 0;
+	MoveToFrame(turret1, 0, movespeed);
+	MoveToFrame(turret2, 0, movespeed);
+	MoveToFrame(turret3, 0, movespeed);
+	MoveToFrame(turret4, 0, movespeed);
+	Stop;
+
+trigger:
+	if (getsourceref() == 11030)
+	{
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
+		if (dist < 0.5) call activate; // if bot is close enough, activate switch
+	}
+	return;
+
+end
+
+

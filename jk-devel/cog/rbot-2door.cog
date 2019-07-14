@@ -1,0 +1,69 @@
+# Jedi Knight Cog Script
+#
+# Custom Rbots
+
+symbols
+
+message	startup		
+message	activate	
+message	arrived		
+message	timer		
+message	blocked
+message	touched
+
+thing	door0	mask=0x404
+thing	door1	mask=0x404
+	
+flex	moveSpeed=8.0
+flex	sleepTime=3.0
+
+thing	rbot	local
+flex	dist	local
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+	return;
+
+# ........................................................................................
+
+touched:
+	if (IsThingMoving(door0)) return;
+	MoveToFrame(door0, 1, moveSpeed);
+	MoveToFrame(door1, 1, moveSpeed);
+	SetTimer(sleeptime);
+	return;
+
+activate:
+	if (IsThingMoving(door0) || GetCurFrame(door0)==1) return;
+	MoveToFrame(door0, 1, moveSpeed);
+	MoveToFrame(door1, 1, moveSpeed);
+	return;
+
+# ........................................................................................
+
+arrived:
+	if (GetCurFrame(door0)==0) return;
+	SetTimer(sleepTime);
+	return;
+
+# ........................................................................................
+
+blocked:
+	MoveToFrame(door0, 1-GetGoalFrame(door0), moveSpeed);
+	MoveToFrame(door1, 1-GetGoalFrame(door1), moveSpeed);
+	return;
+
+# ........................................................................................
+
+timer:
+	MoveToFrame(door0, 0, moveSpeed);
+	MoveToFrame(door1, 0, moveSpeed);
+	return;
+
+end
+

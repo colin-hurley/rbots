@@ -1,0 +1,50 @@
+# Jedi Knight Cog Script
+#
+# MDM05_CoreServer.cog
+#
+# This script will start a test cycle in the reactor when any of 4 switches is hit.
+# It is the only server script, all the modifications will be made locally via a
+# trigger...
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch1
+surface     switch2
+surface     switch3
+surface     switch4
+
+int         active=0                         local
+
+message     activated
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+activated:
+
+   if(active) Return;
+
+   // Send a TRIGGER_TESTCORE with its parameters
+   SendTrigger(-1, 10001, GetThingGuid(GetSourceRef()), 4.0, 0, 0);
+
+   active = 1;
+   SetTimer(5.0);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   active = 0;
+   Return;
+
+end

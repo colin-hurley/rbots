@@ -1,0 +1,32 @@
+# Jedi Knight Cog Script
+#
+# K3_LIGHTANIM.COG
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       lightthing
+flex        period=2.0
+flex        maxLight=1.0
+flex        minLight=0.0
+
+message     startup
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   ThingLightAnim(lightthing, minlight, maxlight, period);
+
+   Return;
+
+end
+
+

@@ -1,0 +1,71 @@
+# Jedi Knight Cog Script
+#
+# MDM02_Carbonite.COG
+#
+# Generates Carbonit pellets
+#
+# [KS]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+symbols
+
+thing 		console
+thing		source1
+thing		source2
+thing		source3
+thing		source4
+thing		platform
+
+template	pellet=+carbpellet	local
+
+int		cur_round=0		local
+int		dummy			local
+int		rounds=2		desc=rounds
+int		busy=0			local
+flex		rate=0.1		desc=rate
+
+message		activate
+
+sound		wav0=09pipesdetatch.wav	
+sound		wav1=09pipesmove.wav
+sound		wav2=18airburst01.wav
+
+end
+
+code
+# ........................................................................................
+activate:
+	if (busy) return;
+	busy=1;
+	cur_round = 0;
+	PlaySoundThing(wav2, source1, 1.5, -1, -1, 0x00);
+	while(cur_round < rounds)
+	{
+	 dummy = CreateThing(pellet, source1);
+	 Sleep(rate);
+	 dummy = CreateThing(pellet, source2);
+	 Sleep(rate);
+	 dummy = CreateThing(pellet, source3);
+	 Sleep(rate);
+	 dummy = CreateThing(pellet, source4);
+	 Sleep(rate);
+
+	 cur_round = cur_round + 1;
+	}
+
+	Sleep(2);
+	PlaySoundThing(wav0, source1, 1.5, -1, -1, 0x00);
+	MoveToFrame(platform, 1, 1.3);
+	Sleep(0.25);
+	PlaySoundThing(wav1, source1, 1.5, -1, -1, 0x00);
+
+	Sleep(7);
+	MoveToFrame(platform, 0, 1.3);
+	PlaySoundThing(wav0, source1, 1.5, -1, -1, 0x00);
+	Sleep(0.25);
+	PlaySoundThing(wav1, source1, 1.5, -1, -1, 0x00);
+	busy=0;
+	return;
+
+end

@@ -1,0 +1,143 @@
+# Jedi Knight Cog Script
+#
+# MDM05_CORECLIENTFF.COG
+#
+# Client side part of the core script handling the forcefields.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+surface     forcefield                       mask=0x408
+surface     forcefield2                      mask=0x408
+
+flex        maxDamage=10.0
+flex        minDamage=5.0
+
+sound       hitsound=LTSaberHit012.wav       local
+sound       poweroff=ForceFieldOff01.wav     local
+sound       humSnd=ForceFieldHum01.wav       local
+
+int         humChannel=0                     local
+int         damaging=1                       local
+
+flex        damage=0.0                       local
+int         victim                           local
+
+int         dummy=0                          local
+
+message     startup
+message     trigger
+message     touched
+message     damaged
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   SetFaceGeoMode(forcefield, 0);
+   SetFaceGeoMode(forcefield2, 0);
+   Return;
+   
+# ........................................................................................
+
+trigger:
+
+   // Handle only TRIGGER_TESTCORE
+   if(GetSourceRef() != 10001) Return;
+
+   // set to NOMOVE
+   ClearAdjoinFlags(forcefield, 2);
+   ClearAdjoinFlags(forcefield2, 2);
+   
+   // Set to solid color face
+   SetFaceGeoMode(forcefield, 3);
+   SetFaceGeoMode(forcefield2, 3);
+   
+   // Set to transluscent
+   SetFaceType(forcefield, 2);
+   SetFaceType(forcefield2, 2);
+   
+   // Set to MagSealed
+   SetSurfaceFlags(forcefield, 16384);
+   SetSurfaceFlags(forcefield2, 16384);
+   
+   SurfaceLightAnim(forcefield, 0, 1, 0.25);
+   SurfaceLightAnim(forcefield2, 0, 1, 0.25);
+   
+   humChannel = PlaySoundPos(humSnd, GetSurfaceCenter(forcefield), 0.75, 8, 15, 1);
+
+   // This is the duration of the effect
+   SetTimerEx(GetParam(1), 100, 0, 0);
+
+   return;
+
+# ........................................................................................
+
+touched:
+   if (damaging == 1)
+   {
+      dummy  = PlaySoundPos(hitsound, SurfaceCenter(forcefield), 1, 10, -1, 0);
+
+      victim = GetSourceRef();
+      damage = (Rand() * (maxDamage - minDamage)) + minDamage;
+      DamageThing(victim, damage, 0x2, victim);    
+
+      damaging = 0;
+      SetTimerEx(0.25, 0, 0, 0);
+   }
+   
+   Return;
+
+# ........................................................................................
+
+damaged:
+   SetFaceGeoMode(forcefield, 3);
+   SetFaceGeoMode(forcefield2, 3);
+
+   KillTimerEx(1);
+   SetTimerEx(0.5, 1, 0, 0);
+   
+   Return;
+
+# ........................................................................................
+
+timer:
+   
+   if(GetSenderId() == 0)
+   {
+      damaging=1;
+   }
+   else
+   if(GetSenderId() == 1)
+   {
+      SetFaceGeoMode(forcefield, 1);
+      SetFaceGeoMode(forcefield2, 1);
+   }
+   else
+   if(GetSenderId() == 100)
+   {
+      // Allow MOVE
+      SetAdjoinFlags(forcefield,2);
+      SetAdjoinFlags(forcefield2,2);
+
+      // Set to no rendering
+      SetFaceGeoMode(forcefield, 0);
+      SetFaceGeoMode(forcefield2, 0);
+   
+      // Stop forcefield hum
+      StopSound(humChannel, 0.25);
+   }
+
+   Return;
+
+end
+

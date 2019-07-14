@@ -1,0 +1,119 @@
+# Jedi Knight Cog Script
+#
+# MDM10_window.cog
+#
+# Damaged message "breaks" window, creates temporary sector thrust.
+#
+# [JS]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# ========================================================================================
+#
+# Modified to for Rbots - Raynar
+
+symbols
+
+message	damaged
+message	timer
+message	entered
+
+surface	damsurf1		mask=0x448
+surface	damsurf2		mask=0x448
+sector	sector0			mask=0x404
+sector	sector1			mask=0x404
+sector	sector2			mask=0x404
+
+sound		wav0=glassbreak1.wav
+sound		wav1=00industrialamb01.wav
+
+int		currentThing		local
+int		i						local
+
+vector	playerVec			local
+vector	vec0					desc=thrust_direction
+
+float		thrustspeed=1.0	desc=thrust_speed
+float		fadetime=4.0
+
+thing		window		mask=0x448		desc=undamaged_window
+thing		broken_pos			desc=ghost_pos_of_broken_window
+template	win_tpl				desc=object_to_generate
+
+end
+
+# ========================================================================================
+
+code
+
+damaged:
+	if ((GetParam(1)!=16) && (GetParam(1)!=4)) return;
+	DestroyThing(window);
+	CreateThing(win_tpl, broken_pos); 
+
+	PlaySoundPos(wav0, SurfaceCenter(damsurf1), 1.5, -1, -1, 0);
+	PlaySoundPos(wav1, SurfaceCenter(damsurf1), 0.01, -1, -1, 1);
+	ChangeSoundVol(channel, 1.5, fadetime/2); 
+	ChangeSoundPitch(channel, 1, fadetime/2); 
+	SetAdjoinFlags(damsurf1, 2);
+	SetAdjoinFlags(damsurf2, 2);
+	SectorThrust(sector0, vec0, thrustspeed);
+	SectorThrust(sector1, vec0, thrustspeed);
+	SectorThrust(sector2, vec0, thrustspeed);
+	SetTimerEx(2.0, 1, 0, 0);
+	return;
+
+# ........................................................................................
+
+timer:
+	if (GetSenderId() == 1)
+	{
+		SectorThrust(sector0, vec0, thrustspeed*6);
+		SectorThrust(sector1, vec0, thrustspeed*6);
+		SectorThrust(sector2, vec0, thrustspeed*6);
+		
+		// unattach all players in sectors
+		currentThing = FirstThingInSector(sector0);
+		while (currentThing != -1) 
+		{
+			call reactorpull;
+			currentThing = NextThingInSector(currentThing);
+		}
+	
+		currentThing = FirstThingInSector(sector1);
+		while (currentThing != -1) 
+		{
+			call reactorpull;
+			currentThing = NextThingInSector(currentThing);
+		}	
+		SetTimerEx(5.0, 2, 0, 0);  
+	}
+	else if (GetSenderId() == 2)
+	{
+		SectorThrust(sector0, vec0, 0.0);
+		SectorThrust(sector1, vec0, 0.0);
+		SectorThrust(sector2, vec0, 0.0);
+		ChangeSoundVol(channel, 0.1, fadetime); 
+		ChangeSoundPitch(channel, 0.1, fadetime);
+	}
+	return;
+
+# ........................................................................................
+
+entered:
+	if (GetSenderId() !=0) return;
+	if (GetWallCel(switch) !=1) return;
+	currentThing = GetSourceRef();
+	// fall through
+	
+# ........................................................................................
+
+reactorpull:
+	if (GetThingType(currentThing) == 10) {
+		DetachThing(currentThing);
+		playerVec = GetThingVel(currentThing);
+		playerVec = VectorAdd(vec0, playerVec);
+		SetThingVel(currentThing, playerVec);
+	}
+	return;
+
+end

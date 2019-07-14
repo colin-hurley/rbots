@@ -1,0 +1,69 @@
+# Jedi Knight Cog Script
+#
+# CTF_DOORGOLD.COG
+#
+# CTF Gold Door cog script
+# If 'delay' = -1.0 then door stays open
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       door                             desc=door_object
+flex        movespeed=3.0                    desc=movespeed_of_door
+flex        delay=2.0                        desc=delay_before_close
+
+int         doorsector=-1                    local
+int         player                           local
+
+int         msgbase=1000                     local
+
+message     startup
+message     activated
+
+end            
+
+# ========================================================================================
+
+code
+
+startup:
+   doorsector = GetThingSector(door);
+   SectorAdjoins(doorsector, 0);
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   if(IsMoving(door) == 1) Return;
+   if(GetCurFrame(door) == 1) Return;
+   
+   player = GetSourceRef();
+   
+   // if the player carries the gold key
+   // if((GetInv(player, 80) == 2.0) || (GetInv(player, 84) == 1.0))
+   if(GetInv(player, 84) == 1.0)
+   {
+      SectorAdjoins(doorsector, 1);
+      MoveToFrame(door, 1, movespeed);
+      WaitForStop(door);
+      if(delay == -1.0) Return;
+      Sleep(delay);
+      MoveToFrame(door, 0, movespeed);
+      WaitForStop(door);
+      SectorAdjoins(doorsector, 0);
+   }
+   else
+   {
+      // Print("You need the Gold Key...");
+      jkPrintUNIString(player, msgbase + 71);
+   }
+   
+   Return;
+
+end
+

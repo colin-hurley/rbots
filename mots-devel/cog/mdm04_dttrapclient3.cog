@@ -1,0 +1,77 @@
+# Jedi Knight Cog Script
+#
+# MDM04_DTTRAPCLIENT3.cog
+#
+# This will generate a series of 5 TD's per 'round' when triggered by thronetrap.cog.
+# Client side.
+#
+# [YB,SH]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+thing    tdg1                                nolink,desc=tdg1
+thing    tdg2                                nolink,desc=tdg2
+thing    tdg3                                nolink,desc=tdg3
+thing    tdg4                                nolink,desc=tdg4
+thing    tdg5                                nolink,desc=tdg4
+
+int      rounds=5                            desc=rounds
+
+flex     rate=0.1                            desc=rate
+flex	   interval=1.0				   desc=rounddelay
+
+int      cur_round=0                         local
+int      dummy                               local
+
+template proj_tpl=+grenade2                  local
+
+message  trigger
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+
+   // Handle only TRIGGER_DTTRAP
+   if(GetSourceRef() != 11003) Return;
+
+   cur_round = 0;
+   while(cur_round < rounds)
+   {
+      dummy = CreateThing(proj_tpl, tdg1);
+
+      // give it the correct parent via the parent's guid passed in the trigger this
+      // is essential to credit the kill to the guy who activated the switch..
+      SetThingParent(dummy, GetParam(0));
+      Sleep(rate);
+      
+      dummy = CreateThing(proj_tpl, tdg2);
+      SetThingParent(dummy, GetParam(0));
+      Sleep(rate);
+      
+      dummy = CreateThing(proj_tpl, tdg3);
+      SetThingParent(dummy, GetParam(0));
+      Sleep(rate);
+      
+      dummy = CreateThing(proj_tpl, tdg4);
+      SetThingParent(dummy, GetParam(0));
+      Sleep(rate);
+
+      dummy = CreateThing(proj_tpl, tdg5);
+      SetThingParent(dummy, GetParam(0));
+      Sleep(interval);
+      
+      cur_round = cur_round + 1;
+   }
+   Return;
+
+end
+
+

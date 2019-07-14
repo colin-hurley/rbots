@@ -1,0 +1,62 @@
+# Jedi Knight Cog Script
+#
+# K3_SECTORDAMAGE.COG
+#
+# Apply constant amount of damage to a player in a sector.
+# Sector can heal instead, if a negative number is used for the "damage" variable.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x40
+
+symbols
+   
+sector      damageSector
+
+flex        damageInterval=1.0
+flex        damage=4.0
+
+int         victim                        local
+int         type                          local
+
+message     startup
+message     pulse
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   if(damageSector > -1) SetPulse(damageInterval);
+   Return;
+
+# ........................................................................................
+
+pulse:
+   victim = FirstThingInSector(damageSector);
+   while (victim != -1)
+   {
+      type = GetThingType(victim);
+      // If we have an actor (2) or a player (10)
+      if ((type==2) || (type==10))
+      {
+         // Do the damage or healing.
+         if (damage > 0)
+         {                       
+            DamageThing(victim, damage, 0x1, victim);
+         }
+         else
+         {
+            HealThing(victim, -damage);
+         }
+      }
+      victim = NextThingInSector(victim);
+   }
+   Return;
+
+end
+

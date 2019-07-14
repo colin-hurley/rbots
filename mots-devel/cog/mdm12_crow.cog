@@ -1,0 +1,63 @@
+# Jedi Knight Cog Script
+#
+# S2L2_skiff1.cog
+#
+# This cog will move stuff around.  It's pretty cool.
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+# ===============================================
+
+symbols
+
+message  activate
+message  arrived
+
+surface  button1         
+surface  button2         
+
+thing    ship       linkid=2
+
+sound    wav0=Activate02.wav	local
+sound	   wav1=lvrclik1.wav	local
+
+end
+
+# ========================================================================
+code
+
+activate:                 
+				MoveToFrame(ship, 1, 3);
+				SetWallCel(button1, 1);
+				PlaySoundPos(wav0, SurfaceCenter(button1), 1, -1, -1, 0);
+				Sleep(5.0);
+				MoveToFrame(ship, 0, 3);
+				SetWallCel(button1, 0);
+				PlaySoundPos(wav0, SurfaceCenter(button1), 1, -1, -1, 0);
+
+	return;
+ 
+# .......................................................................
+
+
+arrived:
+	if (GetCurFrame(ship) == 0)
+		{
+			SetWallCel(button1, 0);
+		}
+
+	if (GetCurFrame(ship) == 1)
+		{
+			SetWallCel(button1, 1);
+		}
+	return;
+
+end
+
+
+
+
+
+
+
+
+

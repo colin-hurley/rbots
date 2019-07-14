@@ -1,0 +1,43 @@
+# Jedi Knight Cog Script
+#
+# CTF_ICONSCLIENT.COG
+#
+# Client side script to display icons.
+# SetInvActivated is NOT synched over the network,
+# this is a more generic way to do this kind of things
+#
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+int         iconnum                          local
+int         onoff                            local
+
+message     trigger
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+
+   // Handle only TRIGGER_ICONS
+   if(GetSourceRef() != 1001) Return;
+
+   iconnum     = GetParam(0);
+   onoff       = GetParam(1);
+
+   SetInvActivated(GetLocalPlayerThing(), iconnum, onoff);
+
+   Return;
+
+end
+
+

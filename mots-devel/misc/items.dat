@@ -1,0 +1,267 @@
+# Item definition file for Jedi Knight Missions
+
+####################################################
+#                                                  #
+# Note that things aren't always in numeric order, #
+# so be careful when making new assignments - rf   #
+#                                                  #
+####################################################
+
+# ========================================================================================
+# name                  id              min     max     flags   args
+# ========================================================================================
+
+###########
+# Weapons #
+###########
+
+# ========================================================================================
+none                    120             0       0       0x004
+
+fists                   121             0       1       0x024   cog=weap_fists_m.cog
+bryar_pistol            122             0       1       0x0a4   cog=weap_bryar_m.cog
+stormtrooper_rifle      123             0       1       0x0a4   cog=weap_strifle_m.cog
+thermal_detonator       124             0       30      0x0a4   cog=weap_thermdet_m.cog
+para_EWEB               125             0       0       0x0a4   cog=weap_empty_m.cog
+repeater                126             0       1       0x0a4   cog=weap_repeater_m.cog
+rail_detonator          127             0       1       0x0a4   cog=weap_raildet_m.cog
+sequencer_charge        128             0       30      0x0a4   cog=weap_seqcharge_m.cog
+concussion_rifle        129             0       1       0x0a4   cog=weap_concrifle_m.cog
+EWEB                    130             0       32000   0x0b4   cog=weap_EWEB_m.cog
+
+lightsaber              131             0       1       0x0a4   cog=weap_saber_m.cog
+blastech                132             0       1       0x0a4   cog=weap_blastech_m.cog
+stormtrooper_scope      133             0       1       0x0a4   cog=weap_stscope_m.cog
+flash_bomb              134             0       30      0x0a4   cog=weap_flash_m.cog
+tusken_prod             135             0       1       0x0a4   cog=weap_crossbow_m.cog
+para_repeater           136             0       0       0x0a4   cog=weap_empty_m.cog
+rail_seeker             137             0       1       0x0a4   cog=weap_railseek_m.cog
+manual_sequencer        138             0       30      0x0a4   cog=weap_manseq_m.cog
+para_concussion         139             0       0       0x0a4   cog=weap_empty_m.cog
+carbo_gun               140             0       1       0x0a4   cog=weap_carbgun_m.cog
+
+# ========================================================================================
+
+
+###################
+# Ammo and Energy #
+###################
+
+# ========================================================================================
+#energy is used for bryar pistol and stormtrooper rifle.
+energy                  11              0       500     0x080
+
+#power is used for the the bowcaster, repeater and concussion rifle.
+power                   12              0       500     0x080
+
+#battery is used for other inventory items.
+battery                 13              0       200     0x020
+
+#force is used for the force powers.
+forcemana               14              0       400     0x000
+
+#rail charges
+railcharges             15              0       30      0x080
+
+#carbonite pellets
+carbpellets             90              0       20      0x080
+
+#seeking rail detonators
+seekrails               91              0       30      0x080
+
+#EWEB Rounds (what it says...)
+EWEB_rounds             92              0       800     0x000
+# ========================================================================================
+
+
+###########
+# Bonuses #
+###########
+
+#new force stars gained in a level.
+new_stars               16              0       32      0x000
+
+#spendable stars
+spend_stars             17              0       32      0x000
+
+#total number of stars.
+total_stars             18              0       32      0x000
+
+
+###############
+#Force Defense#
+###############
+
+f_defense               19              0      4.0      0x018     cog=force_defense.cog
+
+
+##############
+#Force Powers#
+##############
+
+# Note that the icon names are taken from these names:
+# ========================================================================================
+jedi_rank               20              0       8.0     0x000    cog=force_well.cog
+# ........................................................................................
+
+f_jump                  21              0       4.0     0x108    cog=force_jump.cog
+f_speed                 22              0       4.0     0x108    cog=force_speed.cog
+f_seeing                23              0       4.0     0x108    cog=force_seeing.cog
+f_pull                  24              0       4.0     0x108    cog=force_pull.cog
+
+f_healing               25              0       4.0     0x108    cog=force_heal.cog
+f_persuasion            26              0       4.0     0x108    cog=force_persuasion.cog
+f_blinding              27              0       4.0     0x108    cog=force_blinding.cog
+f_absorb                28              0       4.0     0x118    cog=force_absorb.cog
+f_protection            29              0       4.0     0x118    cog=force_protection.cog
+
+#f_throw                 30              0       4.0     0x008    cog=force_throw.cog
+f_grip                  31              0       4.0     0x108    cog=force_grip.cog
+#f_lightning             32              0       4.0     0x008    cog=force_lightning.cog
+f_destruction           33              0       4.0     0x108    cog=force_destruction.cog
+f_deadlysight           34              0       4.0     0x108    cog=force_deadlysight.cog
+
+# ........................................................................................
+
+f_farsight              35              0       4.0     0x108    cog=force_farsight.cog
+f_prject                36              0       4.0     0x108    cog=force_project.cog
+f_saberthrow            37              0       4.0     0x108    cog=force_saberthrow.cog
+f_push                  38              0       4.0     0x108    cog=force_push.cog
+f_chainlight            39              0       4.0     0x108    cog=force_chainlight.cog
+
+# ========================================================================================
+
+#################
+#Inventory Items#
+#################
+
+# Note that the icon names are taken from these names:
+#
+# The first 5 letters of the item name become the third through seventh
+# letter of the icon filename.  i.e. "wrench" becomes "icwrenc8.bm" and
+# "icwrenc16.bm".
+# ========================================================================================
+bactatank               40              0       5       0x102   cog=item_bacta.cog
+irgoggles               41              0       1       0x102   cog=item_irgoggles.cog
+fieldlight              42              1       1       0x122   cog=item_fieldlight.cog
+keyimperial             43              0       1       0x042   cog=item_keyimperial.cog
+wrench                  44              0       1       0x042   cog=item_wrench.cog
+datadisk                45              0       1       0x042   cog=item_datadisk.cog
+keyred                  46              0       1       0x042   cog=item_keyred.cog
+keyblue                 47              0       1       0x042   cog=item_keyblue.cog
+keyyellow               48              0       1       0x042   cog=item_keyyellow.cog
+wrchblue                49              0       1       0x042   cog=item_wrenchblue.cog
+wrchyellow              50              0       1       0x042   cog=item_wrenchyellow.cog
+keygreen                51              0       1       0x042   cog=item_keygreen.cog
+tsknclothes             52              0       1       0x002   cog=item_tusken_clothes.cog
+hvyexplosive            53              0       1       0x002   cog=item_heavy_explosive.cog
+hlcrn                   54              0       1       0x002   cog=item_holocron.cog
+drarm                   55              0       1       0x042   cog=item_droidarm.cog
+prybar                  56              0       1       0x042   cog=item_prybar.cog
+radio                   57              0       1       0x042   cog=item_radio.cog
+
+# ========================================================================================
+
+
+
+#####################
+# Player Statistics #
+#####################
+
+# ========================================================================================
+shields                 60              0       200.0   0x030   cog=item_shields_m.cog
+force_armor             61              0       200.0   0x000
+supershields            62              0         1.0   0x010   #cog=item_supershields.cog
+powerboost              63              1.0       2.0   0x000
+s_dark                  64              0         1.0   0x000
+s_light                 65              0         1.0   0x000
+revive                  66              0         1.0   0x000
+player_sex              67              0         1.0   0x000   # 0 For male (Kyle), 1 for female (Mara)
+
+ysalamiri               68              0         1     0x042
+maxmana                 69              0       400.0   0x000
+
+# ========================================================================================
+
+###########
+# Scoring #
+###########
+
+# ========================================================================================
+secrets                 70              0       20      0x000
+maxsecrets              71              0       20      0x000
+
+# morality
+
+peds_killed             72              0       1000    0x000
+peds_total              73              0       1000    0x000
+force_morality          74              -40     40      0x000
+alignment               75              -100    100     0x000
+
+# ========================================================================================
+
+
+#####################
+# Multiplayer Modes #
+#####################
+
+# ========================================================================================
+teamcolor               80              0       2       0x040
+ysalamiri               81              0       1       0x048
+goldflag                82              0       1       0x048
+redkey                  83              0       1       0x042    cog=ctf_itemkeyred.cog
+goldkey                 84              0       1       0x042    cog=ctf_itemkeygold.cog
+
+# ========================================================================================
+
+
+# indicator to say that saber is being drawn
+drawingsaber            89              0       1       0x000
+
+# indicates that technological weapons cannot be fired.
+weaponssuppressed       93              0    1000       0x000
+
+
+############################
+# Goals & Level Completion #
+############################
+
+# ========================================================================================
+# Bins 99 - 115 are RESERVED
+# ========================================================================================
+# They will store the number of the first goal description text in cogStrings.uni, and the
+# display status of up to 16 goals (0 to 15).
+# ========================================================================================
+
+stringOffset            99              0       99999   0x000
+
+goal00                  100             0       1000    0x040
+goal01                  101             0       1000    0x040
+goal02                  102             0       1000    0x040
+goal03                  103             0       1000    0x040
+goal04                  104             0       1000    0x040
+goal05                  105             0       1000    0x040
+goal06                  106             0       1000    0x040
+goal07                  107             0       1000    0x040
+goal08                  108             0       1000    0x040
+goal09                  109             0       1000    0x040
+goal10                  110             0       1000    0x040
+goal11                  111             0       1000    0x040
+goal12                  112             0       1000    0x040
+goal13                  113             0       1000    0x040
+goal14                  114             0       1000    0x040
+goal15                  115             0       1000    0x040
+
+botcam			116		1	1	0x120	cog=rbot-botcam.cog
+numbots			117		1	1	0x120	cog=rbot-setup.cog
+difficulty		118		1	1	0x120	cog=rbot-difficulty.cog
+
+hotkeyOffset            150             0       99999   0x000
+
+
+# =============== #
+# MAX Bins =  199 #
+# =============== #
+
+end
+

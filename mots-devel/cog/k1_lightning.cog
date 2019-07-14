@@ -1,0 +1,53 @@
+# Jedi Knight Cog Script
+#
+# 03_lightning.cog
+#
+# Script for electric pulses in tube. The script can handle up to 10 ghost object in one
+# random loop.
+#
+# [SD]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+symbols
+	message	startup		
+	message  timer		
+	
+	thing		ghost0				linkid=-1
+	thing		ghost1				linkid=-1
+	thing		ghost2				linkid=-1
+	thing		ghost3				linkid=-1
+	thing		ghost4				linkid=-1
+	thing		ghost5				linkid=-1
+	thing		ghost6				linkid=-1
+	thing		ghost7				linkid=-1
+	thing		ghost8				linkid=-1
+	thing		ghost9				linkid=-1
+
+	int		numghost			desc=max_number_ghost
+	int		dummy				local
+	int		number				local
+	
+ 	template	flash=+force_lightning		local
+	
+	sound		wav0=ForceLitning02.wav
+
+end
+
+
+code
+
+startup:
+	
+	if (numghost>10) numghost=1; 
+	SetTimer(rand());
+	return;
+
+timer:
+	number = rand()*numghost;
+	dummy = CreateThing(flash, ghost0[number]);
+	PlaySoundThing(wav0, ghost0[number], 0.5, -1, -1, 0);
+	SetTimer(rand()*10);
+	return;
+
+end

@@ -1,0 +1,51 @@
+# Jedi Knight Cog Script
+#
+# CTF_SAFEENTRY.COG
+#
+# Client side script to catch the player in case he misses the
+# marked message from the server, or the lag is too big.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+sector      mark_red                         desc=mark_red_team
+sector      mark_gold                        desc=mark_gold_team
+
+thing       ghost_red                        nolink,desc=ghost_red
+thing       ghost_gold                       nolink,desc=ghost_gold
+
+model       neutral_mdl=ky.3do               local
+
+int         player=0                         local
+
+message     entered
+
+end
+
+# ========================================================================================
+
+code
+
+entered:
+   player = GetSourceRef();
+
+   // Kill the player's velocity
+   StopThing(player);
+
+   // Then teleport him back up
+   if(GetSenderRef() == mark_red) TeleportThing(player, ghost_red);
+   if(GetSenderRef() == mark_gold) TeleportThing(player, ghost_gold);
+
+   // Give the player a neutral costume
+   SetThingModel(player, neutral_mdl);
+
+   Return;
+
+end
+
+

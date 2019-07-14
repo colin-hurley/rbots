@@ -1,0 +1,191 @@
+
+# Jedi Knight Missions Cog Script
+#
+# MDM04_TRAPRELEASE.COG
+#
+# Script operating door exiting Rancor Pit.
+#
+# [TT]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+message  activated
+message  arrived
+message  trigger
+message  user0
+message  timer
+message  blocked
+message  startup
+
+thing    rancordoor              linkid=0
+thing    smalldoor               linkid=1
+
+surface  switch0                 linkid=2
+surface  switch1                 linkid=2
+
+int      player                  local
+int      soundnum0               local
+int      soundnum1               local
+int      done=0                  local
+int      doorstatus              local
+int      movestatus              local
+int      damage_amount=10        local
+int      smallsound=0            local
+int      rancorsound=0           local
+
+flex     rancormove=1.0
+flex     smallmove=4.0
+flex     smallpause=5.0
+flex     rancorpause=7.0
+
+sound    wav0
+sound    wav1
+sound    locked=df_door2-3.wav   local
+
+sector   dungeon1
+sector   dungeon2
+sector   dungeon3
+
+cog      trapcog
+end
+
+
+code
+
+startup:
+   SendMessage(trapcog, user2);
+   call openrancor;
+   return;
+
+
+trigger:
+   if(GetSourceRef() != 15000) Return;
+
+   If(done) return;
+   done=1;
+   call closerancor;
+   Return;
+
+user0:
+   If(done) return;
+   done=1;
+   call closerancor;
+   return;
+
+activated:
+   If(GetSenderID() == 0)
+   {
+      if(rancorsound) return;
+      rancorsound=1;
+
+      PlaySoundThing(locked, rancordoor, 1, -1, -1, 0);
+      SetTimerEx(GetSoundLen(locked)+1, 5, 0, 0);
+      return;
+   }
+
+   If(GetSenderID() == 1)
+   {
+      if(smallsound) return;
+      smallsound=1;
+
+      PlaySoundThing(locked, smalldoor, 1, -1, -1, 0);
+      SetTimerEx(GetSoundLen(locked)+1, 6, 0, 0);
+      return;
+   }
+
+   If(GetSenderID() == 2)
+   {
+      if(GetWallCel(switch0) == 1) return;
+      call opensmall;
+   }
+   return;
+
+arrived:
+   If(GetSenderID() == 0)
+   {
+      call checkdoor;
+      If(doorstatus == 0)
+      {
+         done=0;
+         SetTimerEx(10, 3, 0, 0);
+      }
+   }
+
+   If(GetSenderID() == 1)
+   {
+      If(GetCurFrame(smalldoor) == 1)
+      {
+         SetTimerEx(smallpause, 4, 0, 0);
+      }
+
+      If(GetCurFrame(smalldoor) == 0)
+      {
+         SetWallCel(switch0, 0);
+         SetWallCel(switch1, 0);
+      }
+   }
+   return;
+
+timer:
+   If(GetSenderID() == 3)
+   {
+      call openrancor;
+      return;
+   }
+   else
+   If(GetSenderID() == 4)
+   {
+      call closesmall;
+      return;
+   }
+   else
+   If(GetSenderID() == 5)
+   {
+      rancorsound = 0;
+      return;
+   }
+   else
+   If(GetSenderID() == 6)
+   {
+      smallsound=0;
+      return;
+   }
+
+   return;
+
+blocked:
+   If(GetSenderID() == 0)
+   {
+      player = GetSourceRef();
+      DamageThing(player, damage_amount, 0x01, player);
+   }
+   return;
+
+openrancor:
+   MoveToFrame(rancordoor, 1, 3);
+   return;
+
+closerancor:
+   MoveToFrame(rancordoor, 0, 3);
+   return;
+
+opensmall:
+   SetWallCel(switch0, 1);
+   SetWallCel(switch1, 1);
+   MoveToFrame(smalldoor, 1, smallmove);
+   return;
+
+closesmall:
+   MoveToFrame(smalldoor, 0, smallmove);
+   return;
+
+checkdoor:
+   doorstatus = GetCurFrame(rancordoor);
+   movestatus = IsThingMoving(rancordoor);
+   return;
+
+end
+

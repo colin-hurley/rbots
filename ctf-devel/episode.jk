@@ -1,0 +1,18 @@
+"Rbots Capture the Flag"
+
+TYPE 8
+
+SEQ 8
+
+# <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
+
+10:	0	1	LEVEL	duel-1.jkl	0	0	20	-1
+20:	0	2	LEVEL	arena-1.jkl	0	0	10	-1
+30:	0	3	LEVEL	duel-2.jkl	0	0	40	-1
+40:	0	4	LEVEL	arena-2.jkl	0	0	30	-1
+50:	0	5	LEVEL	duel-3.jkl	0	0	60	-1
+60:	0	6	LEVEL	arena-3.jkl	0	0	50	-1
+70:	0	7	LEVEL	duel-4.jkl	0	0	80	-1
+80:	0	8	LEVEL	arena-4.jkl	0	0	70	-1
+
+end

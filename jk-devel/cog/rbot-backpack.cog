@@ -1,0 +1,335 @@
+# Rbot Backpack Cog - Alpha 0.30
+#
+# Created by Raynar
+# Addtional code by Hell Raiser
+
+symbols
+
+message	touched
+message	taken
+message	removed
+message	created
+message	trigger
+
+thing	backpack				local
+thing	player					local
+sound	pickupsnd=BactaPu1.wav	local
+
+int		autopickup=0			local
+int		autoselect_weapon=-1	local
+
+int		used0=-1	local
+int		used1=-1	local
+int		used2=-1	local
+int		used3=-1	local
+int		used4=-1	local
+int		used5=-1	local
+int		used6=-1	local
+int		used7=-1	local
+int		used8=-1	local
+int		used9=-1	local
+int		item0	local
+int		item1	local
+int		item2	local
+int		item3	local
+int		item4	local
+int		item5	local
+int		item6	local
+int		item7	local
+int		item8	local
+int		item9	local
+int		item10	local
+int		item11	local
+int		item12	local
+int		item13	local
+int		item14	local
+int		item15	local
+int		item16	local
+int		item17	local
+int		item18	local
+int		item19	local
+int		item20	local
+int		item21	local
+int		item22	local
+int		item23	local
+int		item24	local
+int		item25	local
+int		item26	local
+int		item27	local
+int		item28	local
+int		item29	local
+int		item30	local
+int		item31	local
+int		item32	local
+int		item33	local
+int		item34	local
+int		item35	local
+int		item36	local
+int		item37	local
+int		item38	local
+int		item39	local
+int		item40	local
+int		item41	local
+int		item42	local
+int		item43	local
+int		item44	local
+int		item45	local
+int		item46	local
+int		item47	local
+int		item48	local
+int		item49	local
+int		item50	local
+int		item51	local
+int		item52	local
+int		item53	local
+int		item54	local
+int		item55	local
+int		item56	local
+int		item57	local
+int		item58	local
+int		item59	local
+int		weap0	local
+int		weap1	local
+int		weap2	local
+int		weap3	local
+int		weap4	local
+int		weap5	local
+int		weap6	local
+int		weap7	local
+int		weap8	local
+int		weap9	local
+int		weap10	local
+int		weap11	local
+int		weap12	local
+int		weap13	local
+int		weap14	local
+int		weap15	local
+int		weap16	local
+int		weap17	local
+int		weap18	local
+int		weap19	local
+int		weap20	local
+int		weap21	local
+int		weap22	local
+int		weap23	local
+int		weap24	local
+int		weap25	local
+int		weap26	local
+int		weap27	local
+int		weap28	local
+int		weap29	local
+int		weap30	local
+int		weap31	local
+int		weap32	local
+int		weap33	local
+int		weap34	local
+int		weap35	local
+int		weap36	local
+int		weap37	local
+int		weap38	local
+int		weap39	local
+int		weap40	local
+int		weap41	local
+int		weap42	local
+int		weap43	local
+int		weap44	local
+int		weap45	local
+int		weap46	local
+int		weap47	local
+int		weap48	local
+int		weap49	local
+int		weap50	local
+int		weap51	local
+int		weap52	local
+int		weap53	local
+int		weap54	local
+int		weap55	local
+int		weap56	local
+int		weap57	local
+int		weap58	local
+int		weap59	local
+int		index	local
+int		index2	local
+int		botid	local
+
+end
+
+# ========================================================================================
+
+code
+
+touched:
+	player = GetSourceRef();
+	backpack = GetSenderRef();
+	if (GetThingHealth(player) > 0) TakeItem(backpack, player);
+	Return;
+
+# ........................................................................................
+
+taken:
+	player = GetSourceRef();
+	backpack = GetSenderRef();
+
+	jkPrintUNIString(player, 200);
+
+	// Do effects.
+	PlaySoundLocal(pickupsnd, 1, 0, 0);
+	AddDynamicTint(player, 0.0, 0.0, 0.2);
+
+	// Pickup the backpack
+	// Find backpack and add items to players inventory
+	for (index=0;index<10;index=index+1)
+	{
+		if (used0[index]==backpack) // found the item
+		{
+			ChangeInv(player, 11,item0[index]);
+			ChangeInv(player, 12,item0[10+index]);
+			ChangeInv(player, 8,item0[20+index]); 
+			ChangeInv(player, 15,item0[30+index]); 
+			ChangeInv(player, 4,item0[40+index]); 
+			if (weap0[index]==1) SetInv(player, 2,1);
+			if (weap0[10+index]==1) SetInv(player, 3,1);
+			if (weap0[20+index]==1) SetInv(player, 5,1);
+			if (weap0[30+index]==1) SetInv(player, 6,1);
+			if (weap0[40+index]==1) SetInv(player, 7,1);
+			if (weap0[50+index]==1) SetInv(player, 9,1);
+
+			used0[index]=-1; // reset spot for another backpack
+			index=10; // break out of loop
+		}
+	}
+
+
+	// New ammo is already assigned, so this is like a autopickup/autoreload mix,
+	// it will select the best weapon overall with all the stuff in the backpack
+	// taken into account.
+
+	//autopickup = GetAutoPickup();
+	//autoselect_weapon = AutoSelectWeapon(player, 0);
+
+	//if(autopickup & 1)
+	//{
+	//	if( !((autopickup & 2) && ((autoselect_weapon == 4) || (autoselect_weapon == 8) || (autoselect_weapon == 9)) ))
+	//	{
+	//		if(!((autopickup & 4) && (GetWeaponPriority(player, GetWeaponBin(GetCurWeapon(player)), 0) >= GetWeaponPriority(player, autoselect_weapon, 0) )))
+	//		{
+	//			if(!((autopickup & 8) && (GetWeaponBin(GetCurWeapon(player)) == jkGetMultiParam(1))))
+	//			{
+	//				SelectWeapon(player, autoselect_weapon);
+	//				Return;
+	//			}
+	//		}
+	//	}
+	//}
+	Return;
+
+removed:
+	backpack=getsenderref(); // backpack not picked up in time
+	for (index=0;index<10;index=index+1)
+	{
+		if (used0[index]==backpack) // found the item
+		{
+			used0[index]=-1; // reset spot for another backpack 
+			index=10; // break out of loop
+		}
+	}
+
+	return;
+
+created:
+	// look for an empty spot to store our info
+	for (index=0;index<10;index=index+1)
+	{
+		if (used0[index]==-1) // found an empty slot
+		{
+			used0[index]=getsenderref(); // set used slot to powerup
+			for (index2=0;index2<60;index2=index2+10) // set up inventory defaults - wait for trigger to supply real info
+			{
+				item0[index2+index]=0;
+				weap0[index2+index]=0;
+			}
+			index=10; // break out of loop
+		}
+	}	
+	return;
+
+trigger:
+	if (getsourceref() == 12000) // backpack taken by bot
+	{
+		botid=getparam(0);
+		backpack=getparam(1);
+		for (index=0;index<10;index=index+1)
+		{
+			if (used0[index]==backpack) // found the item
+			{
+				SendTrigger(-1, 12001, botid, item0[index], item0[10+index], item0[20+index]); 
+				SendTrigger(-1, 12002, botid, item0[30+index], item0[40+index], item0[50+index]); 
+				SendTrigger(-1, 12003, botid, weap0[index], weap0[10+index], weap0[20+index]); 
+				SendTrigger(-1, 12004, botid, weap0[30+index], weap0[40+index], weap0[50+index]); 
+				used0[index]=-1; // reset spot for another backpack 
+				index=10; // break out of loop
+			}
+		}
+	}
+	if (getsourceref() == 12010) // set inventory items from dead bot or player
+	{
+		backpack=getparam(0);
+		for (index=0;index<10;index=index+1)
+		{
+			if (used0[index]==backpack) // found the item
+			{
+				item0[index]=getparam(1);
+				item0[10+index]=getparam(2);
+				item0[20+index]=getparam(3);
+				index=10; // break out of loop
+			}
+		}
+	}
+	if (getsourceref() == 12011) // set inventory items from dead bot or player
+	{
+		backpack=getparam(0);
+		for (index=0;index<10;index=index+1)
+		{
+			if (used0[index]==backpack) // found the item
+			{
+				item0[30+index]=getparam(1);
+				item0[40+index]=getparam(2);
+				item0[50+index]=getparam(3);
+				index=10; // break out of loop
+			}
+		}
+	}
+	if (getsourceref() == 12012) // set inventory items from dead bot or player
+	{
+		backpack=getparam(0);
+		for (index=0;index<10;index=index+1)
+		{
+			if (used0[index]==backpack) // found the item
+			{
+				weap0[index]=getparam(1);
+				weap0[10+index]=getparam(2);
+				weap0[20+index]=getparam(3);
+				index=10; // break out of loop
+			}
+		}
+	}
+	if (getsourceref() == 12013) // set inventory items from dead bot or player
+	{
+		backpack=getparam(0);
+		for (index=0;index<10;index=index+1)
+		{
+			if (used0[index]==backpack) // found the item
+			{
+				weap0[30+index]=getparam(1);
+				weap0[40+index]=getparam(2);
+				weap0[50+index]=getparam(3);
+				index=10; // break out of loop
+			}
+		}
+	}
+
+	return;
+
+end
+
+

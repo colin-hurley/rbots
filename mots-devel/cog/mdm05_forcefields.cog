@@ -1,0 +1,117 @@
+# Jedi Knight Cog Script
+# 14_forcefield.cog	12/23/96 [sxc]
+# This script controls/checks the status of three switches and a force field
+#  that is controlled by the three switches.
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+symbols
+
+message		startup
+message		touched
+message		user0	
+message		damaged
+message		user5
+message         timer
+
+float		   maxDamage=10.0
+float		   minDamage=5.0
+
+surface		forcefield		linkid=4	mask=0x408
+surface		forcefield2		linkid=4	mask=0x408
+
+
+sound       hitsound=LTSaberHit012.wav     local
+sound       poweroff=ForceFieldOff01.wav   local
+sound       wav0=ForceFieldHum01.wav       local
+
+
+int         damaging=1     local
+int	        field_on=1	   local
+int         flag=0         local
+int         dummy=0        local
+int         dummy1=0       local
+thing		   victim		   local
+float		   damage=0.0 	   local
+float       garbage=0.0    local
+float       garbage1=0     local
+float       type=0.0       local
+float       interval=0.25  local
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+	SetFaceGeoMode(forcefield, 0);
+	SetFaceGeoMode(forcefield2, 0);
+	return;
+	
+user0:
+	// set to NOMOVE
+	ClearAdjoinFlags(forcefield, 2);
+	ClearAdjoinFlags(forcefield2, 2);
+	
+	// set to solid color face
+	SetFaceGeoMode(forcefield, 3);
+	SetFaceGeoMode(forcefield2, 3);
+	
+	// set to transluscent
+	SetFaceType(forcefield, 2);
+	SetFaceType(forcefield2, 2);
+	
+	// set to MagSealed
+	SetSurfaceFlags(forcefield, 16384);
+	SetSurfaceFlags(forcefield2, 16384);
+	
+	SurfaceLightAnim(forcefield, 0, 1, 0.25);
+	SurfaceLightAnim(forcefield2, 0, 1, 0.25);
+	
+   dummy1 = PlaySoundPos(wav0, GetSurfaceCenter(forcefield), 0.75, 8, 15, 1);
+	return;
+
+# ========================================================================================
+
+touched:
+	if ((field_on == 1) && (GetSenderID() == 4) && (damaging == 1))
+	{
+    garbage = PlaySoundPos(hitsound, SurfaceCenter(forcefield), 1, 10, -1, 0);
+    victim = GetSourceRef();
+	 damage = (Rand() * (maxDamage - minDamage)) + minDamage;
+	 DamageThing(victim, damage, 0x2, victim);		
+    damaging=0;
+    SetTimer(interval);
+	}
+	else return;
+
+# ========================================================================================
+
+damaged:
+        SetFaceGeoMode(forcefield,3);
+        sleep(0.5);
+        SetFaceGeoMode(forcefield,1);
+
+return;
+
+# ========================================================================================
+
+timer:
+      damaging=1;
+      return;
+
+user5:
+         SetFaceGeomode(forcefield, 0);
+         SetFaceGeomode(forcefield2, 0);
+
+         Setadjoinflags(forcefield,2);
+         Setadjoinflags(forcefield2,2);
+
+			StopSound(dummy1, 0.25);
+         
+         return;
+        
+
+end
+

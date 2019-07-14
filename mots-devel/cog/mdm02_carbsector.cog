@@ -1,0 +1,154 @@
+#
+# 	Jedi Knight Missions Cog Script
+#
+#	00_CarbSector.cog
+#
+#  Carbonite freeze everything in a sector upon activation.
+#
+#	[RF]
+#
+# 	1997 (C) LucasArts Entertainment Co.  All Rights Reserved.
+
+
+symbols
+
+message		activated
+message     	startup
+message     	timer
+message		pulse
+message		user0
+
+
+template	partSystem=+upenergyhi				local
+
+thing		ghost0
+thing		platform
+thing		console 		linkid=0
+thing		clamp
+thing		switch
+
+sector		freezesector 		linkid=1
+
+flex		freezefreq=5.0
+flex		freezetime=10.0
+
+int		canfreezenow=1					local
+
+sound		wav0=09pipesdetatch.wav				local
+sound		wav1=09pipesmove.wav				local
+sound		wav2=18airburst01.wav				local
+sound		beep=Activate02.wav 				local
+
+end
+
+code
+
+# ----------------------------------------------------------------------------------------------
+
+startup:
+	canfreezenow = 1;
+   	SetMasterCOG(GetSelfCOG());
+return;
+
+# ----------------------------------------------------------------------------------------------
+
+	// Hmmm... Could it be this simple?
+activated:
+	if (canfreezenow)
+	{
+   	PlaySoundPos(beep, console, 1.0, -1, -1, 0);
+	Sleep(0.5);
+	PlaySoundThing(wav2, platform, 1.5, -1, -1, 0x00);
+	MoveToFrame(switch, 1, 30);
+	SetPulse(0.5);
+		canfreezenow = 0;
+		if(GetSenderID() == 0)
+				// If the player actor is in the sector,
+			if(GetThingSector(GetLocalPlayerThing()) == freezesector)
+
+				//	Freeze'm up.
+				SendMessageEx(GetThingClassCog(GetLocalPlayerThing()), skill, 1035, freezetime, 0, 0);
+	Sleep(0.5);
+	MoveToFrame(clamp, 1, 2);
+	MoveToFrame(switch, 1, 30);
+	PlaySoundThing(wav0, clamp, 1.5, -1, -1, 0x00);
+	PlaySoundThing(wav1, clamp, 1.5, -1, -1, 0x00);
+	WaitForStop(clamp);
+//	Sleep(2.5);
+	SetPulse(0);
+	PlaySoundThing(wav0, platform, 1.5, -1, -1, 0x00);
+	MoveToFrame(platform, 1, 1.4);
+	MoveToFrame(clamp, 0, 1.4);
+	PlaySoundThing(wav0, clamp, 1.5, -1, -1, 0x00);
+	PlaySoundThing(wav1, clamp, 1.5, -1, -1, 0x00);
+	Sleep(0.25);
+	PlaySoundThing(wav1, platform, 1.5, -1, -1, 0x00);
+
+	Sleep(7);
+	MoveToFrame(platform, 0, 1.4);
+	PlaySoundThing(wav0, platform, 1.5, -1, -1, 0x00);
+	Sleep(0.25);
+	PlaySoundThing(wav1, platform, 1.5, -1, -1, 0x00);
+
+		SetTimerEx(freezefreq, 1, 0, 0);
+	MoveToFrame(switch, 0, 30);
+	}
+
+return;
+
+# ----------------------------------------------------------------------------------------------
+
+timer:
+	canfreezenow = 1;
+return;
+# ----------------------------------------------------------------------------------------------
+
+pulse:
+	dummy=CreateThing(partSystem, ghost0);
+	if(GetThingSector(GetLocalPlayerThing()) == freezesector)
+	SendMessageEx(GetThingClassCog(GetLocalPlayerThing()), skill, 1035, freezetime, 0, 0);
+	return;
+# ----------------------------------------------------------------------------------------------
+
+user0:
+	if (canfreezenow)
+	{
+	MoveToFrame(switch, 1, 30);
+	PlaySoundThing(wav2, platform, 1.5, -1, -1, 0x00);
+	SetPulse(0.5);
+		canfreezenow = 0;
+		if(GetSenderID() == 0)
+				// If the player actor is in the sector,
+			if(GetThingSector(GetLocalPlayerThing()) == freezesector)
+
+				//	Freeze'm up.
+				SendMessageEx(GetThingClassCog(GetLocalPlayerThing()), skill, 1035, freezetime, 0, 0);
+	Sleep(0.5);
+	MoveToFrame(clamp, 1, 2);
+	PlaySoundThing(wav0, clamp, 1.5, -1, -1, 0x00);
+	PlaySoundThing(wav1, clamp, 1.5, -1, -1, 0x00);
+	WaitForStop(clamp);
+//	Sleep(2.5);
+	SetPulse(0);
+	PlaySoundThing(wav0, platform, 1.5, -1, -1, 0x00);
+	MoveToFrame(platform, 1, 1.4);
+	MoveToFrame(clamp, 0, 1.4);
+	PlaySoundThing(wav0, clamp, 1.5, -1, -1, 0x00);
+	PlaySoundThing(wav1, clamp, 1.5, -1, -1, 0x00);
+	Sleep(0.25);
+	PlaySoundThing(wav1, platform, 1.5, -1, -1, 0x00);
+
+	Sleep(7);
+	MoveToFrame(platform, 0, 1.4);
+	PlaySoundThing(wav0, platform, 1.5, -1, -1, 0x00);
+	Sleep(0.25);
+	PlaySoundThing(wav1, platform, 1.5, -1, -1, 0x00);
+
+		SetTimerEx(freezefreq, 1, 0, 0);
+	MoveToFrame(switch, 0, 30);
+	}
+
+return;
+# ----------------------------------------------------------------------------------------------
+			
+end

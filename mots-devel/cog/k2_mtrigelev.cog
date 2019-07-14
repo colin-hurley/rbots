@@ -1,0 +1,86 @@
+# Jedi Knight Cog Script
+#
+# K2_MTRIGELEV.COG
+#
+# Script for K2 Multiple Triggers Elevators.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+symbols
+
+thing       elevator                      desc=elev_thing
+flex        speed=8.0                     desc=speed
+flex        delay=3.0                     desc=delay
+
+surface     plate0                        desc=plate0
+surface     plate1                        desc=plate1
+surface     plate2                        desc=plate2
+surface     plate3                        desc=plate3
+
+surface     cross0                        desc=cross0
+surface     cross1                        desc=cross1
+surface     cross2                        desc=cross2
+surface     cross3                        desc=cross3
+
+surface     switch1                       desc=switch1   mask=0x408
+surface     switch2                       desc=switch2   mask=0x408
+
+message     startup
+message     entered
+message     crossed
+message     activated
+message     damaged
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   SetWallCel(switch1, 1);
+   SetWallCel(switch2, 1);
+
+
+entered:
+crossed: 
+   if(IsMoving(elevator) == 1) Stop;
+   if(GetCurFrame(elevator) == 1) Stop;
+   
+   SetWallCel(switch1, 0);
+   SetWallCel(switch2, 0);
+   MoveToFrame(elevator, 1, speed);
+   WaitForStop(elevator);
+   Sleep(delay);
+   MoveToFrame(elevator, 0, speed);
+   WaitForStop(elevator);
+   SetWallCel(switch1, 1);
+   SetWallCel(switch2, 1);
+   
+   Return;
+
+# ........................................................................................
+
+activated:
+damaged:
+   if((GetSenderRef() != switch1) && (GetSenderRef() != switch2)) Return;
+
+   if(IsMoving(elevator) == 1) Stop;
+   if(GetCurFrame(elevator) == 1) Stop;
+   
+   SetWallCel(switch1, 0);
+   SetWallCel(switch2, 0);
+   MoveToFrame(elevator, 1, speed);
+   WaitForStop(elevator);
+   Sleep(delay);
+   MoveToFrame(elevator, 0, speed);
+   WaitForStop(elevator);
+   SetWallCel(switch1, 1);
+   SetWallCel(switch2, 1);
+
+   Return;
+
+
+end

@@ -1,0 +1,57 @@
+# Jedi Knight Cog Script
+#
+# C2_MOVINGPLATFORM.COG
+#
+# Script for C2 Moving platform
+#
+# This script handles the moving platform that crosses the landscape.
+#
+# [SD & YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       elevator                         desc=elev_thing
+flex        speed=8.0                        desc=speed
+flex        delay=3.0                        desc=delay
+surface     switch                           mask=0x448 desc=switch
+
+int         dummy                            local
+
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+message     damaged
+message     entered
+message     activated
+
+end
+
+# ========================================================================================
+
+code
+
+damaged:
+   if(GetSenderRef() == elevator) Return;
+
+entered:
+activated:  
+   if(IsMoving(elevator) == 1) Return;
+   if(GetCurFrame(elevator) == 1) Return;
+   
+   SetWallCel(switch, 1);
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 1.0, 5.0, 10.0, 0);
+   MoveToFrame(elevator, 1, speed);
+   WaitForStop(elevator);
+   Sleep(delay);
+   MoveToFrame(elevator, 0, speed);
+   WaitForStop(elevator);
+   SetWallCel(switch, 0);
+   dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 1.0, 5.0, 10.0, 0);
+   
+   Return;
+
+end
+

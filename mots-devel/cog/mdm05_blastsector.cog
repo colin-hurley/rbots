@@ -1,0 +1,29 @@
+#MDM05_CoreBlast.cog
+
+
+symbols
+
+message user1
+message user5
+
+vector  vec0
+
+sector  blastzone
+
+flex    thrust=3
+
+end
+#=====================
+code
+
+user1:
+        SetSectorThrust(blastzone, vec0, thrust);
+        return;
+        
+user5:
+
+        SetSectorThrust(blastzone, vec0, 0);
+        return;
+        
+end
+

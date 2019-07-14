@@ -7,7 +7,7 @@
 	<name>RBots</name>
 	<description>Multiplayer bots for Jedi Knight</description>
 	<properties>
-		<revision>0.32</revision>
+		<revision>0.33-SNAPSHOT</revision>
 		<jklib.version>0.0.1</jklib.version>
 	</properties>
 	<dependencyManagement>

@@ -4,32 +4,23 @@
 
 symbols
 
-message	startup		
-message	activate	
-message	arrived		
-message	timer		
+message	activate
+message	arrived
+message	timer
 message	blocked
 message	touched
 
-thing	door0	mask=0x404
-thing	door1	mask=0x404
+thing	door0	mask=0x405
+thing	door1	mask=0x405
 	
 flex	moveSpeed=8.0
 flex	sleepTime=3.0
-
-thing	rbot	local
-flex	dist	local
 
 end
 
 # ========================================================================================
 
 code
-
-startup:
-	return;
-
-# ........................................................................................
 
 touched:
 	if (IsThingMoving(door0)) return;
@@ -38,10 +29,13 @@ touched:
 	SetTimer(sleeptime);
 	return;
 
+# ........................................................................................
+
 activate:
 	if (IsThingMoving(door0) || GetCurFrame(door0)==1) return;
 	MoveToFrame(door0, 1, moveSpeed);
 	MoveToFrame(door1, 1, moveSpeed);
+	SetTimer(sleeptime);
 	return;
 
 # ........................................................................................
@@ -66,4 +60,3 @@ timer:
 	return;
 
 end
-

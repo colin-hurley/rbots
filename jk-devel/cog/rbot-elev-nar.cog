@@ -15,11 +15,13 @@ message	blocked
 message	touched
 message	entered
 
-thing	elevator	mask=0x404
+thing	elevator	mask=0x405
 
+# TODO: the start_wait symbol is not used. but removing it will break existing levels
 flex	start_wait=0.25
 flex	sleeptime=2.0
 flex	speed=4.0
+# TODO: the wav0 symbol is not used. but removing it will break existing levels
 sound	wav0=Activate02.wav
 
 end
@@ -49,4 +51,3 @@ timer:
 	return;
 
 end
-

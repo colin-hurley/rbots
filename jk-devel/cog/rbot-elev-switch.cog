@@ -24,7 +24,7 @@ surface	call1			linkid=1
 surface	call2			linkid=1
 surface	call3			linkid=1
 
-thing	elevator		mask=0x404
+thing	elevator		mask=0x405
 
 int		curframe=0		Local
 int		index			local
@@ -39,6 +39,7 @@ end
 # ========================================================================================
 
 code
+
 entered:
 activate:						// If player presses button
 	if (GetWallCel(call0) == 1) return;
@@ -101,4 +102,3 @@ crossed:						// If player crosses adjoin(s)
 	return;
 
 end
-

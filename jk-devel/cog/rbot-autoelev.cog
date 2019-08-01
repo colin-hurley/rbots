@@ -1,6 +1,6 @@
 # Rbots auto-elevator
 # makes life easier for both bots and player
-# Note: mask=0x404 allows both players and actors to send messages
+# Note: mask=0x405 allows both players and actors to send messages
 #
 # Created by Raynar
 
@@ -12,15 +12,16 @@ message	entered
 message	activated
 message	arrived
 
-thing	elevator	mask=0x404	linkid=1
-sector	top_sector	mask=0x404	linkid=2
-sector	bot_sector	mask=0x404	linkid=3
+thing	elevator	mask=0x405	linkid=1
+sector	top_sector	mask=0x405	linkid=2
+sector	bot_sector	mask=0x405	linkid=3
 surface	callbutton0	linkid=4
 surface callbutton1	linkid=4
 surface callbutton2	linkid=4
 surface callbutton3	linkid=4
 
 flex	start_wait=0.25
+# TODO: the sleeptime symbol is not used. but removing it will break existing levels
 flex	sleeptime=2.0
 flex	speed=4.0
 sound	wav0=lvrclik1.wav
@@ -39,7 +40,6 @@ arrived:
 	return;
 
 activated:
-print("activated");
 	if (getsenderid()==4 && !IsThingMoving(elevator))
 	{
 		PlaySoundPos(wav0, SurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
@@ -52,16 +52,27 @@ print("activated");
 	return;
 
 entered:
+	// if entered the top sector and elevator is at the bottom
 	if (getsenderid()==2 && GetCurFrame(elevator)==0 && !IsThingMoving(elevator))
 	{
 		MoveToFrame(elevator, 1, speed*2);
+		setwallcel(callbutton0,1);
+		setwallcel(callbutton1,1);
+		setwallcel(callbutton2,1);
+		setwallcel(callbutton3,1);
 		return;
 	}
+	// else if entered the bottom sector and elevator is at the top
 	else if (getsenderid()==3 && GetCurFrame(elevator)==1 && !IsThingMoving(elevator))
 	{
 		MoveToFrame(elevator, 0, speed*2);
+		setwallcel(callbutton0,1);
+		setwallcel(callbutton1,1);
+		setwallcel(callbutton2,1);
+		setwallcel(callbutton3,1);
 		return;
 	}
+	// else if elevator was walked on
 	else if (getsenderid()==1) call touched;
 	return;
 
@@ -70,17 +81,23 @@ touched:
 	if (GetCurFrame(elevator)==0  && !IsThingMoving(elevator))
 	{
 		MoveToFrame(elevator, 1, speed);
+		setwallcel(callbutton0,1);
+		setwallcel(callbutton1,1);
+		setwallcel(callbutton2,1);
+		setwallcel(callbutton3,1);
 	}
 	if (GetCurFrame(elevator)==1  && !IsThingMoving(elevator))
 	{
 		MoveToFrame(elevator, 0, speed);
+		setwallcel(callbutton0,1);
+		setwallcel(callbutton1,1);
+		setwallcel(callbutton2,1);
+		setwallcel(callbutton3,1);
 	}
 	return;
 
 blocked:
-print("blocked");
 	MoveToFrame(elevator, 1-GetGoalFrame(elevator), speed);
 	return;
 
 end
-

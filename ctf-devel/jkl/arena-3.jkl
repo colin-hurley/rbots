@@ -1,5 +1,4 @@
-#This file is created by Jed version 0.95 beta
-#Jed is (C) by Alexei Novikov
+#This file is created by ZED version 20080131
 
 SECTION: JK
 
@@ -37160,7 +37159,7 @@ World soundclasses 27
 end
 
 Section: cogscripts
-World scripts 48
+World scripts 49
 0: 00_BREAKINGLAMPS.COG
 1: 00_desttrail.cog
 2: 00_smoketrail.cog
@@ -37203,17 +37202,18 @@ World scripts 48
 39: pow_vest.cog
 40: rbot-backpack.cog
 41: rbot-cli.cog
-42: rbot-navctf.cog
-43: rbot-player.cog
-44: rbot-special.cog
-45: rbot-srv.cog
-46: rbot-srv2.cog
-47: rbot-startup.cog
+42: rbot-nav.cog
+43: rbot-pathctf.cog
+44: rbot-player.cog
+45: rbot-special.cog
+46: rbot-srv.cog
+47: rbot-srv2.cog
+48: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 125
+World cogs 136
 #Num	Script          Symbol values
 0: C2_MTRIGELEV.COG 1 8 3 1767 1779 -1 -1 2004 1988 -1 -1 -1 -1
 1: C2_MTRIGELEV.COG 2 8 3 1940 1947 1904 1882 -1 -1 -1 -1 -1 -1
@@ -37242,56 +37242,66 @@ World cogs 125
 24: C2_BREAKINGGLASSCLIENT.COG
 25: CTF_SAFEENTRY.COG 357 355 250 249
 26: rbot-startup.cog 6 16 1 0 0 1 2
-27: rbot-srv.cog 0 520 1 rbot_kylered 255 0
-28: rbot-srv2.cog 0
-29: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-30: rbot-srv.cog 1 522 2 rbot_kylegold 255 0
-31: rbot-srv2.cog 1
-32: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-33: rbot-srv.cog 2 521 1 rbot_kylered 7695 0
-34: rbot-srv2.cog 2
-35: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-36: rbot-srv.cog 3 523 2 rbot_kylegold 7695 0
-37: rbot-srv2.cog 3
-38: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-39: rbot-srv.cog 4 533 1 rbot_kylered 255 0
-40: rbot-srv2.cog 4
-41: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-42: rbot-srv.cog 5 537 2 rbot_kylegold 255 0
-43: rbot-srv2.cog 5
-44: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-45: rbot-srv.cog 6 534 1 rbot_kylered 7695 0
-46: rbot-srv2.cog 6
-47: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-48: rbot-srv.cog 7 535 2 rbot_kylegold 7695 0
-49: rbot-srv2.cog 7
-50: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-51: rbot-srv.cog 8 538 1 rbot_kylered 255 0
-52: rbot-srv2.cog 8
-53: rbot-cli.cog 8 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-54: rbot-srv.cog 9 539 2 rbot_kylegold 255 0
-55: rbot-srv2.cog 9
-56: rbot-cli.cog 9 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-57: rbot-srv.cog 10 540 1 rbot_kylered 7695 0
-58: rbot-srv2.cog 10
-59: rbot-cli.cog 10 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-60: rbot-srv.cog 11 541 2 rbot_kylegold 7695 0
-61: rbot-srv2.cog 11
-62: rbot-cli.cog 11 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-63: rbot-srv.cog 12 542 1 rbot_kylered 255 0
-64: rbot-srv2.cog 12
-65: rbot-cli.cog 12 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-66: rbot-srv.cog 13 543 2 rbot_kylegold 255 0
-67: rbot-srv2.cog 13
-68: rbot-cli.cog 13 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-69: rbot-srv.cog 14 544 1 rbot_kylered 7695 0
-70: rbot-srv2.cog 14
-71: rbot-cli.cog 14 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-72: rbot-srv.cog 15 545 2 rbot_kylegold 7695 0
-73: rbot-srv2.cog 15
-74: rbot-cli.cog 15 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-75: rbot-navctf.cog 224 255 256 257 111 258 118 259 260 261 223 262 256 257 110 263 121 264 265 266 267 268 269 270 271 272 273 274 267 -1 272 275 276 277 278 279 280 281 272 -1 268 282 283 284 285 286 287 288 268 -1 290 291 292 293 294 289 290 -1 -1 -1 296 297 298 299 300 295 296 -1 -1 -1 295 261 117 223 -1 -1 -1 -1 -1 -1 289 266 120 224 -1 -1 -1 -1 -1 -1 292 255 301 302 303 262 298 -1 -1 -1 10 5 4112 4160 0 0 0 64 16 1 4 2304
-76: rbot-special.cog 266 261 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+27: rbot-nav.cog
+28: rbot-pathctf.cog 224 255 256 257 111 258 118 259 260 261 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 2 1 -1 -1
+29: rbot-pathctf.cog 223 262 256 257 110 263 121 264 265 266 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 2 1
+30: rbot-pathctf.cog 267 268 269 270 271 272 273 274 267 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 -1 -1
+31: rbot-pathctf.cog 272 275 276 277 278 279 280 281 272 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1
+32: rbot-pathctf.cog 268 282 283 284 285 286 287 288 268 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1
+33: rbot-pathctf.cog 290 291 292 293 294 289 290 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 2 1
+34: rbot-pathctf.cog 296 297 298 299 300 295 296 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 1 -1 -1
+35: rbot-pathctf.cog 295 261 117 223 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3 1 -1 -1
+36: rbot-pathctf.cog 289 266 120 224 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 3 1
+37: rbot-pathctf.cog 292 255 301 302 303 262 298 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 1 1 1 0
+38: rbot-special.cog 266 261 265 260 121 118 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 1026 1026 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+39: rbot-srv.cog 0 520 1 rbot_kylered 255 0
+40: rbot-srv2.cog 0
+41: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+42: rbot-srv.cog 1 522 2 rbot_kylegold 255 0
+43: rbot-srv2.cog 1
+44: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+45: rbot-srv.cog 2 521 1 rbot_kylered 7695 0
+46: rbot-srv2.cog 2
+47: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+48: rbot-srv.cog 3 523 2 rbot_kylegold 7695 0
+49: rbot-srv2.cog 3
+50: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+51: rbot-srv.cog 4 533 1 rbot_kylered 255 0
+52: rbot-srv2.cog 4
+53: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+54: rbot-srv.cog 5 537 2 rbot_kylegold 255 0
+55: rbot-srv2.cog 5
+56: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+57: rbot-srv.cog 6 534 1 rbot_kylered 7695 0
+58: rbot-srv2.cog 6
+59: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+60: rbot-srv.cog 7 535 2 rbot_kylegold 7695 0
+61: rbot-srv2.cog 7
+62: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+63: rbot-srv.cog 8 538 1 rbot_kylered 255 0
+64: rbot-srv2.cog 8
+65: rbot-cli.cog 8 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+66: rbot-srv.cog 9 539 2 rbot_kylegold 255 0
+67: rbot-srv2.cog 9
+68: rbot-cli.cog 9 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+69: rbot-srv.cog 10 540 1 rbot_kylered 7695 0
+70: rbot-srv2.cog 10
+71: rbot-cli.cog 10 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+72: rbot-srv.cog 11 541 2 rbot_kylegold 7695 0
+73: rbot-srv2.cog 11
+74: rbot-cli.cog 11 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+75: rbot-srv.cog 12 542 1 rbot_kylered 255 0
+76: rbot-srv2.cog 12
+77: rbot-cli.cog 12 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+78: rbot-srv.cog 13 543 2 rbot_kylegold 255 0
+79: rbot-srv2.cog 13
+80: rbot-cli.cog 13 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+81: rbot-srv.cog 14 544 1 rbot_kylered 7695 0
+82: rbot-srv2.cog 14
+83: rbot-cli.cog 14 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+84: rbot-srv.cog 15 545 2 rbot_kylegold 7695 0
+85: rbot-srv2.cog 15
+86: rbot-cli.cog 15 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
 end
 
 Section: TEMPLATES
@@ -37452,7 +37462,7 @@ shrapnel2_1       _debris2           model3d=shrp_1.3do size=0.045000 movesize=0
 end
 
 Section: Things
-World things 604
+World things 640
 #num template:       name:         	X:		Y:		Z:		Pitch:		Yaw:		Roll:		Sector:
 0: c3_4x4llift c3_4x4llift 1.699996 -.000006 .2 0 90 0 43 thingflags=0X400449 numframes=3 frame=(1.699996/-0.000006/0.200000:0.000000/90.000000/0.000000) frame=(1.699996/-0.000006/1.250000:0.000000/90.000000/0.000000) frame=(1.699996/-0.000006/1.799999:0.000000/90.000000/0.000000)
 1: c3_4x4llift c3_4x4llift .000006 4.849996 -.399999 0 180 0 325 thingflags=0X400449 numframes=3 frame=(0.000006/4.849996/-0.399999:0.000000/180.000000/0.000000) frame=(0.000006/4.849996/1.250000:0.000000/180.000000/0.000000) frame=(0.000006/4.849996/1.749999:0.000000/180.000000/0.000000)
@@ -37713,12 +37723,12 @@ World things 604
 256: ghost ghost -.000108 -.008169 .018589 0 0 0 6
 257: ghost ghost -.000108 -.008169 -.461411 0 0 0 23
 258: ghost ghost 1.05 2.1 -.4 0 180 0 95
-259: ghost ghost -.5 2.15 -.399999 0 0 0 34
-260: ghost ghost -.700108 3.741831 .140001 0 0 0 35
+259: ghost ghost -.6 2.3 -.399999 0 0 0 320
+260: ghost ghost -.712608 3.816831 .140001 0 0 0 35
 261: ghost ghost 0 3.8 .140001 0 0 0 37
 262: ghost ghost 0 1.15 .18 0 0 0 18
 263: ghost ghost -1.05 -2.15 -.4 0 180 0 185
-264: ghost ghost .5 -2.15 -.399999 0 0 0 207
+264: ghost ghost .6 -2.3 -.399999 0 0 0 324
 265: ghost ghost .749892 -3.808169 .140001 0 0 0 208
 266: ghost ghost 0 -3.8 .140001 0 0 0 210
 267: ghost ghost -.5 -1.65 1.2 0 0 0 235

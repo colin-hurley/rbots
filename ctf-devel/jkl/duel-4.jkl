@@ -1,5 +1,4 @@
-#This file is created by Jed version 0.95 beta
-#Jed is (C) by Alexei Novikov
+#This file is created by ZED version 20080131
 
 SECTION: JK
 
@@ -23376,7 +23375,7 @@ World soundclasses 27
 end
 
 Section: cogscripts
-World scripts 43
+World scripts 44
 0: 00_desttrail.cog
 1: 00_smoketrail.cog
 2: C1_AMBIENTWINDSOUND.COG
@@ -23414,17 +23413,18 @@ World scripts 43
 34: pow_vest.cog
 35: rbot-backpack.cog
 36: rbot-cli.cog
-37: rbot-navctf.cog
-38: rbot-player.cog
-39: rbot-special.cog
-40: rbot-srv.cog
-41: rbot-srv2.cog
-42: rbot-startup.cog
+37: rbot-nav.cog
+38: rbot-pathctf.cog
+39: rbot-player.cog
+40: rbot-special.cog
+41: rbot-srv.cog
+42: rbot-srv2.cog
+43: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 79
+World cogs 88
 #Num	Script          Symbol values
 0: C1_SECRETELEV.COG 28 2852 8 3 2321 2283 -1 -1
 1: CTF_MAIN.COG 142 143 4 5 237 286 288 2573 2566 2562 2 39 43 40 41 42 16 19 32 33 36 34 35 37 17 18 38 3012 3017 3019 3024
@@ -23436,32 +23436,40 @@ World cogs 79
 7: CTF_ICONSCLIENT.COG
 8: CTF_SAFEENTRY.COG 285 287 157 158
 9: rbot-startup.cog 4 8 1 0 1 1 2
-10: rbot-navctf.cog 5 159 36 160 161 162 42 163 169 -1 4 164 43 165 166 167 37 168 170 -1 169 171 172 173 174 -1 -1 -1 -1 -1 170 177 178 179 180 -1 -1 -1 -1 42 161 18 183 19 166 -1 -1 -1 -1 -1 18 184 174 185 19 186 180 187 18 -1 43 188 189 190 175 36 -1 -1 -1 -1 37 175 191 192 193 188 42 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 8 9 12 264 1026 144 2304 96 144 0 0
-11: rbot-special.cog 169 170 19 186 180 187 18 184 174 185 43 173 188 42 161 36 179 175 37 166 4 4 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-12: rbot-srv.cog 0 520 1 rbot_kylered 255 1
-13: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-14: rbot-srv2.cog 0
-15: rbot-srv.cog 1 521 2 rbot_kylegold 255 1
-16: rbot-srv2.cog 1
-17: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-18: rbot-srv.cog 2 522 1 rbot_kylered 7695 2
-19: rbot-srv2.cog 2
-20: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-21: rbot-srv.cog 3 523 2 rbot_kylegold 7695 2
-22: rbot-srv2.cog 3
-23: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-24: rbot-srv.cog 4 524 1 rbot_kylered 255 1
-25: rbot-srv2.cog 4
-26: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-27: rbot-srv.cog 5 525 2 rbot_kylegold 255 1
-28: rbot-srv2.cog 5
-29: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-30: rbot-srv.cog 6 526 1 rbot_kylered 7695 2
-31: rbot-srv2.cog 6
-32: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-33: rbot-srv.cog 7 527 2 rbot_kylegold 7695 2
-34: rbot-srv2.cog 7
-35: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+10: rbot-nav.cog
+11: rbot-pathctf.cog 5 159 36 160 161 162 42 163 169 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3 1 3 0
+12: rbot-pathctf.cog 4 164 43 165 166 167 37 168 170 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3 0 3 1
+13: rbot-pathctf.cog 169 171 172 173 174 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 1 1 3 0
+14: rbot-pathctf.cog 170 177 178 179 180 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3 0 1 1
+15: rbot-pathctf.cog 161 18 183 19 166 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 1 2 0
+16: rbot-pathctf.cog 18 184 174 185 19 186 180 187 18 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 1 1 1 0
+17: rbot-pathctf.cog 43 188 189 190 175 36 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 0 2 1
+18: rbot-pathctf.cog 37 175 191 192 193 188 42 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 1 2 0
+19: rbot-special.cog 169 170 19 186 180 187 18 184 174 185 43 173 188 42 161 36 179 175 37 166 4 4 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+20: rbot-srv.cog 0 520 1 rbot_kylered 255 1
+21: rbot-srv2.cog 0
+22: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+23: rbot-srv.cog 1 521 2 rbot_kylegold 255 1
+24: rbot-srv2.cog 1
+25: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+26: rbot-srv.cog 2 522 1 rbot_kylered 7695 2
+27: rbot-srv2.cog 2
+28: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+29: rbot-srv.cog 3 523 2 rbot_kylegold 7695 2
+30: rbot-srv2.cog 3
+31: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+32: rbot-srv.cog 4 524 1 rbot_kylered 255 1
+33: rbot-srv2.cog 4
+34: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+35: rbot-srv.cog 5 525 2 rbot_kylegold 255 1
+36: rbot-srv2.cog 5
+37: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+38: rbot-srv.cog 6 526 1 rbot_kylered 7695 2
+39: rbot-srv2.cog 6
+40: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+41: rbot-srv.cog 7 527 2 rbot_kylegold 7695 2
+42: rbot-srv2.cog 7
+43: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
 end
 
 Section: TEMPLATES
@@ -23613,7 +23621,7 @@ shrapnel2_1       _debris2           model3d=shrp_1.3do size=0.045000 movesize=0
 end
 
 Section: Things
-World things 494
+World things 640
 #num template:       name:         	X:		Y:		Z:		Pitch:		Yaw:		Roll:		Sector:
 0: railcharges railcharges 1.9 -1.7 .036307 0 0 0 7
 1: railcharges railcharges 2.1 -1.7 .036307 0 0 0 7

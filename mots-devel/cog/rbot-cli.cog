@@ -1,4 +1,4 @@
-# Rbot AI Cog - Alpha 0.30
+# Rbot AI Cog - Alpha 0.32
 # Client side - unsynch
 #
 # Created by Raynar
@@ -14,17 +14,6 @@ int			botid=0
 int			sabercolor=0
 
 # Weapon mesh models
-#model		weapmesh0=red-0.3do			
-#model		weapmesh1=red-1.3do			
-#model		weapmesh2=red-2.3do
-#model		weapmesh3=red-3.3do
-#model		weapmesh4=red-4.3do
-#model		weapmesh5=red-5.3do
-#model		weapmesh6=red-6.3do
-#model		weapmesh7=red-7.3do
-#model		weapmesh8=red-8.3do
-#model		weapmesh9=red-9.3do
-#model		weapmesh10=red-10.3do
 model		weapmesh0=sabg.3do			local   desc=switched off saber
 model		weapmesh1=fistg.3do			local
 model		weapmesh2=bryg.3do			local

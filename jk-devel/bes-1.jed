@@ -1,4 +1,4 @@
-JED 0.95
+ZED 20080131
 SEC: HEADER
 HDR 1 4 15 2 2 - 320
 HOR 200 768 0 0
@@ -7604,7 +7604,7 @@ SURFS 6
 END
 
 SEC: THINGS
-THS 209
+THS 209 640
 WALKPLAYER .69995 -1.3 -.879886 0 0 0 10 1
 
 3X3DOOR_1 .507 -.079 -2.609 -90 0 90 60 1
@@ -8030,7 +8030,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 70
+COGS 79
 M4_REACTORTHRUST.COG vec0:vector=(0.000000/0.000000/1.000000) thrustspeed:flex=8 doorspeed:flex=2 sleeptime:flex=2 door0:thing=46 door1:thing=45 door2:thing=48 door3:thing=47 Switch:surface=1811 sector0:sector=102 sector1:sector=155 light0:thing=63 lspeed:flex=8 wav0:sound=00EXHAUSTAMB04.WAV wav1:sound=00ALARMLOOP03.WAV thing0:thing=64 fadetime:flex=4
 00_SURFANIM.COG sign:surface=1799 sign1:surface=-1 sign2:surface=-1 sign3:surface=-1 fps:flex=5
 00_FORCEFIELD.COG surf0:surface=1867 maxDamage:flex=10 minDamage:flex=5 interval:flex=0.25 minLight:flex=0.2 maxLight:flex=1 period:flex=0.5
@@ -8051,54 +8051,63 @@ rbot-door.cog door:thing=23 moveSpeed:flex=8 sleepTime:flex=3
 rbot-door.cog door:thing=38 moveSpeed:flex=8 sleepTime:flex=3
 rbot-door.cog door:thing=39 moveSpeed:flex=8 sleepTime:flex=3
 rbot-startup.cog numbots:int=4 maxbots:int=16 allowsaber:int=1 allowguns:int=1 allowforce:int=0 teams:int=0 difficulty:int=2
-rbot-nav.cog node0:thing=150 node1:thing=151 node2:thing=152 node3:thing=153 node4:thing=154 node5:thing=155 node6:thing=156 node7:thing=149 node8:thing=150 node9:thing=-1 node10:thing=149 node11:thing=157 node12:thing=158 node13:thing=159 node14:thing=160 node15:thing=161 node16:thing=162 node17:thing=163 node18:thing=164 node19:thing=165 node20:thing=165 node21:thing=166 node22:thing=167 node23:thing=168 node24:thing=169 node25:thing=170 node26:thing=171 node27:thing=172 node28:thing=173 node29:thing=153 node30:thing=151 node31:thing=174 node32:thing=175 node33:thing=176 node34:thing=177 node35:thing=178 node36:thing=179 node37:thing=180 node38:thing=-1 node39:thing=-1 node40:thing=181 node41:thing=182 node42:thing=183 node43:thing=184 node44:thing=185 node45:thing=186 node46:thing=187 node47:thing=180 node48:thing=181 node49:thing=-1 node50:thing=182 node51:thing=188 node52:thing=189 node53:thing=190 node54:thing=191 node55:thing=192 node56:thing=193 node57:thing=194 node58:thing=195 node59:thing=196 node60:thing=196 node61:thing=197 node62:thing=198 node63:thing=199 node64:thing=186 node65:thing=-1 node66:thing=-1 node67:thing=-1 node68:thing=-1 node69:thing=-1 node70:thing=155 node71:thing=200 node72:thing=201 node73:thing=202 node74:thing=203 node75:thing=204 node76:thing=193 node77:thing=-1 node78:thing=-1 node79:thing=-1 node80:thing=183 node81:thing=205 node82:thing=206 node83:thing=207 node84:thing=208 node85:thing=165 node86:thing=-1 node87:thing=-1 node88:thing=-1 node89:thing=-1 node90:thing=-1 node91:thing=-1 node92:thing=-1 node93:thing=-1 node94:thing=-1 node95:thing=-1 node96:thing=-1 node97:thing=-1 node98:thing=-1 node99:thing=-1 pathsize:int=10 numpaths:int=9 inf0:int=0 inf1:int=0 inf2:int=0 inf3:int=0 inf4:int=0 inf5:int=0 inf6:int=0 inf7:int=0 inf8:int=1 inf9:int=0
+rbot-nav.cog
+rbot-path.cog node0:thing=150 node1:thing=151 node2:thing=152 node3:thing=153 node4:thing=154 node5:thing=155 node6:thing=156 node7:thing=149 node8:thing=150 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=149 node1:thing=157 node2:thing=158 node3:thing=159 node4:thing=160 node5:thing=161 node6:thing=162 node7:thing=163 node8:thing=164 node9:thing=165 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=165 node1:thing=166 node2:thing=167 node3:thing=168 node4:thing=169 node5:thing=170 node6:thing=171 node7:thing=172 node8:thing=173 node9:thing=153 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=151 node1:thing=174 node2:thing=175 node3:thing=176 node4:thing=177 node5:thing=178 node6:thing=179 node7:thing=180 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=181 node1:thing=182 node2:thing=183 node3:thing=184 node4:thing=185 node5:thing=186 node6:thing=187 node7:thing=180 node8:thing=181 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=182 node1:thing=188 node2:thing=189 node3:thing=190 node4:thing=191 node5:thing=192 node6:thing=193 node7:thing=194 node8:thing=195 node9:thing=196 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=196 node1:thing=197 node2:thing=198 node3:thing=199 node4:thing=186 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=155 node1:thing=200 node2:thing=201 node3:thing=202 node4:thing=203 node5:thing=204 node6:thing=193 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=183 node1:thing=205 node2:thing=206 node3:thing=207 node4:thing=208 node5:thing=165 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0
 rbot-special.cog sp0:thing=181 sp1:thing=182 sp2:thing=183 sp3:thing=184 sp4:thing=185 sp5:thing=186 sp6:thing=187 sp7:thing=180 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=2 spinf1:int=2 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
-rbot-srv.cog botid:int=0 botname:int=0 team:int=-1 rtemp:template=rbot_yun forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=0 botname:int=0 team:int=-1 rtemp:template=rbot_yun forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=0
 rbot-cli.cog botid:int=0 weapmesh0:model=yun-0.3do weapmesh1:model=yun-1.3do weapmesh2:model=yun-2.3do weapmesh3:model=yun-3.3do weapmesh4:model=yun-4.3do weapmesh5:model=yun-5.3do weapmesh6:model=yun-6.3do weapmesh7:model=yun-7.3do weapmesh8:model=yun-8.3do weapmesh9:model=yun-9.3do weapmesh10:model=yun-10.3do
-rbot-srv.cog botid:int=1 botname:int=1 team:int=-1 rtemp:template=rbot_sariss forceflags:int=0 characterflags:int=0
-rbot-cli.cog botid:int=1 weapmesh0:model=sar-0.3do weapmesh1:model=sar-1.3do weapmesh2:model=sar-2.3do weapmesh3:model=sar-3.3do weapmesh4:model=sar-4.3do weapmesh5:model=sar-5.3do weapmesh6:model=sar-6.3do weapmesh7:model=sar-7.3do weapmesh8:model=sar-8.3do weapmesh9:model=sar-9.3do weapmesh10:model=sar-10.3do
-rbot-srv.cog botid:int=2 botname:int=10 team:int=-1 rtemp:template=rbot_bobafett forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=1 botname:int=1 team:int=-1 rtemp:template=rbot_sariss forceflags:int=15887 characterflags:int=0
 rbot-srv2.cog botid:int=1
-rbot-cli.cog botid:int=2 weapmesh0:model=bob-0.3do weapmesh1:model=bob-1.3do weapmesh2:model=bob-2.3do weapmesh3:model=bob-3.3do weapmesh4:model=bob-4.3do weapmesh5:model=bob-5.3do weapmesh6:model=bob-6.3do weapmesh7:model=bob-7.3do weapmesh8:model=bob-8.3do weapmesh9:model=bob-9.3do weapmesh10:model=bob-10.3do
+rbot-cli.cog botid:int=1 weapmesh0:model=sar-0.3do weapmesh1:model=sar-1.3do weapmesh2:model=sar-2.3do weapmesh3:model=sar-3.3do weapmesh4:model=sar-4.3do weapmesh5:model=sar-5.3do weapmesh6:model=sar-6.3do weapmesh7:model=sar-7.3do weapmesh8:model=sar-8.3do weapmesh9:model=sar-9.3do weapmesh10:model=sar-10.3do
+rbot-srv.cog botid:int=2 botname:int=10 team:int=-1 rtemp:template=rbot_bobafett forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=2
-rbot-srv.cog botid:int=3 botname:int=2 team:int=-1 rtemp:template=rbot_jerec forceflags:int=0 characterflags:int=0
+rbot-cli.cog botid:int=2 weapmesh0:model=bob-0.3do weapmesh1:model=bob-1.3do weapmesh2:model=bob-2.3do weapmesh3:model=bob-3.3do weapmesh4:model=bob-4.3do weapmesh5:model=bob-5.3do weapmesh6:model=bob-6.3do weapmesh7:model=bob-7.3do weapmesh8:model=bob-8.3do weapmesh9:model=bob-9.3do weapmesh10:model=bob-10.3do
+rbot-srv.cog botid:int=3 botname:int=2 team:int=-1 rtemp:template=rbot_jerec forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=3
 rbot-cli.cog botid:int=3 weapmesh0:model=jer-0.3do weapmesh1:model=jer-1.3do weapmesh2:model=jer-2.3do weapmesh3:model=jer-3.3do weapmesh4:model=jer-4.3do weapmesh5:model=jer-5.3do weapmesh6:model=jer-6.3do weapmesh7:model=jer-7.3do weapmesh8:model=jer-8.3do weapmesh9:model=jer-9.3do weapmesh10:model=jer-10.3do
-rbot-srv.cog botid:int=4 botname:int=28 team:int=-1 rtemp:template=rbot_commando forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=4 botname:int=28 team:int=-1 rtemp:template=rbot_commando forceflags:int=496 characterflags:int=0
 rbot-srv2.cog botid:int=4
 rbot-cli.cog botid:int=4 weapmesh0:model=com-0.3do weapmesh1:model=com-1.3do weapmesh2:model=com-2.3do weapmesh3:model=com-3.3do weapmesh4:model=com-4.3do weapmesh5:model=com-5.3do weapmesh6:model=com-6.3do weapmesh7:model=com-7.3do weapmesh8:model=com-8.3do weapmesh9:model=com-9.3do weapmesh10:model=com-10.3do
+rbot-srv.cog botid:int=5 botname:int=15 team:int=-1 rtemp:template=rbot_greedo forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=5
-rbot-srv.cog botid:int=5 botname:int=15 team:int=-1 rtemp:template=rbot_greedo forceflags:int=0 characterflags:int=0
 rbot-cli.cog botid:int=5 weapmesh0:model=gre-0.3do weapmesh1:model=gre-1.3do weapmesh2:model=gre-2.3do weapmesh3:model=gre-3.3do weapmesh4:model=gre-4.3do weapmesh5:model=gre-5.3do weapmesh6:model=gre-6.3do weapmesh7:model=gre-7.3do weapmesh8:model=gre-8.3do weapmesh9:model=gre-9.3do weapmesh10:model=gre-10.3do
-rbot-srv.cog botid:int=6 botname:int=24 team:int=-1 rtemp:template=rbot_trooper forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=6 botname:int=24 team:int=-1 rtemp:template=rbot_trooper forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=6
 rbot-cli.cog botid:int=6 weapmesh0:model=stm-0.3do weapmesh1:model=stm-1.3do weapmesh2:model=stm-2.3do weapmesh3:model=stm-3.3do weapmesh4:model=stm-4.3do weapmesh5:model=stm-5.3do weapmesh6:model=stm-6.3do weapmesh7:model=stm-7.3do weapmesh8:model=stm-8.3do weapmesh9:model=stm-9.3do weapmesh10:model=stm-10.3do
-rbot-srv.cog botid:int=7 botname:int=12 team:int=-1 rtemp:template=rbot_tusken forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=7 botname:int=12 team:int=-1 rtemp:template=rbot_tusken forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=7
 rbot-cli.cog botid:int=7 weapmesh0:model=tus-0.3do weapmesh1:model=tus-1.3do weapmesh2:model=tus-2.3do weapmesh3:model=tus-3.3do weapmesh4:model=tus-4.3do weapmesh5:model=tus-5.3do weapmesh6:model=tus-6.3do weapmesh7:model=tus-7.3do weapmesh8:model=tus-8.3do weapmesh9:model=tus-9.3do weapmesh10:model=tus-10.3do
-rbot-srv.cog botid:int=8 botname:int=17 team:int=-1 rtemp:template=rbot_jan forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=8 botname:int=17 team:int=-1 rtemp:template=rbot_jan forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=8
 rbot-cli.cog botid:int=8 weapmesh0:model=jan-0.3do weapmesh1:model=jan-1.3do weapmesh2:model=jan-2.3do weapmesh3:model=jan-3.3do weapmesh4:model=jan-4.3do weapmesh5:model=jan-5.3do weapmesh6:model=jan-6.3do weapmesh7:model=jan-7.3do weapmesh8:model=jan-8.3do weapmesh9:model=jan-9.3do weapmesh10:model=jan-10.3do
-rbot-srv.cog botid:int=9 botname:int=11 team:int=-1 rtemp:template=rbot_bossk forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=9 botname:int=11 team:int=-1 rtemp:template=rbot_bossk forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=9
 rbot-cli.cog botid:int=9 weapmesh0:model=bsk-0.3do weapmesh1:model=bsk-1.3do weapmesh2:model=bsk-2.3do weapmesh3:model=bsk-3.3do weapmesh4:model=bsk-4.3do weapmesh5:model=bsk-5.3do weapmesh6:model=bsk-6.3do weapmesh7:model=bsk-7.3do weapmesh8:model=bsk-8.3do weapmesh9:model=bsk-9.3do weapmesh10:model=bsk-10.3do
-rbot-srv.cog botid:int=10 botname:int=25 team:int=-1 rtemp:template=rbot_admiral forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=10 botname:int=25 team:int=-1 rtemp:template=rbot_admiral forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=10
 rbot-cli.cog botid:int=10 weapmesh0:model=adm-0.3do weapmesh1:model=adm-1.3do weapmesh2:model=adm-2.3do weapmesh3:model=adm-3.3do weapmesh4:model=adm-4.3do weapmesh5:model=adm-5.3do weapmesh6:model=adm-6.3do weapmesh7:model=adm-7.3do weapmesh8:model=adm-8.3do weapmesh9:model=adm-9.3do weapmesh10:model=adm-10.3do
-rbot-srv.cog botid:int=11 botname:int=30 team:int=-1 rtemp:template=rbot_cyborg forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=11 botname:int=30 team:int=-1 rtemp:template=rbot_cyborg forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=11
 rbot-cli.cog botid:int=11 weapmesh0:model=cyb-0.3do weapmesh1:model=cyb-1.3do weapmesh2:model=cyb-2.3do weapmesh3:model=cyb-3.3do weapmesh4:model=cyb-4.3do weapmesh5:model=cyb-5.3do weapmesh6:model=cyb-6.3do weapmesh7:model=cyb-7.3do weapmesh8:model=cyb-8.3do weapmesh9:model=cyb-9.3do weapmesh10:model=cyb-10.3do
-rbot-srv.cog botid:int=12 botname:int=29 team:int=-1 rtemp:template=rbot_redeye forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=12 botname:int=29 team:int=-1 rtemp:template=rbot_redeye forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=12
 rbot-cli.cog botid:int=12 weapmesh0:model=eye-0.3do weapmesh1:model=eye-1.3do weapmesh2:model=eye-2.3do weapmesh3:model=eye-3.3do weapmesh4:model=eye-4.3do weapmesh5:model=eye-5.3do weapmesh6:model=eye-6.3do weapmesh7:model=eye-7.3do weapmesh8:model=eye-8.3do weapmesh9:model=eye-9.3do weapmesh10:model=eye-10.3do
-rbot-srv.cog botid:int=13 botname:int=25 team:int=-1 rtemp:template=rbot_officer forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=13 botname:int=25 team:int=-1 rtemp:template=rbot_officer forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=13
 rbot-cli.cog botid:int=13 weapmesh0:model=off-0.3do weapmesh1:model=off-1.3do weapmesh2:model=off-2.3do weapmesh3:model=off-3.3do weapmesh4:model=off-4.3do weapmesh5:model=off-5.3do weapmesh6:model=off-6.3do weapmesh7:model=off-7.3do weapmesh8:model=off-8.3do weapmesh9:model=off-9.3do weapmesh10:model=off-10.3do
-rbot-srv.cog botid:int=14 botname:int=5 team:int=-1 rtemp:template=rbot_rahn forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=14 botname:int=5 team:int=-1 rtemp:template=rbot_rahn forceflags:int=255 characterflags:int=0
 rbot-srv2.cog botid:int=14
 rbot-cli.cog botid:int=14 weapmesh0:model=rhn-0.3do weapmesh1:model=rhn-1.3do weapmesh2:model=rhn-2.3do weapmesh3:model=rhn-3.3do weapmesh4:model=rhn-4.3do weapmesh5:model=rhn-5.3do weapmesh6:model=rhn-6.3do weapmesh7:model=rhn-7.3do weapmesh8:model=rhn-8.3do weapmesh9:model=rhn-9.3do weapmesh10:model=rhn-10.3do
-rbot-srv.cog botid:int=15 botname:int=32 team:int=-1 rtemp:template=rbot_silver forceflags:int=0 characterflags:int=0
+rbot-srv.cog botid:int=15 botname:int=32 team:int=-1 rtemp:template=rbot_silver forceflags:int=7695 characterflags:int=0
 rbot-srv2.cog botid:int=15
 rbot-cli.cog botid:int=15 weapmesh0:model=sil-0.3do weapmesh1:model=sil-1.3do weapmesh2:model=sil-2.3do weapmesh3:model=sil-3.3do weapmesh4:model=sil-4.3do weapmesh5:model=sil-5.3do weapmesh6:model=sil-6.3do weapmesh7:model=sil-7.3do weapmesh8:model=sil-8.3do weapmesh9:model=sil-9.3do weapmesh10:model=sil-10.3do
 END

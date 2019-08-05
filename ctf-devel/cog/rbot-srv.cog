@@ -96,7 +96,8 @@ model		itemmodel15=seq0.3do	local	desc=live sequencer
 
 # Misc
 int			curweap			local
-thing		newpos			local
+thing		node			local
+vector		newpos			local
 int			lastposnum		local
 thing		target			local
 vector		rvec			local
@@ -341,7 +342,8 @@ trigger:
 		jkStringConcatUNIString(-1, 1000+botname);
 		jkStringConcatAsciiString(" respawns");
 		jkStringOutput(-3,-1);
-		newpos=-1;
+		node=-1;
+		newpos='0 0 0';
 		lastposnum=-1;
 		botmode=0;
 		if (BitTest(characterflags,0x1)) botmode=BitSet(botmode,0x800000); // attack characteristic
@@ -387,23 +389,33 @@ trigger:
 		else tempvector1=VectorSet(0.0, 0.0, 0.0);
 		FireProjectile(rbot, getparam(2), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10); // make it random fire vector later
 	}
-	else if (getsourceref() == 10010) // nav cog busy
-	{
-		SetTimerEx(0.10+(rand()*0.5), 110, -1, -1); // ask again for new pos after a short delay
-	}
 	else if (getsourceref() == 11000) // New position available
 	{
-		newpos=getparam(1);
+		node=getparam(1);
+		if (node == -1) {
+			// The nav cog couldn't find a suitable node for the bot, so have
+			// the bot wander off in a random direction instead
+			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
+			newpos = VectorAdd(GetThingPos(rbot), relpos);
+		} else {
+			// Head for the next node
+			newpos = GetThingPos(node);
+		}
 		lastposnum=getparam(2);
 		rundir=getparam(3);
+		if (BitTest(botmode, 0x10000)) {
+			// Reset the 'lot lost' timeout if bot is still slive
+			KillTimerEx(120);
+			SetTimerEx(8.0, 120, -1, -1);
+		}
 	}
 	else if (getsourceref() == 11020) // Received special info
 	{
 		special=getparam(1);
 		if ((BitTest(special,0x04) && !BitTest(botmode, 0x1000)) || (BitTest(special,0x08) && BitTest(botmode, 0x1000))) // Jump while running forwards or Jump while running backwards
 		{
-			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, getthingpos(newpos)); // bot has no target - look at newpos
-			AiSetMovePos(rbot, getthingpos(newpos));
+			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
+			AiSetMovePos(rbot, newpos);
 			AddThingVel(rbot, VectorScale(GetThingVel(rbot), 1)); // increase bot speed before jump
 			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 1.5)); // force bot to jump
 		}
@@ -527,7 +539,7 @@ move:
 		return; 
 	}
 
-	if (VectorY(GetThingVel(rbot)) < 0.01) // bot is not moving forward
+	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3) // bot is not moving forward
 	{
 		stopcount=stopcount-1;
 		if (stopcount < 1) // if bot has not moved in 3 seconds
@@ -543,11 +555,11 @@ move:
 			//	}
 			//}
 
-			if (stopcount!=30)
-			{
+			//if (stopcount!=30)
+			//{
 				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 3.0)); // force bot to jump
 				stopcount=30;
-			}
+			//}
 		}
 	}
 	
@@ -574,12 +586,12 @@ move:
 	}
 
 	// Look for items and move to them
-	if (difficulty > 1) // only look if difficulty allows
+	if (difficulty > 1 && !BitTest(botmode, 0x4000000)) // only look if difficulty allows
 	{
 		newitem=-1;
 		if (BitTest(botmode,0x4000)) newitempriority=5; else newitempriority=-1; // bot has target - only pick up high priority items
 		dot=100;
-		item = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 2, 0x020); // check if any items nearby
+		item = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 3, 0x020); // check if any items nearby
 		while (item != -1)
 		{
 			// Find closest takable item that bot needs
@@ -653,7 +665,7 @@ move:
 	}
 	else
 	{
-		AiSetLookPos(rbot, getthingpos(newpos)); // look at move position
+		AiSetLookPos(rbot, newpos); // look at move position
 		call movenode;
 	}
 	return;
@@ -665,12 +677,12 @@ movenode:
 		return; 
 	}
 
-	AiSetMovePos(rbot, getthingpos(newpos));
+	AiSetMovePos(rbot, newpos);
 
 	// Call navigation cog for next move position
-	if (VectorDist(GetThingPos(rbot), GetThingPos(newpos)) < .25)
+	if (VectorDist(GetThingPos(rbot), newpos) < .25)
 	{
-		SendTrigger(-1, 11010, botid, rbot, newpos, -1); // ask for special info on current pos
+		SendTrigger(-1, 11010, botid, rbot, node, -1); // ask for special info on current pos
 		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
 		SendTrigger(-1, 10000, botid, rbot, botmode, lastposnum); // ask for new pos
 		KillTimerEx(120); // stop 'bot lost' timeout
@@ -680,15 +692,15 @@ movenode:
 	{
 		call checkspeed;
 		// Check if bot has fallen
-		tempflex1=VectorZ(GetThingPos(newpos));
+		tempflex1=VectorZ(newpos);
 		tempflex2=VectorZ(GetThingPos(rbot));
-		if ((tempflex1 > tempflex2) && !(getthingflags(newpos) & 0x2000000)) // if new pos is higher than bot pos & new pos is not in water
+		if (node != -1 && (tempflex1 > tempflex2) && !(getthingflags(node) & 0x2000000)) // if new pos is higher than bot pos & new pos is not in water
 		{
-			tempvector1=VectorSet('0','0',VectorZ(GetThingPos(newpos)));
-			tempvector2=VectorSet('0','0',VectorZ(GetThingPos(rbot)));
+			tempvector1=VectorSet(0,0,VectorZ(newpos));
+			tempvector2=VectorSet(0,0,VectorZ(GetThingPos(rbot)));
 
-			tempvector3=VectorSet(VectorX(GetThingPos(newpos)),VectorY(GetThingPos(newpos)),'0');
-			tempvector4=VectorSet(VectorX(GetThingPos(rbot)),VectorY(GetThingPos(rbot)),'0');
+			tempvector3=VectorSet(VectorX(newpos),VectorY(newpos),0);
+			tempvector4=VectorSet(VectorX(GetThingPos(rbot)),VectorY(GetThingPos(rbot)),0);
 
 			if (VectorDist(tempvector1,tempvector2) > 0.85 || (VectorDist(tempvector1,tempvector2) > 0.4 && VectorDist(tempvector3,tempvector4) < 0.2)) // bot fallen
 			{
@@ -901,11 +913,6 @@ timer:
 	else if (GetSenderId() == 65) // after lightside surge
 	{
 		forcemode=BitClear(forcemode,0x4000); // lightside surge no longer active
-	}
-	else if (GetSenderId() == 110) // request again for new position (nav cog was busy)
-	{
-		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
-		SendTrigger(-1, 10000, botid, rbot, botmode, lastposnum); 
 	}
 	else if (GetSenderId() == 120) // bot has not found it's next node in time - bot lost
 	{

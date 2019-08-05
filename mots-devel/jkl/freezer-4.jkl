@@ -1,5 +1,4 @@
-#This file is created by Jed version 0.95 beta
-#Jed is (C) by Alexei Novikov
+#This file is created by ZED version 20080131
 
 SECTION: JK
 
@@ -62,7 +61,7 @@ World sounds 167
 09pipesmove.wav
 18airburst01.wav
 ACTIVATE01.WAV
-ACTIVATE02.WAV
+activate02.wav
 activate04.wav
 BactaPu1.wav
 BactaUse01.WAV
@@ -17770,7 +17769,7 @@ World soundclasses 26
 end
 
 Section: cogscripts
-World scripts 57
+World scripts 58
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -17823,16 +17822,17 @@ World scripts 57
 49: rbot-cli.cog
 50: rbot-door.cog
 51: rbot-nav.cog
-52: rbot-player.cog
-53: rbot-special.cog
-54: rbot-srv.cog
-55: rbot-srv2.cog
-56: rbot-startup.cog
+52: rbot-path.cog
+53: rbot-player.cog
+54: rbot-special.cog
+55: rbot-srv.cog
+56: rbot-srv2.cog
+57: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 176
+World cogs 184
 #Num	Script          Symbol values
 0: 00_SECTORTHRUST.COG (0/0/1) 5 123 122 -1 -1 -1 -1 -1 -1
 1: 00_SECTORTHRUST.COG (0/0/1) 5 172 171 -1 -1 -1 -1 -1 -1
@@ -17852,107 +17852,114 @@ World cogs 176
 15: rbot-2door.cog 4 42 10 2
 16: rbot-door.cog 14 8 2
 17: rbot-door.cog 17 8 2
-18: rbot-autoelev.cog 13 142 86 -1 -1 -1 -1 0.25 2 4 ACTIVATE02.WAV
-19: rbot-autoelev.cog 16 174 176 -1 -1 -1 -1 0.25 2 4 ACTIVATE02.WAV
+18: rbot-autoelev.cog 13 142 86 -1 -1 -1 -1 0.25 2 4 activate02.wav
+19: rbot-autoelev.cog 16 174 176 -1 -1 -1 -1 0.25 2 4 activate02.wav
 20: rbot-startup.cog 4 32 1 1 1 1 2
-21: rbot-nav.cog 109 110 111 112 113 114 115 116 108 109 117 118 119 120 121 122 123 124 125 108 126 127 128 129 130 131 132 133 112 -1 140 139 138 137 136 48 135 139 117 -1 141 142 143 144 145 49 146 147 126 -1 139 148 149 150 151 152 141 -1 -1 -1 142 153 154 155 156 157 140 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 7 0 0 0 0 0 0 0 0 0 0
-22: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-23: rbot-srv.cog 0 20 1 rbot_kylered 7695 0
-24: rbot-srv2.cog 0
-25: rbot-cli.cog 0 0
-26: rbot-srv.cog 1 22 2 rbot_kylegold 7695 0
-27: rbot-srv2.cog 1
-28: rbot-cli.cog 1 5
-29: rbot-srv.cog 2 21 1 rbot_kylered 255 0
-30: rbot-srv2.cog 2
-31: rbot-cli.cog 2 0
-32: rbot-srv.cog 3 23 2 rbot_kylegold 255 0
-33: rbot-srv2.cog 3
-34: rbot-cli.cog 3 5
-35: rbot-srv.cog 4 33 1 rbot_kylered 7695 0
-36: rbot-srv2.cog 4
-37: rbot-cli.cog 4 0
-38: rbot-srv.cog 5 37 2 rbot_kylegold 7695 0
-39: rbot-srv2.cog 5
-40: rbot-cli.cog 5 5
-41: rbot-srv.cog 6 34 1 rbot_kylered 255 0
-42: rbot-srv2.cog 6
-43: rbot-cli.cog 6 0
-44: rbot-srv.cog 7 35 2 rbot_kylegold 255 0
-45: rbot-srv2.cog 7
-46: rbot-cli.cog 7 5
-47: rbot-srv.cog 8 38 1 rbot_kylered 7695 0
-48: rbot-srv2.cog 8
-49: rbot-cli.cog 8 0
-50: rbot-srv.cog 9 39 2 rbot_kylegold 7695 0
-51: rbot-srv2.cog 9
-52: rbot-cli.cog 9 5
-53: rbot-srv.cog 10 40 1 rbot_kylered 255 0
-54: rbot-srv2.cog 10
-55: rbot-cli.cog 10 0
-56: rbot-srv.cog 11 41 2 rbot_kylegold 255 0
-57: rbot-srv2.cog 11
-58: rbot-cli.cog 11 5
-59: rbot-srv.cog 12 42 1 rbot_kylered 7695 0
-60: rbot-srv2.cog 12
-61: rbot-cli.cog 12 0
-62: rbot-srv.cog 13 43 2 rbot_kylegold 7695 0
-63: rbot-srv2.cog 13
-64: rbot-cli.cog 13 5
-65: rbot-srv.cog 14 44 1 rbot_kylered 255 0
-66: rbot-srv2.cog 14
-67: rbot-cli.cog 14 0
-68: rbot-srv.cog 15 45 2 rbot_kylegold 255 0
-69: rbot-srv2.cog 15
-70: rbot-cli.cog 15 5
-71: rbot-srv.cog 16 51 1 rbot_kylered 7695 0
-72: rbot-srv2.cog 16
-73: rbot-cli.cog 16 0
-74: rbot-srv.cog 17 52 2 rbot_kylegold 7695 0
-75: rbot-srv2.cog 17
-76: rbot-cli.cog 17 5
-77: rbot-srv.cog 18 53 1 rbot_kylered 255 0
-78: rbot-srv2.cog 18
-79: rbot-cli.cog 18 0
-80: rbot-srv.cog 19 54 2 rbot_kylegold 255 0
-81: rbot-srv2.cog 19
-82: rbot-cli.cog 19 5
-83: rbot-srv.cog 20 55 1 rbot_kylered 7695 0
-84: rbot-srv2.cog 20
-85: rbot-cli.cog 20 0
-86: rbot-srv.cog 21 56 2 rbot_kylegold 7695 0
-87: rbot-srv2.cog 21
-88: rbot-cli.cog 21 5
-89: rbot-srv.cog 22 57 1 rbot_kylered 255 0
-90: rbot-srv2.cog 22
-91: rbot-cli.cog 22 0
-92: rbot-srv.cog 23 58 2 rbot_kylegold 255 0
-93: rbot-srv2.cog 23
-94: rbot-cli.cog 23 5
-95: rbot-srv.cog 24 59 1 rbot_kylered 7695 0
-96: rbot-srv2.cog 24
-97: rbot-cli.cog 24 0
-98: rbot-srv.cog 25 60 2 rbot_kylegold 7695 0
-99: rbot-srv2.cog 25
-100: rbot-cli.cog 25 5
-101: rbot-srv.cog 26 61 1 rbot_kylered 255 0
-102: rbot-srv2.cog 26
-103: rbot-cli.cog 26 0
-104: rbot-srv.cog 27 62 2 rbot_kylegold 255 0
-105: rbot-srv2.cog 27
-106: rbot-cli.cog 27 5
-107: rbot-srv.cog 28 63 1 rbot_kylered 7695 0
-108: rbot-srv2.cog 28
-109: rbot-cli.cog 28 0
-110: rbot-srv.cog 29 64 2 rbot_kylegold 7695 0
-111: rbot-srv2.cog 29
-112: rbot-cli.cog 29 5
-113: rbot-srv.cog 30 65 1 rbot_kylered 255 0
-114: rbot-srv2.cog 30
-115: rbot-cli.cog 30 0
-116: rbot-srv.cog 31 66 2 rbot_kylegold 255 0
-117: rbot-srv2.cog 31
-118: rbot-cli.cog 31 5
+21: rbot-nav.cog
+22: rbot-path.cog 109 110 111 112 113 114 115 116 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+23: rbot-path.cog 117 118 119 120 121 122 123 124 125 108 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+24: rbot-path.cog 126 127 128 129 130 131 132 133 112 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+25: rbot-path.cog 140 139 138 137 136 48 135 134 117 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+26: rbot-path.cog 141 142 143 144 145 49 146 147 126 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+27: rbot-path.cog 139 148 149 150 151 152 141 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+28: rbot-path.cog 142 153 154 155 156 157 140 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+29: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+30: rbot-srv.cog 0 20 1 rbot_kylered 7695 0
+31: rbot-srv2.cog 0
+32: rbot-cli.cog 0 0
+33: rbot-srv.cog 1 22 2 rbot_kylegold 7695 0
+34: rbot-srv2.cog 1
+35: rbot-cli.cog 1 5
+36: rbot-srv.cog 2 21 1 rbot_kylered 255 0
+37: rbot-srv2.cog 2
+38: rbot-cli.cog 2 0
+39: rbot-srv.cog 3 23 2 rbot_kylegold 255 0
+40: rbot-srv2.cog 3
+41: rbot-cli.cog 3 5
+42: rbot-srv.cog 4 33 1 rbot_kylered 7695 0
+43: rbot-srv2.cog 4
+44: rbot-cli.cog 4 0
+45: rbot-srv.cog 5 37 2 rbot_kylegold 7695 0
+46: rbot-srv2.cog 5
+47: rbot-cli.cog 5 5
+48: rbot-srv.cog 6 34 1 rbot_kylered 255 0
+49: rbot-srv2.cog 6
+50: rbot-cli.cog 6 0
+51: rbot-srv.cog 7 35 2 rbot_kylegold 255 0
+52: rbot-srv2.cog 7
+53: rbot-cli.cog 7 5
+54: rbot-srv.cog 8 38 1 rbot_kylered 7695 0
+55: rbot-srv2.cog 8
+56: rbot-cli.cog 8 0
+57: rbot-srv.cog 9 39 2 rbot_kylegold 7695 0
+58: rbot-srv2.cog 9
+59: rbot-cli.cog 9 5
+60: rbot-srv.cog 10 40 1 rbot_kylered 255 0
+61: rbot-srv2.cog 10
+62: rbot-cli.cog 10 0
+63: rbot-srv.cog 11 41 2 rbot_kylegold 255 0
+64: rbot-srv2.cog 11
+65: rbot-cli.cog 11 5
+66: rbot-srv.cog 12 42 1 rbot_kylered 7695 0
+67: rbot-srv2.cog 12
+68: rbot-cli.cog 12 0
+69: rbot-srv.cog 13 43 2 rbot_kylegold 7695 0
+70: rbot-srv2.cog 13
+71: rbot-cli.cog 13 5
+72: rbot-srv.cog 14 44 1 rbot_kylered 255 0
+73: rbot-srv2.cog 14
+74: rbot-cli.cog 14 0
+75: rbot-srv.cog 15 45 2 rbot_kylegold 255 0
+76: rbot-srv2.cog 15
+77: rbot-cli.cog 15 5
+78: rbot-srv.cog 16 51 1 rbot_kylered 7695 0
+79: rbot-srv2.cog 16
+80: rbot-cli.cog 16 0
+81: rbot-srv.cog 17 52 2 rbot_kylegold 7695 0
+82: rbot-srv2.cog 17
+83: rbot-cli.cog 17 5
+84: rbot-srv.cog 18 53 1 rbot_kylered 255 0
+85: rbot-srv2.cog 18
+86: rbot-cli.cog 18 0
+87: rbot-srv.cog 19 54 2 rbot_kylegold 255 0
+88: rbot-srv2.cog 19
+89: rbot-cli.cog 19 5
+90: rbot-srv.cog 20 55 1 rbot_kylered 7695 0
+91: rbot-srv2.cog 20
+92: rbot-cli.cog 20 0
+93: rbot-srv.cog 21 56 2 rbot_kylegold 7695 0
+94: rbot-srv2.cog 21
+95: rbot-cli.cog 21 5
+96: rbot-srv.cog 22 57 1 rbot_kylered 255 0
+97: rbot-srv2.cog 22
+98: rbot-cli.cog 22 0
+99: rbot-srv.cog 23 58 2 rbot_kylegold 255 0
+100: rbot-srv2.cog 23
+101: rbot-cli.cog 23 5
+102: rbot-srv.cog 24 59 1 rbot_kylered 7695 0
+103: rbot-srv2.cog 24
+104: rbot-cli.cog 24 0
+105: rbot-srv.cog 25 60 2 rbot_kylegold 7695 0
+106: rbot-srv2.cog 25
+107: rbot-cli.cog 25 5
+108: rbot-srv.cog 26 61 1 rbot_kylered 255 0
+109: rbot-srv2.cog 26
+110: rbot-cli.cog 26 0
+111: rbot-srv.cog 27 62 2 rbot_kylegold 255 0
+112: rbot-srv2.cog 27
+113: rbot-cli.cog 27 5
+114: rbot-srv.cog 28 63 1 rbot_kylered 7695 0
+115: rbot-srv2.cog 28
+116: rbot-cli.cog 28 0
+117: rbot-srv.cog 29 64 2 rbot_kylegold 7695 0
+118: rbot-srv2.cog 29
+119: rbot-cli.cog 29 5
+120: rbot-srv.cog 30 65 1 rbot_kylered 255 0
+121: rbot-srv2.cog 30
+122: rbot-cli.cog 30 0
+123: rbot-srv.cog 31 66 2 rbot_kylegold 255 0
+124: rbot-srv2.cog 31
+125: rbot-cli.cog 31 5
 end
 
 Section: TEMPLATES
@@ -18179,7 +18186,7 @@ shrapnel2_1       _debris2           model3d=shrp_1.3do size=.045 movesize=.045
 end
 
 Section: Things
-World things 458
+World things 640
 #num template:       name:         	X:		Y:		Z:		Pitch:		Yaw:		Roll:		Sector:
 0: walkplayer walkplayer 4.174017 .481594 1.218954 .039566 -90 .039566 222 -1
 1: 10x10door 10x10door 5.1135 -5.47725 -.803652 -90 0 180 5 -1 thingflags=0X400448 numframes=2 frame=(5.1135/-5.47725/-.803652:-90/0/180) frame=(5.110628/-5.477531/-1.303473:-90/0/180)

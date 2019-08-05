@@ -7945,7 +7945,7 @@ SURFS 6
 END
 
 SEC: THINGS
-THS 151 451
+THS 151 640
 WALKPLAYER -.44995 1.2 .120114 0 180 0 131 0
 
 WALKPLAYER -.45005 -1.2 .370114 0 0 0 84 0
@@ -8255,108 +8255,115 @@ LTS 0
 END
 
 SEC: COGS
-COGS 101
+COGS 108
 K4_PLAYAMBIENT.COG soundPos0:thing=100 soundPos1:thing=101 soundPos2:thing=102 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00WIND03.WAV minDist:flex=0 maxDist:flex=30 volume:flex=1
 K4_RANDOMAMBIENT.COG wav0:sound=THUNDER1.WAV wav1:sound=THUNDER2.WAV wav2:sound=THUNDER1.WAV wav3:sound=THUNDER2.WAV numsounds:int=2 min_interval:flex=2 range_interval:flex=20 min_volume:flex=0.2 range_volume:flex=20
-RBOT-STARTUP.COG numbots:int=4 maxbots:int=32 allowsaber:int=1 allowguns:int=1 allowforce:int=0 teams:int=0 difficulty:int=2
-RBOT-NAV.COG node0:thing=103 node1:thing=104 node2:thing=105 node3:thing=106 node4:thing=107 node5:thing=108 node6:thing=109 node7:thing=110 node8:thing=111 node9:thing=-1 node10:thing=112 node11:thing=111 node12:thing=113 node13:thing=114 node14:thing=115 node15:thing=116 node16:thing=117 node17:thing=118 node18:thing=119 node19:thing=-1 node20:thing=119 node21:thing=103 node22:thing=120 node23:thing=121 node24:thing=122 node25:thing=123 node26:thing=124 node27:thing=125 node28:thing=126 node29:thing=127 node30:thing=127 node31:thing=128 node32:thing=129 node33:thing=130 node34:thing=131 node35:thing=132 node36:thing=112 node37:thing=-1 node38:thing=-1 node39:thing=-1 node40:thing=116 node41:thing=133 node42:thing=134 node43:thing=135 node44:thing=136 node45:thing=137 node46:thing=138 node47:thing=-1 node48:thing=-1 node49:thing=-1 node50:thing=128 node51:thing=139 node52:thing=140 node53:thing=141 node54:thing=138 node55:thing=142 node56:thing=143 node57:thing=144 node58:thing=124 node59:thing=-1 node60:thing=145 node61:thing=146 node62:thing=147 node63:thing=148 node64:thing=149 node65:thing=150 node66:thing=131 node67:thing=-1 node68:thing=-1 node69:thing=-1 node70:thing=-1 node71:thing=-1 node72:thing=-1 node73:thing=-1 node74:thing=-1 node75:thing=-1 node76:thing=-1 node77:thing=-1 node78:thing=-1 node79:thing=-1 node80:thing=-1 node81:thing=-1 node82:thing=-1 node83:thing=-1 node84:thing=-1 node85:thing=-1 node86:thing=-1 node87:thing=-1 node88:thing=-1 node89:thing=-1 node90:thing=-1 node91:thing=-1 node92:thing=-1 node93:thing=-1 node94:thing=-1 node95:thing=-1 node96:thing=-1 node97:thing=-1 node98:thing=-1 node99:thing=-1 pathsize:int=10 numpaths:int=7 inf0:int=0 inf1:int=0 inf2:int=0 inf3:int=0 inf4:int=0 inf5:int=0 inf6:int=1 inf7:int=0 inf8:int=0 inf9:int=0
-RBOT-SPECIAL.COG sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
-RBOT-SRV.COG botid:int=0 botname:int=9 team:int=-1 rtemp:template=RBOT_VADER forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=0
-RBOT-CLI.COG botid:int=0 sabercolor:int=0
-RBOT-SRV.COG botid:int=1 botname:int=8 team:int=-1 rtemp:template=RBOT_LUKE forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=1
-RBOT-CLI.COG botid:int=1 sabercolor:int=2
-RBOT-SRV.COG botid:int=2 botname:int=6 team:int=-1 rtemp:template=RBOT_MARAJADE forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=2
-RBOT-CLI.COG botid:int=2 sabercolor:int=1
-RBOT-SRV.COG botid:int=3 botname:int=12 team:int=-1 rtemp:template=RBOT_PIRATE forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=3
-RBOT-CLI.COG botid:int=3 sabercolor:int=4
-RBOT-SRV.COG botid:int=4 botname:int=24 team:int=-1 rtemp:template=RBOT_PIRATE2 forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=4
-RBOT-CLI.COG botid:int=4 sabercolor:int=5
-RBOT-SRV.COG botid:int=5 botname:int=26 team:int=-1 rtemp:template=RBOT_WEEQUAY forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=5
-RBOT-CLI.COG botid:int=5 sabercolor:int=3
-RBOT-SRV.COG botid:int=6 botname:int=4 team:int=-1 rtemp:template=RBOT_DARKKYLE forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=6
-RBOT-CLI.COG botid:int=6 sabercolor:int=0
-RBOT-SRV.COG botid:int=7 botname:int=7 team:int=-1 rtemp:template=RBOT_DARKMARA forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=7
-RBOT-CLI.COG botid:int=7 sabercolor:int=0
-RBOT-SRV.COG botid:int=8 botname:int=28 team:int=-1 rtemp:template=RBOT_SCOUTTROOP forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=8
-RBOT-CLI.COG botid:int=8 sabercolor:int=1
-RBOT-SRV.COG botid:int=9 botname:int=46 team:int=-1 rtemp:template=RBOT_REBSOLDIER forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=9
-RBOT-CLI.COG botid:int=9 sabercolor:int=2
-RBOT-SRV.COG botid:int=10 botname:int=47 team:int=-1 rtemp:template=RBOT_TIEPILOT forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=10
-RBOT-CLI.COG botid:int=10 sabercolor:int=1
-RBOT-SRV.COG botid:int=11 botname:int=48 team:int=-1 rtemp:template=RBOT_ATATPILOT forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=11
-RBOT-CLI.COG botid:int=11 sabercolor:int=2
-RBOT-SRV.COG botid:int=12 botname:int=50 team:int=-1 rtemp:template=RBOT_REBCOMANDER forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=12
-RBOT-CLI.COG botid:int=12 sabercolor:int=4
-RBOT-SRV.COG botid:int=13 botname:int=10 team:int=-1 rtemp:template=RBOT_BOBAFETT forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=13
-RBOT-CLI.COG botid:int=13 sabercolor:int=3
-RBOT-SRV.COG botid:int=14 botname:int=28 team:int=-1 rtemp:template=RBOT_COMMANDO forceflags:int=496 characterflags:int=0
-RBOT-SRV2.COG botid:int=14
-RBOT-CLI.COG botid:int=14 sabercolor:int=4
-RBOT-SRV2.COG botid:int=15
-RBOT-SRV.COG botid:int=15 botname:int=15 team:int=-1 rtemp:template=RBOT_GREEDO forceflags:int=7695 characterflags:int=0
-RBOT-CLI.COG botid:int=15 sabercolor:int=5
-RBOT-SRV.COG botid:int=16 botname:int=24 team:int=-1 rtemp:template=RBOT_TROOPER forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=16
-RBOT-CLI.COG botid:int=16 sabercolor:int=1
-RBOT-SRV.COG botid:int=17 botname:int=12 team:int=-1 rtemp:template=RBOT_TUSKEN forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=17
-RBOT-CLI.COG botid:int=17 sabercolor:int=2
-RBOT-SRV.COG botid:int=18 botname:int=2 team:int=-1 rtemp:template=RBOT_JEREC forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=18
-RBOT-CLI.COG botid:int=18 sabercolor:int=0
-RBOT-SRV.COG botid:int=19 botname:int=0 team:int=-1 rtemp:template=RBOT_YUN forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=19
-RBOT-CLI.COG botid:int=19 sabercolor:int=5
-RBOT-SRV.COG botid:int=20 botname:int=1 team:int=-1 rtemp:template=RBOT_SARISS forceflags:int=15877 characterflags:int=0
-RBOT-SRV2.COG botid:int=20
-RBOT-CLI.COG botid:int=20 sabercolor:int=2
-RBOT-SRV.COG botid:int=21 botname:int=17 team:int=-1 rtemp:template=RBOT_JAN forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=21
-RBOT-CLI.COG botid:int=21 sabercolor:int=2
-RBOT-SRV.COG botid:int=22 botname:int=11 team:int=-1 rtemp:template=RBOT_BOSSK forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=22
-RBOT-CLI.COG botid:int=22 sabercolor:int=3
-RBOT-SRV.COG botid:int=23 botname:int=25 team:int=-1 rtemp:template=RBOT_ADMIRAL forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=23
-RBOT-CLI.COG botid:int=23 sabercolor:int=5
-RBOT-SRV.COG botid:int=24 botname:int=16 team:int=-1 rtemp:template=RBOT_ABRONMAR forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=24
-RBOT-CLI.COG botid:int=24 sabercolor:int=5
-RBOT-SRV.COG botid:int=25 botname:int=30 team:int=-1 rtemp:template=RBOT_CYBORG forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=25
-RBOT-CLI.COG botid:int=25 sabercolor:int=2
-RBOT-SRV.COG botid:int=26 botname:int=29 team:int=-1 rtemp:template=RBOT_REDEYE forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=26
-RBOT-CLI.COG botid:int=26 sabercolor:int=0
-RBOT-SRV.COG botid:int=27 botname:int=49 team:int=-1 rtemp:template=RBOT_REBOFFICER forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=27
-RBOT-CLI.COG botid:int=27 sabercolor:int=3
-RBOT-SRV.COG botid:int=28 botname:int=25 team:int=-1 rtemp:template=RBOT_OFFICER forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=28
-RBOT-CLI.COG botid:int=28 sabercolor:int=2
-RBOT-SRV.COG botid:int=29 botname:int=5 team:int=-1 rtemp:template=RBOT_RAHN forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=29
-RBOT-CLI.COG botid:int=29 sabercolor:int=0
-RBOT-SRV.COG botid:int=30 botname:int=32 team:int=-1 rtemp:template=RBOT_SILVER forceflags:int=7695 characterflags:int=0
-RBOT-SRV2.COG botid:int=30
-RBOT-CLI.COG botid:int=30 sabercolor:int=1
-RBOT-SRV.COG botid:int=31 botname:int=18 team:int=-1 rtemp:template=RBOT_KAERROBANII forceflags:int=255 characterflags:int=0
-RBOT-SRV2.COG botid:int=31
-RBOT-CLI.COG botid:int=31 sabercolor:int=0
+rbot-startup.cog numbots:int=4 maxbots:int=32 allowsaber:int=1 allowguns:int=1 allowforce:int=0 teams:int=0 difficulty:int=2
+rbot-nav.cog
+rbot-path.cog node0:thing=103 node1:thing=104 node2:thing=105 node3:thing=106 node4:thing=107 node5:thing=108 node6:thing=109 node7:thing=110 node8:thing=111 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=112 node1:thing=111 node2:thing=113 node3:thing=114 node4:thing=115 node5:thing=116 node6:thing=117 node7:thing=118 node8:thing=119 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=119 node1:thing=103 node2:thing=120 node3:thing=121 node4:thing=122 node5:thing=123 node6:thing=124 node7:thing=125 node8:thing=126 node9:thing=127 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=127 node1:thing=128 node2:thing=129 node3:thing=130 node4:thing=131 node5:thing=132 node6:thing=112 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=116 node1:thing=133 node2:thing=134 node3:thing=135 node4:thing=136 node5:thing=137 node6:thing=138 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=128 node1:thing=139 node2:thing=140 node3:thing=141 node4:thing=138 node5:thing=142 node6:thing=143 node7:thing=144 node8:thing=124 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
+rbot-path.cog node0:thing=145 node1:thing=146 node2:thing=147 node3:thing=148 node4:thing=149 node5:thing=150 node6:thing=131 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0
+rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-srv.cog botid:int=0 botname:int=9 team:int=-1 rtemp:template=rbot_vader forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=0
+rbot-cli.cog botid:int=0 sabercolor:int=0
+rbot-srv.cog botid:int=1 botname:int=8 team:int=-1 rtemp:template=rbot_luke forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=1
+rbot-cli.cog botid:int=1 sabercolor:int=2
+rbot-srv.cog botid:int=2 botname:int=6 team:int=-1 rtemp:template=rbot_marajade forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=2
+rbot-cli.cog botid:int=2 sabercolor:int=1
+rbot-srv.cog botid:int=3 botname:int=12 team:int=-1 rtemp:template=rbot_pirate forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=3
+rbot-cli.cog botid:int=3 sabercolor:int=4
+rbot-srv.cog botid:int=4 botname:int=24 team:int=-1 rtemp:template=rbot_pirate2 forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=4
+rbot-cli.cog botid:int=4 sabercolor:int=5
+rbot-srv.cog botid:int=5 botname:int=26 team:int=-1 rtemp:template=rbot_weequay forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=5
+rbot-cli.cog botid:int=5 sabercolor:int=3
+rbot-srv.cog botid:int=6 botname:int=4 team:int=-1 rtemp:template=rbot_darkkyle forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=6
+rbot-cli.cog botid:int=6 sabercolor:int=0
+rbot-srv.cog botid:int=7 botname:int=7 team:int=-1 rtemp:template=rbot_darkmara forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=7
+rbot-cli.cog botid:int=7 sabercolor:int=0
+rbot-srv.cog botid:int=8 botname:int=28 team:int=-1 rtemp:template=rbot_scouttroop forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=8
+rbot-cli.cog botid:int=8 sabercolor:int=1
+rbot-srv.cog botid:int=9 botname:int=46 team:int=-1 rtemp:template=rbot_rebsoldier forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=9
+rbot-cli.cog botid:int=9 sabercolor:int=2
+rbot-srv.cog botid:int=10 botname:int=47 team:int=-1 rtemp:template=rbot_tiepilot forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=10
+rbot-cli.cog botid:int=10 sabercolor:int=1
+rbot-srv.cog botid:int=11 botname:int=48 team:int=-1 rtemp:template=rbot_atatpilot forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=11
+rbot-cli.cog botid:int=11 sabercolor:int=2
+rbot-srv.cog botid:int=12 botname:int=50 team:int=-1 rtemp:template=rbot_rebcomander forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=12
+rbot-cli.cog botid:int=12 sabercolor:int=4
+rbot-srv.cog botid:int=13 botname:int=10 team:int=-1 rtemp:template=rbot_bobafett forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=13
+rbot-cli.cog botid:int=13 sabercolor:int=3
+rbot-srv.cog botid:int=14 botname:int=28 team:int=-1 rtemp:template=rbot_commando forceflags:int=496 characterflags:int=0
+rbot-srv2.cog botid:int=14
+rbot-cli.cog botid:int=14 sabercolor:int=4
+rbot-srv2.cog botid:int=15
+rbot-srv.cog botid:int=15 botname:int=15 team:int=-1 rtemp:template=rbot_greedo forceflags:int=7695 characterflags:int=0
+rbot-cli.cog botid:int=15 sabercolor:int=5
+rbot-srv.cog botid:int=16 botname:int=24 team:int=-1 rtemp:template=rbot_trooper forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=16
+rbot-cli.cog botid:int=16 sabercolor:int=1
+rbot-srv.cog botid:int=17 botname:int=12 team:int=-1 rtemp:template=rbot_tusken forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=17
+rbot-cli.cog botid:int=17 sabercolor:int=2
+rbot-srv.cog botid:int=18 botname:int=2 team:int=-1 rtemp:template=rbot_jerec forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=18
+rbot-cli.cog botid:int=18 sabercolor:int=0
+rbot-srv.cog botid:int=19 botname:int=0 team:int=-1 rtemp:template=rbot_yun forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=19
+rbot-cli.cog botid:int=19 sabercolor:int=5
+rbot-srv.cog botid:int=20 botname:int=1 team:int=-1 rtemp:template=rbot_sariss forceflags:int=15877 characterflags:int=0
+rbot-srv2.cog botid:int=20
+rbot-cli.cog botid:int=20 sabercolor:int=2
+rbot-srv.cog botid:int=21 botname:int=17 team:int=-1 rtemp:template=rbot_jan forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=21
+rbot-cli.cog botid:int=21 sabercolor:int=2
+rbot-srv.cog botid:int=22 botname:int=11 team:int=-1 rtemp:template=rbot_bossk forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=22
+rbot-cli.cog botid:int=22 sabercolor:int=3
+rbot-srv.cog botid:int=23 botname:int=25 team:int=-1 rtemp:template=rbot_admiral forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=23
+rbot-cli.cog botid:int=23 sabercolor:int=5
+rbot-srv.cog botid:int=24 botname:int=16 team:int=-1 rtemp:template=rbot_abronmar forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=24
+rbot-cli.cog botid:int=24 sabercolor:int=5
+rbot-srv.cog botid:int=25 botname:int=30 team:int=-1 rtemp:template=rbot_cyborg forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=25
+rbot-cli.cog botid:int=25 sabercolor:int=2
+rbot-srv.cog botid:int=26 botname:int=29 team:int=-1 rtemp:template=rbot_redeye forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=26
+rbot-cli.cog botid:int=26 sabercolor:int=0
+rbot-srv.cog botid:int=27 botname:int=49 team:int=-1 rtemp:template=rbot_rebofficer forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=27
+rbot-cli.cog botid:int=27 sabercolor:int=3
+rbot-srv.cog botid:int=28 botname:int=25 team:int=-1 rtemp:template=rbot_officer forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=28
+rbot-cli.cog botid:int=28 sabercolor:int=2
+rbot-srv.cog botid:int=29 botname:int=5 team:int=-1 rtemp:template=rbot_rahn forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=29
+rbot-cli.cog botid:int=29 sabercolor:int=0
+rbot-srv.cog botid:int=30 botname:int=32 team:int=-1 rtemp:template=rbot_silver forceflags:int=7695 characterflags:int=0
+rbot-srv2.cog botid:int=30
+rbot-cli.cog botid:int=30 sabercolor:int=1
+rbot-srv.cog botid:int=31 botname:int=18 team:int=-1 rtemp:template=rbot_kaerrobanii forceflags:int=255 characterflags:int=0
+rbot-srv2.cog botid:int=31
+rbot-cli.cog botid:int=31 sabercolor:int=0
 END
 
 SEC: LAYERS

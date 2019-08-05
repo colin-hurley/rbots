@@ -1,0 +1,242 @@
+# Rbot Path Cog (CTF)
+#
+# Server-only
+# Type ID: 1001
+#
+# Rbots originally created by Raynar
+
+flags=0x40
+
+symbols
+
+message startup
+message trigger
+message user0
+message user1
+message user2
+
+# The nodes that comprise this path
+thing node0=-1 nolink
+thing node1=-1 nolink
+thing node2=-1 nolink
+thing node3=-1 nolink
+thing node4=-1 nolink
+thing node5=-1 nolink
+thing node6=-1 nolink
+thing node7=-1 nolink
+thing node8=-1 nolink
+thing node9=-1 nolink
+thing node10=-1 nolink
+thing node11=-1 nolink
+thing node12=-1 nolink
+thing node13=-1 nolink
+thing node14=-1 nolink
+thing node15=-1 nolink
+thing node16=-1 nolink
+thing node17=-1 nolink
+thing node18=-1 nolink
+thing node19=-1 nolink
+thing node20=-1 nolink
+thing node21=-1 nolink
+thing node22=-1 nolink
+thing node23=-1 nolink
+thing node24=-1 nolink
+
+# Standard path characteristics
+
+# Unidirectional = Bots can only move forward on this path, not backward
+int unidirectional=0
+
+# Non-looping = The path will not be treated as a loop
+# Normally, if a path starts and ends with the same node, it will be treated as
+# a circular/looping path, which means that when bots have reached one end of
+# the path, they can "wrap" around directly to the other end of the path
+# instead of needing to reverse direction and backtrack (or change to another
+# path).  However, there are some occasions where such paths should not be
+# treated as looping.  Setting this option to 1 will force the path to be
+# treated as non-looping even if the first and last nodes are the same.
+int nonlooping=0
+
+# CTF-specific path characteristics
+
+# red/gold path ranks = -1,0,1,2,3,4,.... (higher number = higher priority, -1 = no priority)
+# red/gold path directions = -1 (either direction), 0 (forward only), or 1 (backward only)
+int ctf_red_rank=-1
+int ctf_red_rundir=-1
+int ctf_gold_rank=-1
+int ctf_gold_rundir=-1
+
+# The number of nodes in this path
+int path_size=0 local
+
+# Does the path loop (i.e. are bots allowed to "wrap" around the ends of the
+# path as if it were a loop).  A path is treated as looping if the first and
+# last nodes are the same, except if nonlooping is set to 1.
+int looping=0 local
+
+# CTF game state
+int captured_red local
+int captured_gold local
+thing redflag_taken local
+thing goldflag_taken local
+
+# Buffer for passing chunks of parameters between cogs
+flex buffer0 local
+flex buffer1 local
+flex buffer2 local
+flex buffer3 local
+
+# Working variables
+int i local
+int dest local
+thing rbot local
+int path_rank local
+int path_rundir local
+
+end
+
+code
+
+startup:
+	if (!IsServer()) {
+		// Server-only
+		return;
+	}
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1001, GetSelfCog(), -1, -1);
+
+	// Determine total number of nodes in path
+	for (i = 0 ; i < 25 ; i = i + 1) {
+		if (node0[i] != -1) {
+			path_size = i + 1;
+		}
+	}
+
+	if (!nonlooping && node0[0] == node0[path_size - 1]) {
+		// Beginning and end meet at a common node, treat thsi path as a loop
+		looping = 1;
+	}
+
+	return;
+
+trigger:
+	if (!IsServer()) {
+		// Server-only
+		return;
+	}
+
+	if (getsourceref() == 12210) {
+		// Legacy trigger - updated CTF info
+		captured_red = GetParam(0);
+		captured_gold = GetParam(1);
+		redflag_taken = GetParam(2);
+		goldflag_taken = GetParam(3);
+	}
+
+	return;
+
+// Property query
+// Param 0 = Property ID
+// The remaining params will be processed according to the requested property.
+// For example, param1 might be an index into an array.
+// Returns the value of the property
+user0:
+	if (GetParam(0) == 100) ReturnEx(path_size);
+	else if (GetParam(0) == 101) ReturnEx(node0[GetParam(1)]);
+	else if (GetParam(0) == 102) ReturnEx(unidirectional);
+	else if (GetParam(0) == 103) ReturnEx(looping);
+	// Otherwise, report error
+	else {
+		jkStringClear();
+		jkStringConcatFormattedInt(GetSenderRef(), "rbot-pathctf.cog :: ERROR :: Cog %d");
+		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid property ID, %d");
+		jkStringOutput(-1, -1);
+	}
+	return;
+
+// Functions to calculate values
+// Param 0 = function ID
+// The remaining params will be processed according to the requested function.
+// Returns the number of values produced by the function (the values can be
+// read with user2)
+user1:
+	if (GetParam(0) == 200) {
+		// Path rank and run direction
+		// Param 1 = bot thing
+		rbot = GetParam(1);
+
+		// Figure out if the bot is trying to reach a base
+		dest = -1; // Default - just wander
+		if (GetThingUserData(rbot) == 1) {
+			// Bot is on the red team
+			if (captured_gold == 2 && rbot == goldflag_taken) {
+				// Bot has stolen the gold flag
+				if (captured_red == 0) {
+					// The red flag is at base
+					dest = 1; // Head for the red base to score
+				}
+			} else if (captured_gold == 0) {
+				// The gold flag is at base
+				dest = 2; // Head for the gold base to steal the flag
+			}
+		} else if (GetThingUserData(rbot) == 2) {
+			// Bot is on the gold team
+			if (captured_red == 2 && rbot == redflag_taken) {
+				// Bot has stolen the red flag
+				if (captured_gold == 0) {
+					// The gold flag is at base
+					dest = 2; // Head for the gold base to score
+				}
+			} else if (captured_red == 0) {
+				// The red flag is at base
+				dest = 1; // Head for the red base to steal the flag
+			}
+		}
+
+		if (dest == 1) {
+			// Seeking the red base
+			path_rank = ctf_red_rank;
+			path_rundir = -1;
+			if (path_rank >= 0) {
+				path_rundir = ctf_red_rundir;
+			}
+		} else if (dest == 2) {
+			// Seeking the gold base
+			path_rank = ctf_gold_rank;
+			path_rundir = -1;
+			if (path_rank >= 0) {
+				path_rundir = ctf_gold_rundir;
+			}
+		} else {
+			// No obligation to stay on current path
+			path_rank = -1;
+			path_rundir = -1;
+		}
+		if (unidirectional) {
+			// Must run forward on this path
+			path_rundir = 1;
+		}
+
+		// Store values in buffer so caller can retrieve them
+		buffer0[0] = path_rank;
+		buffer0[1] = path_rundir;
+		ReturnEx(2); // number of values in buffer
+	}
+	// Otherwise, report error
+	else {
+		jkStringClear();
+		jkStringConcatFormattedInt(GetSenderRef(), "rbot-pathctf.cog :: ERROR :: Cog %d");
+		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+		jkStringOutput(-1, -1);
+	}
+
+	return;
+
+# Read function buffered return value
+# Param 0 = indicates which buffered value to read (0, 1, 2, ...)
+user2:
+	ReturnEx(buffer0[GetParam(0)]);
+	return;
+
+end

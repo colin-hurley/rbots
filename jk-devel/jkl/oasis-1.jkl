@@ -1,5 +1,4 @@
-#This file is created by Jed version 0.95 beta
-#Jed is (C) by Alexei Novikov
+#This file is created by ZED version 20080131
 
 SECTION: JK
 
@@ -6692,7 +6691,7 @@ World soundclasses 34
 end
 
 Section: cogscripts
-World scripts 38
+World scripts 39
 0: 00_CONVEYOR.COG
 1: 00_desttrail.cog
 2: 00_PLAYAMBIENT.COG
@@ -6726,16 +6725,17 @@ World scripts 38
 30: rbot-cli.cog
 31: rbot-lightning.cog
 32: rbot-nav.cog
-33: rbot-player.cog
-34: rbot-special.cog
-35: rbot-srv.cog
-36: rbot-srv2.cog
-37: rbot-startup.cog
+33: rbot-path.cog
+34: rbot-player.cog
+35: rbot-special.cog
+36: rbot-srv.cog
+37: rbot-srv2.cog
+38: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 95
+World cogs 105
 #Num	Script          Symbol values
 0: 00_SLIDECEILING.COG 10 10
 1: 00_PLAYAMBIENT.COG 5 -1 -1 -1 -1 -1 -1 -1 00WIND02.WAV -1 60 1
@@ -6743,57 +6743,66 @@ World cogs 95
 3: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 520 514 375 54 34 367 545 539
 4: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 565 -1 -1 -1 -1 -1 -1 -1
 5: rbot-startup.cog 4 16 1 1 0 0 2
-6: rbot-nav.cog 66 67 68 69 70 71 72 73 74 75 75 76 77 78 79 80 81 82 83 66 70 84 85 86 87 88 89 90 91 92 68 93 94 95 96 97 98 99 100 68 71 101 102 103 104 105 106 107 108 109 109 110 111 112 113 114 115 116 78 -1 67 117 118 119 120 105 121 122 123 124 124 125 126 127 133 113 -1 -1 -1 -1 128 92 129 72 130 131 132 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 10 0 0 1 0 0 0 1 1 0 0
-7: rbot-special.cog 86 87 88 -1 96 98 99 100 91 68 93 72 105 118 119 120 104 106 -1 -1 2 2 2 2 2 2 2 2 36 2 2 4 2 2 2 2 2 2 0 0
-8: rbot-lightning.cog 47 46 45 591 24
-9: rbot-srv.cog 0 0 -1 rbot_yun 0 0
-10: rbot-srv2.cog 0
-11: rbot-cli.cog 0 yun-0.3do yun-1.3do yun-2.3do yun-3.3do yun-4.3do yun-5.3do yun-6.3do yun-7.3do yun-8.3do yun-9.3do yun-10.3do
-12: rbot-srv.cog 1 1 -1 rbot_sariss 0 0
-13: rbot-cli.cog 1 sar-0.3do sar-1.3do sar-2.3do sar-3.3do sar-4.3do sar-5.3do sar-6.3do sar-7.3do sar-8.3do sar-9.3do sar-10.3do
-14: rbot-srv.cog 2 10 -1 rbot_bobafett 0 0
-15: rbot-srv2.cog 1
-16: rbot-cli.cog 2 bob-0.3do bob-1.3do bob-2.3do bob-3.3do bob-4.3do bob-5.3do bob-6.3do bob-7.3do bob-8.3do bob-9.3do bob-10.3do
-17: rbot-srv2.cog 2
-18: rbot-srv.cog 3 2 -1 rbot_jerec 0 0
-19: rbot-srv2.cog 3
-20: rbot-cli.cog 3 jer-0.3do jer-1.3do jer-2.3do jer-3.3do jer-4.3do jer-5.3do jer-6.3do jer-7.3do jer-8.3do jer-9.3do jer-10.3do
-21: rbot-srv.cog 4 28 -1 rbot_commando 0 0
-22: rbot-srv2.cog 4
-23: rbot-cli.cog 4 com-0.3do com-1.3do com-2.3do com-3.3do com-4.3do com-5.3do com-6.3do com-7.3do com-8.3do com-9.3do com-10.3do
-24: rbot-srv2.cog 5
-25: rbot-srv.cog 5 15 -1 rbot_greedo 0 0
-26: rbot-cli.cog 5 gre-0.3do gre-1.3do gre-2.3do gre-3.3do gre-4.3do gre-5.3do gre-6.3do gre-7.3do gre-8.3do gre-9.3do gre-10.3do
-27: rbot-srv.cog 6 24 -1 rbot_trooper 0 0
-28: rbot-srv2.cog 6
-29: rbot-cli.cog 6 stm-0.3do stm-1.3do stm-2.3do stm-3.3do stm-4.3do stm-5.3do stm-6.3do stm-7.3do stm-8.3do stm-9.3do stm-10.3do
-30: rbot-srv.cog 7 12 -1 rbot_tusken 0 0
-31: rbot-srv2.cog 7
-32: rbot-cli.cog 7 tus-0.3do tus-1.3do tus-2.3do tus-3.3do tus-4.3do tus-5.3do tus-6.3do tus-7.3do tus-8.3do tus-9.3do tus-10.3do
-33: rbot-srv.cog 8 17 -1 rbot_jan 0 0
-34: rbot-srv2.cog 8
-35: rbot-cli.cog 8 jan-0.3do jan-1.3do jan-2.3do jan-3.3do jan-4.3do jan-5.3do jan-6.3do jan-7.3do jan-8.3do jan-9.3do jan-10.3do
-36: rbot-srv.cog 9 11 -1 rbot_bossk 0 0
-37: rbot-srv2.cog 9
-38: rbot-cli.cog 9 bsk-0.3do bsk-1.3do bsk-2.3do bsk-3.3do bsk-4.3do bsk-5.3do bsk-6.3do bsk-7.3do bsk-8.3do bsk-9.3do bsk-10.3do
-39: rbot-srv.cog 10 25 -1 rbot_admiral 0 0
-40: rbot-srv2.cog 10
-41: rbot-cli.cog 10 adm-0.3do adm-1.3do adm-2.3do adm-3.3do adm-4.3do adm-5.3do adm-6.3do adm-7.3do adm-8.3do adm-9.3do adm-10.3do
-42: rbot-srv.cog 11 30 -1 rbot_cyborg 0 0
-43: rbot-srv2.cog 11
-44: rbot-cli.cog 11 cyb-0.3do cyb-1.3do cyb-2.3do cyb-3.3do cyb-4.3do cyb-5.3do cyb-6.3do cyb-7.3do cyb-8.3do cyb-9.3do cyb-10.3do
-45: rbot-srv.cog 12 29 -1 rbot_redeye 0 0
-46: rbot-srv2.cog 12
-47: rbot-cli.cog 12 eye-0.3do eye-1.3do eye-2.3do eye-3.3do eye-4.3do eye-5.3do eye-6.3do eye-7.3do eye-8.3do eye-9.3do eye-10.3do
-48: rbot-srv.cog 13 25 -1 rbot_officer 0 0
-49: rbot-srv2.cog 13
-50: rbot-cli.cog 13 off-0.3do off-1.3do off-2.3do off-3.3do off-4.3do off-5.3do off-6.3do off-7.3do off-8.3do off-9.3do off-10.3do
-51: rbot-srv.cog 14 5 -1 rbot_rahn 0 0
-52: rbot-srv2.cog 14
-53: rbot-cli.cog 14 rhn-0.3do rhn-1.3do rhn-2.3do rhn-3.3do rhn-4.3do rhn-5.3do rhn-6.3do rhn-7.3do rhn-8.3do rhn-9.3do rhn-10.3do
-54: rbot-srv.cog 15 32 -1 rbot_silver 0 0
-55: rbot-srv2.cog 15
-56: rbot-cli.cog 15 sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do
+6: rbot-nav.cog
+7: rbot-path.cog 66 67 68 69 70 71 72 73 74 75 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+8: rbot-path.cog 75 76 77 78 79 80 81 82 83 66 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+9: rbot-path.cog 70 84 85 86 87 88 89 90 91 92 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
+10: rbot-path.cog 68 93 94 95 96 97 98 99 100 68 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+11: rbot-path.cog 71 101 102 103 104 105 106 107 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+12: rbot-path.cog 109 110 111 112 113 114 115 116 78 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+13: rbot-path.cog 67 117 118 119 120 105 121 122 123 124 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
+14: rbot-path.cog 124 125 126 127 133 113 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
+15: rbot-path.cog 128 92 129 72 130 131 132 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
+16: rbot-special.cog 86 87 88 -1 96 98 99 100 91 68 93 72 105 118 119 120 104 106 -1 -1 2 2 2 2 2 2 2 2 36 2 2 4 2 2 2 2 2 2 0 0
+17: rbot-lightning.cog 47 46 45 591 24
+18: rbot-srv.cog 0 0 -1 rbot_yun 255 0
+19: rbot-srv2.cog 0
+20: rbot-cli.cog 0 yun-0.3do yun-1.3do yun-2.3do yun-3.3do yun-4.3do yun-5.3do yun-6.3do yun-7.3do yun-8.3do yun-9.3do yun-10.3do
+21: rbot-srv.cog 1 1 -1 rbot_sariss 15887 0
+22: rbot-srv2.cog 1
+23: rbot-cli.cog 1 sar-0.3do sar-1.3do sar-2.3do sar-3.3do sar-4.3do sar-5.3do sar-6.3do sar-7.3do sar-8.3do sar-9.3do sar-10.3do
+24: rbot-srv.cog 2 10 -1 rbot_bobafett 255 0
+25: rbot-srv2.cog 2
+26: rbot-cli.cog 2 bob-0.3do bob-1.3do bob-2.3do bob-3.3do bob-4.3do bob-5.3do bob-6.3do bob-7.3do bob-8.3do bob-9.3do bob-10.3do
+27: rbot-srv.cog 3 2 -1 rbot_jerec 7695 0
+28: rbot-srv2.cog 3
+29: rbot-cli.cog 3 jer-0.3do jer-1.3do jer-2.3do jer-3.3do jer-4.3do jer-5.3do jer-6.3do jer-7.3do jer-8.3do jer-9.3do jer-10.3do
+30: rbot-srv.cog 4 28 -1 rbot_commando 496 0
+31: rbot-srv2.cog 4
+32: rbot-cli.cog 4 com-0.3do com-1.3do com-2.3do com-3.3do com-4.3do com-5.3do com-6.3do com-7.3do com-8.3do com-9.3do com-10.3do
+33: rbot-srv.cog 5 15 -1 rbot_greedo 7695 0
+34: rbot-srv2.cog 5
+35: rbot-cli.cog 5 gre-0.3do gre-1.3do gre-2.3do gre-3.3do gre-4.3do gre-5.3do gre-6.3do gre-7.3do gre-8.3do gre-9.3do gre-10.3do
+36: rbot-srv.cog 6 24 -1 rbot_trooper 255 0
+37: rbot-srv2.cog 6
+38: rbot-cli.cog 6 stm-0.3do stm-1.3do stm-2.3do stm-3.3do stm-4.3do stm-5.3do stm-6.3do stm-7.3do stm-8.3do stm-9.3do stm-10.3do
+39: rbot-srv.cog 7 12 -1 rbot_tusken 7695 0
+40: rbot-srv2.cog 7
+41: rbot-cli.cog 7 tus-0.3do tus-1.3do tus-2.3do tus-3.3do tus-4.3do tus-5.3do tus-6.3do tus-7.3do tus-8.3do tus-9.3do tus-10.3do
+42: rbot-srv.cog 8 17 -1 rbot_jan 255 0
+43: rbot-srv2.cog 8
+44: rbot-cli.cog 8 jan-0.3do jan-1.3do jan-2.3do jan-3.3do jan-4.3do jan-5.3do jan-6.3do jan-7.3do jan-8.3do jan-9.3do jan-10.3do
+45: rbot-srv.cog 9 11 -1 rbot_bossk 7695 0
+46: rbot-srv2.cog 9
+47: rbot-cli.cog 9 bsk-0.3do bsk-1.3do bsk-2.3do bsk-3.3do bsk-4.3do bsk-5.3do bsk-6.3do bsk-7.3do bsk-8.3do bsk-9.3do bsk-10.3do
+48: rbot-srv.cog 10 25 -1 rbot_admiral 255 0
+49: rbot-srv2.cog 10
+50: rbot-cli.cog 10 adm-0.3do adm-1.3do adm-2.3do adm-3.3do adm-4.3do adm-5.3do adm-6.3do adm-7.3do adm-8.3do adm-9.3do adm-10.3do
+51: rbot-srv.cog 11 30 -1 rbot_cyborg 7695 0
+52: rbot-srv2.cog 11
+53: rbot-cli.cog 11 cyb-0.3do cyb-1.3do cyb-2.3do cyb-3.3do cyb-4.3do cyb-5.3do cyb-6.3do cyb-7.3do cyb-8.3do cyb-9.3do cyb-10.3do
+54: rbot-srv.cog 12 29 -1 rbot_redeye 255 0
+55: rbot-srv2.cog 12
+56: rbot-cli.cog 12 eye-0.3do eye-1.3do eye-2.3do eye-3.3do eye-4.3do eye-5.3do eye-6.3do eye-7.3do eye-8.3do eye-9.3do eye-10.3do
+57: rbot-srv.cog 13 25 -1 rbot_officer 7695 0
+58: rbot-srv2.cog 13
+59: rbot-cli.cog 13 off-0.3do off-1.3do off-2.3do off-3.3do off-4.3do off-5.3do off-6.3do off-7.3do off-8.3do off-9.3do off-10.3do
+60: rbot-srv.cog 14 5 -1 rbot_rahn 255 0
+61: rbot-srv2.cog 14
+62: rbot-cli.cog 14 rhn-0.3do rhn-1.3do rhn-2.3do rhn-3.3do rhn-4.3do rhn-5.3do rhn-6.3do rhn-7.3do rhn-8.3do rhn-9.3do rhn-10.3do
+63: rbot-srv.cog 15 32 -1 rbot_silver 7695 0
+64: rbot-srv2.cog 15
+65: rbot-cli.cog 15 sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do
 end
 
 Section: TEMPLATES
@@ -6950,7 +6959,7 @@ shrapnel2_1       _debris2           model3d=shrp_1.3do size=0.045000 movesize=0
 end
 
 Section: Things
-World things 434
+World things 640
 #num template:       name:         	X:		Y:		Z:		Pitch:		Yaw:		Roll:		Sector:
 0: walkplayer walkplayer -3.25005 2.31988 1.120114 .019783 -134.988342 0 4
 1: walkplayer walkplayer 2.39995 .775153 1.120114 0 0 0 41 thingflags=0X20080501
@@ -7042,7 +7051,7 @@ World things 434
 87: ghost ghost -1.1 -2.6 1.120114 0 0 0 0
 88: ghost ghost -.3 -2.1 1.120114 0 0 0 0
 89: ghost ghost -.25 .05 1.120114 0 0 0 0
-90: ghost ghost -.35 2.2 1.120114 0 0 0 6
+90: ghost ghost -.3 2.2 1.120114 0 0 0 6
 91: ghost ghost -.35 3.45 1.120114 0 0 0 29
 92: ghost ghost -.3 4.35 1.120114 0 0 0 30
 93: ghost ghost -2.70005 .16988 .120114 0 0 0 33

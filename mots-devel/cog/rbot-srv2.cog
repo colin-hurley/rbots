@@ -181,6 +181,7 @@ trigger:
 		if (BitTest(special,0x02)) // tell bot to slow down
 		{
 			botmode=BitSet(botmode, 0x100000);
+			KillTimerEx(130);
 			SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
 		}
 		if (BitTest(special,0x10) && inv_weap8 > 0 && !BitTest(botmode, 0x4000)) // lay mine & bot has mines & bot does not have a target
@@ -207,6 +208,12 @@ trigger:
 		if (BitTest(special,0x80)) // wait for arrival
 		{
 			botmode=BitSet(botmode,0x80000); // tell bot to wait
+		}
+		if (BitTest(special,0x400)) // ignore items
+		{
+			botmode=BitSet(botmode, 0x4000000); // tell bot to follow the path straight to the next node
+			KillTimerEx(180);
+			SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again after 5 secs
 		}
 	}
 	else if (getsourceref() == 12001) // get inventory items from backpack
@@ -1057,6 +1064,10 @@ timer:
 	else if (GetSenderId() == 170) // Forget who damaged bot
 	{
 		damager=-1;
+	}
+	else if (GetSenderId() == 180) // allow seeking for items
+	{
+		botmode = BitClear(botmode, 0x4000000);
 	}
 	else if (GetSenderId() == 300) // fire again at target
 	{

@@ -16190,7 +16190,7 @@ World soundclasses 31
 end
 
 Section: cogscripts
-World scripts 43
+World scripts 44
 0: 00_desttrail.cog
 1: 00_FORCEFIELD.COG
 2: 00_MATANIM.COG
@@ -16232,13 +16232,14 @@ World scripts 43
 38: rbot-special.cog
 39: rbot-srv.cog
 40: rbot-srv2.cog
-41: rbot-startup.cog
-42: xtank3.cog
+41: rbot-srv-force.cog
+42: rbot-startup.cog
+43: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 122
+World cogs 139
 #Num	Script          Symbol values
 0: M4_REACTORTHRUST.COG (0.000000/0.000000/1.000000) 8 2 2 46 45 48 47 1811 102 155 63 8 00EXHAUSTAMB04.WAV 00ALARMLOOP03.WAV 64 4
 1: 00_SURFANIM.COG 1799 -1 -1 -1 5
@@ -16259,7 +16260,7 @@ World cogs 122
 16: rbot-door.cog 23 8 3
 17: rbot-door.cog 38 8 3
 18: rbot-door.cog 39 8 3
-19: rbot-startup.cog 4 16 1 1 0 1 2
+19: rbot-startup.cog 4 1 1 1 1 2 0 0 0 0 0
 20: rbot-nav.cog
 21: rbot-path.cog 150 151 152 153 154 155 156 149 150 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
 22: rbot-path.cog 149 157 158 159 160 161 162 163 164 165 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
@@ -16271,54 +16272,70 @@ World cogs 122
 28: rbot-path.cog 155 200 201 202 203 204 193 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
 29: rbot-path.cog 183 205 206 207 208 165 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
 30: rbot-special.cog 181 182 183 184 185 186 187 180 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0
-31: rbot-srv.cog 0 20 1 rbot_kylered 255 0
-32: rbot-srv2.cog 0
-33: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-34: rbot-srv.cog 1 22 2 rbot_kylegold 255 0
-35: rbot-srv2.cog 1
-36: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-37: rbot-srv.cog 2 21 1 rbot_kylered 7695 0
-38: rbot-srv2.cog 2
-39: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-40: rbot-srv.cog 3 23 2 rbot_kylegold 7695 0
-41: rbot-srv2.cog 3
-42: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-43: rbot-srv.cog 4 33 1 rbot_kylered 255 0
-44: rbot-srv2.cog 4
-45: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-46: rbot-srv.cog 5 37 2 rbot_kylegold 255 0
-47: rbot-srv2.cog 5
-48: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-49: rbot-srv.cog 6 34 1 rbot_kylered 7695 0
-50: rbot-srv2.cog 6
-51: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-52: rbot-srv.cog 7 35 2 rbot_kylegold 7695 0
-53: rbot-srv2.cog 7
-54: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-55: rbot-srv.cog 8 38 1 rbot_kylered 255 0
-56: rbot-srv2.cog 8
-57: rbot-cli.cog 8 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-58: rbot-srv.cog 9 39 2 rbot_kylegold 255 0
-59: rbot-srv2.cog 9
-60: rbot-cli.cog 9 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-61: rbot-srv.cog 10 40 1 rbot_kylered 7695 0
-62: rbot-srv2.cog 10
-63: rbot-cli.cog 10 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-64: rbot-srv.cog 11 41 2 rbot_kylegold 7695 0
-65: rbot-srv2.cog 11
-66: rbot-cli.cog 11 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-67: rbot-srv.cog 12 42 1 rbot_kylered 255 0
-68: rbot-srv2.cog 12
-69: rbot-cli.cog 12 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-70: rbot-srv.cog 13 43 2 rbot_kylegold 255 0
-71: rbot-srv2.cog 13
-72: rbot-cli.cog 13 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-73: rbot-srv.cog 14 44 1 rbot_kylered 7695 0
-74: rbot-srv2.cog 14
-75: rbot-cli.cog 14 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-76: rbot-srv.cog 15 45 2 rbot_kylegold 7695 0
-77: rbot-srv2.cog 15
-78: rbot-cli.cog 15 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+31: rbot-srv.cog 0 20 1 rbot_kylered 0
+32: rbot-srv-force.cog 0 255
+33: rbot-srv2.cog 0
+34: rbot-cli.cog 0 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+35: rbot-srv.cog 1 22 2 rbot_kylegold 0
+36: rbot-srv-force.cog 1 255
+37: rbot-srv2.cog 1
+38: rbot-cli.cog 1 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+39: rbot-srv.cog 2 21 1 rbot_kylered 0
+40: rbot-srv-force.cog 2 7695
+41: rbot-srv2.cog 2
+42: rbot-cli.cog 2 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+43: rbot-srv.cog 3 23 2 rbot_kylegold 0
+44: rbot-srv-force.cog 3 7695
+45: rbot-srv2.cog 3
+46: rbot-cli.cog 3 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+47: rbot-srv.cog 4 33 1 rbot_kylered 0
+48: rbot-srv-force.cog 4 255
+49: rbot-srv2.cog 4
+50: rbot-cli.cog 4 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+51: rbot-srv.cog 5 37 2 rbot_kylegold 0
+52: rbot-srv-force.cog 5 255
+53: rbot-srv2.cog 5
+54: rbot-cli.cog 5 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+55: rbot-srv.cog 6 34 1 rbot_kylered 0
+56: rbot-srv-force.cog 6 7695
+57: rbot-srv2.cog 6
+58: rbot-cli.cog 6 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+59: rbot-srv.cog 7 35 2 rbot_kylegold 0
+60: rbot-srv-force.cog 7 7695
+61: rbot-srv2.cog 7
+62: rbot-cli.cog 7 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+63: rbot-srv.cog 8 38 1 rbot_kylered 0
+64: rbot-srv-force.cog 8 255
+65: rbot-srv2.cog 8
+66: rbot-cli.cog 8 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+67: rbot-srv.cog 9 39 2 rbot_kylegold 0
+68: rbot-srv-force.cog 9 255
+69: rbot-srv2.cog 9
+70: rbot-cli.cog 9 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+71: rbot-srv.cog 10 40 1 rbot_kylered 0
+72: rbot-srv-force.cog 10 7695
+73: rbot-srv2.cog 10
+74: rbot-cli.cog 10 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+75: rbot-srv.cog 11 41 2 rbot_kylegold 0
+76: rbot-srv-force.cog 11 7695
+77: rbot-srv2.cog 11
+78: rbot-cli.cog 11 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+79: rbot-srv.cog 12 42 1 rbot_kylered 0
+80: rbot-srv-force.cog 12 255
+81: rbot-srv2.cog 12
+82: rbot-cli.cog 12 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+83: rbot-srv.cog 13 43 2 rbot_kylegold 0
+84: rbot-srv-force.cog 13 255
+85: rbot-srv2.cog 13
+86: rbot-cli.cog 13 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+87: rbot-srv.cog 14 44 1 rbot_kylered 0
+88: rbot-srv-force.cog 14 7695
+89: rbot-srv2.cog 14
+90: rbot-cli.cog 14 red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+91: rbot-srv.cog 15 45 2 rbot_kylegold 0
+92: rbot-srv-force.cog 15 7695
+93: rbot-srv2.cog 15
+94: rbot-cli.cog 15 yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
 end
 
 Section: TEMPLATES

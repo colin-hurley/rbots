@@ -8,13 +8,17 @@
 		<fileSet>
 			<outputDirectory>\</outputDirectory>
 			<directory>${project.basedir}</directory>
-			<excludes>
-				<exclude>.flattened-pom.xml</exclude>
-				<exclude>assembly.xml</exclude>
-				<exclude>pom.xml</exclude>
-				<exclude>target</exclude>
-				<exclude>target/**/*</exclude>
-			</excludes>
+			<includes>
+				<include>3do\**\*</include>
+				<include>cog\**\*</include>
+				<include>jkl\**\*</include>
+				<include>mat\**\*</include>
+				<include>misc\**\*</include>
+				<include>ui\**\*</include>
+				<include>*.jed</include>
+				<include>*.tpl</include>
+				<include>episode.jk</include>
+			</includes>
 		</fileSet>
 	</fileSets>
 </assembly>

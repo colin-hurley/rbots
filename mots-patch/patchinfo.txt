@@ -1,5 +1,5 @@
 Name=Rbots [MotS]
 Type=Misc.
-Description=Enables the bots to react to force powers. Also enables various hotkeys. Final release.
+Description=Enables the bots to react to force powers. Also enables various hotkeys.
 Author=Raynar
 Email=raynar@gamebox.net

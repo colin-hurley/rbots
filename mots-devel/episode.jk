@@ -1,8 +1,8 @@
-"Rbots final release"
+"Rbots Sith MP"
 
 TYPE 2
 
-SEQ 20
+SEQ 10
 
 # <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
 
@@ -12,19 +12,9 @@ SEQ 20
 40:	0	4	LEVEL	freezer-2.jkl	0	0	50	-1
 50:	0	5	LEVEL	temple-2.jkl	0	0	60	-1
 60:	0	6	LEVEL	spaceport-2.jkl	0	0	40	-1
-70:	0	7	LEVEL	freezer-3.jkl	0	0	80	-1
-80:	0	8	LEVEL	temple-3.jkl	0	0	90	-1
-90:	0	9	LEVEL	spaceport-3.jkl	0	0	70	-1
-100:	0	10	LEVEL	freezer-4.jkl	0	0	110	-1
-110:	0	11	LEVEL	temple-4.jkl	0	0	120	-1
-120:	0	12	LEVEL	spaceport-4.jkl	0	0	100	-1
-130:	0	13	LEVEL	gantry-1.jkl	0	0	140	-1
-140:	0	14	LEVEL	throne-1.jkl	0	0	130	-1
-150:	0	15	LEVEL	gantry-2.jkl	0	0	160	-1
-160:	0	16	LEVEL	throne-2.jkl	0	0	150	-1
-170:	0	17	LEVEL	gantry-3.jkl	0	0	180	-1
-180:	0	18	LEVEL	throne-3.jkl	0	0	170	-1
-190:	0	19	LEVEL	gantry-4.jkl	0	0	200	-1
-200:	0	20	LEVEL	throne-4.jkl	0	0	190	-1
+70:	0	7	LEVEL	gantry-1.jkl	0	0	80	-1
+80:	0	8	LEVEL	throne-1.jkl	0	0	70	-1
+90:	0	9	LEVEL	gantry-2.jkl	0	0	100	-1
+100:	0	10	LEVEL	throne-2.jkl	0	0	90	-1
 
 end

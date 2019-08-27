@@ -11,18 +11,16 @@
 			<includes>
 				<include>3do\**\*</include>
 				<include>cog\**\*</include>
+				<include>jkl\**\*</include>
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
-				<include>jkl\**\*</include>
-				<include>ui\**\*</include>
 				<include>episode.jk</include>
 			</includes>
 			<excludes>
-				<exclude>cog\rbot-elev-nar.cog</exclude>
-				<exclude>cog\rbot-elev-switch.cog</exclude>
-				<exclude>cog\rbot-nav-old.cog</exclude>
-				<exclude>misc\ai\rbot-0-new.ai</exclude>
-				<exclude>misc\ai\rbot-0-old.ai</exclude>
+				<exclude>cog\force_*.cog</exclude>
+				<exclude>cog\rbot-admin*.cog</exclude>
+				<exclude>jkl\static.jkl</exclude>
+				<exclude>misc\items.dat</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

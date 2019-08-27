@@ -720,9 +720,9 @@ MSGS 905   # <--- DON'T FORGET TO UPDATE THIS COUNT
    "ACTIVATE14"      0 "Bacta Tank"
    "ACTIVATE15"      0 "IR Goggles"
    "ACTIVATE16"      0 "Field Light"
-   "ACTIVATE17"      0 "Bot Camera Mode"
-   "ACTIVATE18"      0 "Number of bots"
-   "ACTIVATE19"      0 "Bot Difficulty"
+   "ACTIVATE17"      0 "Bot Admin Next"
+   "ACTIVATE18"      0 "Bot Admin Prev"
+   "ACTIVATE19"      0 "Bot Admin Exec"
 
    ### ACTIVATExx bins up to ACTIVATE31 are available for user defined Hotkeys.
    ### In items.dat, the script for the 'xx'th item with the hotkey flag 0x100 will be bound.

@@ -17,9 +17,8 @@
 			<directory>${project.basedir}\..\jk-devel</directory>
 			<includes>
 				<include>cog\force_*.cog</include>
-				<include>cog\rbot-botcam.cog</include>
-				<include>cog\rbot-difficulty.cog</include>
-				<include>cog\rbot-setup.cog</include>
+				<include>cog\rbot-admin*.cog</include>
+				<include>jkl\static.jkl</include>
 				<include>misc\items.dat</include>
 				<include>ui\jkstrings.uni</include>
 			</includes>

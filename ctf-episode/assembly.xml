@@ -11,25 +11,16 @@
 			<includes>
 				<include>3do\**\*</include>
 				<include>cog\**\*</include>
+				<include>jkl\**\*</include>
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
-				<include>jkl\**\*</include>
-				<include>ui\**\*</include>
 				<include>episode.jk</include>
 			</includes>
 			<excludes>
-				<exclude>cog\c1_mtrigelev.cog</exclude>
-				<exclude>cog\ctf_doorgold.cog</exclude>
-				<exclude>cog\ctf_doorred.cog</exclude>
-				<exclude>cog\ctf_keygold.cog</exclude>
-				<exclude>cog\ctf_keyred.cog</exclude>
-				<exclude>cog\ctf_keysclient.cog</exclude>
-				<exclude>cog\rbot-autoelev.cog</exclude>
-				<exclude>cog\rbot-autoelev2.cog</exclude>
-				<exclude>mat\ddblue.mat</exclude>
-				<exclude>mat\dgreen.mat</exclude>
-				<exclude>mat\dorange.mat</exclude>
-				<exclude>mat\dpurple.mat</exclude>
+				<exclude>cog\force_*.cog</exclude>
+				<exclude>cog\rbot-admin*.cog</exclude>
+				<exclude>jkl\static.jkl</exclude>
+				<exclude>misc\items.dat</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

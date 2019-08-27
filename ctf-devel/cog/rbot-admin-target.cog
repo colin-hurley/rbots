@@ -1,0 +1,71 @@
+# Rbot Administration - Target Mode
+#
+# This utility toggles whether bots will target players and other bots.
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message startup
+message shutdown
+message user0
+message user1
+
+int attack_players=1 local
+int attack_bots=1 local
+
+int toggle_players local
+int toggle_bots local
+
+end
+
+code
+
+startup:
+	// Register functions
+	toggle_players = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	toggle_bots = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	attack_players = 1;
+	attack_bots = 1;
+	return;
+
+// Execute
+user0:
+	if (GetParam(0) == toggle_players) {
+		attack_players = 1 - attack_players;
+		if (attack_players) {
+			Print("Bots attack players");
+		} else {
+			Print("Bots ignore players");
+		}
+	} else if (GetParam(0) == toggle_bots) {
+		attack_bots = 1 - attack_bots;
+		if (attack_bots) {
+			Print("Bots attack bots");
+		} else {
+			Print("Bots ignore bots");
+		}
+	}
+	SendTrigger(-1, 120000, attack_players, attack_bots, -1, -1);
+	return;
+
+// Concat current state
+user1:
+	if (GetParam(0) == toggle_players) {
+		if (attack_players) jkStringConcatAsciiString("Bot target mode - Players (ATTACK)");
+		else jkStringConcatAsciiString("Bot target mode - Players (IGNORE)");
+	} else if (GetParam(0) == toggle_bots) {
+		if (attack_bots) jkStringConcatAsciiString("Bot target mode - Bots (ATTACK)");
+		else jkStringConcatAsciiString("Bot target mode - Bots (IGNORE)");
+	}
+	return;
+
+end

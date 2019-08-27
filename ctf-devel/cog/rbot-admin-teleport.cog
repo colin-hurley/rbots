@@ -1,0 +1,83 @@
+# Rbot Administration - Teleport
+#
+# This utility will teleport bots and players:
+# * Teleport bot to player's location
+# * Teleport player to bot's location
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x40
+
+symbols
+
+message startup
+message shutdown
+message user0
+message user1
+message trigger
+
+cog srv=-1 local
+int teleport_bot local
+int teleport_player local
+
+# Working vars
+int botid local
+int botmode local
+thing rbot local
+thing player local
+
+end
+
+code
+
+startup:
+	// Register functions
+	teleport_bot = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	teleport_player = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	srv = -1;
+	return;
+
+// Execute
+user0:
+	if (srv != -1) {
+		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
+		if (BitTest(botmode, 0x10000)) {
+			// Bot is alive
+			botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
+			rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
+			player = GetLocalPlayerThing();
+			if (GetParam(0) == teleport_bot) {
+				// Teleport bot to player's location
+				TeleportThing(rbot, player);
+				// Request new navigation instruction for bot
+				SendTrigger(-1, 10000, botid, rbot, botmode, -1);
+			} else if (GetParam(0) == teleport_player) {
+				// Teleport player to bot's location
+				TeleportThing(player, rbot);
+			}
+		}
+	} else {
+		Print("No bot selected");
+	}
+	return;
+
+// Concat current state
+user1:
+	if (GetParam(0) == teleport_bot) jkStringConcatAsciiString("Teleport bot to player");
+	else if (GetParam(0) == teleport_player) jkStringConcatAsciiString("Teleport player to bot");
+	return;
+
+trigger:
+	if (GetSourceRef() == 15080) {
+		// New bot selected
+		srv = GetParam(1);
+	}
+	return;
+
+end

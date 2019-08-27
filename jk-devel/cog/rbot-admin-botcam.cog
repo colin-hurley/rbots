@@ -1,0 +1,120 @@
+# Rbot Administration - Botcam
+#
+# A camera to watch the selected bot
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x240
+
+symbols
+
+message startup
+message shutdown
+message user0
+message user1
+message trigger
+message timer
+
+int active=0 local
+
+int old_camera local
+thing player local
+thing rbot local
+int botid=-1 local
+int prev_botid local
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	active = 0;
+	botid = -1;
+	return;
+
+// Execute
+user0:
+	active = 1 - active;
+	if (active) {
+		// Activate botcam (asynchronous, when trigger response arrives)
+		Print("Botcam on");
+		old_camera = GetCurrentCamera();
+		if (botid != -1) {
+			// Ask srv for bot thing number - srv will respond with a trigger
+			SendTrigger(-1, 960, botid, -1, -1, -1);
+		}
+	} else {
+		Print("Botcam off");
+		call deactivate_botcam;
+	}
+	return;
+
+// Concat current state
+user1:
+	if (active) jkStringConcatAsciiString("Botcam (ACTIVE)");
+	else jkStringConcatAsciiString("Botcam (NOT ACTIVE)");
+	return;
+
+trigger:
+	if (GetSourceRef() == 970 && GetParam(0) == botid) {
+		// Bot spawned / reported thing number
+		if (active) {
+			rbot = GetParam(1);
+			call activate_botcam;
+		}
+	} else if (GetSourceRef() == 1000 && GetParam(0) == botid) {
+		// Bot died, temporarily switch back to player camera until bot respawns
+		SetTimerEx(3.0, 100, botid, -1);
+	} else if (GetSourceRef() == 15080) {
+		// New bot selected
+		prev_botid = botid;
+		botid = GetParam(0);
+		if (active) {
+			if (botid == -1) {
+				// No bot selected
+				call deactivate_botcam;
+			} else {
+				// Request new thing number
+				SendTrigger(-1, 960, botid, -1, -1, -1);
+				// Deactivate if we don't get a new thing number in time
+				SetTimerEx(1.0, 100, prev_botid, -1);
+			}
+		}
+	}
+	return;
+
+timer:
+	if (GetSenderId() == 100) {
+		if (GetParam(0) == botid) {
+			// Still watching same bot
+			call deactivate_botcam;
+		}
+	}
+	return;
+
+activate_botcam:
+	player = GetLocalPlayerThing();
+	SetActorFlags(player, 0x800000); // turn off HUD
+	SetCameraFocus(0, rbot);
+	SetCameraFocus(1, rbot);
+	SetCurrentCamera(1);
+	return;
+
+deactivate_botcam:
+	player = GetLocalPlayerThing();
+	ClearActorFlags(player, 0x800000); // turn on HUD
+	SetCameraFocus(0, player);
+	SetCameraFocus(1, player);
+	SetCurrentCamera(old_camera);
+	return;
+
+end

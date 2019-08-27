@@ -1,0 +1,125 @@
+# Rbot Administration - Stats
+#
+# This utility will display stats for the selected bot.
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message startup
+message shutdown
+message user0
+message user1
+message trigger
+message pulse
+
+int active=0 local
+
+cog srv=-1 local
+
+# Working vars
+thing rbot local
+int health local
+cog srv2 local
+cog srv_force local
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	active = 0;
+	srv = -1;
+	return;
+
+// Execute
+user0:
+	active = 1 - active;
+	if (active) {
+		Print("Stats on");
+		SetPulse(1);
+	} else {
+		Print("Stats off");
+		SetPulse(0);
+	}
+	return;
+
+// Concat current state
+user1:
+	if (active) jkStringConcatAsciiString("Display stats (ACTIVE)");
+	else jkStringConcatAsciiString("Display stats (NOT ACTIVE)");
+	return;
+
+trigger:
+	if (GetSourceRef() == 15080) {
+		// New bot selected
+		srv = GetParam(1);
+	}
+	return;
+
+pulse:
+	if (srv != -1) {
+		srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
+		srv_force = SendMessageEx(srv, user7, 1101, -1, -1, -1);
+
+		rbot = SendMessageEx(srv, user7, 3000, -1, -1, -1);
+		health = 0;
+		if (rbot != -1) {
+			health = GetThingHealth(rbot);
+		}
+
+		// Line 1
+		jkStringClear();
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 1000, -1, -1, -1), "Botid: %2d");
+		jkStringConcatAsciiString(", Botname: ");
+		jkStringConcatUNIString(1000 + SendMessageEx(srv, user7, 1001, -1, -1, -1));
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 1002, -1, -1, -1), ", Team: %d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1000, -1, -1, -1), ", Botmode: 0x%08x");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 1012, -1, -1, -1), ", Node: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1001, -1, -1, -1), ", Shields: %3d");
+		jkStringConcatFormattedInt(health, ", Health: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1004, -1, -1, -1), ", Bacta: %d");
+		jkStringOutput(-1, -1);
+
+		// Line 2
+		jkStringClear();
+		jkStringConcatAsciiString("Weapons: ");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 2, -1, -1), "{ bry:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 3, -1, -1), ", str:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 4, -1, -1), ", det:%2d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 5, -1, -1), ", bow:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 6, -1, -1), ", rpt:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 7, -1, -1), ", rld:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 8, -1, -1), ", seq:%2d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 9, -1, -1), ", con:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1006, 10, -1, -1), ", sab:%d }");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1002, -1, -1, -1), ", Energy: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1003, -1, -1, -1), ", Power: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1005, -1, -1, -1), ", Raildets: %2d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1007, -1, -1, -1), ", Pboost: %d");
+		jkStringOutput(-1, -1);
+
+		// Line 3
+		jkStringClear();
+		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1000, -1, -1, -1), "Forcemode: 0x%08x");
+		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1001, -1, -1, -1), ", Mana: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1002, -1, -1, -1), ", Forcearmor: %3d");
+		jkStringOutput(-1, -1);
+
+		// Clear remaining output lines for readability
+		Print("");
+		Print("");
+	}
+	return;
+
+end

@@ -18237,7 +18237,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 58
+World scripts 59
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -18295,12 +18295,13 @@ World scripts 58
 54: rbot-special.cog
 55: rbot-srv.cog
 56: rbot-srv2.cog
-57: rbot-startup.cog
+57: rbot-srv-force.cog
+58: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 184
+World cogs 217
 #Num	Script          Symbol values
 0: 00_SECTORTHRUST.COG (0/0/1) 5 123 122 -1 -1 -1 -1 -1 -1
 1: 00_SECTORTHRUST.COG (0/0/1) 5 172 171 -1 -1 -1 -1 -1 -1
@@ -18322,7 +18323,7 @@ World cogs 184
 17: rbot-door.cog 17 8 2
 18: rbot-autoelev.cog 13 142 86 -1 -1 -1 -1 0.25 2 4 activate02.wav
 19: rbot-autoelev.cog 16 174 176 -1 -1 -1 -1 0.25 2 4 activate02.wav
-20: rbot-startup.cog 4 32 1 1 0 0 2
+20: rbot-startup.cog 4 1 1 1 0 2 0 0 0 0 0
 21: rbot-nav.cog
 22: rbot-path.cog 109 110 111 112 113 114 115 116 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
 23: rbot-path.cog 117 118 119 120 121 122 123 124 125 108 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
@@ -18332,102 +18333,134 @@ World cogs 184
 27: rbot-path.cog 139 148 149 150 151 152 141 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
 28: rbot-path.cog 142 153 154 155 156 157 140 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
 29: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-30: rbot-srv.cog 0 9 -1 rbot_vader 7695 0
-31: rbot-srv2.cog 0
-32: rbot-cli.cog 0 0
-33: rbot-srv.cog 1 8 -1 rbot_luke 7695 0
-34: rbot-srv2.cog 1
-35: rbot-cli.cog 1 2
-36: rbot-srv.cog 2 6 -1 rbot_marajade 255 0
-37: rbot-srv2.cog 2
-38: rbot-cli.cog 2 1
-39: rbot-srv.cog 3 12 -1 rbot_pirate 255 0
-40: rbot-srv2.cog 3
-41: rbot-cli.cog 3 4
-42: rbot-srv.cog 4 24 -1 rbot_pirate2 7695 0
-43: rbot-srv2.cog 4
-44: rbot-cli.cog 4 5
-45: rbot-srv.cog 5 26 -1 rbot_weequay 255 0
-46: rbot-srv2.cog 5
-47: rbot-cli.cog 5 3
-48: rbot-srv.cog 6 4 -1 rbot_darkkyle 255 0
-49: rbot-srv2.cog 6
-50: rbot-cli.cog 6 0
-51: rbot-srv.cog 7 7 -1 rbot_darkmara 7695 0
-52: rbot-srv2.cog 7
-53: rbot-cli.cog 7 0
-54: rbot-srv.cog 8 28 -1 rbot_scouttroop 7695 0
-55: rbot-srv2.cog 8
-56: rbot-cli.cog 8 1
-57: rbot-srv.cog 9 46 -1 rbot_rebsoldier 255 0
-58: rbot-srv2.cog 9
-59: rbot-cli.cog 9 2
-60: rbot-srv.cog 10 47 -1 rbot_tiepilot 7695 0
-61: rbot-srv2.cog 10
-62: rbot-cli.cog 10 1
-63: rbot-srv.cog 11 48 -1 rbot_atatpilot 255 0
-64: rbot-srv2.cog 11
-65: rbot-cli.cog 11 2
-66: rbot-srv.cog 12 50 -1 rbot_rebcomander 255 0
-67: rbot-srv2.cog 12
-68: rbot-cli.cog 12 4
-69: rbot-srv.cog 13 10 -1 rbot_bobafett 255 0
-70: rbot-srv2.cog 13
-71: rbot-cli.cog 13 3
-72: rbot-srv.cog 14 28 -1 rbot_commando 496 0
-73: rbot-srv2.cog 14
-74: rbot-cli.cog 14 4
-75: rbot-srv2.cog 15
-76: rbot-srv.cog 15 15 -1 rbot_greedo 7695 0
-77: rbot-cli.cog 15 5
-78: rbot-srv.cog 16 24 -1 rbot_trooper 255 0
-79: rbot-srv2.cog 16
-80: rbot-cli.cog 16 1
-81: rbot-srv.cog 17 12 -1 rbot_tusken 7695 0
-82: rbot-srv2.cog 17
-83: rbot-cli.cog 17 2
-84: rbot-srv.cog 18 2 -1 rbot_jerec 7695 0
-85: rbot-srv2.cog 18
-86: rbot-cli.cog 18 0
-87: rbot-srv.cog 19 0 -1 rbot_yun 255 0
-88: rbot-srv2.cog 19
-89: rbot-cli.cog 19 5
-90: rbot-srv.cog 20 1 -1 rbot_sariss 15877 0
-91: rbot-srv2.cog 20
-92: rbot-cli.cog 20 2
-93: rbot-srv.cog 21 17 -1 rbot_jan 255 0
-94: rbot-srv2.cog 21
-95: rbot-cli.cog 21 2
-96: rbot-srv.cog 22 11 -1 rbot_bossk 7695 0
-97: rbot-srv2.cog 22
-98: rbot-cli.cog 22 3
-99: rbot-srv.cog 23 25 -1 rbot_admiral 255 0
-100: rbot-srv2.cog 23
-101: rbot-cli.cog 23 5
-102: rbot-srv.cog 24 16 -1 rbot_abronmar 7695 0
-103: rbot-srv2.cog 24
-104: rbot-cli.cog 24 5
-105: rbot-srv.cog 25 30 -1 rbot_cyborg 7695 0
-106: rbot-srv2.cog 25
-107: rbot-cli.cog 25 2
-108: rbot-srv.cog 26 29 -1 rbot_redeye 255 0
-109: rbot-srv2.cog 26
-110: rbot-cli.cog 26 0
-111: rbot-srv.cog 27 49 -1 rbot_rebofficer 7695 0
-112: rbot-srv2.cog 27
-113: rbot-cli.cog 27 3
-114: rbot-srv.cog 28 25 -1 rbot_officer 7695 0
-115: rbot-srv2.cog 28
-116: rbot-cli.cog 28 2
-117: rbot-srv.cog 29 5 -1 rbot_rahn 255 0
-118: rbot-srv2.cog 29
-119: rbot-cli.cog 29 0
-120: rbot-srv.cog 30 32 -1 rbot_silver 7695 0
-121: rbot-srv2.cog 30
-122: rbot-cli.cog 30 1
-123: rbot-srv.cog 31 18 -1 rbot_kaerrobanii 255 0
-124: rbot-srv2.cog 31
-125: rbot-cli.cog 31 0
+30: rbot-srv.cog 0 9 -1 rbot_vader 0
+31: rbot-srv-force.cog 0 7695
+32: rbot-srv2.cog 0
+33: rbot-cli.cog 0 0
+34: rbot-srv.cog 1 8 -1 rbot_luke 0
+35: rbot-srv-force.cog 1 7695
+36: rbot-srv2.cog 1
+37: rbot-cli.cog 1 2
+38: rbot-srv.cog 2 6 -1 rbot_marajade 0
+39: rbot-srv-force.cog 2 255
+40: rbot-srv2.cog 2
+41: rbot-cli.cog 2 1
+42: rbot-srv.cog 3 12 -1 rbot_pirate 0
+43: rbot-srv-force.cog 3 255
+44: rbot-srv2.cog 3
+45: rbot-cli.cog 3 4
+46: rbot-srv.cog 4 24 -1 rbot_pirate2 0
+47: rbot-srv-force.cog 4 7695
+48: rbot-srv2.cog 4
+49: rbot-cli.cog 4 5
+50: rbot-srv.cog 5 26 -1 rbot_weequay 0
+51: rbot-srv-force.cog 5 255
+52: rbot-srv2.cog 5
+53: rbot-cli.cog 5 3
+54: rbot-srv.cog 6 4 -1 rbot_darkkyle 0
+55: rbot-srv-force.cog 6 255
+56: rbot-srv2.cog 6
+57: rbot-cli.cog 6 0
+58: rbot-srv.cog 7 7 -1 rbot_darkmara 0
+59: rbot-srv-force.cog 7 7695
+60: rbot-srv2.cog 7
+61: rbot-cli.cog 7 0
+62: rbot-srv.cog 8 28 -1 rbot_scouttroop 0
+63: rbot-srv-force.cog 8 7695
+64: rbot-srv2.cog 8
+65: rbot-cli.cog 8 1
+66: rbot-srv.cog 9 46 -1 rbot_rebsoldier 0
+67: rbot-srv-force.cog 9 255
+68: rbot-srv2.cog 9
+69: rbot-cli.cog 9 2
+70: rbot-srv.cog 10 47 -1 rbot_tiepilot 0
+71: rbot-srv-force.cog 10 7695
+72: rbot-srv2.cog 10
+73: rbot-cli.cog 10 1
+74: rbot-srv.cog 11 48 -1 rbot_atatpilot 0
+75: rbot-srv-force.cog 11 255
+76: rbot-srv2.cog 11
+77: rbot-cli.cog 11 2
+78: rbot-srv.cog 12 50 -1 rbot_rebcomander 0
+79: rbot-srv-force.cog 12 255
+80: rbot-srv2.cog 12
+81: rbot-cli.cog 12 4
+82: rbot-srv.cog 13 10 -1 rbot_bobafett 0
+83: rbot-srv-force.cog 13 255
+84: rbot-srv2.cog 13
+85: rbot-cli.cog 13 3
+86: rbot-srv.cog 14 28 -1 rbot_commando 0
+87: rbot-srv-force.cog 14 496
+88: rbot-srv2.cog 14
+89: rbot-cli.cog 14 4
+90: rbot-srv2.cog 15
+91: rbot-srv.cog 15 15 -1 rbot_greedo 0
+92: rbot-srv-force.cog 15 7695
+93: rbot-cli.cog 15 5
+94: rbot-srv.cog 16 24 -1 rbot_trooper 0
+95: rbot-srv-force.cog 16 255
+96: rbot-srv2.cog 16
+97: rbot-cli.cog 16 1
+98: rbot-srv.cog 17 12 -1 rbot_tusken 0
+99: rbot-srv-force.cog 17 7695
+100: rbot-srv2.cog 17
+101: rbot-cli.cog 17 2
+102: rbot-srv.cog 18 2 -1 rbot_jerec 0
+103: rbot-srv-force.cog 18 7695
+104: rbot-srv2.cog 18
+105: rbot-cli.cog 18 0
+106: rbot-srv.cog 19 0 -1 rbot_yun 0
+107: rbot-srv-force.cog 19 255
+108: rbot-srv2.cog 19
+109: rbot-cli.cog 19 5
+110: rbot-srv.cog 20 1 -1 rbot_sariss 0
+111: rbot-srv-force.cog 20 15877
+112: rbot-srv2.cog 20
+113: rbot-cli.cog 20 2
+114: rbot-srv.cog 21 17 -1 rbot_jan 0
+115: rbot-srv-force.cog 21 255
+116: rbot-srv2.cog 21
+117: rbot-cli.cog 21 2
+118: rbot-srv.cog 22 11 -1 rbot_bossk 0
+119: rbot-srv-force.cog 22 7695
+120: rbot-srv2.cog 22
+121: rbot-cli.cog 22 3
+122: rbot-srv.cog 23 25 -1 rbot_admiral 0
+123: rbot-srv-force.cog 23 255
+124: rbot-srv2.cog 23
+125: rbot-cli.cog 23 5
+126: rbot-srv.cog 24 16 -1 rbot_abronmar 0
+127: rbot-srv-force.cog 24 7695
+128: rbot-srv2.cog 24
+129: rbot-cli.cog 24 5
+130: rbot-srv.cog 25 30 -1 rbot_cyborg 0
+131: rbot-srv-force.cog 25 7695
+132: rbot-srv2.cog 25
+133: rbot-cli.cog 25 2
+134: rbot-srv.cog 26 29 -1 rbot_redeye 0
+135: rbot-srv-force.cog 26 255
+136: rbot-srv2.cog 26
+137: rbot-cli.cog 26 0
+138: rbot-srv.cog 27 49 -1 rbot_rebofficer 0
+139: rbot-srv-force.cog 27 7695
+140: rbot-srv2.cog 27
+141: rbot-cli.cog 27 3
+142: rbot-srv.cog 28 25 -1 rbot_officer 0
+143: rbot-srv-force.cog 28 7695
+144: rbot-srv2.cog 28
+145: rbot-cli.cog 28 2
+146: rbot-srv.cog 29 5 -1 rbot_rahn 0
+147: rbot-srv-force.cog 29 255
+148: rbot-srv2.cog 29
+149: rbot-cli.cog 29 0
+150: rbot-srv.cog 30 32 -1 rbot_silver 0
+151: rbot-srv-force.cog 30 7695
+152: rbot-srv2.cog 30
+153: rbot-cli.cog 30 1
+154: rbot-srv.cog 31 18 -1 rbot_kaerrobanii 0
+155: rbot-srv-force.cog 31 255
+156: rbot-srv2.cog 31
+157: rbot-cli.cog 31 0
 end
 
 Section: TEMPLATES

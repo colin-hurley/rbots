@@ -9,7 +9,7 @@
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
 
-alignment=0.0, rank=0.0, fov=270, maxstep=4.0, sightdist=10.0, heardist=4.0
+alignment=0.0, rank=0.0, fov=270, maxstep=4.0, sightdist=10.0, heardist=5.0
 
 #instinct			args
 ##########################################

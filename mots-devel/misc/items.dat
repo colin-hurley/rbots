@@ -252,12 +252,24 @@ goal13                  113             0       1000    0x040
 goal14                  114             0       1000    0x040
 goal15                  115             0       1000    0x040
 
-botcam			116		1	1	0x120	cog=rbot-botcam.cog
-numbots			117		1	1	0x120	cog=rbot-setup.cog
-difficulty		118		1	1	0x120	cog=rbot-difficulty.cog
+botadmnext				116				0		0		0x120	cog=rbot-admin-next.cog
+botadmprev				117				0		0		0x120	cog=rbot-admin-prev.cog
+botadmexec				118				0		0		0x120	cog=rbot-admin.cog
 
 hotkeyOffset            150             0       99999   0x000
 
+numbots					151				0		0		0x000	cog=rbot-admin-setup.cog
+difficulty				152				0		0		0x000	cog=rbot-admin-difficulty.cog
+fullmap					153				0		0		0x000	cog=rbot-admin-fullmap.cog
+slowmo					154				0		0		0x000	cog=rbot-admin-slowmo.cog
+target					155				0		0		0x000	cog=rbot-admin-target.cog
+
+selectbot				170				0		0		0x000	cog=rbot-admin-selection.cog
+botcam					171				0		0		0x000	cog=rbot-admin-botcam.cog
+stats					172				0		0		0x000	cog=rbot-admin-stats.cog
+kill					173				0		0		0x000	cog=rbot-admin-kill.cog
+highlight				174				0		0		0x000	cog=rbot-admin-highlight.cog
+teleport				175				0		0		0x000	cog=rbot-admin-teleport.cog
 
 # =============== #
 # MAX Bins =  199 #

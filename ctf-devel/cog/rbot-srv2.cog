@@ -1,7 +1,9 @@
-# Rbot AI Cog - Alpha 0.32
-# Server side - unsynch
+# Rbot Server - AI (unsynch)
 #
-# Created by Raynar
+# Server-only
+# Type ID: 1021
+#
+# Rbots originally created by Raynar
 # Additional code by Hell Raiser
 
 flags=0x280
@@ -12,6 +14,7 @@ message		startup
 message		trigger
 message		pulse
 message		timer
+message		user7
 
 int			botid=0
 thing		rbot		local
@@ -21,6 +24,7 @@ int			botmode		local
 int			botname		local
 int			difficulty	local
 int			forcemode	local
+int			target_mask	local
 
 # Item templates
 template	tmp_energycell=ENERGYCELL	local
@@ -51,17 +55,17 @@ int			energy			local
 int			power			local
 int			inv_bacta		local
 int			inv_raildets	local
-int			inv_weap0		local	desc=saber unlit
+int			inv_weap0		local	desc=saber_unlit
 int			inv_weap1		local	desc=fists
 int			inv_weap2		local	desc=bryar
-int			inv_weap3		local	desc=st rifle
-int			inv_weap4		local	desc=therm det
+int			inv_weap3		local	desc=st_rifle
+int			inv_weap4		local	desc=therm_det
 int			inv_weap5		local	desc=crossbow
 int			inv_weap6		local	desc=repeater
 int			inv_weap7		local	desc=railgun
-int			inv_weap8		local	desc=seq charges
-int			inv_weap9		local	desc=conc rifle
-int			inv_weap10		local	desc=saber lit
+int			inv_weap8		local	desc=seq_charges
+int			inv_weap9		local	desc=conc_rifle
+int			inv_weap10		local	desc=saber_lit
 
 # Misc
 thing		potential	local
@@ -70,9 +74,7 @@ thing		newtarget	local
 flex		dot			local
 flex		maxdot		local
 flex		dist		local
-flex		mindist		local
 int			targetok	local
-int			targetmode	local
 int			curweap		local
 int			maxthings	local
 thing		item		local
@@ -81,28 +83,21 @@ vector		relpos			local
 flex		firedelay		local
 flex		minrange		local
 flex		maxrange		local
-flex		firedelay2		local
-flex		minrange2		local
-flex		maxrange2		local
 int			nextanim=0		local
-vector		rvec			local
 flex		extra			local
 int			slash			local
 int			bin				local
-int			rank			local
-thing		enemy			local
-int			health			local
 int			damage			local
 int			targweap		local
 int			powerboost		local
 thing		damager			local
-thing		highscorer		local
 int			captured_red	local
 int			captured_gold	local
 int			redflag_taken	local
 int			goldflag_taken	local
 int			targetpriority		local
 int			newtargetpriority	local
+int			special				local
 
 end
 
@@ -111,7 +106,16 @@ end
 code
 
 startup:
+	if (IsMulti() && !IsServer()) {
+		// Server-only
+		return;
+	}
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1021, GetSelfCog(), botid, -1);
+
 	maxthings = GetThingCount(); // work out how many objects in the level
+	target_mask = 0x404; // Attack both actors and players by default
 	return;
 
 trigger:
@@ -126,6 +130,19 @@ trigger:
 		captured_gold=GetParam(1);
 		redflag_taken=GetParam(2);
 		goldflag_taken=GetParam(3);
+	}
+	if (GetSourceRef() == 120000) // Update target mask
+	{
+		if (GetParam(0)) {
+			target_mask = BitSet(target_mask, 0x400); // Attack players
+		} else {
+			target_mask = BitClear(target_mask, 0x400); // Ignore players
+		}
+		if (GetParam(1)) {
+			target_mask = BitSet(target_mask, 0x4); // Attack bots
+		} else {
+			target_mask = BitClear(target_mask, 0x4); // Ignore bots
+		}
 	}
 	if (getparam(0) != botid) return;
 
@@ -162,7 +179,6 @@ trigger:
 		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
 		curweap=0;
 		damager=-1;
-		highscorer=-1;
   		setpulse(0.5);
 	}
 	else if (getsourceref() == 1000) // Bot killed - stop checking
@@ -290,9 +306,9 @@ trigger:
 	}
 	else if (getsourceref() == 101030) // Force used against bot
 	{
-		enemy=GetParam(1);
+		#enemy=GetParam(1);
 		bin=GetParam(2);
-		rank=GetParam(3);
+		#rank=GetParam(3);
 		if (bin == 24) // Force Pull
 		{
 			if (curweap > 1 && curweap != 10) // don't force pull fists or saber
@@ -305,7 +321,7 @@ trigger:
 				}
 				else if (curweap==8)
 				{
-					inv_weap08=inv_weap8-1;
+					inv_weap8=inv_weap8-1;
 					if (inv_weap8<0) inv_weap8=0;
 				}
 				else inv_weap0[curweap]=0;
@@ -318,10 +334,6 @@ trigger:
 			KillTimerEx(31);
 			SetTimerEx(0.8, 31, 0, 0);
 		}
-	}
-	else if (getsourceref() == 101051) // returned highscorer
-	{
-		highscorer=GetParam(1);
 	}
 	return;
 
@@ -338,11 +350,10 @@ pulse:
 findtarget:
 	newtarget=-1;
 	maxdot=-1;
-	mindist=100;
 	targetpriority=0;
 	newtargetpriority=-1;
 
-	potential = FirstThingInView(rbot, 270, 8.0, 0x404);  // find (0x404 - player or actor)
+	potential = FirstThingInView(rbot, 270, 8.0, target_mask);
 	while(potential != -1) // valid target
 	{
 		targetok=1;
@@ -435,7 +446,7 @@ pickupitem:
 	}
 	else if (getthingtemplate(item) == tmp_weap8)
 	{
-		if (inv_weap8<30);
+		if (inv_weap8<30)
 		{
 			inv_weap8=inv_weap8+5;
 			if (inv_weap8>30) inv_weap8=30;
@@ -444,7 +455,7 @@ pickupitem:
 	}
 	else if (getthingtemplate(item) == tmp_raildets)
 	{
-		if (inv_raildets<30);
+		if (inv_raildets<30)
 		{
 			inv_raildets=inv_raildets+3;
 			if (inv_raildets>30) inv_raildets=30;
@@ -453,7 +464,7 @@ pickupitem:
 	}
 	else if (getthingtemplate(item) == tmp_bacta)
 	{
-		if (inv_bacta<5);
+		if (inv_bacta<5)
 		{
 			inv_bacta=inv_bacta+1;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
@@ -807,7 +818,6 @@ select_weap6: // Repeater
 
 select_weap7: // Railgun
 	firedelay=1.0/powerboost;
-	firedelay2=1.0/powerboost;
 	if (curweap==7) return;
 	curweap=7;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // Set LOS from weapon's height
@@ -816,8 +826,9 @@ select_weap7: // Railgun
 	minrange=0.8;
 	maxrange=8.0;
 	//2nd fire vars [HR]
-	minrange2=0.0;
-	maxrange2=0.8;
+	#firedelay2=1.0/powerboost;
+	#minrange2=0.0;
+	#maxrange2=0.8;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
 	KillTimerEx(120); // failsafe
 	SetTimerEx(0.6, 120, -1, -1); // allow bot to fire after weapon is mounted
@@ -839,7 +850,6 @@ select_weap8: // Sequencer Mines
 
 select_weap9: // Concussion Rifle
 	firedelay=1.2/powerboost;
-	firedelay2=1.2/powerboost;
 	if (curweap==9) return;
 	curweap=9;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // // Set LOS from weapon's height
@@ -848,8 +858,9 @@ select_weap9: // Concussion Rifle
 	minrange=0.8;
 	maxrange=8.0;
 	//2nd fire vars [HR]
-	minrange2=0.0;
-	maxrange2=0.8;
+	#firedelay2=1.2/powerboost;
+	#minrange2=0.0;
+	#maxrange2=0.8;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
 	KillTimerEx(120); // failsafe
 	SetTimerEx(0.5, 120, -1, -1); // allow bot to fire after weapon is mounted
@@ -882,7 +893,7 @@ firetarget:
 	}
 	botmode=BitSet(botmode,0x20000); // bot is now attacking
 	disttotarg=VectorDist(GetThingPos(rbot), GetThingPos(target));
-	relpos=VectorSet("0.0","0.0", VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
+	relpos=VectorSet(0.0, 0.0, VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
 	if (disttotarg > minrange && disttotarg < maxrange && HasLOS(rbot,target)) // target within range & bot can see it
 	{
 		if (curweap == 1) // fists
@@ -941,7 +952,7 @@ firetarget:
 			else // Land based saber attacks
 			{
 				dot=ThingViewDot(rbot,target);
-				relpos=VectorSet(VectorX(GetThingPos(target))-VectorX(GetThingPos(rbot)),VectorY(GetThingPos(target))-VectorY(GetThingPos(rbot)),"0.0"); // work out relative position of target to bot
+				relpos=VectorSet(VectorX(GetThingPos(target))-VectorX(GetThingPos(rbot)), VectorY(GetThingPos(target))-VectorY(GetThingPos(rbot)), 0.0); // work out relative position of target to bot
 				if (dot > 0.4) // target is front of bot
 				{
 					maxdot=rand()*3;
@@ -1075,9 +1086,8 @@ timer:
 	}
 	else if (GetSenderId() == 400) // display stats
 	{
-		return; // hack
 		jkstringclear();
-		jkStringConcatUNIString(-1, 1000+botname);
+		jkStringConcatUNIString(1000+botname);
 		jkStringConcatAsciiString(": health: ");
 		jkStringConcatInt(GetThingHealth(rbot));  
 		jkStringConcatAsciiString(" shields: ");
@@ -1098,10 +1108,10 @@ timer:
 		//else jkStringConcatAsciiString(" none ");
 		//if (BitTest(botmode,0x20000)) jkStringConcatAsciiString(" attacking ");
 		//if (BitTest(botmode,0x40000)) jkStringConcatAsciiString(" weapon not mounted ");
-		jkStringOutput();
+		jkStringOutput(-1, -1);
 
 		//jkstringclear();
-		//jkStringConcatUNIString(-1, 1000+botname);
+		//jkStringConcatUNIString(1000+botname);
 		//jkStringConcatAsciiString(" has available: ");
 		//if (inv_weap9) jkStringConcatAsciiString("conc_rifle ");
 		//if (inv_weap7) jkStringConcatAsciiString("railgun ");
@@ -1112,7 +1122,7 @@ timer:
 		//jkStringOutput();
 
 		//jkstringclear();
-		//jkStringConcatUNIString(-1, 1000+botname);
+		//jkStringConcatUNIString(1000+botname);
 		//jkStringConcatAsciiString(" needs: ");
 		//if (BitTest(botmode, 0x400)) jkStringConcatAsciiString("health ");
 		//if (BitTest(botmode, 0x800)) jkStringConcatAsciiString("shields ");
@@ -1133,6 +1143,29 @@ timer:
 	else if (GetSenderId() == 450) // Allow bot to block again
 	{
 		botmode=BitClear(botmode,0x200000);
+	}
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 1000) ReturnEx(botmode);
+	else if (GetParam(0) == 1001) ReturnEx(shields);
+	else if (GetParam(0) == 1002) ReturnEx(energy);
+	else if (GetParam(0) == 1003) ReturnEx(power);
+	else if (GetParam(0) == 1004) ReturnEx(inv_bacta);
+	else if (GetParam(0) == 1005) ReturnEx(inv_raildets);
+	else if (GetParam(0) == 1006) ReturnEx(inv_weap0[GetParam(1)]);
+	else if (GetParam(0) == 1007) ReturnEx(powerboost);
+	// Otherwise, report error
+	else {
+		jkStringClear();
+		jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv2.cog :: ERROR :: Cog %d");
+		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+		jkStringOutput(-1, -1);
 	}
 	return;
 

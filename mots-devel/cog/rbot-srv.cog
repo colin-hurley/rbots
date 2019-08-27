@@ -1,7 +1,9 @@
-# Rbot AI Cog - Alpha 0.32
-# Server side - synch
+# Rbot Server - AI (synch)
 #
-# Created by Raynar
+# Server-only
+# Type ID: 1020
+#
+# Rbots originally created by Raynar
 # Additional code by Hell Raiser
 
 flags=0x80
@@ -16,12 +18,12 @@ message		timer
 message		damaged
 message		user0
 message		user1
+message		user7
 
 int			botid=0
 int			botname=-1
 int			team=0
 template	rtemp
-int			forceflags=15
 int			characterflags=0
 
 # Game setup options - set from startup cog
@@ -31,7 +33,8 @@ int			difficulty=0				local
 # Internal bot references
 thing		rbot						local
 int			botmode						local
-int			forcemode					local
+cog			srv2						local
+cog			srv_force					local
 
 # Weapon fire projectiles
 template	projectile_weap00=+rbotsaber		local
@@ -39,8 +42,8 @@ template	projectile_weap00a=+rbotsaber2		local
 template	projectile_weap01=+punch			local
 template	projectile_weap02=+bryarbolt		local
 template	projectile_weap03=+stlaser			local
-template	projectile_weap05=+crossbowbolt		local
-template	projectile_weap05a=+crossbowbolt2	local
+#template	projectile_weap05=+crossbowbolt		local
+#template	projectile_weap05a=+crossbowbolt2	local
 template	projectile_weap05b=+crossbowbolt3	local
 template	projectile_weap06=+repeaterball		local
 template	projectile_weap07=+raildet			local
@@ -50,50 +53,27 @@ template	projectile_weap08a=+seqchrg2		local
 template	projectile_weap09=+concbullet		local
 template	projectile_weap09a=+concblast2		local
 
-# Force powers
-template	force_lightning=+force_lightning	local
-template	force_destruction=+force_dest_p4	local
-template    force_blinding=+force_blind			local
-
-# Pulled weapon templates
-template	tpl0=+FPBryarPistol			local
-template	tpl1=+FPBryarPistol			local
-template	tpl2=+FPBryarPistol			local
-template	tpl3=+FPSTrifle				local
-template	tpl4=+FPDetonator			local
-template	tpl5=+FPCrossbow			local
-template	tpl6=+FPRepeaterGun			local
-template	tpl7=+FPRailGun				local
-template	tpl8=+FPSeqCharge			local
-template	tpl9=+FPConcRifle			local
-template	tpl10=+FPBryarPistol		local
-
-
 # Projectiles to jump away from with saber
-template	dproj0=+raildet				local
-template	dproj1=+concbullet			local
-
-# Force
-int			mana			local
+#template	dproj0=+raildet				local
+#template	dproj1=+concbullet			local
 
 # Item models
-model		itemmodel0=conp.3do		local	desc=conc rifle
-model		itemmodel1=rldp.3do		local	desc=rail gun
+model		itemmodel0=conp.3do		local	desc=conc_rifle
+model		itemmodel1=rldp.3do		local	desc=rail_gun
 model		itemmodel2=rptp.3do		local	desc=repeater
-model		itemmodel3=strp.3do		local	desc=st rifle
+model		itemmodel3=strp.3do		local	desc=st_rifle
 model		itemmodel4=bowp.3do		local	desc=crossbow
-model		itemmodel5=ecel.3do		local	desc=energy cell
-model		itemmodel6=pcel.3do		local	desc=power cell
-model		itemmodel7=rcrg.3do		local	desc=rail dets
-model		itemmodel8=detp.3do		local	desc=thermal dets
+model		itemmodel5=ecel.3do		local	desc=energy_cell
+model		itemmodel6=pcel.3do		local	desc=power_cell
+model		itemmodel7=rcrg.3do		local	desc=rail_dets
+model		itemmodel8=detp.3do		local	desc=thermal_dets
 model		itemmodel9=seqp.3do		local	desc=sequencers
 model		itemmodel10=hepk.3do	local	desc=health
 model		itemmodel11=shld.3do	local	desc=shield
-model		itemmodel12=vest.3do	local	desc=full shield
-# FIXME: These CTF symbols are commented out here, but the code section still references them
-#model		itemmodel13=flgr.3do	local	desc=red flag
-#model		itemmodel14=flgy.3do	local	desc=gold flag
-model		itemmodel15=seq0.3do	local	desc=live sequencer
+model		itemmodel12=vest.3do	local	desc=full_shield
+#model		itemmodel13=flgr.3do	local	desc=red_flag
+#model		itemmodel14=flgy.3do	local	desc=gold_flag
+#model		itemmodel15=seq0.3do	local	desc=live_sequencer
 
 # Misc
 int			curweap			local
@@ -101,7 +81,6 @@ thing		node			local
 vector		newpos			local
 int			lastposnum		local
 thing		target			local
-vector		rvec			local
 vector		relpos			local
 vector		blindvec		local
 flex		tempflex1		local
@@ -113,15 +92,9 @@ vector		tempvector4		local
 flex		disttotarg		local
 int			targweap		local
 int			firing=0		local
-int			bin				local
-int			rank			local
-thing		enemy			local
 int			mode			local
 flex		dot				local
-int			attachflags		local
 flex		choice			local
-vector		firepos			local
-vector		firevec			local
 int			rundir			local
 flex		damage			local
 int			damagetype		local
@@ -129,16 +102,10 @@ thing		damager			local
 int			shields			local
 int			stopcount		local
 sector		cursector		local
+int			forcemode		local
 thing		item			local
-thing		forcetarget		local
-int			griptrackID		local
-thing		debris			local
-int			dscount			local
-int			starthealth		local
-int			forcearmor		local
-int			newitem			local
+thing		newitem			local
 int			drowning		local
-int			index			local
 int			captured_red	local
 int			captured_gold	local
 int			redflag_taken	local
@@ -146,12 +113,10 @@ int			goldflag_taken	local
 model		newitemmodel	local
 int			itempriority	local
 int			newitempriority	local
-int			dummyproj		local
-vector		targetvel		local
-flex		speed			local
-flex		distance		local
-flex		time			local
 int			allowdodge		local
+int			special			local
+int			nextanim		local
+thing		potential		local
 
 end
 
@@ -160,17 +125,20 @@ end
 code
 
 startup:
-	if(!IsServer()) return;
+	if (IsMulti() && !IsServer()) {
+		// Server-only
+		return;
+	}
 
-	// test
-	//sleep(5.0);
-	//print("multimode");
-	//printint(GetMultiModeFlags());
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1020, GetSelfCog(), botid, -1);
+
 	return;
 
 pulse:
 	if(!IsServer()) return;
 	setpulse(0);
+	forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
 	SendTrigger(-1, 100000, botid, rbot, forcemode, -1); // request update
 	call dodge;
 	call move;
@@ -183,11 +151,8 @@ killed:
 	setpulse(0);
 	StopThing(rbot);
 	botmode=BitClear(botmode,0x10000); // bot no longer alive
-	forcemode=0;
 	KillTimerEx(300); // stop checking if bot is in a pit
-	KillTimerEx(500); // stop force mana increase
-	KillTimerEx(501); // stop force attacks
-	KillTimerEx(502); // stop force defenses
+	SendMessageEx(srv_force, user7, 3001, -1, -1, -1); // stop force powers
 	ClearActorFlags(rbot, 0x80); // make sure bot is not invisible
 	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send trigger to startup cog to respawn new bot
 	ReleaseThing(rbot);
@@ -214,33 +179,6 @@ damaged:
 		return;
 	}
 
-	if (BitTest(forcemode,0x100)) // protection enabled
-	{
-		if (forcearmor <= 0) // no force armor left - switch off protection
-		{
-			KillTimerEx(29);
-			forcemode=BitClear(forcemode,0x100); // protection is no longer active
-			ClearThingFlags(rbot, 4); // remove magseal from bot
-			SendTrigger(-1, 101026, botid, rbot, -1, 29); // tell client to stop playing sound
-		}
-		else if (BitTest(30, damagetype)) // If damage from energy, fire, force or saber
-		{
-			forcearmor = forcearmor-damage;
-			if (forceArmor < 0) damage = -forceArmor; else damage = 0;
-			if (shields > 0) // <- check here
-			{
-				SendTrigger(-1, 100003, botid, damage, GetThingParent(damager), -1); // update srv2 with damage
-				if (damage > shields)
-				{
-					damage=damage-shields;
-				}
-				else damage=0;
-			}
-			if (BitTest(gamemode,0x8) && ((GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) || (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team))) damage=0;
-			ReturnEx(damage);
-			return;
-		}
-	}
 	if (curweap == 10 && BitTest(botmode,0x200000)) // bot has saber - check if it can block
 	{
 		// Check for saber blocking
@@ -258,62 +196,85 @@ damaged:
 			return;
 		}
 	}
-	
-	if (BitTest(damagetype,0x10)) // saber attack damage - combined health & shields
-	{
-		if (shields > 0)
-		{
-			damage=damage/2;
-			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager),-1); // update srv2 with damage
-			if (damage > shields) damage=damage+damage-shields; else damage=0;
+
+	// If team play is enabled, prevent friendly fire from teammates
+	if (damager != rbot && BitTest(gamemode,0x8)) {
+		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) {
+			// Damaged by player on same team
+			ReturnEx(0);
+			return;
 		}
-		if (BitTest(gamemode,0x8) && ((GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) || (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team))) damage=0;
-		ReturnEx(damage);
-		return;
-	}
-	else if (BitTest(damagetype,0x08) && BitTest(forcemode,0x80)) // force damage & force absorb is active
-	{
-		SendTrigger(-1, 101025, botid, rbot, target, 28); // tell client to play sound
-		mana=mana+damage*(1+difficulty)/2;
-		if (mana > 400) mana=400;
-		ReturnEx(0);
-		return;
-	}
-	else if (BitTest(damagetype,0x01) || BitTest(damagetype,0x04) || BitTest(damagetype,0x08) || BitTest(damagetype,0x40)) // impact, explosion, force, impact from fall - take damage from health not shields
-	{
-		if (BitTest(gamemode,0x8) && ((GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) || (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team)) && damager != rbot)
-		{
-			damage=0;
-			ReturnEx(damage);
-		}
-				
-		if (damage > GetThingHealth(rbot)) // if damage is going to kill bot - switch off checking routines
-		{
-			// make sure bot dies
-			SetThingHealth(rbot,1);
-			StopThing(rbot); //Make 'em stay in place like when player dies [HR]
-			ReturnEx(10);
+		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team) {
+			// Damaged by bot on same team
+			ReturnEx(0);
 			return;
 		}
 	}
-	else
+
+	// Force powers may reduce the damage
+	damage = SendMessageEx(srv_force, user7, 3002, damage, damagetype, damager);
+
+	// Shields may reduce the damage
+	// TODO: This currently behaves a bit differently than the player shields - when a player
+	// dips below 50 shields, the shields become less effective and the player starts taking
+	// more health damage.  Bots, on the other hand, use up the shields completely before
+	// taking any health damage.
+	// Note: The 100003 trigger sent to srv2 is what actually reduces the bot's shield amount
+	if (BitTest(damagetype,0x10)) // saber attack damage - combined health & shields
 	{
-		if (shields > 0)
-		{
-			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager), -1); // update srv2 with damage
-			if (damage > shields)
-			{
-				damage=damage-shields;
+		if (shields > 0) {
+			// Split damage between shields and health
+			damage = damage / 2;
+			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager),-1); // update srv2 with damage
+			if (damage > shields) {
+				damage = damage + damage - shields;
+			} else {
+				damage = 0;
 			}
-			else damage=0;
 		}
-		if (BitTest(gamemode,0x8) && ((GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) || (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team))) damage=0;
-		ReturnEx(damage);
 	}
+	else if (BitTest(damagetype,0x2) || BitTest(damagetype,0x4)) // Damage from energy or fire
+	{
+		if (shields > 0) {
+			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager), -1); // update srv2 with damage
+			if (damage > shields) {
+				damage = damage - shields;
+			} else {
+				damage = 0;
+			}
+		}
+	}
+
+	if (damage > GetThingHealth(rbot)) // if damage is going to kill bot - switch off checking routines
+	{
+		// make sure bot dies
+		SetThingHealth(rbot,1);
+		StopThing(rbot); //Make 'em stay in place like when player dies [HR]
+		ReturnEx(10);
+		return;
+	}
+
+	// Return the modified damage value - this is how much health damage the bot will take
+	ReturnEx(damage);
 	return;
 
 trigger:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) {
+		// Server-only
+		return;
+	}
+
+	if (GetSourceRef() == 1852000) {
+		// Rbot cog type discovery
+		if (GetParam(0) == 1021) {
+			// rbot-srv2.cog
+			if (GetParam(2) == botid) srv2 = GetParam(1);
+		} else if (GetParam(0) == 1022) {
+			// rbot-srv-force.cog
+			if (GetParam(2) == botid) srv_force = GetParam(1);
+		}
+	}
+
 	if (getsourceref() == 800) // game setup options <- obsolete
 	{
 		gamemode=getparam(0);
@@ -340,7 +301,7 @@ trigger:
 		SendTrigger(-1,950,botid,rbot,botname,team); // Confirm botuid
 		capturething(rbot);
 		jkstringclear();
-		jkStringConcatUNIString(-1, 1000+botname);
+		jkStringConcatUNIString(1000+botname);
 		jkStringConcatAsciiString(" respawns");
 		jkStringOutput(-3,-1);
 		node=-1;
@@ -350,17 +311,9 @@ trigger:
 		if (BitTest(characterflags,0x1)) botmode=BitSet(botmode,0x800000); // attack characteristic
 		if (BitTest(characterflags,0x2)) botmode=BitSet(botmode,0x1000000); // defend characteristic
 		if (BitTest(characterflags,0x4)) botmode=BitSet(botmode,0x2000000); // freelance characteristic
-		forcemode=0; // clear active force powers
 		SendTrigger(-1, 970, botid, rbot, botname, team); // return thing number
 		SetTimerEx(0.1, 120, -1, -1); // force bot 'lost' - get bot to ask for 1st move position
-		mana=400;
-		forcearmor=0;
-		if (BitTest(gamemode,0x04)) // allowed to use forcepowers
-		{
-			SetTimerEx(0.5, 500, -1, -1); // increase mana over time 
-			SetTimerEx(5.0, 501, -1, -1); // force attacks
-			SetTimerEx(5.0, 502, -1, -1); // force defensive/evasive
-		}
+		SendMessageEx(srv_force, user7, 3000, -1, -1, -1); // start force powers
 		SetTimerEx(2.0, 300, -1, -1); // check if bot has fallen into a pit
 		stopcount=30;
 		allowdodge=1;
@@ -371,7 +324,7 @@ trigger:
 		if (BitTest(botmode,0x10000)) // bot alive
 		{
 			jkstringclear();
-			jkStringConcatUNIString(-1, 1000+botname);
+			jkStringConcatUNIString(1000+botname);
 			jkStringConcatAsciiString(" has left the game");
 			jkStringOutput(-3,-1);
 			DamageThing(rbot,500,1,rbot); // Make sure bot is dead
@@ -405,7 +358,7 @@ trigger:
 		lastposnum=getparam(2);
 		rundir=getparam(3);
 		if (BitTest(botmode, 0x10000)) {
-			// Reset the 'lot lost' timeout if bot is still slive
+			// Reset the 'bot lost' timeout if bot is still slive
 			KillTimerEx(120);
 			SetTimerEx(8.0, 120, -1, -1);
 		}
@@ -462,16 +415,17 @@ trigger:
 		}
 
 		// Lead distance
-		if (difficulty == 4)
-		{
-			dummyproj = FireProjectile(rbot, projectile_weap0[curweap], -1, -1, '0 0 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-			targetvel = GetThingVel(target);
-			speed = VectorDist('0 0 0', VectorSub(GetThingVel(dummyproj), targetvel));
-			DestroyThing(dummyproj);
-			distance = VectorDist(GetThingPos(target), GetThingPos(rbot));
-			time = distance / speed;
-			AiSetLookPos(rbot, VectorAdd(GetThingPos(target), VectorScale(targetvel, time)));
-		}
+		#if (difficulty == 4)
+		#{
+		#	// FIXME: projectile_weap00[curweap] does not retrieve the correct template (some weapons have two templates, so the index by weapon number is not accurate)
+		#	dummyproj = FireProjectile(rbot, projectile_weap00[curweap], -1, -1, '0 0 0', '0 0 0', 1.0, 0, 0.0, 0.0);
+		#	targetvel = GetThingVel(target);
+		#	speed = VectorDist('0 0 0', VectorSub(GetThingVel(dummyproj), targetvel));
+		#	DestroyThing(dummyproj);
+		#	distance = VectorDist(GetThingPos(target), GetThingPos(rbot));
+		#	time = distance / speed;
+		#	AiSetLookPos(rbot, VectorAdd(GetThingPos(target), VectorScale(targetvel, time)));
+		#}
 
 		if (curweap == 1 && nextanim == 0) FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0); // fists
 		else if (curweap == 1 && nextanim == 1) FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0); // fists - alternate
@@ -509,21 +463,6 @@ trigger:
 			}
 		}
 		firing=0;
-	}
-	else if (getsourceref() == 101040) // mana update
-	{
-		mana=mana+GetParam(1);
-		if (mana>400) mana=400;
-		if (GetParam(2) == 1)
-		{
-			forcemode=BitSet(forcemode,0x4000); // lightside surge now active
-			SetTimerEx(20, 65, -1, -1); // switch off after 20 secs
-		}
-		else if (GetParam(2) == 2)
-		{
-			forcemode=BitSet(forcemode,0x8000); // darkside surge now active
-			SetTimerEx(20, 64, -1, -1); // switch off after 20 secs
-		}
 	}
 	return;
 
@@ -568,7 +507,7 @@ move:
 	{
 		if (getthingflags(rbot) & 0x2000000) // bot is still underwater
 		{
-			if (health < 70 || difficulty <2)
+			if (GetHealth(rbot) < 70 || difficulty <2)
 			{
 				//print("drowning - moving up!");
 				// work out a vector postion 0.5 above the bot
@@ -743,7 +682,7 @@ dodge:
 
 targettactics:
 	//******************Begin AI Tactics********************
-	relpos=VectorSet("0.0","0.0", VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
+	relpos=VectorSet(0.0, 0.0, VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
 	disttotarg=VectorDist(GetThingPos(rbot), GetThingPos(target));
 
 	//Get the current weapon of our target
@@ -812,6 +751,7 @@ checkspeed:
 	}
 	else
 	{
+		forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
 		tempvector1=GetThingVel(rbot);
 		tempvector2=VectorSet(VectorX(tempvector1),VectorY(tempvector1),0);
 		if (BitTest(forcemode,0x01)) // force speed active
@@ -827,95 +767,7 @@ checkspeed:
 
 timer:
 	if(!IsServer()) return;
-	if(GetSenderId() == 22) // after force speed
-	{
-		forcemode=BitClear(forcemode,0x01); // speed is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 22); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 23) // after force seeing
-	{
-		forcemode=BitClear(forcemode,0x08); // seeing is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 23); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 24) // after force pull
-	{
-		SetCollideType(GetParam(0), 1); // pulled weapon must be made takeable again
-		SetPhysicsFlags(GetParam(0), 1); // make it affected by gravity
-		SetLifeLeft(GetParam(0), 30); // make it last for 30 secs
-	}
-	else if(GetSenderId() == 26) // after force persuasion
-	{
-		ClearActorFlags(rbot, 0x80);
-		jkClearFlags(rbot, 0x20);
-		forcemode=BitClear(forcemode,0x20); // persuasion is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 26); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 27) // after force blinding
-	{
-		ClearActorFlags(victim, 0x800);  // allow bot to see again
-	}
-	else if(GetSenderId() == 28) // after force absorb
-	{
-		forcemode=BitClear(forcemode,0x80); // absorb is no longer active
-	}
-	else if(GetSenderId() == 29) // after force protection
-	{
-		forcemode=BitClear(forcemode,0x100); // protection is no longer active
-		ClearThingFlags(rbot, 4); // remove magseal from bot
-		SendTrigger(-1, 101026, botid, rbot, -1, 29); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 31) // force grip
-	{
-		target=GetParam(0);
-		ClearActorFlags(target, 0x40000); // allow target to move again
-		if (GetParam(1) != -1 && GetThingHealth(target) > 0) StopKey(target, GetParam(1), 0.1); // stop target playing 'grip' key but only if target is still alive
-		if (HasLOS(rbot,target) && GetThingHealth(rbot) > 0 && GetThingHealth(target) > 0 && VectorDist(GetThingPos(rbot), GetThingPos(target)) <= 1)
-		{
-			griptrackID=PlayMode(target, 25); // make target play 'gripped' key
-			SetActorFlags(target, 0x40000);
-			if (GetThingType(target) == 10) jkPrintUNIString(target, 300); // Print("You are taking Grip damage");
-			DamageThing(target, 2 * (4+difficulty), 0x8, rbot);
-			SendTrigger(-1,101025,botid,rbot,target,31); // get client to play 'grip' sound
-			SetTimerEx(0.5, 31, target, griptrackID); // allow bot to grip target again in 0.5 sec
-		}
-		else forcemode=BitClear(forcemode,0x400); // grip is no longer active
-	}
-	else if(GetSenderId() == 34) // force deadly sight
-	{
-		dscount=dscount+1;
-		if ((dscount > difficulty*3) || (GetThingHealth(rbot) < starthealth) || (GetActorFlags(rbot) & 0x800))
-		{
-			SendTrigger(-1, 101026, botid, rbot, target, 34); // tell client to stop playing sound
-			forcemode=BitClear(forcemode,0x2000); // deadly sight is no longer active
-			return;
-		}
-		item = FirstThingInView(rbot, 20 + 15 * (2+difficulty), 4 + difficulty, 0x404);
-		while(item != -1)
-		{
-			if (HasLOS(rbot, item) && (item != rbot) && !(GetThingFlags(item) & 0x200))
-			{
-				if (GetThingType(item) == 2) // another bot
-				{
-					SendMessageEx(GetThingCaptureCog(item), user0, item, rbot, 34, 2+difficulty);  // send info to bot
-				}
-				else if (GetThingType(item) == 10) // player
-				{
-					SendTrigger(item, 101999, GetThingSignature(item), rbot, 34, 2+difficulty); // send info to player
-				}
-			}
-			item = NextThingInView();
-		}
-		SetTimerEx(0.5, 34, -1, -1); // allow bot to deadly sight again in 0.5 sec
-	}
-	else if (GetSenderId() == 64) // after darkside surge
-	{
-		forcemode=BitClear(forcemode,0x8000); // darkside surge no longer active
-	}
-	else if (GetSenderId() == 65) // after lightside surge
-	{
-		forcemode=BitClear(forcemode,0x4000); // lightside surge no longer active
-	}
-	else if (GetSenderId() == 120) // bot has not found it's next node in time - bot lost
+	if (GetSenderId() == 120) // bot has not found it's next node in time - bot lost
 	{
 		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
 		SendTrigger(-1, 10000, botid, rbot, botmode, -1);
@@ -961,387 +813,59 @@ timer:
 	{
 		allowdodge=1;
 	}
-	else if (GetSenderId() == 500 && BitTest(botmode,0x10000)) // increase mana over time && bot alive
-	{
-		if (difficulty > 0) mana=mana+difficulty*5; else mana=mana+5;
-		if (mana > 400) mana=400;
-		SetTimerEx(5.0, 500, -1, -1); // schedule mana increase
-	}
-	else if (GetSenderId() == 501 && BitTest(botmode,0x10000)) // force power attacks && bot alive
-	{
-		if (mana > 0 && BitTest(botmode,0x4000)) // bot has mana & has a target
-		{
-			if (BitTest(forceflags,0x4) && curweap==10 && targweap!=10 && targweap!=1 && targweap!=4 && targweap!=8) // force pull allowed - bot has saber and target has gun
-			{
-				call force_pull;
-			}
-			else // choose random force power attack
-			{
-				tempflex1=rand()*7;
-				//tempflex1=7; // hack for testing only
-				if (tempflex1 <= 1 && BitTest(forceflags,0x4)) // pull
-				{
-					call force_pull;
-				}
-				else if (tempflex1 <= 2 && BitTest(forceflags,0x400)) // grip
-				{
-					call force_grip;
-				}
-				else if (tempflex1 <= 3 && BitTest(forceflags,0x40)) // blinding
-				{
-					call force_blinding;
-				}
-				else if (tempflex1 <= 4 && BitTest(forceflags,0x200)) // force throw
-				{
-					call force_throw;
-				}
-				else if (tempflex1 <= 5 && BitTest(forceflags,0x800)) // lightning
-				{
-					call force_lightning;
-				}
-				else if (tempflex1 <= 6 && BitTest(forceflags,0x1000)) // destruction
-				{
-					call force_destruction;
-				}
-				else if (BitTest(forceflags,0x2000)) // deadly sight
-				{
-					call force_deadlysight;
-				}
-			}
-		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule another force attack
-	}
-	else if (GetSenderId() == 502 && BitTest(botmode,0x10000)) // force power defensive/evasive && bot alive
-	{
-		if (mana > 0) // bot has mana
-		{
-			if (BitTest(forceflags,0x10) && GetThingHealth(rbot) < 70) // force heal allowed - bot is low on health
-			{
-				call force_healing;
-			}
-			else
-			{
-
-			tempflex1=rand()*6;
-			if (tempflex1 <= 1 && BitTest(forceflags,0x20))
-			{
-				call force_persuasion;
-			}
-			else if (tempflex1 <= 2 && BitTest(forceflags,0x80))
-			{
-				call force_absorb;
-			}
-			else if (tempflex1 <= 3 && BitTest(forceflags,0x8))
-			{
-				call force_seeing;
-			}
-			else if (tempflex1 <= 4 && BitTest(forceflags,0x10))
-			{
-				call force_healing;
-			}
-			else if (tempflex1 <= 5 && BitTest(forceflags,0x1))
-			{
-				call force_speed;
-			}
-			else if (tempflex1 <= 6 && BitTest(forceflags,0x100))
-			{
-				call force_protection;
-			}
-			//else if (BitTest(forceflags,0x2))
-			//{
-			//	call force_jump;
-			//}
-
-			}
-		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule another force defense
-	}
-	return;
-
-force_speed:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
-	{
-		if (mana < 20) return;
-		mana = mana-20;
-	}
-	if (BitTest(forcemode,0x01)) return; // already active
-	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, -1, 22); // tell client to play sound
-	forcemode=BitSet(forcemode,0x01); // speed is now active
-	SetTimerEx(7+(difficulty * 2.5), 24, 0, 0); // switch it off later
-	return;
-
-force_jump:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
-	{
-		if (mana < 20) return;
-		mana = mana-20;
-	}
-	SendTrigger(-1,101025,botid,rbot,-1,21); // get client to play 'jump' sound
-	ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 5.0));
-	return;
-
-force_pull:
-	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
-	{
-		if (mana < 20) return;
-		mana = mana-20;
-	}
-	if(GetHealth(target) > 0) // target is still alive
-	{
-		if (GetThingType(target) == 2) // bot
-		{
-			targweap=SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
-			if (targweap > 1 && targweap != 10) // don't pull fists or saber
-			{
-				//print("force pull - bot");
-				PlayMode(rbot, 24); // play 'force attack' key
-				Sleep(0.3);
-				SendMessageEx(GetThingCaptureCog(target), user0, target, rbot, 24, difficulty*2);
-				SendTrigger(-1,101025,botid,rbot,target,24); // get client to play 'pull' sound
-			}
-		}
-		else if (GetThingType(target) == 10) // player
-		{
-			targweap=GetCurWeapon(target);
-			if (targweap==11) targweap=10; // If player has saber, set it to 10 for simplicity
-			if (targweap > 1 && targweap != 10) // don't pull fists or saber
-			{
-				PlayMode(rbot, 24); // play 'force attack' key
-				Sleep(0.3);
-				forcetarget=target;
-				SendTrigger(-1,101025,botid,rbot,forcetarget,24); // get client to play 'pull' sound
-				item = CreateThingAtPos(tpl0[GetCurWeapon(forcetarget)], GetThingSector(forcetarget), GetThingPos(forcetarget), '0 0 0'); // Create a powerup corresponding to the current weapon
-				SetCollideType(item, 0); // Set the created powerup to no collide for now...
-				SetTimerEx(0.3, 24, item, 0); // ...and set a timer to make it collide again later
-				ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(rbot), GetThingPos(forcetarget))), 30)); // Throw the powerup at the bot
-				ChangeInv(forcetarget, GetCurWeapon(forcetarget), -1); // Remove the weapon from the player
-				SelectWeapon(forcetarget, 1);
-			}
-		}
-	}
-	return;
-
-force_seeing:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
-	{
-		if (mana < 30) return;
-		mana = mana-30;
-	}
-	if (BitTest(forcemode,0x08)) return; // already active
-	PlayMode(rbot, 24);
-	forcemode=BitSet(forcemode,0x08); // seeing is now active
-	SendTrigger(-1, 101025, botid, rbot, -1, 23); // tell client to play sound
-	SetTimerEx(7+(difficulty * 5), 23, 0, 0); // switch it off later
-	return;
-
-force_healing:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
-	{
-		if (mana < 200) return;
-		mana = mana-200;
-	}
-	if (GetThingHealth(rbot) > 99) return;
-	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, -1, 25); // tell client to play sound
-	if(GetThingHealth(rbot) > 0) HealThing(rbot, 20 * (2+difficulty));
-	return;
-
-force_persuasion:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
-	{
-		if (mana < 250) return;
-		mana = mana-250;
-	}
-	if (BitTest(forcemode,0x20)) return; // already active
-	forcemode=BitSet(forcemode,0x20); // persuasion is now active
-	SetActorFlags(rbot, 0x80);
-	SendTrigger(-1, 101025, botid, rbot, -1, 26); // tell client to play sound
-	SetTimerEx(2+(difficulty * 10), 26, 0, 0); // switch it off later
-	return;
-
-force_blinding:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
-	{
-		if (mana < 100) return;
-		mana = mana-100;
-	}
-	PlayMode(rbot, 24);
-	Sleep(0.3);
-	if(GetThingHealth(rbot) <= 0) Return; // He could die during the sleep
-	item = CreateThingAtPos(force_blinding, GetThingSector(rbot), VectorAdd(GetThingPos(rbot), '0.0 0.0 0.04'), '0.0 0.0 0.0');
-	SetThingLook(item, VectorSub(GetThingPos(target), GetThingPos(rbot)));
-	SendTrigger(-1, 101025, botid, rbot, target, 27); // tell client to play sound
-	if (GetThingType(target) == 2) // another bot
-	{
-		SendMessageEx(GetThingCaptureCog(target), user0, target, rbot, 27, 2+difficulty);  // send info to bot
-	}
-	else if (GetThingType(target) == 10) // player & does not have force seeing activated
-	{
-		SendTrigger(target, 101999, GetThingSignature(target), rbot, 27, 2+difficulty); // send info to player
-	}
-	return;
-
-force_absorb:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
-	{
-		if (mana < 200) return;
-		mana = mana-200;
-	}
-	if (BitTest(forcemode,0x80)) return; // already active
-	PlayMode(rbot, 24);
-	forcemode=BitSet(forcemode,0x80); // absorb is now active
-	SetTimerEx(2+(difficulty * 5), 28, 0, 0); // switch it off later
-	return;
-
-force_protection:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
-	{
-		if (mana < 300) return;
-		mana = mana-300;
-	}
-	if (BitTest(forcemode,0x100)) return; // already active
-	SetThingFlags(rbot, 4); // Make the bot magsealed
-	forcemode=BitSet(forcemode,0x100); // protection is now active
-	forcearmor=(3+difficulty)*75;
-	SendTrigger(-1, 101025, botid, rbot, (3+difficulty) * 10, 29); // tell client to play sound
-	SetTimerEx((3+difficulty) * 10, 29, 0, 0); // switch it off later
-	return;
-
-force_throw:
-	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
-	{
-		if (mana < 30) return;
-		mana = mana-30;
-	}
-	if(HasLOS(rbot, target)) // check that we still have a LOS on it...
-	{
-		debris = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 5 + difficulty, 0x010); // check if any debris is available before activating
-		if (debris != -1)
-		{
-			PlayMode(rbot, 24);
-			SendTrigger(-1, 101025, botid, rbot, target, 30); // tell client to play sound
-			// Check for debris objects in view.
-			debris = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 5 + difficulty, 0x010);   // 0x010 debris
-			while(debris != -1)
-			{
-				if(HasLOS(rbot, debris))
-				{
-					tempvector1 = VectorScale(VectorNorm(VectorSub(GetThingPos(target), GetThingPos(debris))), 300.0);
-					DetachThing(debris);
-					ApplyForce(debris, tempvector1);
-				}
-				debris = NextThingInView();
-			}
-		}
-	}
-	return;
-
-force_grip:
-	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
-	{
-		if (mana < 50) return;
-		mana = mana-50;
-	}
-	PlayMode(rbot, 24);
-	if (!(GetThingFlags(target) & 0x200) && HasLOS(rbot,target) && VectorDist(GetThingPos(rbot), GetThingPos(target)) <= 1) // cannot be gripped
-	{
-		if (GetThingType(target) == 2) // another bot
-		{
-			SetTimerEx(0.1, 31, target, -1);
-			forcemode=BitSet(forcemode,0x400); // grip is now active
-		}
-		else // player - still need to work it out
-		{
-			if(!IsInvActivated(target, 29))        // Protection makes player immune to Grip
-			{
-				SetTimerEx(0.1, 31, target, -1);
-				forcemode=BitSet(forcemode,0x400); // grip is now active
-			}
-		}
-	}
-	return;
-
-force_lightning:
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
-	{
-		if (mana < 40) return;
-		mana = mana-40;
-	}
-	FireProjectile(rbot, force_lightning, -1, 35, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
-	SendTrigger(-1, 101025, botid, rbot, target, 32); // tell client to play sound
-	return;
-
-force_destruction:
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
-	{
-		if (mana < 200) return;
-		mana = mana-200;
-	}
-	FireProjectile(rbot, force_destruction, -1, 24, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
-	SendTrigger(-1, 101025, botid, rbot, target, 33); // tell client to play sound
-	if (GetThingType(target) == 10) AddDynamicTint(victim, 0.3, 0.0, 0.15); // add tint if target is a player
-	return;
-
-force_deadlysight:
-	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
-	{
-		if (mana < 300) return;
-		mana = mana-300;
-	}
-	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, target, 34); // tell client to play sound
-	dscount=0;
-	starthealth=GetThingHealth(rbot);
-	SetTimerEx(0.1, 34, -1, -1);
-	forcemode=BitSet(forcemode,0x2000); // deadly sight is now active
 	return;
 
 user0: // force powers against bot
 	if(!IsServer()) return;
-	enemy=GetParam(1);
-	bin=GetParam(2);
-	rank=GetParam(3);
-
-	if (bin == 24) // force pull
-	{
-		if (BitTest(forcemode,0x80)) return; // force absorb makes bot immume to pull
-		if (curweap > 1 && curweap != 10) // don't force pull fists or saber
-		{
-			item = CreateThingAtPos(tpl0[curweap], GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // Create a powerup corresponding to the current weapon
-			SetTimerEx(0.2, 24, item, 0); // Make the powerup collide later
-			SetTimerEx(0.25, 24, item, 0); // Duplicate for internet games
-			ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
-		}
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
-	}
-	else if (bin == 27) // Force Blinding
-	{
-		if (BitTest(forcemode,0x08)) return; // force seeing makes bot immume to blinding
-		if(GetActorFlags(rbot) & 0x800) return; // bot already blind
-		SetActorFlags(rbot, 0x800); // blind bot
-		SetTimerEx(0.1, 230, -1, -1); // choose random move direction
-		SetTimerEx(rank * 4, 27, 0, 0);
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
-	}
-	else if (bin == 34) // Deadly Sight
-	{
-		DamageThing(rbot, 4 * rank, 0x8, enemy);
-		SendTrigger(-1, 2004, botid, rbot, -1, -1); // tell client to create smoke effects
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
-	}
-
-	ReturnEx(1);
+	// Delegate to rbot-srv-force.cog
+	ReturnEx(SendMessageEx(srv_force, user0, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
 	return;
 
 user1:
 	ReturnEx(curweap); // Current Weapon
 	return;
 
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	// Simple symbol value reads
+	if (GetParam(0) == 1000) ReturnEx(botid);
+	else if (GetParam(0) == 1001) ReturnEx(botname);
+	else if (GetParam(0) == 1002) ReturnEx(team);
+	else if (GetParam(0) == 1003) ReturnEx(botmode);
+	else if (GetParam(0) == 1004) ReturnEx(gamemode);
+	else if (GetParam(0) == 1005) ReturnEx(difficulty);
+	else if (GetParam(0) == 1010) ReturnEx(target);
+	else if (GetParam(0) == 1011) ReturnEx(newitem);
+	else if (GetParam(0) == 1012) ReturnEx(node);
+	else if (GetParam(0) == 1013) ReturnEx(rbot);
+	else if (GetParam(0) == 1014) ReturnEx(curweap);
+	else if (GetParam(0) == 1015) ReturnEx(targweap);
+	else if (GetParam(0) == 1100) ReturnEx(srv2);
+	else if (GetParam(0) == 1101) ReturnEx(srv_force);
+	// Simple symbol value writes
+	else if (GetParam(0) == 2003) botmode = GetParam(1);
+	// Calculated values
+	else if (GetParam(0) == 3000) {
+		// Return reference to live bot thing, or -1 if dead
+		if (BitTest(botmode, 0x10000)) {
+			// Bot is alive, return thing number
+			ReturnEx(rbot);
+		} else {
+			// Bot is dead, return -1 since thing number may or may not be the bot thing
+			ReturnEx(-1);
+		}
+	}
+	// Otherwise, report error
+	else {
+		jkStringClear();
+		jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv.cog :: ERROR :: Cog %d");
+		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+		jkStringOutput(-1, -1);
+	}
+	return;
+
 end
-
-

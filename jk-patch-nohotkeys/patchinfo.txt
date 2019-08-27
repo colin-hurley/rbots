@@ -1,5 +1,5 @@
 Name=Rbots [JK] No hotkeys
 Type=Misc.
-Description=Enables the bots to react to force powers. Hotkeys are disabled. Final release.
+Description=Enables the bots to react to force powers. Hotkeys are disabled.
 Author=Raynar
 Email=raynar@gamebox.net

@@ -1,0 +1,103 @@
+# Rbot Administration - Highlight
+#
+# This utility will "highlight" things of interest for a bot (e.g. destination
+# node, enemy target, item).
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message startup
+message shutdown
+message user0
+message user1
+message trigger
+message pulse
+
+int active=0 local
+
+cog srv=-1 local
+int botmode local
+thing target local
+thing enemy local
+thing item local
+thing node local
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	active = 0;
+	srv = -1;
+	return;
+
+// Execute
+user0:
+	active = 1 - active;
+	if (active) {
+		// Activate highlighter
+		Print("Highlighter on");
+		SetPulse(0.1);
+	} else {
+		Print("Highlighter off");
+		SetPulse(0);
+		jkEndTarget();
+	}
+	return;
+
+// Concat current state
+user1:
+	if (active) jkStringConcatAsciiString("Highlight target (ACTIVE)");
+	else jkStringConcatAsciiString("Highlight target (NOT ACTIVE)");
+	return;
+
+trigger:
+	if (GetSourceRef() == 15080) {
+		// New bot selected
+		srv = GetParam(1);
+	}
+	return;
+
+pulse:
+	target = -1;
+	if (srv != -1) {
+		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
+		if (BitTest(botmode, 0x10000)) {
+			// Bot is alive
+			enemy = SendMessageEx(srv, user7, 1010, -1, -1, -1);
+			item = SendMessageEx(srv, user7, 1011, -1, -1, -1);
+			node = SendMessageEx(srv, user7, 1012, -1, -1, -1);
+			if (BitTest(botmode, 0x4000)) {
+				// Bot has enemy target
+				jkSetTargetColors(6, 7, 8); // Red
+				target = enemy;
+			} else if (item != -1) {
+				// Bot is heading for an item
+				jkSetTargetColors(1, 2, 3); // Green
+				target = item;
+			} else {
+				// Otherwise, highlight the bot's destination node
+				jkSetTargetColors(16, 17, 18); // Light Blue
+				target = node;
+			}
+		}
+	}
+	if (target != -1) {
+		jkSetTarget(target);
+	} else {
+		jkEndTarget();
+	}
+	return;
+
+end

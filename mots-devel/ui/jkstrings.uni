@@ -773,9 +773,9 @@ MSGS 1503   # <--- DON'T FORGET TO UPDATE THIS COUNT
    "ACTIVATE18"      0 "IR Goggles"
    "ACTIVATE19"      0 "Field Light"
 
-   "ACTIVATE20"      0 "Bot Camera Mode"
-   "ACTIVATE21"      0 "Number of bots"
-   "ACTIVATE22"      0 "Bot Difficulty"
+   "ACTIVATE20"      0 "Bot Admin Next"
+   "ACTIVATE21"      0 "Bot Admin Prev"
+   "ACTIVATE22"      0 "Bot Admin Exec"
 
    ### ACTIVATExx bins up to ACTIVATE31 are available for user defined Hotkeys.
    ### In items.dat, the script for the 'xx'th item with the hotkey flag 0x100 will be bound.

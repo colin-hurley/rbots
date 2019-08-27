@@ -21,12 +21,13 @@
 				<include>cog\**\*</include>
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
-				<include>ui\**\*</include>
 				<include>*.tpl</include>
 			</includes>
 			<excludes>
-				<exclude>misc\cmp</exclude>
-				<exclude>misc\cmp\**\*</exclude>
+				<exclude>cog\force_*.cog</exclude>
+				<exclude>cog\rbot-admin*.cog</exclude>
+				<exclude>jkl\static.jkl</exclude>
+				<exclude>misc\items.dat</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

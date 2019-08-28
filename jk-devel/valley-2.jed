@@ -3428,7 +3428,7 @@ END
 SEC: COGS
 COGS 73
 00_SLIDECEILING.COG u:flex=20 v:flex=20
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=0 allowforce:int=1 teams:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 teams:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
 rbot-nav.cog
 rbot-path.cog node0:thing=113 node1:thing=114 node2:thing=115 node3:thing=116 node4:thing=117 node5:thing=118 node6:thing=119 node7:thing=120 node8:thing=121 node9:thing=122 node10:thing=123 node11:thing=149 node12:thing=124 node13:thing=125 node14:thing=126 node15:thing=127 node16:thing=128 node17:thing=129 node18:thing=130 node19:thing=131 node20:thing=132 node21:thing=133 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0
 rbot-path.cog node0:thing=134 node1:thing=135 node2:thing=136 node3:thing=137 node4:thing=138 node5:thing=139 node6:thing=140 node7:thing=141 node8:thing=142 node9:thing=143 node10:thing=144 node11:thing=145 node12:thing=146 node13:thing=147 node14:thing=148 node15:thing=150 node16:thing=125 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0

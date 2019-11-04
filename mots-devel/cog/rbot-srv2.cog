@@ -21,7 +21,6 @@ thing		rbot		local
 int			team		local
 int			gamemode	local
 int			botmode		local
-int			botname		local
 int			difficulty	local
 int			forcemode	local
 int			target_mask	local
@@ -48,6 +47,8 @@ template	tmp_weap6=REPEATERGUN		local
 template	tmp_weap7=RAILGUN			local
 template	tmp_weap8=SEQCHARGE			local
 template	tmp_weap9=CONCRIFLE			local
+template	tmp_ctfredkey=CTF_REDKEY	local
+template	tmp_ctfgoldkey=CTF_GOLDKEY	local
 
 # Inventory items - other weapons added later
 int			shields			local
@@ -55,6 +56,7 @@ int			energy			local
 int			power			local
 int			inv_bacta		local
 int			inv_raildets	local
+int			inv_keys		local
 int			inv_weap0		local	desc=saber_unlit
 int			inv_weap1		local	desc=fists
 int			inv_weap2		local	desc=bryar
@@ -98,6 +100,7 @@ int			goldflag_taken	local
 int			targetpriority		local
 int			newtargetpriority	local
 int			special				local
+int			mode				local
 
 end
 
@@ -151,7 +154,6 @@ trigger:
 	{
 		rbot=getparam(1);
 		team=getparam(3);
-		botname=getparam(2);
 		botmode=0; // reset botmode
 		botmode=BitSet(botmode,0x10000); // bot alive
 		botmode=BitSet(botmode,0x200000); // bot is able to block with saber
@@ -172,6 +174,14 @@ trigger:
 		inv_bacta=0;
 		inv_raildets=0;
 		powerboost=1; // normal fire rate
+		inv_keys=0x0;
+		if (team == 1) {
+			// Red team - get red CTF key by default
+			inv_keys = BitSet(inv_keys, 0x1);
+		} else if (team == 2) {
+			// Gold team - get gold CTF key by default
+			inv_keys = BitSet(inv_keys, 0x2);
+		}
 		SetThingHealth(rbot,100);
 		SetThingUserData(rbot,team);
 		ClearActorFlags(rbot, 8); // remove invulnerable
@@ -193,44 +203,63 @@ trigger:
 	}
 	else if (getsourceref() == 11020) // Received special info <- current work here!!!
 	{
-		special=getparam(1);
-		if (BitTest(special,0x02)) // tell bot to slow down
-		{
-			botmode=BitSet(botmode, 0x100000);
+		special = getparam(1);
+		mode = GetParam(2);
+		if (BitTest(special, 0x02)) {
+			// Bot needs to walk instead of running
 			KillTimerEx(130);
-			SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
-		}
-		if (BitTest(special,0x10) && inv_weap8 > 0 && !BitTest(botmode, 0x4000)) // lay mine & bot has mines & bot does not have a target
-		{
-			call select_weap8;
-			SendTrigger(-1,101020,botid,8,1,-1); // lay a mine (secondary fire)
-			inv_weap8 = inv_weap8-1;
-			if (inv_weap8 > 0)
-			{
-				SendTrigger(-1,101020,botid,8,1,-1); // lay another mine (secondary fire)
-				inv_weap8 = inv_weap8-1;
+			if (mode) {
+				// Enable effect
+				botmode = BitSet(botmode, 0x100000);
+
+				if (mode == 2) {
+					// Enable effect for short duration only
+					SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
+				}
+			} else {
+				// Disable effect
+				botmode = BitClear(botmode, 0x100000);
 			}
 		}
-		if (BitTest(special,0x20) && !BitTest(botmode, 0x1000)) // send activate to other cogs if running forwards
-		//if (BitTest(special,0x20)) // send activate to other cogs if running forwards
-		{
+		if (mode && BitTest(special, 0x10)) {
+			// Bot can lay a mine here
+			if (inv_weap8 > 0 && !BitTest(botmode, 0x4000)) {
+				// The bot has ammo, and the bot is not already attacking a target, so we can lay the mine
+				call select_weap8;
+				SendTrigger(-1, 101020, botid, 8, 1, -1); // lay a mine (secondary fire)
+				inv_weap8 = inv_weap8 - 1;
+				if (inv_weap8 > 0) {
+					SendTrigger(-1, 101020, botid, 8, 1, -1); // lay another mine (secondary fire)
+					inv_weap8 = inv_weap8 - 1;
+				}
+			}
+		}
+		if (mode && ((BitTest(special, 0x20) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x40) && BitTest(botmode, 0x1000)))) {
+			// Send activate to other cogs
 			SendTrigger(-1, 11030, botid, rbot, -1, -1);
 		}
-		if (BitTest(special,0x40) && BitTest(botmode, 0x1000)) // send activate to other cogs if running backwards
-		{
-			//print("activate back");
-			SendTrigger(-1, 11030, botid, rbot, -1, -1);
-		}
-		if (BitTest(special,0x80)) // wait for arrival
-		{
-			botmode=BitSet(botmode,0x80000); // tell bot to wait
-		}
-		if (BitTest(special,0x400)) // ignore items
-		{
-			botmode=BitSet(botmode, 0x4000000); // tell bot to follow the path straight to the next node
+		if (BitTest(special, 0x400)) {
+			// ignore items, follow the path straight to the next node
 			KillTimerEx(180);
-			SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again after 5 secs
+			if (mode) {
+				// Enable effect
+				botmode = BitSet(botmode, 0x4000000);
+
+				if (mode == 2) {
+					// Enable effect for shrot duration only
+					SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again after 5 secs
+				}
+			} else {
+				// Disable effect
+				botmode = BitClear(botmode, 0x4000000);
+			}
 		}
+	}
+	else if (GetSourceRef() == 11000) // New position available
+	{
+		// Just update the botmode rundir bit from the rundir param - srv takes care of the rest
+		if (GetParam(3)) botmode = BitClear(botmode, 0x1000);
+		else botmode = BitSet(botmode, 0x1000);
 	}
 	else if (getsourceref() == 12001) // get inventory items from backpack
 	{
@@ -294,15 +323,6 @@ trigger:
 			if (shields < 0) shields=0;
 			return;
 		}
-	}
-	else if (getsourceref() == 100010) // Turn on stats display
-	{
-		KillTimerEx(400);
-		SetTimerEx(1.0,400,-1,-1); // display stats every 1.0 sec
-	}
-	else if (getsourceref() == 100011) // Turn off stats display
-	{
-		KillTimerEx(400);
 	}
 	else if (getsourceref() == 101030) // Force used against bot
 	{
@@ -588,6 +608,14 @@ pickupitem:
 	{
 		SendTrigger(-1, 12000, botid, item, -1, -1); // send info to backpack cog
 		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+	}
+	else if (GetThingTemplate(item) == tmp_ctfredkey) {
+		// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
+		inv_keys = BitSet(inv_keys, 0x1);
+	}
+	else if (GetThingTemplate(item) == tmp_ctfgoldkey) {
+		// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
+		inv_keys = BitSet(inv_keys, 0x2);
 	}
 	return;
 
@@ -1084,62 +1112,6 @@ timer:
 	{
 		call firetarget;
 	}
-	else if (GetSenderId() == 400) // display stats
-	{
-		jkstringclear();
-		jkStringConcatUNIString(1000+botname);
-		jkStringConcatAsciiString(": health: ");
-		jkStringConcatInt(GetThingHealth(rbot));  
-		jkStringConcatAsciiString(" shields: ");
-		jkStringConcatInt(shields);
-		jkStringConcatAsciiString(" energy: ");
-		jkStringConcatInt(energy);
-		jkStringConcatAsciiString(" power: ");
-		jkStringConcatInt(power);
-		jkStringConcatAsciiString(" raildets: ");
-		jkStringConcatInt(inv_raildets);
-		jkStringConcatAsciiString(" weapon: ");
-		jkStringConcatInt(curweap);
-		//jkStringConcatAsciiString(" target: ");
-		//if (BitTest(botmode,0x4000))
-		//{
-		//	jkStringConcatInt(target);
-		//}
-		//else jkStringConcatAsciiString(" none ");
-		//if (BitTest(botmode,0x20000)) jkStringConcatAsciiString(" attacking ");
-		//if (BitTest(botmode,0x40000)) jkStringConcatAsciiString(" weapon not mounted ");
-		jkStringOutput(-1, -1);
-
-		//jkstringclear();
-		//jkStringConcatUNIString(1000+botname);
-		//jkStringConcatAsciiString(" has available: ");
-		//if (inv_weap9) jkStringConcatAsciiString("conc_rifle ");
-		//if (inv_weap7) jkStringConcatAsciiString("railgun ");
-		//if (inv_weap6) jkStringConcatAsciiString("repeater ");
-		//if (inv_weap5) jkStringConcatAsciiString("bowcaster ");
-		//if (inv_weap3) jkStringConcatAsciiString("st_rifle ");
-		//if (inv_weap2) jkStringConcatAsciiString("bryar ");
-		//jkStringOutput();
-
-		//jkstringclear();
-		//jkStringConcatUNIString(1000+botname);
-		//jkStringConcatAsciiString(" needs: ");
-		//if (BitTest(botmode, 0x400)) jkStringConcatAsciiString("health ");
-		//if (BitTest(botmode, 0x800)) jkStringConcatAsciiString("shields ");
-		//if (BitTest(botmode, 0x20)) jkStringConcatAsciiString("energy ");
-		//if (BitTest(botmode, 0x40)) jkStringConcatAsciiString("power ");
-		//if (BitTest(botmode, 0x80)) jkStringConcatAsciiString("raildets ");
-		//if (BitTest(botmode, 0x100)) jkStringConcatAsciiString("thrmdets ");
-		//if (BitTest(botmode, 0x200)) jkStringConcatAsciiString("seqmines ");
-		//if (BitTest(botmode, 0x10)) jkStringConcatAsciiString("crossbow ");
-		//if (BitTest(botmode, 0x8)) jkStringConcatAsciiString("strifle ");
-		//if (BitTest(botmode, 0x4)) jkStringConcatAsciiString("repeater ");
-		//if (BitTest(botmode, 0x2)) jkStringConcatAsciiString("railgun ");
-		//if (BitTest(botmode, 0x1)) jkStringConcatAsciiString("concrifle ");
-		//jkStringOutput();
-
-		SetTimerEx(1.0,400,-1,-1); // display stats every 1.0 sec
-	}
 	else if (GetSenderId() == 450) // Allow bot to block again
 	{
 		botmode=BitClear(botmode,0x200000);
@@ -1160,6 +1132,7 @@ user7:
 	else if (GetParam(0) == 1005) ReturnEx(inv_raildets);
 	else if (GetParam(0) == 1006) ReturnEx(inv_weap0[GetParam(1)]);
 	else if (GetParam(0) == 1007) ReturnEx(powerboost);
+	else if (GetParam(0) == 1008) ReturnEx(inv_keys);
 	// Otherwise, report error
 	else {
 		jkStringClear();

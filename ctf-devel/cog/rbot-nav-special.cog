@@ -1,0 +1,87 @@
+# Rbot Navigation Special Cog
+#
+# Server - unsynch
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+
+# Special nodes
+thing		navsp0=-1
+thing		navsp1=-1
+thing		navsp2=-1
+thing		navsp3=-1
+thing		navsp4=-1
+thing		navsp5=-1
+thing		navsp6=-1
+thing		navsp7=-1
+thing		navsp8=-1
+thing		navsp9=-1
+thing		navsp10=-1
+thing		navsp11=-1
+thing		navsp12=-1
+thing		navsp13=-1
+thing		navsp14=-1
+thing		navsp15=-1
+thing		navsp16=-1
+thing		navsp17=-1
+thing		navsp18=-1
+thing		navsp19=-1
+
+# Flags for each special node
+int			navspinf0=0
+int			navspinf1=0
+int			navspinf2=0
+int			navspinf3=0
+int			navspinf4=0
+int			navspinf5=0
+int			navspinf6=0
+int			navspinf7=0
+int			navspinf8=0
+int			navspinf9=0
+int			navspinf10=0
+int			navspinf11=0
+int			navspinf12=0
+int			navspinf13=0
+int			navspinf14=0
+int			navspinf15=0
+int			navspinf16=0
+int			navspinf17=0
+int			navspinf18=0
+int			navspinf19=0
+
+# Misc
+int			i			local
+int			special		local
+thing		node		local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (!IsServer()) return;
+	
+	if (GetSourceRef() == 11060) {
+		// Special info request from nav
+		node = GetParam(0);
+
+		// work out special node info
+		special = 0;
+		for (i = 0 ; i < 20 ; i = i + 1) {
+			if (navsp0[i] == node) special = navspinf0[i]; // current pos is also a special node
+		}
+		if (special) {
+			SendTrigger(-1, 11070, special, -1, -1, -1); // send special info to nav
+		}
+	}
+	return;
+
+end
+

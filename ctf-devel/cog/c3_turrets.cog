@@ -1,0 +1,75 @@
+# Jedi Knight Cog Script
+#
+# C3_TURRETS.COG
+#
+# Triple Turrets Script for C3
+#
+# This will generate a series of 3 laser bursts per 'round' when
+# the switch is activated.
+# The trap resets in 'delay' seconds afterwards.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch                           desc=switch
+thing       turret1                          nolink,desc=turret1
+thing       turret2                          nolink,desc=turret2
+thing       turret3                          nolink,desc=turret3
+int         rounds=5                         desc=rounds
+flex        rate=0.33                        desc=rate
+flex        delay=2.0                        desc=delay
+
+int         firing=0                         local
+int         cur_round=0                      local
+int         dummy                            local
+
+template    proj_tpl=+stlaser                local
+sound       snd=turret-1.wav                 local
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+message     activated
+
+end
+
+# ========================================================================================
+
+code
+
+activated:
+   if(firing == 1)  Return;
+
+   firing = 1;
+   dummy = SetWallCel(switch, 1);
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+
+   cur_round = 0;
+   while(cur_round < rounds)
+   {
+      dummy = CreateThing(proj_tpl, turret1);
+      dummy = PlaySoundThing(snd, turret1, 1.0, -1, -1, 0);
+      Sleep(rate);
+      dummy = CreateThing(proj_tpl, turret2);
+      dummy = PlaySoundThing(snd, turret2, 1.0, -1, -1, 0);
+      Sleep(rate);
+      dummy = CreateThing(proj_tpl, turret3);
+      dummy = PlaySoundThing(snd, turret3, 1.0, -1, -1, 0);
+      Sleep(rate);
+
+      cur_round = cur_round + 1;
+   }
+
+   Sleep(delay);
+   dummy = SetWallCel(switch, 0);
+   dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+   firing = 0;
+
+   Return;
+
+end
+
+

@@ -229,7 +229,7 @@ walkmetaldry02.wav
 end
 
 SECTION: MATERIALS
-World materials 434
+World materials 438
 0: 00explosion.mat 1 1
 1: 00gsmoke.mat 1 1
 2: 00ramp1.mat 1 1
@@ -555,115 +555,119 @@ World materials 434
 322: PCELSIDE.MAT 1 1
 323: PCELTOP.MAT 1 1
 324: PCELTUBE.MAT 1 1
-325: RLD0CLMP.MAT 1 1
-326: RLDVBDSD.MAT 1 1
-327: RLDVBDTP.MAT 1 1
-328: RLDVBRL1.MAT 1 1
-329: RLDVBRL2.MAT 1 1
-330: RLDVBRL3.MAT 1 1
-331: rldvbutt.mat 1 1
-332: RLDVCHM1.MAT 1 1
-333: RLDVCHM2.MAT 1 1
-334: RLDVCHM3.MAT 1 1
-335: RLDVCLP2.MAT 1 1
-336: RLDVPRJF.MAT 1 1
-337: RLDVPRJS.MAT 1 1
-338: rldvsgt.mat 1 1
-339: rldx.mat 1 1
-340: RPT0TOP.MAT 1 1
-341: RPTPBUT1.MAT 1 1
-342: RPTPBUT2.MAT 1 1
-343: RPTPGRIL.MAT 1 1
-344: RPTPSIDE.MAT 1 1
-345: RPTPTOP.MAT 1 1
-346: RPTPUNDR.MAT 1 1
-347: RPTVBACK.MAT 1 1
-348: rptx.mat 1 1
-349: sabutt.mat 1 1
-350: safoot.mat 1 1
-351: sahip.mat 1 1
-352: saleg.mat 1 1
-353: salegb.mat 1 1
-354: saneck.mat 1 1
-355: sathigh.mat 1 1
-356: sathighb.mat 1 1
-357: SEQ0MBCK.MAT 1 1
-358: SEQ0MTP1.MAT 1 1
-359: seq0mtp3.mat 1 1
-360: SEQ0SIDE.MAT 1 1
-361: SEQ0TOP.MAT 1 1
-362: SEQP1.MAT 1 1
-363: SEQP2.MAT 1 1
-364: SEQP3.MAT 1 1
-365: SEQP4.MAT 1 1
-366: SEQVMTP2.MAT 1 1
-367: seqvsd.mat 1 1
-368: seqvsid2.mat 1 1
-369: seqvtop2.mat 1 1
-370: seqx2.mat 1 1
-371: SHLD1.MAT 1 1
-372: SHLD2.MAT 1 1
-373: SHLD3.MAT 1 1
-374: SHRP.MAT 1 1
-375: sparky.mat 1 1
-376: SplashX.mat 1 1
-377: Splooshx.mat 1 1
-378: stfoot.mat 1 1
-379: sthdbk2.mat 1 1
-380: sthdfr2.mat 1 1
-381: sthdsd.mat 1 1
-382: STR0SIDE.MAT 1 1
-383: STR0TOP.MAT 1 1
-384: STRPGRIP.MAT 1 1
-385: strpport.mat 1 1
-386: strpsitf.mat 1 1
-387: STRVBRL4.MAT 1 1
-388: strvbutt.mat 1 1
-389: STRVCLP.MAT 1 1
-390: strvsid1.mat 1 1
-391: strvsid2.mat 1 1
-392: strvsitb.mat 1 1
-393: strvsite.mat 1 1
-394: strvtop2.mat 1 1
-395: stthigh.mat 1 1
-396: th4arm.mat 1 1
-397: tharm.mat 1 1
-398: thback.mat 1 1
-399: thbutt.mat 1 1
-400: thfaceb.mat 1 1
-401: thfacef.mat 1 1
-402: thfacesd.mat 1 1
-403: thfacet.mat 1 1
-404: thfoot.mat 1 1
-405: thhand.mat 1 1
-406: thhandi.mat 1 1
-407: thhip.mat 1 1
-408: thleg.mat 1 1
-409: thpadt.mat 1 1
-410: ththigh.mat 1 1
-411: thtors.mat 1 1
-412: tkcollar.mat 1 1
-413: tkneck.mat 1 1
-414: VEST1.MAT 1 1
-415: VEST2.MAT 1 1
-416: VEST3.MAT 1 1
-417: VEST4.MAT 1 1
-418: VEST5.MAT 1 1
-419: vestl1.mat 1 1
-420: vestl2.mat 1 1
-421: vestl5.mat 1 1
-422: white.mat 1 1
-423: y_arm.mat 1 1
-424: y_foot.mat 1 1
-425: y_forarm.mat 1 1
-426: y_hand.mat 1 1
-427: y_handi.mat 1 1
-428: y_leg.mat 1 1
-429: y_legb.mat 1 1
-430: y_neck.mat 1 1
-431: y_thigh.mat 1 1
-432: y_torsb.mat 1 1
-433: y_torsf.mat 1 1
+325: R-KEY1.MAT 1 1
+326: R-KEY2.MAT 1 1
+327: RLD0CLMP.MAT 1 1
+328: RLDVBDSD.MAT 1 1
+329: RLDVBDTP.MAT 1 1
+330: RLDVBRL1.MAT 1 1
+331: RLDVBRL2.MAT 1 1
+332: RLDVBRL3.MAT 1 1
+333: rldvbutt.mat 1 1
+334: RLDVCHM1.MAT 1 1
+335: RLDVCHM2.MAT 1 1
+336: RLDVCHM3.MAT 1 1
+337: RLDVCLP2.MAT 1 1
+338: RLDVPRJF.MAT 1 1
+339: RLDVPRJS.MAT 1 1
+340: rldvsgt.mat 1 1
+341: rldx.mat 1 1
+342: RPT0TOP.MAT 1 1
+343: RPTPBUT1.MAT 1 1
+344: RPTPBUT2.MAT 1 1
+345: RPTPGRIL.MAT 1 1
+346: RPTPSIDE.MAT 1 1
+347: RPTPTOP.MAT 1 1
+348: RPTPUNDR.MAT 1 1
+349: RPTVBACK.MAT 1 1
+350: rptx.mat 1 1
+351: sabutt.mat 1 1
+352: safoot.mat 1 1
+353: sahip.mat 1 1
+354: saleg.mat 1 1
+355: salegb.mat 1 1
+356: saneck.mat 1 1
+357: sathigh.mat 1 1
+358: sathighb.mat 1 1
+359: SEQ0MBCK.MAT 1 1
+360: SEQ0MTP1.MAT 1 1
+361: seq0mtp3.mat 1 1
+362: SEQ0SIDE.MAT 1 1
+363: SEQ0TOP.MAT 1 1
+364: SEQP1.MAT 1 1
+365: SEQP2.MAT 1 1
+366: SEQP3.MAT 1 1
+367: SEQP4.MAT 1 1
+368: SEQVMTP2.MAT 1 1
+369: seqvsd.mat 1 1
+370: seqvsid2.mat 1 1
+371: seqvtop2.mat 1 1
+372: seqx2.mat 1 1
+373: SHLD1.MAT 1 1
+374: SHLD2.MAT 1 1
+375: SHLD3.MAT 1 1
+376: SHRP.MAT 1 1
+377: sparky.mat 1 1
+378: SplashX.mat 1 1
+379: Splooshx.mat 1 1
+380: stfoot.mat 1 1
+381: sthdbk2.mat 1 1
+382: sthdfr2.mat 1 1
+383: sthdsd.mat 1 1
+384: STR0SIDE.MAT 1 1
+385: STR0TOP.MAT 1 1
+386: STRPGRIP.MAT 1 1
+387: strpport.mat 1 1
+388: strpsitf.mat 1 1
+389: STRVBRL4.MAT 1 1
+390: strvbutt.mat 1 1
+391: STRVCLP.MAT 1 1
+392: strvsid1.mat 1 1
+393: strvsid2.mat 1 1
+394: strvsitb.mat 1 1
+395: strvsite.mat 1 1
+396: strvtop2.mat 1 1
+397: stthigh.mat 1 1
+398: th4arm.mat 1 1
+399: tharm.mat 1 1
+400: thback.mat 1 1
+401: thbutt.mat 1 1
+402: thfaceb.mat 1 1
+403: thfacef.mat 1 1
+404: thfacesd.mat 1 1
+405: thfacet.mat 1 1
+406: thfoot.mat 1 1
+407: thhand.mat 1 1
+408: thhandi.mat 1 1
+409: thhip.mat 1 1
+410: thleg.mat 1 1
+411: thpadt.mat 1 1
+412: ththigh.mat 1 1
+413: thtors.mat 1 1
+414: tkcollar.mat 1 1
+415: tkneck.mat 1 1
+416: VEST1.MAT 1 1
+417: VEST2.MAT 1 1
+418: VEST3.MAT 1 1
+419: VEST4.MAT 1 1
+420: VEST5.MAT 1 1
+421: vestl1.mat 1 1
+422: vestl2.mat 1 1
+423: vestl5.mat 1 1
+424: white.mat 1 1
+425: y_arm.mat 1 1
+426: y_foot.mat 1 1
+427: y_forarm.mat 1 1
+428: y_hand.mat 1 1
+429: y_handi.mat 1 1
+430: y_leg.mat 1 1
+431: y_legb.mat 1 1
+432: y_neck.mat 1 1
+433: y_thigh.mat 1 1
+434: y_torsb.mat 1 1
+435: y_torsf.mat 1 1
+436: Y-KEY1.MAT 1 1
+437: Y-KEY2.MAT 1 1
 end
 
 SECTION: GEORESOURCE
@@ -5748,7 +5752,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 250
+World models 252
 0: adm-0.3do
 1: adm-1.3do
 2: adm-10.3do
@@ -5917,88 +5921,90 @@ World models 250
 165: rhn-7.3do
 166: rhn-8.3do
 167: rhn-9.3do
-168: rld0.3do
-169: rldg.3do
-170: rldp.3do
-171: rldv.3do
-172: rpt0.3do
-173: rptg.3do
-174: rptp.3do
-175: rptv.3do
-176: sabg.3do
-177: sabv.3do
-178: sar-0.3do
-179: sar-1.3do
-180: sar-10.3do
-181: sar-2.3do
-182: sar-3.3do
-183: sar-4.3do
-184: sar-5.3do
-185: sar-6.3do
-186: sar-7.3do
-187: sar-8.3do
-188: sar-9.3do
-189: seq0.3do
-190: seqg.3do
-191: seqp.3do
-192: seqp_1.3do
-193: seqv.3do
-194: shld.3do
-195: shrp_1.3do
-196: shrp_2.3do
-197: shrp_3.3do
-198: shrp_4.3do
-199: shrp_5.3do
-200: sil-0.3do
-201: sil-1.3do
-202: sil-10.3do
-203: sil-2.3do
-204: sil-3.3do
-205: sil-4.3do
-206: sil-5.3do
-207: sil-6.3do
-208: sil-7.3do
-209: sil-8.3do
-210: sil-9.3do
-211: stm-0.3do
-212: stm-1.3do
-213: stm-10.3do
-214: stm-2.3do
-215: stm-3.3do
-216: stm-4.3do
-217: stm-5.3do
-218: stm-6.3do
-219: stm-7.3do
-220: stm-8.3do
-221: stm-9.3do
-222: str0.3do
-223: strg.3do
-224: strp.3do
-225: strv.3do
-226: tus-0.3do
-227: tus-1.3do
-228: tus-10.3do
-229: tus-2.3do
-230: tus-3.3do
-231: tus-4.3do
-232: tus-5.3do
-233: tus-6.3do
-234: tus-7.3do
-235: tus-8.3do
-236: tus-9.3do
-237: vest.3do
-238: vestl.3do
-239: yun-0.3do
-240: yun-1.3do
-241: yun-10.3do
-242: yun-2.3do
-243: yun-3.3do
-244: yun-4.3do
-245: yun-5.3do
-246: yun-6.3do
-247: yun-7.3do
-248: yun-8.3do
-249: yun-9.3do
+168: r-key.3do
+169: rld0.3do
+170: rldg.3do
+171: rldp.3do
+172: rldv.3do
+173: rpt0.3do
+174: rptg.3do
+175: rptp.3do
+176: rptv.3do
+177: sabg.3do
+178: sabv.3do
+179: sar-0.3do
+180: sar-1.3do
+181: sar-10.3do
+182: sar-2.3do
+183: sar-3.3do
+184: sar-4.3do
+185: sar-5.3do
+186: sar-6.3do
+187: sar-7.3do
+188: sar-8.3do
+189: sar-9.3do
+190: seq0.3do
+191: seqg.3do
+192: seqp.3do
+193: seqp_1.3do
+194: seqv.3do
+195: shld.3do
+196: shrp_1.3do
+197: shrp_2.3do
+198: shrp_3.3do
+199: shrp_4.3do
+200: shrp_5.3do
+201: sil-0.3do
+202: sil-1.3do
+203: sil-10.3do
+204: sil-2.3do
+205: sil-3.3do
+206: sil-4.3do
+207: sil-5.3do
+208: sil-6.3do
+209: sil-7.3do
+210: sil-8.3do
+211: sil-9.3do
+212: stm-0.3do
+213: stm-1.3do
+214: stm-10.3do
+215: stm-2.3do
+216: stm-3.3do
+217: stm-4.3do
+218: stm-5.3do
+219: stm-6.3do
+220: stm-7.3do
+221: stm-8.3do
+222: stm-9.3do
+223: str0.3do
+224: strg.3do
+225: strp.3do
+226: strv.3do
+227: tus-0.3do
+228: tus-1.3do
+229: tus-10.3do
+230: tus-2.3do
+231: tus-3.3do
+232: tus-4.3do
+233: tus-5.3do
+234: tus-6.3do
+235: tus-7.3do
+236: tus-8.3do
+237: tus-9.3do
+238: vest.3do
+239: vestl.3do
+240: y-key.3do
+241: yun-0.3do
+242: yun-1.3do
+243: yun-10.3do
+244: yun-2.3do
+245: yun-3.3do
+246: yun-4.3do
+247: yun-5.3do
+248: yun-6.3do
+249: yun-7.3do
+250: yun-8.3do
+251: yun-9.3do
 end
 
 Section: SPRITES
@@ -6195,63 +6201,65 @@ World soundclasses 34
 end
 
 Section: cogscripts
-World scripts 39
+World scripts 41
 0: 00_desttrail.cog
 1: 00_PLAYAMBIENT.COG
 2: 00_SLIDECEILING.COG
 3: 00_smoketrail.cog
 4: 17A_STREAM.COG
 5: class_sequencer.cog
-6: pow_bacta.cog
-7: pow_bryar.cog
-8: pow_concrifle.cog
-9: pow_crossbow.cog
-10: pow_darkside.cog
-11: pow_energy.cog
-12: pow_health.cog
-13: pow_lightside.cog
-14: pow_mana.cog
-15: pow_power.cog
-16: pow_powerboost.cog
-17: pow_railcharges.cog
-18: pow_railgun.cog
-19: pow_repeater.cog
-20: pow_revive.cog
-21: pow_sequencer.cog
-22: pow_shields.cog
-23: pow_single_sequencer.cog
-24: pow_single_thermal.cog
-25: pow_strifle.cog
-26: pow_supershield.cog
-27: pow_thermal.cog
-28: pow_vest.cog
-29: rbot-backpack.cog
-30: rbot-cli.cog
-31: rbot-nav.cog
-32: rbot-path.cog
-33: rbot-player.cog
-34: rbot-special.cog
-35: rbot-srv.cog
-36: rbot-srv2.cog
-37: rbot-srv-force.cog
-38: rbot-startup.cog
+6: ctf_keygold.cog
+7: ctf_keyred.cog
+8: pow_bacta.cog
+9: pow_bryar.cog
+10: pow_concrifle.cog
+11: pow_crossbow.cog
+12: pow_darkside.cog
+13: pow_energy.cog
+14: pow_health.cog
+15: pow_lightside.cog
+16: pow_mana.cog
+17: pow_power.cog
+18: pow_powerboost.cog
+19: pow_railcharges.cog
+20: pow_railgun.cog
+21: pow_repeater.cog
+22: pow_revive.cog
+23: pow_sequencer.cog
+24: pow_shields.cog
+25: pow_single_sequencer.cog
+26: pow_single_thermal.cog
+27: pow_strifle.cog
+28: pow_supershield.cog
+29: pow_thermal.cog
+30: pow_vest.cog
+31: rbot-backpack.cog
+32: rbot-cli.cog
+33: rbot-nav.cog
+34: rbot-path.cog
+35: rbot-player.cog
+36: rbot-special.cog
+37: rbot-srv.cog
+38: rbot-srv2.cog
+39: rbot-srv-force.cog
+40: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 115
+World cogs 117
 #Num	Script          Symbol values
 0: 00_SLIDECEILING.COG 10 10
 1: 17A_STREAM.COG (-0.958035/-0.275495/0.077513) (-0.812897/-0.573196/0.101041) (-0.990989/-0.121824/0.054463) (-0.989902/0.129252/0.056966) (-0.955814/0.282691/0.078974) (-0.993142/-0.104492/0.051297) (-0.687016/-0.718852/0.103939) (-0.996580/-0.069727/0.043344) (-0.818613/0.565036/0.100870) (0.000000/1.000000/0.000000) (-0.156374/0.985735/0.060891) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) 525 549 537 513 500 487 475 463 451 439 422 -1 -1 -1 -1 -1 2
 2: 00_PLAYAMBIENT.COG 12 -1 -1 -1 -1 -1 -1 -1 00RIVER01.WAV -1 30 0.25
 3: rbot-startup.cog 4 1 1 1 0 2 0 0 0 0 0
 4: rbot-nav.cog
-5: rbot-path.cog 41 42 43 44 45 46 47 48 49 50 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
-6: rbot-path.cog 48 51 52 53 54 55 56 57 41 58 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
-7: rbot-path.cog 59 58 41 60 50 61 62 63 64 65 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
-8: rbot-path.cog 65 66 67 59 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
-9: rbot-path.cog 68 69 70 71 72 73 74 75 76 77 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0
-10: rbot-path.cog 77 78 79 80 81 63 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0
+5: rbot-path.cog 41 42 43 44 45 46 47 48 49 50 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+6: rbot-path.cog 48 51 52 53 54 55 56 57 41 58 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+7: rbot-path.cog 59 58 41 60 50 61 62 63 64 65 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+8: rbot-path.cog 65 66 67 59 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+9: rbot-path.cog 68 69 70 71 72 73 74 75 76 77 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+10: rbot-path.cog 77 78 79 80 81 63 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
 11: rbot-special.cog 51 52 71 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 512 516 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12: rbot-srv.cog 0 0 -1 rbot_yun 0
 13: rbot-srv-force.cog 0 255
@@ -6321,9 +6329,11 @@ end
 
 Section: TEMPLATES
 
-World templates 152
+World templates 154
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
+ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
+ctf_goldkey       none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=y-key.3do size=0.100000 movesize=0.100000 cog=ctf_keygold.cog typeflags=0x8
 bubble            none               orient=(0.000000/0.000000/0.000000) type=cog move=physics thingflags=0x10000000 timer=3.000000 sprite=bubble.spr mass=0.050000 physflags=0x200 vel=(0.000000/0.000000/0.300000)
 +whitecloud       none               orient=(0.000000/0.000000/0.000000) type=particle timer=0.200000 typeflags=0x3f material=00gsmoke.mat range=0.020000 rate=128.000000 maxthrust=30.000000 elementsize=0.007000 count=128
 +watersplash      none               orient=(0.000000/0.000000/0.000000) type=explosion timer=0.500000 sprite=splash.spr typeflags=0x1 damageclass=0x4

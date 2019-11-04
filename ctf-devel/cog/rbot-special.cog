@@ -1,7 +1,8 @@
-# Rbot Special Cog - Alpha 0.32
+# Rbot Special Cog
+#
 # Server - unsynch
 #
-# Created by Raynar
+# Rbots originally created by Raynar
 
 flags=0x280
 
@@ -56,7 +57,6 @@ int			spinf19=0
 # Misc
 int			index		local
 int			special		local
-int			activ		local
 int			botid		local
 thing		node		local
 thing		rbot		local
@@ -84,7 +84,7 @@ trigger:
 		}
 		if (special)
 		{
-			SendTrigger(-1, 11020, botid, special, -1, -1); // send special info to bot
+			SendTrigger(-1, 11020, botid, special, 2, -1); // send special info to bot (mode 2 = activate for short duration)
 		}
 	}
 	return;

@@ -1,0 +1,117 @@
+# Jedi Knight Cog Script
+#
+# C3_ELEVSWITCH.COG
+#
+# Dual Elevators Switch/Door Puzzle Script for C3
+#
+# This script handles the "Top of elevators" puzzle.
+# You must go on top of one elevator, hit the switch, go on top
+# of the other elevator and enter the secret place. All of this
+# in 'opentime' seconds... And yes, it is worth the trouble !
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch                           desc=secret_switch
+thing       door                             nolink,desc=secret_door
+flex        openspeed=2.0                    desc=door_open_speed
+flex        opentime=25.0                    desc=door_open_time
+sector      secret                           nolink,desc=secret_sector
+flex        addlight=0.5                     desc=light_to_add
+surface     switch2                          desc=inside_switch
+flex        opentime2=5.0                    desc=door_open_time2
+
+int         doorsector=-1                    local
+int         flag=0                           local
+int         dummy                            local
+
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+message     startup
+message     activated
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // gain some fps and get correct dynamic lights by removing adjoins
+   // in the door sector when the door is closed
+   
+   doorsector = GetThingSector(door);
+   SectorAdjoins(doorsector, 0);
+   
+   Return;
+
+# ........................................................................................
+
+activated:
+
+   // forbids activating the door itself
+   // shouldn't happen because of the nolink anyway
+   if (GetSenderRef() == door) Return;
+
+   // forbid activating the switches if already in use
+   if (flag == 1) Return;
+
+   // mark the secret as being used right now
+   flag = 1;
+
+   // change the switches materials to the "activated" texture
+   dummy = SetWallCel(switch, 1);
+   dummy = SetWallCel(switch2, 1);
+
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch2), 0.8, 5.0, 10.0, 0);
+
+   // flash the light once in the secret sector as a warning that
+   // someone clicked the switch below and hence is about to arrive...
+   // ...nasty eh ? :-)
+
+   if (GetSenderRef() == switch)
+   {
+      SectorLight(secret, addlight, 0.0);
+      Sleep(0.5);
+      SectorLight(secret, 0, 0.0);
+   }
+
+   // open the door
+   SectorAdjoins(doorsector, 1);
+   MoveToFrame(door, 1, openspeed);
+   WaitForStop(door);
+
+   // wait the given time
+   if (GetSenderRef() == switch)
+   {
+      Sleep(opentime);
+   }
+   else
+   {
+      Sleep(opentime2);
+   }
+
+   // close the door
+   MoveToFrame(door, 0, openspeed);
+   WaitForStop(door);
+   SectorAdjoins(doorsector, 0);
+
+   // change the switches materials to "deactivated" texture
+   dummy = SetWallCel(switch, 0);
+   dummy = SetWallCel(switch2, 0);
+
+   dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+   dummy = PlaySoundPos(off_snd, SurfaceCenter(switch2), 0.8, 5.0, 10.0, 0);
+
+   // mark the secret as not being used right now
+   flag = 0;
+
+   Return;
+
+end
+

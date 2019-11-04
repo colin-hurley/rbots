@@ -1,0 +1,88 @@
+# Jedi Knight Cog Script
+#
+# C3_SWITCHDOOR.COG
+#
+# Simple Switch Door for C3
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       door                             nolink,desc=door
+surface     switch                           desc=switch
+flex        speed=4.0                        desc=speed
+flex        delay=2.0                        desc=delay
+
+int         doorsector=-1                    local
+int         player                           local
+int         dummy                            local
+
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+message     startup
+message     activated
+
+end            
+
+# ========================================================================================
+
+code
+
+startup:
+   doorsector = GetThingSector(door);
+   SectorAdjoins(doorsector, 0);
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   if(IsMoving(door) == 1) Return;           // Exit if the door is moving
+   if(GetCurFrame(door) == 1) Return;        // Exit if the door is open
+
+   if(GetSenderType() == 6)                  // Sender is a surface
+   {
+      if(GetSenderRef() == switch)           // Switch activated
+      {
+         dummy = SetWallCel(switch, 1);
+         dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+         call open_door;
+         Sleep(delay);
+         call close_door;
+         dummy = SetWallCel(switch, 0);
+         dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 0.8, 5.0, 10.0, 0);
+      }
+   }
+
+   Return;
+
+# ........................................................................................
+
+open_door:
+   if(GetCurFrame(door) == 0)
+   {
+      SectorAdjoins(doorsector, 1);
+      MoveToFrame(door, 1, speed);
+      WaitForStop(door);
+   }
+
+   Return;
+
+# ........................................................................................
+
+close_door:
+   if(GetCurFrame(door) == 1)
+   {
+      MoveToFrame(door, 0, speed);
+      WaitForStop(door);
+      SectorAdjoins(doorsector, 0);
+   }
+
+   Return;
+
+end
+

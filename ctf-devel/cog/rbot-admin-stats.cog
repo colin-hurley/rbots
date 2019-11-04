@@ -114,6 +114,7 @@ pulse:
 		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1000, -1, -1, -1), "Forcemode: 0x%08x");
 		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1001, -1, -1, -1), ", Mana: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv_force, user7, 1002, -1, -1, -1), ", Forcearmor: %3d");
+		jkStringConcatFormattedInt(SendMessageEx(srv2, user7, 1008, -1, -1, -1), ", Keys: 0x%03x");
 		jkStringOutput(-1, -1);
 
 		// Clear remaining output lines for readability

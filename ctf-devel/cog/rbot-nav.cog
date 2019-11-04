@@ -68,7 +68,7 @@ cog path49=-1 local
 # The number of nodes in this path
 int path_count=0 local
 
-int path_size_max=20 local # Keep in sync with path cog
+int path_size_max=25 local # Keep in sync with path cog
 
 # Working variables
 
@@ -100,6 +100,8 @@ vector new_node_pos local
 
 int botid local
 thing rbot local
+cog srv local
+cog srv2 local
 int botmode local
 int lastposnum local
 int nextposnum local
@@ -108,6 +110,9 @@ int changepath local
 int path_end local
 int new_path_end local
 int looping local
+int new_path_requirements local
+int bot_keys local
+int navspecial local
 
 end
 
@@ -137,44 +142,71 @@ trigger:
 			path0[path_count] = GetParam(1);
 			path_count = path_count + 1;
 		}
+		return;
 	}
 
 	if (GetSourceRef() == 10000) {
-		// Legacy trigger - bot wants to know next location
+		// Bot wants to know next location
 		botid = GetParam(0); // which bot requested the info
 		rbot = GetParam(1);
 		botmode = GetParam(2);
 		lastposnum = GetParam(3);
-
-		if (BitTest(botmode,0x1000)) rundir=0; else rundir=1; // set run direction from botmode
 
 		if (lastposnum == -1) {
 			// bot lost - find nearest node
 			path_index = -1;
 			node_index = -1;
 			node = -1;
+			rundir = -1;
 			dist = 10000;
 			bot_pos = GetThingPos(rbot);
 			bot_z = VectorSet(0, 0, VectorZ(bot_pos));
 
 			for (i = 0 ; i < path_count ; i = i + 1) {
 				new_path = path0[i];
-				new_path_size = SendMessageEx(new_path, user0, 100, -1, -1, -1);
-				for (j = 0 ; j < new_path_size ; j = j + 1) {
-					new_node = SendMessageEx(new_path, user0, 101, j, -1, -1);
-					if (new_node != node) {
-						new_node_pos = GetThingPos(new_node);
-						new_dist = VectorDist(bot_pos, new_node_pos);
-						new_node_z = VectorSet(0, 0, VectorZ(new_node_pos));
-						if (new_dist < dist && HasLOS(rbot, new_node) && VectorDist(bot_z, new_node_z) < 0.4) {
-							// Node is closer, bot can see it, and not too high to reach
-							path_index = i;
-							node_index = j;
-							path = new_path;
-							node = new_node;
-							dist = new_dist;
+
+				// Check path requirements (e.g. keys)
+				new_path_requirements = SendMessageEx(new_path, user0, 104, -1, -1, -1);
+				srv = GetThingCaptureCog(rbot);
+				srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
+				bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
+				if (BitClear(new_path_requirements, bot_keys) == 0) {
+					// Bot has all the keys, etc. necessary to use this path
+					SendMessageEx(new_path, user1, 200, rbot, -1, -1);
+					new_path_rundir = SendMessageEx(new_path, user2, 1, -1, -1, -1);
+					new_path_size = SendMessageEx(new_path, user0, 100, -1, -1, -1);
+					for (j = 0 ; j < new_path_size ; j = j + 1) {
+						new_node = SendMessageEx(new_path, user0, 101, j, -1, -1);
+						if (new_node != node) {
+							// See if any special navigation flags have been set for this node
+							navspecial = 0;
+							SendTrigger(-1, 11060, new_node, -1, -1, -1);
+							if (!BitTest(navspecial, 0x1)) {
+								// A lost bot is allowed to go directly to this node to get back on track
+								new_node_pos = GetThingPos(new_node);
+								new_dist = VectorDist(bot_pos, new_node_pos);
+								new_node_z = VectorSet(0, 0, VectorZ(new_node_pos));
+								if (new_dist < dist && HasLOS(rbot, new_node) && (VectorDist(bot_z, new_node_z) < 0.4 || (GetThingFlags(rbot) & 0x2000000 && GetThingFlags(new_node) & 0x2000000))) {
+									// Node is closer, bot can see it, and not too high to reach
+									path_index = i;
+									node_index = j;
+									path = new_path;
+									node = new_node;
+									dist = new_dist;
+									rundir = new_path_rundir;
+								}
+							}
 						}
 					}
+				}
+			}
+
+			// If the chosen path (if any) does not require a particular run direction, pick one randomly
+			if (rundir == -1) {
+				if (Rand() > 0.5) {
+					rundir = 1;
+				} else {
+					rundir = 0;
 				}
 			}
 		} else {
@@ -195,6 +227,9 @@ trigger:
 			if (path_rundir != -1) {
 				// Make sure bot is running in the path's required direction
 				rundir = path_rundir;
+			} else {
+				// Current path does not have a required run direction, so keep the bot's current run direction
+				if (BitTest(botmode,0x1000)) rundir=0; else rundir=1; // set run direction from botmode
 			}
 
 			// If we're at either end of a non-looping path, we should change paths if we can
@@ -217,56 +252,66 @@ trigger:
 				if (new_path != cur_path) {
 					// Different path
 					new_path_size = SendMessageEx(new_path, user0, 100, -1, -1, -1);
-					for (j = 0 ; j < new_path_size ; j = j + 1) {
-						new_node = SendMessageEx(new_path, user0, 101, j, -1, -1);
-						if (node == new_node) {
-							// Same node = Intersection with the other path
 
-							SendMessageEx(new_path, user1, 200, rbot, -1, -1);
-							new_path_rank = SendMessageEx(new_path, user2, 0, -1, -1, -1);
-							new_path_rundir = SendMessageEx(new_path, user2, 1, -1, -1, -1);
+					// Check path requirements (e.g. keys)
+					new_path_requirements = SendMessageEx(new_path, user0, 104, -1, -1, -1);
+					srv = GetThingCaptureCog(rbot);
+					srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
+					bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
 
-							// Don't switch to the end of a path going the wrong direction
-							new_path_end = 0;
-							if (j >= (new_path_size - 1)) {
-								if (new_path_rundir == 1) {
-									// New path requires forward movement, but we're already at the end
-									new_path_end = 1;
-								} else {
-									// The only option is to move backward
-									new_path_rundir = 0;
-								}
-							} else if (j <= 0) {
-								if (new_path_rundir == 0) {
-									// New path requires backward movement, but we're already at the beginning
-									new_path_end = 1;
-								} else {
-									// The only option is to move forward
-									new_path_rundir = 1;
-								}
-							}
+					if (BitClear(new_path_requirements, bot_keys) == 0) {
+						// Bot has all the keys, etc. necessary to use this path
+						for (j = 0 ; j < new_path_size ; j = j + 1) {
+							new_node = SendMessageEx(new_path, user0, 101, j, -1, -1);
+							if (node == new_node) {
+								// Same node = Intersection with the other path
 
-							if (!new_path_end) {
-								// Evaluate whether or not to change to this path
-								changepath = 0;
-								if (new_path_rank > path_rank) {
-									// New path is better than the current option - we are obligated to switch
-									changepath = 1;
-								} else if (new_path_rank == path_rank) {
-									// New path is same rank as current option - change at random or if at end of current path
-									if (path_end || Rand() > 0.5) {
-										changepath = 1;
+								SendMessageEx(new_path, user1, 200, rbot, -1, -1);
+								new_path_rank = SendMessageEx(new_path, user2, 0, -1, -1, -1);
+								new_path_rundir = SendMessageEx(new_path, user2, 1, -1, -1, -1);
+
+								// Don't switch to the end of a path going the wrong direction
+								new_path_end = 0;
+								if (j >= (new_path_size - 1)) {
+									if (new_path_rundir == 1) {
+										// New path requires forward movement, but we're already at the end
+										new_path_end = 1;
+									} else {
+										// The only option is to move backward
+										new_path_rundir = 0;
+									}
+								} else if (j <= 0) {
+									if (new_path_rundir == 0) {
+										// New path requires backward movement, but we're already at the beginning
+										new_path_end = 1;
+									} else {
+										// The only option is to move forward
+										new_path_rundir = 1;
 									}
 								}
-								if (changepath) {
-									path_end = 0; // Now that we've changed paths, no need to force another change
-									path_index = i;
-									node_index = j;
-									path = new_path;
-									path_size = new_path_size;
-									path_rank = new_path_rank;
-									rundir = new_path_rundir;
-									j = new_path_size; // break (skip ahead to next path)
+
+								if (!new_path_end) {
+									// Evaluate whether or not to change to this path
+									changepath = 0;
+									if (new_path_rank > path_rank) {
+										// New path is better than the current option - we are obligated to switch
+										changepath = 1;
+									} else if (new_path_rank == path_rank) {
+										// New path is same rank as current option - change at random or if at end of current path
+										if (path_end || Rand() > 0.5) {
+											changepath = 1;
+										}
+									}
+									if (changepath) {
+										path_end = 0; // Now that we've changed paths, no need to force another change
+										path_index = i;
+										node_index = j;
+										path = new_path;
+										path_size = new_path_size;
+										path_rank = new_path_rank;
+										rundir = new_path_rundir;
+										j = new_path_size; // break (skip ahead to next path)
+									}
 								}
 							}
 						}
@@ -314,7 +359,7 @@ trigger:
 			node = SendMessageEx(path, user0, 101, node_index, -1, -1);
 		}
 
-		// Legacy trigger - Update bot navigation state
+		// Update bot navigation state
 		if (node == -1) {
 			// Couldn't find a node for the bot
 			nextposnum = -1;
@@ -323,6 +368,13 @@ trigger:
 			nextposnum = path_index * path_size_max + node_index;
 		}
 		SendTrigger(-1, 11000, botid, node, nextposnum, rundir);
+		return;
+	}
+
+	if (GetSourceRef() == 11070) {
+		// Received special navigation info
+		navspecial = GetParam(0);
+		return;
 	}
 
 	return;

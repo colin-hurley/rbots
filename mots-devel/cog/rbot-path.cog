@@ -57,6 +57,10 @@ int unidirectional=0
 # treated as non-looping even if the first and last nodes are the same.
 int nonlooping=0
 
+# Requirements that must be satisfied in order for the bot to use this path.
+# 0x1 / 1 = require red CTF key
+# 0x2 / 2 = require gold CTF key
+int requirements=0
 
 # The number of nodes in this path
 int path_size=0 local
@@ -114,6 +118,7 @@ user0:
 	else if (GetParam(0) == 101) ReturnEx(node0[GetParam(1)]);
 	else if (GetParam(0) == 102) ReturnEx(unidirectional);
 	else if (GetParam(0) == 103) ReturnEx(looping);
+	else if (GetParam(0) == 104) ReturnEx(requirements);
 	// Otherwise, report error
 	else {
 		jkStringClear();

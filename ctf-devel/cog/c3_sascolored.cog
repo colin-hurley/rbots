@@ -1,0 +1,203 @@
+# Jedi Knight Cog Script
+#
+# C3_SASCOLORED.COG
+#
+# Sas doors control script for C3 
+# (Colored = by team color/with the correct color key)
+#
+# The interior door opens only for players of the correct team,
+# or having the color key.
+# The exterior door always opens, except when the interior door is open.
+#
+#
+#   interior                                exterior
+#  +------------------| |--------------| |----------
+#  |                  | |              | |
+#  |                  | |              | |
+#  |              3   |1|              |2|
+#  |                  | |              | |
+#  |                  | |              | |
+#  |           +====================================
+#  |           | 1 = internal door 
+#  |           | 2 = external door
+#  |           | 3 = internal sector
+#
+# For the 'sas_color' parameter : use 1 for a red sas, or 2 for a gold sas
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
+
+symbols
+
+thing			door_int									desc=door_int mask=0x405
+thing			door_ext									desc=door_ext mask=0x405
+sector		sc_int									desc=sc_int
+int			sas_color=0								desc=sas_color
+flex			speed=4.0								desc=speed
+flex			delay=2.0								desc=delay
+
+int			doorsector_int=-1						local
+int			doorsector_ext=-1						local
+int			player									local
+int			autoopen=0								local
+
+int			sender									local
+
+int			msgbase=1000							local
+
+int			keys									local
+cog			srv										local
+cog			srv2									local
+
+message		startup
+message		touched
+message		activated
+
+end				
+
+# ========================================================================================
+
+code
+
+startup:
+	doorsector_int = GetThingSector(door_int);
+	doorsector_ext = GetThingSector(door_ext);
+	SectorAdjoins(doorsector_int, 0);
+	SectorAdjoins(doorsector_ext, 0);
+	
+	Return;
+
+# ........................................................................................
+
+touched:
+	if (GetThingType(GetSourceRef()) == 2) {
+		// This is a bot, so treat the touch like an activate and open the door
+		goto activated;
+	}
+	return;
+
+# ........................................................................................
+
+activated:
+	if(IsThingMoving(door_int) == 1) Return;	// Exit if one of the doors is moving
+	if(IsThingMoving(door_ext) == 1) Return;
+	if(GetCurFrame(door_int) == 1) Return;		// Exit if one of the doors is open
+	if(GetCurFrame(door_ext) == 1) Return;
+
+	sender = GetSenderRef();						// The sender could be overwritten when one of the
+															// rejected events above arrive, so we protect it.
+															// To see what happens just use GetSenderRef()in both tests,
+															// then nudge the exterior door BEFORE it autoopens.
+                                        
+	player = GetSourceRef(); // Note: may be a player or a bot - check the thing type to find out
+
+	if(sender == door_int)							// Interior door activated
+	{
+		// Check for required key in inventory
+		if(GetThingType(player) == 10 && GetInv(player, 82+sas_color) == 0)	// not the correct key (83 or 84)
+		{
+			if(sas_color == 1) 
+			{ 
+				// Print("You need the Red Key..."); 
+				jkPrintUNIString(player, msgbase + 70);
+			}
+			else 
+			{ 
+				// Print("You need the Gold Key..."); 
+				jkPrintUNIString(player, msgbase + 71);
+			}
+			Return;
+		}
+		else if (GetThingType(player) == 2) // this is bot, not a player
+		{
+			// Check for required key in bot inventory
+			srv = GetThingCaptureCog(player);
+			srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
+			keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
+			if (sas_color == 1 && !BitTest(keys, 0x1)) return; // Door requires red key and bot doesn't have it
+			if (sas_color == 2 && !BitTest(keys, 0x2)) return; // Door requires gold key and bot doesn't have it
+		}
+	
+		if(GetThingSector(player) == sc_int)
+		{
+			autoopen = 1;
+		}
+		else
+		{
+			autoopen = 0;
+		}
+	
+		call open_int;
+		Sleep(delay);
+		call close_int;
+	
+		if(autoopen == 1)								// Auto open exterior door
+		{													// if players comes from interior          
+			call open_ext;
+			Sleep(delay);
+			call close_ext;          
+		}
+	}
+	
+	if(sender == door_ext)							// Exterior door activated
+	{
+		call open_ext;
+		Sleep(delay);
+		call close_ext;
+	}
+	
+	Return;
+
+# ........................................................................................
+
+open_int:
+	if(GetCurFrame(door_int) == 0)
+	{
+		SectorAdjoins(doorsector_int, 1);
+		MoveToFrame(door_int, 1, speed);
+		WaitForStop(door_int);
+	}
+	
+	Return;
+
+# ........................................................................................
+
+close_int:
+	if(GetCurFrame(door_int) == 1)
+	{
+		MoveToFrame(door_int, 0, speed);
+		WaitForStop(door_int);
+		SectorAdjoins(doorsector_int, 0);
+	}
+	
+	Return;
+
+# ........................................................................................
+
+open_ext:
+	if(GetCurFrame(door_ext) == 0)
+	{
+		SectorAdjoins(doorsector_ext, 1);
+		MoveToFrame(door_ext, 1, speed);
+		WaitForStop(door_ext);
+	}
+
+	Return;
+
+# ........................................................................................
+
+close_ext:
+	if(GetCurFrame(door_ext) == 1)
+	{
+		MoveToFrame(door_ext, 0, speed);
+		WaitForStop(door_ext);
+		SectorAdjoins(doorsector_ext, 0);
+	}
+	
+	Return;
+
+end
+

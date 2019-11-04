@@ -1,0 +1,52 @@
+# Jedi Knight Cog Script
+#
+# C3_KILLINGFLOOR.COG
+#
+# Script to make the floor skies killing in C3,  
+# just in case a player survives the fall...
+# It handles up to 16 sky surfaces at once.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x040
+
+symbols
+
+surface		sky00										desc=sky00
+surface		sky01										desc=sky01
+surface		sky02										desc=sky02
+surface		sky03										desc=sky03
+surface		sky04										desc=sky04
+surface		sky05										desc=sky05
+surface		sky06										desc=sky06
+surface		sky07										desc=sky07
+surface		sky08										desc=sky08
+surface		sky09										desc=sky09
+surface		sky10										desc=sky10
+surface		sky11										desc=sky11
+surface		sky12										desc=sky12
+surface		sky13										desc=sky13
+surface		sky14										desc=sky14
+surface		sky15										desc=sky15
+
+int			player									local
+int			dummy										local
+
+message		entered
+
+end
+
+# ========================================================================================
+
+code
+
+entered:
+	player = GetSourceRef();        
+	dummy = DamageThing(player, 1000, 0x1, player);	// Kill the player with impact damage
+
+	Return;
+
+end
+

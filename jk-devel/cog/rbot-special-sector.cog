@@ -1,0 +1,106 @@
+# Rbot Special Sector Cog
+#
+# Server-only
+#
+# This cog applies special modes and effects to a bot while it is in a
+# specified sector.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		entered
+message		exited
+
+# Special sectors
+sector		sp0=-1		mask=0x405
+sector		sp1=-1		mask=0x405
+sector		sp2=-1		mask=0x405
+sector		sp3=-1		mask=0x405
+sector		sp4=-1		mask=0x405
+sector		sp5=-1		mask=0x405
+sector		sp6=-1		mask=0x405
+sector		sp7=-1		mask=0x405
+sector		sp8=-1		mask=0x405
+sector		sp9=-1		mask=0x405
+sector		sp10=-1		mask=0x405
+sector		sp11=-1		mask=0x405
+sector		sp12=-1		mask=0x405
+sector		sp13=-1		mask=0x405
+sector		sp14=-1		mask=0x405
+sector		sp15=-1		mask=0x405
+sector		sp16=-1		mask=0x405
+sector		sp17=-1		mask=0x405
+sector		sp18=-1		mask=0x405
+sector		sp19=-1		mask=0x405
+
+# Flags for each special sector
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+int			spinf10=0
+int			spinf11=0
+int			spinf12=0
+int			spinf13=0
+int			spinf14=0
+int			spinf15=0
+int			spinf16=0
+int			spinf17=0
+int			spinf18=0
+int			spinf19=0
+
+# Working variables
+cog			srv			local
+int			mode		local
+int			i			local
+int			special		local
+int			botid		local
+thing		rbot		local
+
+end
+
+# ========================================================================================
+
+code
+
+entered:
+	mode = 1; // Enable effects
+	goto update_bot;
+	return;
+
+exited:
+	mode = 0; // Disable effects
+	goto update_bot;
+	return;
+
+update_bot:
+	if (!IsServer()) return;
+
+	rbot = GetSourceRef();
+	if (GetThingType(rbot) != 2) return; // Not a bot
+
+	srv = GetThingCaptureCog(rbot); // Get reference to the bot's srv cog
+	botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
+
+	// work out special info
+	special = 0;
+	for (i = 0 ; i < 20 ; i = i + 1) {
+		if (sp0[i] == GetSenderRef()) special = spinf0[i]; // this is the sector that evented, use its special info
+	}
+	if (special) {
+		SendTrigger(-1, 11020, botid, special, mode, -1); // send special info update to bot
+	}
+
+	return;
+
+end
+

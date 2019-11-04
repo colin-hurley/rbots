@@ -1,0 +1,112 @@
+# Jedi Knight Cog Script
+#
+# C3_FORCEFIELD.COG
+#
+# This script handles the force field in C3 "Red Well" layer
+#
+# Normally, Gold players access the Red flag room via a sliding chute
+# (octogonal opening) leading to a jump.
+#
+# Now -- to defend his flag room -- a Red player can control a force field
+# from a computer console in the control room just next to the sliding chute.
+# When the console is activated, a force field appears at the red flag area
+# entrance (just AFTER the jump), disallowing access, and most probably
+# making the Gold player fall into the sewers. Note that this force field
+# is non damaging.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       switch                           desc=switch
+sector      switch1                          nolink,desc=switch1
+sector      switch2                          nolink,desc=switch2
+surface     forcefield1                      nolink,desc=forcefld1
+surface     forcefield2                      nolink,desc=forcefld2
+flex        time_on=5.0                      desc=time_on
+flex        delay=10                         desc=delay
+
+int         field_is_on=0                    local
+int         ff_sound                         local
+int         dummy                            local
+int         sourceref                        local
+
+sound       console_snd=set_hi2.wav          local
+sound       forcefield_snd=ForceFieldHum01.WAV  local
+
+int         msgbase=1000                     local
+
+message     startup
+message     activated
+
+end            
+
+# ========================================================================================
+
+code
+
+startup:
+   SetFaceGeoMode(forcefield1, 0);     // GEOMETRY_NONE
+   SetFaceGeoMode(forcefield2, 0);
+   
+   Return;
+
+# ........................................................................................
+
+activated:
+   if(field_is_on == 0)
+   {
+      field_is_on = 1;
+      sourceref = GetSourceRef();
+      
+      ff_sound = PlaySoundPos(forcefield_snd, SurfaceCenter(forcefield1), 1.0, -1, -1, 0x41);
+
+      SetFaceGeoMode(forcefield1, 5);        // GEOMETRY_FULL     (draw the face)
+      SetFaceGeoMode(forcefield2, 5);
+      SetFaceLightMode(forcefield1, 0);      // LIGHTING_LIT      (light fully)
+      SetFaceLightMode(forcefield2, 0);
+      ClearAdjoinFlags(forcefield1, 2);      // Clear ADJOIN_MOVE (disallow passage)
+      ClearAdjoinFlags(forcefield2, 2);
+      SetSurfaceFlags(forcefield1, 16384);   // Set SURFACE_MAGSEALED
+      SetSurfaceFlags(forcefield2, 16384);
+      
+      SectorLight(switch1, 1.0, 0.0);
+      SectorLight(switch2, 1.0, 0.0);
+      dummy = PlaySoundThing(console_snd, switch, 0.8, 5.0, 10.0, 0);
+      // Print("Force Field On...");
+      jkPrintUNIString(sourceref, msgbase + 80);
+      
+      Sleep(time_on);                        // Let the force field active
+      
+      SectorLight(switch1, 0.0, 0.0);
+      SectorLight(switch2, 0.0, 0.0);
+      
+      SetFaceGeoMode(forcefield1, 0);        // GEOMETRY_NONE    (don't draw the face)
+      SetFaceGeoMode(forcefield2, 0);
+      SetFaceLightMode(forcefield1, 3);      // LIGHTING_GOURAUD (normal lighting)
+      SetFaceLightMode(forcefield2, 3);
+      SetAdjoinFlags(forcefield1, 2);        // Set ADJOIN_MOVE  (allow passage)
+      SetAdjoinFlags(forcefield2, 2);
+      ClearSurfaceFlags(forcefield1, 16384); // Clear SURFACE_MAGSEALED
+      ClearSurfaceFlags(forcefield2, 16384);
+      
+      // Print("Force Field Off...");
+      jkPrintUNIString(sourceref, msgbase + 81);
+      StopSound(ff_sound, 0);
+      
+      Sleep(delay);                          // Delay before the force field is usable again
+
+      // FIXME!! Isn't this message illogical ?
+      // Print("Force Field Ready...");
+      jkPrintUNIString(sourceref, msgbase + 82);
+      
+      field_is_on = 0;
+   }
+   
+   Return;
+
+end
+

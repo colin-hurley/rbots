@@ -1,10 +1,13 @@
-MSGS 88
+MSGS 91
 
 #  "<key>"     <unused number>   "<string>"
 
 "ARENA-1" 0 "The Arena of Dark and Light"
 "ARENA-1_TEXT_00" 0 "Rbots CTF"
 "ARENA-1_TEXT_01" 0 ""
+"CHALLENGE-1" 0 "The Challenge at Nar Shaddaa"
+"CHALLENGE-1_TEXT_00" 0 "Rbots CTF"
+"CHALLENGE-1_TEXT_01" 0 ""
 "COG_01001" 0 "Welcome to Jedi Knight CTF!"
 "COG_01002" 0 "Score Limit Reached..."
 "COG_01003" 0 "Time Limit Reached..."

@@ -1,0 +1,106 @@
+# Jedi Knight Cog Script
+#
+# C3_LARGELEVEL.COG
+#
+# Cog to close or open the outer way in C3
+#
+# [SD & YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+surface     switch                           mask=0x408 desc=switch
+surface     surfsign1                        nolink desc=surfsign1
+surface     surfsign2                        nolink desc=surfsign2
+surface     surfsign3                        nolink desc=surfsign3
+surface     surfsign4                        nolink desc=surfsign4
+surface     surfclose1                       nolink desc=surfclose1
+surface     surfclose2                       nolink desc=surfclose2
+surface     surfclose3                       nolink desc=surfclose3
+surface     surfclose4                       nolink desc=surfclose4
+surface     surfclose5                       nolink desc=surfclose5
+surface     surfclose6                       nolink desc=surfclose6
+surface     surfclose7                       nolink desc=surfclose7
+surface     surfclose8                       nolink desc=surfclose8
+
+int         small_level=-1                   local
+int         dummy                            local
+
+message     trigger
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+   // Handle only TRIGGER_LEVELSIZE
+   if(GetSourceRef() != 10001) Return;
+
+   small_level = GetParam(0);
+
+   if(small_level == 0)
+   {
+      SectorAdjoins(close1, 1);
+      SetFaceGeoMode(surfsign1, 0);
+      SetFaceGeoMode(surfsign2, 0);
+      SetFaceGeoMode(surfsign3, 0);
+      SetFaceGeoMode(surfsign4, 0);
+      SetFaceGeoMode(surfclose1, 0);
+      SetFaceGeoMode(surfclose2, 0);
+      SetFaceGeoMode(surfclose3, 0);
+      SetFaceGeoMode(surfclose4, 0);
+      SetFaceGeoMode(surfclose5, 0);
+      SetFaceGeoMode(surfclose6, 0);
+      SetFaceGeoMode(surfclose7, 0);
+      SetFaceGeoMode(surfclose8, 0);
+      SetAdjoinFlags(surfsign1, 2);
+      SetAdjoinFlags(surfsign2, 2);
+      SetAdjoinFlags(surfsign3, 2);
+      SetAdjoinFlags(surfsign4, 2);
+      SetAdjoinFlags(surfclose1, 2);
+      SetAdjoinFlags(surfclose2, 2);
+      SetAdjoinFlags(surfclose3, 2);
+      SetAdjoinFlags(surfclose4, 2);
+      SetAdjoinFlags(surfclose5, 2);
+      SetAdjoinFlags(surfclose6, 2);
+      SetAdjoinFlags(surfclose7, 2);
+      SetAdjoinFlags(surfclose8, 2);
+   }
+   else
+   {
+      SectorAdjoins(close1, 1);
+      SetFaceGeoMode(surfsign1, 5);
+      SetFaceGeoMode(surfsign2, 5);
+      SetFaceGeoMode(surfsign3, 5);
+      SetFaceGeoMode(surfsign4, 5);
+      SetFaceGeoMode(surfclose1, 5);
+      SetFaceGeoMode(surfclose2, 5);
+      SetFaceGeoMode(surfclose3, 5);
+      SetFaceGeoMode(surfclose4, 5);
+      SetFaceGeoMode(surfclose5, 5);
+      SetFaceGeoMode(surfclose6, 5);
+      SetFaceGeoMode(surfclose7, 5);
+      SetFaceGeoMode(surfclose8, 5);
+      ClearAdjoinFlags(surfsign1, 2);
+      ClearAdjoinFlags(surfsign2, 2);
+      ClearAdjoinFlags(surfsign3, 2);
+      ClearAdjoinFlags(surfsign4, 2);
+      ClearAdjoinFlags(surfclose1, 2);
+      ClearAdjoinFlags(surfclose2, 2);
+      ClearAdjoinFlags(surfclose3, 2);
+      ClearAdjoinFlags(surfclose4, 2);
+      ClearAdjoinFlags(surfclose5, 2);
+      ClearAdjoinFlags(surfclose6, 2);
+      ClearAdjoinFlags(surfclose7, 2);
+      ClearAdjoinFlags(surfclose8, 2);
+   }
+
+   Return;
+
+end
+

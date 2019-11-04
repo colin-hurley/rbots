@@ -1,0 +1,118 @@
+# Jedi Knight Cog Script
+#
+# C3_LARGELEVELSRV.COG
+#
+# Cog to close or open the outer way in C3
+# Server part. Will resend the level change info
+# 10 times on the net after any change.
+#
+# [SD & YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch                           mask=0x408 desc=switch
+
+sound       on_snd=16METALGROAN01.WAV        local
+sound       off_snd=16METALGROAN03.WAV       local
+int         msgbase=1000                     local
+
+cog         ctf_main                         local
+cog         this_cog                         local
+
+int         allow_changes=1                  local
+int         small_level=-1                   local
+int         dummy                            local
+
+message     startup
+message     join
+message     damaged
+message     user0
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // SERVER ONLY startup:
+   if(IsServer() || !IsMulti())
+   {
+      small_level=1;
+      SendTrigger(-1, 10001, 1, 0, 0, 0);
+
+      this_cog = GetSelfCOG();
+      Sleep(0.5);                            // CTF startup is heavy enough as it is
+                                             // give it a 0.5 sec break...
+                                             // This also ensures that MasterCOG is set
+
+      ctf_main = GetMasterCOG();
+      dummy = SendMessageEx(ctf_main, user0, this_cog, -1, -1, -1);
+                                             // CTF please register me
+                                             // I am cog reference 'this_cog'
+                                             // I want default time_limit, verbose and sounds
+   }
+
+   Return;
+
+# ........................................................................................
+
+damaged:
+   if(allow_changes == 0) Return;
+   if(GetSenderRef() != switch) Return;
+
+   SetPulse(0);
+
+   if(small_level == 1)
+   {
+      small_level=0;
+      SetWallCel(switch, 1);
+
+      dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 1.0, 10.0, 20.0, 0);
+      // Print("Large Level Opened...");
+      jkPrintUNIString(-3, msgbase + 85);
+
+      // Broadcast a TRIGGER_LEVELSIZE
+      SendTrigger(-1, 10001, 0, 0, 0, 0);
+   }
+   else
+   {
+      small_level=1;
+      SetWallCel(switch, 0);
+      dummy = PlaySoundPos(off_snd, SurfaceCenter(switch), 1.0, 10.0, 20.0, 0);
+      // Print("Large Level Closed...");
+      jkPrintUNIString(-3, msgbase + 86);
+
+      // Broadcast a TRIGGER_LEVELSIZE
+      SendTrigger(-1, 10001, 1, 0, 0, 0);
+   }
+
+   Return;
+
+# ........................................................................................
+
+join:
+   SyncSurface(switch);
+
+   // Broadcast a TRIGGER_LEVELSIZE
+   SendTrigger(GetSenderRef(), 10001, small_level, 0, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+user0:
+   // CTF Events sent when a player is marked as Red or Gold,
+   // i.e. the game really started and we must not allow changing
+   // the level size now...
+
+   if((GetParam(0) == 03) || (GetParam(0) == 04)) allow_changes = 0;
+
+   Return;
+
+end
+
+

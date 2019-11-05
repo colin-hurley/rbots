@@ -11,26 +11,26 @@ symbols
 message		trigger
 
 # Special nodes
-thing		navsp0=-1
-thing		navsp1=-1
-thing		navsp2=-1
-thing		navsp3=-1
-thing		navsp4=-1
-thing		navsp5=-1
-thing		navsp6=-1
-thing		navsp7=-1
-thing		navsp8=-1
-thing		navsp9=-1
-thing		navsp10=-1
-thing		navsp11=-1
-thing		navsp12=-1
-thing		navsp13=-1
-thing		navsp14=-1
-thing		navsp15=-1
-thing		navsp16=-1
-thing		navsp17=-1
-thing		navsp18=-1
-thing		navsp19=-1
+thing		navsp0=-1		nolink
+thing		navsp1=-1		nolink
+thing		navsp2=-1		nolink
+thing		navsp3=-1		nolink
+thing		navsp4=-1		nolink
+thing		navsp5=-1		nolink
+thing		navsp6=-1		nolink
+thing		navsp7=-1		nolink
+thing		navsp8=-1		nolink
+thing		navsp9=-1		nolink
+thing		navsp10=-1		nolink
+thing		navsp11=-1		nolink
+thing		navsp12=-1		nolink
+thing		navsp13=-1		nolink
+thing		navsp14=-1		nolink
+thing		navsp15=-1		nolink
+thing		navsp16=-1		nolink
+thing		navsp17=-1		nolink
+thing		navsp18=-1		nolink
+thing		navsp19=-1		nolink
 
 # Flags for each special node
 int			navspinf0=0

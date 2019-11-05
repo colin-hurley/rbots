@@ -11,26 +11,26 @@ symbols
 message		trigger
 
 # Special nodes
-thing		sp0=-1
-thing		sp1=-1
-thing		sp2=-1
-thing		sp3=-1
-thing		sp4=-1
-thing		sp5=-1
-thing		sp6=-1
-thing		sp7=-1
-thing		sp8=-1
-thing		sp9=-1
-thing		sp10=-1
-thing		sp11=-1
-thing		sp12=-1
-thing		sp13=-1
-thing		sp14=-1
-thing		sp15=-1
-thing		sp16=-1
-thing		sp17=-1
-thing		sp18=-1
-thing		sp19=-1
+thing		sp0=-1		nolink
+thing		sp1=-1		nolink
+thing		sp2=-1		nolink
+thing		sp3=-1		nolink
+thing		sp4=-1		nolink
+thing		sp5=-1		nolink
+thing		sp6=-1		nolink
+thing		sp7=-1		nolink
+thing		sp8=-1		nolink
+thing		sp9=-1		nolink
+thing		sp10=-1		nolink
+thing		sp11=-1		nolink
+thing		sp12=-1		nolink
+thing		sp13=-1		nolink
+thing		sp14=-1		nolink
+thing		sp15=-1		nolink
+thing		sp16=-1		nolink
+thing		sp17=-1		nolink
+thing		sp18=-1		nolink
+thing		sp19=-1		nolink
 
 # Flags for each special node
 int			spinf0=0

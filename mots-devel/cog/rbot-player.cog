@@ -266,7 +266,7 @@ damaged:
 	damage = GetParam(0);
 	damager=getsourceref(); // projectile - attacker=GetThingParent()
 
-	if (GetPlayerTeam(player) != -1 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from bot team mates
+	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from bot team mates
 	{
 		ReturnEx(0);
 		Return;

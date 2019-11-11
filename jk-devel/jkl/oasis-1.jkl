@@ -229,7 +229,7 @@ walkmetaldry02.wav
 end
 
 SECTION: MATERIALS
-World materials 449
+World materials 454
 0: 00_BASE4.MAT 1 1
 1: 00CGLYF1.MAT 1 1
 2: 00explosion.mat 1 1
@@ -555,130 +555,135 @@ World materials 449
 322: kysthand.mat 1 1
 323: kysthandb.mat 1 1
 324: kystleglo.mat 1 1
-325: kyt5bodb.mat 1 1
-326: kyt5bodf.mat 1 1
-327: kyt5butt.mat 1 1
-328: kyt5hip.mat 1 1
-329: kythigh.mat 1 1
-330: LIGT3.MAT 1 1
-331: lite.mat 1 1
-332: PACKREV1.MAT 1 1
-333: PCELSIDE.MAT 1 1
-334: PCELTOP.MAT 1 1
-335: PCELTUBE.MAT 1 1
-336: R-KEY1.MAT 1 1
-337: R-KEY2.MAT 1 1
-338: RLD0CLMP.MAT 1 1
-339: RLDVBDSD.MAT 1 1
-340: RLDVBDTP.MAT 1 1
-341: RLDVBRL1.MAT 1 1
-342: RLDVBRL2.MAT 1 1
-343: RLDVBRL3.MAT 1 1
-344: rldvbutt.mat 1 1
-345: RLDVCHM1.MAT 1 1
-346: RLDVCHM2.MAT 1 1
-347: RLDVCHM3.MAT 1 1
-348: RLDVCLP2.MAT 1 1
-349: RLDVPRJF.MAT 1 1
-350: RLDVPRJS.MAT 1 1
-351: rldvsgt.mat 1 1
-352: rldx.mat 1 1
-353: RPT0TOP.MAT 1 1
-354: RPTPBUT1.MAT 1 1
-355: RPTPBUT2.MAT 1 1
-356: RPTPGRIL.MAT 1 1
-357: RPTPSIDE.MAT 1 1
-358: RPTPTOP.MAT 1 1
-359: RPTPUNDR.MAT 1 1
-360: RPTVBACK.MAT 1 1
-361: rptx.mat 1 1
-362: sabutt.mat 1 1
-363: safoot.mat 1 1
-364: sahip.mat 1 1
-365: saleg.mat 1 1
-366: salegb.mat 1 1
-367: saneck.mat 1 1
-368: sathigh.mat 1 1
-369: sathighb.mat 1 1
-370: SEQ0MBCK.MAT 1 1
-371: SEQ0MTP1.MAT 1 1
-372: seq0mtp3.mat 1 1
-373: SEQ0SIDE.MAT 1 1
-374: SEQ0TOP.MAT 1 1
-375: SEQP1.MAT 1 1
-376: SEQP2.MAT 1 1
-377: SEQP3.MAT 1 1
-378: SEQP4.MAT 1 1
-379: SEQVMTP2.MAT 1 1
-380: seqvsd.mat 1 1
-381: seqvsid2.mat 1 1
-382: seqvtop2.mat 1 1
-383: seqx2.mat 1 1
-384: SHLD1.MAT 1 1
-385: SHLD2.MAT 1 1
-386: SHLD3.MAT 1 1
-387: SHRP.MAT 1 1
-388: sparky.mat 1 1
-389: SplashX.mat 1 1
-390: Splooshx.mat 1 1
-391: stfoot.mat 1 1
-392: sthdbk2.mat 1 1
-393: sthdfr2.mat 1 1
-394: sthdsd.mat 1 1
-395: STR0SIDE.MAT 1 1
-396: STR0TOP.MAT 1 1
-397: STRPGRIP.MAT 1 1
-398: strpport.mat 1 1
-399: strpsitf.mat 1 1
-400: STRVBRL4.MAT 1 1
-401: strvbutt.mat 1 1
-402: STRVCLP.MAT 1 1
-403: strvsid1.mat 1 1
-404: strvsid2.mat 1 1
-405: strvsitb.mat 1 1
-406: strvsite.mat 1 1
-407: strvtop2.mat 1 1
-408: stthigh.mat 1 1
-409: th4arm.mat 1 1
-410: tharm.mat 1 1
-411: thback.mat 1 1
-412: thbutt.mat 1 1
-413: thfaceb.mat 1 1
-414: thfacef.mat 1 1
-415: thfacesd.mat 1 1
-416: thfacet.mat 1 1
-417: thfoot.mat 1 1
-418: thhand.mat 1 1
-419: thhandi.mat 1 1
-420: thhip.mat 1 1
-421: thleg.mat 1 1
-422: thpadt.mat 1 1
-423: ththigh.mat 1 1
-424: thtors.mat 1 1
-425: tkcollar.mat 1 1
-426: tkneck.mat 1 1
-427: VEST1.MAT 1 1
-428: VEST2.MAT 1 1
-429: VEST3.MAT 1 1
-430: VEST4.MAT 1 1
-431: VEST5.MAT 1 1
-432: vestl1.mat 1 1
-433: vestl2.mat 1 1
-434: vestl5.mat 1 1
-435: white.mat 1 1
-436: y_arm.mat 1 1
-437: y_foot.mat 1 1
-438: y_forarm.mat 1 1
-439: y_hand.mat 1 1
-440: y_handi.mat 1 1
-441: y_leg.mat 1 1
-442: y_legb.mat 1 1
-443: y_neck.mat 1 1
-444: y_thigh.mat 1 1
-445: y_torsb.mat 1 1
-446: y_torsf.mat 1 1
-447: Y-KEY1.MAT 1 1
-448: Y-KEY2.MAT 1 1
+325: kyt2bodb.mat 1 1
+326: kyt2bodf.mat 1 1
+327: kyt2butt.mat 1 1
+328: kyt2hip.mat 1 1
+329: kyt2thig.mat 1 1
+330: kyt5bodb.mat 1 1
+331: kyt5bodf.mat 1 1
+332: kyt5butt.mat 1 1
+333: kyt5hip.mat 1 1
+334: kythigh.mat 1 1
+335: LIGT3.MAT 1 1
+336: lite.mat 1 1
+337: PACKREV1.MAT 1 1
+338: PCELSIDE.MAT 1 1
+339: PCELTOP.MAT 1 1
+340: PCELTUBE.MAT 1 1
+341: R-KEY1.MAT 1 1
+342: R-KEY2.MAT 1 1
+343: RLD0CLMP.MAT 1 1
+344: RLDVBDSD.MAT 1 1
+345: RLDVBDTP.MAT 1 1
+346: RLDVBRL1.MAT 1 1
+347: RLDVBRL2.MAT 1 1
+348: RLDVBRL3.MAT 1 1
+349: rldvbutt.mat 1 1
+350: RLDVCHM1.MAT 1 1
+351: RLDVCHM2.MAT 1 1
+352: RLDVCHM3.MAT 1 1
+353: RLDVCLP2.MAT 1 1
+354: RLDVPRJF.MAT 1 1
+355: RLDVPRJS.MAT 1 1
+356: rldvsgt.mat 1 1
+357: rldx.mat 1 1
+358: RPT0TOP.MAT 1 1
+359: RPTPBUT1.MAT 1 1
+360: RPTPBUT2.MAT 1 1
+361: RPTPGRIL.MAT 1 1
+362: RPTPSIDE.MAT 1 1
+363: RPTPTOP.MAT 1 1
+364: RPTPUNDR.MAT 1 1
+365: RPTVBACK.MAT 1 1
+366: rptx.mat 1 1
+367: sabutt.mat 1 1
+368: safoot.mat 1 1
+369: sahip.mat 1 1
+370: saleg.mat 1 1
+371: salegb.mat 1 1
+372: saneck.mat 1 1
+373: sathigh.mat 1 1
+374: sathighb.mat 1 1
+375: SEQ0MBCK.MAT 1 1
+376: SEQ0MTP1.MAT 1 1
+377: seq0mtp3.mat 1 1
+378: SEQ0SIDE.MAT 1 1
+379: SEQ0TOP.MAT 1 1
+380: SEQP1.MAT 1 1
+381: SEQP2.MAT 1 1
+382: SEQP3.MAT 1 1
+383: SEQP4.MAT 1 1
+384: SEQVMTP2.MAT 1 1
+385: seqvsd.mat 1 1
+386: seqvsid2.mat 1 1
+387: seqvtop2.mat 1 1
+388: seqx2.mat 1 1
+389: SHLD1.MAT 1 1
+390: SHLD2.MAT 1 1
+391: SHLD3.MAT 1 1
+392: SHRP.MAT 1 1
+393: sparky.mat 1 1
+394: SplashX.mat 1 1
+395: Splooshx.mat 1 1
+396: stfoot.mat 1 1
+397: sthdbk2.mat 1 1
+398: sthdfr2.mat 1 1
+399: sthdsd.mat 1 1
+400: STR0SIDE.MAT 1 1
+401: STR0TOP.MAT 1 1
+402: STRPGRIP.MAT 1 1
+403: strpport.mat 1 1
+404: strpsitf.mat 1 1
+405: STRVBRL4.MAT 1 1
+406: strvbutt.mat 1 1
+407: STRVCLP.MAT 1 1
+408: strvsid1.mat 1 1
+409: strvsid2.mat 1 1
+410: strvsitb.mat 1 1
+411: strvsite.mat 1 1
+412: strvtop2.mat 1 1
+413: stthigh.mat 1 1
+414: th4arm.mat 1 1
+415: tharm.mat 1 1
+416: thback.mat 1 1
+417: thbutt.mat 1 1
+418: thfaceb.mat 1 1
+419: thfacef.mat 1 1
+420: thfacesd.mat 1 1
+421: thfacet.mat 1 1
+422: thfoot.mat 1 1
+423: thhand.mat 1 1
+424: thhandi.mat 1 1
+425: thhip.mat 1 1
+426: thleg.mat 1 1
+427: thpadt.mat 1 1
+428: ththigh.mat 1 1
+429: thtors.mat 1 1
+430: tkcollar.mat 1 1
+431: tkneck.mat 1 1
+432: VEST1.MAT 1 1
+433: VEST2.MAT 1 1
+434: VEST3.MAT 1 1
+435: VEST4.MAT 1 1
+436: VEST5.MAT 1 1
+437: vestl1.mat 1 1
+438: vestl2.mat 1 1
+439: vestl5.mat 1 1
+440: white.mat 1 1
+441: y_arm.mat 1 1
+442: y_foot.mat 1 1
+443: y_forarm.mat 1 1
+444: y_hand.mat 1 1
+445: y_handi.mat 1 1
+446: y_leg.mat 1 1
+447: y_legb.mat 1 1
+448: y_neck.mat 1 1
+449: y_thigh.mat 1 1
+450: y_torsb.mat 1 1
+451: y_torsf.mat 1 1
+452: Y-KEY1.MAT 1 1
+453: Y-KEY2.MAT 1 1
 end
 
 SECTION: GEORESOURCE
@@ -6248,7 +6253,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 252
+World models 263
 0: adm-0.3do
 1: adm-1.3do
 2: adm-10.3do
@@ -6489,18 +6494,29 @@ World models 252
 237: tus-9.3do
 238: vest.3do
 239: vestl.3do
-240: y-key.3do
-241: yun-0.3do
-242: yun-1.3do
-243: yun-10.3do
-244: yun-2.3do
-245: yun-3.3do
-246: yun-4.3do
-247: yun-5.3do
-248: yun-6.3do
-249: yun-7.3do
-250: yun-8.3do
-251: yun-9.3do
+240: yel-0.3do
+241: yel-1.3do
+242: yel-10.3do
+243: yel-2.3do
+244: yel-3.3do
+245: yel-4.3do
+246: yel-5.3do
+247: yel-6.3do
+248: yel-7.3do
+249: yel-8.3do
+250: yel-9.3do
+251: y-key.3do
+252: yun-0.3do
+253: yun-1.3do
+254: yun-10.3do
+255: yun-2.3do
+256: yun-3.3do
+257: yun-4.3do
+258: yun-5.3do
+259: yun-6.3do
+260: yun-7.3do
+261: yun-8.3do
+262: yun-9.3do
 end
 
 Section: SPRITES
@@ -6730,11 +6746,11 @@ World scripts 42
 29: pow_thermal.cog
 30: pow_vest.cog
 31: rbot-backpack.cog
-32: rbot-cli.cog
-33: rbot-lightning.cog
-34: rbot-nav.cog
-35: rbot-path.cog
-36: rbot-player.cog
+32: rbot-lightning.cog
+33: rbot-nav.cog
+34: rbot-path.cog
+35: rbot-player.cog
+36: rbot-skin.cog
 37: rbot-special.cog
 38: rbot-srv.cog
 39: rbot-srv2.cog
@@ -6744,14 +6760,14 @@ end
 
 Section: cogs
 
-World cogs 124
+World cogs 126
 #Num	Script          Symbol values
 0: 00_SLIDECEILING.COG 10 10
 1: 00_PLAYAMBIENT.COG 5 -1 -1 -1 -1 -1 -1 -1 00WIND02.WAV -1 60 1
 2: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 533 526 484 470 490 496 508 502
 3: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 520 514 375 54 34 367 545 539
 4: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 565 -1 -1 -1 -1 -1 -1 -1
-5: rbot-startup.cog 4 1 1 1 0 2 0 0 0 0 0
+5: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0
 6: rbot-nav.cog
 7: rbot-path.cog 66 67 68 69 70 71 72 73 74 75 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 8: rbot-path.cog 75 76 77 78 79 80 81 82 83 66 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
@@ -6764,75 +6780,77 @@ World cogs 124
 15: rbot-path.cog 128 92 129 72 130 131 132 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 16: rbot-special.cog 86 87 88 -1 96 98 99 100 91 68 93 72 105 118 119 120 104 106 -1 -1 2 2 2 2 2 2 2 2 36 2 2 4 2 2 2 2 2 2 0 0
 17: rbot-lightning.cog 47 46 45 591 24
-18: rbot-srv.cog 0 0 -1 rbot_yun 0
+18: rbot-srv.cog 0 0 0 1 20 101
 19: rbot-srv-force.cog 0 255
 20: rbot-srv2.cog 0
-21: rbot-cli.cog 0 yun-0.3do yun-1.3do yun-2.3do yun-3.3do yun-4.3do yun-5.3do yun-6.3do yun-7.3do yun-8.3do yun-9.3do yun-10.3do
-22: rbot-srv.cog 1 1 -1 rbot_sariss 0
-23: rbot-srv-force.cog 1 15887
+21: rbot-skin.cog 0 rbot_yun yun-0.3do yun-1.3do yun-2.3do yun-3.3do yun-4.3do yun-5.3do yun-6.3do yun-7.3do yun-8.3do yun-9.3do yun-10.3do
+22: rbot-srv.cog 1 10 1 2 22 102
+23: rbot-srv-force.cog 1 255
 24: rbot-srv2.cog 1
-25: rbot-cli.cog 1 sar-0.3do sar-1.3do sar-2.3do sar-3.3do sar-4.3do sar-5.3do sar-6.3do sar-7.3do sar-8.3do sar-9.3do sar-10.3do
-26: rbot-srv.cog 2 10 -1 rbot_bobafett 0
-27: rbot-srv-force.cog 2 255
+25: rbot-skin.cog 1 rbot_bobafett bob-0.3do bob-1.3do bob-2.3do bob-3.3do bob-4.3do bob-5.3do bob-6.3do bob-7.3do bob-8.3do bob-9.3do bob-10.3do
+26: rbot-srv.cog 2 1 2 1 21 101
+27: rbot-srv-force.cog 2 7695
 28: rbot-srv2.cog 2
-29: rbot-cli.cog 2 bob-0.3do bob-1.3do bob-2.3do bob-3.3do bob-4.3do bob-5.3do bob-6.3do bob-7.3do bob-8.3do bob-9.3do bob-10.3do
-30: rbot-srv.cog 3 2 -1 rbot_jerec 0
+29: rbot-skin.cog 2 rbot_sariss sar-0.3do sar-1.3do sar-2.3do sar-3.3do sar-4.3do sar-5.3do sar-6.3do sar-7.3do sar-8.3do sar-9.3do sar-10.3do
+30: rbot-srv.cog 3 2 3 2 23 102
 31: rbot-srv-force.cog 3 7695
 32: rbot-srv2.cog 3
-33: rbot-cli.cog 3 jer-0.3do jer-1.3do jer-2.3do jer-3.3do jer-4.3do jer-5.3do jer-6.3do jer-7.3do jer-8.3do jer-9.3do jer-10.3do
-34: rbot-srv.cog 4 28 -1 rbot_commando 0
-35: rbot-srv-force.cog 4 496
+33: rbot-skin.cog 3 rbot_jerec jer-0.3do jer-1.3do jer-2.3do jer-3.3do jer-4.3do jer-5.3do jer-6.3do jer-7.3do jer-8.3do jer-9.3do jer-10.3do
+34: rbot-srv.cog 4 28 4 1 33 101
+35: rbot-srv-force.cog 4 255
 36: rbot-srv2.cog 4
-37: rbot-cli.cog 4 com-0.3do com-1.3do com-2.3do com-3.3do com-4.3do com-5.3do com-6.3do com-7.3do com-8.3do com-9.3do com-10.3do
-38: rbot-srv.cog 5 15 -1 rbot_greedo 0
-39: rbot-srv-force.cog 5 7695
+37: rbot-skin.cog 4 rbot_commando com-0.3do com-1.3do com-2.3do com-3.3do com-4.3do com-5.3do com-6.3do com-7.3do com-8.3do com-9.3do com-10.3do
+38: rbot-srv.cog 5 24 5 2 37 102
+39: rbot-srv-force.cog 5 255
 40: rbot-srv2.cog 5
-41: rbot-cli.cog 5 gre-0.3do gre-1.3do gre-2.3do gre-3.3do gre-4.3do gre-5.3do gre-6.3do gre-7.3do gre-8.3do gre-9.3do gre-10.3do
-42: rbot-srv.cog 6 24 -1 rbot_trooper 0
-43: rbot-srv-force.cog 6 255
+41: rbot-skin.cog 5 rbot_trooper stm-0.3do stm-1.3do stm-2.3do stm-3.3do stm-4.3do stm-5.3do stm-6.3do stm-7.3do stm-8.3do stm-9.3do stm-10.3do
+42: rbot-srv.cog 6 15 6 1 34 101
+43: rbot-srv-force.cog 6 7695
 44: rbot-srv2.cog 6
-45: rbot-cli.cog 6 stm-0.3do stm-1.3do stm-2.3do stm-3.3do stm-4.3do stm-5.3do stm-6.3do stm-7.3do stm-8.3do stm-9.3do stm-10.3do
-46: rbot-srv.cog 7 12 -1 rbot_tusken 0
+45: rbot-skin.cog 6 rbot_greedo gre-0.3do gre-1.3do gre-2.3do gre-3.3do gre-4.3do gre-5.3do gre-6.3do gre-7.3do gre-8.3do gre-9.3do gre-10.3do
+46: rbot-srv.cog 7 12 7 2 35 102
 47: rbot-srv-force.cog 7 7695
 48: rbot-srv2.cog 7
-49: rbot-cli.cog 7 tus-0.3do tus-1.3do tus-2.3do tus-3.3do tus-4.3do tus-5.3do tus-6.3do tus-7.3do tus-8.3do tus-9.3do tus-10.3do
-50: rbot-srv.cog 8 17 -1 rbot_jan 0
+49: rbot-skin.cog 7 rbot_tusken tus-0.3do tus-1.3do tus-2.3do tus-3.3do tus-4.3do tus-5.3do tus-6.3do tus-7.3do tus-8.3do tus-9.3do tus-10.3do
+50: rbot-srv.cog 8 17 8 1 38 101
 51: rbot-srv-force.cog 8 255
 52: rbot-srv2.cog 8
-53: rbot-cli.cog 8 jan-0.3do jan-1.3do jan-2.3do jan-3.3do jan-4.3do jan-5.3do jan-6.3do jan-7.3do jan-8.3do jan-9.3do jan-10.3do
-54: rbot-srv.cog 9 11 -1 rbot_bossk 0
-55: rbot-srv-force.cog 9 7695
+53: rbot-skin.cog 8 rbot_jan jan-0.3do jan-1.3do jan-2.3do jan-3.3do jan-4.3do jan-5.3do jan-6.3do jan-7.3do jan-8.3do jan-9.3do jan-10.3do
+54: rbot-srv.cog 9 25 9 2 39 102
+55: rbot-srv-force.cog 9 255
 56: rbot-srv2.cog 9
-57: rbot-cli.cog 9 bsk-0.3do bsk-1.3do bsk-2.3do bsk-3.3do bsk-4.3do bsk-5.3do bsk-6.3do bsk-7.3do bsk-8.3do bsk-9.3do bsk-10.3do
-58: rbot-srv.cog 10 25 -1 rbot_admiral 0
-59: rbot-srv-force.cog 10 255
+57: rbot-skin.cog 9 rbot_admiral adm-0.3do adm-1.3do adm-2.3do adm-3.3do adm-4.3do adm-5.3do adm-6.3do adm-7.3do adm-8.3do adm-9.3do adm-10.3do
+58: rbot-srv.cog 10 11 10 1 40 101
+59: rbot-srv-force.cog 10 7695
 60: rbot-srv2.cog 10
-61: rbot-cli.cog 10 adm-0.3do adm-1.3do adm-2.3do adm-3.3do adm-4.3do adm-5.3do adm-6.3do adm-7.3do adm-8.3do adm-9.3do adm-10.3do
-62: rbot-srv.cog 11 30 -1 rbot_cyborg 0
+61: rbot-skin.cog 10 rbot_bossk bsk-0.3do bsk-1.3do bsk-2.3do bsk-3.3do bsk-4.3do bsk-5.3do bsk-6.3do bsk-7.3do bsk-8.3do bsk-9.3do bsk-10.3do
+62: rbot-srv.cog 11 30 11 2 41 102
 63: rbot-srv-force.cog 11 7695
 64: rbot-srv2.cog 11
-65: rbot-cli.cog 11 cyb-0.3do cyb-1.3do cyb-2.3do cyb-3.3do cyb-4.3do cyb-5.3do cyb-6.3do cyb-7.3do cyb-8.3do cyb-9.3do cyb-10.3do
-66: rbot-srv.cog 12 29 -1 rbot_redeye 0
+65: rbot-skin.cog 11 rbot_cyborg cyb-0.3do cyb-1.3do cyb-2.3do cyb-3.3do cyb-4.3do cyb-5.3do cyb-6.3do cyb-7.3do cyb-8.3do cyb-9.3do cyb-10.3do
+66: rbot-srv.cog 12 29 12 1 42 101
 67: rbot-srv-force.cog 12 255
 68: rbot-srv2.cog 12
-69: rbot-cli.cog 12 eye-0.3do eye-1.3do eye-2.3do eye-3.3do eye-4.3do eye-5.3do eye-6.3do eye-7.3do eye-8.3do eye-9.3do eye-10.3do
-70: rbot-srv.cog 13 25 -1 rbot_officer 0
-71: rbot-srv-force.cog 13 7695
+69: rbot-skin.cog 12 rbot_redeye eye-0.3do eye-1.3do eye-2.3do eye-3.3do eye-4.3do eye-5.3do eye-6.3do eye-7.3do eye-8.3do eye-9.3do eye-10.3do
+70: rbot-srv.cog 13 5 13 2 43 102
+71: rbot-srv-force.cog 13 255
 72: rbot-srv2.cog 13
-73: rbot-cli.cog 13 off-0.3do off-1.3do off-2.3do off-3.3do off-4.3do off-5.3do off-6.3do off-7.3do off-8.3do off-9.3do off-10.3do
-74: rbot-srv.cog 14 5 -1 rbot_rahn 0
-75: rbot-srv-force.cog 14 255
+73: rbot-skin.cog 13 rbot_rahn rhn-0.3do rhn-1.3do rhn-2.3do rhn-3.3do rhn-4.3do rhn-5.3do rhn-6.3do rhn-7.3do rhn-8.3do rhn-9.3do rhn-10.3do
+74: rbot-srv.cog 14 25 14 1 44 101
+75: rbot-srv-force.cog 14 7695
 76: rbot-srv2.cog 14
-77: rbot-cli.cog 14 rhn-0.3do rhn-1.3do rhn-2.3do rhn-3.3do rhn-4.3do rhn-5.3do rhn-6.3do rhn-7.3do rhn-8.3do rhn-9.3do rhn-10.3do
-78: rbot-srv.cog 15 32 -1 rbot_silver 0
+77: rbot-skin.cog 14 rbot_officer off-0.3do off-1.3do off-2.3do off-3.3do off-4.3do off-5.3do off-6.3do off-7.3do off-8.3do off-9.3do off-10.3do
+78: rbot-srv.cog 15 32 15 2 45 102
 79: rbot-srv-force.cog 15 7695
 80: rbot-srv2.cog 15
-81: rbot-cli.cog 15 sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do
+81: rbot-skin.cog 15 rbot_silver sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do
+82: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+83: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
 end
 
 Section: TEMPLATES
 
-World templates 149
+World templates 151
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
@@ -6958,6 +6976,8 @@ rbot_sariss       _rbotactor         model3d=sar-0.3do soundclass=kyfemale.snd
 rbot_redeye       _rbotactor         model3d=eye-0.3do soundclass=kyMP1.snd
 rbot_rahn         _rbotactor         model3d=rhn-0.3do soundclass=kyJerec.snd
 rbot_officer      _rbotactor         model3d=off-0.3do soundclass=kyMP3.snd
+rbot_kylered      _rbotactor         model3d=red-0.3do soundclass=kyMP4.snd
+rbot_kylegold     _rbotactor         model3d=yel-0.3do soundclass=kyMP1.snd
 rbot_jerec        _rbotactor         model3d=jer-0.3do soundclass=kyJerec.snd
 rbot_jan          _rbotactor         model3d=jan-0.3do soundclass=kyfemale.snd
 rbot_greedo       _rbotactor         model3d=gre-0.3do soundclass=kygreedo.snd

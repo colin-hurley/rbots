@@ -443,7 +443,7 @@ pickupitem:
 		{
 			energy=energy+20;
 			if (energy>500) energy=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_powercell)
@@ -452,7 +452,7 @@ pickupitem:
 		{
 			power=power+25;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_weap4)
@@ -461,7 +461,7 @@ pickupitem:
 		{
 			inv_weap4=inv_weap4+3;
 			if (inv_weap4>30) inv_weap4=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_weap8)
@@ -470,7 +470,7 @@ pickupitem:
 		{
 			inv_weap8=inv_weap8+5;
 			if (inv_weap8>30) inv_weap8=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_raildets)
@@ -479,7 +479,7 @@ pickupitem:
 		{
 			inv_raildets=inv_raildets+3;
 			if (inv_raildets>30) inv_raildets=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_bacta)
@@ -487,7 +487,7 @@ pickupitem:
 		if (inv_bacta<5)
 		{
 			inv_bacta=inv_bacta+1;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_health)
@@ -497,7 +497,7 @@ pickupitem:
 			extra=GetThingHealth(rbot)+20;
 			if (extra > 100) extra=100;
 			SetThingHealth(rbot,extra);
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_shields)
@@ -506,19 +506,19 @@ pickupitem:
 		{
 			shields=shields+20;
 			if (shields>200) shields=100;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_supershield)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SetActorFlags(rbot, 8); // invulnerable
 		SetThingFlags(rbot, 4); // mag sealed
 		SetTimerEx(30, 140, -1, -1); // switch off in 30 secs
 	}
 	else if (getthingtemplate(item) == tmp_powerboost)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		powerboost=2;
 		SetTimerEx(30, 150, -1, -1); // switch off in 30 secs
 	}
@@ -528,7 +528,7 @@ pickupitem:
 		{
 			shields=200;
 			SetThingHealth(rbot,100);
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_fullshield)
@@ -536,22 +536,22 @@ pickupitem:
 		if (shields<200)
 		{
 			shields=200;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_mana)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SendTrigger(-1,101040,botid,100,0,-1); // tell srv to increase mana
 	}
 	else if (getthingtemplate(item) == tmp_lightside)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana
 	}
 	else if (getthingtemplate(item) == tmp_darkside)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana
 	}
 	else if (getthingtemplate(item) == tmp_weap3)
@@ -561,7 +561,7 @@ pickupitem:
 			inv_weap3=1;
 			energy=energy+24;
 			if (energy>500) energy=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_weap5)
@@ -571,7 +571,7 @@ pickupitem:
 			inv_weap5=1;
 			power=power+16;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_weap6)
@@ -581,7 +581,7 @@ pickupitem:
 			inv_weap6=1;
 			power=power+24;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}  
 	}
 	else if (getthingtemplate(item) == tmp_weap7)
@@ -591,7 +591,7 @@ pickupitem:
 			inv_weap7=1;
 			inv_raildets=inv_raildets+6;
 			if (inv_raildets>30) inv_raildets=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_weap9)
@@ -601,13 +601,13 @@ pickupitem:
 			inv_weap9=1;
 			power=power+32;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
 	else if (getthingtemplate(item) == tmp_backpack)
 	{
 		SendTrigger(-1, 12000, botid, item, -1, -1); // send info to backpack cog
-		SendTrigger(-1,101010,botid,item,rbot,-1); // get client to pickup item
+		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 	}
 	else if (GetThingTemplate(item) == tmp_ctfredkey) {
 		// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
@@ -767,7 +767,7 @@ select_weap1: // Fists
 	if (curweap==1) return;
 	curweap=1;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
 	firedelay=0.5;
 	minrange=0;
@@ -779,7 +779,7 @@ select_weap2: // Bryar Pistol
 	if (curweap==2) return;
 	curweap=2;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0;
 	maxrange=8.0;
@@ -793,7 +793,7 @@ select_weap3: // Stormtrooper Rifle
 	if (curweap==3) return;
 	curweap=3;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0;
 	maxrange=8.0;
@@ -806,7 +806,7 @@ select_weap4: // Thermal Detonators
 	if (curweap==4) return;
 	curweap=4;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
 	firedelay=0.8;
 	minrange=0.3;
@@ -821,7 +821,7 @@ select_weap5: // Crossbow
 	if (curweap==5) return;
 	curweap=5;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0;
 	maxrange=8.0;
@@ -835,7 +835,7 @@ select_weap6: // Repeater
 	if (curweap==6) return;
 	curweap=6;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0;
 	maxrange=8.0;
@@ -849,7 +849,7 @@ select_weap7: // Railgun
 	if (curweap==7) return;
 	curweap=7;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // Set LOS from weapon's height
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0.8;
 	maxrange=8.0;
@@ -866,7 +866,7 @@ select_weap8: // Sequencer Mines
 	if (curweap==8) return;
 	curweap=8;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
 	firedelay=0.8;
 	minrange=0;
@@ -881,7 +881,7 @@ select_weap9: // Concussion Rifle
 	if (curweap==9) return;
 	curweap=9;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // // Set LOS from weapon's height
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
 	minrange=0.8;
 	maxrange=8.0;
@@ -898,7 +898,7 @@ select_weap10: // Lightsaber
 	if (curweap==10) return;
 	curweap=10;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
-	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell client to change weapon
+	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
 	if (getmajormode(rbot)>2) setarmedmode(rbot,5); else setarmedmode(rbot,2);
 	firedelay=0.5;
 	minrange=0;
@@ -926,48 +926,46 @@ firetarget:
 	{
 		if (curweap == 1) // fists
 		{
-			SendTrigger(-1,101020,botid,1,0,nextanim); // tell client weapon fired - Alternate fists. (use '0' as primary - '1' as secondary fire option)
+			SendTrigger(-1,101020,botid,1,0,nextanim); // tell srv weapon fired - Alternate fists. (use '0' as primary - '1' as secondary fire option)
 			nextanim = 1-nextanim;
 		}
 		else if (curweap == 2)
 		{
-			SendTrigger(-1,101020,botid,2,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,2,0,-1); // tell srv weapon fired
 			energy=energy-1;
 		}
 		else if (curweap == 3)
 		{
-			SendTrigger(-1,101020,botid,3,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,3,0,-1); // tell srv weapon fired
 			energy=energy-2;
 		}
 		else if (curweap == 4)
 		{
-			SendTrigger(-1,101020,botid,4,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,4,0,-1); // tell srv weapon fired
 			inv_weap4=inv_weap4-1;
 		}
 		else if (curweap == 5)
 		{
-			SendTrigger(-1,101020,botid,5,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,5,0,-1); // tell srv weapon fired
 			power=power-2;
 		}
 		else if (curweap == 6)
 		{
-			SendTrigger(-1,101020,botid,6,0,nextanim); // tell client weapon fired
-			nextanim=1-nextanim;
+			SendTrigger(-1,101020,botid,6,0,-1); // tell srv weapon fired
 			power=power-1;
 		}
 		else if (curweap == 7)
 		{
-			SendTrigger(-1,101020,botid,7,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,7,0,-1); // tell srv weapon fired
 			inv_raildets=inv_raildets-1;
 		}
 		else if (curweap == 9)
 		{
-			SendTrigger(-1,101020,botid,9,0,-1); // tell client weapon fired
+			SendTrigger(-1,101020,botid,9,0,-1); // tell srv weapon fired
 			power=power-8;
 		}
 		else if (curweap == 10)
 		{
-			SendTrigger(-1, 2101, botid, rbot, -1, -1); // stop saber block animations
 			botmode=BitSet(botmode,0x200000); // Fired saber, NOT ok to block
 			SetTimerEx(0.5, 450, 0, 0); //In .5 secs, it's ok to block again
 

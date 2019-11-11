@@ -2,7 +2,7 @@
 
 TYPE 2
 
-SEQ 10
+SEQ 5
 
 # <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
 
@@ -11,10 +11,5 @@ SEQ 10
 30:	0	3	LEVEL	oasis-1.jkl	0	0	40	-1
 40:	0	4	LEVEL	valley-1.jkl	0	0	50	-1
 50:	0	5	LEVEL	bgj-1.jkl	0	0	10	-1
-60:	0	6	LEVEL	nar-2.jkl	0	0	70	-1
-70:	0	7	LEVEL	bes-2.jkl	0	0	80	-1
-80:	0	8	LEVEL	oasis-2.jkl	0	0	90	-1
-90:	0	9	LEVEL	valley-2.jkl	0	0	100	-1
-100:	0	10	LEVEL	bgj-2.jkl	0	0	60	-1
 
 end

@@ -21,16 +21,18 @@ message		user1
 message		user7
 
 int			botid=0
+
 int			botname=-1
-# Bot's team
-# 0 = no team
+int			botskinid=-1
+
+# Bot's team (only used in team play)
 # 1 = red
 # 2 = gold/yellow
 # 3 = blue
 # 4 = green
 int			team=0
-template	rtemp
-int			characterflags=0
+int			teambotname=-1
+int			teambotskinid=-1
 
 # Game setup options - set from startup cog
 int			gamemode=0					local
@@ -83,7 +85,62 @@ model		itemmodel14=flgy.3do	local	desc=gold_flag
 model		itemmodel16=r-key.3do	local	desc=red_key
 model		itemmodel17=y-key.3do	local	desc=gold_key
 
+# Respawn Effects
+template	teleport_particles=+telesparks		local
+sound		teleportsnd=ForceThrow01.WAV		local
+
+# Weapon sounds
+sound		mountSoundgun0=df_bry_ready.wav		local
+sound       mountSoundgun1=df_rif_ready.wav		local
+sound		mountSoundgun2=RailChargeArm01.WAV	local
+sound		mountSoundsaber=LtSaberOn01.WAV		local
+sound    	dismountSoundsaber=LtSaberOff01.WAV	local
+sound		humSound01=LtSaberLp01.WAV			local
+
+# Weapon fire sounds
+sound		snd_fireweap01=SwingFist01.wav		local
+sound		snd_fireweap01a=SwingFist04.wav		local
+sound		snd_fireweap02=pistol-1.wav			local
+sound		snd_fireweap03=trprsht2.wav			local
+#sound		snd_fireweap05=BCFire01.wav			local
+sound		snd_fireweap05a=BCFire02.wav		local
+sound		snd_fireweap06=rpeatrlp.wav			local
+#sound		snd_fireweap06a=repeat-1.wav		local
+sound		snd_fireweap07=RailChargeFire01.WAV	local
+sound		snd_fireweap09=concuss5.wav			local
+
+# Saber attack sounds
+sound	swingSound0=LtSaberSwing01.WAV			local
+sound	swingSound1=LtSaberSwing02.WAV			local
+sound	swingSound2=LtSaberSwing03.WAV			local
+sound	swingSound3=LtSaberSwing04.WAV			local
+sound	swingSound4=LtSaberSwing05.WAV			local
+sound	swingSound5=LtSaberSwing06.WAV			local
+sound	swingSound6=LtSaberSwing07.WAV			local
+sound	swingSound7=LtSaberSwing08.WAV			local
+sound	swingSoundDbl01=LtSaberSwingDbl01.WAV	local
+
+# Saber attack animation
+keyframe	fireAnimR1=KYsabrr1.key		local
+keyframe	fireAnimL1=KYsabrl1.key		local
+keyframe	fireAnimB1=KYsabrb1.key		local
+keyframe	fireAnimB2=KYsabrb2.key		local
+keyframe	fireAnimF1=KYsnap1.key		local
+keyframe	fireAnimF2=KYsnap2.key		local
+keyframe	snapAnim0=KYsabrf1.key		local
+keyframe	snapAnim1=KYsabrf2.key		local
+keyframe	snapAnim2=KYsabrf1.key		local
+keyframe	chargeAnim=KYcharge.key		local
+
+# Saber block animation
+keyframe    blockAnim0=KYblock0.key		local
+keyframe    blockAnim1=KYblock1.key		local
+keyframe    blockAnim2=KYblock2.key		local
+
 # Misc
+int			curteam			local
+int			curbotname		local
+int			curbotskinid	local
 int			curweap			local
 thing		node			local
 flex		nodesize		local
@@ -94,7 +151,6 @@ int			lastposnum		local
 thing		target			local
 vector		blindvec		local
 int			targweap		local
-int			firing=0		local
 # Which direction the bot is running
 # 0 = backward
 # 1 = forward
@@ -111,6 +167,9 @@ int			redflag_taken	local
 int			goldflag_taken	local
 int			allowdodge		local
 int			arrival_event	local
+int			humChannel=-1	local
+int			blocktrack=-1	local
+int			nextblock=0		local
 
 # Transient working vars
 vector		relpos			local
@@ -139,6 +198,7 @@ int			nextanim		local
 thing		potential		local
 int			obstructed		local
 flex		timeout			local
+int			slashsound		local
 
 end
 
@@ -179,6 +239,14 @@ killed:
 	ClearActorFlags(rbot, 0x80); // make sure bot is not invisible
 	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send trigger to startup cog to respawn new bot
 	ReleaseThing(rbot);
+	if (curweap == 10) // current weapon is saber
+	{
+		// The bot died with the saber selected, stop the waber weapon effects
+		// For some reason, trying to do this in the killed/damaged message directly does not work (the saber dismount
+		// sound doesn't play), but doing it in a timer shortly after the bot dies does work.  Adding the 0x100 flag
+		// doesn't help.  Maybe the sound is conflicting with the bot's soundclass death sound?
+		SetTimerEx(0.05, 160, -1, -1);
+	}
 	return;
 
 damaged:
@@ -208,13 +276,20 @@ damaged:
 		dot = ThingViewDot(rbot, getthingparent(damager));
 		if ((BitTest(damagetype, 0x10) && dot > 0.9 && dot < 1.1 && difficulty < 2) || (BitTest(damagetype, 0x10) && dot > 0.5 && dot < 1.5 && difficulty < 4) || (BitTest(damagetype, 0x10) && dot > 0.3 && dot < 1.7)) // attacker has saber & bot is facing attacker
 		{
-			SendTrigger(-1, 2100, botid, rbot, -1, -1); // send trigger to client to play saber block animation
+			call block_anim; // play saber block animation
 			ReturnEx(0);
 			return;
 		}
 		if ((BitTest(damagetype, 0x2) && dot > 0.9 && dot < 1.1 && difficulty < 2) || (BitTest(damagetype, 0x2) && dot > 0.5 && dot < 1.5 && difficulty < 4) || (BitTest(damagetype, 0x2) && dot > 0.3 && dot < 1.7)) // attacked by energy weapon & bot is _mainly_ facing attacker
 		{
-			SendTrigger(-1, 2100, botid, rbot, getthingtemplate(damager), -1); // send trigger to play saber block animation & deflect projectile
+			call block_anim; // play saber block animation
+			// Also deflect projectile
+			if (difficulty < 3) // test to see how random the blocked projectiles are
+			{
+				tempvector1=VectorSet((Rand()-0.5)*(5-difficulty), (Rand()-0.5)*(5-difficulty), 0.0);
+			}
+			else tempvector1=VectorSet(0.0, 0.0, 0.0);
+			FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10); // make it random fire vector later
 			ReturnEx(0);
 			return;
 		}
@@ -222,12 +297,12 @@ damaged:
 
 	// If team play is enabled, prevent friendly fire from teammates
 	if (damager != rbot && BitTest(gamemode,0x8)) {
-		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == team) {
+		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam) {
 			// Damaged by player on same team
 			ReturnEx(0);
 			return;
 		}
-		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == team) {
+		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == curteam) {
 			// Damaged by bot on same team
 			ReturnEx(0);
 			return;
@@ -298,10 +373,27 @@ trigger:
 		}
 	}
 
-	if (getsourceref() == 800) // game setup options <- obsolete
+	if (getsourceref() == 800) // game setup options
 	{
 		gamemode=getparam(0);
 		difficulty=getparam(1);
+
+		// Select skin, name, etc. depending on whether team play is active
+		if (BitTest(gamemode, 0x8))
+		{
+			// Team play
+			curteam = team;
+			curbotskinid = teambotskinid;
+			curbotname = teambotname;
+		}
+		else
+		{
+			// Non-team play
+			curteam = 0; // no team
+			curbotskinid = botskinid;
+			curbotname = botname;
+		}
+
 		return;
 	}
 	if (GetSourceRef() == 11050) // Arrival event
@@ -324,19 +416,27 @@ trigger:
 	}
 	if (getparam(0) != botid) return; // not for this bot
 
-	if (getsourceref() == 900 && !BitTest(botmode,0x10000)) // respawn new bot && bot not already in-game and alive
+	if (GetSourceRef() == 900 && !BitTest(botmode,0x10000)) // respawn new bot && bot not already in-game and alive
 	{
 		botmode=0; // reset botmode
-		botmode=BitSet(botmode,0x10000); // bot alive
 		gamemode=GetParam(2);
 		difficulty=GetParam(3);
-		
+
+		// Create bot
+		rbot = -1;
+		SendTrigger(-1, 101060, curbotskinid, botid, GetParam(1), -1);
+		if (rbot == -1) return; // bot creation failed, cogs may be misconfigured
+
+		// Do respawn effects
+		CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
+		PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
+
 		// initialization
-		rbot=CreateThingNr(rtemp,getparam(1)); // create bot
-		SendTrigger(-1,950,botid,rbot,botname,team); // Confirm botuid
+		botmode=BitSet(botmode,0x10000); // bot alive
+		SendTrigger(-1,950,botid,rbot,curbotname,curteam); // Confirm botuid
 		capturething(rbot);
 		jkstringclear();
-		jkStringConcatUNIString(1000+botname);
+		jkStringConcatUNIString(1000+curbotname);
 		jkStringConcatAsciiString(" respawns");
 		jkStringOutput(-3,-1);
 		node=-1;
@@ -347,23 +447,27 @@ trigger:
 		arrival_event=-1;
 		prevnode=-1;
 		lostcount=0;
-		if (BitTest(characterflags,0x1)) botmode=BitSet(botmode,0x800000); // attack characteristic
-		if (BitTest(characterflags,0x2)) botmode=BitSet(botmode,0x1000000); // defend characteristic
-		if (BitTest(characterflags,0x4)) botmode=BitSet(botmode,0x2000000); // freelance characteristic
-		SendTrigger(-1, 970, botid, rbot, botname, team); // return thing number
+		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
 		SendMessageEx(srv_force, user7, 3000, -1, -1, -1); // start force powers
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
 		SetTimerEx(2.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 		stopcount=0;
 		allowdodge=1;
 		setpulse(0.1);
+		return;
 	}
+	if (GetSourceRef() == 101061) // new bot created
+	{
+		rbot = GetParam(1);
+		return;
+	}
+
 	else if (getsourceref() == 901) // remove bot from game
 	{
 		if (BitTest(botmode,0x10000)) // bot alive
 		{
 			jkstringclear();
-			jkStringConcatUNIString(1000+botname);
+			jkStringConcatUNIString(1000+curbotname);
 			jkStringConcatAsciiString(" has left the game");
 			jkStringOutput(-3,-1);
 			DamageThing(rbot,500,1,rbot); // Make sure bot is dead
@@ -371,16 +475,7 @@ trigger:
 	}
 	else if (getsourceref() == 960 && BitTest(botmode,0x10000)) // query bot thing number and bot is alive
 	{
-		SendTrigger(-1, 970, botid, rbot, botname, team); // return thing number
-	}
-	else if (getsourceref() == 2100 && getparam(2) != -1) // Saber blocking projectiles
-	{
-		if (difficulty < 3) // test to see how random the blocked projectiles are
-		{
-			tempvector1=VectorSet((Rand()-0.5)*(5-difficulty), (Rand()-0.5)*(5-difficulty), 0.0);
-		}
-		else tempvector1=VectorSet(0.0, 0.0, 0.0);
-		FireProjectile(rbot, getparam(2), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10); // make it random fire vector later
+		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
 	}
 	else if (getsourceref() == 11000) // New position available
 	{
@@ -475,14 +570,53 @@ trigger:
 	}
 	else if (getsourceref() == 101000) // weapon changed
 	{
+		if (curweap == 10) // old weapon was saber
+		{
+			PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
+			if(humChannel != -1)
+			{
+				StopSound(humChannel, 0.5); // Stop resident saber noise
+				humChannel = -1;
+			}
+		}
 		curweap=getparam(1);
+		if (curweap == 10) // saber
+		{
+			PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
+			humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
+		}
+		if (curweap == 2 || curweap == 5 || curweap == 6) // bryar, crossbow, repeater
+		{
+			PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+		if (curweap == 3 || curweap == 9) // strifle, conc rifle
+		{
+			PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+		if (curweap == 7) // railgun
+		{
+			PlaySoundThing(mountSoundgun2, rbot, 1.0, -1.0, -1.0, 0x80);
+		}
+
+		// Update weapon model
+		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1);
 	}
-	else if (getsourceref() == 101020 && !firing) // weapon fired && not already
+	else if (getsourceref() == 101010) // take item
 	{
-		firing=1;
-		curweap=getparam(1);
-		mode=getparam(2);
-		nextanim=getparam(3);
+		TakeItem(getparam(1), rbot);
+	}
+	else if (getsourceref() == 101020) // weapon fired
+	{
+		curweap = GetParam(1);
+		mode = GetParam(2);
+		nextanim = GetParam(3);
+
+		// Stop saber block animation
+		if (blocktrack != -1)
+		{
+			StopKey(rbot, blocktrack, 0.1 );
+			blocktrack = -1;
+		}
 
 		// Bot accuracy		
 		if (curweap == 3) // st-rifle is always inaccurate
@@ -511,28 +645,71 @@ trigger:
 		#	AiSetLookPos(rbot, VectorAdd(GetThingPos(target), VectorScale(targetvel, time)));
 		#}
 
-		if (curweap == 1 && nextanim == 0) FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0); // fists
-		else if (curweap == 1 && nextanim == 1) FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0); // fists - alternate
-		else if (curweap == 2) FireProjectile(rbot, projectile_weap02, -1, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10); // bryar
-		else if (curweap == 3) FireProjectile(rbot, projectile_weap03, -1, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0, 0, 0); // st-rifle
-		else if (curweap == 5) FireProjectile(rbot, projectile_weap05b, -1, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x20, 30, 20); // bowcaster
-		else if (curweap == 6) FireProjectile(rbot, projectile_weap06, -1, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x30, 25, 10 ); // repeater
-		else if (curweap == 7)
+		if (curweap == 1 && nextanim == 0) // fists
 		{
-			if (mode == 0) FireProjectile(rbot, projectile_weap07, -1, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10); // railgun
-			else FireProjectile(rbot, projectile_weap07a, -1, 18, '0.0214 0.15 0.00', '0 0 0', 1.0, 0x20, 30, 10); // railgun - secondary fire
+			FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
+			PlaySoundThing(snd_fireweap01, rbot, 3.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 1 && nextanim == 1) // fists - alternate
+		{
+			FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
+			PlaySoundThing(snd_fireweap01a, rbot, 3.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 2) // bryar
+		{
+			FireProjectile(rbot, projectile_weap02, -1, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10);
+			PlaySoundThing(snd_fireweap02, rbot, 4.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 3) // st-rifle
+		{
+			FireProjectile(rbot, projectile_weap03, -1, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0, 0, 0);
+			PlaySoundThing(snd_fireweap03, rbot, 4.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 5) // bowcaster
+		{
+			FireProjectile(rbot, projectile_weap05b, -1, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x20, 30, 20);
+			PlaySoundThing(snd_fireweap05a, rbot, 4.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 6) // repeater
+		{
+			FireProjectile(rbot, projectile_weap06, -1, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x30, 25, 10 );
+			PlaySoundThing(snd_fireweap06, rbot, 5.0, 0.5, 2.5, 0x80);
+		}
+		if (curweap == 7 && mode == 0) // railgun
+		{
+			FireProjectile(rbot, projectile_weap07, -1, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
+			PlaySoundThing(snd_fireweap07, rbot, 5.0, 0.5, 2.5, 0x80);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
 		}
-		else if (curweap == 8 && mode == 0) FireProjectile(rbot, projectile_weap08, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0); // sequencer mine - explode now
-		else if (curweap == 8 && mode == 1) FireProjectile(rbot, projectile_weap08a, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0); // sequencer mine - explode on contact
-		else if (curweap == 9)
+		if (curweap == 7 && mode == 1) // railgun - secondary fire
 		{
-			if (mode == 0) FireProjectile(rbot, projectile_weap09, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5); // conc rifle
-			else FireProjectile(rbot, projectile_weap09a, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5); // conc rifle - secondary fire
+			FireProjectile(rbot, projectile_weap07a, -1, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
+			PlaySoundThing(snd_fireweap07, rbot, 5.0, 0.5, 2.5, 0x80);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
+		}
+		if (curweap == 8 && mode == 0) // sequencer mine - explode now
+		{
+			FireProjectile(rbot, projectile_weap08, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0);
+		}
+		if (curweap == 8 && mode == 1) // sequencer mine - explode on contact
+		{
+			FireProjectile(rbot, projectile_weap08a, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0);
+		}
+		if (curweap == 9 && mode == 0) // conc rifle
+		{
+			FireProjectile(rbot, projectile_weap09, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
+			PlaySoundThing(snd_fireweap09, rbot, 5.0, 0.1, 2.5, 0x180);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
 		}
-		else if (curweap == 10) // lightsaber
+		if (curweap == 9 && mode == 1) // conc rifle - secondary fire
 		{
+			FireProjectile(rbot, projectile_weap09a, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
+			PlaySoundThing(snd_fireweap09, rbot, 5.0, 0.1, 2.5, 0x180);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
+		}
+		if (curweap == 10) // lightsaber
+		{
+			// Schedule attack projectile creation
 			if (mode == 6) // Double swing slash
 			{
 				SetTimerEx(0.2, 200, -1, -1); // fire 1st swing after 0.2 secs
@@ -545,8 +722,58 @@ trigger:
 				SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
 				SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
 			}
+
+			// Play attack animation
+			if (mode == 0) // underwater saber attack
+			{
+				if (nextanim == 0)
+					PlayMode(rbot, 8);
+				else
+					PlayMode(rbot, 18);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 1) // RIGHT Regular Strike
+			{
+				PlayKey(rbot, fireAnimR1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 2) // LEFT Regular Strike
+			{
+				PlayKey(rbot, fireAnimL1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 3) // BACKWARDS Strike
+			{
+				if (nextanim == 0)
+					PlayKey(rbot, fireAnimB1, 2, 0x38);
+				else
+					PlayKey(rbot, fireAnimB2, 2, 0x38);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 4) // STANDING Strike
+			{
+				if (nextanim == 0)
+					PlayKey(rbot, fireAnimF1, 2, 0x38);
+				else
+					PlayKey(rbot, fireAnimF2, 2, 0x38);
+				slashsound = Rand()*8;
+				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 5) // QUICK Slash
+			{
+				PlayKey(rbot, snapAnim0[GetParam(3)], 1, 0x38);
+				PlaySoundThing(swingSound0[GetParam(3)], rbot, 1.0, -1, -1, 0x80);
+			}
+			if (mode == 6) // HEAVY Slash
+			{
+				PlayKey(rbot, chargeAnim, 2, 0x38);
+				PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
+			}
 		}
-		firing=0;
 	}
 	return;
 
@@ -652,7 +879,7 @@ move:
 				if (newitemmodel==itemmodel13) // red flag
 				{
 					if (captured_red == 1) itempriority=10; // flag dropped
-					if (team == 1) // bot on red team
+					if (curteam == 1) // bot on red team
 					{
 						if (captured_red == 0 && goldflag_taken == rbot) itempriority=10; // red flag home & bot has gold flag
 					}
@@ -664,7 +891,7 @@ move:
 				else if (newitemmodel==itemmodel14) // gold flag
 				{
 					if (captured_gold == 1) itempriority=10; // flag dropped
-					if (team == 2) // bot on gold team
+					if (curteam == 2) // bot on gold team
 					{
 						if (captured_gold == 0 && redflag_taken == rbot) itempriority=10; // gold flag home & bot has red flag
 					}
@@ -710,7 +937,7 @@ move:
 
 	if (BitTest(botmode,0x4000)) // bot has target
 	{
-		if (!firing) AiSetLookPos(rbot, getthingpos(target));  // look at target if not already firing weapon
+		AiSetLookPos(rbot, GetThingPos(target));  // look at target
 		if (goldflag_taken == rbot || redflag_taken == rbot || GetThingHealth(rbot)<30) call movenode; else call targettactics; // if bot has flag or is low on health keep moving
 	}
 	else
@@ -884,6 +1111,18 @@ checkspeed:
 	}
 	return;
 
+block_anim:
+	if (blocktrack != -1)
+	{
+		StopKey(rbot, blocktrack, 0.1 );
+		blocktrack = -1;
+	}
+	// Play saber block animation
+	blocktrack=PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
+	nextblock = nextblock + 1;
+	if (nextblock > 2) nextblock = 0;
+	return;
+
 timer:
 	if(!IsServer()) return;
 	if (GetSenderId() == 120) // bot has not found its next node in time - bot lost
@@ -914,6 +1153,17 @@ timer:
 	else if (GetSenderId() == 150) // Drowning damage should be over by now
 	{
 		drowning=0;
+	}
+	else if (GetSenderId() == 160) // Bot killed with saber lit, do saber dismount effects
+	{
+		PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
+		if(humChannel != -1)
+		{
+			StopSound(humChannel, 0.5); // Stop resident saber noise
+			humChannel = -1;
+		}
+		curweap = 0; // unlit saber
+		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1); // show model with saber turned off
 	}
 	else if (GetSenderId() == 200) // fire 1st swing saber projectile
 	{
@@ -972,8 +1222,8 @@ user1:
 user7:
 	// Simple symbol value reads
 	if (GetParam(0) == 1000) ReturnEx(botid);
-	else if (GetParam(0) == 1001) ReturnEx(botname);
-	else if (GetParam(0) == 1002) ReturnEx(team);
+	else if (GetParam(0) == 1001) ReturnEx(curbotname);
+	else if (GetParam(0) == 1002) ReturnEx(curteam);
 	else if (GetParam(0) == 1003) ReturnEx(botmode);
 	else if (GetParam(0) == 1004) ReturnEx(gamemode);
 	else if (GetParam(0) == 1005) ReturnEx(difficulty);

@@ -26,10 +26,14 @@ int			starthealth					local
 
 cog			srv=-1						local
 
-# Force powers
+# Force effects
 template	force_lightning=+force_lightning	local
 template	force_destruction=+force_dest_p4	local
 template    force_blinding=+force_blind			local
+template	smoke_tpl=+heavysmoke				local
+
+# Force sound effects
+sound		pullSound=FPush.WAV			local
 
 # Pulled weapon templates
 template	tpl0=+FPBryarPistol			local
@@ -344,7 +348,7 @@ user0: // force powers against bot (legacy handler)
 	else if (bin == 34) // Deadly Sight
 	{
 		DamageThing(rbot, 4 * rank, 0x8, enemy);
-		SendTrigger(-1, 2004, botid, rbot, -1, -1); // tell client to create smoke effects
+		CreateThingAtPos(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
 		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
 	}
 
@@ -467,7 +471,7 @@ force_pull:
 				PlayMode(rbot, 24); // play 'force attack' key
 				Sleep(0.3);
 				SendMessageEx(GetThingCaptureCog(target), user0, target, rbot, 24, difficulty*2);
-				SendTrigger(-1,101025,botid,rbot,target,24); // get client to play 'pull' sound
+				PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
 			}
 		}
 		else if (GetThingType(target) == 10) // player
@@ -479,7 +483,7 @@ force_pull:
 				PlayMode(rbot, 24); // play 'force attack' key
 				Sleep(0.3);
 				forcetarget=target;
-				SendTrigger(-1,101025,botid,rbot,forcetarget,24); // get client to play 'pull' sound
+				PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
 				item = CreateThingAtPos(tpl0[GetCurWeapon(forcetarget)], GetThingSector(forcetarget), GetThingPos(forcetarget), '0 0 0'); // Create a powerup corresponding to the current weapon
 				SetCollideType(item, 0); // Set the created powerup to no collide for now...
 				SetTimerEx(0.3, 24, item, 0); // ...and set a timer to make it collide again later

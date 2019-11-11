@@ -161,7 +161,7 @@ damaged:
 
 	if(GetParam(1) == 32) call make_bubbles;
 
-	if (GetPlayerTeam(player) != -1 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from team mates
+	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from team mates
 	{
 		ReturnEx(0);
 		Return;

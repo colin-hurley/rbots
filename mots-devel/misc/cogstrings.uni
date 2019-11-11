@@ -1,4 +1,4 @@
-MSGS 107
+MSGS 92
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -82,32 +82,17 @@ MSGS 107
 "FREEZER-1" 0 "Carbon-freeze Chamber"
 "FREEZER-1_TEXT_00" 0 "^Rbots"
 "FREEZER-1_TEXT_01" 0 " "
-"FREEZER-2" 0 "Carbon-freeze Chamber - Teams"
-"FREEZER-2_TEXT_00" 0 "^Rbots"
-"FREEZER-2_TEXT_01" 0 " "
 "GANTRY-1" 0 "Cloud City Gantry"
 "GANTRY-1_TEXT_00" 0 "^Rbots"
 "GANTRY-1_TEXT_01" 0 " "
-"GANTRY-2" 0 "Cloud City Gantry - Teams"
-"GANTRY-2_TEXT_00" 0 "^Rbots"
-"GANTRY-2_TEXT_01" 0 " "
 "SPACEPORT-1" 0 "Spaceport"
 "SPACEPORT-1_TEXT_00" 0 "^Rbots"
 "SPACEPORT-1_TEXT_01" 0 " "
-"SPACEPORT-2" 0 "Spaceport - Teams"
-"SPACEPORT-2_TEXT_00" 0 "^Rbots"
-"SPACEPORT-2_TEXT_01" 0 " "
 "TEMPLE-1" 0 "Ruins of the Sith"
 "TEMPLE-1_TEXT_00" 0 "^Rbots"
 "TEMPLE-1_TEXT_01" 0 " "
-"TEMPLE-2" 0 "Ruins of the Sith - Teams"
-"TEMPLE-2_TEXT_00" 0 "^Rbots"
-"TEMPLE-2_TEXT_01" 0 " "
 "THRONE-1" 0 "Imperial Throne Room"
 "THRONE-1_TEXT_00" 0 "^Rbots"
 "THRONE-1_TEXT_01" 0 " "
-"THRONE-2" 0 "Imperial Throne Room - Teams"
-"THRONE-2_TEXT_00" 0 "^Rbots"
-"THRONE-2_TEXT_01" 0 " "
 
 END

@@ -22,7 +22,6 @@ int		numbots=4
 int		allowsaber=1
 int		allowguns=1
 int		allowforce=1
-int		teams=0
 int		difficulty=2
 int		respawn_mask0=0	# Respawn mask for team 0 (non-team play)
 int		respawn_mask1=0	# Respawn mask for team 1 (red)
@@ -259,7 +258,7 @@ startup:
 	if (allowguns) gamemode = BitSet(gamemode, 0x01); else gamemode = BitClear(gamemode, 0x01); // allow guns or not
 	if (allowsaber) gamemode = BitSet(gamemode, 0x02); else gamemode = BitClear(gamemode, 0x02); // allow sabers or not
 	if (allowforce) gamemode = BitSet(gamemode, 0x04); else gamemode = BitClear(gamemode, 0x04); // allow force or not
-	if (teams) gamemode = BitSet(gamemode, 0x08); else gamemode = BitClear(gamemode, 0x08); // team play or not
+	if (GetMultiModeFlags() & 0x1) gamemode = BitSet(gamemode, 0x08); else gamemode = BitClear(gamemode, 0x08); // team play or not
 
 	// Looks at player state to determine some initial game settings
 	// Note: This is a convenience feature in case the Rbot Admin functions

@@ -648,43 +648,38 @@ trigger:
 		if (curweap == 1 && nextanim == 0) // fists
 		{
 			FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-			PlaySoundThing(snd_fireweap01, rbot, 3.0, 0.5, 2.5, 0x80);
+			PlaySoundThing(snd_fireweap01, rbot, 1.0, 0.5, 2.5, 0x80);
 		}
 		if (curweap == 1 && nextanim == 1) // fists - alternate
 		{
 			FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-			PlaySoundThing(snd_fireweap01a, rbot, 3.0, 0.5, 2.5, 0x80);
+			PlaySoundThing(snd_fireweap01a, rbot, 1.0, 0.5, 2.5, 0x80);
 		}
 		if (curweap == 2) // bryar
 		{
-			FireProjectile(rbot, projectile_weap02, -1, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10);
-			PlaySoundThing(snd_fireweap02, rbot, 4.0, 0.5, 2.5, 0x80);
+			FireProjectile(rbot, projectile_weap02, snd_fireweap02, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10);
 		}
 		if (curweap == 3) // st-rifle
 		{
-			FireProjectile(rbot, projectile_weap03, -1, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0, 0, 0);
-			PlaySoundThing(snd_fireweap03, rbot, 4.0, 0.5, 2.5, 0x80);
+			FireProjectile(rbot, projectile_weap03, snd_fireweap03, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0, 0, 0);
 		}
 		if (curweap == 5) // bowcaster
 		{
-			FireProjectile(rbot, projectile_weap05b, -1, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x20, 30, 20);
-			PlaySoundThing(snd_fireweap05a, rbot, 4.0, 0.5, 2.5, 0x80);
+			FireProjectile(rbot, projectile_weap05b, snd_fireweap05a, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x20, 30, 20);
 		}
 		if (curweap == 6) // repeater
 		{
 			FireProjectile(rbot, projectile_weap06, -1, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x30, 25, 10 );
-			PlaySoundThing(snd_fireweap06, rbot, 5.0, 0.5, 2.5, 0x80);
+			PlaySoundThing(snd_fireweap06, rbot, 1.0, -1, -1, 0x80);
 		}
 		if (curweap == 7 && mode == 0) // railgun
 		{
-			FireProjectile(rbot, projectile_weap07, -1, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
-			PlaySoundThing(snd_fireweap07, rbot, 5.0, 0.5, 2.5, 0x80);
+			FireProjectile(rbot, projectile_weap07, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
 		}
 		if (curweap == 7 && mode == 1) // railgun - secondary fire
 		{
-			FireProjectile(rbot, projectile_weap07a, -1, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
-			PlaySoundThing(snd_fireweap07, rbot, 5.0, 0.5, 2.5, 0x80);
+			FireProjectile(rbot, projectile_weap07a, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
 		}
 		if (curweap == 8 && mode == 0) // sequencer mine - explode now
@@ -697,14 +692,12 @@ trigger:
 		}
 		if (curweap == 9 && mode == 0) // conc rifle
 		{
-			FireProjectile(rbot, projectile_weap09, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
-			PlaySoundThing(snd_fireweap09, rbot, 5.0, 0.1, 2.5, 0x180);
+			FireProjectile(rbot, projectile_weap09, snd_fireweap09, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
 		}
 		if (curweap == 9 && mode == 1) // conc rifle - secondary fire
 		{
-			FireProjectile(rbot, projectile_weap09a, -1, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
-			PlaySoundThing(snd_fireweap09, rbot, 5.0, 0.1, 2.5, 0x180);
+			FireProjectile(rbot, projectile_weap09a, snd_fireweap09, 18, '0.0 0.0 0.0', tempvector1, 1.0, 0x20, 30, 5);
 			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
 		}
 		if (curweap == 10) // lightsaber

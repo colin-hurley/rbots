@@ -7116,7 +7116,7 @@ World things 640
 105: ghost ghost -1.2 -.75 -1.639886 0 0 0 34 thingflags=0x2000400
 106: ghost ghost -.95 -2.25 -1.639886 0 0 0 34 thingflags=0x2000400
 107: ghost ghost -.75 -3.6 -1.639886 0 0 0 34 thingflags=0x2000400
-108: ghost ghost -.75 -3.6 -.879886 0 0 0 1
+108: ghost ghost -.75 -3.6 -.879886 0 0 0 1 thingflags=0x2000000
 109: ghost ghost -1.85 -3.6 -.879886 0 0 0 1
 110: ghost ghost -.55 -3.95 -.879886 0 0 0 1
 111: ghost ghost .75 -2.85 -.879886 0 0 0 1
@@ -7133,7 +7133,7 @@ World things 640
 122: ghost ghost 2.99995 -.13012 -1.659886 0 0 0 40 thingflags=0x2000400
 123: ghost ghost 2.99995 -.13012 -.539886 0 0 0 54 thingflags=0x2000400
 124: ghost ghost 2.99995 -.13012 .600114 0 0 0 54 thingflags=0x2000400
-125: ghost ghost 3 -.15 1.120114 0 0 0 41
+125: ghost ghost 3 -.15 1.120114 0 0 0 41 thingflags=0x2000000
 126: ghost ghost 2.7 .9 1.120114 0 0 0 41
 127: ghost ghost 2.4 1.8 1.120114 0 0 0 41
 128: ghost ghost 1.3 4.45 1.120114 0 0 0 30

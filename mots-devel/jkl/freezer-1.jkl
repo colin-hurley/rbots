@@ -18871,7 +18871,7 @@ World things 640
 131: ghost ghost 5.136243 7.052857 -.257467 0 0 0 48 -1 respawnfactor=.9
 132: ghost ghost 5.086243 6.202857 .002533 0 0 0 41 -1 respawnfactor=.9
 133: ghost ghost 5.086243 4.202857 .322533 0 0 0 41 -1 respawnfactor=.9
-134: ghost ghost 1.736243 -1.647143 .662533 0 0 0 142 -1 respawnfactor=.9
+134: ghost ghost 1.736243 -1.647143 .662533 0 0 0 142 -1 respawnfactor=.9 thingflags=0x2000000
 135: ghost ghost 2.436243 -1.847143 .662533 0 0 0 142 -1 respawnfactor=.9
 136: ghost ghost 3.60129 -.90833 1.17383 0 0 0 129 -1
 137: ghost ghost 4.70129 -1.80833 1.17383 0 0 0 34 -1
@@ -18884,7 +18884,7 @@ World things 640
 144: ghost ghost 5.50129 2.99167 1.17383 0 0 0 35 -1
 145: ghost ghost 6.65129 2.09167 1.17383 0 0 0 193 -1
 146: ghost ghost 7.736243 2.952857 .662533 0 0 0 174 -1 respawnfactor=.9
-147: ghost ghost 8.486243 2.802857 .662533 0 0 0 174 -1 respawnfactor=.9
+147: ghost ghost 8.486243 2.802857 .662533 0 0 0 174 -1 respawnfactor=.9 thingflags=0x2000000
 148: ghost ghost 7.65129 .44167 1.69383 0 0 0 33 -1
 149: ghost ghost 6.00129 .54167 1.19383 0 0 0 222 -1
 150: ghost ghost 5.50129 -.10833 1.19383 0 0 0 222 -1

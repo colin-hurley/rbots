@@ -23,7 +23,7 @@ end
 code
 
 touched:
-	if (IsThingMoving(door0)) return;
+	if (IsThingMoving(door0) || GetCurFrame(door0)==1) return;
 	MoveToFrame(door0, 1, moveSpeed);
 	MoveToFrame(door1, 1, moveSpeed);
 	SetTimer(sleeptime);

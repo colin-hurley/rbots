@@ -6605,7 +6605,7 @@ World things 640
 90: ghost ghost 4.32988 -15.8912 3.545744 0 0 0 11 -1 thingflags=0X0
 91: ghost ghost 4.27988 -16.8412 3.545744 0 0 0 15 -1 thingflags=0X0
 92: ghost ghost 4.32988 -17.9412 3.545744 0 0 0 30 -1 thingflags=0X0
-93: ghost ghost 4.32988 -17.9412 4.525744 0 0 0 19 -1 thingflags=0X0
+93: ghost ghost 4.32988 -17.9412 4.525744 0 0 0 19 -1 thingflags=0x2000000
 94: ghost ghost 4.32988 -17.0912 4.525744 0 0 0 50 -1 thingflags=0X0
 95: ghost ghost 4.32988 -16.3412 4.525744 0 0 0 50 -1 thingflags=0X0
 96: ghost ghost 4.32988 -15.5912 4.525744 0 0 0 21 -1 thingflags=0X0

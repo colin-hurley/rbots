@@ -88,7 +88,6 @@ arrived:
 	setwallcel(call2,0);
 	setwallcel(call3,0);
 	PlaySoundPos(wav0, SurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
-	SendTrigger(-1, 11040, elevator, -1,-1,-1); // tell bot elevator has arrived
 	return;		
 
 # ........................................................................................

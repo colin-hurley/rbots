@@ -13,7 +13,6 @@ symbols
 message		startup
 message		trigger
 message		timer
-message		user0
 message		user7
 
 int			botid=0
@@ -23,17 +22,50 @@ int			forcemode					local
 int			mana						local
 int			forcearmor					local
 int			starthealth					local
+int			griptrackID=-1				local
+int			gripsleft=0					local
+int			dsleft=0					local
+int			allowAbsorbFx=1				local
+int			shield=-1					local
+int			speedChannel=-1				local
+int			seeingChannel=-1			local
+int			persuasionChannel=-1		local
+int			protectionChannel=-1		local
+int			deadlyChannel=-1			local
 
-cog			srv=-1						local
+cog			srv							local
 
 # Force effects
-template	force_lightning=+force_lightning	local
-template	force_destruction=+force_dest_p4	local
-template    force_blinding=+force_blind			local
+template	f_lightning_tpl=+force_lightning	local
+template	f_destruction_tpl0=+force_dest_p1	local
+template	f_destruction_tpl1=+force_dest_p2	local
+template	f_destruction_tpl2=+force_dest_p3	local
+template	f_destruction_tpl3=+force_dest_p4	local
+template	f_blinding_tpl=+force_blind			local
 template	smoke_tpl=+heavysmoke				local
+template	sphere_tpl=+force_heal				local
+template	shield_tpl=+force_shield			local
 
 # Force sound effects
-sound		pullSound=FPush.WAV			local
+sound		speedSound=ForceSpeed01.WAV			local
+sound		speedSound2=ForceSpeed02.WAV		local
+sound		jumpSound2=ForceJump02.wav			local
+sound		pullSound=FPush.WAV					local
+sound		seeingSound=ForceSee01.WAV			local
+sound		seeingSound2=ForceSee02.WAV			local
+sound		healingSound=ForceHealing01.WAV		local
+sound		persuasionSound=ForcePersuas01.WAV	local
+sound		persuasionSound2=ForcePersuas02.WAV	local
+sound		blindingSound=ForceBlind01.WAV		local
+sound		absorbSound2=ForceAbsorb02.WAV		local
+sound		protectionSound=ForceProtect01.wav	local
+sound		protectionSound2=ForceProtect02.wav	local
+sound		throwSound=ForceThrow01.WAV			local
+sound		gripSound=ForceGrip01.WAV			local
+sound		lightningSound=forcelightnin01.wav	local
+sound		destSound=ForceDestruct01.wav		local
+sound		deadlySound=ForceDSight01.WAV		local
+sound		deadlySound2=ForceDSight02.WAV		local
 
 # Pulled weapon templates
 template	tpl0=+FPBryarPistol			local
@@ -48,23 +80,24 @@ template	tpl8=+FPSeqCharge			local
 template	tpl9=+FPConcRifle			local
 template	tpl10=+FPBryarPistol		local
 
-# Working vars
+# Transient working vars
 thing		rbot			local
 thing		target			local
 thing		item			local
 int			botmode			local
 int			gamemode		local
 int			difficulty		local
-int			griptrackID		local
-int			dscount			local
 int			curweap			local
 int			targweap		local
 flex		tempflex1		local
 vector		tempvector1		local
 int			bin				local
 int			rank			local
+int			jedirank		local
+int			cost			local
 thing		enemy			local
-thing		forcetarget		local
+thing		sparkle			local
+int			sphere			local
 thing		debris			local
 flex		damage			local
 int			damagetype		local
@@ -96,24 +129,125 @@ trigger:
 			// rbot-srv.cog
 			if (GetParam(2) == botid) srv = GetParam(1);
 		}
+		return;
 	}
 
-	if (getparam(0) != botid) return; // not for this bot
-	if (getsourceref() == 101040) // mana update
+	// This should behave very similarly to the player cog's skill message
+	if (GetSourceRef() == 101999) // handle the "skill" trigger (force power used against bot)
 	{
-		mana=mana+GetParam(1);
-		if (mana>400) mana=400;
+		rbot = SendMessageEx(srv, user7, 3000, -1, -1, -1);
+		if (rbot == -1 || GetParam(0) != rbot) return; // not for this bot
+		if (GetThingHealth(rbot) <= 0) return; // bot is dead
+
+		curweap = SendMessageEx(srv, user7, 1014, -1, -1, -1);
+		enemy = GetParam(1);
+		bin = GetParam(2);
+		rank = GetParam(3);
+
+		if (bin == 24) // Force Pull
+		{
+			if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
+			if (curweap > 1 && curweap != 10) // don't force pull fists or saber
+			{
+				item = CreateThingAtPos(tpl0[curweap], GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // Create a powerup corresponding to the current weapon
+				SetTimerEx(0.2, 524, item, -1); // Make the powerup collide later
+				SetTimerEx(0.25, 524, item, -1); // Duplicate for internet games
+				ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
+			}
+			SendTrigger(-1, 101030, botid, enemy, bin, rank); // tell srv2 that the bot's weapon was pulled
+			return;
+		}
+
+		if (bin == 27) // Force Blinding
+		{
+			if (BitTest(forcemode, 0x8)) return; // force seeing makes bot immume to blinding
+			if(GetActorFlags(rbot) & 0x800) return; // bot already blind
+			SetActorFlags(rbot, 0x800); // blind bot
+			SetTimerEx(4 * rank, 527, -1, -1); // remove blind effect later
+			return;
+		}
+
+		if (bin == 31) // Force Grip
+		{
+			if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
+			griptrackID = PlayMode(rbot, 25); // make rbot play 'gripped' key
+			SetActorFlags(rbot, 0x40000); // gripped/immobilized
+			DamageThing(rbot, 2 * rank, 0x8, enemy);
+			SetTimerEx(0.5, 531, rbot, -1); // remove gripped effect later
+			return;
+		}
+
+		if (bin == 34) // Force Deadly Sight
+		{
+			DamageThing(rbot, 4 * rank, 0x8, enemy);
+			CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
+			return;
+		}
+
+		return;
+	}
+
+	if (GetParam(0) != botid) return; // not for this bot
+
+	if (GetSourceRef() == 950) // bot respawned
+	{
+		SetTimerEx(0.5, 500, -1, -1); // increase mana over time
+		SetTimerEx(5.0, 501, -1, -1); // force attacks
+		SetTimerEx(5.0, 502, -1, -1); // force defensive/evasive
+		forcemode = 0x0; // clear active force powers
+		mana = 400;
+		forcearmor = 0;
+		return;
+	}
+
+	if (GetSourceRef() == 1000) // bot killed
+	{
+		KillTimerEx(500); // stop force mana increase
+		KillTimerEx(501); // stop force attacks
+		KillTimerEx(502); // stop force defenses
+
+		// Kill any outstanding effect timers that we don't want to fire after respawn
+		KillTimerEx(64);
+		KillTimerEx(65);
+		KillTimerEx(527);
+
+		// Stop any active force powers
+		call stop_force_speed;
+		call stop_force_jump;
+		call stop_force_pull;
+		call stop_force_seeing;
+		call stop_force_healing;
+		call stop_force_persuasion;
+		call stop_force_blinding;
+		call stop_force_absorb;
+		call stop_force_protection;
+		call stop_force_throw;
+		call stop_force_grip;
+		call stop_force_lightning;
+		call stop_force_destruction;
+		call stop_force_deadlysight;
+		return;
+	}
+
+	if (GetSourceRef() == 101040) // mana update
+	{
+		mana = mana + GetParam(1);
+		if (mana > 400) mana = 400;
 		if (GetParam(2) == 1)
 		{
-			forcemode=BitSet(forcemode,0x4000); // lightside surge now active
+			forcemode = BitSet(forcemode, 0x4000); // lightside surge now active
+			KillTimerEx(65);
 			SetTimerEx(20, 65, -1, -1); // switch off after 20 secs
 		}
 		else if (GetParam(2) == 2)
 		{
-			forcemode=BitSet(forcemode,0x8000); // darkside surge now active
+			forcemode = BitSet(forcemode, 0x8000); // darkside surge now active
+			KillTimerEx(64);
 			SetTimerEx(20, 64, -1, -1); // switch off after 20 secs
 		}
+		return;
 	}
+
 	return;
 
 timer:
@@ -121,143 +255,178 @@ timer:
 	target = SendMessageEx(srv, user7, 1010, -1, -1, -1);
 	difficulty = SendMessageEx(srv, user7, 1005, -1, -1, -1);
 	botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-	if(GetSenderId() == 22) // after force speed
+	rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
+	if (rank > 4) rank = 4;
+	jedirank = rank * 2; // bot's jedi rank is also derived from the difficulty
+	if (GetSenderId() == 22) // after force speed
 	{
-		forcemode=BitClear(forcemode,0x01); // speed is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 22); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 23) // after force seeing
-	{
-		forcemode=BitClear(forcemode,0x08); // seeing is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 23); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 24) // after force pull
-	{
-		SetCollideType(GetParam(0), 1); // pulled weapon must be made takeable again
-		SetPhysicsFlags(GetParam(0), 1); // make it affected by gravity
-		SetLifeLeft(GetParam(0), 30); // make it last for 30 secs
-	}
-	else if(GetSenderId() == 26) // after force persuasion
-	{
-		ClearActorFlags(rbot, 0x80);
-		jkClearFlags(rbot, 0x20);
-		forcemode=BitClear(forcemode,0x20); // persuasion is no longer active
-		SendTrigger(-1, 101026, botid, rbot, -1, 26); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 27) // after force blinding
-	{
-		ClearActorFlags(rbot, 0x800);  // allow bot to see again
-	}
-	else if(GetSenderId() == 28) // after force absorb
-	{
-		forcemode=BitClear(forcemode,0x80); // absorb is no longer active
-	}
-	else if(GetSenderId() == 29) // after force protection
-	{
-		forcemode=BitClear(forcemode,0x100); // protection is no longer active
-		ClearThingFlags(rbot, 4); // remove magseal from bot
-		SendTrigger(-1, 101026, botid, rbot, -1, 29); // tell client to stop playing sound
-	}
-	else if(GetSenderId() == 31) // force grip
-	{
-		target=GetParam(0);
-		griptrackID = GetParam(1);
-		ClearActorFlags(target, 0x40000); // allow target to move again
-		if (griptrackID != -1 && GetThingHealth(target) > 0) StopKey(target, griptrackID, 0.1); // stop target playing 'grip' key but only if target is still alive
-		if (HasLOS(rbot,target) && GetThingHealth(rbot) > 0 && GetThingHealth(target) > 0 && VectorDist(GetThingPos(rbot), GetThingPos(target)) <= 1)
+		if (GetParam(0) == 1) // start fade out
 		{
-			griptrackID=PlayMode(target, 25); // make target play 'gripped' key
-			SetActorFlags(target, 0x40000);
-			if (GetThingType(target) == 10) jkPrintUNIString(target, 300); // Print("You are taking Grip damage");
-			DamageThing(target, 2 * (4+difficulty), 0x8, rbot);
-			SendTrigger(-1,101025,botid,rbot,target,31); // get client to play 'grip' sound
-			SetTimerEx(0.5, 31, target, griptrackID); // allow bot to grip target again in 0.5 sec
+			ChangeSoundPitch(speedChannel, 0.05, 0.75);
+			SetTimerEx(0.75, 22, 2, -1); // schedule actual power stop
 		}
-		else forcemode=BitClear(forcemode,0x400); // grip is no longer active
-	}
-	else if(GetSenderId() == 34) // force deadly sight
-	{
-		dscount=dscount+1;
-		if ((dscount > difficulty*3) || (GetThingHealth(rbot) < starthealth) || (GetActorFlags(rbot) & 0x800))
+		if (GetParam(0) == 2) // stop power
 		{
-			SendTrigger(-1, 101026, botid, rbot, target, 34); // tell client to stop playing sound
-			forcemode=BitClear(forcemode,0x2000); // deadly sight is no longer active
+			call stop_force_speed;
+		}
+		return;
+	}
+	if (GetSenderId() == 23) // after force seeing
+	{
+		call stop_force_seeing;
+		return;
+	}
+	if (GetSenderId() == 25) // after force healing
+	{
+		if (GetParam(0) == 1)
+		{
+			sphere = GetParam(1);
+			SetParticleGrowthSpeed(sphere, -3.0);
+			if (GetThingHealth(rbot) > 0) HealThing(rbot, 20 * rank);
+			SetTimerEx(0.4, 25, 2, sphere);
+		}
+		if (GetParam(0) == 2)
+		{
+			sphere = GetParam(1);
+			DestroyThing(sphere);
+		}
+		return;
+	}
+	if (GetSenderId() == 26) // after force persuasion
+	{
+		if (GetParam(0) == 1) // show/hide bot "pulse"
+		{
+			if (IsInvActivated(GetLocalPlayerThing(), 23)) // host player is using force seeing
+			{
+				SetThingCurGeoMode(rbot, GetThingGeoMode(rbot)); // show bot
+			}
+			else // host player is not using force seeing
+			{
+				SetThingCurGeoMode(rbot, 0); // hide bot
+			}
+			SetTimerEx(0.5, 26, 1, -1); // schedule next "pulse" (this automatically gets canceled when the power stops)
+		}
+		if (GetParam(0) == 2) // stop power
+		{
+			call stop_force_persuasion;
+		}
+		return;
+	}
+	if (GetSenderId() == 28) // after force absorb
+	{
+		if (GetParam(0) == 1) // allow effects
+		{
+			allowAbsorbFx = 1;
+		}
+		if (GetParam(0) == 2) // stop power
+		{
+			call stop_force_absorb;
+		}
+		return;
+	}
+	if (GetSenderId() == 29) // after force protection
+	{
+		// TODO: implement deterioration of remaining force armor, rather than simply shutting it off
+		call stop_force_protection;
+		return;
+	}
+	if (GetSenderId() == 31) // force grip
+	{
+		// This handler should function similarly to the grip pulse in force_grip.cog
+		target = GetParam(0); // remember original target
+		if (gripsleft <= 0 || GetThingHealth(rbot) < starthealth || GetActorFlags(rbot) & 0x800 || GetThingFlags(target) & 0x200 || !HasLOS(rbot, target))
+		{
+			// Stop the power if the pulse limit is reached, the bot was damaged or blinded, or the target died, or bot lost sight of target
+			call stop_force_grip;
 			return;
 		}
-		item = FirstThingInView(rbot, 20 + 15 * (2+difficulty), 4 + difficulty, 0x404);
-		while(item != -1)
+		gripsleft = gripsleft - 1;
+		SendTrigger(-1, 101999, target, rbot, 31, rank); // send "skill" trigger to target
+		PlaySoundThing(gripSound, target, 1.0, -1, -1, 0x80);
+		SetTimerEx(0.5, 31, target, -1); // schedule next grip "pulse"
+		return;
+	}
+	if (GetSenderId() == 34) // force deadly sight
+	{
+		// This handler should function similarly to the deadly sight pulse in force_deadlysight.cog
+		if (dsleft <= 0 || GetThingHealth(rbot) < starthealth || GetActorFlags(rbot) & 0x800)
 		{
-			if (HasLOS(rbot, item) && (item != rbot) && !(GetThingFlags(item) & 0x200))
-			{
-				if (GetThingType(item) == 2) // another bot
-				{
-					SendMessageEx(GetThingCaptureCog(item), user0, item, rbot, 34, 2+difficulty);  // send info to bot
-				}
-				else if (GetThingType(item) == 10) // player
-				{
-					SendTrigger(item, 101999, GetThingSignature(item), rbot, 34, 2+difficulty); // send info to player
-				}
-			}
-			item = NextThingInView();
+			// Stop the power if the pulse limit is reached, or the bot was damaged or blinded
+			call stop_force_deadlysight;
+			return;
 		}
-		SetTimerEx(0.5, 34, -1, -1); // allow bot to deadly sight again in 0.5 sec
+		dsleft = dsleft - 1;
+		enemy = FirstThingInView(rbot, 20 + 15 * rank, 2 + rank, 0x404);
+		while (enemy != -1)
+		{
+			if (HasLOS(rbot, enemy) && (enemy != rbot) && !(GetThingFlags(enemy) & 0x200))
+			{
+				SendTrigger(-1, 101999, enemy, rbot, 34, rank); // send "skill" trigger to target
+			}
+			enemy = NextThingInView();
+		}
+		SetTimerEx(0.5, 34, -1, -1); // schedule next deadly sight "pulse"
+		return;
 	}
-	else if (GetSenderId() == 64) // after darkside surge
+	if (GetSenderId() == 64) // after darkside surge
 	{
-		forcemode=BitClear(forcemode,0x8000); // darkside surge no longer active
+		forcemode = BitClear(forcemode, 0x8000); // darkside surge no longer active
+		return;
 	}
-	else if (GetSenderId() == 65) // after lightside surge
+	if (GetSenderId() == 65) // after lightside surge
 	{
-		forcemode=BitClear(forcemode,0x4000); // lightside surge no longer active
+		forcemode = BitClear(forcemode, 0x4000); // lightside surge no longer active
+		return;
 	}
-	else if (GetSenderId() == 500 && BitTest(botmode,0x10000)) // increase mana over time && bot alive
+	if (GetSenderId() == 500 && BitTest(botmode, 0x10000)) // increase mana over time
 	{
-		if (difficulty > 0) mana=mana+difficulty*5; else mana=mana+5;
-		if (mana > 400) mana=400;
+		mana = mana + 5 * (jedirank / 2);
+		// TODO: maximum mana for players is derived from jedi rank - same limit should be enforced for bots
+		if (mana > 400) mana = 400;
 		SetTimerEx(5.0, 500, -1, -1); // schedule mana increase
+		return;
 	}
-	else if (GetSenderId() == 501 && BitTest(botmode,0x10000)) // force power attacks && bot alive
+	if (GetSenderId() == 501 && BitTest(botmode, 0x10000)) // force power attacks
 	{
 		curweap = SendMessageEx(srv, user7, 1014, -1, -1, -1);
 		targweap = SendMessageEx(srv, user7, 1015, -1, -1, -1);
 		gamemode = SendMessageEx(srv, user7, 1004, -1, -1, -1);
-		if (BitTest(gamemode,0x04)) {
-			// allowed to use forcepowers
+		if (BitTest(gamemode, 0x4)) // allowed to use forcepowers
+		{
 			if (mana > 0 && BitTest(botmode,0x4000)) // bot has mana & has a target
 			{
-				if (BitTest(forceflags,0x4) && curweap==10 && targweap!=10 && targweap!=1 && targweap!=4 && targweap!=8) // force pull allowed - bot has saber and target has gun
+				if (BitTest(forceflags, 0x4) && curweap == 10 && targweap != 10 && targweap != 1 && targweap != 4 && targweap != 8) // force pull allowed - bot has saber and target has gun
 				{
 					call force_pull;
 				}
 				else // choose random force power attack
 				{
-					tempflex1=rand()*7;
-					//tempflex1=7; // hack for testing only
-					if (tempflex1 <= 1 && BitTest(forceflags,0x4)) // pull
+					tempflex1 = rand() * 7;
+					if (tempflex1 <= 1 && BitTest(forceflags, 0x4)) // pull
 					{
 						call force_pull;
 					}
-					else if (tempflex1 <= 2 && BitTest(forceflags,0x400)) // grip
+					else if (tempflex1 <= 2 && BitTest(forceflags, 0x400)) // grip
 					{
 						call force_grip;
 					}
-					else if (tempflex1 <= 3 && BitTest(forceflags,0x40)) // blinding
+					else if (tempflex1 <= 3 && BitTest(forceflags, 0x40)) // blinding
 					{
 						call force_blinding;
 					}
-					else if (tempflex1 <= 4 && BitTest(forceflags,0x200)) // force throw
+					else if (tempflex1 <= 4 && BitTest(forceflags, 0x200)) // force throw
 					{
 						call force_throw;
 					}
-					else if (tempflex1 <= 5 && BitTest(forceflags,0x800)) // lightning
+					else if (tempflex1 <= 5 && BitTest(forceflags, 0x800)) // lightning
 					{
 						call force_lightning;
 					}
-					else if (tempflex1 <= 6 && BitTest(forceflags,0x1000)) // destruction
+					else if (tempflex1 <= 6 && BitTest(forceflags, 0x1000)) // destruction
 					{
 						call force_destruction;
 					}
-					else if (BitTest(forceflags,0x2000)) // deadly sight
+					else if (BitTest(forceflags, 0x2000)) // deadly sight
 					{
 						call force_deadlysight;
 					}
@@ -265,12 +434,13 @@ timer:
 			}
 		}
 		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule another force attack
+		return;
 	}
-	else if (GetSenderId() == 502 && BitTest(botmode,0x10000)) // force power defensive/evasive && bot alive
+	if (GetSenderId() == 502 && BitTest(botmode, 0x10000)) // force power defensive/evasive
 	{
 		gamemode = SendMessageEx(srv, user7, 1004, -1, -1, -1);
-		if (BitTest(gamemode,0x04)) {
-			// allowed to use forcepowers
+		if (BitTest(gamemode, 0x4)) // allowed to use forcepowers
+		{
 			if (mana > 0) // bot has mana
 			{
 				if (BitTest(forceflags,0x10) && GetThingHealth(rbot) < 70) // force heal allowed - bot is low on health
@@ -279,80 +449,61 @@ timer:
 				}
 				else
 				{
-
-				tempflex1=rand()*6;
-				if (tempflex1 <= 1 && BitTest(forceflags,0x20))
-				{
-					call force_persuasion;
-				}
-				else if (tempflex1 <= 2 && BitTest(forceflags,0x80))
-				{
-					call force_absorb;
-				}
-				else if (tempflex1 <= 3 && BitTest(forceflags,0x8))
-				{
-					call force_seeing;
-				}
-				else if (tempflex1 <= 4 && BitTest(forceflags,0x10))
-				{
-					call force_healing;
-				}
-				else if (tempflex1 <= 5 && BitTest(forceflags,0x1))
-				{
-					call force_speed;
-				}
-				else if (tempflex1 <= 6 && BitTest(forceflags,0x100))
-				{
-					call force_protection;
-				}
-				//else if (BitTest(forceflags,0x2))
-				//{
-				//	call force_jump;
-				//}
-
+					tempflex1 = rand() * 6;
+					if (tempflex1 <= 1 && BitTest(forceflags, 0x20))
+					{
+						call force_persuasion;
+					}
+					else if (tempflex1 <= 2 && BitTest(forceflags, 0x80))
+					{
+						call force_absorb;
+					}
+					else if (tempflex1 <= 3 && BitTest(forceflags, 0x8))
+					{
+						call force_seeing;
+					}
+					else if (tempflex1 <= 4 && BitTest(forceflags, 0x10))
+					{
+						call force_healing;
+					}
+					else if (tempflex1 <= 5 && BitTest(forceflags, 0x1))
+					{
+						call force_speed;
+					}
+					else if (tempflex1 <= 6 && BitTest(forceflags, 0x100))
+					{
+						call force_protection;
+					}
+					//else if (BitTest(forceflags,0x2))
+					//{
+					//	call force_jump;
+					//}
 				}
 			}
 		}
 		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule another force defense
+		return;
 	}
-	return;
-
-user0: // force powers against bot (legacy handler)
-	rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
-	curweap = SendMessageEx(srv, user7, 1014, -1, -1, -1);
-	enemy=GetParam(1);
-	bin=GetParam(2);
-	rank=GetParam(3);
-
-	if (bin == 24) // force pull
+	if (GetSenderId() == 524) // after force pull
 	{
-		if (BitTest(forcemode,0x80)) return; // force absorb makes bot immume to pull
-		if (curweap > 1 && curweap != 10) // don't force pull fists or saber
+		SetCollideType(GetParam(0), 1); // pulled weapon must be made takeable again
+		return;
+	}
+	if (GetSenderId() == 527) // after force blinding
+	{
+		ClearActorFlags(rbot, 0x800);  // allow bot to see again
+		return;
+	}
+	if (GetSenderId() == 531) // after force grip
+	{
+		if (griptrackID != -1)
 		{
-			item = CreateThingAtPos(tpl0[curweap], GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // Create a powerup corresponding to the current weapon
-			SetTimerEx(0.2, 24, item, 0); // Make the powerup collide later
-			SetTimerEx(0.25, 24, item, 0); // Duplicate for internet games
-			ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
+			StopKey(rbot, griptrackID, 0.1); // stop playing 'gripped' key
+			griptrackID = -1;
 		}
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
+		ClearActorFlags(rbot, 0x40000); // allow bot to move again
+		return;
 	}
-	else if (bin == 27) // Force Blinding
-	{
-		if (BitTest(forcemode,0x08)) return; // force seeing makes bot immume to blinding
-		if(GetActorFlags(rbot) & 0x800) return; // bot already blind
-		SetActorFlags(rbot, 0x800); // blind bot
-		SetTimerEx(0.1, 230, -1, -1); // choose random move direction
-		SetTimerEx(rank * 4, 27, 0, 0);
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
-	}
-	else if (bin == 34) // Deadly Sight
-	{
-		DamageThing(rbot, 4 * rank, 0x8, enemy);
-		CreateThingAtPos(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
-		SendTrigger(-1, 101030, botid, enemy, bin, rank); // send it to srv2
-	}
-
-	ReturnEx(1);
 	return;
 
 // Execute public API function for this cog
@@ -364,36 +515,33 @@ user7:
 	if (GetParam(0) == 1000) ReturnEx(forcemode);
 	else if (GetParam(0) == 1001) ReturnEx(mana);
 	else if (GetParam(0) == 1002) ReturnEx(forcearmor);
-	else if (GetParam(0) == 3000) {
-		// Bot spawned
-		SetTimerEx(0.5, 500, -1, -1); // increase mana over time 
-		SetTimerEx(5.0, 501, -1, -1); // force attacks
-		SetTimerEx(5.0, 502, -1, -1); // force defensive/evasive
-		forcemode=0; // clear active force powers
-		mana=400;
-		forcearmor = 0;
-		ReturnEx(0);
-	} else if (GetParam(0) == 3001) {
-		// Bot died
-		KillTimerEx(500); // stop force mana increase
-		KillTimerEx(501); // stop force attacks
-		KillTimerEx(502); // stop force defenses
-		forcemode=0; // clear active force powers
-		ReturnEx(0);
-	} else if (GetParam(0) == 3002) {
+	else if (GetParam(0) == 3002) {
 		// Bot damaged
 		damage = GetParam(1);
 		damagetype = GetParam(2);
 		#damager = GetParam(3); // projectile - attacker=GetThingParent()
+		rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
+		difficulty = SendMessageEx(srv, user7, 1005, -1, -1, -1);
+		rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
+		if (rank > 4) rank = 4;
 
-		if (BitTest(damagetype,0x08) && BitTest(forcemode,0x80)) // force damage & force absorb is active
+		if (BitTest(damagetype,0x8) && BitTest(forcemode,0x80)) // force damage & force absorb is active
 		{
-			target = SendMessageEx(srv, user7, 1010, -1, -1, -1);
-			SendTrigger(-1, 101025, botid, rbot, target, 28); // tell client to play sound
-			// TODO: This mana/damage handling doesn't really match how the player inventory does it
-			mana=mana+damage*(1+difficulty)/2; // This sort of matches player absorb handling
-			if (mana > 400) mana=400;
-			damage = 0; // This does not - damage would only be zero on rank four absorb
+			PlaySoundThing(absorbSound2, rbot, 1.0, -1, -1, 0x80);
+			if (allowAbsorbFx)
+			{
+				// Add some visual effects, but not too often
+				allowAbsorbFx = 0;
+				SetTimerEx(1, 28, 1, -1);
+				sphere = CreateThingAtPosNR(sphere_tpl, GetThingSector(rbot), GetThingPos(rbot), '0.0 0.0 0.0');
+				AttachThingToThingEx(sphere, rbot, 0x8);
+				SetParticleGrowthSpeed(sphere, -0.8);
+				SetLifeLeft(sphere, 0.5);
+			}
+			// Convert some of the damage to mana
+			mana = mana + damage * rank / 4;
+			if (mana > 400) mana = 400;
+			damage = damage - damage * rank / 4;
 		}
 
 		if (BitTest(forcemode,0x100)) // protection enabled
@@ -409,11 +557,7 @@ user7:
 			}
 			if (forcearmor <= 0) // no force armor left - switch off protection
 			{
-				KillTimerEx(29);
-				forcemode=BitClear(forcemode,0x100); // protection is no longer active
-				rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
-				ClearThingFlags(rbot, 4); // remove magseal from bot
-				SendTrigger(-1, 101026, botid, rbot, -1, 29); // tell client to stop playing sound
+				call stop_force_protection;
 			}
 		}
 
@@ -431,245 +575,429 @@ user7:
 	return;
 
 force_speed:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x1)) return; // already active
+
+	// Make sure bot has enough mana
+	cost = 20;
+	if (!BitTest(forcemode, 0x4000) && !BitTest(forcemode, 0x8000)) // no lightside or darkside surge
 	{
-		if (mana < 20) return;
-		mana = mana-20;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (BitTest(forcemode,0x01)) return; // already active
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x1); // speed is now active
+	SetTimerEx(5 + rank * 2.5, 22, 1, -1); // switch it off later
+
 	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, -1, 22); // tell client to play sound
-	forcemode=BitSet(forcemode,0x01); // speed is now active
-	SetTimerEx(7+(difficulty * 2.5), 22, 0, 0); // switch it off later
+	// Play activation sound
+	PlaySoundThing(speedSound, rbot, 1.0, -1, -1, 0x80);
+	// Play loop sound at 0.0 volume and fade it in to 1.0 volume in 0.75 secs
+	speedChannel = PlaySoundThing(speedSound2, rbot, 0.0, -1, -1, 0x81);
+	ChangeSoundVol(speedChannel, 1.0, 0.75);
+	return;
+
+stop_force_speed:
+	KillTimerEx(22);
+	forcemode = BitClear(forcemode, 0x1); // speed is no longer active
+	if (speedChannel != -1)
+	{
+		StopSound(speedChannel, 0.1);
+		speedChannel = -1;
+	}
 	return;
 
 force_jump:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
+	// Make sure bot has enough mana
+	cost = 20;
+	if (!BitTest(forcemode, 0x4000) && !BitTest(forcemode, 0x8000)) // no lightside or darkside surge
 	{
-		if (mana < 20) return;
-		mana = mana-20;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	SendTrigger(-1,101025,botid,rbot,-1,21); // get client to play 'jump' sound
+
+	// Activate power
+	PlaySoundThing(jumpSound2, rbot, 1.0, -1, -1, 0x80);
 	ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 5.0));
 	return;
 
+stop_force_jump:
+	// Nothing to do
+	return;
+
 force_pull:
+	// Make sure bot can activate this power right now
 	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
+	if (GetThingFlags(target) & 0x200) return; // target dead or dying
+	if (!HasLOS(rbot, target)) return; // bot lost sight of target
+	if (VectorDist(GetThingPos(rbot), GetThingPos(target)) > (0.5 + rank / 2)) return; // target out of range
+	if (GetActorFlags(target) & 0x80 && !BitTest(forcemode, 0x8)) return; // target is invisible and force seeing inactive
+
+	// Make sure bot has enough mana
+	cost = 20;
+	if (!BitTest(forcemode, 0x4000) && !BitTest(forcemode, 0x8000)) // no lightside or darkside surge
 	{
-		if (mana < 20) return;
-		mana = mana-20;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if(GetHealth(target) > 0) // target is still alive
-	{
-		if (GetThingType(target) == 2) // bot
-		{
-			targweap=SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
-			if (targweap > 1 && targweap != 10) // don't pull fists or saber
-			{
-				//print("force pull - bot");
-				PlayMode(rbot, 24); // play 'force attack' key
-				Sleep(0.3);
-				SendMessageEx(GetThingCaptureCog(target), user0, target, rbot, 24, difficulty*2);
-				PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
-			}
-		}
-		else if (GetThingType(target) == 10) // player
-		{
-			targweap=GetCurWeapon(target);
-			if (targweap==11) targweap=10; // If player has saber, set it to 10 for simplicity
-			if (targweap > 1 && targweap != 10) // don't pull fists or saber
-			{
-				PlayMode(rbot, 24); // play 'force attack' key
-				Sleep(0.3);
-				forcetarget=target;
-				PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
-				item = CreateThingAtPos(tpl0[GetCurWeapon(forcetarget)], GetThingSector(forcetarget), GetThingPos(forcetarget), '0 0 0'); // Create a powerup corresponding to the current weapon
-				SetCollideType(item, 0); // Set the created powerup to no collide for now...
-				SetTimerEx(0.3, 24, item, 0); // ...and set a timer to make it collide again later
-				ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(rbot), GetThingPos(forcetarget))), 30)); // Throw the powerup at the bot
-				ChangeInv(forcetarget, GetCurWeapon(forcetarget), -1); // Remove the weapon from the player
-				SelectWeapon(forcetarget, 1);
-			}
-		}
-	}
+
+	// Activate power
+	PlayMode(rbot, 24); // play 'force attack' key
+	PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
+	SendTrigger(-1, 101999, target, rbot, 24, rank); // send "skill" trigger to target
+	return;
+
+stop_force_pull:
+	// Nothing to do
 	return;
 
 force_seeing:
-	if (!BitTest(forcemode,0x4000) && !BitTest(forcemode,0x8000)) // no lightside or darkside surge
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x8)) return; // already active
+
+	// Make sure bot has enough mana
+	cost = 30;
+	if (!BitTest(forcemode, 0x4000) && !BitTest(forcemode, 0x8000)) // no lightside or darkside surge
 	{
-		if (mana < 30) return;
-		mana = mana-30;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (BitTest(forcemode,0x08)) return; // already active
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x8); // seeing is now active
+	SetTimerEx(5 + 5 * rank, 23, -1, -1); // switch it off later
+
 	PlayMode(rbot, 24);
-	forcemode=BitSet(forcemode,0x08); // seeing is now active
-	SendTrigger(-1, 101025, botid, rbot, -1, 23); // tell client to play sound
-	SetTimerEx(7+(difficulty * 5), 23, 0, 0); // switch it off later
+	// Play activation sound
+	PlaySoundThing(seeingSound, rbot, 1.0, -1, -1, 0x80);
+	// Play loop sound at 0.0 volume and fade it in to 1.0 volume in 0.75 secs
+	seeingChannel = PlaySoundThing(seeingSound2, rbot, 0.0, -1, -1, 0x81);
+	ChangeSoundVol(seeingChannel, 1.0, 0.75);
+	return;
+
+stop_force_seeing:
+	KillTimerEx(23);
+	forcemode = BitClear(forcemode, 0x8); // seeing is no longer active
+	if (seeingChannel != -1)
+	{
+		StopSound(seeingChannel, 0.1);
+		seeingChannel = -1;
+	}
 	return;
 
 force_healing:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
+	// Make sure bot can activate this power right now
+	if (GetThingHealth(rbot) > 99) return; // bot at full health
+
+	// Make sure bot has enough mana
+	cost = 200;
+	if (!BitTest(forcemode, 0x4000)) // no lightside surge
 	{
-		if (mana < 200) return;
-		mana = mana-200;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (GetThingHealth(rbot) > 99) return;
+
+	// Activate power
 	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, -1, 25); // tell client to play sound
-	if(GetThingHealth(rbot) > 0) HealThing(rbot, 20 * (2+difficulty));
+	PlaySoundThing(healingSound, rbot, 1.0, -1, -1, 0x80);
+	// Create the sphere and schedule special effects
+	sphere = CreateThingAtPosNR(sphere_tpl, GetThingSector(rbot), GetThingPos(rbot), '0.0 0.0 0.0');
+	AttachThingToThingEx(sphere, rbot, 0x8);
+	SetTimerEx(0.6, 25, 1, sphere);
+	return;
+
+stop_force_healing:
+	// Nothing to do
 	return;
 
 force_persuasion:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x20)) return; // already active
+
+	// Make sure bot has enough mana
+	cost = 250;
+	if (!BitTest(forcemode, 0x4000)) // no lightside surge
 	{
-		if (mana < 250) return;
-		mana = mana-250;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (BitTest(forcemode,0x20)) return; // already active
-	forcemode=BitSet(forcemode,0x20); // persuasion is now active
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x20); // persuasion is now active
+	SetTimerEx(rank * 10, 26, 2, -1); // switch it off later
+
+	// Hack alert -- start a "pulse" to show/hide the bot based on host player's use of force seeing.
+	// This hack emulates the game's built-in behavior to show/hide invisible actors based on whether
+	// the player's bin 23 (force seeing) is active.  Unfortunately, the engine only does this for
+	// actors that have actor flag 0x200 at level load time, which is not possible to do in MP as
+	// far as I know, so we need this hack to work around this problem.  This "pulse" timer is
+	// automatically killed when the power is stopped.
+	SetTimerEx(0.1, 26, 1, -1);
+
 	SetActorFlags(rbot, 0x80);
-	SendTrigger(-1, 101025, botid, rbot, -1, 26); // tell client to play sound
-	SetTimerEx(2+(difficulty * 10), 26, 0, 0); // switch it off later
+	jkSetFlags(rbot, 0x20);
+	SetThingCurGeoMode(rbot, 0);
+	// Play activation sound
+	PlaySoundThing(persuasionSound, rbot, 1.0, -1, -1, 0x80);
+	// Play loop sound at 0.0 volume and fade it in to 1.0 volume in 0.75 secs
+	persuasionChannel = PlaySoundThing(persuasionSound2, rbot, 0.0, -1, -1, 0x81);
+	ChangeSoundVol(persuasionChannel, 1.0, 0.75);
+	return;
+
+stop_force_persuasion:
+	KillTimerEx(26);
+	if (persuasionChannel != -1)
+	{
+		StopSound(persuasionChannel, 0.1);
+		persuasionChannel = -1;
+	}
+	ClearActorFlags(rbot, 0x80);
+	jkClearFlags(rbot, 0x20);
+	SetThingCurGeoMode(rbot, GetThingGeoMode(rbot));
+	forcemode = BitClear(forcemode, 0x20); // persuasion is no longer active
 	return;
 
 force_blinding:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
+	// Make sure bot can activate this power right now
+	// (Note that the player can use this power while blinded, so bots should also be able to)
+	if (GetThingFlags(target) & 0x200) return; // target dead or dying
+	if (!HasLOS(rbot, target)) return; // bot lost sight of target
+	if (VectorDist(GetThingPos(rbot), GetThingPos(target)) > (1.0 + rank)) return; // target out of range
+	if (GetActorFlags(target) & 0x80 && !BitTest(forcemode, 0x8)) return; // target is invisible and force seeing inactive
+
+	// Make sure bot has enough mana
+	cost = 100;
+	if (!BitTest(forcemode, 0x4000)) // no lightside surge
 	{
-		if (mana < 100) return;
-		mana = mana-100;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
+
+	// Activate power
 	PlayMode(rbot, 24);
-	Sleep(0.3);
-	if(GetThingHealth(rbot) <= 0) Return; // He could die during the sleep
-	item = CreateThingAtPos(force_blinding, GetThingSector(rbot), VectorAdd(GetThingPos(rbot), '0.0 0.0 0.04'), '0.0 0.0 0.0');
-	SetThingLook(item, VectorSub(GetThingPos(target), GetThingPos(rbot)));
-	SendTrigger(-1, 101025, botid, rbot, target, 27); // tell client to play sound
-	if (GetThingType(target) == 2) // another bot
-	{
-		SendMessageEx(GetThingCaptureCog(target), user0, target, rbot, 27, 2+difficulty);  // send info to bot
-	}
-	else if (GetThingType(target) == 10) // player & does not have force seeing activated
-	{
-		SendTrigger(target, 101999, GetThingSignature(target), rbot, 27, 2+difficulty); // send info to player
-	}
+	PlaySoundThing(blindingSound, rbot, 1.0, -1, -1, 0x80);
+	sparkle = CreateThingAtPosNR(f_blinding_tpl, GetThingSector(rbot), VectorAdd(GetThingPos(rbot), '0.0 0.0 0.04'), '0.0 0.0 0.0');
+	SetThingLook(sparkle, VectorSub(GetThingPos(target), GetThingPos(rbot)));
+	SendTrigger(-1, 101999, target, rbot, 27, rank); // send "skill" trigger to target
+	return;
+
+stop_force_blinding:
+	// Nothing to do
 	return;
 
 force_absorb:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x80)) return; // already active
+
+	// Make sure bot has enough mana
+	cost = 200;
+	if (!BitTest(forcemode, 0x4000)) // no lightside surge
 	{
-		if (mana < 200) return;
-		mana = mana-200;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (BitTest(forcemode,0x80)) return; // already active
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x80); // absorb is now active
+	SetTimerEx(rank * 5, 28, 2, -1); // switch it off later
+
 	PlayMode(rbot, 24);
-	forcemode=BitSet(forcemode,0x80); // absorb is now active
-	SetTimerEx(2+(difficulty * 5), 28, 0, 0); // switch it off later
+	allowAbsorbFx = 1;
+	return;
+
+stop_force_absorb:
+	KillTimerEx(28);
+	forcemode = BitClear(forcemode, 0x80); // absorb is no longer active
 	return;
 
 force_protection:
-	if (!BitTest(forcemode,0x4000)) // no lightside surge
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x100)) return; // already active
+
+	// Make sure bot has enough mana
+	cost = 300;
+	if (!BitTest(forcemode, 0x4000)) // no lightside surge
 	{
-		if (mana < 300) return;
-		mana = mana-300;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if (BitTest(forcemode,0x100)) return; // already active
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x100); // protection is now active
+	SetTimerEx(rank * 15, 29, -1, -1); // switch it off later
+
+	shield = CreateThingAtPos(shield_tpl, GetThingSector(rbot), GetThingPos(rbot) , '0 0 0');
+	AttachThingToThingEx(shield, rbot, 0x8);
 	SetThingFlags(rbot, 4); // Make the bot magsealed
-	forcemode=BitSet(forcemode,0x100); // protection is now active
-	forcearmor=(3+difficulty)*75;
-	SendTrigger(-1, 101025, botid, rbot, (3+difficulty) * 10, 29); // tell client to play sound
-	SetTimerEx((3+difficulty) * 10, 29, 0, 0); // switch it off later
+	forcearmor = rank * 75;
+	// Play activation sound
+	PlaySoundThing(protectionSound, rbot, 1.0, -1, -1, 0x80);
+	// Play loop sound at 0.0 volume and fade it in to 0.8 volume in 0.75 secs
+	protectionChannel = PlaySoundThing(protectionSound2, rbot, 0.0, -1, -1, 0x81);
+	ChangeSoundVol(protectionChannel, 0.8, 0.75);
+	return;
+
+stop_force_protection:
+	KillTimerEx(29);
+	forcemode = BitClear(forcemode, 0x100); // protection is no longer active
+	ClearThingFlags(rbot, 0x4); // remove magseal from bot
+	if (protectionChannel != -1)
+	{
+		StopSound(protectionChannel, 0.1);
+		protectionChannel = -1;
+	}
+	if (shield != -1)
+	{
+		DestroyThing(shield);
+		shield = -1;
+	}
 	return;
 
 force_throw:
+	// Make sure bot can activate this power right now
 	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
+	if (GetThingFlags(target) & 0x200) return; // target dead or dying
+	if (!HasLOS(rbot, target)) return; // bot lost sight of target
+	if (VectorDist(GetThingPos(rbot), GetThingPos(target)) > 4.0) return; // target out of range
+	if (GetActorFlags(target) & 0x80 && !BitTest(forcemode, 0x8)) return; // target is invisible and force seeing inactive
+	if (FirstThingInView(rbot, 40 + 20 * rank, 3 + rank, 0x10) == -1) return; // No debris to throw
+
+	// Make sure bot has enough mana
+	cost = 30;
+	if (!BitTest(forcemode, 0x8000)) // no darkside surge
 	{
-		if (mana < 30) return;
-		mana = mana-30;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	if(HasLOS(rbot, target)) // check that we still have a LOS on it...
+
+	// Activate power
+	if (HasLOS(rbot, target)) // check that we still have a LOS on it...
 	{
-		debris = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 5 + difficulty, 0x010); // check if any debris is available before activating
-		if (debris != -1)
+		PlayMode(rbot, 24);
+		PlaySoundThing(throwSound, rbot, 1.0, -1, -1, 0x80);
+		// Check for debris objects in view.
+		debris = FirstThingInView(rbot, 40 + 20 * rank, 3 + rank, 0x10);
+		while (debris != -1)
 		{
-			PlayMode(rbot, 24);
-			SendTrigger(-1, 101025, botid, rbot, target, 30); // tell client to play sound
-			// Check for debris objects in view.
-			debris = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 5 + difficulty, 0x010);   // 0x010 debris
-			while(debris != -1)
+			if (HasLOS(rbot, debris))
 			{
-				if(HasLOS(rbot, debris))
-				{
-					tempvector1 = VectorScale(VectorNorm(VectorSub(GetThingPos(target), GetThingPos(debris))), 300.0);
-					DetachThing(debris);
-					ApplyForce(debris, tempvector1);
-				}
-				debris = NextThingInView();
+				tempvector1 = VectorScale(VectorNorm(VectorSub(GetThingPos(target), GetThingPos(debris))), 300.0);
+				DetachThing(debris);
+				ApplyForce(debris, tempvector1);
 			}
+			debris = NextThingInView();
 		}
 	}
+	return;
+
+stop_force_throw:
+	// Nothing to do
 	return;
 
 force_grip:
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x400)) return; // already active
 	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
+	if (GetThingFlags(target) & 0x200) return; // target dead or dying
+	if (!HasLOS(rbot, target)) return; // bot lost sight of target
+	if (VectorDist(GetThingPos(rbot), GetThingPos(target)) > 1.0) return; // target out of range
+	if (GetActorFlags(target) & 0x80 && !BitTest(forcemode, 0x8)) return; // target is invisible and force seeing inactive
+
+	// Make sure bot has enough mana
+	cost = 50;
+	if (!BitTest(forcemode, 0x8000)) // no darkside surge
 	{
-		if (mana < 50) return;
-		mana = mana-50;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x400); // grip is now active
 	PlayMode(rbot, 24);
-	if (!(GetThingFlags(target) & 0x200) && HasLOS(rbot,target) && VectorDist(GetThingPos(rbot), GetThingPos(target)) <= 1) // cannot be gripped
-	{
-		if (GetThingType(target) == 2) // another bot
-		{
-			SetTimerEx(0.1, 31, target, -1);
-			forcemode=BitSet(forcemode,0x400); // grip is now active
-		}
-		else // player - still need to work it out
-		{
-			if(!IsInvActivated(target, 29))        // Protection makes player immune to Grip
-			{
-				SetTimerEx(0.1, 31, target, -1);
-				forcemode=BitSet(forcemode,0x400); // grip is now active
-			}
-		}
-	}
+	gripsleft = 1 + rank * 2; // how many grip "pulses" we can do
+	starthealth = GetThingHealth(rbot); // we need to stop the power if the bot takes any health damage
+	SendTrigger(-1, 101999, target, rbot, 31, rank); // send "skill" trigger to target
+	KillTimerEx(31);
+	SetTimerEx(0.1, 31, target, -1); // schedule the first grip "pulse"
+	return;
+
+stop_force_grip:
+	gripsleft = 0;
+	KillTimerEx(31);
+	forcemode = BitClear(forcemode, 0x400); // grip is no longer active
 	return;
 
 force_lightning:
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
+	// Make sure bot has enough mana
+	cost = 40 - (rank - 1) * 5;
+	if (!BitTest(forcemode, 0x8000)) // no darkside surge
 	{
-		if (mana < 40) return;
-		mana = mana-40;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	FireProjectile(rbot, force_lightning, -1, 35, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
-	SendTrigger(-1, 101025, botid, rbot, target, 32); // tell client to play sound
+
+	// Activate power
+	FireProjectile(rbot, f_lightning_tpl, -1, 35, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
+	PlaySoundThing(lightningSound, rbot, 1.0, -1, -1, 0x80);
+	return;
+
+stop_force_lightning:
+	// Nothing to do
 	return;
 
 force_destruction:
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
+	// Make sure bot has enough mana
+	cost = 200;
+	if (!BitTest(forcemode, 0x8000)) // no darkside surge
 	{
-		if (mana < 200) return;
-		mana = mana-200;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
-	FireProjectile(rbot, force_destruction, -1, 24, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
-	SendTrigger(-1, 101025, botid, rbot, target, 33); // tell client to play sound
+
+	// Activate power
+	FireProjectile(rbot, f_destruction_tpl0[rank-1], destSound, 24, '0 0 0', '0 0 0', 1.0, 0, 10, 5);
+	return;
+
+stop_force_destruction:
+	// Nothing to do
 	return;
 
 force_deadlysight:
+	// Make sure bot can activate this power right now
+	if (BitTest(forcemode, 0x2000)) return; // already active
 	if (GetActorFlags(rbot) & 0x800) return; // bot blind
-	if (!BitTest(forcemode,0x8000)) // no darkside surge
+
+	// Make sure bot has enough mana
+	cost = 300;
+	if (!BitTest(forcemode, 0x8000)) // no darkside surge
 	{
-		if (mana < 300) return;
-		mana = mana-300;
+		if (mana < cost) return;
+		mana = mana - cost;
 	}
+
+	// Activate power
+	forcemode = BitSet(forcemode, 0x2000); // deadly sight is now active
 	PlayMode(rbot, 24);
-	SendTrigger(-1, 101025, botid, rbot, target, 34); // tell client to play sound
-	dscount=0;
-	starthealth=GetThingHealth(rbot);
-	SetTimerEx(0.1, 34, -1, -1);
-	forcemode=BitSet(forcemode,0x2000); // deadly sight is now active
+	// Play activation sound
+	PlaySoundThing(deadlySound, rbot, 1.0, -1, -1, 0x80);
+	// Play loop sound at 0.0 volume and fade it in to 1.0 volume in 0.75 secs
+	deadlyChannel = PlaySoundThing(deadlySound2, rbot, 0.0, -1, -1, 0x81);
+	ChangeSoundVol(deadlyChannel, 1.0, 0.75);
+
+	dsleft = 1 + rank * 3; // how many deadly sight "pulses" we can do
+	starthealth = GetThingHealth(rbot); // we need to stop the power if the bot takes any health damage
+	SetTimerEx(0.5, 34, -1, -1); // schedule the first deadly sight "pulse"
+	return;
+
+stop_force_deadlysight:
+	KillTimerEx(34);
+	if (deadlyChannel != -1)
+	{
+		StopSound(deadlyChannel, 0.1);
+		deadlyChannel = -1;
+	}
+	forcemode = BitClear(forcemode, 0x2000); // deadly sight is no longer active
 	return;
 
 end

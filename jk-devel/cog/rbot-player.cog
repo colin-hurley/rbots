@@ -71,7 +71,6 @@ int			damager							local
 flex		dot								local
 template	tmp_backpack=+backpack			local
 thing		item							local
-int			enemy							local
 int			ref								local
 
 
@@ -80,7 +79,6 @@ message     killed
 message     newplayer
 message     timer
 message     blocked
-message     skill
 message     damaged
 message     splash
 message     user0
@@ -321,13 +319,17 @@ user0:
 
 # ........................................................................................
 
-skill:
+// Because SkillTarget does not send the "skill" message to the player on the local machine,
+// SkillTarget cannot be used to trigger force powers by bots against the player.  We use
+// a "skill" trigger to work around this limitation.
+skill_trigger:
    // player might be dead when skill: arrives over the net...
    if(GetThingHealth(player) <= 0) Return;
 
    // Handle multiplayer force power effects
-   bin = GetParam(0);
-   rank = GetParam(1);
+   source = GetParam(1);
+   bin = GetParam(2);
+   rank = GetParam(3);
 
    if(bin == 24)                             // Force Pull
    {
@@ -346,7 +348,7 @@ skill:
             SetTimerEx(0.25, 24, PulledWeapon, 0);
 
             // Throw the powerup at the player
-            ApplyForce(PulledWeapon, VectorScale(VectorNorm(VectorSub(GetThingPos(GetSourceRef()), GetThingPos(player))), 30));
+            ApplyForce(PulledWeapon, VectorScale(VectorNorm(VectorSub(GetThingPos(source), GetThingPos(player))), 30));
 
             // Remove the weapon from the player
             ChangeInv(player, GetCurWeapon(player), -1);
@@ -388,7 +390,7 @@ skill:
 
          // Print("You are taking Grip damage");
          jkPrintUNIString(player, 300);
-         DamageThing(player, 2 * rank, 0x8, GetSourceRef());
+         DamageThing(player, 2 * rank, 0x8, source);
          SetTimerEx(0.5, 31, player, 0);
          ReturnEx(1);
       }
@@ -404,7 +406,7 @@ skill:
    {
       // Print("You are taking Deadly Sight damage");
       jkPrintUNIString(player, 301);
-      DamageThing(player, 4 * rank, 0x8, GetSourceRef());
+      DamageThing(player, 4 * rank, 0x8, source);
       smoke = CreateThingAtPosNR(smoke_tpl, GetThingSector(player), GetThingPos(player), '0 0 0');
       // Raise the tint above the normal damage tint
       if(GetCurrentCamera() == 0)
@@ -536,29 +538,10 @@ init_multi_kyle:
    Return;
 
 trigger:
-	if (getsourceref() == 101999 && GetThingSignature(player) == GetParam(0)) // make sure the trigger is for this player
+	if (GetSourceRef() == 101999 && GetParam(0) == player) // skill trigger for the local player
 	{
-		enemy=GetParam(1);
-		bin=GetParam(2);
-		rank=GetParam(3);
-		if (GetParam(2)==27) // force blinding
-		{
-			if((!force_blinding) && !(IsInvActivated(player, 23)))   // Seeing makes player immune to Blinding
-			{
-				print("player blinded!");
-				force_blinding = 1;
-				blindingEffectHandle = newColorEffect(0, 0, 0, 0, 0, 0, 200 + 8 * rank, 210 + 10 * rank, 200 + 8 * rank, 1.0);
-				SetActorFlags(player, 0x800);
-				SetTimerEx(4 * rank, 27, player, 0);
-			}
-		}
-		if (GetParam(2)==34) // force deadly sight
-		{
-			jkPrintUNIString(player, 301); // Print("You are taking Deadly Sight damage");
-			DamageThing(player, 4 * rank, 0x8, enemy);
-			smoke = CreateThingAtPosNR(smoke_tpl, GetThingSector(player), GetThingPos(player), '0 0 0');
-			if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07); // Raise the tint above the normal damage tint
-		}
+		call skill_trigger;
+		return;
 	}
 	return;
 

@@ -163,22 +163,9 @@ deactivated:
          dummy = CreateThingAtPosNR(cone_tpl, GetThingSector(player), VectorAdd(GetThingPos(player), '0.0 0.0 0.04'), '0.0 0.0 0.0');
          SetThingLook(dummy, VectorSub(GetThingPos(victim), GetThingPos(player)));
 
-         // Blind victim for 5 seconds per rank
-         if(GetThingType(victim) == 10)      // OTHER PLAYER
-         {
-            if(!(GetThingFlags(victim) & 0x200))
-               retval = SkillTarget(victim, player, 27, rank);
-         }
-         else                                // Hack for Rbots
-         {
-			SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 27, rank);  // send info to bot
-            // If bit is already set we kill the existing timer and start a new one
-            //if(GetActorFlags(victim) & 0x800) KillTimerEx(victim);
-           // SetActorFlags(victim, 0x800);
-
-            // Pass signature (i.e. unique ID) as a check in param 0
-            //SetTimerEx(rank * 5, victim, GetThingSignature(victim), 0.0);
-         }
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
+            SendTrigger(-1, 101999, victim, player, 27, rank); // send "skill" trigger to player/bot
       }
    }
 

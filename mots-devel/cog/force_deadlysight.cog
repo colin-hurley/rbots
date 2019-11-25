@@ -127,42 +127,19 @@ pulse:
          (jkGetBubbleDistance(victim) > 1.0)
         )
       {
-         if(GetThingType(victim) == 10)      // OTHER PLAYER
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
          {
-            if(!(GetThingFlags(victim) & 0x200))
-            {
-               retval = SkillTarget(victim, player, 34, rank);
+            SendTrigger(-1, 101999, victim, player, 34, rank); // send "skill" trigger to player/bot
 
-               if(victim != -1)
-                  ChangeSoundVol(channel, 1.0, 0.1);
-               else
-                  ChangeSoundVol(channel, 0.0, 0.1);
+            if(victim != -1)
+               ChangeSoundVol(channel, 1.0, 0.1);
+            else
+               ChangeSoundVol(channel, 0.0, 0.1);
 
-               if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
-            }
-
+            if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
          }
-         else                                // Hack for Rbots
-         {
-            if(!BitTest(GetActorFlags(victim), 0x100))
-            {
-				damage=SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 34, rank);  // send info to bot
-               //damage = SkillTarget(victim, player, 34, 0) * (rank / 2);
-               if(damage > 0)
-               {
-                  //DamageThing(victim, damage, 0x8, player);
-                  //smoke = CreateThingAtPos(smoke_tpl, GetThingSector(victim), GetThingPos(victim), '0 0 0');
 
-                  if(victim != -1)
-                     ChangeSoundVol(channel, 1.0, 0.1);
-                  else
-                     ChangeSoundVol(channel, 0.0, 0.1);
-
-                  if(GetCurrentCamera() == 0)
-                     AddDynamicTint(player, 0.15, 0.0, 0.07);
-               }
-            }
-         }
       }
       victim = NextThingInView();
    }

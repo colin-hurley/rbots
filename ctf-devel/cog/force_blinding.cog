@@ -19,8 +19,6 @@ thing       potential                        local
 
 flex        mana                             local
 flex        cost=100.0                       local
-flex        targetcost=5                     local
-flex        targetcount=0                    local
 int         rank                             local
 int         count                            local
 int         retval=0                         local
@@ -34,8 +32,6 @@ template    cone_tpl=+force_blind            local
 
 int         active=0                         local
 
-int         inbubble=0                       local
-
 message     startup
 message     activated
 message     deactivated
@@ -45,8 +41,6 @@ message     newplayer
 message     killed
 message     deselected
 message     selected
-message     enterbubble
-message     exitbubble
 
 end
 
@@ -56,21 +50,18 @@ code
 
 startup:
    player = GetlocalPlayerThing();
-   inbubble = 0;
 
    Return;
 
 # ........................................................................................
 
 activated:
-   if(inbubble) Return;
-
    if(active) Return;
 
    mana = GetInv(player, 14);
    rank = GetInv(player, 27);
 
-   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   if(mana >= cost)
    {
       victim = -1;
       active = 1;
@@ -83,14 +74,6 @@ activated:
 # ........................................................................................
 
 pulse:
-
-   targetCount = targetCount + 1;
-   if(targetCount == 3)
-   {
-      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -targetCost);
-      targetCount = 0;
-   }
-
    // Check all things for our victim.
    victim = -1;
    maxDot = 0;
@@ -105,8 +88,7 @@ pulse:
          (VectorDist(GetThingPos(player), GetThingPos(potential)) <= (1 + rank)) &&
          !(GetThingFlags(potential) & 0x200) &&
          !(GetActorFlags(potential) & 0x100) &&
-         !((jkGetFlags(potential) & 0x20) && !IsInvActivated(player, 23)) &&
-         (jkGetBubbleDistance(potential) > 1.0)
+         !((jkGetFlags(potential) & 0x20) && !IsInvActivated(player, 23))
         )
       {
          dot = ThingViewDot(player, potential);
@@ -135,7 +117,7 @@ pulse:
 # ........................................................................................
 
 deactivated:
-   if((victim == -1) || (GetThingHealth(player) <= 0) || inbubble)
+   if((victim == -1) || (GetThingHealth(player) <= 0))
    {
       call stop_power;
       Return;
@@ -145,15 +127,10 @@ deactivated:
    jkEndTarget();
 
    mana = GetInv(player, 14);
-   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   if(mana >= cost)
    {
-      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -cost);
-
-      // Send a "force disturbance"...
-      if(!IsMulti())
-         SendMessageExRadius(GetThingPos(player), cost, 0x4, splash, 27, 0, 0, 0);
-
-      SetBinWait(player, 27, 0.5);
+      if(GetInv(player, 65) != 1) ChangeInv(player, 14, -cost);
+      SetBinWait(player, 27, 0.2);
       rank = GetInv(player, 27);
 
       if(HasLOS(player, victim) && (victim != player))
@@ -163,22 +140,9 @@ deactivated:
          dummy = CreateThingAtPosNR(cone_tpl, GetThingSector(player), VectorAdd(GetThingPos(player), '0.0 0.0 0.04'), '0.0 0.0 0.0');
          SetThingLook(dummy, VectorSub(GetThingPos(victim), GetThingPos(player)));
 
-         // Blind victim for 5 seconds per rank
-         if(GetThingType(victim) == 10)      // OTHER PLAYER
-         {
-            if(!(GetThingFlags(victim) & 0x200))
-               retval = SkillTarget(victim, player, 27, rank);
-         }
-         else                                // Hack for Rbots
-         {
-			SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 27, rank);  // send info to bot
-            // If bit is already set we kill the existing timer and start a new one
-            //if(GetActorFlags(victim) & 0x800) KillTimerEx(victim);
-           // SetActorFlags(victim, 0x800);
-
-            // Pass signature (i.e. unique ID) as a check in param 0
-            //SetTimerEx(rank * 5, victim, GetThingSignature(victim), 0.0);
-         }
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
+            SendTrigger(-1, 101999, victim, player, 27, rank); // send "skill" trigger to player/bot
       }
    }
 
@@ -219,19 +183,7 @@ killed:
 
 newplayer:
    call stop_power;
-   Return;
 
-# ........................................................................................
-
-enterbubble:
-   inbubble = 1;
-   call stop_power;
-   Return;
-
-# ........................................................................................
-
-exitbubble:
-   inbubble = 0;
    Return;
 
 # ........................................................................................

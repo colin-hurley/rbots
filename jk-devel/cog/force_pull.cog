@@ -21,8 +21,6 @@ int         potential                        local
 int         throwThing                       local
 
 flex        cost=20.0                        local
-flex        targetcost=5                     local
-flex        targetcount=0                    local
 int         rank                             local
 flex        mana                             local
 flex        dot                              local
@@ -33,11 +31,9 @@ int         retval=0                         local
 
 vector      dir                              local
 
-sound       pullSound=FPush.WAV              local
+sound       pullSound=ForcePull01.WAV        local
 
 int         IsAFlag=0                        local
-
-int         inbubble=0                       local
 
 message     startup
 message     activated
@@ -48,8 +44,6 @@ message     newplayer
 message     killed
 message     deselected
 message     selected
-message     enterbubble
-message     exitbubble
 
 end
 
@@ -59,15 +53,12 @@ code
 
 startup:
    player = GetLocalPlayerThing();
-   inbubble = 0;
 
    Return;
 
 # ........................................................................................
 
 activated:
-   if(inbubble) Return;
-
    // Cannot use power if blinded
    if(GetActorFlags(player) & 0x800) Return;
 
@@ -76,25 +67,17 @@ activated:
    mana = GetInv(player, 14);
    rank = GetInv(player, 24);
 
-   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   if(mana >= cost)
    {
       victim = -1;
       SetInvActivated(player, 24, 1);
       SetPulse(0.33);
-      SetBinWait(player, 24, 1.0);
    }
    Return;
 
 # ........................................................................................
 
 pulse:
-   targetCount = targetCount + 1;
-   if(targetCount == 3)
-   {
-      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -targetCost);
-      targetCount = 0;
-   }
-
    // Check all things for our victim.
    victim = -1;
    maxDot = 0;
@@ -109,14 +92,12 @@ pulse:
          (VectorDist(GetThingPos(player), GetThingPos(potential)) <= (0.5 + rank / 2)) &&
          !(GetThingFlags(potential) & 0x200) &&
          !(GetActorFlags(potential) & 0x100) &&
-         !((jkGetFlags(potential) & 0x20) && !IsInvActivated(player, 23)) &&
-         (GetThingMass(potential) > FLEX0) &&      // Don't pull non-physics things.
-         (jkGetBubbleDistance(potential) > 1.0)
+         !((jkGetFlags(potential) & 0x20) && !IsInvActivated(player, 23))
         )
       {
          // Hack to avoid targetting a CTF flag...
          IsAFlag = 0;
-         if(GetThingType(potential) == 5)
+         if(GetThingType(potential == 5))
          {
             if(GetItemFlags(potential) & 8)
             {
@@ -154,7 +135,8 @@ pulse:
 # ........................................................................................
 
 deactivated:
-   if((victim == -1) || (GetThingHealth(player) <= 0) || inbubble)
+
+   if((victim == -1) || (GetThingHealth(player) <= 0))
    {
       call stop_power;
       Return;
@@ -165,33 +147,23 @@ deactivated:
 
    mana = GetInv(player, 14);
 
-   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   if(mana >= cost)
    {
       if(HasLOS(player, victim))             // check that we still have a LOS on it...
       {
          PlayMode(player, 24);
          PlaySoundThing(pullSound, player, 1.0, -1, -1, 0x80);
-         if(GetInv(player, 64) != 1) ChangeInv(player, 14, -cost);
-
-         // Send a "force disturbance"...
-         if(!IsMulti())
-            SendMessageExRadius(GetThingPos(player), cost, 0x4, splash, 24, 0, 0, 0);
-
-         SetBinWait(player, 24, 0.6);
+         if((GetInv(player, 64) != 1) && (GetInv(player, 65) != 1)) ChangeInv(player, 14, -cost);
+         SetBinWait(player, 24, 0.2);
 
          throwThing = -1;
          type = GetThingType(victim);
-         if(type == 2)                       // ACTOR - hacked for Rbots
-         {
-			SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 24, rank);  // get bot to throw weapon
-         }
-         else
-         if(type == 10)                      // OTHER PLAYER
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(type == 2 || type == 10)         // ACTOR or PLAYER
          {
             if(!(GetThingFlags(victim) & 0x200))
-               retval = SkillTarget(victim, player, 24, rank);
+               SendTrigger(-1, 101999, victim, player, 24, rank); // send "skill" trigger to bot
             SetInvActivated(player, 24, 0);
-            victim = -1;
             Return;
          }
          else
@@ -213,31 +185,26 @@ deactivated:
          // Throw item at player.
          if(throwThing != -1)
          {
-            type = GetThingType(throwThing);
+            SetTimerEx(1.5, 1, throwThing, 0);
 
-            if(type != 2 && type != 10)   // Do not mess with actors and players!
+            // Duplicate sends for lost packets
+            SetTimerEx(3.5, 2, throwThing, 0);
+            SetTimerEx(3.6, 2, throwThing, 0);
+
+            if(IsMulti())
             {
-               SetTimerEx(1.5, 1, throwThing, 0);
-   
-               // Duplicate sends for lost packets
-               SetTimerEx(3.5, 2, throwThing, 0);
-               SetTimerEx(3.6, 2, throwThing, 0);
-   
-               if(IsMulti())
-               {
-                  // Kill the thing
-                  SetTimerEx(4.0, 3, throwThing, 0);
-                  // Duplicate send for lost packets
-                  SetTimerEx(4.1, 4, throwThing, 0);
-               }
-   
-               // Turn off gravity for the thing
-               ClearPhysicsFlags(throwThing, 0x1);
-   
-               dir = VectorScale(VectorNorm(VectorSub(GetThingPos(player), GetThingPos(throwThing))), 30);
-   
-               ApplyForce(throwThing, dir);
+               // Kill the thing
+               SetTimerEx(4.0, 3, throwThing, 0);
+               // Duplicate send for lost packets
+               SetTimerEx(4.1, 4, throwThing, 0);
             }
+
+            // Turn off gravity for the thing
+            ClearPhysicsFlags(throwThing, 0x1);
+
+            dir = VectorScale(VectorNorm(VectorSub(GetThingPos(player), GetThingPos(throwThing))), 30);
+
+            ApplyForce(throwThing, dir);
          }
       }
    }
@@ -302,19 +269,7 @@ killed:
 
 newplayer:
    call stop_power;
-   Return;
 
-# ........................................................................................
-
-enterbubble:
-   inbubble = 1;
-   call stop_power;
-   Return;
-
-# ........................................................................................
-
-exitbubble:
-   inbubble = 0;
    Return;
 
 # ........................................................................................

@@ -154,6 +154,7 @@ pulse:
 # ........................................................................................
 
 deactivated:
+
    if((victim == -1) || (GetThingHealth(player) <= 0) || inbubble)
    {
       call stop_power;
@@ -181,17 +182,12 @@ deactivated:
 
          throwThing = -1;
          type = GetThingType(victim);
-         if(type == 2)                       // ACTOR - hacked for Rbots
-         {
-			SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 24, rank);  // get bot to throw weapon
-         }
-         else
-         if(type == 10)                      // OTHER PLAYER
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(type == 2 || type == 10)         // ACTOR or PLAYER
          {
             if(!(GetThingFlags(victim) & 0x200))
-               retval = SkillTarget(victim, player, 24, rank);
+               SendTrigger(-1, 101999, victim, player, 24, rank); // send "skill" trigger to bot
             SetInvActivated(player, 24, 0);
-            victim = -1;
             Return;
          }
          else

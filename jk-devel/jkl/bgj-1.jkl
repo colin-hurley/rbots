@@ -52,7 +52,7 @@ Perspective distance 2
 Gouraud distance 2
 
 SECTION: SOUNDS
-World sounds 173
+World sounds 175
 00RIVER01.WAV
 00TUSKENDIE01.WAV
 00TUSKENDIE02.WAV
@@ -95,11 +95,13 @@ ForceGrip01.WAV
 ForceHealing01.WAV
 ForceJump01.wav
 ForceJump02.wav
+forcelightnin01.wav
 ForceLitning02.wav
 ForcePersuas01.WAV
 ForcePersuas02.WAV
 ForceProtect01.wav
 ForceProtect02.wav
+ForcePull01.WAV
 ForceSee01.WAV
 ForceSee02.WAV
 ForceSpeed01.WAV

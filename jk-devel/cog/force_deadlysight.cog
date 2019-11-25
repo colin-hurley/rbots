@@ -33,17 +33,12 @@ int         channel=-1                       local
 template    smoke_tpl=+heavysmoke            local
 int         smoke                            local
 
-int         inbubble=0                       local
-
 message     startup
 message     activated
 message     pulse
 message     newplayer
 message     killed
 message     selected
-message     enterbubble
-message     exitbubble
-message     user0
 
 end
 
@@ -53,7 +48,6 @@ code
 
 startup:
    player = GetLocalPlayerThing();
-   inbubble = 0;
 
    oldlight = GetThingLight(player);
    call stop_power;
@@ -68,18 +62,11 @@ activated:
 
    if(IsInvActivated(player, 34)) Return;
 
-   if(inbubble) Return;
-
    mana = GetInv(player, 14);
-   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   if(mana >= cost)
    {
       SetInvActivated(player, 34, 1);
       if(GetInv(player, 64) != 1) ChangeInv(player, 14, -cost);
-
-      // Send a "force disturbance"...
-      if(!IsMulti())
-         SendMessageExRadius(GetThingPos(player), cost, 0x4, splash, 34, 0, 0, 0);
-
       rank = GetInv(player, 34);
 
       PlayMode(player, 24);
@@ -123,46 +110,22 @@ pulse:
          (victim != player) &&
          !(GetThingFlags(victim) & 0x200) &&
          !(GetActorFlags(victim) & 0x100) &&
-         !((jkGetFlags(victim) & 0x20) && !IsInvActivated(player, 23)) &&
-         (jkGetBubbleDistance(victim) > 1.0)
+         !((jkGetFlags(victim) & 0x20) && !IsInvActivated(player, 23))
         )
       {
-         if(GetThingType(victim) == 10)      // OTHER PLAYER
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
          {
-            if(!(GetThingFlags(victim) & 0x200))
-            {
-               retval = SkillTarget(victim, player, 34, rank);
+            SendTrigger(-1, 101999, victim, player, 34, rank); // send "skill" trigger to player/bot
 
-               if(victim != -1)
-                  ChangeSoundVol(channel, 1.0, 0.1);
-               else
-                  ChangeSoundVol(channel, 0.0, 0.1);
+            if(victim != -1)
+               ChangeSoundVol(channel, 1.0, 0.1);
+            else
+               ChangeSoundVol(channel, 0.0, 0.1);
 
-               if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
-            }
-
+            if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
          }
-         else                                // Hack for Rbots
-         {
-            if(!BitTest(GetActorFlags(victim), 0x100))
-            {
-				damage=SendMessageEx(GetThingCaptureCog(victim), user0, victim, player, 34, rank);  // send info to bot
-               //damage = SkillTarget(victim, player, 34, 0) * (rank / 2);
-               if(damage > 0)
-               {
-                  //DamageThing(victim, damage, 0x8, player);
-                  //smoke = CreateThingAtPos(smoke_tpl, GetThingSector(victim), GetThingPos(victim), '0 0 0');
 
-                  if(victim != -1)
-                     ChangeSoundVol(channel, 1.0, 0.1);
-                  else
-                     ChangeSoundVol(channel, 0.0, 0.1);
-
-                  if(GetCurrentCamera() == 0)
-                     AddDynamicTint(player, 0.15, 0.0, 0.07);
-               }
-            }
-         }
       }
       victim = NextThingInView();
    }
@@ -183,25 +146,6 @@ killed:
 newplayer:
    call stop_power;
 
-   Return;
-
-# ........................................................................................
-
-enterbubble:
-   inbubble = 1;
-   call stop_power;
-   Return;
-
-# ........................................................................................
-
-exitbubble:
-   inbubble = 0;
-   Return;
-
-# ........................................................................................
-
-user0:
-   call stop_power;
    Return;
 
 # ........................................................................................

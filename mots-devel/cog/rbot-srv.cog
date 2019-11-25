@@ -16,7 +16,6 @@ message		pulse
 message		trigger
 message		timer
 message		damaged
-message		user0
 message		user1
 message		user7
 
@@ -235,9 +234,7 @@ killed:
 	botmode=BitClear(botmode,0x10000); // bot no longer alive
 	KillTimerEx(120); // stop checking for 'bot lost'
 	KillTimerEx(300); // stop checking if bot is in a pit
-	SendMessageEx(srv_force, user7, 3001, -1, -1, -1); // stop force powers
-	ClearActorFlags(rbot, 0x80); // make sure bot is not invisible
-	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send trigger to startup cog to respawn new bot
+	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send bot died event
 	ReleaseThing(rbot);
 	if (curweap == 10) // current weapon is saber
 	{
@@ -433,7 +430,6 @@ trigger:
 
 		// initialization
 		botmode=BitSet(botmode,0x10000); // bot alive
-		SendTrigger(-1,950,botid,rbot,curbotname,curteam); // Confirm botuid
 		capturething(rbot);
 		jkstringclear();
 		jkStringConcatUNIString(1000+curbotname);
@@ -447,13 +443,12 @@ trigger:
 		arrival_event=-1;
 		prevnode=-1;
 		lostcount=0;
-		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
-		SendMessageEx(srv_force, user7, 3000, -1, -1, -1); // start force powers
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
 		SetTimerEx(2.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 		stopcount=0;
 		allowdodge=1;
 		setpulse(0.1);
+		SendTrigger(-1, 950, botid, rbot, curbotname, curteam); // Send bot respawn event
 		return;
 	}
 	if (GetSourceRef() == 101061) // new bot created
@@ -771,16 +766,16 @@ trigger:
 	return;
 
 move:
+	if (GetActorFlags(rbot) & 0x40000) // bot is 'gripped', don't move
+	{
+		AiSetMovePos(rbot, GetThingPos(rbot));
+		return; 
+	}
 	if (GetActorFlags(rbot) & 0x800) // bot blind
 	{
 		AiSetMovePos(rbot, blindvec); // move to a random position
 		AiSetLookPos(rbot, blindvec); // look at the random position
 		return;
-	}
-	if (BitTest(botmode,0x400000)) // bot is 'gripped', don't move
-	{
-		AiSetMovePos(rbot, getthingpos(rbot));
-		return; 
 	}
 
 	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
@@ -1195,12 +1190,6 @@ timer:
 	{
 		allowdodge=1;
 	}
-	return;
-
-user0: // force powers against bot
-	if(!IsServer()) return;
-	// Delegate to rbot-srv-force.cog
-	ReturnEx(SendMessageEx(srv_force, user0, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
 	return;
 
 user1:

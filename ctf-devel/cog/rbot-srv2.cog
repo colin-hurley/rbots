@@ -40,6 +40,7 @@ template	tmp_revivepack=REVIVEPACK	local
 template	tmp_lightside=LIGHTSIDE		local
 template	tmp_darkside=DARKSIDE		local
 template	tmp_backpack=+backpack		local
+template	tmp_weap2=bryarpistol		local
 template	tmp_weap3=STRIFLE			local
 template	tmp_weap4=DETONATOR			local
 template	tmp_weap5=CROSSBOW			local
@@ -47,6 +48,16 @@ template	tmp_weap6=REPEATERGUN		local
 template	tmp_weap7=RAILGUN			local
 template	tmp_weap8=SEQCHARGE			local
 template	tmp_weap9=CONCRIFLE			local
+template	tmp_weap4x1=singledetonator	local
+template	tmp_weap8x1=singleseqcharge	local
+template	tmp_fpweap2=+FPBryarPistol	local
+template	tmp_fpweap3=+FPSTrifle		local
+template	tmp_fpweap4=+FPDetonator	local
+template	tmp_fpweap5=+FPCrossbow		local
+template	tmp_fpweap6=+FPRepeaterGun	local
+template	tmp_fpweap7=+FPRailGun		local
+template	tmp_fpweap8=+FPSeqCharge	local
+template	tmp_fpweap9=+FPConcRifle	local
 template	tmp_ctfredkey=CTF_REDKEY	local
 template	tmp_ctfgoldkey=CTF_GOLDKEY	local
 
@@ -348,12 +359,6 @@ trigger:
 				call bestweapon; // Select next best weapon
 			}
 		}
-		else if (bin == 31) // Force Grip
-		{
-			botmode=BitSet(botmode,0x400000); // bot is now 'gripped'
-			KillTimerEx(31);
-			SetTimerEx(0.8, 31, 0, 0);
-		}
 	}
 	return;
 
@@ -464,12 +469,28 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
+	else if (GetThingTemplate(item) == tmp_weap4x1 || GetThingTemplate(item) == tmp_fpweap4)
+	{
+		if (inv_weap4<30)
+		{
+			inv_weap4=inv_weap4+1;
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		}
+	}
 	else if (getthingtemplate(item) == tmp_weap8)
 	{
 		if (inv_weap8<30)
 		{
 			inv_weap8=inv_weap8+5;
 			if (inv_weap8>30) inv_weap8=30;
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		}
+	}
+	else if (GetThingTemplate(item) == tmp_weap8x1 || GetThingTemplate(item) == tmp_fpweap8)
+	{
+		if (inv_weap8<30)
+		{
+			inv_weap8=inv_weap8+1;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
@@ -547,14 +568,24 @@ pickupitem:
 	else if (getthingtemplate(item) == tmp_lightside)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
-		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana
+		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana and add light surge
 	}
 	else if (getthingtemplate(item) == tmp_darkside)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
-		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana
+		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana add dark surge
 	}
-	else if (getthingtemplate(item) == tmp_weap3)
+	else if (GetThingTemplate(item) == tmp_weap2 || GetThingTemplate(item) == tmp_fpweap2)
+	{
+		if (inv_weap3 == 0 || energy < 500)
+		{
+			inv_weap2=1;
+			energy=energy+10;
+			if (energy>500) energy=500;
+			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		}
+	}
+	else if (GetThingTemplate(item) == tmp_weap3 || GetThingTemplate(item) == tmp_fpweap3)
 	{
 		if (inv_weap3 == 0 || energy < 500)
 		{
@@ -564,7 +595,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
-	else if (getthingtemplate(item) == tmp_weap5)
+	else if (GetThingTemplate(item) == tmp_weap5 || GetThingTemplate(item) == tmp_fpweap5)
 	{
 		if (inv_weap5 ==0 || power < 500)
 		{
@@ -574,7 +605,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
-	else if (getthingtemplate(item) == tmp_weap6)
+	else if (GetThingTemplate(item) == tmp_weap6 || GetThingTemplate(item) == tmp_fpweap6)
 	{
 		if (inv_weap6 ==0 || power < 500)
 		{
@@ -584,7 +615,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}  
 	}
-	else if (getthingtemplate(item) == tmp_weap7)
+	else if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7)
 	{
 		if (inv_weap7 ==0 || inv_raildets < 30)
 		{
@@ -594,7 +625,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
-	else if (getthingtemplate(item) == tmp_weap9)
+	else if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9)
 	{
 		if (inv_weap9 ==0 || power < 500)
 		{
@@ -1072,10 +1103,6 @@ setbotmode:
 
 
 timer:
-	if(GetSenderId() == 31) // after force grip
-	{
-		botmode=BitSet(botmode,0x400000); // bot is not longer 'gripped'
-	}
 	if (GetSenderId() == 120) // allow fire after weapon is mounted
 	{
 		botmode=BitClear(botmode,0x40000);

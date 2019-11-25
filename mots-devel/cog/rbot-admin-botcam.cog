@@ -65,7 +65,7 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 970 && GetParam(0) == botid) {
+	if ((GetSourceRef() == 950 || GetSourceRef() == 970) && GetParam(0) == botid) {
 		// Bot spawned / reported thing number
 		if (active) {
 			rbot = GetParam(1);

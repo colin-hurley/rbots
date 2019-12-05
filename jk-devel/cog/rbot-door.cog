@@ -8,6 +8,7 @@ message	activate
 message	arrived
 message	timer
 message	blocked
+message	entered
 message	touched
 
 thing	door	mask=0x405
@@ -21,10 +22,15 @@ end
 
 code
 
+entered:
+	if (GetThingType(GetSourceRef()) != 2) return; // bots only
+	goto activate;
+	return;
+
+# ........................................................................................
+
 touched:
-	if (IsThingMoving(door) || GetCurFrame(door)==1) return;
-	MoveToFrame(door, 1, moveSpeed);
-	SetTimer(sleeptime);
+	goto activate;
 	return;
 
 # ........................................................................................
@@ -32,13 +38,12 @@ touched:
 activate:
 	if (IsThingMoving(door) || GetCurFrame(door)==1) return;
 	MoveToFrame(door, 1, moveSpeed);
-	SetTimer(sleeptime);
 	return;
 
 # ........................................................................................
 
 arrived:
-	if (GetCurFrame(door)==0) return;
+	if (IsThingMoving(door) || GetCurFrame(door)==0) return;
 	SetTimer(sleepTime);
 	return;
 

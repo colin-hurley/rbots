@@ -16628,7 +16628,7 @@ World soundclasses 40
 end
 
 Section: cogscripts
-World scripts 46
+World scripts 49
 0: 00_desttrail.cog
 1: 00_FORCEFIELD.COG
 2: 00_MATANIM.COG
@@ -16662,34 +16662,37 @@ World scripts 46
 30: pow_thermal.cog
 31: pow_vest.cog
 32: rbot-2door.cog
-33: rbot-autoelev.cog
+33: rbot-arrival.cog
 34: rbot-backpack.cog
 35: rbot-door.cog
-36: rbot-nav.cog
-37: rbot-path.cog
-38: rbot-player.cog
-39: rbot-skin.cog
-40: rbot-special.cog
-41: rbot-srv.cog
-42: rbot-srv2.cog
-43: rbot-srv-force.cog
-44: rbot-startup.cog
-45: xtank3.cog
+36: rbot-elev.cog
+37: rbot-nav.cog
+38: rbot-nav-special.cog
+39: rbot-path.cog
+40: rbot-player.cog
+41: rbot-skin.cog
+42: rbot-special.cog
+43: rbot-special-sector.cog
+44: rbot-srv.cog
+45: rbot-srv2.cog
+46: rbot-srv-force.cog
+47: rbot-startup.cog
+48: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 143
+World cogs 149
 #Num	Script          Symbol values
 0: M4_REACTORTHRUST.COG (0.000000/0.000000/1.000000) 8 2 2 46 45 48 47 1811 102 155 63 8 00EXHAUSTAMB04.WAV 00ALARMLOOP03.WAV 64 4
 1: 00_SURFANIM.COG 1799 -1 -1 -1 5
 2: 00_FORCEFIELD.COG 1867 10 5 0.25 0.2 1 0.5
 3: 00_MATANIM.COG 00T_WRE.MAT 1
 4: 00_SURFANIM.COG 67 71 62 75 3
-5: rbot-autoelev.cog 5 47 44 1684 1672 1760 1899 0.25 2 10 lvrclik1.wav
-6: rbot-autoelev.cog 6 54 36 1690 1678 1766 1893 0.25 2 10 lvrclik1.wav
-7: rbot-autoelev.cog 24 123 69 1702 1708 -1 -1 0.25 2 10 lvrclik1.wav
-8: rbot-autoelev.cog 18 151 89 1696 1714 -1 -1 0.25 2 10 lvrclik1.wav
+5: rbot-elev.cog 5 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 597 555 -1 -1 1684 1672 1760 1899 10 0.25 0 lvrclik1.wav
+6: rbot-elev.cog 6 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 690 475 -1 -1 1690 1678 1766 1893 10 0.25 0 lvrclik1.wav
+7: rbot-elev.cog 24 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1499 1528 -1 -1 1702 1708 -1 -1 10 0.25 0 lvrclik1.wav
+8: rbot-elev.cog 18 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1146 1175 -1 -1 1696 1714 -1 -1 10 0.25 0 lvrclik1.wav
 9: rbot-2door.cog 1 2 8 3
 10: rbot-door.cog 3 8 3
 11: rbot-door.cog 4 8 3
@@ -16709,7 +16712,7 @@ World cogs 143
 25: rbot-path.cog 181 182 183 184 185 186 187 180 181 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 26: rbot-path.cog 182 188 189 190 191 192 193 194 195 196 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 27: rbot-path.cog 196 197 198 199 186 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-28: rbot-path.cog 155 200 201 202 203 204 193 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+28: rbot-path.cog 155 200 201 202 203 204 209 193 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 29: rbot-path.cog 183 205 206 207 208 165 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
 30: rbot-special.cog 181 182 183 184 185 186 187 180 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0
 31: rbot-srv.cog 0 0 0 1 20 101
@@ -16778,6 +16781,9 @@ World cogs 143
 94: rbot-skin.cog 15 rbot_silver sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do
 95: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
 96: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+97: rbot-arrival.cog 202 209 175 178 167 171 163 159 -1 -1 1 0 1 0 1 0 0 1 -1 -1 18 18 24 24 5 5 6 6 -1 -1 0 1 0 1 0 1 0 1 -1 -1 10 10 10 10 10 10 10 10 30 30 32 64 32 64 32 64 64 32 0 0
+98: rbot-nav-special.cog 203 176 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+99: rbot-special-sector.cog 45 52 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 end
 
 Section: TEMPLATES
@@ -17116,26 +17122,26 @@ World things 640
 156: ghost ghost .057137 .51327 -.917086 0 180 0 0 thingflags=0X20080501
 157: ghost ghost .657137 1.26327 -.917086 0 180 0 11 thingflags=0X20080501
 158: ghost ghost .657137 1.61327 -.917086 0 180 0 54 thingflags=0X20080501
-159: ghost ghost .657137 2.16327 -.917086 0 180 0 54 thingflags=0X20080501
-160: ghost ghost .657137 2.46327 -.917086 0 180 0 52 thingflags=0X20080501
-161: ghost ghost .657137 2.46327 -2.137086 0 180 0 52 thingflags=0X20080501
-162: ghost ghost .657137 2.46327 -3.657086 0 180 0 52 thingflags=0X20080501
-163: ghost ghost .657137 2.01327 -3.657086 0 180 0 35 thingflags=0X20080501
+159: ghost ghost .657137 2.16327 -.892086 0 180 0 54 thingflags=0X20080501 size=0.1
+160: ghost ghost .657137 2.46327 -.892086 0 180 0 52 thingflags=0x22080501 size=0.12
+161: ghost ghost .657137 2.46327 -2.137086 0 180 0 52 thingflags=0x22080501
+162: ghost ghost .657137 2.46327 -3.657086 0 180 0 52 thingflags=0X20080501 size=0.12
+163: ghost ghost .657137 2.12577 -3.657086 0 180 0 36 thingflags=0X20080501 size=0.1
 164: ghost ghost .657137 1.06327 -3.657086 0 180 0 35 thingflags=0X20080501
 165: ghost ghost .657137 -.08673 -3.657086 0 180 0 17 thingflags=0X20080501
 166: ghost ghost .657137 -1.33673 -3.657086 0 180 0 37 thingflags=0X20080501
-167: ghost ghost .657137 -2.23673 -3.657086 0 180 0 37 thingflags=0X20080501
-168: ghost ghost .657137 -2.68673 -3.657086 0 180 0 45 thingflags=0X20080501
-169: ghost ghost .657137 -2.68673 -1.617086 0 180 0 45 thingflags=0X20080501
-170: ghost ghost .657137 -2.68673 -.917086 0 180 0 45 thingflags=0X20080501
-171: ghost ghost .657137 -2.38673 -.917086 0 180 0 47 thingflags=0X20080501
+167: ghost ghost .657137 -2.42423 -3.657086 0 180 0 44 thingflags=0X20080501 size=0.1
+168: ghost ghost .657137 -2.72423 -3.657086 0 180 0 45 thingflags=0X20080501 size=0.12
+169: ghost ghost .657137 -2.68673 -1.617086 0 180 0 45 thingflags=0x22080501
+170: ghost ghost .657137 -2.71173 -.892086 0 180 0 45 thingflags=0x22080501 size=0.12
+171: ghost ghost .657137 -2.41173 -.892086 0 180 0 47 thingflags=0X20080501 size=0.1
 172: ghost ghost .657137 -1.78673 -.917086 0 180 0 47 thingflags=0X20080501
 173: ghost ghost .657137 -1.38673 -.917086 0 180 0 10 thingflags=0X20080501
 174: ghost ghost 2.007137 -.08673 -.917086 0 180 0 12 thingflags=0X20080501
-175: ghost ghost 2.507137 -.08673 -.917086 0 180 0 69 thingflags=0X20080501
-176: ghost ghost 2.957137 -.08673 -.917086 0 180 0 120 thingflags=0X20080501
-177: ghost ghost 2.957137 -.08673 1.782914 0 180 0 120 thingflags=0X20080501
-178: ghost ghost 2.557137 -.08673 1.782914 0 180 0 123 thingflags=0X20080501
+175: ghost ghost 2.607137 -.08673 -.917086 0 180 0 69 thingflags=0X20080501 size=0.1
+176: ghost ghost 2.957137 -.08673 -.917086 0 180 0 120 thingflags=0X20080501 size=0.12
+177: ghost ghost 2.957137 -.08673 1.782914 0 180 0 120 thingflags=0x22080501 size=0.12
+178: ghost ghost 2.619637 -.08673 1.807914 0 180 0 123 thingflags=0X20080501 size=0.1
 179: ghost ghost 1.555215 -.132783 1.904263 0 180 0 122 thingflags=0X20080501
 180: ghost ghost 1.105215 -.132783 1.904263 0 180 0 155 thingflags=0X20080501
 181: ghost ghost 1.005215 -.482783 1.904263 0 180 0 155 thingflags=0X20080501
@@ -17150,7 +17156,7 @@ World things 640
 190: ghost ghost .255215 -2.682783 1.904263 0 180 0 97 thingflags=0X20080501
 191: ghost ghost -.594785 -1.882783 1.904263 0 180 0 93 thingflags=0X20080501
 192: ghost ghost -1.194785 -.782783 1.904263 0 180 0 96 thingflags=0X20080501
-193: ghost ghost -1.294785 -.082783 1.904263 0 180 0 151 thingflags=0X20080501
+193: ghost ghost -1.205363 -.08673 1.816763 0 180 0 151 thingflags=0X20080501 size=0.2
 194: ghost ghost -1.194785 .567217 1.904263 0 180 0 146 thingflags=0X20080501
 195: ghost ghost -.794785 1.267217 1.904263 0 180 0 94 thingflags=0X20080501
 196: ghost ghost -.344785 2.017217 1.904263 0 180 0 94 thingflags=0X20080501
@@ -17159,13 +17165,14 @@ World things 640
 199: ghost ghost .655215 .767217 1.904263 0 180 0 130 thingflags=0X20080501
 200: ghost ghost -.692863 -.08673 -.917086 0 180 0 68 thingflags=0X20080501
 201: ghost ghost -1.092863 -.08673 -.917086 0 180 0 89 thingflags=0X20080501
-202: ghost ghost -1.592863 -.08673 -.917086 0 180 0 89 thingflags=0X20080501
-203: ghost ghost -1.892863 -.08673 -.917086 0 180 0 91 thingflags=0X20080501
-204: ghost ghost -1.892863 -.08673 1.822914 0 180 0 91 thingflags=0X20080501
+202: ghost ghost -1.555363 -.08673 -.917086 0 180 0 89 thingflags=0X20080501 size=0.1
+203: ghost ghost -1.892863 -.08673 -.917086 0 180 0 91 thingflags=0X20080501 size=0.12
+204: ghost ghost -1.892863 -.08673 1.822914 0 180 0 91 thingflags=0x22080501 size=0.12
 205: ghost ghost .655215 -.132783 .864263 0 180 0 102 thingflags=0X20080501
 206: ghost ghost .855215 -.132783 -1.095737 0 180 0 3 thingflags=0X20080501
 207: ghost ghost .805215 .017217 -1.515737 0 180 0 15 thingflags=0X20080501
 208: ghost ghost .655215 -.082783 -2.475737 0 180 0 19 thingflags=0X20080501
+209: ghost ghost -1.555363 -.08673 1.816763 0 180 0 151 thingflags=0X20080501 size=0.1
 end
 
 Section: Lights

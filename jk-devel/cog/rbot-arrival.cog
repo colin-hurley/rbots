@@ -87,6 +87,18 @@ int			waiting7=0		local
 int			waiting8=0		local
 int			waiting9=0		local
 
+# Special mode flags to apply to the bot when it needs to await arrival
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+
 # Misc
 int			i				local
 int			index			local
@@ -95,6 +107,7 @@ int			rundir			local
 thing		arriver			local
 int			frame			local
 flex		timeout			local
+int			mode			local
 int			special			local
 int			botid			local
 int			event_id		local
@@ -108,25 +121,28 @@ code
 trigger:
 	if (!IsServer()) return;
 	
-	if (GetSourceRef() == 11010) {
-		// Bot arrived at node
-
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
 		botid = GetParam(0); // which bot requested the info
 		node = GetParam(2); // which node the bot arrived at
 
-		// work out special node info
+		// work out special arrival info
 		index = -1;
 		rundir = -1;
 		arriver = -1;
 		frame = -1;
 		timeout = 0.0;
-		for (i = 0 ; i < 10 ; i = i + 1) {
-			if (node0[i] == node) {
+		special = 0;
+		for (i = 0 ; i < 10 ; i = i + 1)
+		{
+			if (node0[i] == node)
+			{
 				index = i;
 				rundir = rundir0[i];
 				arriver = arriver0[i];
 				frame = frame0[i];
 				timeout = timeout0[i];
+				special = spinf0[i];
 			}
 		}
 
@@ -134,9 +150,9 @@ trigger:
 		if (GetCurFrame(arriver) == frame && !IsThingMoving(arriver)) return; // Thing already at frame
 
 		// Tell the bot to wait for the thing to arrive at the frame
-		special = 0x3; // default - await arrival when running forward or backward
-		if (rundir == 1) special = 0x1; // await arrival when running forward
-		if (rundir == 0) special = 0x2; // await arrival when running backward
+		mode = 0x3; // default - await arrival when running forward or backward
+		if (rundir == 1) mode = 0x1; // await arrival when running forward
+		if (rundir == 0) mode = 0x2; // await arrival when running backward
 
 		// Generate a distinct arrival event ID from the arriver thing and frame
 		// Reserve 0-999 for custom user cogs
@@ -147,7 +163,13 @@ trigger:
 		waiting0[index] = 1;
 
 		// Tell bot to wait (depending on the run direction)
-		SendTrigger(-1, 11040, botid, special, event_id, timeout);
+		SendTrigger(-1, 11040, botid, mode, event_id, timeout);
+
+		// Send special info for node, if necessary
+		if (special)
+		{
+			SendTrigger(-1, 11020, botid, special, 2, -1); // send special info to bot (mode 2 = activate for short duration)
+		}
 	}
 	return;
 
@@ -159,8 +181,10 @@ arrived:
 	frame = GetCurFrame(arriver);
 
 	// Send any pending arrival events
-	for (i = 0 ; i < 10 ; i = i + 1) {
-		if (arriver0[i] == arriver && frame0[i] == frame && waiting0[i]) {
+	for (i = 0 ; i < 10 ; i = i + 1)
+	{
+		if (arriver0[i] == arriver && frame0[i] == frame && waiting0[i])
+		{
 			node = node0[i];
 
 			// Generate the same distinct arrival event ID that the bot would be waiting for

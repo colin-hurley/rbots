@@ -12,6 +12,7 @@
 
 symbols
 
+message trigger
 message activated
 message entered
 message touched
@@ -87,6 +88,9 @@ sound call_button_activate=lvrclik1.wav
 # Working variables
 int i local
 flex speed_scale local
+thing rbot local
+flex dist local
+surface call_button local
 
 end
 
@@ -94,10 +98,33 @@ end
 
 code
 
-activated:
-	if (IsThingMoving(elevator) || GetSenderId() != 4) return;
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		rbot = GetParam(1);
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			call_button = call_button0[i];
+			if (call_button != -1)
+			{
+				dist = VectorDist(GetThingPos(rbot), SurfaceCenter(call_button));
+				if (dist < 0.5) // if bot is close enough, activate call button
+				{
+					goto do_activated; // use do_activated to skip sender id check in activated
+				}
+			}
+		}
+	}
+	return;
 
-	PlaySoundPos(call_button_activate, SurfaceCenter(GetSenderRef()), 1, -1, -1, 0);
+activated:
+	if (GetSenderId() != 4) return;
+	call_button = GetSenderRef();
+
+do_activated:
+	if (IsThingMoving(elevator)) return;
+
+	PlaySoundPos(call_button_activate, SurfaceCenter(call_button), 1, -1, -1, 0);
 	speed_scale = 1.0;
 	call move_elev;
 	return;
@@ -108,8 +135,8 @@ entered:
 	// if elevator was walked on
 	if (GetSenderId() == 1) goto touched;
 
-	// else sector was entered
-	else goto crossed;
+	// else sector was entered or surface was walked on
+	else goto do_crossed; // use do_crossed to skip start wait in crossed (i.e. move elevator immediately)
 
 	return;
 
@@ -124,6 +151,10 @@ touched:
 	return;
 
 crossed:
+	// When adjoin is crossed, wait a moment before moving the elevator
+	if (start_wait > 0) Sleep(start_wait);
+
+do_crossed:
 	if (IsThingMoving(elevator)) return;
 
 	// if entering from the top and elevator is at the bottom

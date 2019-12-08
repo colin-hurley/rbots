@@ -198,6 +198,7 @@ thing		potential		local
 int			obstructed		local
 flex		timeout			local
 int			slashsound		local
+int			reachednode		local
 
 end
 
@@ -494,13 +495,6 @@ trigger:
 		}
 		lastposnum=getparam(2);
 		rundir=getparam(3);
-		tempvector1 = VectorNorm(GetThingVel(rbot));
-		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-		// See if the bot is moving fast and needs to make a sharp turn
-		if (VectorLen(GetThingVel(rbot)) > 0.5 && VectorDot(tempvector1, tempvector2) < 0.25) {
-			// Move to self position to help slow down for sharp turns
-			AiSetMovePos(rbot, GetThingPos(rbot));
-		}
 	}
 	else if (getsourceref() == 11020) // Received special info
 	{
@@ -510,7 +504,7 @@ trigger:
 			// Bot needs to jump
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
-			AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.75)); // increase bot speed toward next node before jump
+			AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.45)); // increase bot speed toward next node before jump
 			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.0)); // force bot to jump
 		}
 		if (BitTest(special, 0x200)) {
@@ -778,6 +772,9 @@ move:
 		return;
 	}
 
+	// Check our progress to the current node and request new node if necessary
+	call checknode;
+
 	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
 	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3) {
 		// Bot is not moving forward, try to determine if it is truly obstructed
@@ -816,7 +813,9 @@ move:
 		// If the bot is obstructed for long enough, try to jump (or swim) up to get over the obstruction
 		if (obstructed) {
 			stopcount = stopcount + 1;
-			if (stopcount > 20) {
+			// Jump at some random delay after reaching the obstruction threshold
+			// This encourages the bot to try slightly different timings for when it decides to jump
+			if (stopcount > 20 && Rand() > 0.25) {
 				// Bot has not moved in several seconds, try to get over the obstruction
 				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 3.0)); // force bot to jump
 				stopcount = 0;
@@ -942,11 +941,31 @@ movenode:
 		return; 
 	}
 
+	call checkspeed;
+
+	// By default, move normally to next node
 	AiSetMovePos(rbot, newpos);
 
+	if (reachednode) {
+		// Just reached new node, see if bot is moving fast and needs to make a sharp turn
+		tempvector1 = VectorNorm(GetThingVel(rbot));
+		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
+		if (VectorLen(GetThingVel(rbot)) > 0.5 && VectorDot(tempvector1, tempvector2) < 0.5) {
+			// If bot is not airborne, move to self position to help slow down for sharp turns
+			// This check is necessary because telling an actor to move to its own position seems to
+			// behave like StopThing and will reset vertical velocity like jumping and falling
+			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000) {
+				AiSetMovePos(rbot, GetThingPos(rbot));
+			}
+		}
+	}
+	return;
+
+checknode:
 	// Call navigation cog for next move position
 	if (VectorDist(GetThingPos(rbot), newpos) < nodesize)
 	{
+		reachednode = 1;
 		if (node != -1) {
 			if (prevnode != node) {
 				// Bot has reached a new node, reset lost counter
@@ -964,7 +983,7 @@ movenode:
 	}
 	else
 	{
-		call checkspeed;
+		reachednode = 0;
 		// Check if bot has fallen
 		tempflex1=VectorZ(newpos);
 		tempflex2=VectorZ(GetThingPos(rbot));

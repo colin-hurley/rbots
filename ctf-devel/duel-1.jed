@@ -12243,7 +12243,7 @@ GHOST -.6 -7.4 1 0 180 0 225 0
 
 GHOST .6 -7.4 1 0 180 0 256 0
 
-GHOST -3.40001 -1.3 .12 0 180 0 164 1
+GHOST -3.36251 -1.475 .12 0 180 0 164 1
 
 GHOST -1.05001 -1.5 .42 0 180 0 169 1
 
@@ -12251,9 +12251,9 @@ GHOST -.00001 -1.5 .66 0 180 0 9 1
 
 GHOST 1.04999 -1.5 .42 0 180 0 10 1
 
-GHOST 3.39999 -1.3 .12 0 0 0 33 1
+GHOST 3.36249 -1.475 .12 0 0 0 33 1
 
-GHOST 3.39999 1.3 .12 0 0 0 81 1
+GHOST 3.36249 1.475 .12 0 0 0 81 1
 
 GHOST 1 1.5 .44 0 180 0 86 1
 
@@ -12261,7 +12261,7 @@ GHOST 0 1.5 .7 0 180 0 107 1
 
 GHOST -1 1.5 .44 0 180 0 141 1
 
-GHOST -3.4 1.325 .11 0 180 0 162 1
+GHOST -3.36251 1.475 .11 0 180 0 162 1
 
 GHOST 3.4 0 .5 0 0 0 37 1
 
@@ -12347,7 +12347,7 @@ CTF_RESPAWN.COG mark_red:sector=286 mark_gold:sector=288
 CTF_ICONSCLIENT.COG
 CTF_SAFEENTRY.COG mark_red:sector=285 mark_gold:sector=287 ghost_red:thing=157 ghost_gold:thing=158
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=-256 respawn_mask2:int=-65281 respawn_mask3:int=0 respawn_mask4:int=0
-rbot-nav.cog dflt_nodesize:flex=0.25
+rbot-nav.cog dflt_nodesize:flex=0.15
 rbot-pathctf.cog node0:thing=195 node1:thing=159 node2:thing=198 node3:thing=160 node4:thing=161 node5:thing=162 node6:thing=200 node7:thing=163 node8:thing=169 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=3 ctf_red_rundir:int=1 ctf_gold_rank:int=3 ctf_gold_rundir:int=0
 rbot-pathctf.cog node0:thing=194 node1:thing=164 node2:thing=201 node3:thing=165 node4:thing=166 node5:thing=167 node6:thing=199 node7:thing=168 node8:thing=170 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=3 ctf_red_rundir:int=0 ctf_gold_rank:int=3 ctf_gold_rundir:int=1
 rbot-pathctf.cog node0:thing=169 node1:thing=171 node2:thing=172 node3:thing=173 node4:thing=174 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=1 ctf_red_rundir:int=1 ctf_gold_rank:int=3 ctf_gold_rundir:int=0
@@ -12356,7 +12356,7 @@ rbot-pathctf.cog node0:thing=161 node1:thing=196 node2:thing=183 node3:thing=197
 rbot-pathctf.cog node0:thing=196 node1:thing=184 node2:thing=174 node3:thing=185 node4:thing=197 node5:thing=186 node6:thing=180 node7:thing=187 node8:thing=196 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=1 ctf_red_rundir:int=1 ctf_gold_rank:int=1 ctf_gold_rundir:int=0
 rbot-pathctf.cog node0:thing=201 node1:thing=188 node2:thing=189 node3:thing=190 node4:thing=175 node5:thing=198 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=2 ctf_red_rundir:int=0 ctf_gold_rank:int=2 ctf_gold_rundir:int=1
 rbot-pathctf.cog node0:thing=199 node1:thing=175 node2:thing=191 node3:thing=192 node4:thing=193 node5:thing=188 node6:thing=200 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=2 ctf_red_rundir:int=1 ctf_gold_rank:int=2 ctf_gold_rundir:int=0
-rbot-special.cog sp0:thing=169 sp1:thing=170 sp2:thing=197 sp3:thing=186 sp4:thing=180 sp5:thing=187 sp6:thing=196 sp7:thing=184 sp8:thing=174 sp9:thing=185 sp10:thing=201 sp11:thing=173 sp12:thing=188 sp13:thing=200 sp14:thing=161 sp15:thing=198 sp16:thing=179 sp17:thing=175 sp18:thing=199 sp19:thing=166 spinf0:int=4 spinf1:int=4 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=2 spinf9:int=2 spinf10:int=2 spinf11:int=2 spinf12:int=2 spinf13:int=2 spinf14:int=2 spinf15:int=2 spinf16:int=2 spinf17:int=2 spinf18:int=2 spinf19:int=2
+rbot-special.cog sp0:thing=169 sp1:thing=170 sp2:thing=197 sp3:thing=186 sp4:thing=180 sp5:thing=187 sp6:thing=196 sp7:thing=184 sp8:thing=174 sp9:thing=185 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=4 spinf1:int=4 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=2 spinf9:int=2 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-srv.cog botid:int=0 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=520 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv2.cog botid:int=0

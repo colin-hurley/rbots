@@ -473,10 +473,9 @@ trigger:
 	{
 		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
 	}
-	else if (getsourceref() == 11000) // New position available
+	else if (GetSourceRef() == 11000) // New position available (1)
 	{
 		node=getparam(1);
-		nodesize = 0.25; // default size unless overridden
 		if (node == -1) {
 			// The nav cog couldn't find a suitable node for the bot, so have
 			// the bot wander off in a random direction instead
@@ -488,13 +487,13 @@ trigger:
 		} else {
 			// Head for the next node
 			newpos = GetThingPos(node);
-			if (GetThingCollideSize(node) > 0.05) {
-				// Custom node size has been specified
-				nodesize = GetThingCollideSize(node);
-			}
 		}
 		lastposnum=getparam(2);
 		rundir=getparam(3);
+	}
+	else if (GetSourceRef() == 11001) // New position available (2)
+	{
+		nodesize = GetParam(1);
 	}
 	else if (getsourceref() == 11020) // Received special info
 	{

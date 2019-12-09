@@ -13,6 +13,10 @@ symbols
 message startup
 message trigger
 
+# The default size for a node.  This is used if the node thing does not have a
+# value set for its "size" property in the JKL.
+flex dflt_nodesize=0.25
+
 # The known paths
 cog path0=-1 local
 cog path1=-1 local
@@ -113,6 +117,7 @@ int looping local
 int new_path_requirements local
 int bot_keys local
 int navspecial local
+flex nodesize local
 
 end
 
@@ -360,14 +365,20 @@ trigger:
 		}
 
 		// Update bot navigation state
+		nodesize = dflt_nodesize;
 		if (node == -1) {
 			// Couldn't find a node for the bot
 			nextposnum = -1;
 		} else {
 			// Found a node, synthesize a legacy index number to identify the path and node for later updates
 			nextposnum = path_index * path_size_max + node_index;
+			if (GetThingCollideSize(node) > 0.01) {
+				// Custom node size has been specified
+				nodesize = GetThingCollideSize(node);
+			}
 		}
 		SendTrigger(-1, 11000, botid, node, nextposnum, rundir);
+		SendTrigger(-1, 11001, botid, nodesize, -1, -1);
 		return;
 	}
 

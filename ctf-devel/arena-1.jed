@@ -19075,7 +19075,7 @@ MANABOOST -1.349885 -1.249811 1.080601 0 0 0 244 0
 MANABOOST 1.350115 -1.249811 1.080601 0 0 0 245 0
 
 GHOST -.000108 -1.158169 .178589 0 0 0 193 1
- size=0.15
+
 GHOST -.000108 -.008169 .018589 0 0 0 6 1
 
 GHOST -.000108 -.008169 -.461411 0 0 0 23 1
@@ -19085,17 +19085,17 @@ GHOST 1.05 2.1 -.4 0 180 0 95 1
 GHOST -.649999 2.3 -.449999 0 0 0 320 1
  size=0.1
 GHOST -.650108 3.816831 .140001 0 0 0 35 1
- size=0.15
+
 GHOST 0 3.8 .140001 0 0 0 37 1
  size=0.1
 GHOST 0 1.15 .18 0 0 0 18 1
- size=0.15
+
 GHOST -1.05 -2.15 -.4 0 180 0 185 1
 
 GHOST .650001 -2.3125 -.449999 0 0 0 324 1
  size=0.1
 GHOST .650001 -3.825 .140001 0 0 0 208 1
- size=0.15
+
 GHOST 0 -3.8 .140001 0 0 0 210 1
  size=0.1
 GHOST -.5 -1.65 1.2 0 0 0 235 1
@@ -19143,35 +19143,35 @@ GHOST 1.2 -2.15 1.2 0 0 0 220 1
 GHOST .1 -2.15 1.2 0 0 0 205 1
 
 GHOST 0 -4.4 .140001 0 0 0 201 1
- size=0.15
+
 GHOST 1.35 -4.4 .140001 0 0 0 194 1
- size=0.15
+
 GHOST 1.35 -1.7 .140001 0 0 0 198 1
- size=0.15
+
 GHOST 0 -1.7 .140001 0 0 0 193 1
- size=0.15
+
 GHOST -1.4 -1.7 .140001 0 0 0 195 1
- size=0.15
+
 GHOST -1.35 -4.4 .140001 0 0 0 202 1
- size=0.15
+
 GHOST 0 4.4 .140001 0 0 0 65 1
- size=0.15
+
 GHOST -1.35 4.4 .140001 0 0 0 19 1
- size=0.15
+
 GHOST -1.35 1.7 .140001 0 0 0 55 1
- size=0.15
+
 GHOST 0 1.7 .140001 0 0 0 18 1
- size=0.15
+
 GHOST 1.35 1.7 .140001 0 0 0 20 1
- size=0.15
+
 GHOST 1.35 4.4 .140001 0 0 0 66 1
- size=0.15
+
 GHOST -.000108 -.558169 .178589 0 0 0 6 1
- size=0.15
+
 GHOST -.500108 -.008169 .178589 0 0 0 6 1
 
 GHOST -.000108 .591831 .178589 0 0 0 6 1
- size=0.15
+
 ghost 0 -1.75 -.45 0 0 0 176 1
 
 ghost 0 1.75 -.45 0 180 0 33 1
@@ -19185,9 +19185,9 @@ ghost .000001 -2.85 .412501 0 180 0 210 1
 ghost .000001 -2.15 -.449999 0 180 0 207 1
 
 ghost 0 1.6 .7 0 0 0 62 1
- size=0.15
+
 ghost 0 -1.6 .7 0 0 0 217 1
- size=0.15
+
 END
 
 SEC: LIGHTS
@@ -19223,7 +19223,7 @@ CTF_ICONSCLIENT.COG
 C2_BREAKINGGLASSCLIENT.COG
 CTF_SAFEENTRY.COG mark_red:sector=357 mark_gold:sector=355 ghost_red:thing=250 ghost_gold:thing=249
 rbot-startup.cog numbots:int=6 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=-256 respawn_mask2:int=-65281 respawn_mask3:int=0 respawn_mask4:int=0
-rbot-nav.cog
+rbot-nav.cog dflt_nodesize:flex=0.15
 rbot-pathctf.cog node0:thing=311 node1:thing=255 node2:thing=256 node3:thing=257 node4:thing=305 node5:thing=258 node6:thing=307 node7:thing=259 node8:thing=260 node9:thing=261 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=2 ctf_red_rundir:int=1 ctf_gold_rank:int=-1 ctf_gold_rundir:int=-1
 rbot-pathctf.cog node0:thing=310 node1:thing=262 node2:thing=256 node3:thing=257 node4:thing=304 node5:thing=263 node6:thing=309 node7:thing=264 node8:thing=265 node9:thing=266 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=-1 ctf_red_rundir:int=-1 ctf_gold_rank:int=2 ctf_gold_rundir:int=1
 rbot-pathctf.cog node0:thing=267 node1:thing=268 node2:thing=269 node3:thing=270 node4:thing=271 node5:thing=272 node6:thing=273 node7:thing=274 node8:thing=267 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=-1 ctf_red_rundir:int=-1 ctf_gold_rank:int=-1 ctf_gold_rundir:int=-1

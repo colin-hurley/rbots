@@ -6115,7 +6115,7 @@ World cogs 194
 2: rbot-autoelev.cog 6 18 26 -1 -1 -1 -1 0.25 2 8 beep1.wav
 3: rbot-window.cog 528 500 49 50 0 00industrialamb02.wav 00industrialamb01.wav (.696451/0/.717337) 1 4 49 64 gantrydamwindow
 4: rbot-startup.cog 3 1 1 1 2 0 0 0 0 0
-5: rbot-nav.cog
+5: rbot-nav.cog 0.25
 6: rbot-path.cog 85 86 87 88 89 90 91 92 93 94 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 7: rbot-path.cog 94 95 96 97 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 8: rbot-path.cog 88 100 101 102 103 104 105 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0

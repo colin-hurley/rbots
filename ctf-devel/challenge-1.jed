@@ -37885,59 +37885,59 @@ MANABOOST -4.213788 .160069 -.419399 0 0 0 529 0
 ghost -3.694647 .993803 2.645792 0 0 0 617 1
  size=0.1
 ghost -4.207147 .993803 2.645792 0 0 0 617 1
- THINGFLAGS=0x2000000 size=0.15
+ THINGFLAGS=0x2000000
 ghost -4.207147 .993803 -.329208 0 0 0 530 1
- size=0.15
-ghost -4.215021 -.832267 -.329208 0 0 0 791 1
- THINGFLAGS=0x2000000 size=0.15
-ghost -4.215021 -.832267 -1.241708 0 0 0 791 1
 
+ghost -4.215021 -.832267 -.329208 0 0 0 791 1
+ THINGFLAGS=0x2000000
+ghost -4.215021 -.832267 -1.241708 0 0 0 791 1
+ size=0.25
 ghost -4.91397 -2.74377 -1.242386 0 0 0 455 1
- size=0.15
+
 ghost -3.76397 -2.69377 -1.242386 0 0 0 447 1
  size=0.2
 ghost -3.71397 -.96877 -1.242386 0 0 0 459 1
-
+ size=0.25
 ghost -3.76397 1.03123 -1.242386 0 0 0 444 1
  size=0.2
 ghost -4.91397 1.03123 -1.242386 0 0 0 461 1
-
+ size=0.25
 ghost -6.03897 1.03123 -1.242386 0 0 0 445 1
  size=0.2
 ghost -6.11397 -.96877 -1.242386 0 0 0 457 1
-
+ size=0.25
 ghost -6.03897 -2.69377 -1.242386 0 0 0 450 1
  size=0.2
 ghost -4.91397 -2.31877 -1.242386 0 0 0 700 1
- size=0.15
+
 ghost -4.21286 -1.60586 -1.242386 0 0 0 700 1
- size=0.15
+
 ghost -4.91397 -.89377 -1.242386 0 0 0 705 1
- size=0.15
+
 ghost -5.62536 -1.60586 -1.242386 0 0 0 700 1
- size=0.15
+
 GHOST -4.91286 -1.60586 -2.5125 0 180 0 464 1
-
+ size=0.25
 GHOST -4.91286 -.33086 -2.6125 0 180 0 469 1
-
+ size=0.25
 GHOST -4.43786 -.33086 -5.1625 0 180 0 486 1
-
+ size=0.25
 GHOST -2.66286 -.18086 -5.0625 0 180 0 474 1
-
+ size=0.25
 GHOST -.78786 .11914 -5.1375 0 180 0 487 1
-
+ size=0.25
 GHOST .66214 -.00586 -5.1625 0 180 0 488 1
-
+ size=0.25
 GHOST .98714 -.00586 -2.5375 0 180 0 470 1
-
+ size=0.25
 GHOST 2.91214 -.00586 -2.5125 0 180 0 441 1
-
+ size=0.25
 GHOST -.78786 .86914 -4.9875 0 180 0 482 1
  size=0.2
 GHOST -.83786 .69414 -2.1625 0 180 0 768 1
  size=0.1
 GHOST -1.21286 1.24414 -1.7625 0 180 0 477 1
-
+ size=0.25
 GHOST -1.30036 1.24414 .138469 0 180 0 477 1
  THINGFLAGS=0x2000000
 ghost -1.72268 1.222812 .138469 0 180 0 84 1
@@ -37949,43 +37949,43 @@ ghost -1.24952 1.776706 .138469 0 180 0 88 1
 ghost -1.29952 2.251706 .138469 0 180 0 91 1
  size=0.1
 ghost -3.89768 2.285312 .138469 0 180 0 105 1
-
+ size=0.25
 ghost -7.08518 2.310312 .138469 0 180 0 716 1
  size=0.1
 ghost -7.04952 .926706 .138469 0 180 0 142 1
  size=0.1
 ghost -5.79952 .914206 .138469 0 180 0 117 1
- size=0.15
+
 ghost -5.46202 .426706 .138469 0 180 0 119 1
- size=0.15
+
 ghost -5.78702 -.035794 .138469 0 180 0 121 1
- size=0.15
+
 ghost -6.24952 -.073294 .138469 0 180 0 115 1
- size=0.15
+
 ghost -6.59952 -.073294 .138469 0 180 0 111 1
  size=0.1
 ghost -6.59952 -.073294 2.400969 0 180 0 111 1
  THINGFLAGS=0x2000000 size=0.1
 ghost -6.24952 -.073294 2.400969 0 180 0 113 1
- size=0.15
+
 ghost -5.61202 -.073294 2.400969 0 180 0 113 1
-
+ size=0.25
 ghost -5.74952 .651706 2.400969 0 180 0 112 1
- size=0.15
+
 ghost -5.61202 1.301706 2.400969 0 180 0 107 1
- size=0.15
+
 ghost -4.39952 1.426706 2.400969 0 180 0 97 1
-
+ size=0.25
 ghost -2.83702 1.364206 2.650969 0 180 0 68 1
- size=0.15
+
 ghost -2.59952 .751706 2.650969 0 180 0 65 1
- size=0.15
+
 ghost -2.59952 .026706 2.650969 0 180 0 9 1
-
+ size=0.25
 ghost -3.71202 .176706 2.650969 0 180 0 9 1
-
+ size=0.25
 ghost -3.86202 -.910794 2.725969 0 180 0 19 1
- size=0.15
+
 ghost -4.37452 -1.635794 2.200969 0 180 0 22 1
  size=0.4
 ghost -4.92452 -.773294 1.688469 0 180 0 23 1
@@ -37997,9 +37997,9 @@ ghost -3.79952 -.760794 .650969 0 180 0 31 1
 ghost -4.37452 -1.635794 .063469 0 180 0 38 1
  size=0.4
 ghost -4.89952 -.735794 -.461531 0 180 0 42 1
- size=0.15
-ghost -4.89952 .926706 -.461531 0 180 0 59 1
 
+ghost -4.89952 .926706 -.461531 0 180 0 59 1
+ size=0.25
 ghost -5.61202 -.523294 2.400969 0 180 0 505 1
  size=0.1
 ghost -5.61202 -.835794 2.400969 0 180 0 790 1
@@ -38007,13 +38007,13 @@ ghost -5.61202 -.835794 2.400969 0 180 0 790 1
 ghost -5.61202 -.835794 -1.242386 0 180 0 790 1
  size=0.1
 ghost -1.43518 .635312 .138469 0 180 0 0 1
- size=0.15
-ghost -1.475 -.75 .138469 0 180 0 0 1
- size=0.15
-ghost -2.04952 -1.760794 .138469 0 180 0 392 1
- size=0.15
-ghost 2.41298 -1.723294 .138469 0 180 0 359 1
 
+ghost -1.475 -.75 .138469 0 180 0 0 1
+
+ghost -2.04952 -1.760794 .138469 0 180 0 392 1
+
+ghost 2.41298 -1.723294 .138469 0 180 0 359 1
+ size=0.25
 ghost 3.26298 2.051706 .138469 0 180 0 386 1
  size=0.1
 ghost 3.70232 2.010312 .138469 0 180 0 380 1
@@ -38021,99 +38021,99 @@ ghost 3.70232 2.010312 .138469 0 180 0 380 1
 ghost 3.70232 2.010312 2.125969 0 180 0 380 1
  size=0.1 THINGFLAGS=0x2000000
 ghost 4.06482 2.047812 2.125969 0 180 0 379 1
- size=0.15
+
 ghost 4.05232 2.460312 2.125969 0 180 0 377 1
- size=0.15
+
 ghost 3.46482 2.447812 2.125969 0 180 0 605 1
- size=0.15
+
 ghost 2.15232 2.460312 2.125969 0 180 0 606 1
- size=0.15
+
 ghost 2.15232 .647812 2.125969 0 180 0 793 1
- size=0.15 THINGFLAGS=0x2000000
+ THINGFLAGS=0x2000000
 ghost 2.15232 .647812 -1.186531 0 180 0 793 1
- size=0.15
+
 ghost 3.97732 2.810312 2.125969 0 180 0 377 1
- size=0.15
+
 ghost .95232 2.797812 2.438469 0 180 0 305 1
  size=0.1
 ghost -.26157 1.776401 2.67887 0 180 0 156 1
- size=0.15
+
 ghost .08843 1.426401 2.67887 0 180 0 156 1
- size=0.15
+
 ghost .82593 .651401 2.67887 0 180 0 156 1
-
+ size=0.25
 ghost .82593 -.648599 2.67887 0 180 0 408 1
-
+ size=0.25
 ghost .11343 -1.473599 2.67887 0 180 0 408 1
- size=0.15
+
 ghost -.62407 -1.748599 2.67887 0 180 0 404 1
- size=0.15
+
 ghost -1.86157 -1.748599 2.67887 0 180 0 393 1
-
+ size=0.25
 GHOST -2.59907 -1.748599 2.67887 0 0 0 399 1
- size=0.15
-ghost 1.26343 2.413901 2.67887 0 180 0 165 1
- size=0.15
-ghost 2.27593 1.976401 2.67887 0 180 0 171 1
- size=0.15
-ghost 2.39846 -.000033 2.67887 0 180 0 192 1
- size=0.15
-ghost 2.27593 -1.998599 2.67887 0 180 0 181 1
- size=0.15
-ghost 1.26343 -2.411099 2.67887 0 180 0 174 1
- size=0.15
-ghost 1.64846 -.000033 2.10387 0 180 0 522 1
 
+ghost 1.26343 2.413901 2.67887 0 180 0 165 1
+
+ghost 2.27593 1.976401 2.67887 0 180 0 171 1
+
+ghost 2.39846 -.000033 2.67887 0 180 0 192 1
+
+ghost 2.27593 -1.998599 2.67887 0 180 0 181 1
+
+ghost 1.26343 -2.411099 2.67887 0 180 0 174 1
+
+ghost 1.64846 -.000033 2.10387 0 180 0 522 1
+ size=0.25
 ghost 1.79846 -.000033 .998155 0 180 0 521 1
  size=0.4
 ghost 3.92346 -.000033 .585655 0 180 0 428 1
-
+ size=0.25
 ghost 4.18756 -.000033 -1.179886 0 180 0 419 1
-
+ size=0.25
 ghost 3.95006 -1.212533 -1.179886 0 180 0 416 1
- size=0.15
+
 ghost 1.90006 -1.212533 -1.179886 0 180 0 420 1
- size=0.15
+
 ghost 1.73756 -.037533 -1.179886 0 180 0 439 1
- size=0.15
+
 ghost 1.91256 1.124967 -1.179886 0 180 0 423 1
- size=0.15
+
 ghost 3.95006 1.124967 -1.179886 0 180 0 418 1
- size=0.15
+
 ghost 2.20006 -.050033 -1.179886 0 180 0 512 1
- size=0.15
+
 ghost 2.92506 -.750033 -1.179886 0 180 0 693 1
- size=0.15
+
 ghost 3.60006 -.050033 -1.179886 0 180 0 696 1
- size=0.15
+
 ghost 2.92506 .649967 -1.179886 0 180 0 693 1
- size=0.15
+
 ghost 2.15006 -.750033 -1.179886 0 180 0 792 1
  size=0.1
 ghost 2.15006 -.750033 2.307614 0 180 0 792 1
  THINGFLAGS=0x2000000
 ghost 2.81256 -.750033 2.620114 0 180 0 516 1
-
+ size=0.25
 ghost 2.82506 .162467 2.670114 0 180 0 224 1
-
+ size=0.25
 ghost 1.96096 -.000033 2.44137 0 180 0 187 1
  size=0.1
 ghost -4.91397 -2.33127 -1.254886 0 0 0 700 1
- size=0.15
+
 ghost -4.91397 -1.60627 -1.242386 0 0 0 700 1
-
+ size=0.25
 ghost 2.18756 -.050033 -1.204886 0 180 0 512 1
- size=0.15
-ghost 2.92506 -.050033 -1.179886 0 180 0 693 1
- size=0.15
-ghost 3.23798 -.773294 .138469 0 180 0 368 1
 
+ghost 2.92506 -.050033 -1.179886 0 180 0 693 1
+
+ghost 3.23798 -.773294 .138469 0 180 0 368 1
+ size=0.25
 ghost -.62536 1.09414 -1.95 0 180 0 479 1
- size=0.15
+
 ghost 2.15232 .272812 -1.186531 0 180 0 512 1
  size=0.1
 ghost -5.61202 -1.173294 -1.242386 0 180 0 700 1
- size=0.15
+
 END
 
 SEC: LIGHTS
@@ -38233,7 +38233,7 @@ rbot-srv-force.cog botid:int=15 forceflags:int=7695
 rbot-srv2.cog botid:int=15
 rbot-skin.cog skinid:int=101 rtemp:template=rbot_kylered weapmesh0:model=red-0.3do weapmesh1:model=red-1.3do weapmesh2:model=red-2.3do weapmesh3:model=red-3.3do weapmesh4:model=red-4.3do weapmesh5:model=red-5.3do weapmesh6:model=red-6.3do weapmesh7:model=red-7.3do weapmesh8:model=red-8.3do weapmesh9:model=red-9.3do weapmesh10:model=red-10.3do
 rbot-skin.cog skinid:int=102 rtemp:template=rbot_kylegold weapmesh0:model=yel-0.3do weapmesh1:model=yel-1.3do weapmesh2:model=yel-2.3do weapmesh3:model=yel-3.3do weapmesh4:model=yel-4.3do weapmesh5:model=yel-5.3do weapmesh6:model=yel-6.3do weapmesh7:model=yel-7.3do weapmesh8:model=yel-8.3do weapmesh9:model=yel-9.3do weapmesh10:model=yel-10.3do
-rbot-nav.cog
+rbot-nav.cog dflt_nodesize:flex=0.15
 rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=402 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=432 sp7:thing=453 sp8:thing=455 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=4 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=2 spinf7:int=4 spinf8:int=4 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-special-sector.cog sp0:sector=91 sp1:sector=105 sp2:sector=142 sp3:sector=513 sp4:sector=700 sp5:sector=693 sp6:sector=512 sp7:sector=790 sp8:sector=793 sp9:sector=-1 sp10:sector=121 sp11:sector=123 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=1024 spinf1:int=1024 spinf2:int=1024 spinf3:int=2 spinf4:int=1024 spinf5:int=1024 spinf6:int=1024 spinf7:int=1024 spinf8:int=1024 spinf9:int=0 spinf10:int=1024 spinf11:int=1024 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-pathctf.cog node0:thing=350 node1:thing=453 node2:thing=454 node3:thing=-1 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 ctf_red_rank:int=100 ctf_red_rundir:int=1 ctf_gold_rank:int=-1 ctf_gold_rundir:int=-1

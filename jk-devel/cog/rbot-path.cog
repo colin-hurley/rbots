@@ -1,4 +1,4 @@
-# Rbot Path Cog (Generic)
+# Rbot Path Cog
 #
 # Server-only
 # Type ID: 1001
@@ -10,10 +10,14 @@ flags=0x40
 
 symbols
 
-message startup
-message user0
-message user1
-message user2
+message	startup
+message	trigger
+message	user0
+message	user1
+message	user2
+
+# An identifier for this path
+int		pathid
 
 # The nodes that comprise this path
 thing node0=-1 nolink
@@ -78,6 +82,7 @@ flex buffer3 local
 
 # Working variables
 int i local
+thing rbot local
 int path_rank local
 int path_rundir local
 
@@ -104,6 +109,21 @@ startup:
 	if (!nonlooping && node0[0] == node0[path_size - 1]) {
 		// Beginning and end meet at a common node, treat thsi path as a loop
 		looping = 1;
+	}
+
+	return;
+
+trigger:
+	// Server-only
+	if (!IsServer()) return;
+
+	if (GetSourceRef() == 13110) // Path info response
+	{
+		if (GetParam(0) != pathid) return;
+
+		path_rank = GetParam(1);
+		path_rundir = GetParam(2);
+		return;
 	}
 
 	return;
@@ -136,11 +156,14 @@ user0:
 user1:
 	if (GetParam(0) == 200) {
 		// Path rank and run direction
-		// Param 1 = bot thing
+		rbot = GetParam(1);
 
-		// No obligation to stay on current path
+		// See if there's any custom path info for this path
+		// Note: Responding to this trigger is optional, so assume no path info
+		// unless we receive some via trigger response.
 		path_rank = -1;
 		path_rundir = -1;
+		SendTrigger(-1, 13100, pathid, rbot, -1, -1);
 		if (unidirectional) {
 			// Must run forward on this path
 			path_rundir = 1;

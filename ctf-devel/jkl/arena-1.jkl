@@ -37216,7 +37216,7 @@ World scripts 53
 45: rbot-pathinfo-ctf.cog
 46: rbot-player.cog
 47: rbot-skin.cog
-48: rbot-special.cog
+48: rbot-special-sector.cog
 49: rbot-srv.cog
 50: rbot-srv2.cog
 51: rbot-srv-force.cog
@@ -37266,7 +37266,7 @@ World cogs 143
 36: rbot-path.cog 8 289 266 308 311 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 37: rbot-path.cog 9 292 255 301 302 303 262 298 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
 38: rbot-pathinfo-ctf.cog 0 1 2 3 4 5 6 7 8 9 2 -1 -1 -1 -1 -1 2 3 -1 1 1 -1 -1 -1 -1 -1 1 1 -1 1 -1 2 -1 -1 -1 2 -1 -1 3 1 -1 1 -1 -1 -1 1 -1 -1 1 0
-39: rbot-special.cog 266 261 265 260 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+39: rbot-special-sector.cog 34 320 35 37 207 324 208 210 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 1024 1024 1024 1024 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0
 40: rbot-srv.cog 0 -1 -1 1 520 101
 41: rbot-srv-force.cog 0 255
 42: rbot-srv2.cog 0

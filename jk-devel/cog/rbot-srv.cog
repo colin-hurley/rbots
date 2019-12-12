@@ -178,7 +178,7 @@ vector		tempvector1		local
 vector		tempvector2		local
 vector		tempvector3		local
 vector		tempvector4		local
-flex		disttotarg		local
+flex		dist			local
 int			mode			local
 flex		dot				local
 flex		choice			local
@@ -503,7 +503,7 @@ trigger:
 			// Bot needs to jump
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
-			AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.45)); // increase bot speed toward next node before jump
+			//AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.3)); // increase bot speed toward next node before jump
 			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.0)); // force bot to jump
 		}
 		if (BitTest(special, 0x200)) {
@@ -851,12 +851,15 @@ move:
 	{
 		bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
 		if (BitTest(botmode,0x4000)) newitempriority=5; else newitempriority=-1; // bot has target - only pick up high priority items
-		dot=100;
+		dist = 100;
 		item = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 3, 0x020); // check if any items nearby
 		while (item != -1)
 		{
 			// Find closest takable item that bot needs
-			if (HasLos(rbot, item)) // bot can see it
+			tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(item));
+			tempflex2 = VectorZ(GetThingPos(item)) - VectorZ(GetThingPos(rbot));
+			if (tempflex2 < 0) tempflex2 = -tempflex2; // tempflex2 = abs(tempflex2)
+			if (HasLOS(rbot, item) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // bot can see it and is close enough and item not too high/low
 			{
 				newitemmodel=GetThingModel(item);
 				itempriority=-1;
@@ -887,8 +890,7 @@ move:
 					}
 				}
 
-				tempflex1=VectorDist(GetThingPos(rbot), GetThingPos(item));
-				if (tempflex1 > 0.2 && tempflex1 < dot) // item is greater than 0.2 away and is closer than the last item checked
+				if (tempflex1 > 0.2 && tempflex1 < dist) // item is greater than 0.2 away and is closer than the last item checked
 				{
 					if (newitemmodel==itemmodel16 && !BitTest(bot_keys, 0x1)) itempriority=9; // CTF red key
 					if (newitemmodel==itemmodel17 && !BitTest(bot_keys, 0x2)) itempriority=9; // CTF gold key
@@ -902,21 +904,21 @@ move:
 				if (itempriority > newitempriority) // higher priority
 				{
 					newitem=item;
-					dot=tempflex1;
+					dist=tempflex1;
 					newitempriority=itempriority;
 				}
-				else item = NextThingInView();
 			}
-			else item = NextThingInView();
-
+			item = NextThingInView();
 		}
 		if (newitem != -1)
 		{
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, getthingpos(newitem)); // only look at new item if no target
 			AiSetMovePos(rbot, getthingpos(newitem)); // move towards new item
 			call checkspeed;
-			KillTimerEx(120); // stop 'bot lost' timeout
-			SetTimerEx(5.0, 120, -1, -1); // bot has 5 sec to reach item before it's 'lost'
+			// Reset the 'bot lost' timeout every pulse where the bot is going after an item
+			// After reaching the item, bot has 5 sec to get back to the next node before 'bot lost'
+			KillTimerEx(120); // Reset the 'bot lost' timeout
+			SetTimerEx(5.0, 120, -1, -1);
 			return;
 		}
 	}
@@ -949,7 +951,7 @@ movenode:
 		// Just reached new node, see if bot is moving fast and needs to make a sharp turn
 		tempvector1 = VectorNorm(GetThingVel(rbot));
 		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-		if (VectorLen(GetThingVel(rbot)) > 0.5 && VectorDot(tempvector1, tempvector2) < 0.5) {
+		if (VectorLen(GetThingVel(rbot)) > 0.4 && VectorDot(tempvector1, tempvector2) < 0.7) {
 			// If bot is not airborne, move to self position to help slow down for sharp turns
 			// This check is necessary because telling an actor to move to its own position seems to
 			// behave like StopThing and will reset vertical velocity like jumping and falling
@@ -1035,7 +1037,7 @@ dodge:
 targettactics:
 	//******************Begin AI Tactics********************
 	relpos=VectorSet(0.0, 0.0, VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
-	disttotarg=VectorDist(GetThingPos(rbot), GetThingPos(target));
+	dist=VectorDist(GetThingPos(rbot), GetThingPos(target));
 
 	//Get the current weapon of our target
 	if (GetThingType(target) == 2) // target is another bot
@@ -1060,7 +1062,7 @@ targettactics:
 	}
 
 	// If bot not close enough to target move towards it
-	if (disttotarg > 0.4)
+	if (dist > 0.4)
 	{
 		if (difficulty < 3)
 		{

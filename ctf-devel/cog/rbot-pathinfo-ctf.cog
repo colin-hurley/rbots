@@ -201,7 +201,7 @@ trigger:
 		if (rank == -1) return; // There is no path info to return for this path right now
 
 		// Send response
-		SendTrigger(-1, 13110, pathid, rank, rundir, -1);
+		SendTrigger(-1, 13110, pathid, rank, rundir, -1); // Path info response
 		return;
 	}
 

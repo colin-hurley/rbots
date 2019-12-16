@@ -142,7 +142,9 @@ int			curbotname		local
 int			curbotskinid	local
 int			curweap			local
 thing		node			local
+sector		nodesec			local
 flex		nodesize		local
+int			nodeflags		local
 vector		waitpos			local
 vector		lastbotpos		local
 vector		newpos			local
@@ -439,7 +441,9 @@ trigger:
 		node=-1;
 		lastbotpos=GetThingPos(rbot);
 		newpos='0 0 0';
+		nodesec=0;
 		nodesize=0.25;
+		nodeflags=0;
 		lastposnum=-1;
 		arrival_event=-1;
 		prevnode=-1;
@@ -472,28 +476,6 @@ trigger:
 	else if (getsourceref() == 960 && BitTest(botmode,0x10000)) // query bot thing number and bot is alive
 	{
 		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
-	}
-	else if (GetSourceRef() == 11000) // New position available (1)
-	{
-		node=getparam(1);
-		if (node == -1) {
-			// The nav cog couldn't find a suitable node for the bot, so have
-			// the bot wander off in a random direction instead
-			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
-			newpos = VectorAdd(GetThingPos(rbot), relpos);
-			// Use shorter 'bot lost' timer so we check for nearby nodes more frequently
-			KillTimerEx(120);
-			SetTimerEx(3.0, 120, -1, -1);
-		} else {
-			// Head for the next node
-			newpos = GetThingPos(node);
-		}
-		lastposnum=getparam(2);
-		rundir=getparam(3);
-	}
-	else if (GetSourceRef() == 11001) // New position available (2)
-	{
-		nodesize = GetParam(1);
 	}
 	else if (getsourceref() == 11020) // Received special info
 	{
@@ -545,6 +527,33 @@ trigger:
 			KillTimerEx(120);
 			SetTimerEx(8.0, 120, -1, -1);
 		}
+	}
+	else if (GetSourceRef() == 13010) // New position available (1)
+	{
+		node = GetParam(1);
+		nodesize = GetParam(2);
+		rundir = GetParam(3);
+	}
+	else if (GetSourceRef() == 13011) // New position available (2)
+	{
+		if (node == -1) {
+			// The nav cog couldn't find a suitable node for the bot, so have
+			// the bot wander off in a random direction instead
+			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
+			newpos = VectorAdd(GetThingPos(rbot), relpos);
+			// Use shorter 'bot lost' timer so we check for nearby nodes more frequently
+			KillTimerEx(120);
+			SetTimerEx(3.0, 120, -1, -1);
+		} else {
+			// Head for the next node
+			newpos = VectorSet(GetParam(1), GetParam(2), GetParam(3));
+		}
+	}
+	else if (GetSourceRef() == 13012) // New position available (3)
+	{
+		lastposnum = GetParam(1);
+		nodesec = GetParam(2);
+		nodeflags = GetParam(3);
 	}
 	else if (getsourceref() == 100001) // New info available
 	{
@@ -980,7 +989,7 @@ checknode:
 		SetTimerEx(8.0, 120, -1, -1); 
 		SendTrigger(-1, 11010, botid, rbot, node, -1); // ask for special info on current pos
 		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
-		SendTrigger(-1, 10000, botid, rbot, botmode, lastposnum); // ask for new pos
+		SendTrigger(-1, 13000, botid, rbot, botmode, lastposnum); // ask for new pos
 	}
 	else
 	{
@@ -988,7 +997,7 @@ checknode:
 		// Check if bot has fallen
 		tempflex1=VectorZ(newpos);
 		tempflex2=VectorZ(GetThingPos(rbot));
-		if (node != -1 && (tempflex1 > tempflex2) && !(getthingflags(node) & 0x2000000)) // if new pos is higher than bot pos & new pos is not in water
+		if (node != -1 && (tempflex1 > tempflex2) && !BitTest(nodeflags, 0x2000000)) // if new pos is higher than bot pos & new pos is not in water
 		{
 			tempvector1=VectorSet(0,0,VectorZ(newpos));
 			tempvector2=VectorSet(0,0,VectorZ(GetThingPos(rbot)));
@@ -1156,7 +1165,7 @@ timer:
 
 		// Request new node
 		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
-		SendTrigger(-1, 10000, botid, rbot, botmode, -1);
+		SendTrigger(-1, 13000, botid, rbot, botmode, -1);
 	}
 	else if (GetSenderId() == 150) // Drowning damage should be over by now
 	{
@@ -1231,7 +1240,13 @@ user7:
 	else if (GetParam(0) == 1005) ReturnEx(difficulty);
 	else if (GetParam(0) == 1010) ReturnEx(target);
 	else if (GetParam(0) == 1011) ReturnEx(newitem);
-	else if (GetParam(0) == 1012) ReturnEx(node);
+	else if (GetParam(0) == 1012) {
+		if (GetParam(1) <= 0) ReturnEx(node);
+		if (GetParam(1) == 1) ReturnEx(VectorX(newpos));
+		if (GetParam(1) == 2) ReturnEx(VectorY(newpos));
+		if (GetParam(1) == 3) ReturnEx(VectorZ(newpos));
+		if (GetParam(1) == 4) ReturnEx(nodesec);
+	}
 	else if (GetParam(0) == 1013) ReturnEx(rbot);
 	else if (GetParam(0) == 1014) ReturnEx(curweap);
 	else if (GetParam(0) == 1015) ReturnEx(targweap);

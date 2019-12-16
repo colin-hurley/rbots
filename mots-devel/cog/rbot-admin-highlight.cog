@@ -20,12 +20,22 @@ message pulse
 
 int active=0 local
 
+# We can't dynamically create 'ghost' things (they can only be statically
+# placed in the JKL), so we create '_ghostdecor' things instead, which are
+# virtually identical.
+template	ghost=_ghostdecor	local
+
 cog srv=-1 local
 int botmode local
 thing target local
 thing enemy local
 thing item local
-thing node local
+thing nodeghost=-1 local
+flex nodeposx local
+flex nodeposy local
+flex nodeposz local
+vector nodepos local
+sector nodesec local
 
 end
 
@@ -40,6 +50,7 @@ shutdown:
 	// Reinitialize to default values when exiting level
 	active = 0;
 	srv = -1;
+	nodeghost = -1;
 	return;
 
 // Execute
@@ -53,6 +64,10 @@ user0:
 		Print("Highlighter off");
 		SetPulse(0);
 		jkEndTarget();
+		if (nodeghost != -1) {
+			DestroyThing(nodeghost);
+			nodeghost = -1;
+		}
 	}
 	return;
 
@@ -77,7 +92,11 @@ pulse:
 			// Bot is alive
 			enemy = SendMessageEx(srv, user7, 1010, -1, -1, -1);
 			item = SendMessageEx(srv, user7, 1011, -1, -1, -1);
-			node = SendMessageEx(srv, user7, 1012, -1, -1, -1);
+			nodeposx = SendMessageEx(srv, user7, 1012, 1, -1, -1);
+			nodeposy = SendMessageEx(srv, user7, 1012, 2, -1, -1);
+			nodeposz = SendMessageEx(srv, user7, 1012, 3, -1, -1);
+			nodepos = VectorSet(nodeposx, nodeposy, nodeposz);
+			nodesec = SendMessageEx(srv, user7, 1012, 4, -1, -1);
 			if (BitTest(botmode, 0x4000)) {
 				// Bot has enemy target
 				jkSetTargetColors(6, 7, 8); // Red
@@ -89,7 +108,11 @@ pulse:
 			} else {
 				// Otherwise, highlight the bot's destination node
 				jkSetTargetColors(16, 17, 18); // Light Blue
-				target = node;
+
+				// Create a temporary ghost thing that we can use to "highlight" the node position
+				if (nodeghost != -1) DestroyThing(nodeghost); // Remove previous ghost
+				nodeghost = CreateThingAtPos(ghost, nodesec, nodepos, '0 0 0'); // Create new ghost with correct position and sector
+				target = nodeghost;
 			}
 		}
 	}

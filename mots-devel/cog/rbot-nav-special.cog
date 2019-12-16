@@ -68,7 +68,7 @@ code
 trigger:
 	if (!IsServer()) return;
 	
-	if (GetSourceRef() == 11060) {
+	if (GetSourceRef() == 13120) {
 		// Special info request from nav
 		node = GetParam(0);
 
@@ -78,7 +78,7 @@ trigger:
 			if (navsp0[i] == node) special = navspinf0[i]; // current pos is also a special node
 		}
 		if (special) {
-			SendTrigger(-1, 11070, special, -1, -1, -1); // send special info to nav
+			SendTrigger(-1, 13130, special, -1, -1, -1); // send special info to nav
 		}
 	}
 	return;

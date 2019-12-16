@@ -6349,7 +6349,7 @@ end
 
 Section: TEMPLATES
 
-World templates 156
+World templates 157
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
@@ -6449,6 +6449,7 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 _structure        _decor             collide=3 thingflags=0x8
 _humanactor       _actor             size=0.065000 movesize=0.065000 surfdrag=3.000000 airdrag=0.500000 maxvel=0.500000 maxthrust=0.80 typeflags=0x80000
 _ghoststructure   _structure         collide=0
+_ghostdecor       _decor             collide=0
 rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
 +stlaser          +bryarbolt         model3d=str0.3do soundclass=stlaser.snd vel=(0.000000/6.000000/0.000000) rate=10.000000
 +repeaterhit      +laserhit          sprite=rptx.spr soundclass=exp_rpthit.snd

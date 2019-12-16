@@ -266,12 +266,6 @@ trigger:
 			}
 		}
 	}
-	else if (GetSourceRef() == 11000) // New position available
-	{
-		// Just update the botmode rundir bit from the rundir param - srv takes care of the rest
-		if (GetParam(3)) botmode = BitClear(botmode, 0x1000);
-		else botmode = BitSet(botmode, 0x1000);
-	}
 	else if (getsourceref() == 12001) // get inventory items from backpack
 	{
 		energy=energy+getparam(1);
@@ -299,6 +293,12 @@ trigger:
 		if (getparam(1)) inv_weap6=1;
 		if (getparam(2)) inv_weap7=1;
 		if (getparam(3)) inv_weap9=1;
+	}
+	else if (GetSourceRef() == 13010) // New position available
+	{
+		// Just update the botmode rundir bit from the rundir param - srv takes care of the rest
+		if (GetParam(3)) botmode = BitClear(botmode, 0x1000);
+		else botmode = BitSet(botmode, 0x1000);
 	}
 	else if (getsourceref() == 100000) // Request update
 	{

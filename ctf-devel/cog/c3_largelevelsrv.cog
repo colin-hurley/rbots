@@ -9,11 +9,19 @@
 # [SD & YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
 
 surface     switch                           mask=0x408 desc=switch
+
+# These identify the bot paths to enable/disable for large level mode
+int         pathid0=-1
+int         pathid1=-1
+int         pathid2=-1
+int         pathid3=-1
 
 sound       on_snd=16METALGROAN01.WAV        local
 sound       off_snd=16METALGROAN03.WAV       local
@@ -25,6 +33,9 @@ cog         this_cog                         local
 int         allow_changes=1                  local
 int         small_level=-1                   local
 int         dummy                            local
+
+
+int         i                                local
 
 message     startup
 message     join
@@ -43,6 +54,8 @@ startup:
    {
       small_level=1;
       SendTrigger(-1, 10001, 1, 0, 0, 0);
+
+      call disable_extra_paths;
 
       this_cog = GetSelfCOG();
       Sleep(0.5);                            // CTF startup is heavy enough as it is
@@ -77,6 +90,8 @@ damaged:
 
       // Broadcast a TRIGGER_LEVELSIZE
       SendTrigger(-1, 10001, 0, 0, 0, 0);
+
+      call enable_extra_paths;
    }
    else
    {
@@ -88,6 +103,8 @@ damaged:
 
       // Broadcast a TRIGGER_LEVELSIZE
       SendTrigger(-1, 10001, 1, 0, 0, 0);
+
+      call disable_extra_paths;
    }
 
    Return;
@@ -112,6 +129,30 @@ user0:
    if((GetParam(0) == 03) || (GetParam(0) == 04)) allow_changes = 0;
 
    Return;
+
+# ........................................................................................
+
+enable_extra_paths:
+	for (i = 0 ; i < 4 ; i = i + 1)
+	{
+		if (pathid0[i] != -1)
+		{
+			SendTrigger(-1, 13201, pathid0[i], 0x4, -1, -1); // Enable path (clear disabled flag)
+		}
+	}
+	return;
+
+# ........................................................................................
+
+disable_extra_paths:
+	for (i = 0 ; i < 4 ; i = i + 1)
+	{
+		if (pathid0[i] != -1)
+		{
+			SendTrigger(-1, 13200, pathid0[i], 0x4, -1, -1); // Disable path (set disabled flag)
+		}
+	}
+	return;
 
 end
 

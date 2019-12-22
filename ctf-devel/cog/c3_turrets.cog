@@ -11,6 +11,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 
 symbols
@@ -32,7 +34,11 @@ sound       snd=turret-1.wav                 local
 sound       on_snd=set_hi2.wav               local
 sound       off_snd=lgclick1.wav             local
 
+thing       rbot                             local
+flex        dist                             local
+
 message     activated
+message     trigger
 
 end
 
@@ -69,6 +75,18 @@ activated:
    firing = 0;
 
    Return;
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
+		if (dist < 0.5) // if bot is close enough, activate trap
+		{
+			goto activated;
+		}
+	}
+	return;
 
 end
 

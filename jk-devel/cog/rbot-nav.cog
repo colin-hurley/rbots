@@ -29,6 +29,7 @@ int		j				local
 int		path_index		local
 int		node_index		local
 int		path_size		local
+int		pathflags		local
 thing	nodeghost		local
 thing	node			local
 vector	nodepos			local
@@ -40,6 +41,7 @@ int		path_rank		local
 
 int		success			local
 int		new_path_size	local
+int		new_pathflags	local
 thing	new_node		local
 vector	new_nodepos		local
 sector	new_nodesec		local
@@ -48,7 +50,6 @@ int		new_nodeflags	local
 flex	new_dist		local
 int		new_path_rank	local
 int		new_path_rundir	local
-int		new_looping		local
 
 vector	bot_z			local
 vector	new_node_z		local
@@ -65,7 +66,6 @@ int		rundir			local
 int		changepath		local
 int		path_end		local
 int		new_path_end	local
-int		looping			local
 int		new_path_requirements local
 int		bot_keys		local
 int		navspecial		local
@@ -110,7 +110,7 @@ trigger:
 				success = 0;
 				SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
 				if (!success) i = 999; // break
-				else if (BitClear(new_path_requirements, bot_keys) == 0) // Bot has all the keys, etc. necessary to use this path
+				else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
 				{
 					for (j = 0 ; j < new_path_size ; j = j + 1)
 					{
@@ -161,7 +161,7 @@ trigger:
 			path_size = new_path_size;
 			path_rank = new_path_rank;
 			rundir = new_path_rundir; // Make sure bot is running in the path's required direction
-			looping = new_looping;
+			pathflags = new_pathflags;
 
 			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
 			node = new_node;
@@ -176,7 +176,7 @@ trigger:
 
 			// If we're at either end of a non-looping path, we should change paths if we can
 			path_end = 0;
-			if (!looping)
+			if (!BitTest(pathflags, 0x2))
 			{
 				if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
 				{
@@ -197,7 +197,7 @@ trigger:
 					success = 0;
 					SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
 					if (!success) i = 999; // break
-					else if (BitClear(new_path_requirements, bot_keys) == 0) // Bot has all the keys, etc. necessary to use this path
+					else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
 					{
 						for (j = 0 ; j < new_path_size ; j = j + 1)
 						{
@@ -254,7 +254,7 @@ trigger:
 										path_size = new_path_size;
 										path_rank = new_path_rank;
 										rundir = new_path_rundir;
-										looping = new_looping;
+										pathflags = new_pathflags;
 										j = new_path_size; // break (skip ahead to next path)
 									}
 								}
@@ -273,7 +273,7 @@ trigger:
 			// Prevent the bot from moving beyond either end of the path
 			if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
 			{
-				if (looping) // For looping paths, just wrap to the beginning of the path
+				if (BitTest(pathflags, 0x2)) // For looping paths, just wrap to the beginning of the path
 				{
 					node_index = 0;
 				}
@@ -284,7 +284,7 @@ trigger:
 			}
 			else if (rundir == 0 && node_index <= 0) // At beginning of path and running backward
 			{
-				if (looping) // For looping paths, just wrap to the end of the path
+				if (BitTest(pathflags, 0x2)) // For looping paths, just wrap to the end of the path
 				{
 					node_index = path_size - 1;
 				}
@@ -344,7 +344,7 @@ trigger:
 	if (GetSourceRef() == 13031) // Path data response
 	{
 		success = 1;
-		new_looping = GetParam(0);
+		new_pathflags = GetParam(0);
 		return;
 	}
 

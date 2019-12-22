@@ -55,6 +55,17 @@ int		unidirectional=0
 # treated as non-looping even if the first and last nodes are the same.
 int		nonlooping=0
 
+# TODO: Replace unidirectional and nonlooping symbols with this?
+# I'm not super thrilled with requiring the user to identify looping paths, I
+# would rather require the user to identify nonlooping paths (i.e. require
+# extra effort for the exception, not the norm). However, making flag 0x2
+# non-looping seemed to be less clean/straightforward last time I tried to make
+# that change, so this may just be a necessary evil in the end.
+# 0x1 = Unidirectional
+# 0x2 = Looping
+# 0x4 = Disabled
+int		pathflags=0		local
+
 # Requirements that must be satisfied in order for the bot to use this path.
 # 0x1 / 1 = require red CTF key
 # 0x2 / 2 = require gold CTF key
@@ -176,7 +187,6 @@ int		path_size=0			local
 # last nodes are the same, except if nonlooping is set to 1.
 int		looping=0			local
 
-
 # Working variables
 int		i					local
 thing	rbot				local
@@ -215,10 +225,13 @@ startup:
 	{
 		if (node0[i] != -1 && GetThingType(node0[i]) != -1)
 		{
-			PrintInt(node0[i]);
 			DestroyThing(node0[i]);
 		}
 	}
+
+	// TODO: This can be removed unce the user is inputting pathflags directly
+	if (unidirectional) pathflags = BitSet(pathflags, 0x1);
+	if (looping) pathflags = BitSet(pathflags, 0x2);
 
 	return;
 
@@ -244,7 +257,7 @@ trigger:
 		}
 
 		SendTrigger(-1, 13030, path_size, requirements, path_rank, path_rundir); // Path data response
-		SendTrigger(-1, 13031, looping, -1, -1, -1); // Path data response
+		SendTrigger(-1, 13031, pathflags, -1, -1, -1); // Path data response
 		return;
 	}
 
@@ -265,6 +278,22 @@ trigger:
 
 		path_rank = GetParam(1);
 		path_rundir = GetParam(2);
+		return;
+	}
+
+	if (GetSourceRef() == 13200) // Set path flag
+	{
+		if (GetParam(0) != pathid) return;
+
+		pathflags = BitSet(pathflags, GetParam(1));
+		return;
+	}
+
+	if (GetSourceRef() == 13201) // Clear path flag
+	{
+		if (GetParam(0) != pathid) return;
+
+		pathflags = BitClear(pathflags, GetParam(1));
 		return;
 	}
 

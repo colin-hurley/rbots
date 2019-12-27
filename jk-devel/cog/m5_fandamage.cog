@@ -1,0 +1,197 @@
+# Jedi Knight Cog Script
+#
+# M5_FANDAMAGE.COG
+#
+# Fan damages player if not disabled in M5 bottom arena.
+# Two switches allow to disable the fan for a few seconds and
+# access the 'secret' area below.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
+
+
+symbols
+
+thing       ghost_fan                        nolink,desc=ghost_fan
+sector      fan_sc                           desc=fan_sc
+surface     switch1                          desc=switch1
+surface     switch2                          desc=switch2
+flex        fan_offtime=11.5                 desc=fan_off_time
+flex        damage_amount=125.0              desc=dmg_amount
+flex        damage_pulse=0.50                desc=dmg_pulse
+
+# These identify the bot paths leading down the fan shaft to the 'secret' area.
+# These paths will be enabled when the fan is stopped and it is safe for the
+# bots to go down the shaft, then disabled again when it becomes unsafe for the
+# bots to use the shaft (i.e. shoftly before the fan turns back on).
+int         pathid0=-1
+int         pathid1=-1
+int         pathid2=-1
+int         pathid3=-1
+
+int         the_fan                          local
+int         the_fan_snd                      local
+int         fan_stopped=0                    local
+int         pulse_count=0                    local
+int         player                           local
+int         dummy                            local
+
+int         i                                local
+
+sound       fan_snd=BigFan01.wav             local
+sound       on_snd=set_hi2.wav               local
+sound       off_snd=lgclick1.wav             local
+
+thing       rbot                             local
+flex        dist                             local
+
+message     startup
+message     trigger
+message     activated
+message     timer
+message     pulse
+
+end
+
+# ========================================================================================
+
+code
+startup:
+   player = GetLocalPlayerThing();
+
+   // SERVER ONLY startup:
+   if(IsServer() || !IsMulti())
+   {
+      the_fan = ghost_fan;
+      the_fan_snd = PlaySoundThing(fan_snd, the_fan, 1.0, 10.0, 13.0, 0x041);
+      SetPulse(damage_pulse);
+
+      call disable_extra_paths;
+   }
+
+   Return;
+
+# ........................................................................................
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch1));
+		if (dist < 0.5) // if bot is close enough, activate call button
+		{
+			goto activated;
+		}
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch2));
+		if (dist < 0.5) // if bot is close enough, activate call button
+		{
+			goto activated;
+		}
+	}
+	return;
+
+# ........................................................................................
+
+activated:
+   if(fan_stopped == 1) Return;
+
+   StopSound(the_fan_snd, 0.5);
+   fan_stopped = 1;
+
+   dummy = SetWallCel(switch1, 1);
+   dummy = SetWallCel(switch2, 1);
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch1), 0.8, 5.0, 10.0, 0);
+   dummy = PlaySoundPos(on_snd, SurfaceCenter(switch2), 0.8, 5.0, 10.0, 0);
+
+   SetThingRotVel(the_fan, '5.0 0.0 0.0');
+   SetTimerEx(0.1, 2, 0, 0);
+   SetTimerEx(0.2, 2, 0, 0);
+
+   SetTimerEx(fan_offtime, 1, 0, 0);
+   SetTimerEx(fan_offtime + 0.1, 2, 0, 0);
+   SetTimerEx(fan_offtime + 0.2, 2, 0, 0);
+
+   call enable_extra_paths;
+   SetTimerEx(fan_offtime - 3.0, 3, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   if(GetSenderId() == 1)
+   {
+      dummy = SetWallCel(switch1, 0);
+      dummy = SetWallCel(switch2, 0);
+      dummy = PlaySoundPos(off_snd, SurfaceCenter(switch1), 0.8, 5.0, 10.0, 0);
+      dummy = PlaySoundPos(off_snd, SurfaceCenter(switch2), 0.8, 5.0, 10.0, 0);
+
+      SetThingRotVel(the_fan, '400.0 0.0 0.0');
+      the_fan_snd = PlaySoundThing(fan_snd, the_fan, 1.0, 10.0, 13.0, 0x041);
+
+      fan_stopped = 0;
+   }
+   else
+   if(GetSenderId() == 2)
+   {
+      SyncThingPos(the_fan);
+      SyncSurface(switch1);
+      SyncSurface(switch2);
+   }
+   else
+   if(GetSenderId() == 3)
+   {
+      call disable_extra_paths;
+   }
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+   if(fan_stopped == 1) Return;
+
+   player = FirstThingInSector(fan_sc);
+   while(player != -1)
+   {
+      // If we have an actor/bot (2) or player (10)
+      if(GetThingType(player)==2 || GetThingType(player)==10)
+      {
+         // If he's not dead (this is to stop flooding with 4 or 5 corpses in the sector)
+         if(GetThingFlags(player) != 0x200)
+            dummy = DamageThing(player, damage_amount, 0x01, player);
+      }
+      player = NextThingInSector(player);
+   }
+
+   Return;
+
+# ........................................................................................
+
+enable_extra_paths:
+	for (i = 0 ; i < 4 ; i = i + 1)
+	{
+		if (pathid0[i] != -1)
+		{
+			SendTrigger(-1, 13201, pathid0[i], 0x4, -1, -1); // Enable path (clear disabled flag)
+		}
+	}
+	return;
+
+# ........................................................................................
+
+disable_extra_paths:
+	for (i = 0 ; i < 4 ; i = i + 1)
+	{
+		if (pathid0[i] != -1)
+		{
+			SendTrigger(-1, 13200, pathid0[i], 0x4, -1, -1); // Disable path (set disabled flag)
+		}
+	}
+	return;
+
+end
+

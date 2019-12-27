@@ -1,0 +1,54 @@
+# Jedi Knight Cog Script
+#
+# M5_AMBIENTTECHSOUND.COG
+#
+# Looping Ambient Tech Sound Script for M5
+#
+# The scripts handles up to 10 times the SAME ambient sound,
+# use another instance for another sound.
+#
+# OBSOLETE: replaced by sector sounds.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+thing       ghost                            desc=snd_ghost0
+thing       ghost1                           desc=snd_ghost1
+thing       ghost2                           desc=snd_ghost2
+thing       ghost3                           desc=snd_ghost3
+thing       ghost4                           desc=snd_ghost4
+thing       ghost5                           desc=snd_ghost5
+thing       ghost6                           desc=snd_ghost6
+thing       ghost7                           desc=snd_ghost7
+thing       ghost8                           desc=snd_ghost8
+thing       ghost9                           desc=snd_ghost9
+int         num_sounds=1                     desc=num_valid_sounds
+
+int         i=0                              local
+int         dummy                            local
+
+sound       snd=00TECHAMB02.WAV              local
+
+message     startup
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   for(i=0; i<num_sounds; i=i+1)
+   {
+      dummy = PlaySoundThing(snd, ghost[i], 0.9, 10.0, 20.0, 0x41);
+   }
+
+   Return;
+
+end
+

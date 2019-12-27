@@ -1,14 +1,13 @@
 # Jedi Knight Cog Script
 #
-# C3_AUTODOOR.COG
+# M5_AUTODOOR.COG
 #
-# Automatic door cog script
-#
+# Automatic door cog
 # This is a normal simple door that is also triggered by stepping on up to 4
 # pressure plates on both sides. This quickens the pace in deathmatch because
 # the player must not reach for the USE key...
 #
-# if delay = -1.0 then door stays open
+# If 'delay' = -1.0 then door stays open
 #
 # [YB]
 #
@@ -33,8 +32,9 @@ message     startup
 message     activated
 message     entered
 message     touched
+message     timer
 
-end            
+end
 
 # ========================================================================================
 
@@ -54,19 +54,27 @@ entered:
 activated:
    if(IsMoving(door)) Return;
    if(GetCurFrame(door) == 1) Return;
-   
+
    SectorAdjoins(doorsector, 1);
+   // SetTimerEx(0.2, 1, 0, 0);
+   // SetTimerEx(0.4, 1, 0, 0);
+
    MoveToFrame(door, 1, movespeed);
    WaitForStop(door);
-   
-   if (delay == -1.0) Return;
+
+   if(delay == -1.0) Return;
    Sleep(delay);
-   
+
    MoveToFrame(door, 0, movespeed);
    WaitForStop(door);
    SectorAdjoins(doorsector, 0);
 
    Return;
 
-end
+# ........................................................................................
 
+timer:
+   SectorAdjoins(doorsector, 1);
+   Return;
+
+end

@@ -26,6 +26,7 @@ template	ghost=_ghostdecor	local
 int		i				local
 int		j				local
 
+int		cur_path_index	local
 int		path_index		local
 int		node_index		local
 int		path_size		local
@@ -189,9 +190,10 @@ trigger:
 			}
 
 			// Check for path intersections to possibly change to another path
+			cur_path_index = path_index; // Remember true current path when switching between paths
 			for (i = 0 ; i < 999 ; i = i + 1)
 			{
-				if (i != path_index) // This is a different path
+				if (i != cur_path_index) // This is a different path
 				{
 					// Check path requirements (e.g. keys)
 					success = 0;

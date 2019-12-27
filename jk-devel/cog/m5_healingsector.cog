@@ -1,0 +1,65 @@
+# Jedi Knight Cog Script
+#
+# M5_HEALINGSECTOR.COG
+#
+# Creates some healing areas in M5
+# Just enter the sector to be healed at the rate of
+# 'healspeed' hitpoints per second.
+#
+# This makes a pinging sound telling other players that
+# someone uses an Healing Area, so watch out... :-)
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x40
+
+symbols
+
+sector      healingsc                        desc=heal_sect
+flex        healspeed=3.0                    desc=heal_speed
+
+int         player                           local
+int         dummy                            local
+
+sound       snd=Helthpu1.wav                 local
+
+message     startup
+message     pulse
+
+end            
+
+# ========================================================================================
+
+code
+
+startup:
+   SetPulse(1.0);
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+   player = FirstThingInSector(healingsc);
+   while(player != -1)
+   {
+      // If we have a player (10)
+      if(GetThingType(player)==10)
+      {
+         if((GetThingHealth(player) > 0) && (GetThingHealth(player) < 100))
+         {
+            HealThing(player, healspeed);
+            dummy = PlaySoundThing(snd, player, 1.0, -1, -1, 0);
+         }
+      }
+      player = NextThingInSector(player);
+   }
+
+   Return;
+
+end
+
+
+

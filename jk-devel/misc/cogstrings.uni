@@ -1,4 +1,4 @@
-MSGS 71
+MSGS 74
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -8,6 +8,9 @@ MSGS 71
 "BGJ-1" 0 "Battleground Jedi"
 "BGJ-1_TEXT_00" 0 "^Rbots"
 "BGJ-1_TEXT_01" 0 " "
+"BLADES-1" 0 "Blades of Death"
+"BLADES-1_TEXT_00" 0 "^Rbots"
+"BLADES-1_TEXT_01" 0 "  "
 "COG_01000" 0 "Yun"
 "COG_01001" 0 "Sariss"
 "COG_01002" 0 "Jerec"

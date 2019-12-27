@@ -58,6 +58,8 @@ template	tmp_fpweap6=+FPRepeaterGun	local
 template	tmp_fpweap7=+FPRailGun		local
 template	tmp_fpweap8=+FPSeqCharge	local
 template	tmp_fpweap9=+FPConcRifle	local
+template	tmp_m5weap7=m5railgun		local
+template	tmp_m5weap9=m5concrifle		local
 template	tmp_ctfredkey=CTF_REDKEY	local
 template	tmp_ctfgoldkey=CTF_GOLDKEY	local
 
@@ -615,7 +617,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}  
 	}
-	else if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7)
+	else if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7 || GetThingTemplate(item) == tmp_m5weap7)
 	{
 		if (inv_weap7 ==0 || inv_raildets < 30)
 		{
@@ -625,7 +627,7 @@ pickupitem:
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
 	}
-	else if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9)
+	else if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9 || GetThingTemplate(item) == tmp_m5weap9)
 	{
 		if (inv_weap9 ==0 || power < 500)
 		{

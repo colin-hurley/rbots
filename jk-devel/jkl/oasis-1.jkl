@@ -6852,7 +6852,7 @@ end
 
 Section: TEMPLATES
 
-World templates 152
+World templates 154
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
@@ -6896,6 +6896,7 @@ railcharges       _powerup           thingflags=0x400 model3d=rcrg.3do cog=pow_r
 powercell         _powerup           thingflags=0x400 model3d=pcel.3do cog=pow_power.cog
 powerboost        _powerup           thingflags=0x400 model3d=boost.3do cog=pow_powerboost.cog respawn=60.000000
 manaboost         _powerup           thingflags=0x400 model3d=dark.3do cog=pow_mana.cog
+m5railgun         railgun            typeflags=0x9
 lightside         _powerup           thingflags=0x400 model3d=lite.3do cog=pow_lightside.cog respawn=60.000000
 healthpack        _powerup           thingflags=0x408 model3d=hepk.3do cog=pow_health.cog
 fullshield        _powerup           thingflags=0x400 model3d=vest.3do cog=pow_vest.cog respawn=60.000000
@@ -6948,6 +6949,7 @@ _humanactor       _actor             size=0.065000 movesize=0.065000 surfdrag=3.
 _ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
 rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+m5concrifle       concrifle          typeflags=0x9
 m10column         _structure         model3d=m10colmn.3do size=0.521699 movesize=0.521699
 +stlaser          +bryarbolt         model3d=str0.3do soundclass=stlaser.snd vel=(0.000000/6.000000/0.000000) rate=10.000000
 +repeaterhit      +laserhit          sprite=rptx.spr soundclass=exp_rpthit.snd

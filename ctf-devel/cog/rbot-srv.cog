@@ -201,6 +201,7 @@ int			obstructed		local
 flex		timeout			local
 int			slashsound		local
 int			reachednode		local
+thing		spawnpoint		local
 
 end
 
@@ -418,42 +419,48 @@ trigger:
 
 	if (GetSourceRef() == 900 && !BitTest(botmode,0x10000)) // respawn new bot && bot not already in-game and alive
 	{
-		botmode=0; // reset botmode
-		gamemode=GetParam(2);
-		difficulty=GetParam(3);
+		spawnpoint = GetParam(1);
+		gamemode = GetParam(2);
+		difficulty = GetParam(3);
+
+		// Reinitialize to default bot state
+		botmode = 0x0;
+		node = -1;
+		newpos = '0 0 0';
+		nodesec = 0;
+		nodesize = 0.25;
+		nodeflags = 0x0;
+		lastposnum = -1;
+		lastbotpos = '0 0 0';
+		arrival_event = -1;
+		prevnode = -1;
+		lostcount = 0;
+		stopcount = 0;
+		allowdodge = 1;
 
 		// Create bot
 		rbot = -1;
-		SendTrigger(-1, 101060, curbotskinid, botid, GetParam(1), -1);
+		SendTrigger(-1, 101060, curbotskinid, botid, spawnpoint, -1);
 		if (rbot == -1) return; // bot creation failed, cogs may be misconfigured
 
 		// Do respawn effects
-		CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
-		PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
-
-		// initialization
-		botmode=BitSet(botmode,0x10000); // bot alive
-		capturething(rbot);
-		jkstringclear();
+		jkStringClear();
 		jkStringConcatUNIString(1000+curbotname);
 		jkStringConcatAsciiString(" respawns");
 		jkStringOutput(-3,-1);
-		node=-1;
-		lastbotpos=GetThingPos(rbot);
-		newpos='0 0 0';
-		nodesec=0;
-		nodesize=0.25;
-		nodeflags=0;
-		lastposnum=-1;
-		arrival_event=-1;
-		prevnode=-1;
-		lostcount=0;
+		CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
+		PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
+
+		// Start bot AI processes, etc.
+		botmode = BitSet(botmode, 0x10000); // bot alive
+		CaptureThing(rbot);
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
 		SetTimerEx(2.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
-		stopcount=0;
-		allowdodge=1;
-		setpulse(0.1);
+		SetPulse(0.1);
+
+		// Notify other cogs of bot respawn
 		SendTrigger(-1, 950, botid, rbot, curbotname, curteam); // Send bot respawn event
+
 		return;
 	}
 	if (GetSourceRef() == 101061) // new bot created

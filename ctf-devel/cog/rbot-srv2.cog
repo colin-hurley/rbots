@@ -165,43 +165,42 @@ trigger:
 	// Bot specific triggers
 	if (getsourceref() == 950) // New bot respawned
 	{
-		rbot=getparam(1);
-		team=getparam(3);
-		botmode=0; // reset botmode
-		botmode=BitSet(botmode,0x10000); // bot alive
-		botmode=BitSet(botmode,0x200000); // bot is able to block with saber
-		inv_weap0=1; // saber unlit
-		inv_weap1=1; // fists
-		inv_weap2=1; // bryar
-		inv_weap3=0;
-		inv_weap4=0;
-		inv_weap5=0;
-		inv_weap6=0;
-		inv_weap7=0;
-		inv_weap8=0;
-		inv_weap9=0;
-		inv_weap10=1; // saber lit
-		shields=100;
-		energy=50;
-		power=0;
-		inv_bacta=0;
-		inv_raildets=0;
-		powerboost=1; // normal fire rate
-		inv_keys=0x0;
-		if (team == 1) {
-			// Red team - get red CTF key by default
-			inv_keys = BitSet(inv_keys, 0x1);
-		} else if (team == 2) {
-			// Gold team - get gold CTF key by default
-			inv_keys = BitSet(inv_keys, 0x2);
-		}
-		SetThingHealth(rbot,100);
-		SetThingUserData(rbot,team);
-		ClearActorFlags(rbot, 8); // remove invulnerable
-		ClearThingFlags(rbot, 4); // remove mag sealed
+		rbot = GetParam(1);
+		team = GetParam(3);
+
+		// Reinitialize to default bot state
+		botmode = 0x0; // reset botmode
+		inv_weap0 = 1; // saber unlit
+		inv_weap1 = 1; // fists
+		inv_weap2 = 1; // bryar
+		inv_weap3 = 0; // strifle
+		inv_weap4 = 0; // thermal dets
+		inv_weap5 = 0; // bowcaster
+		inv_weap6 = 0; // repeater
+		inv_weap7 = 0; // raildet
+		inv_weap8 = 0; // sequencers
+		inv_weap9 = 0; // concrifle
+		inv_weap10 = 1; // saber lit
+		shields = 100;
+		energy = 50;
+		power = 0;
+		inv_bacta = 0;
+		inv_raildets = 0;
+		powerboost = 1; // normal fire rate
+		inv_keys = 0x0;
+		curweap = 0;
+		damager = -1;
+
+		// Start up bot AI processes, etc.
+		botmode = BitSet(botmode, 0x10000); // bot alive
+		botmode = BitSet(botmode, 0x200000); // bot is able to block with saber
+		if (team == 1) inv_keys = BitSet(inv_keys, 0x1); // Red team - get red CTF key by default
+		if (team == 2) inv_keys = BitSet(inv_keys, 0x2); // Gold team - get gold CTF key by default
+		SetThingHealth(rbot, 100);
+		SetThingUserData(rbot, team);
+		ClearActorFlags(rbot, 0x8); // remove invulnerable
+		ClearThingFlags(rbot, 0x4); // remove mag sealed
 		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
-		curweap=0;
-		damager=-1;
   		setpulse(0.5);
 	}
 	else if (getsourceref() == 1000) // Bot killed - stop checking

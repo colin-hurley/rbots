@@ -535,6 +535,12 @@ trigger:
 			SetTimerEx(8.0, 120, -1, -1);
 		}
 	}
+	else if (GetSourceRef() == 11070) // Item special info response
+	{
+		// Aggregate special flags from all responses
+		special = BitSet(special, GetParam(1));
+		return;
+	}
 	else if (GetSourceRef() == 13010) // New position available (1)
 	{
 		node = GetParam(1);
@@ -871,11 +877,15 @@ move:
 		item = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 3, 0x020); // check if any items nearby
 		while (item != -1)
 		{
+			// Retrieve special info for this item
+			special = 0x0;
+			SendTrigger(-1, 11060, botid, rbot, item, -1); // Item special info request
+
 			// Find closest takable item that bot needs
 			tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(item));
 			tempflex2 = VectorZ(GetThingPos(item)) - VectorZ(GetThingPos(rbot));
 			if (tempflex2 < 0) tempflex2 = -tempflex2; // tempflex2 = abs(tempflex2)
-			if (HasLOS(rbot, item) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // bot can see it and is close enough and item not too high/low
+			if (!BitTest(special, 0x1) && HasLOS(rbot, item) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // item is not ignored and bot can see it and is close enough and item not too high/low
 			{
 				newitemmodel=GetThingModel(item);
 				itempriority=-1;

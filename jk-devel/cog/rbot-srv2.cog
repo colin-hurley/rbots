@@ -267,6 +267,12 @@ trigger:
 			}
 		}
 	}
+	else if (GetSourceRef() == 11070) // Item special info response
+	{
+		// Aggregate special flags from all responses
+		special = BitSet(special, GetParam(1));
+		return;
+	}
 	else if (getsourceref() == 12001) // get inventory items from backpack
 	{
 		energy=energy+getparam(1);
@@ -430,13 +436,20 @@ findtarget:
 findpowerups:
 	for (item=1;item<=maxthings;item=item+1) // check every item
 	{
-		// If bot is close to item and it is available
-		if ((VectorDist(GetThingPos(rbot), GetThingPos(item)) < 0.3) && !(getthingflags(item) & 0x80000))
+		if (GetThingType(item) == 5) // items
 		{
-			if (HasLOS(rbot, item))
+			// Retrieve special info for this item
+			special = 0x0;
+			SendTrigger(-1, 11060, botid, rbot, item, -1); // Item special info request
+
+			// If bot is close to item and it is available
+			if ((VectorDist(GetThingPos(rbot), GetThingPos(item)) < 0.3) && !(getthingflags(item) & 0x80000))
 			{
-				SendTrigger(-1,12200,botid,item,rbot,-1); // send info to ctf_main cog
-				call pickupitem; // bot can see item - pick it up
+				if (HasLOS(rbot, item) || BitTest(special, 0x2)) // Bot can see item or LOS check is disabled
+				{
+					SendTrigger(-1,12200,botid,item,rbot,-1); // send info to ctf_main cog
+					call pickupitem; // bot can see item - pick it up
+				}
 			}
 		}
 	}

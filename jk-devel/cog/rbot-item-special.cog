@@ -1,0 +1,71 @@
+# Rbot Item Special Cog
+#
+# Server-only
+#
+# This cog supplies special information for items that bots can pick up.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+
+# Special items
+thing		item0=-1		nolink
+thing		item1=-1		nolink
+thing		item2=-1		nolink
+thing		item3=-1		nolink
+thing		item4=-1		nolink
+thing		item5=-1		nolink
+thing		item6=-1		nolink
+thing		item7=-1		nolink
+thing		item8=-1		nolink
+thing		item9=-1		nolink
+
+# Flags for each special item
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+
+# Misc
+int			i			local
+int			botid		local
+thing		item		local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (!IsServer()) return;
+	
+	if (GetSourceRef() == 11060) // Item special info request
+	{
+		botid = GetParam(0);   // which bot requested the info
+		//rbot = GetParam(1);
+		item = GetParam(2); // the item
+
+		// Determine special info
+		for (i = 0 ; i < 10 ; i = i + 1)
+		{
+			if (item0[i] == item && spinf0[i]) // This is the requested item and it has special info
+			{
+				SendTrigger(-1, 11070, botid, spinf0[i], -1, -1); // Item special info response
+			}
+		}
+	}
+	return;
+
+end
+

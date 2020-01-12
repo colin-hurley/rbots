@@ -172,6 +172,16 @@ int			humChannel=-1	local
 int			blocktrack=-1	local
 int			nextblock=0		local
 
+# This symbol contains the fall threshold for the bot.  If the Z coordinate of
+# the bot's position drops below this value, then logic to check if the bot has
+# fallen will be executed.  This enables a bot to navigate from a lower node to
+# a higher node, such as going up an elevator shaft, without requiring any
+# special workarounds (e.g. adding 'submerged' thing flag to high node, adding
+# intermediate nodes for smaller height differences, etc.).  The bot will only
+# be considered fallen if it actually reaches some height and then falls back
+# down.
+flex		fallcheck		local
+
 # Transient working vars
 vector		relpos			local
 flex		tempflex1		local
@@ -437,6 +447,7 @@ trigger:
 		lostcount = 0;
 		stopcount = 0;
 		allowdodge = 1;
+		fallcheck = 0;
 
 		// Create bot
 		rbot = -1;
@@ -549,7 +560,8 @@ trigger:
 	}
 	else if (GetSourceRef() == 13011) // New position available (2)
 	{
-		if (node == -1) {
+		if (node == -1)
+		{
 			// The nav cog couldn't find a suitable node for the bot, so have
 			// the bot wander off in a random direction instead
 			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
@@ -557,10 +569,16 @@ trigger:
 			// Use shorter 'bot lost' timer so we check for nearby nodes more frequently
 			KillTimerEx(120);
 			SetTimerEx(3.0, 120, -1, -1);
-		} else {
+		}
+		else
+		{
 			// Head for the next node
 			newpos = VectorSet(GetParam(1), GetParam(2), GetParam(3));
 		}
+
+		// Reset fall threshold - use bot's current position or node's position, whichever is lower
+		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
+		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
 	}
 	else if (GetSourceRef() == 13012) // New position available (3)
 	{
@@ -993,9 +1011,11 @@ checknode:
 	if (VectorDist(GetThingPos(rbot), newpos) < nodesize)
 	{
 		reachednode = 1;
-		if (node != -1) {
-			if (prevnode != node) {
-				// Bot has reached a new node, reset lost counter
+		if (node != -1) // Bot is heading for a node
+		{
+			if (prevnode != node) // Bot has reached a new node
+			{
+				// Reset lost counter to avoid unnecessary bot suicide
 				prevnode = node;
 				lostcount = 0;
 			}
@@ -1011,18 +1031,28 @@ checknode:
 	else
 	{
 		reachednode = 0;
+		tempflex1 = VectorZ(GetThingPos(rbot));
+		tempflex2 = tempflex1 - 0.25;
+
+		// Update the fall threshold
+		if (fallcheck < tempflex2) // Bot is above the fall threshold
+		{
+			fallcheck = tempflex2; // Raise the fall threshold to slightly below the bot's current height
+			if (fallcheck > VectorZ(newpos)) fallcheck = VectorZ(newpos); // But don't raise the threshold above the node's actual position
+		}
+
 		// Check if bot has fallen
-		tempflex1=VectorZ(newpos);
-		tempflex2=VectorZ(GetThingPos(rbot));
-		if (node != -1 && (tempflex1 > tempflex2) && !BitTest(nodeflags, 0x2000000)) // if new pos is higher than bot pos & new pos is not in water
+		if (node != -1 && (tempflex1 < fallcheck) && !BitTest(nodeflags, 0x2000000)) // if bot is below the fall threshold & new pos is not in water
 		{
 			tempvector1=VectorSet(0,0,VectorZ(newpos));
 			tempvector2=VectorSet(0,0,VectorZ(GetThingPos(rbot)));
+			tempflex1 = VectorDist(tempvector1,tempvector2); // diff Z coord of bot and node
 
 			tempvector3=VectorSet(VectorX(newpos),VectorY(newpos),0);
 			tempvector4=VectorSet(VectorX(GetThingPos(rbot)),VectorY(GetThingPos(rbot)),0);
+			tempflex2 = VectorDist(tempvector3,tempvector4); // diff X/Y coords of bot and node
 
-			if (VectorDist(tempvector1,tempvector2) > 0.85 || (VectorDist(tempvector1,tempvector2) > 0.4 && VectorDist(tempvector3,tempvector4) < 0.2)) // bot fallen
+			if (tempflex1 > 0.85 || (tempflex1 > 0.4 && tempflex2 < 0.2)) // bot fallen
 			{
 				KillTimerEx(120); // stop 'bot lost' timeout
 				SetTimerEx(0.1, 120, -1, -1); // force bot 'lost'

@@ -251,19 +251,35 @@ trigger:
 			SendTrigger(-1, 11030, botid, rbot, -1, -1);
 		}
 		if (BitTest(special, 0x400)) {
-			// ignore items, follow the path straight to the next node
+			// Disable item seeking, follow the path straight to the next node
 			KillTimerEx(180);
 			if (mode) {
 				// Enable effect
 				botmode = BitSet(botmode, 0x4000000);
 
 				if (mode == 2) {
-					// Enable effect for shrot duration only
-					SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again after 5 secs
+					// Enable effect for short duration only
+					SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again in a few seconds
 				}
 			} else {
 				// Disable effect
 				botmode = BitClear(botmode, 0x4000000);
+			}
+		}
+		if (BitTest(special, 0x800)) {
+			// Disable combat roaming, follow the path straight to the next node
+			KillTimerEx(181);
+			if (mode) {
+				// Enable effect
+				botmode = BitSet(botmode, 0x8000000);
+
+				if (mode == 2) {
+					// Enable effect for short duration only
+					SetTimerEx(5.0, 181, -1, -1); // allow bot to stray from the path during combat again in a few seconds
+				}
+			} else {
+				// Disable effect
+				botmode = BitClear(botmode, 0x8000000);
 			}
 		}
 	}
@@ -1143,9 +1159,13 @@ timer:
 	{
 		damager=-1;
 	}
-	else if (GetSenderId() == 180) // allow seeking for items
+	else if (GetSenderId() == 180) // enable item seeking
 	{
 		botmode = BitClear(botmode, 0x4000000);
+	}
+	else if (GetSenderId() == 181) // enable combat roaming
+	{
+		botmode = BitClear(botmode, 0x8000000);
 	}
 	else if (GetSenderId() == 300) // fire again at target
 	{
@@ -1164,21 +1184,14 @@ timer:
 // Returns the function-specific result of the execution
 user7:
 	if (GetParam(0) == 1000) ReturnEx(botmode);
-	else if (GetParam(0) == 1001) ReturnEx(shields);
-	else if (GetParam(0) == 1002) ReturnEx(energy);
-	else if (GetParam(0) == 1003) ReturnEx(power);
-	else if (GetParam(0) == 1004) ReturnEx(inv_bacta);
-	else if (GetParam(0) == 1005) ReturnEx(inv_raildets);
-	else if (GetParam(0) == 1006) ReturnEx(inv_weap0[GetParam(1)]);
-	else if (GetParam(0) == 1007) ReturnEx(powerboost);
-	else if (GetParam(0) == 1008) ReturnEx(inv_keys);
-	// Otherwise, report error
-	else {
-		jkStringClear();
-		jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv2.cog :: ERROR :: Cog %d");
-		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
-		jkStringOutput(-1, -1);
-	}
+	if (GetParam(0) == 1001) ReturnEx(shields);
+	if (GetParam(0) == 1002) ReturnEx(energy);
+	if (GetParam(0) == 1003) ReturnEx(power);
+	if (GetParam(0) == 1004) ReturnEx(inv_bacta);
+	if (GetParam(0) == 1005) ReturnEx(inv_raildets);
+	if (GetParam(0) == 1006) ReturnEx(inv_weap0[GetParam(1)]);
+	if (GetParam(0) == 1007) ReturnEx(powerboost);
+	if (GetParam(0) == 1008) ReturnEx(inv_keys);
 	return;
 
 end

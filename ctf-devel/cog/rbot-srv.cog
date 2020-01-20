@@ -887,7 +887,7 @@ move:
 
 	// Look for items and move to them
 	newitem=-1; // Clear item target for all difficulty levels to prevent stale values
-	if (difficulty > 1 && !BitTest(botmode, 0x4000000)) // only look if difficulty allows
+	if (difficulty > 1 && !BitTest(botmode, 0x4000000)) // only look if difficulty allows and item seeking is not disabled
 	{
 		bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
 		if (BitTest(botmode,0x4000)) newitempriority=5; else newitempriority=-1; // bot has target - only pick up high priority items
@@ -970,7 +970,7 @@ move:
 	if (BitTest(botmode,0x4000)) // bot has target
 	{
 		AiSetLookPos(rbot, GetThingPos(target));  // look at target
-		if (goldflag_taken == rbot || redflag_taken == rbot || GetThingHealth(rbot)<30) call movenode; else call targettactics; // if bot has flag or is low on health keep moving
+		if (goldflag_taken == rbot || redflag_taken == rbot || GetThingHealth(rbot)<30 || BitTest(botmode, 0x8000000)) call movenode; else call targettactics; // if bot has flag or is low on health or combat roaming is disabled, keep moving to next node
 	}
 	else
 	{

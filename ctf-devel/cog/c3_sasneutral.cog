@@ -73,7 +73,8 @@ startup:
 # ........................................................................................
 
 touched:
-	if (GetThingType(GetSourceRef()) == 2) {
+	if (GetThingType(GetSourceRef()) == 2)
+	{
 		// This is a bot, so treat the touch like an activate and open the door
 		goto activated;
 	}

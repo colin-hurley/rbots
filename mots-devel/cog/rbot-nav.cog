@@ -9,75 +9,74 @@ flags=0x240
 
 symbols
 
-message	trigger
+message		trigger
 
 # The default size for a node.  This is used if the node thing does not have a
 # value set for its "size" property in the JKL.
-flex	dflt_nodesize=0.25
+flex		dflt_nodesize=0.25
 
-int		path_size_max=25	local # Keep in sync with path cog
+int			path_size_max=25					local # Keep in sync with path cog
 
 # We can't dynamically create 'ghost' things (they can only be statically
 # placed in the JKL), so we create '_ghostdecor' things instead, which are
 # virtually identical.
-template	ghost=_ghostdecor	local
+template	ghost=_ghostdecor					local
 
 # Working variables
-int		i				local
-int		j				local
+int			i									local
+int			j									local
 
-int		cur_path_index	local
-int		path_index		local
-int		node_index		local
-int		path_size		local
-int		pathflags		local
-thing	nodeghost		local
-thing	node			local
-vector	nodepos			local
-sector	nodesec			local
-flex	nodesize		local
-int		nodeflags		local
-flex	dist			local
-int		path_rank		local
+int			cur_path_index						local
+int			path_index							local
+int			node_index							local
+int			path_size							local
+int			pathflags							local
+thing		nodeghost							local
+thing		node								local
+vector		nodepos								local
+sector		nodesec								local
+flex		nodesize							local
+int			nodeflags							local
+flex		dist								local
+int			path_rank							local
 
-int		success			local
-int		new_path_size	local
-int		new_pathflags	local
-thing	new_node		local
-vector	new_nodepos		local
-sector	new_nodesec		local
-flex	new_nodesize	local
-int		new_nodeflags	local
-flex	new_dist		local
-int		new_path_rank	local
-int		new_path_rundir	local
+int			success								local
+int			new_path_size						local
+int			new_pathflags						local
+thing		new_node							local
+vector		new_nodepos							local
+sector		new_nodesec							local
+flex		new_nodesize						local
+int			new_nodeflags						local
+flex		new_dist							local
+int			new_path_rank						local
+int			new_path_rundir						local
 
-vector	bot_z			local
-vector	new_node_z		local
-vector	bot_pos			local
+vector		bot_z								local
+vector		new_node_z							local
+vector		bot_pos								local
 
-int		botid			local
-thing	rbot			local
-cog		srv				local
-cog		srv2			local
-int		botmode			local
-int		lastposnum		local
-int		nextposnum		local
-int		rundir			local
-int		changepath		local
-int		path_end		local
-int		new_path_end	local
-int		new_path_requirements local
-int		bot_keys		local
-int		navspecial		local
+int			botid								local
+thing		rbot								local
+cog			srv									local
+cog			srv2								local
+int			botmode								local
+int			lastposnum							local
+int			nextposnum							local
+int			rundir								local
+int			changepath							local
+int			path_end							local
+int			new_path_end						local
+int			new_path_requirements				local
+int			bot_keys							local
+int			navspecial							local
 
 end
 
 code
 
 trigger:
-	// Server-only
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	if (GetSourceRef() == 13000) // New position request
 	{

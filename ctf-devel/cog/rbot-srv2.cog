@@ -1,4 +1,4 @@
-# Rbot Server - AI (unsynch)
+# Rbot Server Cog 2 - AI (unsynch)
 #
 # Server-only
 # Type ID: 1021
@@ -17,103 +17,103 @@ message		timer
 message		user7
 
 int			botid=0
-thing		rbot		local
-int			team		local
-int			gamemode	local
-int			botmode		local
-int			difficulty	local
-int			forcemode	local
-int			target_mask	local
+thing		rbot								local
+int			team								local
+int			gamemode							local
+int			botmode								local
+int			difficulty							local
+int			forcemode							local
+int			target_mask							local
 
 # Item templates
-template	tmp_energycell=ENERGYCELL	local
-template	tmp_powercell=POWERCELL		local
-template	tmp_raildets=RAILCHARGES	local
-template	tmp_bacta=BACTATANK			local
-template	tmp_health=HEALTHPACK		local
-template	tmp_shields=SHIELDRECHARGE	local
-template	tmp_supershield=SUPERSHIELD	local
-template	tmp_fullshield=FULLSHIELD	local
-template	tmp_mana=MANABOOST			local
-template	tmp_powerboost=POWERBOOST	local
-template	tmp_revivepack=REVIVEPACK	local
-template	tmp_lightside=LIGHTSIDE		local
-template	tmp_darkside=DARKSIDE		local
-template	tmp_backpack=+backpack		local
-template	tmp_weap2=bryarpistol		local
-template	tmp_weap3=STRIFLE			local
-template	tmp_weap4=DETONATOR			local
-template	tmp_weap5=CROSSBOW			local
-template	tmp_weap6=REPEATERGUN		local
-template	tmp_weap7=RAILGUN			local
-template	tmp_weap8=SEQCHARGE			local
-template	tmp_weap9=CONCRIFLE			local
-template	tmp_weap4x1=singledetonator	local
-template	tmp_weap8x1=singleseqcharge	local
-template	tmp_fpweap2=+FPBryarPistol	local
-template	tmp_fpweap3=+FPSTrifle		local
-template	tmp_fpweap4=+FPDetonator	local
-template	tmp_fpweap5=+FPCrossbow		local
-template	tmp_fpweap6=+FPRepeaterGun	local
-template	tmp_fpweap7=+FPRailGun		local
-template	tmp_fpweap8=+FPSeqCharge	local
-template	tmp_fpweap9=+FPConcRifle	local
-template	tmp_m5weap7=m5railgun		local
-template	tmp_m5weap9=m5concrifle		local
-template	tmp_ctfredkey=CTF_REDKEY	local
-template	tmp_ctfgoldkey=CTF_GOLDKEY	local
+template	tmp_energycell=ENERGYCELL			local
+template	tmp_powercell=POWERCELL				local
+template	tmp_raildets=RAILCHARGES			local
+template	tmp_bacta=BACTATANK					local
+template	tmp_health=HEALTHPACK				local
+template	tmp_shields=SHIELDRECHARGE			local
+template	tmp_supershield=SUPERSHIELD			local
+template	tmp_fullshield=FULLSHIELD			local
+template	tmp_mana=MANABOOST					local
+template	tmp_powerboost=POWERBOOST			local
+template	tmp_revivepack=REVIVEPACK			local
+template	tmp_lightside=LIGHTSIDE				local
+template	tmp_darkside=DARKSIDE				local
+template	tmp_backpack=+backpack				local
+template	tmp_weap2=bryarpistol				local
+template	tmp_weap3=STRIFLE					local
+template	tmp_weap4=DETONATOR					local
+template	tmp_weap5=CROSSBOW					local
+template	tmp_weap6=REPEATERGUN				local
+template	tmp_weap7=RAILGUN					local
+template	tmp_weap8=SEQCHARGE					local
+template	tmp_weap9=CONCRIFLE					local
+template	tmp_weap4x1=singledetonator			local
+template	tmp_weap8x1=singleseqcharge			local
+template	tmp_fpweap2=+FPBryarPistol			local
+template	tmp_fpweap3=+FPSTrifle				local
+template	tmp_fpweap4=+FPDetonator			local
+template	tmp_fpweap5=+FPCrossbow				local
+template	tmp_fpweap6=+FPRepeaterGun			local
+template	tmp_fpweap7=+FPRailGun				local
+template	tmp_fpweap8=+FPSeqCharge			local
+template	tmp_fpweap9=+FPConcRifle			local
+template	tmp_m5weap7=m5railgun				local
+template	tmp_m5weap9=m5concrifle				local
+template	tmp_ctfredkey=CTF_REDKEY			local
+template	tmp_ctfgoldkey=CTF_GOLDKEY			local
 
 # Inventory items - other weapons added later
-int			shields			local
-int			energy			local
-int			power			local
-int			inv_bacta		local
-int			inv_raildets	local
-int			inv_keys		local
-int			inv_weap0		local	desc=saber_unlit
-int			inv_weap1		local	desc=fists
-int			inv_weap2		local	desc=bryar
-int			inv_weap3		local	desc=st_rifle
-int			inv_weap4		local	desc=therm_det
-int			inv_weap5		local	desc=crossbow
-int			inv_weap6		local	desc=repeater
-int			inv_weap7		local	desc=railgun
-int			inv_weap8		local	desc=seq_charges
-int			inv_weap9		local	desc=conc_rifle
-int			inv_weap10		local	desc=saber_lit
+int			shields								local
+int			energy								local
+int			power								local
+int			inv_bacta							local
+int			inv_raildets						local
+int			inv_keys							local
+int			inv_weap0							local desc=saber_unlit
+int			inv_weap1							local desc=fists
+int			inv_weap2							local desc=bryar
+int			inv_weap3							local desc=st_rifle
+int			inv_weap4							local desc=therm_det
+int			inv_weap5							local desc=crossbow
+int			inv_weap6							local desc=repeater
+int			inv_weap7							local desc=railgun
+int			inv_weap8							local desc=seq_charges
+int			inv_weap9							local desc=conc_rifle
+int			inv_weap10							local desc=saber_lit
 
 # Misc
-thing		potential	local
-thing		target		local
-thing		newtarget	local
-flex		dot			local
-flex		maxdot		local
-flex		dist		local
-int			targetok	local
-int			curweap		local
-int			maxthings	local
-thing		item		local
-flex		disttotarg		local
-vector		relpos			local
-flex		firedelay		local
-flex		minrange		local
-flex		maxrange		local
-int			nextanim=0		local
-flex		extra			local
-int			slash			local
-int			bin				local
-int			damage			local
-int			targweap		local
-int			powerboost		local
-thing		damager			local
-int			captured_red	local
-int			captured_gold	local
-int			redflag_taken	local
-int			goldflag_taken	local
-int			targetpriority		local
-int			newtargetpriority	local
-int			special				local
-int			mode				local
+thing		potential							local
+thing		target								local
+thing		newtarget							local
+flex		dot									local
+flex		maxdot								local
+flex		dist								local
+int			targetok							local
+int			curweap								local
+int			maxthings							local
+thing		item								local
+flex		disttotarg							local
+vector		relpos								local
+flex		firedelay							local
+flex		minrange							local
+flex		maxrange							local
+int			nextanim=0							local
+flex		extra								local
+int			slash								local
+int			bin									local
+int			damage								local
+int			targweap							local
+int			powerboost							local
+thing		damager								local
+int			captured_red						local
+int			captured_gold						local
+int			redflag_taken						local
+int			goldflag_taken						local
+int			targetpriority						local
+int			newtargetpriority					local
+int			special								local
+int			mode								local
 
 end
 
@@ -122,10 +122,7 @@ end
 code
 
 startup:
-	if (IsMulti() && !IsServer()) {
-		// Server-only
-		return;
-	}
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1021, GetSelfCog(), botid, -1);
@@ -135,35 +132,47 @@ startup:
 	return;
 
 trigger:
-	if (getsourceref() == 800) // game setup options
+	if (GetSourceRef() == 800) // game setup options
 	{
-		gamemode=getparam(0);
-		difficulty=getparam(1);
+		gamemode = GetParam(0);
+		difficulty = GetParam(1);
+		return;
 	}
-	if (getsourceref() == 12210) // updated CTF info
+
+	if (GetSourceRef() == 12210) // updated CTF info
 	{
-		captured_red=GetParam(0);
-		captured_gold=GetParam(1);
-		redflag_taken=GetParam(2);
-		goldflag_taken=GetParam(3);
+		captured_red = GetParam(0);
+		captured_gold = GetParam(1);
+		redflag_taken = GetParam(2);
+		goldflag_taken = GetParam(3);
+		return;
 	}
+
 	if (GetSourceRef() == 120000) // Update target mask
 	{
-		if (GetParam(0)) {
+		if (GetParam(0))
+		{
 			target_mask = BitSet(target_mask, 0x400); // Attack players
-		} else {
+		}
+		else
+		{
 			target_mask = BitClear(target_mask, 0x400); // Ignore players
 		}
-		if (GetParam(1)) {
+		if (GetParam(1))
+		{
 			target_mask = BitSet(target_mask, 0x4); // Attack bots
-		} else {
+		}
+		else
+		{
 			target_mask = BitClear(target_mask, 0x4); // Ignore bots
 		}
+		return;
 	}
-	if (getparam(0) != botid) return;
 
 	// Bot specific triggers
-	if (getsourceref() == 950) // New bot respawned
+	if (GetParam(0) != botid) return; // Not for this bot
+
+	if (GetSourceRef() == 950) // New bot respawned
 	{
 		rbot = GetParam(1);
 		team = GetParam(3);
@@ -201,95 +210,106 @@ trigger:
 		ClearActorFlags(rbot, 0x8); // remove invulnerable
 		ClearThingFlags(rbot, 0x4); // remove mag sealed
 		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
-  		setpulse(0.5);
+		SetPulse(0.5);
+		return;
 	}
-	else if (getsourceref() == 1000) // Bot killed - stop checking
+
+	if (GetSourceRef() == 1000) // Bot killed - stop checking
 	{
-		setpulse(0);
+		SetPulse(0);
 		botmode=BitClear(botmode,0x10000);
 		item=CreateThingNr(tmp_backpack,rbot); // create backpack and send info to backpack cog
 		SendTrigger(-1, 12010, item, energy, power, inv_weap8); 
 		SendTrigger(-1, 12011, item, inv_raildets, inv_weap4, -1); 
 		SendTrigger(-1, 12012, item, inv_weap2, inv_weap3, inv_weap5); 
 		SendTrigger(-1, 12013, item, inv_weap6, inv_weap7, inv_weap9);   
+		return;
 	}
-	else if (getsourceref() == 11020) // Received special info <- current work here!!!
+
+	if (GetSourceRef() == 11020) // Received special info <- current work here!!!
 	{
 		special = getparam(1);
 		mode = GetParam(2);
-		if (BitTest(special, 0x02)) {
-			// Bot needs to walk instead of running
+		if (BitTest(special, 0x2)) // Bot needs to walk instead of running
+		{
 			KillTimerEx(130);
-			if (mode) {
-				// Enable effect
+			if (mode) // Enable effect
+			{
 				botmode = BitSet(botmode, 0x100000);
 
-				if (mode == 2) {
-					// Enable effect for short duration only
+				if (mode == 2) // Enable effect for short duration only
+				{
 					SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
 				}
-			} else {
-				// Disable effect
+			}
+			else // Disable effect
+			{
 				botmode = BitClear(botmode, 0x100000);
 			}
 		}
-		if (mode && BitTest(special, 0x10)) {
-			// Bot can lay a mine here
-			if (inv_weap8 > 0 && !BitTest(botmode, 0x4000)) {
-				// The bot has ammo, and the bot is not already attacking a target, so we can lay the mine
+		if (mode && BitTest(special, 0x10)) // Bot can lay a mine here
+		{
+			if (inv_weap8 > 0 && !BitTest(botmode, 0x4000)) // The bot has ammo and not already attacking a target
+			{
 				call select_weap8;
 				SendTrigger(-1, 101020, botid, 8, 1, -1); // lay a mine (secondary fire)
 				inv_weap8 = inv_weap8 - 1;
-				if (inv_weap8 > 0) {
+				if (inv_weap8 > 0)
+				{
 					SendTrigger(-1, 101020, botid, 8, 1, -1); // lay another mine (secondary fire)
 					inv_weap8 = inv_weap8 - 1;
 				}
 			}
 		}
-		if (mode && ((BitTest(special, 0x20) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x40) && BitTest(botmode, 0x1000)))) {
-			// Send activate to other cogs
-			SendTrigger(-1, 11030, botid, rbot, -1, -1);
+		if (mode && ((BitTest(special, 0x20) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x40) && BitTest(botmode, 0x1000)))) // Send activate to other cogs
+		{
+			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger
 		}
-		if (BitTest(special, 0x400)) {
-			// Disable item seeking, follow the path straight to the next node
+		if (BitTest(special, 0x400)) // Disable item seeking, follow the path straight to the next node
+		{
 			KillTimerEx(180);
-			if (mode) {
-				// Enable effect
+			if (mode) // Enable effect
+			{
 				botmode = BitSet(botmode, 0x4000000);
 
-				if (mode == 2) {
-					// Enable effect for short duration only
+				if (mode == 2) // Enable effect for short duration only
+				{
 					SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again in a few seconds
 				}
-			} else {
-				// Disable effect
+			}
+			else // Disable effect
+			{
 				botmode = BitClear(botmode, 0x4000000);
 			}
 		}
-		if (BitTest(special, 0x800)) {
-			// Disable combat roaming, follow the path straight to the next node
+		if (BitTest(special, 0x800)) // Disable combat roaming, follow the path straight to the next node
+		{
 			KillTimerEx(181);
-			if (mode) {
-				// Enable effect
+			if (mode) // Enable effect
+			{
 				botmode = BitSet(botmode, 0x8000000);
 
-				if (mode == 2) {
-					// Enable effect for short duration only
+				if (mode == 2) // Enable effect for short duration only
+				{
 					SetTimerEx(5.0, 181, -1, -1); // allow bot to stray from the path during combat again in a few seconds
 				}
-			} else {
-				// Disable effect
+			}
+			else // Disable effect
+			{
 				botmode = BitClear(botmode, 0x8000000);
 			}
 		}
+		return;
 	}
-	else if (GetSourceRef() == 11070) // Item special info response
+
+	if (GetSourceRef() == 11070) // Item special info response
 	{
 		// Aggregate special flags from all responses
 		special = BitSet(special, GetParam(1));
 		return;
 	}
-	else if (getsourceref() == 12001) // get inventory items from backpack
+
+	if (GetSourceRef() == 12001) // get inventory items from backpack
 	{
 		energy=energy+getparam(1);
 		if (energy>500) energy=500;
@@ -297,39 +317,51 @@ trigger:
 		if (power>500) power=500;
 		inv_weap8=inv_weap8+getparam(3);
 		if (inv_weap8>30) inv_weap8=30;
+		return;
 	}
-	else if (getsourceref() == 12002) // get inventory items from backpack
+
+	if (GetSourceRef() == 12002) // get inventory items from backpack
 	{
 		inv_raildets=inv_raildets+getparam(1);
 		if (inv_raildets>30) inv_raildets=30;
 		inv_weap4=inv_weap4+getparam(2);
 		if (inv_weap4>30) inv_weap4=30;
+		return;
 	}
-	else if (getsourceref() == 12003) // get inventory items from backpack
+
+	if (GetSourceRef() == 12003) // get inventory items from backpack
 	{
 		if (getparam(1)) inv_weap2=1;
 		if (getparam(2)) inv_weap3=1;
 		if (getparam(3)) inv_weap5=1;
+		return;
 	}
-	else if (getsourceref() == 12004) // get inventory items from backpack
+
+	if (GetSourceRef() == 12004) // get inventory items from backpack
 	{
 		if (getparam(1)) inv_weap6=1;
 		if (getparam(2)) inv_weap7=1;
 		if (getparam(3)) inv_weap9=1;
+		return;
 	}
-	else if (GetSourceRef() == 13010) // New position available
+
+	if (GetSourceRef() == 13010) // New position available
 	{
 		// Just update the botmode rundir bit from the rundir param - srv takes care of the rest
 		if (GetParam(3)) botmode = BitClear(botmode, 0x1000);
 		else botmode = BitSet(botmode, 0x1000);
+		return;
 	}
-	else if (getsourceref() == 100000) // Request update
+
+	if (GetSourceRef() == 100000) // Request update
 	{
 		forcemode=GetParam(2);
 		SendTrigger(-1,100001,botid,target,botmode,curweap); // return current info
 		SendTrigger(-1,100002,botid,shields,-1,-1); // return current info
+		return;
 	}
-	else if (getsourceref() == 100003) // Update after damage
+
+	if (GetSourceRef() == 100003) // Update after damage
 	{
 		damage=GetParam(1);
 		damager=GetParam(2);
@@ -355,10 +387,11 @@ trigger:
 		{
 			shields=shields-damage;
 			if (shields < 0) shields=0;
-			return;
 		}
+		return;
 	}
-	else if (getsourceref() == 101030) // Force used against bot
+
+	if (GetSourceRef() == 101030) // Force used against bot
 	{
 		#enemy=GetParam(1);
 		bin=GetParam(2);
@@ -382,17 +415,19 @@ trigger:
 				call bestweapon; // Select next best weapon
 			}
 		}
+		return;
 	}
+
 	return;
 
 pulse:
-	setpulse(0);
+	SetPulse(0);
 	call findpowerups;
 	call findtarget;
 	call bestweapon;
 	call startfire;
 	call setbotmode;
-	setpulse(0.25);
+	SetPulse(0.25);
 	return;
 
 findtarget:
@@ -472,7 +507,7 @@ findpowerups:
 	return;
 
 pickupitem:
-	if (getthingtemplate(item) == tmp_energycell)
+	if (GetThingTemplate(item) == tmp_energycell)
 	{
 		if (energy<500)
 		{
@@ -480,8 +515,10 @@ pickupitem:
 			if (energy>500) energy=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_powercell)
+
+	if (GetThingTemplate(item) == tmp_powercell)
 	{
 		if (power<500)
 		{
@@ -489,8 +526,10 @@ pickupitem:
 			if (power>500) power=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_weap4)
+
+	if (GetThingTemplate(item) == tmp_weap4)
 	{
 		if (inv_weap4<30)
 		{
@@ -498,16 +537,20 @@ pickupitem:
 			if (inv_weap4>30) inv_weap4=30;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap4x1 || GetThingTemplate(item) == tmp_fpweap4)
+
+	if (GetThingTemplate(item) == tmp_weap4x1 || GetThingTemplate(item) == tmp_fpweap4)
 	{
 		if (inv_weap4<30)
 		{
 			inv_weap4=inv_weap4+1;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_weap8)
+
+	if (GetThingTemplate(item) == tmp_weap8)
 	{
 		if (inv_weap8<30)
 		{
@@ -515,16 +558,20 @@ pickupitem:
 			if (inv_weap8>30) inv_weap8=30;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap8x1 || GetThingTemplate(item) == tmp_fpweap8)
+
+	if (GetThingTemplate(item) == tmp_weap8x1 || GetThingTemplate(item) == tmp_fpweap8)
 	{
 		if (inv_weap8<30)
 		{
 			inv_weap8=inv_weap8+1;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_raildets)
+
+	if (GetThingTemplate(item) == tmp_raildets)
 	{
 		if (inv_raildets<30)
 		{
@@ -532,16 +579,20 @@ pickupitem:
 			if (inv_raildets>30) inv_raildets=30;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_bacta)
+
+	if (GetThingTemplate(item) == tmp_bacta)
 	{
 		if (inv_bacta<5)
 		{
 			inv_bacta=inv_bacta+1;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_health)
+
+	if (GetThingTemplate(item) == tmp_health)
 	{
 		if (GetThingHealth(rbot)<100)
 		{
@@ -550,8 +601,10 @@ pickupitem:
 			SetThingHealth(rbot,extra);
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_shields)
+
+	if (GetThingTemplate(item) == tmp_shields)
 	{
 		if (shields<200)
 		{
@@ -559,21 +612,27 @@ pickupitem:
 			if (shields>200) shields=100;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_supershield)
+
+	if (GetThingTemplate(item) == tmp_supershield)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SetActorFlags(rbot, 8); // invulnerable
 		SetThingFlags(rbot, 4); // mag sealed
 		SetTimerEx(30, 140, -1, -1); // switch off in 30 secs
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_powerboost)
+
+	if (GetThingTemplate(item) == tmp_powerboost)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		powerboost=2;
 		SetTimerEx(30, 150, -1, -1); // switch off in 30 secs
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_revivepack)
+
+	if (GetThingTemplate(item) == tmp_revivepack)
 	{
 		if (shields<200 || GetThingHealth(rbot)<100)
 		{
@@ -581,31 +640,41 @@ pickupitem:
 			SetThingHealth(rbot,100);
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_fullshield)
+
+	if (GetThingTemplate(item) == tmp_fullshield)
 	{
 		if (shields<200)
 		{
 			shields=200;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_mana)
+
+	if (GetThingTemplate(item) == tmp_mana)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		SendTrigger(-1,101040,botid,100,0,-1); // tell srv to increase mana
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_lightside)
+
+	if (GetThingTemplate(item) == tmp_lightside)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
-		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana and add light surge
+		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana + add light surge
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_darkside)
+
+	if (GetThingTemplate(item) == tmp_darkside)
 	{
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
-		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana add dark surge
+		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana + add dark surge
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap2 || GetThingTemplate(item) == tmp_fpweap2)
+
+	if (GetThingTemplate(item) == tmp_weap2 || GetThingTemplate(item) == tmp_fpweap2)
 	{
 		if (inv_weap3 == 0 || energy < 500)
 		{
@@ -614,8 +683,10 @@ pickupitem:
 			if (energy>500) energy=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap3 || GetThingTemplate(item) == tmp_fpweap3)
+
+	if (GetThingTemplate(item) == tmp_weap3 || GetThingTemplate(item) == tmp_fpweap3)
 	{
 		if (inv_weap3 == 0 || energy < 500)
 		{
@@ -624,8 +695,10 @@ pickupitem:
 			if (energy>500) energy=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap5 || GetThingTemplate(item) == tmp_fpweap5)
+
+	if (GetThingTemplate(item) == tmp_weap5 || GetThingTemplate(item) == tmp_fpweap5)
 	{
 		if (inv_weap5 ==0 || power < 500)
 		{
@@ -634,8 +707,10 @@ pickupitem:
 			if (power>500) power=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap6 || GetThingTemplate(item) == tmp_fpweap6)
+
+	if (GetThingTemplate(item) == tmp_weap6 || GetThingTemplate(item) == tmp_fpweap6)
 	{
 		if (inv_weap6 ==0 || power < 500)
 		{
@@ -644,8 +719,10 @@ pickupitem:
 			if (power>500) power=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}  
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7 || GetThingTemplate(item) == tmp_m5weap7)
+
+	if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7 || GetThingTemplate(item) == tmp_m5weap7)
 	{
 		if (inv_weap7 ==0 || inv_raildets < 30)
 		{
@@ -654,8 +731,10 @@ pickupitem:
 			if (inv_raildets>30) inv_raildets=30;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9 || GetThingTemplate(item) == tmp_m5weap9)
+
+	if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9 || GetThingTemplate(item) == tmp_m5weap9)
 	{
 		if (inv_weap9 ==0 || power < 500)
 		{
@@ -664,164 +743,187 @@ pickupitem:
 			if (power>500) power=500;
 			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
 		}
+		return;
 	}
-	else if (getthingtemplate(item) == tmp_backpack)
+
+	if (GetThingTemplate(item) == tmp_backpack)
 	{
 		SendTrigger(-1, 12000, botid, item, -1, -1); // send info to backpack cog
 		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_ctfredkey) {
+
+	if (GetThingTemplate(item) == tmp_ctfredkey)
+	{
 		// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
 		inv_keys = BitSet(inv_keys, 0x1);
+		return;
 	}
-	else if (GetThingTemplate(item) == tmp_ctfgoldkey) {
+
+	if (GetThingTemplate(item) == tmp_ctfgoldkey)
+	{
 		// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
 		inv_keys = BitSet(inv_keys, 0x2);
+		return;
 	}
+
 	return;
 
 bestweapon:
-	if (!BitTest(gamemode,0x01) && BitTest(gamemode,0x02)) // no guns - sabers only
+	if (!BitTest(gamemode, 0x1)) // no guns
 	{
-		call select_weap10; // saber
-		return;
-	}
-	else if (!BitTest(gamemode,0x01) && !BitTest(gamemode,0x02)) // no guns - no sabers
-	{
-		call select_weap1; // fists
-		return;
+		if (BitTest(gamemode, 0x2)) goto select_weap10; // sabers only
+		goto select_weap1; // fists only
 	}
 
-	if (BitTest(botmode,0x40000)) return; // don't select new weapon until old weapon mounted
+	if (BitTest(botmode, 0x40000)) return; // don't select new weapon until old weapon mounted
 
 	// Select best weapon based on difficulty
-	if (difficulty < 3 || !Bittest(botmode,0x4000)) // always just use the biggest gun or just use sabers for saber only game - or bot has no target
+	if (difficulty < 3 || !Bittest(botmode, 0x4000)) // use the biggest gun on lower difficulties or if bot has no target
 	{
-		if (inv_weap9==1 && power > 7)
+		if (inv_weap9 == 1 && power > 7)
 		{
-			call select_weap9;
+			goto select_weap9;
 		}
-		else if (inv_weap7==1 && inv_raildets > 0)
+		if (inv_weap7 == 1 && inv_raildets > 0)
 		{
-			call select_weap7;
+			goto select_weap7;
 		}
-		else if (inv_weap6==1 && power > 0)
+		if (inv_weap6 == 1 && power > 0)
 		{
-			call select_weap6;
+			goto select_weap6;
 		}
-		else if (inv_weap5==1 && power > 1)
+		if (inv_weap5 == 1 && power > 1)
 		{
-			call select_weap5;
+			goto select_weap5;
 		}
-		else if (inv_weap3==1 && energy > 1)
+		if (inv_weap3 == 1 && energy > 1)
 		{
-		call select_weap3;
+			goto select_weap3;
 		}
-		else if (inv_weap2==1 && energy > 0)
+		if (inv_weap2 == 1 && energy > 0)
 		{
-			call select_weap2;
+			goto select_weap2;
 		}
-		else if (BitTest(gamemode,0x02)) call select_weap10; else call select_weap1; // if sabers allowed - select it otherwise select fists
 	}
-	else
-	{		
-		disttotarg=VectorDist(GetThingPos(rbot), GetThingPos(target));
+	else // On higher difficulties, make smarter gun selection choices
+	{
+		// Determine how far away the target is
+		disttotarg = VectorDist(GetThingPos(rbot), GetThingPos(target));
 
-		//Get the current weapon of our target
+		// Get the current weapon of our target
 		if (GetThingType(target) == 2) // target is another bot
 		{
-			targweap=SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
+			targweap = SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
 		}
 		else // target is a player
 		{
-			targweap=GetCurWeapon(target);
-			if (targweap==11) targweap=10; // if player has saber, set it to 10 for simplicity
+			targweap = GetCurWeapon(target);
+			if (targweap == 11) targweap = 10; // if player has saber, set it to 10 for simplicity
 		}
 
-		if (disttotarg <= 0.4) // very close range
+		if (disttotarg < 0.4) // very close range
 		{
-			if (targweap == 10) call select_weap10; // target has saber - switch to saber
-			else if (inv_weap6==1 && power > 0)
+			// Note: We don't want to use explosive guns at this range
+
+			// We don't want to fight the target bot with energy bullets at this range if the target can block them with a saber
+			if (targweap == 10) // target is using saber
 			{
-				call select_weap6;
+				goto select_weap10; // enemy saber can block energy weapons, use saber to attack
 			}
-			else if (inv_weap5==1 && power > 1)
+
+			// Target is not using a saber, resume normal gun selection
+			if (inv_weap6 == 1 && power > 0)
 			{
-				call select_weap5;
+				goto select_weap6;
 			}
-			else if (inv_weap3==1 && energy > 1)
+			if (inv_weap5 == 1 && power > 1)
 			{
-			call select_weap3;
+				goto select_weap5;
 			}
-			else if (inv_weap2==1 && energy > 0)
+			if (inv_weap3 == 1 && energy > 1)
 			{
-				call select_weap2;
+				goto select_weap3;
+			}
+			if (inv_weap2 == 1 && energy > 0)
+			{
+				goto select_weap2;
 			}
 		}
-		else if (disttotarg > 0.4 && disttotarg < 0.9) // close range
+		else if (disttotarg < 0.9) // close range
 		{
-			if (targweap == 10) // target has saber
+			// First preference is explosive weapons
+			if (inv_weap9 == 1 && power > 7)
 			{
-				if (curweap == 2 || curweap == 3 || curweap ==5 || curweap ==6) // energy weapons
-				{
-					call select_weap10;
-				}
+				goto select_weap9;
 			}
-			else if (inv_weap9==1 && power > 7)
+			if (inv_weap7 == 1 && inv_raildets > 0)
 			{
-				call select_weap9;
+				goto select_weap7;
 			}
-			else if (inv_weap7==1 && inv_raildets > 0)
+
+			// We don't want to fight the target bot with energy bullets at this range if the target can block them with a saber
+			if (targweap == 10) // target is using saber
 			{
-				call select_weap7;
+				goto select_weap10; // enemy saber can block energy weapons, use saber to attack
 			}
-			else if (inv_weap6==1 && power > 0)
+
+			// Target is not using a saber, resume normal gun selection
+			if (inv_weap6 == 1 && power > 0)
 			{
-				call select_weap6;
+				goto select_weap6;
 			}
-			else if (inv_weap5==1 && power > 1)
+			if (inv_weap5 == 1 && power > 1)
 			{
-				call select_weap5;
+				goto select_weap5;
 			}
-			else if (inv_weap3==1 && energy > 1)
+			if (inv_weap3 == 1 && energy > 1)
 			{
-			call select_weap3;
+				goto select_weap3;
 			}
-			else if (inv_weap2==1 && energy > 0)
+			if (inv_weap2 == 1 && energy > 0)
 			{
-				call select_weap2;
+				goto select_weap2;
 			}
-			else if (BitTest(gamemode,0x02)) call select_weap10; else call select_weap1; // if sabers allowed - select it otherwise select fists
 		}
 		else // far range
 		{
-			if (inv_weap9==1 && power > 7)
+			// Pick from available guns, don't need to use saber at this range
+			if (inv_weap9 == 1 && power > 7)
 			{
-				call select_weap9;
+				goto select_weap9;
 			}
-			else if (inv_weap7==1 && inv_raildets > 0)
+			if (inv_weap7 == 1 && inv_raildets > 0)
 			{
-				call select_weap7;
+				goto select_weap7;
 			}
-			else if (inv_weap6==1 && power > 0)
+			if (inv_weap6 == 1 && power > 0)
 			{
-				call select_weap6;
+				goto select_weap6;
 			}
-			else if (inv_weap5==1 && power > 1)
+			if (inv_weap5 == 1 && power > 1)
 			{
-				call select_weap5;
+				goto select_weap5;
 			}
-			else if (inv_weap3==1 && energy > 1)
+			if (inv_weap3 == 1 && energy > 1)
 			{
-			call select_weap3;
+				goto select_weap3;
 			}
-			else if (inv_weap2==1 && energy > 0)
+			if (inv_weap2 == 1 && energy > 0)
 			{
-				call select_weap2;
+				goto select_weap2;
 			}
-			else if (BitTest(gamemode,0x02)) call select_weap10; else call select_weap1; // if sabers allowed - select it otherwise select fists
 		}
 	}
+
+	// No appropriate guns to use, choice is now between saber and fists
+	if (BitTest(gamemode, 0x2)) // sabers allowed
+	{
+		goto select_weap10; // prefer saber over fists
+	}
+
+	goto select_weap1; // no other option available, select fists
+
 	return;
 
 select_weap1: // Fists
@@ -990,42 +1092,42 @@ firetarget:
 			SendTrigger(-1,101020,botid,1,0,nextanim); // tell srv weapon fired - Alternate fists. (use '0' as primary - '1' as secondary fire option)
 			nextanim = 1-nextanim;
 		}
-		else if (curweap == 2)
+		if (curweap == 2)
 		{
 			SendTrigger(-1,101020,botid,2,0,-1); // tell srv weapon fired
 			energy=energy-1;
 		}
-		else if (curweap == 3)
+		if (curweap == 3)
 		{
 			SendTrigger(-1,101020,botid,3,0,-1); // tell srv weapon fired
 			energy=energy-2;
 		}
-		else if (curweap == 4)
+		if (curweap == 4)
 		{
 			SendTrigger(-1,101020,botid,4,0,-1); // tell srv weapon fired
 			inv_weap4=inv_weap4-1;
 		}
-		else if (curweap == 5)
+		if (curweap == 5)
 		{
 			SendTrigger(-1,101020,botid,5,0,-1); // tell srv weapon fired
 			power=power-2;
 		}
-		else if (curweap == 6)
+		if (curweap == 6)
 		{
 			SendTrigger(-1,101020,botid,6,0,-1); // tell srv weapon fired
 			power=power-1;
 		}
-		else if (curweap == 7)
+		if (curweap == 7)
 		{
 			SendTrigger(-1,101020,botid,7,0,-1); // tell srv weapon fired
 			inv_raildets=inv_raildets-1;
 		}
-		else if (curweap == 9)
+		if (curweap == 9)
 		{
 			SendTrigger(-1,101020,botid,9,0,-1); // tell srv weapon fired
 			power=power-8;
 		}
-		else if (curweap == 10)
+		if (curweap == 10)
 		{
 			botmode=BitSet(botmode,0x200000); // Fired saber, NOT ok to block
 			SetTimerEx(0.5, 450, 0, 0); //In .5 secs, it's ok to block again
@@ -1136,45 +1238,65 @@ timer:
 	if (GetSenderId() == 120) // allow fire after weapon is mounted
 	{
 		botmode=BitClear(botmode,0x40000);
+		return;
 	}
+
 	if (GetSenderId() == 130) // allow bot to run full speed again after slowdown
 	{
 		botmode=BitClear(botmode, 0x100000); 
+		return;
 	}
-	else if (GetSenderId() == 140) // after supershield
+
+	if (GetSenderId() == 140) // after supershield
 	{
 		ClearActorFlags(rbot, 8); // remove invulnerable
 		ClearThingFlags(rbot, 4); // remove mag sealed
+		return;
 	}
-	else if (GetSenderId() == 150) // after powerboost
+
+	if (GetSenderId() == 150) // after powerboost
 	{
-		powerboost=1;
+		powerboost = 1;
+		return;
 	}
-	else if (GetSenderId() == 160) // ask for high score
+
+	if (GetSenderId() == 160) // ask for high score
 	{
-		SendTrigger(-1,101050,botid,-1,-1,-1); // ask for high scorer
+		SendTrigger(-1, 101050, botid, -1, -1, -1); // ask for high scorer
 		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
+		return;
 	}
-	else if (GetSenderId() == 170) // Forget who damaged bot
+
+	if (GetSenderId() == 170) // Forget who damaged bot
 	{
-		damager=-1;
+		damager = -1;
+		return;
 	}
-	else if (GetSenderId() == 180) // enable item seeking
+
+	if (GetSenderId() == 180) // enable item seeking
 	{
 		botmode = BitClear(botmode, 0x4000000);
+		return;
 	}
-	else if (GetSenderId() == 181) // enable combat roaming
+
+	if (GetSenderId() == 181) // enable combat roaming
 	{
 		botmode = BitClear(botmode, 0x8000000);
+		return;
 	}
-	else if (GetSenderId() == 300) // fire again at target
+
+	if (GetSenderId() == 300) // fire again at target
 	{
 		call firetarget;
+		return;
 	}
-	else if (GetSenderId() == 450) // Allow bot to block again
+
+	if (GetSenderId() == 450) // Allow bot to block again
 	{
-		botmode=BitClear(botmode,0x200000);
+		botmode = BitClear(botmode, 0x200000);
+		return;
 	}
+
 	return;
 
 // Execute public API function for this cog

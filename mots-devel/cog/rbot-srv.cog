@@ -1,4 +1,4 @@
-# Rbot Server - AI (synch)
+# Rbot Server Cog - AI (synch)
 #
 # Server-only
 # Type ID: 1020
@@ -34,14 +34,14 @@ int			teambotname=-1
 int			teambotskinid=-1
 
 # Game setup options - set from startup cog
-int			gamemode=0					local
-int			difficulty=0				local
+int			gamemode=0							local
+int			difficulty=0						local
 
 # Internal bot references
-thing		rbot						local
-int			botmode						local
-cog			srv2						local
-cog			srv_force					local
+thing		rbot								local
+int			botmode								local
+cog			srv2								local
+cog			srv_force							local
 
 # Weapon fire projectiles
 template	projectile_weap00=+rbotsaber		local
@@ -61,28 +61,28 @@ template	projectile_weap09=+concbullet		local
 template	projectile_weap09a=+concblast2		local
 
 # Projectiles to jump away from with saber
-#template	dproj0=+raildet				local
-#template	dproj1=+concbullet			local
+#template	dproj0=+raildet						local
+#template	dproj1=+concbullet					local
 
 # Item models
-model		itemmodel0=conp.3do		local	desc=conc_rifle
-model		itemmodel1=rldp.3do		local	desc=rail_gun
-model		itemmodel2=rptp.3do		local	desc=repeater
-model		itemmodel3=strp.3do		local	desc=st_rifle
-model		itemmodel4=bowp.3do		local	desc=crossbow
-model		itemmodel5=ecel.3do		local	desc=energy_cell
-model		itemmodel6=pcel.3do		local	desc=power_cell
-model		itemmodel7=rcrg.3do		local	desc=rail_dets
-model		itemmodel8=detp.3do		local	desc=thermal_dets
-model		itemmodel9=seqp.3do		local	desc=sequencers
-model		itemmodel10=hepk.3do	local	desc=health
-model		itemmodel11=shld.3do	local	desc=shield
-model		itemmodel12=vest.3do	local	desc=full_shield
-#model		itemmodel13=flgr.3do	local	desc=red_flag
-#model		itemmodel14=flgy.3do	local	desc=gold_flag
-#model		itemmodel15=seq0.3do	local	desc=live_sequencer
-#model		itemmodel16=r-key.3do	local	desc=red_key
-#model		itemmodel17=y-key.3do	local	desc=gold_key
+model		itemmodel0=conp.3do					local desc=conc_rifle
+model		itemmodel1=rldp.3do					local desc=rail_gun
+model		itemmodel2=rptp.3do					local desc=repeater
+model		itemmodel3=strp.3do					local desc=st_rifle
+model		itemmodel4=bowp.3do					local desc=crossbow
+model		itemmodel5=ecel.3do					local desc=energy_cell
+model		itemmodel6=pcel.3do					local desc=power_cell
+model		itemmodel7=rcrg.3do					local desc=rail_dets
+model		itemmodel8=detp.3do					local desc=thermal_dets
+model		itemmodel9=seqp.3do					local desc=sequencers
+model		itemmodel10=hepk.3do				local desc=health
+model		itemmodel11=shld.3do				local desc=shield
+model		itemmodel12=vest.3do				local desc=full_shield
+#model		itemmodel13=flgr.3do				local desc=red_flag
+#model		itemmodel14=flgy.3do				local desc=gold_flag
+#model		itemmodel15=seq0.3do				local desc=live_sequencer
+#model		itemmodel16=r-key.3do				local desc=red_key
+#model		itemmodel17=y-key.3do				local desc=gold_key
 
 # Respawn Effects
 template	teleport_particles=+telesparks		local
@@ -93,7 +93,7 @@ sound		mountSoundgun0=df_bry_ready.wav		local
 sound       mountSoundgun1=df_rif_ready.wav		local
 sound		mountSoundgun2=RailChargeArm01.WAV	local
 sound		mountSoundsaber=LtSaberOn01.WAV		local
-sound    	dismountSoundsaber=LtSaberOff01.WAV	local
+sound		dismountSoundsaber=LtSaberOff01.WAV	local
 sound		humSound01=LtSaberLp01.WAV			local
 
 # Weapon fire sounds
@@ -109,68 +109,68 @@ sound		snd_fireweap07=RailChargeFire01.WAV	local
 sound		snd_fireweap09=concuss5.wav			local
 
 # Saber attack sounds
-sound	swingSound0=LtSaberSwing01.WAV			local
-sound	swingSound1=LtSaberSwing02.WAV			local
-sound	swingSound2=LtSaberSwing03.WAV			local
-sound	swingSound3=LtSaberSwing04.WAV			local
-sound	swingSound4=LtSaberSwing05.WAV			local
-sound	swingSound5=LtSaberSwing06.WAV			local
-sound	swingSound6=LtSaberSwing07.WAV			local
-sound	swingSound7=LtSaberSwing08.WAV			local
-sound	swingSoundDbl01=LtSaberSwingDbl01.WAV	local
+sound		swingSound0=LtSaberSwing01.WAV		local
+sound		swingSound1=LtSaberSwing02.WAV		local
+sound		swingSound2=LtSaberSwing03.WAV		local
+sound		swingSound3=LtSaberSwing04.WAV		local
+sound		swingSound4=LtSaberSwing05.WAV		local
+sound		swingSound5=LtSaberSwing06.WAV		local
+sound		swingSound6=LtSaberSwing07.WAV		local
+sound		swingSound7=LtSaberSwing08.WAV		local
+sound		swingSoundDbl01=LtSaberSwingDbl01.WAV	local
 
 # Saber attack animation
-keyframe	fireAnimR1=KYsabrr1.key		local
-keyframe	fireAnimL1=KYsabrl1.key		local
-keyframe	fireAnimB1=KYsabrb1.key		local
-keyframe	fireAnimB2=KYsabrb2.key		local
-keyframe	fireAnimF1=KYsnap1.key		local
-keyframe	fireAnimF2=KYsnap2.key		local
-keyframe	snapAnim0=KYsabrf1.key		local
-keyframe	snapAnim1=KYsabrf2.key		local
-keyframe	snapAnim2=KYsabrf1.key		local
-keyframe	chargeAnim=KYcharge.key		local
+keyframe	fireAnimR1=KYsabrr1.key				local
+keyframe	fireAnimL1=KYsabrl1.key				local
+keyframe	fireAnimB1=KYsabrb1.key				local
+keyframe	fireAnimB2=KYsabrb2.key				local
+keyframe	fireAnimF1=KYsnap1.key				local
+keyframe	fireAnimF2=KYsnap2.key				local
+keyframe	snapAnim0=KYsabrf1.key				local
+keyframe	snapAnim1=KYsabrf2.key				local
+keyframe	snapAnim2=KYsabrf1.key				local
+keyframe	chargeAnim=KYcharge.key				local
 
 # Saber block animation
-keyframe    blockAnim0=KYblock0.key		local
-keyframe    blockAnim1=KYblock1.key		local
-keyframe    blockAnim2=KYblock2.key		local
+keyframe    blockAnim0=KYblock0.key				local
+keyframe    blockAnim1=KYblock1.key				local
+keyframe    blockAnim2=KYblock2.key				local
 
 # Misc
-int			curteam			local
-int			curbotname		local
-int			curbotskinid	local
-int			curweap			local
-thing		node			local
-sector		nodesec			local
-flex		nodesize		local
-int			nodeflags		local
-vector		waitpos			local
-vector		lastbotpos		local
-vector		newpos			local
-int			lastposnum		local
-thing		target			local
-vector		blindvec		local
-int			targweap		local
+int			curteam								local
+int			curbotname							local
+int			curbotskinid						local
+int			curweap								local
+thing		node								local
+sector		nodesec								local
+flex		nodesize							local
+int			nodeflags							local
+vector		waitpos								local
+vector		lastbotpos							local
+vector		newpos								local
+int			lastposnum							local
+thing		target								local
+vector		blindvec							local
+int			targweap							local
 # Which direction the bot is running
 # 0 = backward
 # 1 = forward
-int			rundir			local
-int			shields			local
-int			stopcount		local
-thing		newitem			local
-thing		prevnode		local
-int			lostcount		local
-int			drowning		local
-int			captured_red	local
-int			captured_gold	local
-int			redflag_taken	local
-int			goldflag_taken	local
-int			allowdodge		local
-int			arrival_event	local
-int			humChannel=-1	local
-int			blocktrack=-1	local
-int			nextblock=0		local
+int			rundir								local
+int			shields								local
+int			stopcount							local
+thing		newitem								local
+thing		prevnode							local
+int			lostcount							local
+int			drowning							local
+int			captured_red						local
+int			captured_gold						local
+int			redflag_taken						local
+int			goldflag_taken						local
+int			allowdodge							local
+int			arrival_event						local
+int			humChannel=-1						local
+int			blocktrack=-1						local
+int			nextblock=0							local
 
 # This symbol contains the fall threshold for the bot.  If the Z coordinate of
 # the bot's position drops below this value, then logic to check if the bot has
@@ -180,38 +180,38 @@ int			nextblock=0		local
 # intermediate nodes for smaller height differences, etc.).  The bot will only
 # be considered fallen if it actually reaches some height and then falls back
 # down.
-flex		fallcheck		local
+flex		fallcheck							local
 
 # Transient working vars
-vector		relpos			local
-flex		tempflex1		local
-flex		tempflex2		local
-vector		tempvector1		local
-vector		tempvector2		local
-vector		tempvector3		local
-vector		tempvector4		local
-flex		dist			local
-int			mode			local
-flex		dot				local
-flex		choice			local
-flex		damage			local
-int			damagetype		local
-thing		damager			local
-sector		cursector		local
-int			forcemode		local
-int			bot_keys		local
-thing		item			local
-model		newitemmodel	local
-int			itempriority	local
-int			newitempriority	local
-int			special			local
-int			nextanim		local
-thing		potential		local
-int			obstructed		local
-flex		timeout			local
-int			slashsound		local
-int			reachednode		local
-thing		spawnpoint		local
+vector		relpos								local
+flex		tempflex1							local
+flex		tempflex2							local
+vector		tempvector1							local
+vector		tempvector2							local
+vector		tempvector3							local
+vector		tempvector4							local
+flex		dist								local
+int			mode								local
+flex		dot									local
+flex		choice								local
+flex		damage								local
+int			damagetype							local
+thing		damager								local
+sector		cursector							local
+int			forcemode							local
+int			bot_keys							local
+thing		item								local
+model		newitemmodel						local
+int			itempriority						local
+int			newitempriority						local
+int			special								local
+int			nextanim							local
+thing		potential							local
+int			obstructed							local
+flex		timeout								local
+int			slashsound							local
+int			reachednode							local
+thing		spawnpoint							local
 
 end
 
@@ -220,10 +220,7 @@ end
 code
 
 startup:
-	if (IsMulti() && !IsServer()) {
-		// Server-only
-		return;
-	}
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1020, GetSelfCog(), botid, -1);
@@ -231,7 +228,7 @@ startup:
 	return;
 
 pulse:
-	if(!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	setpulse(0);
 	forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
 	SendTrigger(-1, 100000, botid, rbot, forcemode, -1); // request update
@@ -242,7 +239,7 @@ pulse:
 	return;
 
 killed:
-	if(!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	setpulse(0);
 	StopThing(rbot);
 	botmode=BitClear(botmode,0x10000); // bot no longer alive
@@ -261,7 +258,7 @@ killed:
 	return;
 
 damaged:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	damage=GetParam(0);
 	damagetype=GetParam(1);
@@ -307,13 +304,16 @@ damaged:
 	}
 
 	// If team play is enabled, prevent friendly fire from teammates
-	if (damager != rbot && BitTest(gamemode,0x8)) {
-		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam) {
+	if (damager != rbot && BitTest(gamemode,0x8))
+	{
+		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam)
+		{
 			// Damaged by player on same team
 			ReturnEx(0);
 			return;
 		}
-		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == curteam) {
+		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == curteam)
+		{
 			// Damaged by bot on same team
 			ReturnEx(0);
 			return;
@@ -329,26 +329,34 @@ damaged:
 	// more health damage.  Bots, on the other hand, use up the shields completely before
 	// taking any health damage.
 	// Note: The 100003 trigger sent to srv2 is what actually reduces the bot's shield amount
-	if (BitTest(damagetype,0x10)) // saber attack damage - combined health & shields
+	if (BitTest(damagetype, 0x10)) // saber attack damage - combined health & shields
 	{
-		if (shields > 0) {
+		if (shields > 0)
+		{
 			// Split damage between shields and health
 			damage = damage / 2;
 			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager),-1); // update srv2 with damage
-			if (damage > shields) {
+			if (damage > shields)
+			{
 				damage = damage + damage - shields;
-			} else {
+			}
+			else
+			{
 				damage = 0;
 			}
 		}
 	}
-	else if (BitTest(damagetype,0x2) || BitTest(damagetype,0x4)) // Damage from energy or fire
+	if (BitTest(damagetype, 0x2) || BitTest(damagetype, 0x4)) // Damage from energy or fire
 	{
-		if (shields > 0) {
+		if (shields > 0)
+		{
 			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager), -1); // update srv2 with damage
-			if (damage > shields) {
+			if (damage > shields)
+			{
 				damage = damage - shields;
-			} else {
+			}
+			else
+			{
 				damage = 0;
 			}
 		}
@@ -368,23 +376,22 @@ damaged:
 	return;
 
 trigger:
-	if (IsMulti() && !IsServer()) {
-		// Server-only
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1021) // rbot-srv2.cog
+		{
+			if (GetParam(2) == botid) srv2 = GetParam(1);
+		}
+		if (GetParam(0) == 1022) // rbot-srv-force.cog
+		{
+			if (GetParam(2) == botid) srv_force = GetParam(1);
+		}
 		return;
 	}
 
-	if (GetSourceRef() == 1852000) {
-		// Rbot cog type discovery
-		if (GetParam(0) == 1021) {
-			// rbot-srv2.cog
-			if (GetParam(2) == botid) srv2 = GetParam(1);
-		} else if (GetParam(0) == 1022) {
-			// rbot-srv-force.cog
-			if (GetParam(2) == botid) srv_force = GetParam(1);
-		}
-	}
-
-	if (getsourceref() == 800) // game setup options
+	if (GetSourceRef() == 800) // game setup options
 	{
 		gamemode=getparam(0);
 		difficulty=getparam(1);
@@ -407,9 +414,11 @@ trigger:
 
 		return;
 	}
+
 	if (GetSourceRef() == 11050) // Arrival event
 	{
-		if (GetParam(0) == arrival_event) {
+		if (GetParam(0) == arrival_event)
+		{
 			// This is the event we've been waiting for, so we can stop waiting now
 			arrival_event = -1;
 
@@ -417,15 +426,19 @@ trigger:
 			KillTimerEx(120);
 			SetTimerEx(8.0, 120, -1, -1);
 		}
+		return;
 	}
-	if (getsourceref() == 12210) // updated CTF info
+
+	if (GetSourceRef() == 12210) // updated CTF info
 	{
 		captured_red=GetParam(0);
 		captured_gold=GetParam(1);
 		redflag_taken=GetParam(2);
 		goldflag_taken=GetParam(3);
+		return;
 	}
-	if (getparam(0) != botid) return; // not for this bot
+
+	if (GetParam(0) != botid) return; // not for this bot
 
 	if (GetSourceRef() == 900 && !BitTest(botmode,0x10000)) // respawn new bot && bot not already in-game and alive
 	{
@@ -474,13 +487,14 @@ trigger:
 
 		return;
 	}
+
 	if (GetSourceRef() == 101061) // new bot created
 	{
 		rbot = GetParam(1);
 		return;
 	}
 
-	else if (getsourceref() == 901) // remove bot from game
+	if (GetSourceRef() == 901) // remove bot from game
 	{
 		if (BitTest(botmode,0x10000)) // bot alive
 		{
@@ -490,46 +504,55 @@ trigger:
 			jkStringOutput(-3,-1);
 			DamageThing(rbot,500,1,rbot); // Make sure bot is dead
 		}
+		return;
 	}
-	else if (getsourceref() == 960 && BitTest(botmode,0x10000)) // query bot thing number and bot is alive
+
+	if (GetSourceRef() == 960 && BitTest(botmode,0x10000)) // query bot thing number and bot is alive
 	{
 		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
+		return;
 	}
-	else if (getsourceref() == 11020) // Received special info
+
+	if (GetSourceRef() == 11020) // Received special info
 	{
 		special = getparam(1);
 		mode = GetParam(2);
-		if (mode && ((BitTest(special, 0x4) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x8) && BitTest(botmode, 0x1000)))) {
-			// Bot needs to jump
+		if (mode && ((BitTest(special, 0x4) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x8) && BitTest(botmode, 0x1000)))) // Bot needs to jump
+		{
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
 			//AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.3)); // increase bot speed toward next node before jump
 			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.0)); // force bot to jump
 		}
-		if (BitTest(special, 0x200)) {
-			// Bot needs to run fast
+		if (BitTest(special, 0x200)) // Bot needs to run fast
+		{
 			KillTimerEx(220);
-			if (mode) {
-				// Enable effect
+			if (mode) // Enable effect
+			{
 				AddThingVel(rbot, VectorScale(GetThingVel(rbot), 4));
 
-				if (mode == 2) {
-					// Enable effect for short duration only
+				if (mode == 2) // Enable effect for short duration only
+				{
 					SetTimerEx(3.0, 220, -1, -1);
 				}
-			} else {
-				// Disable effect
+			}
+			else // Disable effect
+			{
 				AiSetMoveSpeed(rbot, 2.0); // Return to normal move speed
 			}
 		}
+		return;
 	}
-	else if (GetSourceRef() == 11040) // Wait for arrival
+
+	if (GetSourceRef() == 11040) // Wait for arrival
 	{
 		special = GetParam(1);
 		timeout = GetParam(3);
-		if (timeout > 0.0 && GetParam(2) != -1) {
+		if (timeout > 0.0 && GetParam(2) != -1)
+		{
 			// Start waiting, if we're running in the right direction
-			if ((BitTest(special, 0x1) && rundir == 1) || (BitTest(special, 0x2) && rundir == 0)) {
+			if ((BitTest(special, 0x1) && rundir == 1) || (BitTest(special, 0x2) && rundir == 0))
+			{
 				arrival_event = GetParam(2);
 				waitpos = GetThingPos(rbot); // Wait at current position
 
@@ -537,7 +560,9 @@ trigger:
 				KillTimerEx(120);
 				SetTimerEx(timeout, 120, -1, -1);
 			}
-		} else {
+		}
+		else
+		{
 			// Stop waiting
 			arrival_event = -1;
 
@@ -545,20 +570,25 @@ trigger:
 			KillTimerEx(120);
 			SetTimerEx(8.0, 120, -1, -1);
 		}
+		return;
 	}
-	else if (GetSourceRef() == 11070) // Item special info response
+
+	if (GetSourceRef() == 11070) // Item special info response
 	{
 		// Aggregate special flags from all responses
 		special = BitSet(special, GetParam(1));
 		return;
 	}
-	else if (GetSourceRef() == 13010) // New position available (1)
+
+	if (GetSourceRef() == 13010) // New position available (1)
 	{
 		node = GetParam(1);
 		nodesize = GetParam(2);
 		rundir = GetParam(3);
+		return;
 	}
-	else if (GetSourceRef() == 13011) // New position available (2)
+
+	if (GetSourceRef() == 13011) // New position available (2)
 	{
 		if (node == -1)
 		{
@@ -579,24 +609,32 @@ trigger:
 		// Reset fall threshold - use bot's current position or node's position, whichever is lower
 		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
 		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
+		return;
 	}
-	else if (GetSourceRef() == 13012) // New position available (3)
+
+	if (GetSourceRef() == 13012) // New position available (3)
 	{
 		lastposnum = GetParam(1);
 		nodesec = GetParam(2);
 		nodeflags = GetParam(3);
+		return;
 	}
-	else if (getsourceref() == 100001) // New info available
+
+	if (GetSourceRef() == 100001) // New info available
 	{
 		target=getparam(1);
 		botmode=getparam(2);
 		curweap=getparam(3);
+		return;
 	}
-	else if (getsourceref() == 100002) // New info available
+
+	if (GetSourceRef() == 100002) // New info available
 	{
 		shields=getparam(1);
+		return;
 	}
-	else if (getsourceref() == 101000) // weapon changed
+
+	if (GetSourceRef() == 101000) // weapon changed
 	{
 		if (curweap == 10) // old weapon was saber
 		{
@@ -628,12 +666,16 @@ trigger:
 
 		// Update weapon model
 		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1);
+		return;
 	}
-	else if (getsourceref() == 101010) // take item
+
+	if (GetSourceRef() == 101010) // take item
 	{
 		TakeItem(getparam(1), rbot);
+		return;
 	}
-	else if (getsourceref() == 101020) // weapon fired
+
+	if (GetSourceRef() == 101020) // weapon fired
 	{
 		curweap = GetParam(1);
 		mode = GetParam(2);
@@ -795,7 +837,9 @@ trigger:
 				PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
 			}
 		}
+		return;
 	}
+
 	return;
 
 move:
@@ -815,21 +859,28 @@ move:
 	call checknode;
 
 	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
-	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3) {
+	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3)
+	{
 		// Bot is not moving forward, try to determine if it is truly obstructed
 		obstructed = 1;
-		if (GetThingFlags(rbot) & 0x2000000 && (VectorZ(GetThingPos(rbot)) - VectorZ(newpos)) > 0.25) {
+		if (GetThingFlags(rbot) & 0x2000000 && (VectorZ(GetThingPos(rbot)) - VectorZ(newpos)) > 0.25)
+		{
 			// Bot is underwater and is trying to swim down to the next node
 			obstructed = 0;
-		} else if (arrival_event != -1 && VectorDist(GetThingPos(rbot), waitpos) < 0.1) {
+		}
+		if (arrival_event != -1 && VectorDist(GetThingPos(rbot), waitpos) < 0.1)
+		{
 			// Bot is holding position while awaiting arrival
 			obstructed = 0;
-		} else if (VectorDist(GetThingPos(rbot), newpos) < (VectorDist(lastbotpos, newpos) - 0.05)) {
+		}
+		if (VectorDist(GetThingPos(rbot), newpos) < (VectorDist(lastbotpos, newpos) - 0.05))
+		{
 			// Bot is still advancing toward the next node, despite not moving "forward" (e.g. elevators)
 			obstructed = 0;
 		}
 
-		if (obstructed && !(GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)) {
+		if (obstructed && !(GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
+		{
 			// Bot is obstructed but appears to be airborne (not on floor/thing or in water)
 			// Players can't "jump" in the air, so bots shouldn't be able to, either
 			obstructed = 0;
@@ -850,11 +901,13 @@ move:
 		//}
 
 		// If the bot is obstructed for long enough, try to jump (or swim) up to get over the obstruction
-		if (obstructed) {
+		if (obstructed)
+		{
 			stopcount = stopcount + 1;
 			// Jump at some random delay after reaching the obstruction threshold
 			// This encourages the bot to try slightly different timings for when it decides to jump
-			if (stopcount > 20 && Rand() > 0.25) {
+			if (stopcount > 20 && Rand() > 0.25)
+			{
 				// Bot has not moved in several seconds, try to get over the obstruction
 				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 3.0)); // force bot to jump
 				stopcount = 0;
@@ -909,7 +962,7 @@ move:
 				itempriority=-1;
 
 				// work out item priority
-				if (newitemmodel==itemmodel13) // red flag
+				if (newitemmodel == itemmodel13) // red flag
 				{
 					if (captured_red == 1) itempriority=10; // flag dropped
 					if (curteam == 1) // bot on red team
@@ -921,7 +974,7 @@ move:
 						if (captured_red == 0) itempriority=10; // red flag at base
 					}
 				}
-				else if (newitemmodel==itemmodel14) // gold flag
+				if (newitemmodel == itemmodel14) // gold flag
 				{
 					if (captured_gold == 1) itempriority=10; // flag dropped
 					if (curteam == 2) // bot on gold team
@@ -991,15 +1044,18 @@ movenode:
 	// By default, move normally to next node
 	AiSetMovePos(rbot, newpos);
 
-	if (reachednode) {
-		// Just reached new node, see if bot is moving fast and needs to make a sharp turn
+	if (reachednode) // Reached node this pulse
+	{
+		// See if bot is moving fast and needs to make a sharp turn
 		tempvector1 = VectorNorm(GetThingVel(rbot));
 		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-		if (VectorLen(GetThingVel(rbot)) > 0.4 && VectorDot(tempvector1, tempvector2) < 0.7) {
+		if (VectorLen(GetThingVel(rbot)) > 0.4 && VectorDot(tempvector1, tempvector2) < 0.7)
+		{
 			// If bot is not airborne, move to self position to help slow down for sharp turns
 			// This check is necessary because telling an actor to move to its own position seems to
 			// behave like StopThing and will reset vertical velocity like jumping and falling
-			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000) {
+			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
+			{
 				AiSetMovePos(rbot, GetThingPos(rbot));
 			}
 		}
@@ -1188,13 +1244,16 @@ block_anim:
 	return;
 
 timer:
-	if(!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
+
 	if (GetSenderId() == 120) // bot has not found its next node in time - bot lost
 	{
 		// Keep track of how long we're lost while not in combat or getting an item
-		if (!BitTest(botmode, 0x4000) && newitem == -1) {
+		if (!BitTest(botmode, 0x4000) && newitem == -1)
+		{
 			lostcount = lostcount + 1;
-			if (lostcount > 6) {
+			if (lostcount > 6)
+			{
 				// Bot might be stuck somewhere (in a pit/hole, behind a corner, under a non-crushing
 				// elevator, etc.).  We don't want the bot to be stuck indefinitely, so kill it to
 				// force a respawn (like a player using the "kill" command).
@@ -1213,12 +1272,16 @@ timer:
 		// Request new node
 		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
 		SendTrigger(-1, 13000, botid, rbot, botmode, -1);
+		return;
 	}
-	else if (GetSenderId() == 150) // Drowning damage should be over by now
+
+	if (GetSenderId() == 150) // Drowning damage should be over by now
 	{
-		drowning=0;
+		drowning = 0;
+		return;
 	}
-	else if (GetSenderId() == 160) // Bot killed with saber lit, do saber dismount effects
+
+	if (GetSenderId() == 160) // Bot killed with saber lit, do saber dismount effects
 	{
 		PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
 		if(humChannel != -1)
@@ -1228,32 +1291,44 @@ timer:
 		}
 		curweap = 0; // unlit saber
 		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1); // show model with saber turned off
+		return;
 	}
-	else if (GetSenderId() == 200) // fire 1st swing saber projectile
+
+	if (GetSenderId() == 200) // fire 1st swing saber projectile
 	{
 		AiSetLookPos(rbot, getthingpos(target));
 		FireProjectile(rbot, projectile_weap00a, -1, -1, '0.0 0.0 0.0', '0 0 0', 1.0, 0x20, 30, 10);
+		return;
 	}
-	else if (GetSenderId() == 201) // fire 2nd swing saber projectile
+
+	if (GetSenderId() == 201) // fire 2nd swing saber projectile
 	{
 		AiSetLookPos(rbot, getthingpos(target));
 		FireProjectile(rbot, projectile_weap00a, -1, -1, '0 0 0', '0 0 0', 1.0, 0x20, 30, 10);
+		return;
 	}
-	else if (GetSenderId() == 202) // fire swing saber projectile
+
+	if (GetSenderId() == 202) // fire swing saber projectile
 	{
 		AiSetLookPos(rbot, getthingpos(target));
 		FireProjectile(rbot, projectile_weap00, -1, -1, '0 0 0', '0 0 0', 1.0, 0x20, 30, 10);
+		return;
 	}
-	else if (GetSenderId() == 220) // reduce bot speed after temporary speed increase
+
+	if (GetSenderId() == 220) // reduce bot speed after temporary speed increase
 	{
 		AiSetMoveSpeed(rbot,2.0);
+		return;
 	}
-	else if (GetSenderId() == 230) // choose random move direction (force blinded)
+
+	if (GetSenderId() == 230) // choose random move direction (force blinded)
 	{
 		blindvec = VectorSet((Rand()-0.5)*5, (Rand()-0.5)*5, 0.0);
 		if (GetActorFlags(rbot) & 0x800) SetTimerEx(3+rand()*5,230,-1,-1); // bot still blind
+		return;
 	}
-	else if (GetSenderId() == 300) // check if bot has fallen into a pit
+
+	if (GetSenderId() == 300) // check if bot has fallen into a pit
 	{
 		cursector=GetThingSector(rbot);
 		if (BitTest(GetSectorFlags(cursector), 0x40)) // in pit
@@ -1261,11 +1336,15 @@ timer:
 			DamageThing(rbot,800,1,rbot); // kill bot
 		}
 		else SetTimerEx(2.0, 300, -1, -1); // schedule another check
+		return;
 	}
-	else if (GetSenderId() == 400) // reset dodge timer
+
+	if (GetSenderId() == 400) // reset dodge timer
 	{
 		allowdodge=1;
+		return;
 	}
+
 	return;
 
 user1:
@@ -1280,44 +1359,42 @@ user1:
 user7:
 	// Simple symbol value reads
 	if (GetParam(0) == 1000) ReturnEx(botid);
-	else if (GetParam(0) == 1001) ReturnEx(curbotname);
-	else if (GetParam(0) == 1002) ReturnEx(curteam);
-	else if (GetParam(0) == 1003) ReturnEx(botmode);
-	else if (GetParam(0) == 1004) ReturnEx(gamemode);
-	else if (GetParam(0) == 1005) ReturnEx(difficulty);
-	else if (GetParam(0) == 1010) ReturnEx(target);
-	else if (GetParam(0) == 1011) ReturnEx(newitem);
-	else if (GetParam(0) == 1012) {
+	if (GetParam(0) == 1001) ReturnEx(curbotname);
+	if (GetParam(0) == 1002) ReturnEx(curteam);
+	if (GetParam(0) == 1003) ReturnEx(botmode);
+	if (GetParam(0) == 1004) ReturnEx(gamemode);
+	if (GetParam(0) == 1005) ReturnEx(difficulty);
+	if (GetParam(0) == 1010) ReturnEx(target);
+	if (GetParam(0) == 1011) ReturnEx(newitem);
+	if (GetParam(0) == 1012)
+	{
 		if (GetParam(1) <= 0) ReturnEx(node);
 		if (GetParam(1) == 1) ReturnEx(VectorX(newpos));
 		if (GetParam(1) == 2) ReturnEx(VectorY(newpos));
 		if (GetParam(1) == 3) ReturnEx(VectorZ(newpos));
 		if (GetParam(1) == 4) ReturnEx(nodesec);
 	}
-	else if (GetParam(0) == 1013) ReturnEx(rbot);
-	else if (GetParam(0) == 1014) ReturnEx(curweap);
-	else if (GetParam(0) == 1015) ReturnEx(targweap);
-	else if (GetParam(0) == 1100) ReturnEx(srv2);
-	else if (GetParam(0) == 1101) ReturnEx(srv_force);
+	if (GetParam(0) == 1013) ReturnEx(rbot);
+	if (GetParam(0) == 1014) ReturnEx(curweap);
+	if (GetParam(0) == 1015) ReturnEx(targweap);
+	if (GetParam(0) == 1100) ReturnEx(srv2);
+	if (GetParam(0) == 1101) ReturnEx(srv_force);
 	// Simple symbol value writes
-	else if (GetParam(0) == 2003) botmode = GetParam(1);
+	if (GetParam(0) == 2003) botmode = GetParam(1);
 	// Calculated values
-	else if (GetParam(0) == 3000) {
+	if (GetParam(0) == 3000)
+	{
 		// Return reference to live bot thing, or -1 if dead
-		if (BitTest(botmode, 0x10000)) {
+		if (BitTest(botmode, 0x10000))
+		{
 			// Bot is alive, return thing number
 			ReturnEx(rbot);
-		} else {
+		}
+		else
+		{
 			// Bot is dead, return -1 since thing number may or may not be the bot thing
 			ReturnEx(-1);
 		}
-	}
-	// Otherwise, report error
-	else {
-		jkStringClear();
-		jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv.cog :: ERROR :: Cog %d");
-		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
-		jkStringOutput(-1, -1);
 	}
 	return;
 

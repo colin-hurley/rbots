@@ -1,4 +1,4 @@
-# Rbot Administration - Change Difficulty
+# Rbot Administration Cog - Change Difficulty
 #
 # Change the difficulty of the bots
 #
@@ -11,9 +11,9 @@ flags=0x240
 
 symbols
 
-message startup
-message user0
-message user1
+message		startup
+message		user0
+message		user1
 
 end
 

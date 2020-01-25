@@ -1,4 +1,8 @@
 # Rbots auto-elevator
+#
+# This Cog Script is DEPRECATED and will be removed in a future release
+# Please use rbot-elev.cog instead
+#
 # makes life easier for both bots and player
 # Note: mask=0x405 allows both players and actors to send messages
 #

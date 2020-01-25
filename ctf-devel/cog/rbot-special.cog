@@ -1,6 +1,9 @@
 # Rbot Special Cog
 #
-# Server - unsynch
+# Server-only
+#
+# This cog applies special modes and effects to a bot for a short duration
+# after the bot reaches a node.
 #
 # Rbots originally created by Raynar
 
@@ -11,26 +14,26 @@ symbols
 message		trigger
 
 # Special nodes
-thing		sp0=-1		nolink
-thing		sp1=-1		nolink
-thing		sp2=-1		nolink
-thing		sp3=-1		nolink
-thing		sp4=-1		nolink
-thing		sp5=-1		nolink
-thing		sp6=-1		nolink
-thing		sp7=-1		nolink
-thing		sp8=-1		nolink
-thing		sp9=-1		nolink
-thing		sp10=-1		nolink
-thing		sp11=-1		nolink
-thing		sp12=-1		nolink
-thing		sp13=-1		nolink
-thing		sp14=-1		nolink
-thing		sp15=-1		nolink
-thing		sp16=-1		nolink
-thing		sp17=-1		nolink
-thing		sp18=-1		nolink
-thing		sp19=-1		nolink
+thing		sp0=-1								nolink
+thing		sp1=-1								nolink
+thing		sp2=-1								nolink
+thing		sp3=-1								nolink
+thing		sp4=-1								nolink
+thing		sp5=-1								nolink
+thing		sp6=-1								nolink
+thing		sp7=-1								nolink
+thing		sp8=-1								nolink
+thing		sp9=-1								nolink
+thing		sp10=-1								nolink
+thing		sp11=-1								nolink
+thing		sp12=-1								nolink
+thing		sp13=-1								nolink
+thing		sp14=-1								nolink
+thing		sp15=-1								nolink
+thing		sp16=-1								nolink
+thing		sp17=-1								nolink
+thing		sp18=-1								nolink
+thing		sp19=-1								nolink
 
 # Flags for each special node
 int			spinf0=0
@@ -54,12 +57,12 @@ int			spinf17=0
 int			spinf18=0
 int			spinf19=0
 
-# Misc
-int			index		local
-int			special		local
-int			botid		local
-thing		node		local
-thing		rbot		local
+# Working variables
+int			mode								local
+int			i									local
+int			botid								local
+#thing		rbot								local
+thing		node								local
 
 end
 
@@ -68,23 +71,23 @@ end
 code
 
 trigger:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	
-	if (getsourceref() == 11010) // Special info request from bot
+	if (GetSourceRef() == 11010) // Special info request from bot
 	{
-		botid=getparam(0);   // which bot requested the info
-		rbot=getparam(1);
-		node=getparam(2);
+		botid = GetParam(0); // which bot requested the info
+		#rbot = GetParam(1);
+		node = GetParam(2);
 
-		// work out special node info
-		special=0;
-		for (index=0;index < 20;index=index+1)
+		mode = 2; // Activate for short duration
+
+		// Apply special modes
+		for (i = 0 ; i < 20 ; i = i + 1)
 		{
-			if (sp0[index] == node) special = spinf0[index]; // current pos is also a special node
-		}
-		if (special)
-		{
-			SendTrigger(-1, 11020, botid, special, 2, -1); // send special info to bot (mode 2 = activate for short duration)
+			if (sp0[i] == node && spinf0[i]) // This is the node that the bot reached and it has special info
+			{
+				SendTrigger(-1, 11020, botid, spinf0[i], mode, -1); // send special info update to bot
+			}
 		}
 	}
 	return;

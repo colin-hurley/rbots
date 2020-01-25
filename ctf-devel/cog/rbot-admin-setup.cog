@@ -1,4 +1,4 @@
-# Rbot Administration - Game Setup
+# Rbot Administration Cog - Game Setup
 #
 # Modify game settings controlled by rbot-startup.cog, including:
 # * Add/Remove bots
@@ -15,23 +15,23 @@ flags=0x240
 
 symbols
 
-message startup
-message shutdown
-message trigger
-message user0
-message user1
+message		startup
+message		shutdown
+message		trigger
+message		user0
+message		user1
 
-int addbot local
-int removebot local
-int toggle_guns local
-int toggle_sabers local
-int toggle_force local
+int			addbot								local
+int			removebot							local
+int			toggle_guns							local
+int			toggle_sabers						local
+int			toggle_force						local
 
 # Reference to rbot-startup.cog
-cog game_startup=-1 local
+cog			game_startup=-1						local
 
 # Working vars
-int gamemode local
+int			gamemode							local
 
 end
 
@@ -53,10 +53,10 @@ shutdown:
 	return;
 
 trigger:
-	if (GetSourceRef() == 1852000) {
-		// Rbot cog type discovery
-		if (GetParam(0) == 1010) {
-			// rbot-startup.cog
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
 			game_startup = GetParam(1);
 		}
 	}
@@ -66,32 +66,46 @@ trigger:
 user0:
 	if (GetParam(0) == addbot) SendTrigger(-1, 910, -1, -1, -1, -1); // Tell startup cog to add a bot
 	else if (GetParam(0) == removebot) SendTrigger(-1, 920, -1, -1, -1, -1); // Tell startup cog to remove a bot
-	else if (GetParam(0) == toggle_guns) {
+	else if (GetParam(0) == toggle_guns)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x1)) {
+		if (BitTest(gamemode, 0x1))
+		{
 			gamemode = BitClear(gamemode, 0x1);
 			Print("Gun use [DISABLED]");
-		} else {
+		}
+		else
+		{
 			gamemode = BitSet(gamemode, 0x1);
 			Print("Gun use [ENABLED]");
 		}
 		SendMessageEx(game_startup, user7, 2002, gamemode, -1, -1);
-	} else if (GetParam(0) == toggle_sabers) {
+	}
+	else if (GetParam(0) == toggle_sabers)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x2)) {
+		if (BitTest(gamemode, 0x2))
+		{
 			gamemode = BitClear(gamemode, 0x2);
 			Print("Saber use [DISABLED]");
-		} else {
+		}
+		else
+		{
 			gamemode = BitSet(gamemode, 0x2);
 			Print("Saber use [ENABLED]");
 		}
 		SendMessageEx(game_startup, user7, 2002, gamemode, -1, -1);
-	} else if (GetParam(0) == toggle_force) {
+	}
+	else if (GetParam(0) == toggle_force)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x4)) {
+		if (BitTest(gamemode, 0x4))
+		{
 			gamemode = BitClear(gamemode, 0x4);
 			Print("Force use [DISABLED]");
-		} else {
+		}
+		else
+		{
 			gamemode = BitSet(gamemode, 0x4);
 			Print("Force use [ENABLED]");
 		}
@@ -103,25 +117,39 @@ user0:
 user1:
 	if (GetParam(0) == addbot) jkStringConcatAsciiString("Add bot");
 	else if (GetParam(0) == removebot) jkStringConcatAsciiString("Remove bot");
-	else if (GetParam(0) == toggle_guns) {
+	else if (GetParam(0) == toggle_guns)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x1)) {
+		if (BitTest(gamemode, 0x1))
+		{
 			jkStringConcatAsciiString("Toggle gun use [ENABLED]");
-		} else {
+		}
+		else
+		{
 			jkStringConcatAsciiString("Toggle gun use [DISABLED]");
 		}
-	} else if (GetParam(0) == toggle_sabers) {
+	}
+	else if (GetParam(0) == toggle_sabers)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x2)) {
+		if (BitTest(gamemode, 0x2))
+		{
 			jkStringConcatAsciiString("Toggle saber use [ENABLED]");
-		} else {
+		}
+		else
+		{
 			jkStringConcatAsciiString("Toggle saber use [DISABLED]");
 		}
-	} else if (GetParam(0) == toggle_force) {
+	}
+	else if (GetParam(0) == toggle_force)
+	{
 		gamemode = SendMessageEx(game_startup, user7, 1002, -1, -1, -1);
-		if (BitTest(gamemode, 0x4)) {
+		if (BitTest(gamemode, 0x4))
+		{
 			jkStringConcatAsciiString("Toggle force use [ENABLED]");
-		} else {
+		}
+		else
+		{
 			jkStringConcatAsciiString("Toggle force use [DISABLED]");
 		}
 	}

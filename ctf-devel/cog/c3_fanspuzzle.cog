@@ -100,11 +100,10 @@ startup:
 # ........................................................................................
 
 trigger:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	
-	if (GetSourceRef() == 11010) {
-		// Bot arrived at node
-
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
 		botid = GetParam(0); // the bot making the request
 		node = GetParam(2); // which node the bot arrived at
 

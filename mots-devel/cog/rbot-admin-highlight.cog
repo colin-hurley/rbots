@@ -1,4 +1,4 @@
-# Rbot Administration - Highlight
+# Rbot Administration Cog - Highlight
 #
 # This utility will "highlight" things of interest for a bot (e.g. destination
 # node, enemy target, item).
@@ -11,31 +11,31 @@ flags=0x240
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
-message pulse
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
+message		pulse
 
-int active=0 local
+int			active=0							local
 
 # We can't dynamically create 'ghost' things (they can only be statically
 # placed in the JKL), so we create '_ghostdecor' things instead, which are
 # virtually identical.
-template	ghost=_ghostdecor	local
+template	ghost=_ghostdecor					local
 
-cog srv=-1 local
-int botmode local
-thing target local
-thing enemy local
-thing item local
-thing nodeghost=-1 local
-flex nodeposx local
-flex nodeposy local
-flex nodeposz local
-vector nodepos local
-sector nodesec local
+cog			srv=-1								local
+int			botmode								local
+thing		target								local
+thing		enemy								local
+thing		item								local
+thing		nodeghost=-1						local
+flex		nodeposx							local
+flex		nodeposy							local
+flex		nodeposz							local
+vector		nodepos								local
+sector		nodesec								local
 
 end
 
@@ -56,15 +56,19 @@ shutdown:
 // Execute
 user0:
 	active = 1 - active;
-	if (active) {
+	if (active)
+	{
 		// Activate highlighter
 		Print("Highlighter on");
 		SetPulse(0.1);
-	} else {
+	}
+	else
+	{
 		Print("Highlighter off");
 		SetPulse(0);
 		jkEndTarget();
-		if (nodeghost != -1) {
+		if (nodeghost != -1)
+		{
 			DestroyThing(nodeghost);
 			nodeghost = -1;
 		}
@@ -78,18 +82,19 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 15080) {
-		// New bot selected
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		srv = GetParam(1);
 	}
 	return;
 
 pulse:
 	target = -1;
-	if (srv != -1) {
+	if (srv != -1)
+	{
 		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-		if (BitTest(botmode, 0x10000)) {
-			// Bot is alive
+		if (BitTest(botmode, 0x10000)) // Bot is alive
+		{
 			enemy = SendMessageEx(srv, user7, 1010, -1, -1, -1);
 			item = SendMessageEx(srv, user7, 1011, -1, -1, -1);
 			nodeposx = SendMessageEx(srv, user7, 1012, 1, -1, -1);
@@ -97,15 +102,18 @@ pulse:
 			nodeposz = SendMessageEx(srv, user7, 1012, 3, -1, -1);
 			nodepos = VectorSet(nodeposx, nodeposy, nodeposz);
 			nodesec = SendMessageEx(srv, user7, 1012, 4, -1, -1);
-			if (BitTest(botmode, 0x4000)) {
-				// Bot has enemy target
+			if (BitTest(botmode, 0x4000)) // Bot has enemy target
+			{
 				jkSetTargetColors(6, 7, 8); // Red
 				target = enemy;
-			} else if (item != -1) {
-				// Bot is heading for an item
+			}
+			else if (item != -1) // Bot is heading for an item
+			{
 				jkSetTargetColors(1, 2, 3); // Green
 				target = item;
-			} else {
+			}
+			else
+			{
 				// Otherwise, highlight the bot's destination node
 				jkSetTargetColors(16, 17, 18); // Light Blue
 
@@ -116,9 +124,12 @@ pulse:
 			}
 		}
 	}
-	if (target != -1) {
+	if (target != -1)
+	{
 		jkSetTarget(target);
-	} else {
+	}
+	else
+	{
 		jkEndTarget();
 	}
 	return;

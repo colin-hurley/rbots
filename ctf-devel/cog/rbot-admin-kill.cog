@@ -1,4 +1,4 @@
-# Rbot Administration - Kill Bot
+# Rbot Administration Cog - Kill Bot
 #
 # This utility will kill the selected bot.
 #
@@ -10,17 +10,17 @@ flags=0x40
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
 
-cog srv=-1 local
+cog			srv=-1								local
 
 # Working vars
-int botmode local
-thing rbot local
+int			botmode								local
+thing		rbot								local
 
 end
 
@@ -38,14 +38,17 @@ shutdown:
 
 // Execute
 user0:
-	if (srv != -1) {
+	if (srv != -1)
+	{
 		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-		if (BitTest(botmode, 0x10000)) {
-			// Bot is alive
+		if (BitTest(botmode, 0x10000)) // Bot is alive
+		{
 			rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
 			DamageThing(rbot, 500, 0x1, rbot);
 		}
-	} else {
+	}
+	else
+	{
 		Print("No bot selected");
 	}
 	return;
@@ -56,8 +59,8 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 15080) {
-		// New bot selected
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		srv = GetParam(1);
 	}
 	return;

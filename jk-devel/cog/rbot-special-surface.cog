@@ -17,26 +17,26 @@ message		crossed
 message		timer
 
 # Special surfaces
-surface		sp0=-1		mask=0x4
-surface		sp1=-1		mask=0x4
-surface		sp2=-1		mask=0x4
-surface		sp3=-1		mask=0x4
-surface		sp4=-1		mask=0x4
-surface		sp5=-1		mask=0x4
-surface		sp6=-1		mask=0x4
-surface		sp7=-1		mask=0x4
-surface		sp8=-1		mask=0x4
-surface		sp9=-1		mask=0x4
-surface		sp10=-1		mask=0x4
-surface		sp11=-1		mask=0x4
-surface		sp12=-1		mask=0x4
-surface		sp13=-1		mask=0x4
-surface		sp14=-1		mask=0x4
-surface		sp15=-1		mask=0x4
-surface		sp16=-1		mask=0x4
-surface		sp17=-1		mask=0x4
-surface		sp18=-1		mask=0x4
-surface		sp19=-1		mask=0x4
+surface		sp0=-1								mask=0x4
+surface		sp1=-1								mask=0x4
+surface		sp2=-1								mask=0x4
+surface		sp3=-1								mask=0x4
+surface		sp4=-1								mask=0x4
+surface		sp5=-1								mask=0x4
+surface		sp6=-1								mask=0x4
+surface		sp7=-1								mask=0x4
+surface		sp8=-1								mask=0x4
+surface		sp9=-1								mask=0x4
+surface		sp10=-1								mask=0x4
+surface		sp11=-1								mask=0x4
+surface		sp12=-1								mask=0x4
+surface		sp13=-1								mask=0x4
+surface		sp14=-1								mask=0x4
+surface		sp15=-1								mask=0x4
+surface		sp16=-1								mask=0x4
+surface		sp17=-1								mask=0x4
+surface		sp18=-1								mask=0x4
+surface		sp19=-1								mask=0x4
 
 # Flags for each special surface
 int			spinf0=0
@@ -61,12 +61,12 @@ int			spinf18=0
 int			spinf19=0
 
 # Working variables
-cog			srv			local
-int			mode		local
-int			i			local
-int			botid		local
-thing		rbot		local
-surface		sf			local
+cog			srv									local
+int			mode								local
+int			i									local
+int			botid								local
+thing		rbot								local
+surface		sf									local
 
 end
 
@@ -75,7 +75,7 @@ end
 code
 
 entered:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
 	sf = GetSenderRef();
 	if (GetThingCaptureCog(rbot) == -1)
@@ -97,7 +97,7 @@ entered:
 	return;
 
 exited:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
 	sf = GetSenderRef();
 	mode = 0; // Disable effects
@@ -105,7 +105,7 @@ exited:
 	return;
 
 crossed:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
 	sf = GetSenderRef();
 	mode = 2; // Enable effects for a short time only

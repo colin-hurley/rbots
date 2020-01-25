@@ -1,4 +1,4 @@
-# Rbot Administration - Full map
+# Rbot Administration Cog - Full map
 #
 # Reveal the full overlay map and show bots on the overlay map
 #
@@ -10,9 +10,9 @@ flags=0x240
 
 symbols
 
-message startup
-message user0
-message user1
+message		startup
+message		user0
+message		user1
 
 end
 

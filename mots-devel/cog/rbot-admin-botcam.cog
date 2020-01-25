@@ -1,4 +1,4 @@
-# Rbot Administration - Botcam
+# Rbot Administration Cog - Botcam
 #
 # A camera to watch the selected bot
 #
@@ -11,20 +11,20 @@ flags=0x240
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
-message timer
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
+message		timer
 
-int active=0 local
+int			active=0							local
 
-int old_camera local
-thing player local
-thing rbot local
-int botid=-1 local
-int prev_botid local
+int			old_camera							local
+thing		player								local
+thing		rbot								local
+int			botid=-1							local
+int			prev_botid							local
 
 end
 
@@ -44,15 +44,19 @@ shutdown:
 // Execute
 user0:
 	active = 1 - active;
-	if (active) {
+	if (active)
+	{
 		// Activate botcam (asynchronous, when trigger response arrives)
 		Print("Botcam on");
 		old_camera = GetCurrentCamera();
-		if (botid != -1) {
+		if (botid != -1)
+		{
 			// Ask srv for bot thing number - srv will respond with a trigger
 			SendTrigger(-1, 960, botid, -1, -1, -1);
 		}
-	} else {
+	}
+	else
+	{
 		Print("Botcam off");
 		call deactivate_botcam;
 	}
@@ -65,24 +69,32 @@ user1:
 	return;
 
 trigger:
-	if ((GetSourceRef() == 950 || GetSourceRef() == 970) && GetParam(0) == botid) {
+	if ((GetSourceRef() == 950 || GetSourceRef() == 970) && GetParam(0) == botid)
+	{
 		// Bot spawned / reported thing number
-		if (active) {
+		if (active)
+		{
 			rbot = GetParam(1);
 			call activate_botcam;
 		}
-	} else if (GetSourceRef() == 1000 && GetParam(0) == botid) {
-		// Bot died, temporarily switch back to player camera until bot respawns
+	}
+	else if (GetSourceRef() == 1000 && GetParam(0) == botid) // Bot died
+	{
+		// Temporarily switch back to player camera until bot respawns
 		SetTimerEx(3.0, 100, botid, -1);
-	} else if (GetSourceRef() == 15080) {
-		// New bot selected
+	}
+	else if (GetSourceRef() == 15080) // New bot selected
+	{
 		prev_botid = botid;
 		botid = GetParam(0);
-		if (active) {
-			if (botid == -1) {
-				// No bot selected
+		if (active)
+		{
+			if (botid == -1) // No bot selected
+			{
 				call deactivate_botcam;
-			} else {
+			}
+			else
+			{
 				// Request new thing number
 				SendTrigger(-1, 960, botid, -1, -1, -1);
 				// Deactivate if we don't get a new thing number in time
@@ -93,8 +105,10 @@ trigger:
 	return;
 
 timer:
-	if (GetSenderId() == 100) {
-		if (GetParam(0) == botid) {
+	if (GetSenderId() == 100)
+	{
+		if (GetParam(0) == botid)
+		{
 			// Still watching same bot
 			call deactivate_botcam;
 		}

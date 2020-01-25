@@ -1,4 +1,4 @@
-# Rbot Administration - Stats
+# Rbot Administration Cog - Stats
 #
 # This utility will display stats for the selected bot.
 #
@@ -10,22 +10,22 @@ flags=0x240
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
-message pulse
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
+message		pulse
 
-int active=0 local
+int			active=0							local
 
-cog srv=-1 local
+cog			srv=-1								local
 
 # Working vars
-thing rbot local
-int health local
-cog srv2 local
-cog srv_force local
+thing		rbot								local
+int			health								local
+cog			srv2								local
+cog			srv_force							local
 
 end
 
@@ -45,10 +45,13 @@ shutdown:
 // Execute
 user0:
 	active = 1 - active;
-	if (active) {
+	if (active)
+	{
 		Print("Stats on");
 		SetPulse(1);
-	} else {
+	}
+	else
+	{
 		Print("Stats off");
 		SetPulse(0);
 	}
@@ -61,20 +64,22 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 15080) {
-		// New bot selected
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		srv = GetParam(1);
 	}
 	return;
 
 pulse:
-	if (srv != -1) {
+	if (srv != -1)
+	{
 		srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
 		srv_force = SendMessageEx(srv, user7, 1101, -1, -1, -1);
 
 		rbot = SendMessageEx(srv, user7, 3000, -1, -1, -1);
 		health = 0;
-		if (rbot != -1) {
+		if (rbot != -1)
+		{
 			health = GetThingHealth(rbot);
 		}
 

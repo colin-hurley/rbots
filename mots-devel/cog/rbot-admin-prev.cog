@@ -1,4 +1,4 @@
-# Rbot Administration - Previous Function
+# Rbot Administration Cog - Previous Function
 #
 # Selects the previous function in the Rbot administration utility.
 #
@@ -8,10 +8,10 @@
 
 symbols
 
-message startup
-message activated
+message		startup
+message		activated
 
-cog admin local
+cog			admin								local
 
 end
 

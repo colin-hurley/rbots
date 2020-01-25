@@ -1,4 +1,4 @@
-# Rbot Administration
+# Rbot Administration Cog
 #
 # This cog makes it possible to add any number of administrative functions to
 # Rbots without exceeding the maximum hotkey limit.  Only the host machine may
@@ -37,72 +37,73 @@ flags=0x240
 
 symbols
 
-message activated
-message shutdown
-message user0
-message user1
+message		activated
+message		shutdown
+message		user0
+message		user1
 
-int func=0 local
+int			func=0								local
 
-int maxfunc=0 local
+int			maxfunc=0							local
 
-cog function0=-1 local
-cog function1=-1 local
-cog function2=-1 local
-cog function3=-1 local
-cog function4=-1 local
-cog function5=-1 local
-cog function6=-1 local
-cog function7=-1 local
-cog function8=-1 local
-cog function9=-1 local
-cog function10=-1 local
-cog function11=-1 local
-cog function12=-1 local
-cog function13=-1 local
-cog function14=-1 local
-cog function15=-1 local
-cog function16=-1 local
-cog function17=-1 local
-cog function18=-1 local
-cog function19=-1 local
-cog function20=-1 local
-cog function21=-1 local
-cog function22=-1 local
-cog function23=-1 local
-cog function24=-1 local
-cog function25=-1 local
-cog function26=-1 local
-cog function27=-1 local
-cog function28=-1 local
-cog function29=-1 local
-cog function30=-1 local
-cog function31=-1 local
-cog function32=-1 local
-cog function33=-1 local
-cog function34=-1 local
-cog function35=-1 local
-cog function36=-1 local
-cog function37=-1 local
-cog function38=-1 local
-cog function39=-1 local
-cog function40=-1 local
-cog function41=-1 local
-cog function42=-1 local
-cog function43=-1 local
-cog function44=-1 local
-cog function45=-1 local
-cog function46=-1 local
-cog function47=-1 local
-cog function48=-1 local
-cog function49=-1 local
+cog			function0=-1						local
+cog			function1=-1						local
+cog			function2=-1						local
+cog			function3=-1						local
+cog			function4=-1						local
+cog			function5=-1						local
+cog			function6=-1						local
+cog			function7=-1						local
+cog			function8=-1						local
+cog			function9=-1						local
+cog			function10=-1						local
+cog			function11=-1						local
+cog			function12=-1						local
+cog			function13=-1						local
+cog			function14=-1						local
+cog			function15=-1						local
+cog			function16=-1						local
+cog			function17=-1						local
+cog			function18=-1						local
+cog			function19=-1						local
+cog			function20=-1						local
+cog			function21=-1						local
+cog			function22=-1						local
+cog			function23=-1						local
+cog			function24=-1						local
+cog			function25=-1						local
+cog			function26=-1						local
+cog			function27=-1						local
+cog			function28=-1						local
+cog			function29=-1						local
+cog			function30=-1						local
+cog			function31=-1						local
+cog			function32=-1						local
+cog			function33=-1						local
+cog			function34=-1						local
+cog			function35=-1						local
+cog			function36=-1						local
+cog			function37=-1						local
+cog			function38=-1						local
+cog			function39=-1						local
+cog			function40=-1						local
+cog			function41=-1						local
+cog			function42=-1						local
+cog			function43=-1						local
+cog			function44=-1						local
+cog			function45=-1						local
+cog			function46=-1						local
+cog			function47=-1						local
+cog			function48=-1						local
+cog			function49=-1						local
 
 end
 
 code
 
 activated:
-	if (IsMulti() && !IsServer()) {
+	if (IsMulti() && !IsServer()) // Host only
+	{
 		Print("Only the host may access the Rbot administrative functions");
 		return;
 	}
@@ -133,15 +134,19 @@ user0:
 // Called from rbot-admin-next.cog and rbot-admin-prev.cog
 // Param 0 = 1 (next) or 0 (prev)
 user1:
-	if (IsMulti() && !IsServer()) {
+	if (IsMulti() && !IsServer()) // Host only
+	{
 		Print("Only the host may access the Rbot administrative functions");
 		return;
 	}
 
-	if (GetParam(0)) {
+	if (GetParam(0))
+	{
 		func = func + 1; // Next
 		if (func > maxfunc) func = 1; // Wrap from last to first
-	} else {
+	}
+	else
+	{
 		func = func - 1; // Previous
 		if (func < 1) func = maxfunc; // Wrap from first to last
 	}

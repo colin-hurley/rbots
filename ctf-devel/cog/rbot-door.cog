@@ -1,20 +1,22 @@
-# Jedi Knight Cog Script
+# Rbot Door Cog
 #
-# Custom Rbots
+# Manages a single door that can be used by both players and bots.
+#
+# Rbots originally created by Raynar
 
 symbols
 
-message	activate
-message	arrived
-message	timer
-message	blocked
-message	entered
-message	touched
+message		activate
+message		arrived
+message		timer
+message		blocked
+message		entered
+message		touched
 
-thing	door	mask=0x405
+thing		door								mask=0x405
 	
-flex	moveSpeed=8.0
-flex	sleepTime=3.0
+flex		moveSpeed=8.0
+flex		sleepTime=3.0
 
 end
 

@@ -1,4 +1,4 @@
-# Rbot Server - Force Powers
+# Rbot Server Cog - Force Powers
 #
 # Server-only
 # Type ID: 1022
@@ -18,22 +18,22 @@ message		user7
 int			botid=0
 int			forceflags=15
 
-int			forcemode					local
-int			mana						local
-int			forcearmor					local
-int			starthealth					local
-int			griptrackID=-1				local
-int			gripsleft=0					local
-int			dsleft=0					local
-int			allowAbsorbFx=1				local
-int			shield=-1					local
-int			speedChannel=-1				local
-int			seeingChannel=-1			local
-int			persuasionChannel=-1		local
-int			protectionChannel=-1		local
-int			deadlyChannel=-1			local
+int			forcemode							local
+int			mana								local
+int			forcearmor							local
+int			starthealth							local
+int			griptrackID=-1						local
+int			gripsleft=0							local
+int			dsleft=0							local
+int			allowAbsorbFx=1						local
+int			shield=-1							local
+int			speedChannel=-1						local
+int			seeingChannel=-1					local
+int			persuasionChannel=-1				local
+int			protectionChannel=-1				local
+int			deadlyChannel=-1					local
 
-cog			srv							local
+cog			srv									local
 
 # Force effects
 template	f_lightning_tpl=+force_lightning	local
@@ -68,49 +68,46 @@ sound		deadlySound=ForceDSight01.WAV		local
 sound		deadlySound2=ForceDSight02.WAV		local
 
 # Pulled weapon templates
-template	tpl0=+FPBryarPistol			local
-template	tpl1=+FPBryarPistol			local
-template	tpl2=+FPBryarPistol			local
-template	tpl3=+FPSTrifle				local
-template	tpl4=+FPDetonator			local
-template	tpl5=+FPCrossbow			local
-template	tpl6=+FPRepeaterGun			local
-template	tpl7=+FPRailGun				local
-template	tpl8=+FPSeqCharge			local
-template	tpl9=+FPConcRifle			local
-template	tpl10=+FPBryarPistol		local
+template	tpl0=+FPBryarPistol					local
+template	tpl1=+FPBryarPistol					local
+template	tpl2=+FPBryarPistol					local
+template	tpl3=+FPSTrifle						local
+template	tpl4=+FPDetonator					local
+template	tpl5=+FPCrossbow					local
+template	tpl6=+FPRepeaterGun					local
+template	tpl7=+FPRailGun						local
+template	tpl8=+FPSeqCharge					local
+template	tpl9=+FPConcRifle					local
+template	tpl10=+FPBryarPistol				local
 
 # Transient working vars
-thing		rbot			local
-thing		target			local
-thing		item			local
-int			botmode			local
-int			gamemode		local
-int			difficulty		local
-int			curweap			local
-int			targweap		local
-flex		tempflex1		local
-vector		tempvector1		local
-int			bin				local
-int			rank			local
-int			jedirank		local
-int			cost			local
-thing		enemy			local
-thing		sparkle			local
-int			sphere			local
-thing		debris			local
-flex		damage			local
-int			damagetype		local
+thing		rbot								local
+thing		target								local
+thing		item								local
+int			botmode								local
+int			gamemode							local
+int			difficulty							local
+int			curweap								local
+int			targweap							local
+flex		tempflex1							local
+vector		tempvector1							local
+int			bin									local
+int			rank								local
+int			jedirank							local
+int			cost								local
+thing		enemy								local
+thing		sparkle								local
+int			sphere								local
+thing		debris								local
+flex		damage								local
+int			damagetype							local
 
 end
 
 code
 
 startup:
-	if (IsMulti() && !IsServer()) {
-		// Server-only
-		return;
-	}
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1022, GetSelfCog(), botid, -1);
@@ -118,15 +115,12 @@ startup:
 	return;
 
 trigger:
-	if (IsMulti() && !IsServer()) {
-		// Server-only
-		return;
-	}
+	if (IsMulti() && !IsServer()) return; // Host only
 
-	if (GetSourceRef() == 1852000) {
-		// Rbot cog type discovery
-		if (GetParam(0) == 1020) {
-			// rbot-srv.cog
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1020) // rbot-srv.cog
+		{
 			if (GetParam(2) == botid) srv = GetParam(1);
 		}
 		return;
@@ -233,13 +227,13 @@ trigger:
 	{
 		mana = mana + GetParam(1);
 		if (mana > 400) mana = 400;
-		if (GetParam(2) == 1)
+		if (GetParam(2) == 1) // picked up light surge
 		{
 			forcemode = BitSet(forcemode, 0x4000); // lightside surge now active
 			KillTimerEx(65);
 			SetTimerEx(20, 65, -1, -1); // switch off after 20 secs
 		}
-		else if (GetParam(2) == 2)
+		if (GetParam(2) == 2) // picked up dark surge
 		{
 			forcemode = BitSet(forcemode, 0x8000); // darkside surge now active
 			KillTimerEx(64);
@@ -414,7 +408,7 @@ timer:
 					{
 						call force_blinding;
 					}
-					else if (tempflex1 <= 4 && BitTest(forceflags, 0x200)) // force throw
+					else if (tempflex1 <= 4 && BitTest(forceflags, 0x200)) // throw
 					{
 						call force_throw;
 					}
@@ -450,31 +444,31 @@ timer:
 				else
 				{
 					tempflex1 = rand() * 6;
-					if (tempflex1 <= 1 && BitTest(forceflags, 0x20))
+					if (tempflex1 <= 1 && BitTest(forceflags, 0x20)) // persuasion
 					{
 						call force_persuasion;
 					}
-					else if (tempflex1 <= 2 && BitTest(forceflags, 0x80))
+					else if (tempflex1 <= 2 && BitTest(forceflags, 0x80)) // absorb
 					{
 						call force_absorb;
 					}
-					else if (tempflex1 <= 3 && BitTest(forceflags, 0x8))
+					else if (tempflex1 <= 3 && BitTest(forceflags, 0x8)) // seeing
 					{
 						call force_seeing;
 					}
-					else if (tempflex1 <= 4 && BitTest(forceflags, 0x10))
+					else if (tempflex1 <= 4 && BitTest(forceflags, 0x10)) // healing
 					{
 						call force_healing;
 					}
-					else if (tempflex1 <= 5 && BitTest(forceflags, 0x1))
+					else if (tempflex1 <= 5 && BitTest(forceflags, 0x1)) // speed
 					{
 						call force_speed;
 					}
-					else if (tempflex1 <= 6 && BitTest(forceflags, 0x100))
+					else if (tempflex1 <= 6 && BitTest(forceflags, 0x100)) // protection
 					{
 						call force_protection;
 					}
-					//else if (BitTest(forceflags,0x2))
+					//else if (BitTest(forceflags,0x2)) // jump
 					//{
 					//	call force_jump;
 					//}
@@ -513,10 +507,10 @@ timer:
 // Returns the function-specific result of the execution
 user7:
 	if (GetParam(0) == 1000) ReturnEx(forcemode);
-	else if (GetParam(0) == 1001) ReturnEx(mana);
-	else if (GetParam(0) == 1002) ReturnEx(forcearmor);
-	else if (GetParam(0) == 3002) {
-		// Bot damaged
+	if (GetParam(0) == 1001) ReturnEx(mana);
+	if (GetParam(0) == 1002) ReturnEx(forcearmor);
+	if (GetParam(0) == 3002) // Bot damaged
+	{
 		damage = GetParam(1);
 		damagetype = GetParam(2);
 		#damager = GetParam(3); // projectile - attacker=GetThingParent()
@@ -549,10 +543,10 @@ user7:
 			if (BitTest(30, damagetype)) // If damage from energy, fire, force or saber
 			{
 				forcearmor = forcearmor - damage;
-				if (forceArmor < 0) {
+				damage = 0; // No damage unless force armor runs out
+				if (forceArmor < 0) // No force armor left
+				{
 					damage = -forceArmor;
-				} else {
-					damage = 0;
 				}
 			}
 			if (forcearmor <= 0) // no force armor left - switch off protection
@@ -564,13 +558,6 @@ user7:
 		// Return any leftover damage
 		ReturnEx(damage);
 		return;
-	}
-	// Otherwise, report error
-	else {
-		jkStringClear();
-		jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv-force.cog :: ERROR :: Cog %d");
-		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
-		jkStringOutput(-1, -1);
 	}
 	return;
 

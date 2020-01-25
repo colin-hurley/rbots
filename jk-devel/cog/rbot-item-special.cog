@@ -13,16 +13,16 @@ symbols
 message		trigger
 
 # Special items
-thing		item0=-1		nolink
-thing		item1=-1		nolink
-thing		item2=-1		nolink
-thing		item3=-1		nolink
-thing		item4=-1		nolink
-thing		item5=-1		nolink
-thing		item6=-1		nolink
-thing		item7=-1		nolink
-thing		item8=-1		nolink
-thing		item9=-1		nolink
+thing		item0=-1							nolink
+thing		item1=-1							nolink
+thing		item2=-1							nolink
+thing		item3=-1							nolink
+thing		item4=-1							nolink
+thing		item5=-1							nolink
+thing		item6=-1							nolink
+thing		item7=-1							nolink
+thing		item8=-1							nolink
+thing		item9=-1							nolink
 
 # Flags for each special item
 int			spinf0=0
@@ -36,10 +36,10 @@ int			spinf7=0
 int			spinf8=0
 int			spinf9=0
 
-# Misc
-int			i			local
-int			botid		local
-thing		item		local
+# Working variables
+int			i									local
+int			botid								local
+thing		item								local
 
 end
 
@@ -48,7 +48,7 @@ end
 code
 
 trigger:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	
 	if (GetSourceRef() == 11060) // Item special info request
 	{

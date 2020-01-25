@@ -47,7 +47,8 @@ startup:
 # ........................................................................................
 
 touched:
-	if (GetThingType(GetSourceRef()) == 2) {
+	if (GetThingType(GetSourceRef()) == 2)
+	{
 		// This is a bot, so treat the touch like an activate and open the door
 		goto activated;
 	}
@@ -62,13 +63,16 @@ activated:
    player = GetSourceRef(); // Note: may be a player or a bot - check the thing type to find out
 
 	haskey = 0;
-	if (GetThingType(player) == 2) {
+	if (GetThingType(player) == 2)
+	{
 		// Check bot inventory for required key
 		srv = GetThingCaptureCog(player);
 		srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
 		keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
 		if (BitTest(keys, 0x1)) haskey = 1;
-	} else {
+	}
+	else
+	{
 		// Check player inventory for required key
 		if (GetInv(player, 83) == 1.0) haskey = 1;
 	}

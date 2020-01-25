@@ -1,4 +1,4 @@
-# Rbot Administration - Teleport
+# Rbot Administration Cog - Teleport
 #
 # This utility will teleport bots and players:
 # * Teleport bot to player's location
@@ -12,21 +12,21 @@ flags=0x40
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
 
-cog srv=-1 local
-int teleport_bot local
-int teleport_player local
+cog			srv=-1								local
+int			teleport_bot						local
+int			teleport_player						local
 
 # Working vars
-int botid local
-int botmode local
-thing rbot local
-thing player local
+int			botid								local
+int			botmode								local
+thing		rbot								local
+thing		player								local
 
 end
 
@@ -45,24 +45,30 @@ shutdown:
 
 // Execute
 user0:
-	if (srv != -1) {
+	if (srv != -1)
+	{
 		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-		if (BitTest(botmode, 0x10000)) {
-			// Bot is alive
+		if (BitTest(botmode, 0x10000)) // Bot is alive
+		{
 			botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
 			rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
 			player = GetLocalPlayerThing();
-			if (GetParam(0) == teleport_bot) {
+			if (GetParam(0) == teleport_bot)
+			{
 				// Teleport bot to player's location
 				TeleportThing(rbot, player);
 				// Request new navigation instruction for bot
 				SendTrigger(-1, 13000, botid, rbot, botmode, -1);
-			} else if (GetParam(0) == teleport_player) {
+			}
+			else if (GetParam(0) == teleport_player)
+			{
 				// Teleport player to bot's location
 				TeleportThing(player, rbot);
 			}
 		}
-	} else {
+	}
+	else
+	{
 		Print("No bot selected");
 	}
 	return;
@@ -74,8 +80,8 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 15080) {
-		// New bot selected
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		srv = GetParam(1);
 	}
 	return;

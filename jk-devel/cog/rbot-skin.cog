@@ -1,6 +1,6 @@
 # Rbot Skin Cog
 #
-# Server only - synch
+# Server-only
 #
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
@@ -30,21 +30,17 @@ model		weapmesh9=red-9.3do
 model		weapmesh10=red-10.3do
 
 # Transient working vars
-int			botid			local
-thing		rbot			local
-thing		spawnpoint		local
-int			curweap			local
+int			botid								local
+thing		rbot								local
+thing		spawnpoint							local
+int			curweap								local
 
 end
 
 code
 
 trigger:
-	if (IsMulti() && !IsServer())
-	{
-		// Server-only
-		return;
-	}
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Ignore requests that are not for this skin instance
 	if (GetParam(0) != skinid) return;

@@ -1,5 +1,7 @@
 # Rbot Path Cog
 #
+# Server-only
+#
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
 
@@ -7,43 +9,43 @@ flags=0x40
 
 symbols
 
-message	startup
-message	trigger
+message		startup
+message		trigger
 
 # An identifier for this path
-int		pathid
+int			pathid
 
 # The nodes that comprise this path
-thing	node0=-1	nolink
-thing	node1=-1	nolink
-thing	node2=-1	nolink
-thing	node3=-1	nolink
-thing	node4=-1	nolink
-thing	node5=-1	nolink
-thing	node6=-1	nolink
-thing	node7=-1	nolink
-thing	node8=-1	nolink
-thing	node9=-1	nolink
-thing	node10=-1	nolink
-thing	node11=-1	nolink
-thing	node12=-1	nolink
-thing	node13=-1	nolink
-thing	node14=-1	nolink
-thing	node15=-1	nolink
-thing	node16=-1	nolink
-thing	node17=-1	nolink
-thing	node18=-1	nolink
-thing	node19=-1	nolink
-thing	node20=-1	nolink
-thing	node21=-1	nolink
-thing	node22=-1	nolink
-thing	node23=-1	nolink
-thing	node24=-1	nolink
+thing		node0=-1							nolink
+thing		node1=-1							nolink
+thing		node2=-1							nolink
+thing		node3=-1							nolink
+thing		node4=-1							nolink
+thing		node5=-1							nolink
+thing		node6=-1							nolink
+thing		node7=-1							nolink
+thing		node8=-1							nolink
+thing		node9=-1							nolink
+thing		node10=-1							nolink
+thing		node11=-1							nolink
+thing		node12=-1							nolink
+thing		node13=-1							nolink
+thing		node14=-1							nolink
+thing		node15=-1							nolink
+thing		node16=-1							nolink
+thing		node17=-1							nolink
+thing		node18=-1							nolink
+thing		node19=-1							nolink
+thing		node20=-1							nolink
+thing		node21=-1							nolink
+thing		node22=-1							nolink
+thing		node23=-1							nolink
+thing		node24=-1							nolink
 
 # Standard path characteristics
 
 # Unidirectional = Bots can only move forward on this path, not backward
-int		unidirectional=0
+int			unidirectional=0
 
 # Non-looping = The path will not be treated as a loop
 # Normally, if a path starts and ends with the same node, it will be treated as
@@ -53,7 +55,7 @@ int		unidirectional=0
 # path).  However, there are some occasions where such paths should not be
 # treated as looping.  Setting this option to 1 will force the path to be
 # treated as non-looping even if the first and last nodes are the same.
-int		nonlooping=0
+int			nonlooping=0
 
 # TODO: Replace unidirectional and nonlooping symbols with this?
 # I'm not super thrilled with requiring the user to identify looping paths, I
@@ -64,142 +66,141 @@ int		nonlooping=0
 # 0x1 = Unidirectional
 # 0x2 = Looping
 # 0x4 = Disabled
-int		pathflags=0		local
+int			pathflags=0							local
 
 # Requirements that must be satisfied in order for the bot to use this path.
 # 0x1 / 1 = require red CTF key
 # 0x2 / 2 = require gold CTF key
-int		requirements=0
+int			requirements=0
 
 # Save positions of all nodes
-vector	nodepos0		local
-vector	nodepos1		local
-vector	nodepos2		local
-vector	nodepos3		local
-vector	nodepos4		local
-vector	nodepos5		local
-vector	nodepos6		local
-vector	nodepos7		local
-vector	nodepos8		local
-vector	nodepos9		local
-vector	nodepos10		local
-vector	nodepos11		local
-vector	nodepos12		local
-vector	nodepos13		local
-vector	nodepos14		local
-vector	nodepos15		local
-vector	nodepos16		local
-vector	nodepos17		local
-vector	nodepos18		local
-vector	nodepos19		local
-vector	nodepos20		local
-vector	nodepos21		local
-vector	nodepos22		local
-vector	nodepos23		local
-vector	nodepos24		local
+vector		nodepos0							local
+vector		nodepos1							local
+vector		nodepos2							local
+vector		nodepos3							local
+vector		nodepos4							local
+vector		nodepos5							local
+vector		nodepos6							local
+vector		nodepos7							local
+vector		nodepos8							local
+vector		nodepos9							local
+vector		nodepos10							local
+vector		nodepos11							local
+vector		nodepos12							local
+vector		nodepos13							local
+vector		nodepos14							local
+vector		nodepos15							local
+vector		nodepos16							local
+vector		nodepos17							local
+vector		nodepos18							local
+vector		nodepos19							local
+vector		nodepos20							local
+vector		nodepos21							local
+vector		nodepos22							local
+vector		nodepos23							local
+vector		nodepos24							local
 
 # Save sectors of all nodes
-sector	nodesec0		local
-sector	nodesec1		local
-sector	nodesec2		local
-sector	nodesec3		local
-sector	nodesec4		local
-sector	nodesec5		local
-sector	nodesec6		local
-sector	nodesec7		local
-sector	nodesec8		local
-sector	nodesec9		local
-sector	nodesec10		local
-sector	nodesec11		local
-sector	nodesec12		local
-sector	nodesec13		local
-sector	nodesec14		local
-sector	nodesec15		local
-sector	nodesec16		local
-sector	nodesec17		local
-sector	nodesec18		local
-sector	nodesec19		local
-sector	nodesec20		local
-sector	nodesec21		local
-sector	nodesec22		local
-sector	nodesec23		local
-sector	nodesec24		local
+sector		nodesec0							local
+sector		nodesec1							local
+sector		nodesec2							local
+sector		nodesec3							local
+sector		nodesec4							local
+sector		nodesec5							local
+sector		nodesec6							local
+sector		nodesec7							local
+sector		nodesec8							local
+sector		nodesec9							local
+sector		nodesec10							local
+sector		nodesec11							local
+sector		nodesec12							local
+sector		nodesec13							local
+sector		nodesec14							local
+sector		nodesec15							local
+sector		nodesec16							local
+sector		nodesec17							local
+sector		nodesec18							local
+sector		nodesec19							local
+sector		nodesec20							local
+sector		nodesec21							local
+sector		nodesec22							local
+sector		nodesec23							local
+sector		nodesec24							local
 
 # Save sizes of all nodes
-flex	nodesize0		local
-flex	nodesize1		local
-flex	nodesize2		local
-flex	nodesize3		local
-flex	nodesize4		local
-flex	nodesize5		local
-flex	nodesize6		local
-flex	nodesize7		local
-flex	nodesize8		local
-flex	nodesize9		local
-flex	nodesize10		local
-flex	nodesize11		local
-flex	nodesize12		local
-flex	nodesize13		local
-flex	nodesize14		local
-flex	nodesize15		local
-flex	nodesize16		local
-flex	nodesize17		local
-flex	nodesize18		local
-flex	nodesize19		local
-flex	nodesize20		local
-flex	nodesize21		local
-flex	nodesize22		local
-flex	nodesize23		local
-flex	nodesize24		local
+flex		nodesize0							local
+flex		nodesize1							local
+flex		nodesize2							local
+flex		nodesize3							local
+flex		nodesize4							local
+flex		nodesize5							local
+flex		nodesize6							local
+flex		nodesize7							local
+flex		nodesize8							local
+flex		nodesize9							local
+flex		nodesize10							local
+flex		nodesize11							local
+flex		nodesize12							local
+flex		nodesize13							local
+flex		nodesize14							local
+flex		nodesize15							local
+flex		nodesize16							local
+flex		nodesize17							local
+flex		nodesize18							local
+flex		nodesize19							local
+flex		nodesize20							local
+flex		nodesize21							local
+flex		nodesize22							local
+flex		nodesize23							local
+flex		nodesize24							local
 
 # Save thing flags of all nodes
-int		nodeflags0		local
-int		nodeflags1		local
-int		nodeflags2		local
-int		nodeflags3		local
-int		nodeflags4		local
-int		nodeflags5		local
-int		nodeflags6		local
-int		nodeflags7		local
-int		nodeflags8		local
-int		nodeflags9		local
-int		nodeflags10		local
-int		nodeflags11		local
-int		nodeflags12		local
-int		nodeflags13		local
-int		nodeflags14		local
-int		nodeflags15		local
-int		nodeflags16		local
-int		nodeflags17		local
-int		nodeflags18		local
-int		nodeflags19		local
-int		nodeflags20		local
-int		nodeflags21		local
-int		nodeflags22		local
-int		nodeflags23		local
-int		nodeflags24		local
+int			nodeflags0							local
+int			nodeflags1							local
+int			nodeflags2							local
+int			nodeflags3							local
+int			nodeflags4							local
+int			nodeflags5							local
+int			nodeflags6							local
+int			nodeflags7							local
+int			nodeflags8							local
+int			nodeflags9							local
+int			nodeflags10							local
+int			nodeflags11							local
+int			nodeflags12							local
+int			nodeflags13							local
+int			nodeflags14							local
+int			nodeflags15							local
+int			nodeflags16							local
+int			nodeflags17							local
+int			nodeflags18							local
+int			nodeflags19							local
+int			nodeflags20							local
+int			nodeflags21							local
+int			nodeflags22							local
+int			nodeflags23							local
+int			nodeflags24							local
 
 # The number of nodes in this path
-int		path_size=0			local
+int			path_size=0							local
 
 # Does the path loop (i.e. are bots allowed to "wrap" around the ends of the
 # path as if it were a loop).  A path is treated as looping if the first and
 # last nodes are the same, except if nonlooping is set to 1.
-int		looping=0			local
+int			looping=0							local
 
 # Working variables
-int		i					local
-thing	rbot				local
-int		path_rank			local
-int		path_rundir			local
+int			i									local
+thing		rbot								local
+int			path_rank							local
+int			path_rundir							local
 
 end
 
 code
 
 startup:
-	// Server-only
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Determine total number of nodes in path
 	for (i = 0 ; i < 25 ; i = i + 1)
@@ -236,8 +237,7 @@ startup:
 	return;
 
 trigger:
-	// Server-only
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 
 	if (GetSourceRef() == 13020) // Path data request
 	{

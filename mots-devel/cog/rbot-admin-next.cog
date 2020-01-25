@@ -1,4 +1,4 @@
-# Rbot Administration - Next Function
+# Rbot Administration Cog - Next Function
 #
 # Selects the next function in the Rbot administration utility.
 #
@@ -8,10 +8,10 @@
 
 symbols
 
-message startup
-message activated
+message		startup
+message		activated
 
-cog admin local
+cog			admin								local
 
 end
 

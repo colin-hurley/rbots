@@ -16,26 +16,26 @@ message		exited
 message		timer
 
 # Special sectors
-sector		sp0=-1		mask=0x4
-sector		sp1=-1		mask=0x4
-sector		sp2=-1		mask=0x4
-sector		sp3=-1		mask=0x4
-sector		sp4=-1		mask=0x4
-sector		sp5=-1		mask=0x4
-sector		sp6=-1		mask=0x4
-sector		sp7=-1		mask=0x4
-sector		sp8=-1		mask=0x4
-sector		sp9=-1		mask=0x4
-sector		sp10=-1		mask=0x4
-sector		sp11=-1		mask=0x4
-sector		sp12=-1		mask=0x4
-sector		sp13=-1		mask=0x4
-sector		sp14=-1		mask=0x4
-sector		sp15=-1		mask=0x4
-sector		sp16=-1		mask=0x4
-sector		sp17=-1		mask=0x4
-sector		sp18=-1		mask=0x4
-sector		sp19=-1		mask=0x4
+sector		sp0=-1								mask=0x4
+sector		sp1=-1								mask=0x4
+sector		sp2=-1								mask=0x4
+sector		sp3=-1								mask=0x4
+sector		sp4=-1								mask=0x4
+sector		sp5=-1								mask=0x4
+sector		sp6=-1								mask=0x4
+sector		sp7=-1								mask=0x4
+sector		sp8=-1								mask=0x4
+sector		sp9=-1								mask=0x4
+sector		sp10=-1								mask=0x4
+sector		sp11=-1								mask=0x4
+sector		sp12=-1								mask=0x4
+sector		sp13=-1								mask=0x4
+sector		sp14=-1								mask=0x4
+sector		sp15=-1								mask=0x4
+sector		sp16=-1								mask=0x4
+sector		sp17=-1								mask=0x4
+sector		sp18=-1								mask=0x4
+sector		sp19=-1								mask=0x4
 
 # Flags for each special sector
 int			spinf0=0
@@ -60,12 +60,12 @@ int			spinf18=0
 int			spinf19=0
 
 # Working variables
-cog			srv			local
-int			mode		local
-int			i			local
-int			botid		local
-thing		rbot		local
-sector		sc			local
+cog			srv									local
+int			mode								local
+int			i									local
+int			botid								local
+thing		rbot								local
+sector		sc									local
 
 end
 
@@ -74,7 +74,7 @@ end
 code
 
 entered:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
 	sc = GetSenderRef();
 	if (GetThingCaptureCog(rbot) == -1)
@@ -96,7 +96,7 @@ entered:
 	return;
 
 exited:
-	if (!IsServer()) return;
+	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
 	sc = GetSenderRef();
 	mode = 0; // Disable effects

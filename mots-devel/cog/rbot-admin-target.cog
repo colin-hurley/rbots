@@ -1,4 +1,4 @@
-# Rbot Administration - Target Mode
+# Rbot Administration Cog - Target Mode
 #
 # This utility toggles whether bots will target players and other bots.
 #
@@ -10,16 +10,16 @@ flags=0x240
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
+message		startup
+message		shutdown
+message		user0
+message		user1
 
-int attack_players=1 local
-int attack_bots=1 local
+int			attack_players=1					local
+int			attack_bots=1						local
 
-int toggle_players local
-int toggle_bots local
+int			toggle_players						local
+int			toggle_bots							local
 
 end
 
@@ -39,18 +39,27 @@ shutdown:
 
 // Execute
 user0:
-	if (GetParam(0) == toggle_players) {
+	if (GetParam(0) == toggle_players)
+	{
 		attack_players = 1 - attack_players;
-		if (attack_players) {
+		if (attack_players)
+		{
 			Print("Bots attack players");
-		} else {
+		}
+		else
+		{
 			Print("Bots ignore players");
 		}
-	} else if (GetParam(0) == toggle_bots) {
+	}
+	else if (GetParam(0) == toggle_bots)
+	{
 		attack_bots = 1 - attack_bots;
-		if (attack_bots) {
+		if (attack_bots)
+		{
 			Print("Bots attack bots");
-		} else {
+		}
+		else
+		{
 			Print("Bots ignore bots");
 		}
 	}
@@ -59,10 +68,13 @@ user0:
 
 // Concat current state
 user1:
-	if (GetParam(0) == toggle_players) {
+	if (GetParam(0) == toggle_players)
+	{
 		if (attack_players) jkStringConcatAsciiString("Bot target mode - Players (ATTACK)");
 		else jkStringConcatAsciiString("Bot target mode - Players (IGNORE)");
-	} else if (GetParam(0) == toggle_bots) {
+	}
+	else if (GetParam(0) == toggle_bots)
+	{
 		if (attack_bots) jkStringConcatAsciiString("Bot target mode - Bots (ATTACK)");
 		else jkStringConcatAsciiString("Bot target mode - Bots (IGNORE)");
 	}

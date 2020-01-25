@@ -1,4 +1,4 @@
-# Rbot Administration - Slow Motion
+# Rbot Administration Cog - Slow Motion
 #
 # This utility will toggle slow motion play.
 #
@@ -10,15 +10,15 @@ flags=0x40
 
 symbols
 
-message startup
-message shutdown
-message user0
-message user1
-message trigger
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
 
-int active=0 local
+int			active=0							local
 
-cog srv=-1 local
+cog			srv=-1								local
 
 end
 
@@ -38,11 +38,14 @@ shutdown:
 // Execute
 user0:
 	active = 1 - active;
-	if (active) {
+	if (active)
+	{
 		// Activate highlighter
 		Print("Slow motion on");
 		SetDebugModeFlags(0x400);
-	} else {
+	}
+	else
+	{
 		Print("Slow motion off");
 		ClearDebugModeFlags(0x400);
 	}
@@ -55,8 +58,8 @@ user1:
 	return;
 
 trigger:
-	if (GetSourceRef() == 15080) {
-		// New bot selected
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		srv = GetParam(1);
 	}
 	return;

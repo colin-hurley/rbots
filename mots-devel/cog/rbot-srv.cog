@@ -42,6 +42,7 @@ thing		rbot								local
 int			botmode								local
 cog			srv2								local
 cog			srv_force							local
+cog			spitem=-1							local
 
 # Weapon fire projectiles
 template	projectile_weap00=+rbotsaber		local
@@ -388,6 +389,11 @@ trigger:
 		{
 			if (GetParam(2) == botid) srv_force = GetParam(1);
 		}
+		if (GetParam(0) == 1041) // rbot-item-special.cog
+		{
+			// Store the reference with the lowest number - this is the first instance in the list
+			if (GetParam(1) < spitem || spitem == -1) spitem = GetParam(1);
+		}
 		return;
 	}
 
@@ -570,13 +576,6 @@ trigger:
 			KillTimerEx(120);
 			SetTimerEx(8.0, 120, -1, -1);
 		}
-		return;
-	}
-
-	if (GetSourceRef() == 11070) // Item special info response
-	{
-		// Aggregate special flags from all responses
-		special = BitSet(special, GetParam(1));
 		return;
 	}
 
@@ -950,7 +949,7 @@ move:
 		{
 			// Retrieve special info for this item
 			special = 0x0;
-			SendTrigger(-1, 11060, botid, rbot, item, -1); // Item special info request
+			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, item, -1, -1);
 
 			// Find closest takable item that bot needs
 			tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(item));

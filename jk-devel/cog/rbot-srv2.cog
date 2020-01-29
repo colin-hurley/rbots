@@ -82,6 +82,8 @@ int			inv_weap8							local desc=seq_charges
 int			inv_weap9							local desc=conc_rifle
 int			inv_weap10							local desc=saber_lit
 
+cog			spitem=-1							local
+
 # Misc
 thing		potential							local
 thing		target								local
@@ -165,6 +167,16 @@ trigger:
 		else
 		{
 			target_mask = BitClear(target_mask, 0x4); // Ignore bots
+		}
+		return;
+	}
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1041) // rbot-item-special.cog
+		{
+			// Store the reference with the lowest number - this is the first instance in the list
+			if (GetParam(1) < spitem || spitem == -1) spitem = GetParam(1);
 		}
 		return;
 	}
@@ -299,13 +311,6 @@ trigger:
 				botmode = BitClear(botmode, 0x8000000);
 			}
 		}
-		return;
-	}
-
-	if (GetSourceRef() == 11070) // Item special info response
-	{
-		// Aggregate special flags from all responses
-		special = BitSet(special, GetParam(1));
 		return;
 	}
 
@@ -491,7 +496,7 @@ findpowerups:
 		{
 			// Retrieve special info for this item
 			special = 0x0;
-			SendTrigger(-1, 11060, botid, rbot, item, -1); // Item special info request
+			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, item, -1, -1);
 
 			// If bot is close to item and it is available
 			if ((VectorDist(GetThingPos(rbot), GetThingPos(item)) < 0.3) && !(getthingflags(item) & 0x80000))

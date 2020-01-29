@@ -513,12 +513,6 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 960 && BitTest(botmode,0x10000)) // query bot thing number and bot is alive
-	{
-		SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // return thing number
-		return;
-	}
-
 	if (GetSourceRef() == 11020) // Received special info
 	{
 		special = getparam(1);

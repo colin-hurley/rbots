@@ -522,6 +522,7 @@ timer:
 	{
 		botid = GetParam(0);
 		deadbot = GetParam(1);
+		SendTrigger(-1, 949, botid, deadbot, -1, -1); // Dead bot thing is being removed
 		DestroyThing(deadbot); // Remove corpse from the game
 		if (botid < numbots) call addbot; // make sure that the killed bot is allowed to respawn (altered number of bots)
 		return;

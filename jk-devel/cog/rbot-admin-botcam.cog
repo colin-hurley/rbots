@@ -19,26 +19,31 @@ message		trigger
 message		timer
 
 int			active=0							local
+thing		camera								local
 
 int			old_camera							local
 thing		player								local
 thing		rbot								local
 int			botid=-1							local
-int			prev_botid							local
+cog			srv=-1								local
 
 end
 
 code
 
 startup:
+	player = GetLocalPlayerThing();
+	camera = player;
+
 	// Register functions
-	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	SendMessageEx(GetInvCog(player, 118), user0, -1, -1, -1, -1);
 	return;
 
 shutdown:
 	// Reinitialize to default values when exiting level
 	active = 0;
 	botid = -1;
+	srv = -1;
 	return;
 
 // Execute
@@ -46,20 +51,13 @@ user0:
 	active = 1 - active;
 	if (active)
 	{
-		// Activate botcam (asynchronous, when trigger response arrives)
 		Print("Botcam on");
-		old_camera = GetCurrentCamera();
-		if (botid != -1)
-		{
-			// Ask srv for bot thing number - srv will respond with a trigger
-			SendTrigger(-1, 960, botid, -1, -1, -1);
-		}
 	}
 	else
 	{
 		Print("Botcam off");
-		call deactivate_botcam;
 	}
+	call update_camera_focus;
 	return;
 
 // Concat current state
@@ -69,66 +67,95 @@ user1:
 	return;
 
 trigger:
-	if ((GetSourceRef() == 950 || GetSourceRef() == 970) && GetParam(0) == botid)
+	if (GetSourceRef() == 949 && GetParam(0) == botid) // Dead bot is about to be removed
 	{
-		// Bot spawned / reported thing number
-		if (active)
-		{
-			rbot = GetParam(1);
-			call activate_botcam;
-		}
+		// srv will return -1 for but thing query, so view will momentarily switch back to player
+		call update_camera_focus;
+		return;
 	}
-	else if (GetSourceRef() == 1000 && GetParam(0) == botid) // Bot died
+
+	if (GetSourceRef() == 950 && GetParam(0) == botid) // Selected bot respawned
 	{
-		// Temporarily switch back to player camera until bot respawns
-		SetTimerEx(3.0, 100, botid, -1);
+		// Cancel any pending dead bot camera update timer
+		KillTimerEx(100);
+
+		// srv will return the new bot thing, so view will switch back to selected bot
+		call update_camera_focus;
+		return;
 	}
-	else if (GetSourceRef() == 15080) // New bot selected
+
+	if (GetSourceRef() == 1000 && GetParam(0) == botid) // Bot killed
 	{
-		prev_botid = botid;
+		// Schedule a camera update in case the bot doesn't respawn in a few moments
+		SetTimerEx(10.0, 100, -1, -1);
+		return;
+	}
+
+	if (GetSourceRef() == 15080) // New bot selected
+	{
 		botid = GetParam(0);
-		if (active)
-		{
-			if (botid == -1) // No bot selected
-			{
-				call deactivate_botcam;
-			}
-			else
-			{
-				// Request new thing number
-				SendTrigger(-1, 960, botid, -1, -1, -1);
-				// Deactivate if we don't get a new thing number in time
-				SetTimerEx(1.0, 100, prev_botid, -1);
-			}
-		}
+		srv = GetParam(1);
+		call update_camera_focus;
+		return;
 	}
+
 	return;
 
 timer:
-	if (GetSenderId() == 100)
+	if (GetSenderId() == 100) // bot died and didn't respawn
 	{
-		if (GetParam(0) == botid)
+		// The player may have removed the bot from the game
+		// Switch focus back to the player to prevent the game from crashing if
+		// the player lingers on the dead bot too long and then goes into the
+		// game menu (this will crash the game when the player closes the menu,
+		// since the bot corpse, which has camera focus, will have been removed
+		// by the game engine
+		call update_camera_focus;
+		return;
+	}
+
+	return;
+
+update_camera_focus:
+	// Set focus to selected bot, if possible
+	if (active) // Botcam is activated
+	{
+		if (srv != -1) // A bot is selected
 		{
-			// Still watching same bot
-			call deactivate_botcam;
+			rbot = SendMessageEx(srv, user7, 3000, -1, -1, -1);
+			if (rbot != -1) // Bot is alive
+			{
+				if (camera == player) // camer focus is currently the player
+				{
+					// Switching from player to bot
+					old_camera = GetCurrentCamera(); // save current camera state
+					SetCurrentCamera(1); // switch to external camera
+					SetActorFlags(player, 0x800000); // turn off HUD
+				}
+
+				// Focus camera on bot and return
+				SetCameraFocus(0, rbot);
+				SetCameraFocus(1, rbot);
+				camera = rbot;
+				return;
+			}
 		}
 	}
-	return;
 
-activate_botcam:
-	player = GetLocalPlayerThing();
-	SetActorFlags(player, 0x800000); // turn off HUD
-	SetCameraFocus(0, rbot);
-	SetCameraFocus(1, rbot);
-	SetCurrentCamera(1);
-	return;
+	// Otherwise, return focus to the player
+	if (camera != player) // camera focus is currently not the player
+	{
+		// Switching from bot to player
+		SetCurrentCamera(old_camera); // restore previous camera state
+		ClearActorFlags(player, 0x800000); // turn on HUD
 
-deactivate_botcam:
-	player = GetLocalPlayerThing();
-	ClearActorFlags(player, 0x800000); // turn on HUD
-	SetCameraFocus(0, player);
-	SetCameraFocus(1, player);
-	SetCurrentCamera(old_camera);
+		// Focus camera on player and return
+		SetCameraFocus(0, player);
+		SetCameraFocus(1, player);
+		camera = player;
+		return;
+	}
+
 	return;
 
 end

@@ -1,0 +1,101 @@
+# Rbot Special Wall Cel Cog
+#
+# Server-only
+#
+# This cog applies special modes and effects to a bot after it reaches a node
+# if a surface is currently at a particular cel.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+
+# Special nodes
+thing		sp0=-1								nolink
+thing		sp1=-1								nolink
+thing		sp2=-1								nolink
+thing		sp3=-1								nolink
+thing		sp4=-1								nolink
+thing		sp5=-1								nolink
+thing		sp6=-1								nolink
+thing		sp7=-1								nolink
+thing		sp8=-1								nolink
+thing		sp9=-1								nolink
+
+# Wall surfaces
+surface		wall0=-1							nolink
+surface		wall1=-1							nolink
+surface		wall2=-1							nolink
+surface		wall3=-1							nolink
+surface		wall4=-1							nolink
+surface		wall5=-1							nolink
+surface		wall6=-1							nolink
+surface		wall7=-1							nolink
+surface		wall8=-1							nolink
+surface		wall9=-1							nolink
+
+# Wall cels
+int			wallcel0=0
+int			wallcel1=0
+int			wallcel2=0
+int			wallcel3=0
+int			wallcel4=0
+int			wallcel5=0
+int			wallcel6=0
+int			wallcel7=0
+int			wallcel8=0
+int			wallcel9=0
+
+# Flags for each special node
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+
+# Working variables
+int			i									local
+int			botid								local
+thing		node								local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+	
+	if (GetSourceRef() == 11010) // Special info request from bot
+	{
+		botid = GetParam(0);   // which bot requested the info
+		//rbot = GetParam(1);
+		node = GetParam(2);
+
+		// work out special node info
+		for (i = 0; i < 10; i = i + 1)
+		{
+			if (sp0[i] == node && spinf0[i]) // current pos is also a special node
+			{
+				if (wall0[i] != -1 && GetWallCel(wall0[i]) == wallcel0[i]) // Wall cel is at specified value
+				{
+					SendTrigger(-1, 11020, botid, spinf0[i], 2, -1); // send special info to bot (mode 2 = activate for short duration)
+				}
+			}
+		}
+		return;
+	}
+
+	return;
+
+end
+

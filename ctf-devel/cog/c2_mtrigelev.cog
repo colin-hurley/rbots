@@ -18,25 +18,29 @@
 # [SD]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
 
-thing       elevator                         desc=elev_thing
+thing       elevator                         mask=0x405 desc=elev_thing
 flex        speed=8.0                        desc=speed
 flex        delay=3.0                        desc=delay
 
-surface     plate0                           desc=plate0
-surface     plate1                           desc=plate1
-surface     plate2                           desc=plate2
-surface     plate3                           desc=plate3
-surface     secret1                          desc=secret1
-surface     secret2                          desc=secret2
+surface     plate0                           mask=0x405 desc=plate0
+surface     plate1                           mask=0x405 desc=plate1
+surface     plate2                           mask=0x405 desc=plate2
+surface     plate3                           mask=0x405 desc=plate3
+surface     secret1                          mask=0x405 desc=secret1
+surface     secret2                          mask=0x405 desc=secret2
 
-surface     cross0                           desc=cross0
-surface     cross1                           desc=cross1
-surface     cross2                           desc=cross2
-surface     cross3                           desc=cross3
+surface     cross0                           mask=0x405 desc=cross0
+surface     cross1                           mask=0x405 desc=cross1
+surface     cross2                           mask=0x405 desc=cross2
+surface     cross3                           mask=0x405 desc=cross3
+
+int         pending=0                        local
 
 message     entered
 message     crossed
@@ -80,6 +84,18 @@ crossed:
    if(IsMoving(elevator) == 1) Return;
    if(GetCurFrame(elevator) == 1) Return;
    if(GetCurFrame(elevator) == 2) Return;
+
+   // The 'pending' symbol will be 1 if a thread is blocked on the Sleep below.
+   // Since we are about to start moving anyway, just ignore any excess messages.
+   if (pending) return;
+
+   if (GetThingType(GetSourceRef()) == 2) // bot
+   {
+      // Before moving the elevator, give the bot a short moment to reach the node
+      pending = 1;
+      Sleep(0.25);
+      pending = 0;
+   }
 
    if((GetSenderRef() != secret1) && (GetSenderRef() != secret2))
       MoveToFrame(elevator, 1, speed);

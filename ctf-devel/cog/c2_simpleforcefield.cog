@@ -9,13 +9,15 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
 
 surface     switch                           desc=switch    mask=0x408
-surface     forcefield1                      desc=forcefld1 mask=0x408
-surface     forcefield2                      desc=forcefld2 mask=0x408
+surface     forcefield1                      desc=forcefld1 mask=0x40d
+surface     forcefield2                      desc=forcefld2 mask=0x40d
 
 int         field_is_on=0                    local
 
@@ -40,11 +42,15 @@ int         senderRef=-1                     local
 int         lock_touched=0                   local
 int         lock_damaged=0                   local
 
+thing       rbot                             local
+flex        dist                             local
+
 message     startup
 message     activated
 message     damaged
 message     touched
 message     timer
+message     trigger
 
 end
 
@@ -65,6 +71,10 @@ startup:
 damaged:
 activated:
    if(GetSenderRef() != switch) Return;
+
+// Since we cannot set the senderref of a message, the "activate" trigger jumps
+// here to avoid the above senderref check
+do_activated:
 
    if(lock_damaged) Return;
    lock_damaged = 1;
@@ -155,6 +165,20 @@ touched:
    lock_touched = 0;
 
    Return;
+
+// ........................................................................................
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
+		if (dist < 0.5) // if bot is close enough, activate switch
+		{
+			goto do_activated;
+		}
+	}
+	return;
 
 end
 

@@ -37167,7 +37167,7 @@ World soundclasses 27
 end
 
 Section: cogscripts
-World scripts 53
+World scripts 56
 0: 00_BREAKINGLAMPS.COG
 1: 00_desttrail.cog
 2: 00_smoketrail.cog
@@ -37210,22 +37210,25 @@ World scripts 53
 39: pow_supershield.cog
 40: pow_thermal.cog
 41: pow_vest.cog
-42: rbot-backpack.cog
-43: rbot-nav.cog
-44: rbot-path.cog
-45: rbot-pathinfo-ctf.cog
-46: rbot-player.cog
-47: rbot-skin.cog
-48: rbot-special-sector.cog
-49: rbot-srv.cog
-50: rbot-srv2.cog
-51: rbot-srv-force.cog
-52: rbot-startup.cog
+42: rbot-arrival.cog
+43: rbot-backpack.cog
+44: rbot-nav.cog
+45: rbot-nav-special.cog
+46: rbot-path.cog
+47: rbot-pathinfo-ctf.cog
+48: rbot-player.cog
+49: rbot-skin.cog
+50: rbot-special-sector.cog
+51: rbot-special-wallcel.cog
+52: rbot-srv.cog
+53: rbot-srv2.cog
+54: rbot-srv-force.cog
+55: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 143
+World cogs 176
 #Num	Script          Symbol values
 0: C2_MTRIGELEV.COG 1 8 3 1767 1779 -1 -1 2004 1988 -1 -1 -1 -1
 1: C2_MTRIGELEV.COG 2 8 3 1940 1947 1904 1882 -1 -1 -1 -1 -1 -1
@@ -37254,69 +37257,99 @@ World cogs 143
 24: C2_BREAKINGGLASSCLIENT.COG
 25: CTF_SAFEENTRY.COG 357 355 250 249
 26: rbot-startup.cog 6 1 1 1 2 0 -256 -65281 0 0
-27: rbot-nav.cog 0.15
-28: rbot-path.cog 0 311 255 256 257 305 258 307 259 260 261 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-29: rbot-path.cog 1 310 262 256 257 304 263 309 264 265 266 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-30: rbot-path.cog 2 267 268 269 270 271 272 273 274 267 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-31: rbot-path.cog 3 272 275 276 277 278 279 280 281 272 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 0
-32: rbot-path.cog 4 268 282 283 284 285 286 287 288 268 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 0
-33: rbot-path.cog 5 290 291 292 293 294 289 290 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-34: rbot-path.cog 6 296 297 298 299 300 295 296 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-35: rbot-path.cog 7 295 261 306 310 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-36: rbot-path.cog 8 289 266 308 311 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-37: rbot-path.cog 9 292 255 301 302 303 262 298 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-38: rbot-pathinfo-ctf.cog 0 1 2 3 4 5 6 7 8 9 2 -1 -1 -1 -1 -1 2 3 -1 1 1 -1 -1 -1 -1 -1 1 1 -1 1 -1 2 -1 -1 -1 2 -1 -1 3 1 -1 1 -1 -1 -1 1 -1 -1 1 0
-39: rbot-special-sector.cog 34 320 35 37 207 324 208 210 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 1024 1024 1024 1024 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0
-40: rbot-srv.cog 0 -1 -1 1 520 101
-41: rbot-srv-force.cog 0 255
-42: rbot-srv2.cog 0
-43: rbot-srv.cog 1 -1 -1 2 522 102
-44: rbot-srv-force.cog 1 255
-45: rbot-srv2.cog 1
-46: rbot-srv.cog 2 -1 -1 1 521 101
-47: rbot-srv-force.cog 2 7695
-48: rbot-srv2.cog 2
-49: rbot-srv.cog 3 -1 -1 2 523 102
-50: rbot-srv-force.cog 3 7695
-51: rbot-srv2.cog 3
-52: rbot-srv.cog 4 -1 -1 1 533 101
-53: rbot-srv-force.cog 4 255
-54: rbot-srv2.cog 4
-55: rbot-srv.cog 5 -1 -1 2 537 102
-56: rbot-srv-force.cog 5 255
-57: rbot-srv2.cog 5
-58: rbot-srv.cog 6 -1 -1 1 534 101
-59: rbot-srv-force.cog 6 7695
-60: rbot-srv2.cog 6
-61: rbot-srv.cog 7 -1 -1 2 535 102
-62: rbot-srv-force.cog 7 7695
-63: rbot-srv2.cog 7
-64: rbot-srv.cog 8 -1 -1 1 538 101
-65: rbot-srv-force.cog 8 255
-66: rbot-srv2.cog 8
-67: rbot-srv.cog 9 -1 -1 2 539 102
-68: rbot-srv-force.cog 9 255
-69: rbot-srv2.cog 9
-70: rbot-srv.cog 10 -1 -1 1 540 101
-71: rbot-srv-force.cog 10 7695
-72: rbot-srv2.cog 10
-73: rbot-srv.cog 11 -1 -1 2 541 102
-74: rbot-srv-force.cog 11 7695
-75: rbot-srv2.cog 11
-76: rbot-srv.cog 12 -1 -1 1 542 101
-77: rbot-srv-force.cog 12 255
-78: rbot-srv2.cog 12
-79: rbot-srv.cog 13 -1 -1 2 543 102
-80: rbot-srv-force.cog 13 255
-81: rbot-srv2.cog 13
-82: rbot-srv.cog 14 -1 -1 1 544 101
-83: rbot-srv-force.cog 14 7695
-84: rbot-srv2.cog 14
-85: rbot-srv.cog 15 -1 -1 2 545 102
-86: rbot-srv-force.cog 15 7695
-87: rbot-srv2.cog 15
-88: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-89: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+27: rbot-srv.cog 0 -1 -1 1 520 101
+28: rbot-srv-force.cog 0 255
+29: rbot-srv2.cog 0
+30: rbot-srv.cog 1 -1 -1 2 522 102
+31: rbot-srv-force.cog 1 255
+32: rbot-srv2.cog 1
+33: rbot-srv.cog 2 -1 -1 1 521 101
+34: rbot-srv-force.cog 2 7695
+35: rbot-srv2.cog 2
+36: rbot-srv.cog 3 -1 -1 2 523 102
+37: rbot-srv-force.cog 3 7695
+38: rbot-srv2.cog 3
+39: rbot-srv.cog 4 -1 -1 1 533 101
+40: rbot-srv-force.cog 4 255
+41: rbot-srv2.cog 4
+42: rbot-srv.cog 5 -1 -1 2 537 102
+43: rbot-srv-force.cog 5 255
+44: rbot-srv2.cog 5
+45: rbot-srv.cog 6 -1 -1 1 534 101
+46: rbot-srv-force.cog 6 7695
+47: rbot-srv2.cog 6
+48: rbot-srv.cog 7 -1 -1 2 535 102
+49: rbot-srv-force.cog 7 7695
+50: rbot-srv2.cog 7
+51: rbot-srv.cog 8 -1 -1 1 538 101
+52: rbot-srv-force.cog 8 255
+53: rbot-srv2.cog 8
+54: rbot-srv.cog 9 -1 -1 2 539 102
+55: rbot-srv-force.cog 9 255
+56: rbot-srv2.cog 9
+57: rbot-srv.cog 10 -1 -1 1 540 101
+58: rbot-srv-force.cog 10 7695
+59: rbot-srv2.cog 10
+60: rbot-srv.cog 11 -1 -1 2 541 102
+61: rbot-srv-force.cog 11 7695
+62: rbot-srv2.cog 11
+63: rbot-srv.cog 12 -1 -1 1 542 101
+64: rbot-srv-force.cog 12 255
+65: rbot-srv2.cog 12
+66: rbot-srv.cog 13 -1 -1 2 543 102
+67: rbot-srv-force.cog 13 255
+68: rbot-srv2.cog 13
+69: rbot-srv.cog 14 -1 -1 1 544 101
+70: rbot-srv-force.cog 14 7695
+71: rbot-srv2.cog 14
+72: rbot-srv.cog 15 -1 -1 2 545 102
+73: rbot-srv-force.cog 15 7695
+74: rbot-srv2.cog 15
+75: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+76: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+77: rbot-nav.cog 0.15
+78: rbot-nav-special.cog 331 332 319 320 346 347 341 340 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+79: rbot-path.cog 0 293 261 304 308 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+80: rbot-path.cog 1 293 294 295 296 262 301 358 300 357 299 255 290 291 292 287 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+81: rbot-path.cog 2 293 298 297 296 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+82: rbot-path.cog 3 301 359 348 360 299 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+83: rbot-path.cog 4 290 289 288 287 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+84: rbot-path.cog 5 287 266 306 309 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+85: rbot-path.cog 6 305 329 330 331 332 333 278 279 280 275 272 273 274 267 268 281 282 283 284 321 320 319 318 317 307 0 0 0
+86: rbot-path.cog 7 278 277 276 275 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+87: rbot-path.cog 8 272 271 270 269 268 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+88: rbot-path.cog 9 281 286 285 284 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+89: rbot-path.cog 10 261 324 325 328 326 303 257 302 310 263 264 265 266 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+90: rbot-path.cog 11 261 260 259 322 258 303 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+91: rbot-path.cog 12 302 312 313 314 315 266 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+92: rbot-path.cog 13 300 345 346 347 343 339 274 270 334 342 340 341 344 348 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+93: rbot-path.cog 14 339 338 366 294 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+94: rbot-path.cog 15 339 337 363 292 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+95: rbot-path.cog 16 334 335 365 298 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+96: rbot-path.cog 17 334 336 364 288 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+97: rbot-path.cog 18 301 256 257 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+98: rbot-path.cog 19 299 256 257 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+99: rbot-path.cog 20 259 305 325 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+100: rbot-path.cog 21 264 307 314 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+101: rbot-path.cog 22 324 354 353 356 355 260 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+102: rbot-path.cog 23 265 352 351 350 349 315 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+103: rbot-path.cog 24 328 327 367 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+104: rbot-path.cog 25 322 323 368 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+105: rbot-path.cog 26 263 311 369 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+106: rbot-path.cog 27 313 316 370 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+107: rbot-path.cog 28 308 362 262 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+108: rbot-path.cog 29 309 361 255 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+109: rbot-path.cog 30 275 304 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+110: rbot-path.cog 31 278 304 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+111: rbot-path.cog 32 281 306 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+112: rbot-path.cog 33 284 306 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+113: rbot-pathinfo-ctf.cog 0 1 2 3 4 5 6 7 8 9 90 50 50 50 50 10 50 50 50 50 1 0 0 0 0 0 0 0 0 0 10 50 50 50 50 90 50 50 50 50 0 1 1 1 1 1 1 1 1 1
+114: rbot-pathinfo-ctf.cog 10 11 12 13 14 15 16 17 18 19 50 50 50 50 50 -1 50 -1 -1 50 0 0 0 -1 1 -1 1 -1 -1 1 50 50 50 50 -1 50 -1 50 50 -1 1 1 1 -1 -1 1 -1 1 1 -1
+115: rbot-pathinfo-ctf.cog 20 21 22 23 24 25 26 27 28 29 50 50 -1 -1 -1 -1 -1 -1 100 50 -1 -1 -1 -1 -1 -1 -1 -1 1 1 50 50 -1 -1 -1 -1 -1 -1 50 100 -1 -1 -1 -1 -1 -1 -1 -1 1 1
+116: rbot-pathinfo-ctf.cog 30 31 32 33 -1 -1 -1 -1 -1 -1 80 80 -1 -1 -1 -1 -1 -1 -1 -1 1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 80 80 -1 -1 -1 -1 -1 -1 -1 -1 1 1 -1 -1 -1 -1 -1 -1
+117: rbot-arrival.cog 330 333 318 321 345 343 344 342 -1 -1 1 0 0 1 1 0 0 1 -1 -1 1 1 4 4 5 5 0 0 -1 -1 0 1 0 1 0 1 0 1 -1 -1 10 10 10 10 10 10 10 10 30 30 0 0 0 0 0 0 0 0 0 0
+118: rbot-special-sector.cog 34 320 35 37 207 324 208 210 263 10 11 262 15 234 6 321 36 323 209 -1 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 0
+119: rbot-special-wallcel.cog 362 361 -1 -1 -1 -1 -1 -1 -1 -1 4010 4022 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 32 32 0 0 0 0 0 0 0 0
 end
 
 Section: TEMPLATES
@@ -37739,63 +37772,122 @@ World things 640
 252: manaboost manaboost 1.350115 1.300189 1.080601 0 0 0 50
 253: manaboost manaboost -1.349885 -1.249811 1.080601 0 0 0 244
 254: manaboost manaboost 1.350115 -1.249811 1.080601 0 0 0 245
-255: ghost ghost -.000108 -1.158169 .178589 0 0 0 193
-256: ghost ghost -.000108 -.008169 .018589 0 0 0 6
-257: ghost ghost -.000108 -.008169 -.461411 0 0 0 23
-258: ghost ghost 1.05 2.1 -.4 0 180 0 95
-259: ghost ghost -.649999 2.3 -.449999 0 0 0 320 size=0.1
-260: ghost ghost -.650108 3.816831 .140001 0 0 0 35
-261: ghost ghost 0 3.8 .140001 0 0 0 37 size=0.1
-262: ghost ghost 0 1.15 .18 0 0 0 18
-263: ghost ghost -1.05 -2.15 -.4 0 180 0 185
-264: ghost ghost .650001 -2.3125 -.449999 0 0 0 324 size=0.1
-265: ghost ghost .650001 -3.825 .140001 0 0 0 208
-266: ghost ghost 0 -3.8 .140001 0 0 0 210 size=0.1
-267: ghost ghost -.5 -1.65 1.2 0 0 0 235
-268: ghost ghost 0 -1.65 1.2 0 0 0 234
-269: ghost ghost .5 -1.65 1.2 0 0 0 233
+255: ghost ghost 0 -1.2 .15 0 0 0 193
+256: ghost ghost 0 0 0 0 0 0 6 size=0.2
+257: ghost ghost 0 0 -.45 0 0 0 23 size=0.4
+258: ghost ghost 1.1 1.7 -.45 0 0 0 95
+259: ghost ghost .662501 2.2 -.45 0 0 0 321 size=0.1
+260: ghost ghost .662501 3.825 .15 0 0 0 36
+261: ghost ghost 0 3.8875 .15 0 0 0 37
+262: ghost ghost 0 1.2 .15 0 0 0 18
+263: ghost ghost -1.100108 -2.195669 -.45 0 0 0 185
+264: ghost ghost -.662608 -2.195669 -.45 0 0 0 323 size=0.1
+265: ghost ghost -.65 -3.825 .15 0 0 0 209
+266: ghost ghost 0 -3.875 .15 0 0 0 210
+267: ghost ghost -.5 -1.7 1.2 0 0 0 234
+268: ghost ghost 0 -1.7 1.2 0 0 0 234
+269: ghost ghost .5 -1.7 1.2 0 0 0 233
 270: ghost ghost .5 0 1.2 0 0 0 7
-271: ghost ghost .5 1.65 1.2 0 0 0 16
-272: ghost ghost 0 1.65 1.2 0 0 0 15
-273: ghost ghost -.5 1.65 1.2 0 0 0 14
+271: ghost ghost .5 1.6875 1.2 0 0 0 16
+272: ghost ghost 0 1.6875 1.2 0 0 0 15
+273: ghost ghost -.5 1.6875 1.2 0 0 0 14
 274: ghost ghost -.5 0 1.2 0 0 0 7
-275: ghost ghost .1 2.15 1.2 0 0 0 17
-276: ghost ghost 1.25 2.15 1.2 0 0 0 107
-277: ghost ghost 1.2 3.9 1.2 0 0 0 107
+275: ghost ghost 0 2.2 1.2 0 0 0 17
+276: ghost ghost 1.3 2.2 1.2 0 0 0 107
+277: ghost ghost 1.3 3.9 1.2 0 0 0 107
 278: ghost ghost 0 3.9 1.2 0 0 0 17
-279: ghost ghost -1.2 3.9 1.2 0 0 0 104
-280: ghost ghost -1.2 2.15 1.2 0 0 0 104
-281: ghost ghost -.1 2.15 1.2 0 0 0 17
-282: ghost ghost -.1 -2.15 1.2 0 0 0 205
-283: ghost ghost -1.2 -2.15 1.2 0 0 0 223
-284: ghost ghost -1.2 -3.9 1.2 0 0 0 223
-285: ghost ghost 0 -3.9 1.2 0 0 0 205
-286: ghost ghost 1.2 -3.9 1.2 0 0 0 220
-287: ghost ghost 1.2 -2.15 1.2 0 0 0 220
-288: ghost ghost .1 -2.15 1.2 0 0 0 205
-289: ghost ghost 0 -4.4 .140001 0 0 0 201
-290: ghost ghost 1.35 -4.4 .140001 0 0 0 194
-291: ghost ghost 1.35 -1.7 .140001 0 0 0 198
-292: ghost ghost 0 -1.7 .140001 0 0 0 193
-293: ghost ghost -1.4 -1.7 .140001 0 0 0 195
-294: ghost ghost -1.35 -4.4 .140001 0 0 0 202
-295: ghost ghost 0 4.4 .140001 0 0 0 65
-296: ghost ghost -1.35 4.4 .140001 0 0 0 19
-297: ghost ghost -1.35 1.7 .140001 0 0 0 55
-298: ghost ghost 0 1.7 .140001 0 0 0 18
-299: ghost ghost 1.35 1.7 .140001 0 0 0 20
-300: ghost ghost 1.35 4.4 .140001 0 0 0 66
-301: ghost ghost -.000108 -.558169 .178589 0 0 0 6
-302: ghost ghost -.500108 -.008169 .178589 0 0 0 6
-303: ghost ghost -.000108 .591831 .178589 0 0 0 6
-304: ghost ghost 0 -1.75 -.45 0 0 0 176
-305: ghost ghost 0 1.75 -.45 0 180 0 33
-306: ghost ghost 0 2.85 .412501 0 0 0 37
-307: ghost ghost 0 2.15 -.449999 0 0 0 34
-308: ghost ghost .000001 -2.85 .412501 0 180 0 210
-309: ghost ghost .000001 -2.15 -.449999 0 180 0 207
-310: ghost ghost 0 1.6 .7 0 0 0 62
-311: ghost ghost 0 -1.6 .7 0 0 0 217
+279: ghost ghost -1.3 3.9 1.2 0 0 0 104
+280: ghost ghost -1.3 2.2 1.2 0 0 0 104
+281: ghost ghost 0 -2.2 1.2 0 0 0 205
+282: ghost ghost -1.3 -2.2 1.2 0 0 0 223
+283: ghost ghost -1.3 -3.9 1.2 0 0 0 223
+284: ghost ghost 0 -3.9 1.2 0 0 0 205
+285: ghost ghost 1.3 -3.9 1.2 0 0 0 220
+286: ghost ghost 1.3 -2.2 1.2 0 0 0 220
+287: ghost ghost 0 -4.4 .15 0 0 0 201
+288: ghost ghost 1.35 -4.4 .15 0 0 0 194
+289: ghost ghost 1.35 -1.7 .15 0 0 0 198
+290: ghost ghost 0 -1.7 .15 0 0 0 193
+291: ghost ghost -1.4 -1.7 .15 0 0 0 195
+292: ghost ghost -1.35 -4.4 .15 0 0 0 202
+293: ghost ghost 0 4.4 .15 0 0 0 65
+294: ghost ghost -1.35 4.4 .15 0 0 0 19
+295: ghost ghost -1.35 1.7 .15 0 0 0 55
+296: ghost ghost 0 1.7 .15 0 0 0 18
+297: ghost ghost 1.35 1.7 .15 0 0 0 20
+298: ghost ghost 1.35 4.4 .15 0 0 0 66
+299: ghost ghost 0 -.45 .15 0 0 0 6
+300: ghost ghost -.45 0 .15 0 0 0 6
+301: ghost ghost 0 .45 .15 0 0 0 6
+302: ghost ghost 0 -1.7 -.45 0 0 0 176
+303: ghost ghost 0 1.7 -.45 0 0 0 33
+304: ghost ghost 0 2.85 .412501 0 0 0 37
+305: ghost ghost 0 2.5 -.45 0 0 0 34
+306: ghost ghost 0 -2.85 .412501 0 0 0 210
+307: ghost ghost 0 -2.5 -.45 0 0 0 207
+308: ghost ghost 0 1.55 .7 0 0 0 62
+309: ghost ghost 0 -1.55 .7 0 0 0 217
+310: ghost ghost -1.100108 -1.7 -.45 0 0 0 185
+311: ghost ghost -1.1 -4.4 -.45 0 0 0 185
+312: ghost ghost 1.099892 -1.7 -.45 0 0 0 177
+313: ghost ghost 1.099892 -2.195669 -.45 0 0 0 177
+314: ghost ghost .662392 -2.195669 -.45 0 0 0 324 size=0.1
+315: ghost ghost .65 -3.825 .15 0 0 0 208
+316: ghost ghost 1.1 -4.4 -.45 0 0 0 177
+317: ghost ghost 0 -4.1 -.45 0 0 0 230
+318: ghost ghost 0 -4.45 -.45 0 0 0 229
+319: ghost ghost 0 -4.8875 -.45 0 0 0 232
+320: ghost ghost 0 -4.8875 1.2 0 0 0 232
+321: ghost ghost 0 -4.45 1.2 0 0 0 227
+322: ghost ghost 1.1 2.2 -.45 0 0 0 95
+323: ghost ghost 1.1 4.4 -.45 0 0 0 95
+324: ghost ghost -.649999 3.825 .15 0 0 0 35
+325: ghost ghost -.649999 2.2 -.45 0 0 0 320 size=0.1
+326: ghost ghost -1.1 1.7 -.45 0 0 0 87
+327: ghost ghost -1.1 4.4 -.45 0 0 0 87
+328: ghost ghost -1.1 2.2 -.45 0 0 0 87
+329: ghost ghost 0 4.1 -.45 0 0 0 114
+330: ghost ghost 0 4.45 -.45 0 0 0 113
+331: ghost ghost 0 4.8875 -.45 0 0 0 325
+332: ghost ghost 0 4.8875 1.2 0 0 0 325
+333: ghost ghost 0 4.45 1.2 0 0 0 111
+334: ghost ghost 1.225 0 1.2 0 0 0 254
+335: ghost ghost 1.3 .3375 1.2 0 0 0 48
+336: ghost ghost 1.3 -.3375 1.2 0 0 0 246
+337: ghost ghost -1.3 -.3375 1.2 0 0 0 242
+338: ghost ghost -1.3 .3375 1.2 0 0 0 54
+339: ghost ghost -1.225 0 1.2 0 0 0 253
+340: ghost ghost 1.7375 0 1.2 0 0 0 43
+341: ghost ghost 1.7375 0 .15 0 0 0 43
+342: ghost ghost 1.35 0 1.2 0 0 0 254
+343: ghost ghost -1.35 0 1.2 0 0 0 253
+344: ghost ghost 1.35 0 .15 0 0 0 47
+345: ghost ghost -1.35 0 .15 0 0 0 241
+346: ghost ghost -1.7375 0 .15 0 0 0 240
+347: ghost ghost -1.7375 0 1.2 0 0 0 240
+348: ghost ghost .45 0 .15 0 0 0 6
+349: ghost ghost .9125 -3.825 .15 0 0 0 208 size=0.1
+350: ghost ghost .9125 -2.1375 .15 0 0 0 208 size=0.1
+351: ghost ghost -.9125 -2.1375 .15 0 0 0 209 size=0.1
+352: ghost ghost -.9125 -3.825 .15 0 0 0 209 size=0.1
+353: ghost ghost -.9125 2.1375 .15 0 0 0 35 size=0.1
+354: ghost ghost -.9125 3.825 .15 0 0 0 35 size=0.1
+355: ghost ghost .9125 3.825 .15 0 0 0 36 size=0.1
+356: ghost ghost .9125 2.1375 .15 0 0 0 36 size=0.1
+357: ghost ghost -.4 -.4 .15 0 0 0 6 size=0.2
+358: ghost ghost -.4 .4 .15 0 0 0 6 size=0.2
+359: ghost ghost .4 .4 .15 0 0 0 6 size=0.2
+360: ghost ghost .4 -.4 .15 0 0 0 6 size=0.2
+361: ghost ghost 0 -1.275 .625 0 0 0 213
+362: ghost ghost 0 1.275 .625 0 0 0 58
+363: ghost ghost -1.3375 -1.1 1.0375 0 0 0 244 size=0.2
+364: ghost ghost 1.35 -1.1 1.0375 0 0 0 245 size=0.2
+365: ghost ghost 1.35 1.1 1.0375 0 0 0 50 size=0.2
+366: ghost ghost -1.3375 1.1 1.0375 0 0 0 53 size=0.2
+367: ghost ghost -.65 4.4 -.45 0 0 0 93
+368: ghost ghost .65 4.4 -.45 0 0 0 94
+369: ghost ghost -.65 -4.4 -.45 0 0 0 184
+370: ghost ghost .65 -4.4 -.45 0 0 0 183
 end
 
 Section: Lights

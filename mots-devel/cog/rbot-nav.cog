@@ -65,7 +65,7 @@ int			lastposnum							local
 int			nextposnum							local
 int			rundir								local
 int			changepath							local
-int			path_end							local
+int			choices								local
 int			new_path_end						local
 int			new_path_requirements				local
 int			bot_keys							local
@@ -174,17 +174,17 @@ trigger:
 				if (BitTest(botmode, 0x1000)) rundir=0; else rundir=1; // set run direction from botmode
 			}
 
+			choices = 1;
 			// If we're at either end of a non-looping path, we should change paths if we can
-			path_end = 0;
-			if (!BitTest(pathflags, 0x2))
+			if (!BitTest(pathflags, 0x2)) // Not looping
 			{
 				if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
 				{
-					path_end = 1;
+					choices = 0; // Cannot stay on current path if there is another option
 				}
 				else if (rundir == 0 && node_index <= 0) // At beginning of path and running backward
 				{
-					path_end = 1;
+					choices = 0; // Cannot stay on current path if there is another option
 				}
 			}
 
@@ -238,18 +238,19 @@ trigger:
 									changepath = 0;
 									if (new_path_rank > path_rank) // New path is better than the current option - we are obligated to switch
 									{
+										choices = 1; // Reset number of choices to count only those in this path rank
 										changepath = 1;
 									}
 									else if (new_path_rank == path_rank) // New path is same rank as current option - change at random or if at end of current path
 									{
-										if (path_end || Rand() > 0.5) // We will leave the current path only out of necessity or by random chance
+										choices = choices + 1; // One more choice in the current path rank
+										if (Rand() < (1/choices)) // Each intersecting path has an equal chance of being chosen (one in N chance)
 										{
 											changepath = 1;
 										}
 									}
 									if (changepath)
 									{
-										path_end = 0; // Now that we've changed paths, no need to force another change
 										path_index = i;
 										node_index = j;
 										path_size = new_path_size;

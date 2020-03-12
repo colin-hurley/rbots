@@ -637,12 +637,14 @@ trigger:
 				StopSound(humChannel, 0.5); // Stop resident saber noise
 				humChannel = -1;
 			}
+			SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
 		}
 		curweap=getparam(1);
 		if (curweap == 10) // saber
 		{
 			PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
 			humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
+			SetThingLight(rbot, 0.65, 0.25); // Extra light for saber glow
 		}
 		if (curweap == 2 || curweap == 5 || curweap == 6) // bryar, crossbow, repeater
 		{
@@ -1282,6 +1284,7 @@ timer:
 			StopSound(humChannel, 0.5); // Stop resident saber noise
 			humChannel = -1;
 		}
+		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
 		curweap = 0; // unlit saber
 		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1); // show model with saber turned off
 		return;

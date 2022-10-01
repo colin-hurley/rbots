@@ -664,12 +664,6 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 101010) // take item
-	{
-		TakeItem(getparam(1), rbot);
-		return;
-	}
-
 	if (GetSourceRef() == 101020) // weapon fired
 	{
 		curweap = GetParam(1);

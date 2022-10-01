@@ -518,7 +518,7 @@ pickupitem:
 		{
 			energy=energy+20;
 			if (energy>500) energy=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -529,7 +529,7 @@ pickupitem:
 		{
 			power=power+25;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -540,7 +540,7 @@ pickupitem:
 		{
 			inv_weap4=inv_weap4+3;
 			if (inv_weap4>30) inv_weap4=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -550,7 +550,7 @@ pickupitem:
 		if (inv_weap4<30)
 		{
 			inv_weap4=inv_weap4+1;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -561,7 +561,7 @@ pickupitem:
 		{
 			inv_weap8=inv_weap8+5;
 			if (inv_weap8>30) inv_weap8=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -571,7 +571,7 @@ pickupitem:
 		if (inv_weap8<30)
 		{
 			inv_weap8=inv_weap8+1;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -582,7 +582,7 @@ pickupitem:
 		{
 			inv_raildets=inv_raildets+3;
 			if (inv_raildets>30) inv_raildets=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -592,7 +592,7 @@ pickupitem:
 		if (inv_bacta<5)
 		{
 			inv_bacta=inv_bacta+1;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -604,7 +604,7 @@ pickupitem:
 			extra=GetThingHealth(rbot)+20;
 			if (extra > 100) extra=100;
 			SetThingHealth(rbot,extra);
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -615,14 +615,14 @@ pickupitem:
 		{
 			shields=shields+20;
 			if (shields>200) shields=100;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
 
 	if (GetThingTemplate(item) == tmp_supershield)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		SetActorFlags(rbot, 8); // invulnerable
 		SetThingFlags(rbot, 4); // mag sealed
 		SetTimerEx(30, 140, -1, -1); // switch off in 30 secs
@@ -631,7 +631,7 @@ pickupitem:
 
 	if (GetThingTemplate(item) == tmp_powerboost)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		powerboost=2;
 		SetTimerEx(30, 150, -1, -1); // switch off in 30 secs
 		return;
@@ -643,7 +643,7 @@ pickupitem:
 		{
 			shields=200;
 			SetThingHealth(rbot,100);
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -653,28 +653,28 @@ pickupitem:
 		if (shields<200)
 		{
 			shields=200;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
 
 	if (GetThingTemplate(item) == tmp_mana)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		SendTrigger(-1,101040,botid,100,0,-1); // tell srv to increase mana
 		return;
 	}
 
 	if (GetThingTemplate(item) == tmp_lightside)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		SendTrigger(-1,101040,botid,400,1,-1); // tell srv to increase mana + add light surge
 		return;
 	}
 
 	if (GetThingTemplate(item) == tmp_darkside)
 	{
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		SendTrigger(-1,101040,botid,400,2,-1); // tell srv to increase mana + add dark surge
 		return;
 	}
@@ -686,7 +686,7 @@ pickupitem:
 			inv_weap2=1;
 			energy=energy+10;
 			if (energy>500) energy=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -698,7 +698,7 @@ pickupitem:
 			inv_weap3=1;
 			energy=energy+24;
 			if (energy>500) energy=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -710,7 +710,7 @@ pickupitem:
 			inv_weap5=1;
 			power=power+16;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -722,7 +722,7 @@ pickupitem:
 			inv_weap6=1;
 			power=power+24;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}  
 		return;
 	}
@@ -734,7 +734,7 @@ pickupitem:
 			inv_weap7=1;
 			inv_raildets=inv_raildets+6;
 			if (inv_raildets>30) inv_raildets=30;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -746,7 +746,7 @@ pickupitem:
 			inv_weap9=1;
 			power=power+32;
 			if (power>500) power=500;
-			SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
 	}
@@ -754,7 +754,7 @@ pickupitem:
 	if (GetThingTemplate(item) == tmp_backpack)
 	{
 		SendTrigger(-1, 12000, botid, item, -1, -1); // send info to backpack cog
-		SendTrigger(-1,101010,botid,item,rbot,-1); // tell srv to pickup item
+		TakeItem(item, rbot); // bot picked up this item
 		return;
 	}
 

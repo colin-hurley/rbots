@@ -936,7 +936,7 @@ select_weap1: // Fists
 	curweap=1;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
+	SetArmedMode(rbot, 0);
 	firedelay=0.5;
 	minrange=0;
 	maxrange=0.3;
@@ -948,7 +948,7 @@ select_weap2: // Bryar Pistol
 	curweap=2;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0;
 	maxrange=8.0;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
@@ -962,7 +962,7 @@ select_weap3: // Stormtrooper Rifle
 	curweap=3;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0;
 	maxrange=8.0;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
@@ -975,7 +975,7 @@ select_weap4: // Thermal Detonators
 	curweap=4;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
+	SetArmedMode(rbot, 0);
 	firedelay=0.8;
 	minrange=0.3;
 	maxrange=2.0;
@@ -990,7 +990,7 @@ select_weap5: // Crossbow
 	curweap=5;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0;
 	maxrange=8.0;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
@@ -1004,7 +1004,7 @@ select_weap6: // Repeater
 	curweap=6;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0;
 	maxrange=8.0;
 	botmode=BitSet(botmode,0x40000); // weapon not mounted
@@ -1018,7 +1018,7 @@ select_weap7: // Railgun
 	curweap=7;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // Set LOS from weapon's height
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0.8;
 	maxrange=8.0;
 	//2nd fire vars [HR]
@@ -1035,7 +1035,7 @@ select_weap8: // Sequencer Mines
 	curweap=8;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,3); else setarmedmode(rbot,0);
+	SetArmedMode(rbot, 0);
 	firedelay=0.8;
 	minrange=0;
 	maxrange=0;
@@ -1050,7 +1050,7 @@ select_weap9: // Concussion Rifle
 	curweap=9;
 	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // // Set LOS from weapon's height
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,4); else setarmedmode(rbot,1);
+	SetArmedMode(rbot, 1);
 	minrange=0.8;
 	maxrange=8.0;
 	//2nd fire vars [HR]
@@ -1067,7 +1067,7 @@ select_weap10: // Lightsaber
 	curweap=10;
 	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	SendTrigger(-1,101000,botid,curweap,rbot,-1); // tell srv to change weapon
-	if (getmajormode(rbot)>2) setarmedmode(rbot,5); else setarmedmode(rbot,2);
+	SetArmedMode(rbot, 2);
 	firedelay=0.5;
 	minrange=0;
 	maxrange=0.4;

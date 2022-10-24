@@ -485,7 +485,7 @@ trigger:
 		botmode = BitSet(botmode, 0x10000); // bot alive
 		CaptureThing(rbot);
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
-		SetTimerEx(2.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
+		SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 		SetPulse(0.1);
 
 		// Notify other cogs of bot respawn
@@ -1320,12 +1320,13 @@ timer:
 
 	if (GetSenderId() == 300) // check if bot has fallen into a pit
 	{
-		cursector=GetThingSector(rbot);
-		if (BitTest(GetSectorFlags(cursector), 0x40)) // in pit
+		cursector = GetThingSector(rbot);
+		if ((GetSectorFlags(cursector) & 0x40) && !(GetAttachFlags(rbot)) && VectorZ(GetThingVel(rbot)) < -3.0)
 		{
-			DamageThing(rbot,800,1,rbot); // kill bot
+			// Bot is aitborne and falling in a pit sector
+			DamageThing(rbot, 800, 0x1, rbot); // kill bot
 		}
-		else SetTimerEx(2.0, 300, -1, -1); // schedule another check
+		else SetTimerEx(1.0, 300, -1, -1); // schedule another check
 		return;
 	}
 

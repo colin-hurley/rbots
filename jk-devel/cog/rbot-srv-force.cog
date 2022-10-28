@@ -385,7 +385,7 @@ timer:
 		curweap = SendMessageEx(srv, user7, 1014, -1, -1, -1);
 		targweap = SendMessageEx(srv, user7, 1015, -1, -1, -1);
 		gamemode = SendMessageEx(srv, user7, 1004, -1, -1, -1);
-		if (BitTest(gamemode, 0x4)) // allowed to use forcepowers
+		if (BitTest(gamemode, 0x4) && !(AIGetMode(rbot) & 0x2000)) // allowed to use forcepowers and bot AI is not disabled
 		{
 			if (mana > 0 && BitTest(botmode,0x4000)) // bot has mana & has a target
 			{
@@ -433,7 +433,7 @@ timer:
 	if (GetSenderId() == 502 && BitTest(botmode, 0x10000)) // force power defensive/evasive
 	{
 		gamemode = SendMessageEx(srv, user7, 1004, -1, -1, -1);
-		if (BitTest(gamemode, 0x4)) // allowed to use forcepowers
+		if (BitTest(gamemode, 0x4) && !(AIGetMode(rbot) & 0x2000)) // allowed to use forcepowers and bot AI is not disabled
 		{
 			if (mana > 0) // bot has mana
 			{

@@ -230,13 +230,12 @@ startup:
 
 pulse:
 	if (IsMulti() && !IsServer()) return; // Host only
-	setpulse(0);
+	if (AIGetMode(rbot) & 0x2000) return; // bot AI disabled
 	forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
 	SendTrigger(-1, 100000, botid, rbot, forcemode, -1); // request update
 	call dodge;
 	call move;
 	syncthingpos(rbot);
-	setpulse(0.1);
 	return;
 
 killed:
@@ -247,7 +246,6 @@ killed:
 	KillTimerEx(120); // stop checking for 'bot lost'
 	KillTimerEx(300); // stop checking if bot is in a pit
 	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send bot died event
-	ReleaseThing(rbot);
 	if (curweap == 10) // current weapon is saber
 	{
 		// The bot died with the saber selected, stop the waber weapon effects
@@ -260,6 +258,7 @@ killed:
 
 damaged:
 	if (IsMulti() && !IsServer()) return; // Host only
+	if (!BitTest(botmode, 0x10000)) return; // bot already dead
 
 	damage=GetParam(0);
 	damagetype=GetParam(1);
@@ -483,7 +482,7 @@ trigger:
 
 		// Start bot AI processes, etc.
 		botmode = BitSet(botmode, 0x10000); // bot alive
-		CaptureThing(rbot);
+		SetThingClassCog(rbot, GetSelfCog());
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
 		SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 		SetPulse(0.1);
@@ -1143,7 +1142,7 @@ targettactics:
 	//Get the current weapon of our target
 	if (GetThingType(target) == 2) // target is another bot
 	{
-		targweap=SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
+		targweap=SendMessageEx(GetThingClassCog(target), user1, -1, -1, -1, -1);
 	}
 	else // target is a player
 	{

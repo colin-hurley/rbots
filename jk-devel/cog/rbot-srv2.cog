@@ -222,7 +222,7 @@ trigger:
 		ClearActorFlags(rbot, 0x8); // remove invulnerable
 		ClearThingFlags(rbot, 0x4); // remove mag sealed
 		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
-		SetPulse(0.5);
+		SetPulse(0.25);
 		return;
 	}
 
@@ -426,13 +426,12 @@ trigger:
 	return;
 
 pulse:
-	SetPulse(0);
+	if (AIGetMode(rbot) & 0x2000) return; // bot AI disabled
 	call findpowerups;
 	call findtarget;
 	call bestweapon;
 	call startfire;
 	call setbotmode;
-	SetPulse(0.25);
 	return;
 
 findtarget:
@@ -819,7 +818,7 @@ bestweapon:
 		// Get the current weapon of our target
 		if (GetThingType(target) == 2) // target is another bot
 		{
-			targweap = SendMessageEx(GetThingCaptureCog(target), user1, -1, -1, -1, -1);
+			targweap = SendMessageEx(GetThingClassCog(target), user1, -1, -1, -1, -1);
 		}
 		else // target is a player
 		{
@@ -1082,7 +1081,7 @@ startfire:
 firetarget:
 //return; // hack to stop bots firing - testing only
 	KillTimerEx(300); // make sure no other 'fire' target is active
-	if (!BitTest(botmode,0x10000) || !Bittest(botmode,0x4000)) // bot dead or no target
+	if (!BitTest(botmode,0x10000) || !BitTest(botmode,0x4000) || AIGetMode(rbot) & 0x2000) // bot dead or no target or bot AI disabled
 	{
 		botmode=BitClear(botmode,0x20000);
 		return;

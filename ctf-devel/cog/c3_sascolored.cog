@@ -115,7 +115,7 @@ activated:
 		else if (GetThingType(player) == 2) // this is bot, not a player
 		{
 			// Check for required key in bot inventory
-			srv = GetThingCaptureCog(player);
+			srv = GetThingClassCog(player);
 			srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
 			keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
 			if (sas_color == 1 && !BitTest(keys, 0x1)) return; // Door requires red key and bot doesn't have it

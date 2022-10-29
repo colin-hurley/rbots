@@ -18251,7 +18251,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 59
+World scripts 61
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -18299,18 +18299,20 @@ World scripts 59
 44: pow_thermal_m.cog
 45: pow_vest.cog
 46: rbot-2door.cog
-47: rbot-autoelev.cog
-48: rbot-backpack.cog
-49: rbot-door.cog
-50: rbot-nav.cog
-51: rbot-path.cog
-52: rbot-player.cog
-53: rbot-skin.cog
-54: rbot-special.cog
-55: rbot-srv.cog
-56: rbot-srv2.cog
-57: rbot-srv-force.cog
-58: rbot-startup.cog
+47: rbot-arrival.cog
+48: rbot-autoelev.cog
+49: rbot-backpack.cog
+50: rbot-door.cog
+51: rbot-nav.cog
+52: rbot-nav-special.cog
+53: rbot-path.cog
+54: rbot-player.cog
+55: rbot-skin.cog
+56: rbot-special.cog
+57: rbot-srv.cog
+58: rbot-srv2.cog
+59: rbot-srv-force.cog
+60: rbot-startup.cog
 end
 
 Section: cogs
@@ -18339,144 +18341,142 @@ World cogs 219
 19: rbot-autoelev.cog 16 174 176 -1 -1 -1 -1 0.25 2 4 activate02.wav
 20: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0
 21: rbot-nav.cog 0.25
-22: rbot-path.cog 0 109 110 111 112 113 114 115 116 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-23: rbot-path.cog 1 117 118 119 120 121 122 123 124 125 108 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-24: rbot-path.cog 2 126 127 128 129 130 131 132 133 112 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-25: rbot-path.cog 3 140 139 138 137 136 158 135 134 117 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-26: rbot-path.cog 4 141 142 143 144 145 159 146 147 126 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-27: rbot-path.cog 5 139 148 149 150 151 152 141 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-28: rbot-path.cog 6 142 153 154 155 156 157 140 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-29: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-30: rbot-srv.cog 0 9 0 1 20 101
-31: rbot-srv-force.cog 0 7695
-32: rbot-srv2.cog 0
-33: rbot-skin.cog 0 rbot_vader sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-34: rbot-srv.cog 1 8 1 2 22 102
-35: rbot-srv-force.cog 1 7695
-36: rbot-srv2.cog 1
-37: rbot-skin.cog 1 rbot_luke sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-38: rbot-srv.cog 2 6 2 1 21 101
-39: rbot-srv-force.cog 2 255
-40: rbot-srv2.cog 2
-41: rbot-skin.cog 2 rbot_marajade sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-42: rbot-srv.cog 3 4 3 2 23 102
-43: rbot-srv-force.cog 3 255
-44: rbot-srv2.cog 3
-45: rbot-skin.cog 3 rbot_darkkyle sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-46: rbot-srv.cog 4 26 4 1 33 101
-47: rbot-srv-force.cog 4 255
-48: rbot-srv2.cog 4
-49: rbot-skin.cog 4 rbot_weequay sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-50: rbot-srv.cog 5 12 5 2 37 102
-51: rbot-srv-force.cog 5 255
-52: rbot-srv2.cog 5
-53: rbot-skin.cog 5 rbot_pirate sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-54: rbot-srv.cog 6 24 6 1 34 101
-55: rbot-srv-force.cog 6 7695
-56: rbot-srv2.cog 6
-57: rbot-skin.cog 6 rbot_pirate2 sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-58: rbot-srv.cog 7 7 7 2 35 102
-59: rbot-srv-force.cog 7 7695
-60: rbot-srv2.cog 7
-61: rbot-skin.cog 7 rbot_darkmara sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-62: rbot-srv.cog 8 46 8 1 38 101
-63: rbot-srv-force.cog 8 255
-64: rbot-srv2.cog 8
-65: rbot-skin.cog 8 rbot_rebsoldier sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-66: rbot-srv.cog 9 48 9 2 39 102
-67: rbot-srv-force.cog 9 255
-68: rbot-srv2.cog 9
-69: rbot-skin.cog 9 rbot_atatpilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-70: rbot-srv.cog 10 28 10 1 40 101
-71: rbot-srv-force.cog 10 7695
-72: rbot-srv2.cog 10
-73: rbot-skin.cog 10 rbot_scouttroop sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-74: rbot-srv.cog 11 47 11 2 41 102
-75: rbot-srv-force.cog 11 7695
-76: rbot-srv2.cog 11
-77: rbot-skin.cog 11 rbot_tiepilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-78: rbot-srv.cog 12 50 12 1 42 101
-79: rbot-srv-force.cog 12 255
-80: rbot-srv2.cog 12
-81: rbot-skin.cog 12 rbot_rebcomander sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-82: rbot-srv.cog 13 10 13 2 43 102
-83: rbot-srv-force.cog 13 255
-84: rbot-srv2.cog 13
-85: rbot-skin.cog 13 rbot_bobafett sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-86: rbot-srv.cog 14 15 14 1 44 101
-87: rbot-srv-force.cog 14 7695
-88: rbot-srv2.cog 14
-89: rbot-skin.cog 14 rbot_greedo sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-90: rbot-srv.cog 15 12 15 2 45 102
-91: rbot-srv-force.cog 15 7695
-92: rbot-srv2.cog 15
-93: rbot-skin.cog 15 rbot_tusken sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-94: rbot-srv.cog 16 28 16 1 51 101
-95: rbot-srv-force.cog 16 255
-96: rbot-srv2.cog 16
-97: rbot-skin.cog 16 rbot_commando sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-98: rbot-srv.cog 17 24 17 2 52 102
-99: rbot-srv-force.cog 17 255
-100: rbot-srv2.cog 17
-101: rbot-skin.cog 17 rbot_trooper sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-102: rbot-srv.cog 18 2 18 1 53 101
-103: rbot-srv-force.cog 18 7695
-104: rbot-srv2.cog 18
-105: rbot-skin.cog 18 rbot_jerec sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-106: rbot-srv.cog 19 1 19 2 54 102
-107: rbot-srv-force.cog 19 7695
-108: rbot-srv2.cog 19
-109: rbot-skin.cog 19 rbot_sariss sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-110: rbot-srv.cog 20 0 20 1 55 101
-111: rbot-srv-force.cog 20 255
-112: rbot-srv2.cog 20
-113: rbot-skin.cog 20 rbot_yun sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-114: rbot-srv.cog 21 17 21 2 56 102
-115: rbot-srv-force.cog 21 255
-116: rbot-srv2.cog 21
-117: rbot-skin.cog 21 rbot_jan sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-118: rbot-srv.cog 22 11 22 1 57 101
-119: rbot-srv-force.cog 22 7695
-120: rbot-srv2.cog 22
-121: rbot-skin.cog 22 rbot_bossk sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-122: rbot-srv.cog 23 16 23 2 58 102
-123: rbot-srv-force.cog 23 7695
-124: rbot-srv2.cog 23
-125: rbot-skin.cog 23 rbot_abronmar sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-126: rbot-srv.cog 24 25 24 1 59 101
-127: rbot-srv-force.cog 24 255
-128: rbot-srv2.cog 24
-129: rbot-skin.cog 24 rbot_admiral sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-130: rbot-srv.cog 25 29 25 2 60 102
-131: rbot-srv-force.cog 25 255
-132: rbot-srv2.cog 25
-133: rbot-skin.cog 25 rbot_redeye sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-134: rbot-srv.cog 26 30 26 1 61 101
-135: rbot-srv-force.cog 26 7695
-136: rbot-srv2.cog 26
-137: rbot-skin.cog 26 rbot_cyborg sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-138: rbot-srv.cog 27 49 27 2 62 102
-139: rbot-srv-force.cog 27 7695
-140: rbot-srv2.cog 27
-141: rbot-skin.cog 27 rbot_rebofficer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-142: rbot-srv.cog 28 5 28 1 63 101
-143: rbot-srv-force.cog 28 255
-144: rbot-srv2.cog 28
-145: rbot-skin.cog 28 rbot_rahn sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-146: rbot-srv.cog 29 18 29 2 64 102
-147: rbot-srv-force.cog 29 255
-148: rbot-srv2.cog 29
-149: rbot-skin.cog 29 rbot_kaerrobanii sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-150: rbot-srv.cog 30 25 30 1 65 101
-151: rbot-srv-force.cog 30 7695
-152: rbot-srv2.cog 30
-153: rbot-skin.cog 30 rbot_officer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-154: rbot-srv.cog 31 32 31 2 66 102
-155: rbot-srv-force.cog 31 7695
-156: rbot-srv2.cog 31
-157: rbot-skin.cog 31 rbot_silver sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-158: rbot-skin.cog 101 rbot_kylered sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-159: rbot-skin.cog 102 rbot_kylegold sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+22: rbot-nav-special.cog 117 134 159 126 147 158 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+23: rbot-path.cog 0 109 110 111 112 113 114 115 116 125 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+24: rbot-path.cog 1 151 152 156 153 148 140 139 138 137 136 154 135 134 117 159 118 119 120 121 122 123 124 125 -1 -1 0 0 0
+25: rbot-path.cog 2 148 149 157 150 151 141 142 143 144 145 155 146 147 126 158 127 128 129 130 131 132 133 112 -1 -1 0 0 0
+26: rbot-arrival.cog 158 159 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 -1 -1 -1 -1 -1 -1 16 13 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 -1 -1 -1 -1 -1 -1 10 10 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
+27: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+28: rbot-srv.cog 0 9 0 1 20 101
+29: rbot-srv-force.cog 0 7695
+30: rbot-srv2.cog 0
+31: rbot-skin.cog 0 rbot_vader sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+32: rbot-srv.cog 1 8 1 2 22 102
+33: rbot-srv-force.cog 1 7695
+34: rbot-srv2.cog 1
+35: rbot-skin.cog 1 rbot_luke sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+36: rbot-srv.cog 2 6 2 1 21 101
+37: rbot-srv-force.cog 2 255
+38: rbot-srv2.cog 2
+39: rbot-skin.cog 2 rbot_marajade sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+40: rbot-srv.cog 3 4 3 2 23 102
+41: rbot-srv-force.cog 3 255
+42: rbot-srv2.cog 3
+43: rbot-skin.cog 3 rbot_darkkyle sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+44: rbot-srv.cog 4 26 4 1 33 101
+45: rbot-srv-force.cog 4 255
+46: rbot-srv2.cog 4
+47: rbot-skin.cog 4 rbot_weequay sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+48: rbot-srv.cog 5 12 5 2 37 102
+49: rbot-srv-force.cog 5 255
+50: rbot-srv2.cog 5
+51: rbot-skin.cog 5 rbot_pirate sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+52: rbot-srv.cog 6 24 6 1 34 101
+53: rbot-srv-force.cog 6 7695
+54: rbot-srv2.cog 6
+55: rbot-skin.cog 6 rbot_pirate2 sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+56: rbot-srv.cog 7 7 7 2 35 102
+57: rbot-srv-force.cog 7 7695
+58: rbot-srv2.cog 7
+59: rbot-skin.cog 7 rbot_darkmara sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+60: rbot-srv.cog 8 46 8 1 38 101
+61: rbot-srv-force.cog 8 255
+62: rbot-srv2.cog 8
+63: rbot-skin.cog 8 rbot_rebsoldier sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+64: rbot-srv.cog 9 48 9 2 39 102
+65: rbot-srv-force.cog 9 255
+66: rbot-srv2.cog 9
+67: rbot-skin.cog 9 rbot_atatpilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+68: rbot-srv.cog 10 28 10 1 40 101
+69: rbot-srv-force.cog 10 7695
+70: rbot-srv2.cog 10
+71: rbot-skin.cog 10 rbot_scouttroop sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+72: rbot-srv.cog 11 47 11 2 41 102
+73: rbot-srv-force.cog 11 7695
+74: rbot-srv2.cog 11
+75: rbot-skin.cog 11 rbot_tiepilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+76: rbot-srv.cog 12 50 12 1 42 101
+77: rbot-srv-force.cog 12 255
+78: rbot-srv2.cog 12
+79: rbot-skin.cog 12 rbot_rebcomander sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+80: rbot-srv.cog 13 10 13 2 43 102
+81: rbot-srv-force.cog 13 255
+82: rbot-srv2.cog 13
+83: rbot-skin.cog 13 rbot_bobafett sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+84: rbot-srv.cog 14 15 14 1 44 101
+85: rbot-srv-force.cog 14 7695
+86: rbot-srv2.cog 14
+87: rbot-skin.cog 14 rbot_greedo sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+88: rbot-srv.cog 15 12 15 2 45 102
+89: rbot-srv-force.cog 15 7695
+90: rbot-srv2.cog 15
+91: rbot-skin.cog 15 rbot_tusken sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+92: rbot-srv.cog 16 28 16 1 51 101
+93: rbot-srv-force.cog 16 255
+94: rbot-srv2.cog 16
+95: rbot-skin.cog 16 rbot_commando sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+96: rbot-srv.cog 17 24 17 2 52 102
+97: rbot-srv-force.cog 17 255
+98: rbot-srv2.cog 17
+99: rbot-skin.cog 17 rbot_trooper sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+100: rbot-srv.cog 18 2 18 1 53 101
+101: rbot-srv-force.cog 18 7695
+102: rbot-srv2.cog 18
+103: rbot-skin.cog 18 rbot_jerec sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+104: rbot-srv.cog 19 1 19 2 54 102
+105: rbot-srv-force.cog 19 7695
+106: rbot-srv2.cog 19
+107: rbot-skin.cog 19 rbot_sariss sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+108: rbot-srv.cog 20 0 20 1 55 101
+109: rbot-srv-force.cog 20 255
+110: rbot-srv2.cog 20
+111: rbot-skin.cog 20 rbot_yun sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+112: rbot-srv.cog 21 17 21 2 56 102
+113: rbot-srv-force.cog 21 255
+114: rbot-srv2.cog 21
+115: rbot-skin.cog 21 rbot_jan sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+116: rbot-srv.cog 22 11 22 1 57 101
+117: rbot-srv-force.cog 22 7695
+118: rbot-srv2.cog 22
+119: rbot-skin.cog 22 rbot_bossk sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+120: rbot-srv.cog 23 16 23 2 58 102
+121: rbot-srv-force.cog 23 7695
+122: rbot-srv2.cog 23
+123: rbot-skin.cog 23 rbot_abronmar sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+124: rbot-srv.cog 24 25 24 1 59 101
+125: rbot-srv-force.cog 24 255
+126: rbot-srv2.cog 24
+127: rbot-skin.cog 24 rbot_admiral sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+128: rbot-srv.cog 25 29 25 2 60 102
+129: rbot-srv-force.cog 25 255
+130: rbot-srv2.cog 25
+131: rbot-skin.cog 25 rbot_redeye sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+132: rbot-srv.cog 26 30 26 1 61 101
+133: rbot-srv-force.cog 26 7695
+134: rbot-srv2.cog 26
+135: rbot-skin.cog 26 rbot_cyborg sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+136: rbot-srv.cog 27 49 27 2 62 102
+137: rbot-srv-force.cog 27 7695
+138: rbot-srv2.cog 27
+139: rbot-skin.cog 27 rbot_rebofficer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+140: rbot-srv.cog 28 5 28 1 63 101
+141: rbot-srv-force.cog 28 255
+142: rbot-srv2.cog 28
+143: rbot-skin.cog 28 rbot_rahn sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+144: rbot-srv.cog 29 18 29 2 64 102
+145: rbot-srv-force.cog 29 255
+146: rbot-srv2.cog 29
+147: rbot-skin.cog 29 rbot_kaerrobanii sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+148: rbot-srv.cog 30 25 30 1 65 101
+149: rbot-srv-force.cog 30 7695
+150: rbot-srv2.cog 30
+151: rbot-skin.cog 30 rbot_officer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+152: rbot-srv.cog 31 32 31 2 66 102
+153: rbot-srv-force.cog 31 7695
+154: rbot-srv2.cog 31
+155: rbot-skin.cog 31 rbot_silver sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+156: rbot-skin.cog 101 rbot_kylered sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+157: rbot-skin.cog 102 rbot_kylegold sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
 end
 
 Section: TEMPLATES
@@ -18845,34 +18845,34 @@ World things 640
 105: powercell powercell 6.341735 1.802532 .051702 0 44.988338 0 228 -1 respawnfactor=.9
 106: powercell powercell 3.862015 -.643615 .051702 0 44.988338 0 227 -1 respawnfactor=.9
 107: strifle strifle 3.664469 -4.919665 -.330989 0 90 0 74 -1 respawnfactor=.9
-108: ghost ghost 5.553772 -1.465212 .191702 0 0 0 7 -1 respawnfactor=.9
-109: ghost ghost 7.053772 -.065212 .191702 0 -44.988338 0 10 -1 respawnfactor=.9
-110: ghost ghost 7.103772 1.184788 .191702 0 -44.988338 0 9 -1 respawnfactor=.9
-111: ghost ghost 5.753772 2.534788 .191702 0 -44.988338 0 228 -1 respawnfactor=.9
-112: ghost ghost 5.136243 2.802857 .191702 0 -44.988338 0 38 -1 respawnfactor=.9
-113: ghost ghost 4.503772 2.584788 .191702 0 -44.988338 0 8 -1 respawnfactor=.9
-114: ghost ghost 3.103772 1.184788 .191702 0 -44.988338 0 21 -1 respawnfactor=.9
-115: ghost ghost 3.103772 -.015212 .191702 0 -44.988338 0 21 -1 respawnfactor=.9
-116: ghost ghost 4.653772 -1.465212 .191702 0 -44.988338 0 7 -1 respawnfactor=.9
-117: ghost ghost 1.736243 -1.647143 -.257467 0 0 0 88 -1 respawnfactor=.9
-118: ghost ghost 1.186243 -2.447143 -.257467 0 0 0 97 -1 respawnfactor=.9
-119: ghost ghost 2.486243 -3.647143 -.257467 0 0 0 110 -1 respawnfactor=.9
-120: ghost ghost 3.186243 -4.997143 -.257467 0 0 0 78 -1 respawnfactor=.9
-121: ghost ghost 4.336243 -5.997143 -.257467 0 0 0 67 -1 respawnfactor=.9
-122: ghost ghost 5.136243 -5.797143 -.257467 0 0 0 66 -1 respawnfactor=.9
-123: ghost ghost 5.136243 -4.847143 .022533 0 0 0 3 -1 respawnfactor=.9
-124: ghost ghost 5.086243 -2.897143 .282533 0 0 0 3 -1 respawnfactor=.9
-125: ghost ghost 5.086243 -1.997143 .182533 0 0 0 37 -1 respawnfactor=.9
-126: ghost ghost 8.486243 2.802857 -.257467 0 0 0 178 -1 respawnfactor=.9
-127: ghost ghost 9.036243 3.652857 -.257467 0 0 0 151 -1 respawnfactor=.9
-128: ghost ghost 7.836243 4.802857 -.257467 0 0 0 151 -1 respawnfactor=.9
-129: ghost ghost 7.186243 6.102857 -.257467 0 0 0 55 -1 respawnfactor=.9
-130: ghost ghost 5.986243 7.202857 -.257467 0 0 0 49 -1 respawnfactor=.9
-131: ghost ghost 5.136243 7.052857 -.257467 0 0 0 48 -1 respawnfactor=.9
-132: ghost ghost 5.086243 6.202857 .002533 0 0 0 41 -1 respawnfactor=.9
-133: ghost ghost 5.086243 4.202857 .322533 0 0 0 41 -1 respawnfactor=.9
-134: ghost ghost 1.736243 -1.647143 .662533 0 0 0 142 -1 respawnfactor=.9 thingflags=0x2000000
-135: ghost ghost 2.436243 -1.847143 .662533 0 0 0 142 -1 respawnfactor=.9
+108: ghost ghost 5.741272 -1.365212 .191702 0 0 0 10 -1
+109: ghost ghost 7.053772 -.065212 .191702 0 0 0 10 -1
+110: ghost ghost 7.103772 1.184788 .191702 0 0 0 9 -1
+111: ghost ghost 5.753772 2.534788 .191702 0 0 0 228 -1
+112: ghost ghost 5.136243 2.802857 .191702 0 0 0 38 -1
+113: ghost ghost 4.491272 2.534788 .191702 0 0 0 224 -1
+114: ghost ghost 3.103772 1.184788 .191702 0 0 0 21 -1
+115: ghost ghost 3.103772 -.015212 .191702 0 0 0 21 -1
+116: ghost ghost 4.491272 -1.365212 .191702 0 0 0 227 -1
+117: ghost ghost 1.748743 -1.634643 -.257467 0 0 0 88 -1 size=0.12
+118: ghost ghost 1.186243 -2.447143 -.257467 0 0 0 97 -1
+119: ghost ghost 2.486243 -3.647143 -.257467 0 0 0 110 -1
+120: ghost ghost 3.186243 -4.997143 -.257467 0 0 0 78 -1
+121: ghost ghost 4.336243 -5.997143 -.257467 0 0 0 67 -1
+122: ghost ghost 5.136243 -5.797143 -.257467 0 0 0 66 -1
+123: ghost ghost 5.136243 -4.847143 -.114967 0 0 0 3 -1
+124: ghost ghost 5.086243 -2.897143 .157533 0 0 0 3 -1
+125: ghost ghost 5.116272 -1.602712 .182533 0 0 0 37 -1
+126: ghost ghost 8.489717 2.788563 -.257467 0 0 0 178 -1 size=0.12
+127: ghost ghost 9.036243 3.652857 -.257467 0 0 0 151 -1
+128: ghost ghost 7.836243 4.802857 -.257467 0 0 0 151 -1
+129: ghost ghost 7.186243 6.102857 -.257467 0 0 0 55 -1
+130: ghost ghost 5.986243 7.202857 -.257467 0 0 0 49 -1
+131: ghost ghost 5.136243 7.052857 -.257467 0 0 0 48 -1
+132: ghost ghost 5.086243 6.202857 -.147467 0 0 0 41 -1
+133: ghost ghost 5.086243 4.202857 .147533 0 0 0 41 -1
+134: ghost ghost 1.748743 -1.634643 .662533 0 0 0 142 -1 size=0.15
+135: ghost ghost 2.498743 -1.959643 .662533 0 0 0 142 -1
 136: ghost ghost 3.60129 -.90833 1.17383 0 0 0 129 -1
 137: ghost ghost 4.70129 -1.80833 1.17383 0 0 0 34 -1
 138: ghost ghost 5.90129 -1.80833 1.23383 0 0 0 34 -1
@@ -18883,20 +18883,20 @@ World things 640
 143: ghost ghost 4.35129 2.99167 1.23383 0 0 0 35 -1
 144: ghost ghost 5.50129 2.99167 1.17383 0 0 0 35 -1
 145: ghost ghost 6.65129 2.09167 1.17383 0 0 0 193 -1
-146: ghost ghost 7.736243 2.952857 .662533 0 0 0 174 -1 respawnfactor=.9
-147: ghost ghost 8.486243 2.802857 .662533 0 0 0 174 -1 respawnfactor=.9 thingflags=0x2000000
-148: ghost ghost 7.65129 .44167 1.69383 0 0 0 33 -1
-149: ghost ghost 6.00129 .54167 1.19383 0 0 0 222 -1
-150: ghost ghost 5.50129 -.10833 1.19383 0 0 0 222 -1
-151: ghost ghost 4.60129 -.00833 1.19383 0 0 0 222 -1
-152: ghost ghost 4.15129 .59167 1.19383 0 0 0 222 -1
-153: ghost ghost 2.65129 .74167 1.69383 0 0 0 231 -1
-154: ghost ghost 4.25129 .74167 1.19383 0 0 0 222 -1
-155: ghost ghost 4.70129 1.29167 1.19383 0 0 0 222 -1
-156: ghost ghost 5.50129 1.34167 1.19383 0 0 0 222 -1
-157: ghost ghost 5.95129 .84167 1.19383 0 0 0 222 -1
-158: ghost ghost 3.073743 -1.384643 .662533 0 0 0 122 -1
-159: ghost ghost 7.173743 2.540357 .662533 0 0 0 171 -1
+146: ghost ghost 7.736243 3.102857 .662533 0 0 0 174 -1
+147: ghost ghost 8.489717 2.788563 .662533 0 0 0 174 -1 size=0.15
+148: ghost ghost 6.07629 .57917 1.19383 0 0 0 222 -1
+149: ghost ghost 5.63879 .05417 1.19383 0 0 0 222 -1
+150: ghost ghost 4.56379 .05417 1.19383 0 0 0 222 -1
+151: ghost ghost 4.17629 .57917 1.19383 0 0 0 222 -1
+152: ghost ghost 4.56379 1.09167 1.19383 0 0 0 222 -1
+153: ghost ghost 5.63879 1.09167 1.19383 0 0 0 222 -1
+154: ghost ghost 3.073743 -1.384643 .662533 0 0 0 122 -1
+155: ghost ghost 7.173743 2.540357 .662533 0 0 0 171 -1
+156: ghost ghost 5.11379 1.24167 1.19383 0 0 0 222 -1
+157: ghost ghost 5.11379 -.13333 1.19383 0 0 0 222 -1
+158: ghost ghost 8.648743 2.952857 -.257467 0 0 0 176 -1 size=0.15
+159: ghost ghost 1.586243 -1.797143 -.257467 0 0 0 86 -1 size=0.1
 end
 
 Section: ARCHLIGHTING

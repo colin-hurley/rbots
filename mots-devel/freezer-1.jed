@@ -8347,62 +8347,62 @@ POWERCELL 3.862015 -.643615 .051702 0 44.988338 0 227 0
  RESPAWNFACTOR=.9
 STRIFLE 3.664469 -4.919665 -.330989 0 90 0 74 0
  RESPAWNFACTOR=.9
-GHOST 5.553772 -1.465212 .191702 0 0 0 7 1
- RESPAWNFACTOR=.9
-GHOST 7.053772 -.065212 .191702 0 -44.988338 0 10 1
- RESPAWNFACTOR=.9
-GHOST 7.103772 1.184788 .191702 0 -44.988338 0 9 1
- RESPAWNFACTOR=.9
-GHOST 5.753772 2.534788 .191702 0 -44.988338 0 228 1
- RESPAWNFACTOR=.9
-GHOST 5.136243 2.802857 .191702 0 -44.988338 0 38 1
- RESPAWNFACTOR=.9
-GHOST 4.503772 2.584788 .191702 0 -44.988338 0 8 1
- RESPAWNFACTOR=.9
-GHOST 3.103772 1.184788 .191702 0 -44.988338 0 21 1
- RESPAWNFACTOR=.9
-GHOST 3.103772 -.015212 .191702 0 -44.988338 0 21 1
- RESPAWNFACTOR=.9
-GHOST 4.653772 -1.465212 .191702 0 -44.988338 0 7 1
- RESPAWNFACTOR=.9
-GHOST 1.736243 -1.647143 -.257467 0 0 0 88 1
- RESPAWNFACTOR=.9
+GHOST 5.741272 -1.365212 .191702 0 0 0 10 1
+
+GHOST 7.053772 -.065212 .191702 0 0 0 10 1
+
+GHOST 7.103772 1.184788 .191702 0 0 0 9 1
+
+GHOST 5.753772 2.534788 .191702 0 0 0 228 1
+
+GHOST 5.136243 2.802857 .191702 0 0 0 38 1
+
+GHOST 4.491272 2.534788 .191702 0 0 0 224 1
+
+GHOST 3.103772 1.184788 .191702 0 0 0 21 1
+
+GHOST 3.103772 -.015212 .191702 0 0 0 21 1
+
+GHOST 4.491272 -1.365212 .191702 0 0 0 227 1
+
+GHOST 1.748743 -1.634643 -.257467 0 0 0 88 1
+ SIZE=0.12
 GHOST 1.186243 -2.447143 -.257467 0 0 0 97 1
- RESPAWNFACTOR=.9
+
 GHOST 2.486243 -3.647143 -.257467 0 0 0 110 1
- RESPAWNFACTOR=.9
+
 GHOST 3.186243 -4.997143 -.257467 0 0 0 78 1
- RESPAWNFACTOR=.9
+
 GHOST 4.336243 -5.997143 -.257467 0 0 0 67 1
- RESPAWNFACTOR=.9
+
 GHOST 5.136243 -5.797143 -.257467 0 0 0 66 1
- RESPAWNFACTOR=.9
-GHOST 5.136243 -4.847143 .022533 0 0 0 3 1
- RESPAWNFACTOR=.9
-GHOST 5.086243 -2.897143 .282533 0 0 0 3 1
- RESPAWNFACTOR=.9
-GHOST 5.086243 -1.997143 .182533 0 0 0 37 1
- RESPAWNFACTOR=.9
-GHOST 8.486243 2.802857 -.257467 0 0 0 178 1
- RESPAWNFACTOR=.9
+
+GHOST 5.136243 -4.847143 -.114967 0 0 0 3 1
+
+GHOST 5.086243 -2.897143 .157533 0 0 0 3 1
+
+GHOST 5.116272 -1.602712 .182533 0 0 0 37 1
+
+GHOST 8.489717 2.788563 -.257467 0 0 0 178 1
+ SIZE=0.12
 GHOST 9.036243 3.652857 -.257467 0 0 0 151 1
- RESPAWNFACTOR=.9
+
 GHOST 7.836243 4.802857 -.257467 0 0 0 151 1
- RESPAWNFACTOR=.9
+
 GHOST 7.186243 6.102857 -.257467 0 0 0 55 1
- RESPAWNFACTOR=.9
+
 GHOST 5.986243 7.202857 -.257467 0 0 0 49 1
- RESPAWNFACTOR=.9
+
 GHOST 5.136243 7.052857 -.257467 0 0 0 48 1
- RESPAWNFACTOR=.9
-GHOST 5.086243 6.202857 .002533 0 0 0 41 1
- RESPAWNFACTOR=.9
-GHOST 5.086243 4.202857 .322533 0 0 0 41 1
- RESPAWNFACTOR=.9
-GHOST 1.736243 -1.647143 .662533 0 0 0 142 1
- RESPAWNFACTOR=.9 THINGFLAGS=0x2000000
-GHOST 2.436243 -1.847143 .662533 0 0 0 142 1
- RESPAWNFACTOR=.9
+
+GHOST 5.086243 6.202857 -.147467 0 0 0 41 1
+
+GHOST 5.086243 4.202857 .147533 0 0 0 41 1
+
+GHOST 1.748743 -1.634643 .662533 0 0 0 142 1
+ SIZE=0.15
+GHOST 2.498743 -1.959643 .662533 0 0 0 142 1
+
 GHOST 3.60129 -.90833 1.17383 0 0 0 129 1
 
 GHOST 4.70129 -1.80833 1.17383 0 0 0 34 1
@@ -8423,34 +8423,34 @@ GHOST 5.50129 2.99167 1.17383 0 0 0 35 1
 
 GHOST 6.65129 2.09167 1.17383 0 0 0 193 1
 
-GHOST 7.736243 2.952857 .662533 0 0 0 174 1
- RESPAWNFACTOR=.9
-GHOST 8.486243 2.802857 .662533 0 0 0 174 1
- RESPAWNFACTOR=.9 THINGFLAGS=0x2000000
-GHOST 7.65129 .44167 1.69383 0 0 0 33 1
+GHOST 7.736243 3.102857 .662533 0 0 0 174 1
 
-GHOST 6.00129 .54167 1.19383 0 0 0 222 1
+GHOST 8.489717 2.788563 .662533 0 0 0 174 1
+ SIZE=0.15
+GHOST 6.07629 .57917 1.19383 0 0 0 222 1
 
-GHOST 5.50129 -.10833 1.19383 0 0 0 222 1
+GHOST 5.63879 .05417 1.19383 0 0 0 222 1
 
-GHOST 4.60129 -.00833 1.19383 0 0 0 222 1
+GHOST 4.56379 .05417 1.19383 0 0 0 222 1
 
-GHOST 4.15129 .59167 1.19383 0 0 0 222 1
+GHOST 4.17629 .57917 1.19383 0 0 0 222 1
 
-GHOST 2.65129 .74167 1.69383 0 0 0 231 1
+GHOST 4.56379 1.09167 1.19383 0 0 0 222 1
 
-GHOST 4.25129 .74167 1.19383 0 0 0 222 1
-
-GHOST 4.70129 1.29167 1.19383 0 0 0 222 1
-
-GHOST 5.50129 1.34167 1.19383 0 0 0 222 1
-
-GHOST 5.95129 .84167 1.19383 0 0 0 222 1
+GHOST 5.63879 1.09167 1.19383 0 0 0 222 1
 
 GHOST 3.073743 -1.384643 .662533 0 0 0 122 1
 
 GHOST 7.173743 2.540357 .662533 0 0 0 171 1
 
+GHOST 5.11379 1.24167 1.19383 0 0 0 222 1
+
+GHOST 5.11379 -.13333 1.19383 0 0 0 222 1
+
+GHOST 8.648743 2.952857 -.257467 0 0 0 176 1
+ SIZE=0.15
+GHOST 1.586243 -1.797143 -.257467 0 0 0 86 1
+ SIZE=0.1
 END
 
 SEC: LIGHTS
@@ -8458,7 +8458,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 160
+COGS 158
 00_SECTORTHRUST.COG vec0:vector=(0/0/1) speed:flex=5 sector0:sector=123 sector1:sector=122 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1
 00_SECTORTHRUST.COG vec0:vector=(0/0/1) speed:flex=5 sector0:sector=172 sector1:sector=171 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1
 00_PARTICLESYSTEM.COG ghost0:thing=15 partSystem:template=+UPENERGYHI
@@ -8481,13 +8481,11 @@ rbot-autoelev.cog elevator:thing=13 top_sector:sector=142 bot_sector:sector=86 c
 rbot-autoelev.cog elevator:thing=16 top_sector:sector=174 bot_sector:sector=176 callbutton0:surface=-1 callbutton1:surface=-1 callbutton2:surface=-1 callbutton3:surface=-1 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=activate02.wav
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
 rbot-nav.cog dflt_nodesize:flex=0.25
-rbot-path.cog pathid:int=0 node0:thing=109 node1:thing=110 node2:thing=111 node3:thing=112 node4:thing=113 node5:thing=114 node6:thing=115 node7:thing=116 node8:thing=108 node9:thing=109 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=1 node0:thing=117 node1:thing=118 node2:thing=119 node3:thing=120 node4:thing=121 node5:thing=122 node6:thing=123 node7:thing=124 node8:thing=125 node9:thing=108 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=2 node0:thing=126 node1:thing=127 node2:thing=128 node3:thing=129 node4:thing=130 node5:thing=131 node6:thing=132 node7:thing=133 node8:thing=112 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=3 node0:thing=140 node1:thing=139 node2:thing=138 node3:thing=137 node4:thing=136 node5:thing=158 node6:thing=135 node7:thing=134 node8:thing=117 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=4 node0:thing=141 node1:thing=142 node2:thing=143 node3:thing=144 node4:thing=145 node5:thing=159 node6:thing=146 node7:thing=147 node8:thing=126 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=5 node0:thing=139 node1:thing=148 node2:thing=149 node3:thing=150 node4:thing=151 node5:thing=152 node6:thing=141 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=6 node0:thing=142 node1:thing=153 node2:thing=154 node3:thing=155 node4:thing=156 node5:thing=157 node6:thing=140 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-nav-special.cog navsp0:thing=117 navsp1:thing=134 navsp2:thing=159 navsp3:thing=126 navsp4:thing=147 navsp5:thing=158 navsp6:thing=-1 navsp7:thing=-1 navsp8:thing=-1 navsp9:thing=-1 navsp10:thing=-1 navsp11:thing=-1 navsp12:thing=-1 navsp13:thing=-1 navsp14:thing=-1 navsp15:thing=-1 navsp16:thing=-1 navsp17:thing=-1 navsp18:thing=-1 navsp19:thing=-1 navspinf0:int=1 navspinf1:int=1 navspinf2:int=1 navspinf3:int=1 navspinf4:int=1 navspinf5:int=1 navspinf6:int=0 navspinf7:int=0 navspinf8:int=0 navspinf9:int=0 navspinf10:int=0 navspinf11:int=0 navspinf12:int=0 navspinf13:int=0 navspinf14:int=0 navspinf15:int=0 navspinf16:int=0 navspinf17:int=0 navspinf18:int=0 navspinf19:int=0
+rbot-path.cog pathid:int=0 node0:thing=109 node1:thing=110 node2:thing=111 node3:thing=112 node4:thing=113 node5:thing=114 node6:thing=115 node7:thing=116 node8:thing=125 node9:thing=108 node10:thing=109 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=1 node0:thing=151 node1:thing=152 node2:thing=156 node3:thing=153 node4:thing=148 node5:thing=140 node6:thing=139 node7:thing=138 node8:thing=137 node9:thing=136 node10:thing=154 node11:thing=135 node12:thing=134 node13:thing=117 node14:thing=159 node15:thing=118 node16:thing=119 node17:thing=120 node18:thing=121 node19:thing=122 node20:thing=123 node21:thing=124 node22:thing=125 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=2 node0:thing=148 node1:thing=149 node2:thing=157 node3:thing=150 node4:thing=151 node5:thing=141 node6:thing=142 node7:thing=143 node8:thing=144 node9:thing=145 node10:thing=155 node11:thing=146 node12:thing=147 node13:thing=126 node14:thing=158 node15:thing=127 node16:thing=128 node17:thing=129 node18:thing=130 node19:thing=131 node20:thing=132 node21:thing=133 node22:thing=112 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-arrival.cog node0:thing=158 node1:thing=159 node2:thing=-1 node3:thing=-1 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 rundir0:int=0 rundir1:int=0 rundir2:int=-1 rundir3:int=-1 rundir4:int=-1 rundir5:int=-1 rundir6:int=-1 rundir7:int=-1 rundir8:int=-1 rundir9:int=-1 arriver0:thing=16 arriver1:thing=13 arriver2:thing=-1 arriver3:thing=-1 arriver4:thing=-1 arriver5:thing=-1 arriver6:thing=-1 arriver7:thing=-1 arriver8:thing=-1 arriver9:thing=-1 frame0:int=0 frame1:int=0 frame2:int=-1 frame3:int=-1 frame4:int=-1 frame5:int=-1 frame6:int=-1 frame7:int=-1 frame8:int=-1 frame9:int=-1 timeout0:flex=10 timeout1:flex=10 timeout2:flex=30 timeout3:flex=30 timeout4:flex=30 timeout5:flex=30 timeout6:flex=30 timeout7:flex=30 timeout8:flex=30 timeout9:flex=30 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0
 rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 team:int=1 teambotname:int=20 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=7695

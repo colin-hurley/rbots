@@ -52,7 +52,7 @@ Perspective distance 2
 Gouraud distance 2
 
 SECTION: SOUNDS
-World sounds 206
+World sounds 205
 00TUSKENDIE01.WAV
 00TUSKENDIE02.WAV
 00TUSKENFALLING01.WAV
@@ -193,7 +193,6 @@ LtSaberSwing06.WAV
 LtSaberSwing07.WAV
 LtSaberSwing08.WAV
 LtSaberSwingDbl01.WAV
-lvrclik1.wav
 MJ61000.wav
 MJ61001
 MJ61002.wav
@@ -7287,7 +7286,7 @@ World scripts 55
 41: pow_vest.cog
 42: rbot-arrival.cog
 43: rbot-backpack.cog
-44: rbot-elev.cog
+44: rbot-elev-switch.cog
 45: rbot-nav.cog
 46: rbot-path.cog
 47: rbot-player.cog
@@ -7304,7 +7303,7 @@ Section: cogs
 
 World cogs 199
 #Num	Script          Symbol values
-0: rbot-elev.cog 94 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 577 -1 -1 -1 571 -1 -1 -1 8 0.25 2 ACTIVATE02.WAV
+0: rbot-elev-switch.cog 577 -1 -1 571 94 0.25 2 8 ACTIVATE02.WAV
 1: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0
 2: rbot-nav.cog 0.25
 3: rbot-path.cog 0 258 267 268 231 232 233 234 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0

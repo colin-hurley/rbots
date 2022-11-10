@@ -52,7 +52,7 @@ Perspective distance 2
 Gouraud distance 2
 
 SECTION: SOUNDS
-World sounds 173
+World sounds 172
 00AlarmLoop01.WAV
 00ElectrExplo01.wav
 00TECHAMB02.WAV
@@ -178,7 +178,6 @@ LtSaberSwing06.WAV
 LtSaberSwing07.WAV
 LtSaberSwing08.WAV
 LtSaberSwingDbl01.WAV
-lvrclik1.wav
 nrgpu1.wav
 pistol-1.wav
 pistout1.wav
@@ -81901,47 +81900,47 @@ World scripts 69
 13: C3_LARGELEVEL.COG
 14: C3_LARGELEVELSRV.COG
 15: C3_MOVINGPLATFORM.COG
-16: C3_SASCOLORED.COG
-17: C3_SASNEUTRAL.COG
-18: C3_SWITCHDOOR.COG
-19: C3_TURRETS.COG
-20: class_sequencer.cog
-21: CTF_DISPLAYSCORE.COG
-22: CTF_DOORGOLD.COG
-23: CTF_DOORRED.COG
-24: CTF_ICONSCLIENT.COG
-25: ctf_keygold.cog
-26: ctf_keyred.cog
-27: CTF_KEYSCLIENT.COG
-28: CTF_MAIN.COG
-29: CTF_RESPAWN.COG
-30: CTF_SAFEENTRY.COG
-31: pow_bacta.cog
-32: pow_bryar.cog
-33: pow_concrifle.cog
-34: pow_crossbow.cog
-35: pow_darkside.cog
-36: pow_energy.cog
-37: pow_health.cog
-38: pow_lightside.cog
-39: pow_mana.cog
-40: pow_power.cog
-41: pow_powerboost.cog
-42: pow_railcharges.cog
-43: pow_railgun.cog
-44: pow_repeater.cog
-45: pow_revive.cog
-46: pow_sequencer.cog
-47: pow_shields.cog
-48: pow_single_sequencer.cog
-49: pow_single_thermal.cog
-50: pow_strifle.cog
-51: pow_supershield.cog
-52: pow_thermal.cog
-53: pow_vest.cog
-54: rbot-arrival.cog
-55: rbot-backpack.cog
-56: rbot-elev.cog
+16: C3_MTRIGELEV.COG
+17: C3_SASCOLORED.COG
+18: C3_SASNEUTRAL.COG
+19: C3_SWITCHDOOR.COG
+20: C3_TURRETS.COG
+21: class_sequencer.cog
+22: CTF_DISPLAYSCORE.COG
+23: CTF_DOORGOLD.COG
+24: CTF_DOORRED.COG
+25: CTF_ICONSCLIENT.COG
+26: ctf_keygold.cog
+27: ctf_keyred.cog
+28: CTF_KEYSCLIENT.COG
+29: CTF_MAIN.COG
+30: CTF_RESPAWN.COG
+31: CTF_SAFEENTRY.COG
+32: pow_bacta.cog
+33: pow_bryar.cog
+34: pow_concrifle.cog
+35: pow_crossbow.cog
+36: pow_darkside.cog
+37: pow_energy.cog
+38: pow_health.cog
+39: pow_lightside.cog
+40: pow_mana.cog
+41: pow_power.cog
+42: pow_powerboost.cog
+43: pow_railcharges.cog
+44: pow_railgun.cog
+45: pow_repeater.cog
+46: pow_revive.cog
+47: pow_sequencer.cog
+48: pow_shields.cog
+49: pow_single_sequencer.cog
+50: pow_single_thermal.cog
+51: pow_strifle.cog
+52: pow_supershield.cog
+53: pow_thermal.cog
+54: pow_vest.cog
+55: rbot-arrival.cog
+56: rbot-backpack.cog
 57: rbot-nav.cog
 58: rbot-nav-special.cog
 59: rbot-path.cog
@@ -81973,17 +81972,17 @@ World cogs 207
 10: C3_SASNEUTRAL.COG 75 76 6886 286 4 2
 11: C3_SWITCHDOOR.COG 77 7054 4 2
 12: C3_SASNEUTRAL.COG 79 78 6958 532 4 2
-13: rbot-elev.cog 35 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 14 0.1 3 lvrclik1.wav
-14: rbot-elev.cog 19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 0.1 3 lvrclik1.wav
-15: rbot-elev.cog 9 -1 -1 -1 -1 7166 7160 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 0.1 3 lvrclik1.wav
-16: rbot-elev.cog 21 -1 -1 -1 -1 4377 4361 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8 0.1 3 lvrclik1.wav
-17: rbot-elev.cog 22 -1 -1 -1 -1 4924 4950 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 0.1 3 lvrclik1.wav
-18: rbot-elev.cog 30 -1 -1 -1 -1 6576 6585 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 10 0.1 3 lvrclik1.wav
-19: rbot-elev.cog 32 -1 -1 -1 -1 6635 6632 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 12 0.1 3 lvrclik1.wav
-20: rbot-elev.cog 29 -1 -1 -1 -1 6522 6450 6526 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 14 0.1 3 lvrclik1.wav
-21: rbot-elev.cog 34 -1 -1 -1 -1 6789 6785 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8 0.1 3 lvrclik1.wav
-22: rbot-elev.cog 80 -1 -1 -1 -1 6804 6795 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 12 0.1 3 lvrclik1.wav
-23: rbot-elev.cog 28 -1 -1 -1 -1 981 6227 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 6 0.1 1 lvrclik1.wav
+13: C3_MTRIGELEV.COG 35 14 3 -1 -1 -1 -1 -1 -1 -1 -1
+14: C3_MTRIGELEV.COG 19 10 3 -1 -1 -1 -1 -1 -1 -1 -1
+15: C3_MTRIGELEV.COG 9 10 3 7166 7160 -1 -1 -1 -1 -1 -1
+16: C3_MTRIGELEV.COG 21 8 3 4377 4361 -1 -1 -1 -1 -1 -1
+17: C3_MTRIGELEV.COG 22 10 3 4924 -1 -1 -1 4950 -1 -1 -1
+18: C3_MTRIGELEV.COG 30 10 3 6576 6585 -1 -1 -1 -1 -1 -1
+19: C3_MTRIGELEV.COG 32 12 3 6635 6632 -1 -1 -1 -1 -1 -1
+20: C3_MTRIGELEV.COG 29 14 3 6522 6450 -1 -1 6526 -1 -1 -1
+21: C3_MTRIGELEV.COG 34 8 3 6789 -1 -1 -1 6785 -1 -1 -1
+22: C3_MTRIGELEV.COG 80 12 3 6804 -1 -1 -1 6795 -1 -1 -1
+23: C3_MTRIGELEV.COG 28 6 3 -1 -1 -1 -1 981 6227 -1 -1
 24: C3_TURRETS.COG 7236 37 36 38 5 0.33 2
 25: C3_DETONATORS.COG 7528 82 83 84 81 2 0.1 3
 26: C3_SWITCHDOOR.COG 111 7038 4 15

@@ -3116,7 +3116,7 @@ SURFS 6
 END
 
 SEC: THINGS
-THS 151 640
+THS 158 640
 WALKPLAYER 39.474949 -7.475 28.320114 0 0 0 37 0
 
 CARGOSHIP 46.974998 15.25 30.700001 0 0 0 65 0
@@ -3351,24 +3351,24 @@ ghost 39.475052 5.31 28.720114 0 0 0 4 1
 
 ghost 39.475052 3.41 28.720114 0 0 0 4 1
 
-ghost 39.475052 3.01 28.720114 0 0 0 7 1
-
-ghost 39.475052 1.96 28.620114 0 0 0 14 1
-
-ghost 38.775052 1.46 28.620114 0 0 0 24 1
-
-ghost 38.375052 .86 28.620114 0 0 0 24 1
-
-ghost 39.475052 .66 28.620114 0 0 0 24 1
-
-ghost 40.625052 .51 28.620114 0 0 0 24 1
-
-ghost 40.225052 -.04 28.620114 0 0 0 24 1
-
-ghost 39.475052 -.39 28.420114 0 0 0 25 1
-
-ghost 39.475052 -1.69 28.320114 0 0 0 9 1
-
+ghost 39.475052 2.56 28.645114 0 0 0 15 1
+ size=0.15
+ghost 39.475052 1.8475 28.620114 0 0 0 24 1
+ size=0.15
+ghost 38.450052 1.1725 28.620114 0 0 0 24 1
+ size=0.15
+ghost 38.387552 .685 28.620114 0 0 0 24 1
+ size=0.15
+ghost 39.475052 .6975 28.620114 0 0 0 24 1
+ size=0.15
+ghost 40.637552 .7225 28.620114 0 0 0 24 1
+ size=0.15
+ghost 40.575052 .21 28.620114 0 0 0 24 1
+ size=0.15
+ghost 39.412552 -.3025 28.420114 0 0 0 25 1
+ size=0.15
+ghost 39.475052 -.915 28.320114 0 0 0 51 1
+ size=0.15
 ghost 39.475052 -2.04 28.320114 0 0 0 29 1
 
 ghost 39.475052 -3.54 28.320114 0 0 0 29 1
@@ -3377,48 +3377,62 @@ ghost 39.475052 -5.04 28.320114 0 0 0 29 1
 
 ghost 39.475052 -6.49 28.320114 0 0 0 29 1
 
-ghost 39.475052 -7.24 28.320114 0 0 0 37 1
+ghost 39.475052 -7.3275 28.320114 0 0 0 37 1
+ size=0.15
+ghost 39.862552 -7.5275 28.320114 0 0 0 37 1
+ size=0.15
+ghost 39.862552 -8.565 28.320114 0 0 0 38 1
+ size=0.15
+ghost 39.475052 -8.7025 28.320114 0 0 0 38 1
+ size=0.15
+ghost 39.662552 -.3775 28.457614 0 0 0 25 1
+ size=0.15
+ghost 38.893359 .084945 26.560114 0 0 0 52 1
 
-ghost 39.825052 -7.64 28.320114 0 0 0 37 1
+ghost 38.693359 .984945 26.770114 0 0 0 27 1
 
-ghost 39.775052 -8.54 28.320114 0 0 0 38 1
+ghost 38.093359 2.234945 26.820114 0 0 0 28 1
 
-ghost 39.491966 -8.753411 28.320114 0 0 0 38 1
+ghost 37.493359 2.234945 26.820114 0 0 0 28 1
 
-ghost 39.475052 -.39 28.420114 0 0 0 25 1
+ghost 37.543359 2.634945 26.820114 0 0 0 28 1
 
-ghost 38.893359 .084945 26.560114 .019783 45.011654 0 52 1
+ghost 38.393359 2.134945 26.820114 0 0 0 28 1
 
-ghost 38.593359 1.234945 26.820114 .019783 45.011654 0 28 1
+ghost 39.093359 1.384945 26.770114 0 0 0 27 1
 
-ghost 38.093359 2.234945 26.820114 .019783 45.011654 0 28 1
+ghost 39.980859 1.147445 26.560114 0 0 0 52 1
 
-ghost 37.493359 2.234945 26.820114 .019783 45.011654 0 28 1
+ghost 40.118359 .259945 26.782614 0 0 0 26 1
 
-ghost 37.543359 2.634945 26.820114 .019783 45.011654 0 28 1
+ghost 40.354466 -.653411 26.820114 0 0 0 20 1
 
-ghost 38.393359 2.134945 26.820114 .019783 45.011654 0 28 1
+ghost 41.041966 -.253411 26.820114 0 0 0 20 1
 
-ghost 38.993359 1.634945 26.820114 .019783 45.011654 0 28 1
+ghost 41.291966 -1.153411 26.820114 0 0 0 20 1
 
-ghost 40.093359 1.384945 26.560114 .019783 45.011654 0 52 1
+ghost 39.841966 .046589 26.780114 0 0 0 26 1
 
-ghost 40.241966 -.053411 26.820114 .019783 45.011654 0 20 1
-
-ghost 40.441966 -.653411 26.820114 .019783 45.011654 0 20 1
-
-ghost 41.041966 -.253411 26.820114 .019783 45.011654 0 20 1
-
-ghost 41.291966 -1.153411 26.820114 .019783 45.011654 0 20 1
-
-ghost 39.841966 .046589 26.780114 .019783 45.011654 0 26 1
-
-ghost 39.45 -.05 26.780114 .019783 45.011654 0 25 1
-
-ghost 39.825052 -.29 28.580114 0 0 0 24 1
-
-ghost 39.2 -.35 26.76 .019783 45.011654 0 25 1
-
+ghost 39.0125 -.225 26.630114 0 0 0 25 1
+ size=0.15
+ghost 39.950052 -.4275 28.620114 0 0 0 24 1
+ size=0.15
+ghost 39.0875 -.425 26.76 0 0 0 25 1
+ size=0.12
+ghost 39.112552 -8.565 28.320114 0 0 0 38 1
+ size=0.15
+ghost 39.112552 -7.5275 28.320114 0 0 0 37 1
+ size=0.15
+ghost 39.425052 -.515 28.420114 0 0 0 12 1
+ size=0.15
+ghost 39.075052 1.7975 28.620114 0 0 0 24 1
+ size=0.15
+ghost 39.2625 -.425 26.81 0 0 0 25 1
+ size=0.15
+ghost 39.487552 -.315 26.885 0 0 0 25 1
+ size=0.15
+ghost 39.487552 -.315 28.420114 0 0 0 25 1
+ size=0.15
 END
 
 SEC: LIGHTS
@@ -3426,16 +3440,21 @@ LTS 0
 END
 
 SEC: COGS
-COGS 75
+COGS 80
 00_SLIDECEILING.COG u:flex=20 v:flex=20
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
-rbot-nav.cog dflt_nodesize:flex=0.25
-rbot-path.cog pathid:int=0 node0:thing=113 node1:thing=114 node2:thing=115 node3:thing=116 node4:thing=117 node5:thing=118 node6:thing=119 node7:thing=120 node8:thing=121 node9:thing=122 node10:thing=123 node11:thing=149 node12:thing=124 node13:thing=125 node14:thing=126 node15:thing=127 node16:thing=128 node17:thing=129 node18:thing=130 node19:thing=131 node20:thing=132 node21:thing=133 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=1 node0:thing=134 node1:thing=135 node2:thing=136 node3:thing=137 node4:thing=138 node5:thing=139 node6:thing=140 node7:thing=141 node8:thing=142 node9:thing=143 node10:thing=144 node11:thing=145 node12:thing=146 node13:thing=147 node14:thing=148 node15:thing=150 node16:thing=125 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-special.cog sp0:thing=116 sp1:thing=117 sp2:thing=118 sp3:thing=119 sp4:thing=120 sp5:thing=121 sp6:thing=122 sp7:thing=123 sp8:thing=124 sp9:thing=125 sp10:thing=126 sp11:thing=130 sp12:thing=131 sp13:thing=132 sp14:thing=133 sp15:thing=134 sp16:thing=136 sp17:thing=143 sp18:thing=134 sp19:thing=150 spinf0:int=32 spinf1:int=64 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=8 spinf9:int=32 spinf10:int=64 spinf11:int=2 spinf12:int=2 spinf13:int=2 spinf14:int=2 spinf15:int=2 spinf16:int=4 spinf17:int=4 spinf18:int=32 spinf19:int=32
 rbot-door.cog door:thing=2 moveSpeed:flex=8 sleepTime:flex=2
 rbot-door.cog door:thing=3 moveSpeed:flex=8 sleepTime:flex=2
-rbot-autoelev.cog elevator:thing=11 top_sector:sector=25 bot_sector:sector=12 callbutton0:surface=609 callbutton1:surface=777 callbutton2:surface=615 callbutton3:surface=-1 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=lvrclik1.wav
+rbot-elev-switch2.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 call0:surface=609 call1:surface=615 call2:surface=777 call3:surface=-1 elevator:thing=11 start_wait:flex=0.25 speed:flex=4 wav0:sound=LVRCLIK1.WAV
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
+rbot-nav.cog dflt_nodesize:flex=0.25
+rbot-nav-special.cog navsp0:thing=153 navsp1:thing=124 navsp2:thing=134 navsp3:thing=157 navsp4:thing=156 navsp5:thing=155 navsp6:thing=-1 navsp7:thing=-1 navsp8:thing=-1 navsp9:thing=-1 navsp10:thing=-1 navsp11:thing=-1 navsp12:thing=-1 navsp13:thing=-1 navsp14:thing=-1 navsp15:thing=-1 navsp16:thing=-1 navsp17:thing=-1 navsp18:thing=-1 navsp19:thing=-1 navspinf0:int=1 navspinf1:int=1 navspinf2:int=1 navspinf3:int=0 navspinf4:int=0 navspinf5:int=0 navspinf6:int=0 navspinf7:int=0 navspinf8:int=0 navspinf9:int=0 navspinf10:int=0 navspinf11:int=0 navspinf12:int=0 navspinf13:int=0 navspinf14:int=0 navspinf15:int=0 navspinf16:int=0 navspinf17:int=0 navspinf18:int=0 navspinf19:int=0
+rbot-path.cog pathid:int=0 node0:thing=113 node1:thing=114 node2:thing=115 node3:thing=116 node4:thing=117 node5:thing=118 node6:thing=154 node7:thing=119 node8:thing=120 node9:thing=121 node10:thing=122 node11:thing=123 node12:thing=149 node13:thing=134 node14:thing=124 node15:thing=153 node16:thing=125 node17:thing=126 node18:thing=127 node19:thing=128 node20:thing=129 node21:thing=130 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=1 node0:thing=130 node1:thing=131 node2:thing=132 node3:thing=133 node4:thing=151 node5:thing=152 node6:thing=130 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=1 requirements:int=0
+rbot-path.cog pathid:int=2 node0:thing=124 node1:thing=157 node2:thing=156 node3:thing=155 node4:thing=150 node5:thing=148 node6:thing=135 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=3 node0:thing=135 node1:thing=136 node2:thing=137 node3:thing=138 node4:thing=139 node5:thing=140 node6:thing=141 node7:thing=142 node8:thing=143 node9:thing=144 node10:thing=145 node11:thing=146 node12:thing=147 node13:thing=135 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-special.cog sp0:thing=134 sp1:thing=125 sp2:thing=117 sp3:thing=148 sp4:thing=155 sp5:thing=156 sp6:thing=157 sp7:thing=143 sp8:thing=147 sp9:thing=136 sp10:thing=141 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=8 spinf1:int=8 spinf2:int=8 spinf3:int=8 spinf4:int=8 spinf5:int=64 spinf6:int=32 spinf7:int=4 spinf8:int=8 spinf9:int=4 spinf10:int=8 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-special-sector.cog sp0:sector=37 sp1:sector=38 sp2:sector=39 sp3:sector=40 sp4:sector=24 sp5:sector=12 sp6:sector=11 sp7:sector=51 sp8:sector=-1 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=2 spinf1:int=2 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-arrival.cog node0:thing=153 node1:thing=150 node2:thing=-1 node3:thing=-1 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 rundir0:int=0 rundir1:int=0 rundir2:int=-1 rundir3:int=-1 rundir4:int=-1 rundir5:int=-1 rundir6:int=-1 rundir7:int=-1 rundir8:int=-1 rundir9:int=-1 arriver0:thing=11 arriver1:thing=11 arriver2:thing=-1 arriver3:thing=-1 arriver4:thing=-1 arriver5:thing=-1 arriver6:thing=-1 arriver7:thing=-1 arriver8:thing=-1 arriver9:thing=-1 frame0:int=0 frame1:int=1 frame2:int=-1 frame3:int=-1 frame4:int=-1 frame5:int=-1 frame6:int=-1 frame7:int=-1 frame8:int=-1 frame9:int=-1 timeout0:flex=10 timeout1:flex=10 timeout2:flex=30 timeout3:flex=30 timeout4:flex=30 timeout5:flex=30 timeout6:flex=30 timeout7:flex=30 timeout8:flex=30 timeout9:flex=30 spinf0:int=64 spinf1:int=64 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 team:int=1 teambotname:int=20 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv2.cog botid:int=0

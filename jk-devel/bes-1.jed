@@ -7904,127 +7904,127 @@ THROWCRATE1 -.191278 -3.102649 1.699465 0 0 0 97 0
 THROWCRATE1 -.016278 -3.377649 1.699465 0 0 0 97 0
 
 ghost .657137 .76327 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost 1.257137 .51327 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost 1.507137 -.08673 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost 1.257137 -.68673 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost .657137 -.93673 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost .057137 -.68673 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost -.192863 -.08673 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost .057137 .51327 -.917086 0 180 0 0 2
- THINGFLAGS=0X20080501
+
 ghost .657137 1.26327 -.917086 0 180 0 11 2
- THINGFLAGS=0X20080501
+
 ghost .657137 1.61327 -.917086 0 180 0 54 2
- THINGFLAGS=0X20080501
+
 ghost .657137 2.16327 -.892086 0 180 0 54 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost .657137 2.46327 -.892086 0 180 0 52 2
- THINGFLAGS=0x22080501 size=0.12
+ size=0.12
 ghost .657137 2.46327 -2.137086 0 180 0 52 2
- THINGFLAGS=0x22080501
+
 ghost .657137 2.46327 -3.657086 0 180 0 52 2
- THINGFLAGS=0X20080501 size=0.12
+ size=0.12
 ghost .657137 2.12577 -3.657086 0 180 0 36 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost .657137 1.06327 -3.657086 0 180 0 35 2
- THINGFLAGS=0X20080501
+
 ghost .657137 -.08673 -3.657086 0 180 0 17 2
- THINGFLAGS=0X20080501
+
 ghost .657137 -1.33673 -3.657086 0 180 0 37 2
- THINGFLAGS=0X20080501
+
 ghost .657137 -2.42423 -3.657086 0 180 0 44 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost .657137 -2.72423 -3.657086 0 180 0 45 2
- THINGFLAGS=0X20080501 size=0.12
+ size=0.12
 ghost .657137 -2.68673 -1.617086 0 180 0 45 2
- THINGFLAGS=0x22080501
+
 ghost .657137 -2.71173 -.892086 0 180 0 45 2
- THINGFLAGS=0x22080501 size=0.12
+ size=0.12
 ghost .657137 -2.41173 -.892086 0 180 0 47 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost .657137 -1.78673 -.917086 0 180 0 47 2
- THINGFLAGS=0X20080501
+
 ghost .657137 -1.38673 -.917086 0 180 0 10 2
- THINGFLAGS=0X20080501
+
 ghost 2.007137 -.08673 -.917086 0 180 0 12 2
- THINGFLAGS=0X20080501
+
 ghost 2.607137 -.08673 -.917086 0 180 0 69 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost 2.957137 -.08673 -.917086 0 180 0 120 2
- THINGFLAGS=0X20080501 size=0.12
+ size=0.12
 ghost 2.957137 -.08673 1.782914 0 180 0 120 2
- THINGFLAGS=0x22080501 size=0.12
+ size=0.12
 ghost 2.619637 -.08673 1.807914 0 180 0 123 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost 1.555215 -.132783 1.904263 0 180 0 122 2
- THINGFLAGS=0X20080501
+
 ghost 1.105215 -.132783 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost 1.005215 -.482783 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .655215 -.582783 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .305215 -.482783 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .205215 -.132783 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .305215 .217217 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .655215 .317217 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost 1.005215 .217217 1.904263 0 180 0 155 2
- THINGFLAGS=0X20080501
+
 ghost .655215 -1.132783 1.904263 0 180 0 124 2
- THINGFLAGS=0X20080501
+
 ghost 1.005215 -1.932783 1.904263 0 180 0 125 2
- THINGFLAGS=0X20080501
+
 ghost .255215 -2.682783 1.904263 0 180 0 97 2
- THINGFLAGS=0X20080501
+
 ghost -.594785 -1.882783 1.904263 0 180 0 93 2
- THINGFLAGS=0X20080501
+
 ghost -1.194785 -.782783 1.904263 0 180 0 96 2
- THINGFLAGS=0X20080501
+
 ghost -1.205363 -.08673 1.816763 0 180 0 151 2
- THINGFLAGS=0X20080501 size=0.2
+ size=0.2
 ghost -1.194785 .567217 1.904263 0 180 0 146 2
- THINGFLAGS=0X20080501
+
 ghost -.794785 1.267217 1.904263 0 180 0 94 2
- THINGFLAGS=0X20080501
+
 ghost -.344785 2.017217 1.904263 0 180 0 94 2
- THINGFLAGS=0X20080501
+
 ghost .505215 2.417217 1.904263 0 180 0 98 2
- THINGFLAGS=0X20080501
+
 ghost .955215 1.717217 1.904263 0 180 0 134 2
- THINGFLAGS=0X20080501
+
 ghost .655215 .767217 1.904263 0 180 0 130 2
- THINGFLAGS=0X20080501
+
 ghost -.692863 -.08673 -.917086 0 180 0 68 2
- THINGFLAGS=0X20080501
+
 ghost -1.092863 -.08673 -.917086 0 180 0 89 2
- THINGFLAGS=0X20080501
+
 ghost -1.555363 -.08673 -.917086 0 180 0 89 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 ghost -1.892863 -.08673 -.917086 0 180 0 91 2
- THINGFLAGS=0X20080501 size=0.12
+ size=0.12
 ghost -1.892863 -.08673 1.822914 0 180 0 91 2
- THINGFLAGS=0x22080501 size=0.12
+ size=0.12
 ghost .655215 -.132783 .864263 0 180 0 102 2
- THINGFLAGS=0X20080501
+
 ghost .855215 -.132783 -1.095737 0 180 0 3 2
- THINGFLAGS=0X20080501
+
 ghost .805215 .017217 -1.515737 0 180 0 15 2
- THINGFLAGS=0X20080501
+
 ghost .655215 -.082783 -2.475737 0 180 0 19 2
- THINGFLAGS=0X20080501
+
 ghost -1.555363 -.08673 1.816763 0 180 0 151 2
- THINGFLAGS=0X20080501 size=0.1
+ size=0.1
 END
 
 SEC: LIGHTS
@@ -8038,10 +8038,10 @@ M4_REACTORTHRUST.COG vec0:vector=(0.000000/0.000000/1.000000) thrustspeed:flex=8
 00_FORCEFIELD.COG surf0:surface=1867 maxDamage:flex=10 minDamage:flex=5 interval:flex=0.25 minLight:flex=0.2 maxLight:flex=1 period:flex=0.5
 00_MATANIM.COG animmat:material=00T_WRE.MAT fps:flex=1
 00_SURFANIM.COG sign:surface=67 sign1:surface=71 sign2:surface=62 sign3:surface=75 fps:flex=3
-rbot-elev.cog elevator:thing=5 top_sector0:sector=-1 top_sector1:sector=-1 top_sector2:sector=-1 top_sector3:sector=-1 top_surface0:surface=-1 top_surface1:surface=-1 top_surface2:surface=-1 top_surface3:surface=-1 bottom_sector0:sector=-1 bottom_sector1:sector=-1 bottom_sector2:sector=-1 bottom_sector3:sector=-1 bottom_surface0:surface=597 bottom_surface1:surface=555 bottom_surface2:surface=-1 bottom_surface3:surface=-1 call_button0:surface=1684 call_button1:surface=1672 call_button2:surface=1760 call_button3:surface=1899 speed:flex=10 start_wait:flex=0.25 return_delay:flex=0 call_button_activate:sound=lvrclik1.wav
-rbot-elev.cog elevator:thing=6 top_sector0:sector=-1 top_sector1:sector=-1 top_sector2:sector=-1 top_sector3:sector=-1 top_surface0:surface=-1 top_surface1:surface=-1 top_surface2:surface=-1 top_surface3:surface=-1 bottom_sector0:sector=-1 bottom_sector1:sector=-1 bottom_sector2:sector=-1 bottom_sector3:sector=-1 bottom_surface0:surface=690 bottom_surface1:surface=475 bottom_surface2:surface=-1 bottom_surface3:surface=-1 call_button0:surface=1690 call_button1:surface=1678 call_button2:surface=1766 call_button3:surface=1893 speed:flex=10 start_wait:flex=0.25 return_delay:flex=0 call_button_activate:sound=lvrclik1.wav
-rbot-elev.cog elevator:thing=24 top_sector0:sector=-1 top_sector1:sector=-1 top_sector2:sector=-1 top_sector3:sector=-1 top_surface0:surface=-1 top_surface1:surface=-1 top_surface2:surface=-1 top_surface3:surface=-1 bottom_sector0:sector=-1 bottom_sector1:sector=-1 bottom_sector2:sector=-1 bottom_sector3:sector=-1 bottom_surface0:surface=1499 bottom_surface1:surface=1528 bottom_surface2:surface=-1 bottom_surface3:surface=-1 call_button0:surface=1702 call_button1:surface=1708 call_button2:surface=-1 call_button3:surface=-1 speed:flex=10 start_wait:flex=0.25 return_delay:flex=0 call_button_activate:sound=lvrclik1.wav
-rbot-elev.cog elevator:thing=18 top_sector0:sector=-1 top_sector1:sector=-1 top_sector2:sector=-1 top_sector3:sector=-1 top_surface0:surface=-1 top_surface1:surface=-1 top_surface2:surface=-1 top_surface3:surface=-1 bottom_sector0:sector=-1 bottom_sector1:sector=-1 bottom_sector2:sector=-1 bottom_sector3:sector=-1 bottom_surface0:surface=1146 bottom_surface1:surface=1175 bottom_surface2:surface=-1 bottom_surface3:surface=-1 call_button0:surface=1696 call_button1:surface=1714 call_button2:surface=-1 call_button3:surface=-1 speed:flex=10 start_wait:flex=0.25 return_delay:flex=0 call_button_activate:sound=lvrclik1.wav
+rbot-elev-switch2.cog lower_adjoin0:surface=597 lower_adjoin1:surface=555 lower_adjoin2:surface=-1 call0:surface=1684 call1:surface=1672 call2:surface=1760 call3:surface=1899 elevator:thing=5 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=690 lower_adjoin1:surface=475 lower_adjoin2:surface=-1 call0:surface=1690 call1:surface=1678 call2:surface=1766 call3:surface=1893 elevator:thing=6 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=1499 lower_adjoin1:surface=1528 lower_adjoin2:surface=-1 call0:surface=1702 call1:surface=1708 call2:surface=-1 call3:surface=-1 elevator:thing=24 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=1146 lower_adjoin1:surface=1175 lower_adjoin2:surface=-1 call0:surface=1696 call1:surface=1714 call2:surface=-1 call3:surface=-1 elevator:thing=18 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
 rbot-2door.cog door0:thing=1 door1:thing=2 moveSpeed:flex=8 sleepTime:flex=3
 rbot-door.cog door:thing=3 moveSpeed:flex=8 sleepTime:flex=3
 rbot-door.cog door:thing=4 moveSpeed:flex=8 sleepTime:flex=3

@@ -497,8 +497,8 @@ findpowerups:
 			special = 0x0;
 			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, item, -1, -1);
 
-			// If bot is close to item and it is available
-			if ((VectorDist(GetThingPos(rbot), GetThingPos(item)) < 0.3) && !(getthingflags(item) & 0x80000))
+			// If bot is close to item and it is available and it can be touched
+			if ((VectorDist(GetThingPos(rbot), GetThingPos(item)) < 0.3) && !(GetThingFlags(item) & 0x80000) && GetCollideType(item) != 0)
 			{
 				if (HasLOS(rbot, item) || BitTest(special, 0x2)) // Bot can see item or LOS check is disabled
 				{

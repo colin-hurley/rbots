@@ -528,7 +528,8 @@ trigger:
 			KillTimerEx(220);
 			if (mode) // Enable effect
 			{
-				AddThingVel(rbot, VectorScale(GetThingVel(rbot), 4));
+				tempvector1 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
+				AddThingVel(rbot, VectorScale(tempvector1, 2));
 
 				if (mode == 2) // Enable effect for short duration only
 				{

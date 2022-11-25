@@ -521,7 +521,7 @@ trigger:
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
 			//AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.3)); // increase bot speed toward next node before jump
-			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.0)); // force bot to jump
+			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
 		}
 		if (BitTest(special, 0x200)) // Bot needs to run fast
 		{
@@ -897,7 +897,7 @@ move:
 			if (stopcount > 20 && Rand() > 0.25)
 			{
 				// Bot has not moved in several seconds, try to get over the obstruction
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 3.0)); // force bot to jump
+				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
 				stopcount = 0;
 			}
 		}
@@ -1117,7 +1117,7 @@ dodge:
 			choice=rand();
 			if (choice > 0.75)
 			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.0)); // jump
+				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
 			}
 			else if (choice > 0.30)
 			{

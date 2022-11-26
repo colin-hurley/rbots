@@ -1,14 +1,15 @@
 # Rbot Administration Cog - Teleport
 #
 # This utility will teleport bots and players:
-# * Teleport bot to player's location
-# * Teleport player to bot's location
+# * Toggle teleport mode (use current player/bot position or use saved location)
+# * Teleport bot
+# * Teleport player
 #
 # See also: rbot-admin.cog
 #
 # Rbots originally created by Raynar
 
-flags=0x40
+flags=0x240
 
 symbols
 
@@ -19,6 +20,14 @@ message		user1
 message		trigger
 
 cog			srv=-1								local
+thing		pos=-1								local
+
+# We can't dynamically create 'ghost' things (they can only be statically
+# placed in the JKL), so we create '_ghostdecor' things instead, which are
+# virtually identical.
+template	ghost=_ghostdecor					local
+
+int			toggle_mode							local
 int			teleport_bot						local
 int			teleport_player						local
 
@@ -34,6 +43,7 @@ code
 
 startup:
 	// Register functions
+	toggle_mode = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
 	teleport_bot = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
 	teleport_player = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
 	return;
@@ -41,10 +51,33 @@ startup:
 shutdown:
 	// Reinitialize to default values when exiting level
 	srv = -1;
+	pos = -1;
 	return;
 
 // Execute
 user0:
+	player = GetLocalPlayerThing();
+
+	// This function can be invoked without selecting a bot
+	if (GetParam(0) == toggle_mode)
+	{
+		if (pos == -1)
+		{
+			pos = CreateThingAtPos(ghost, GetThingSector(player), GetThingPos(player), '0 0 0');
+			SetThingLook(pos, GetThingLVec(player));
+			Print("Teleport location saved");
+		}
+		else
+		{
+			DestroyThing(pos);
+			pos = -1;
+			Print("Teleport location cleared");
+		}
+		return;
+	}
+
+	// Remaining functions require a selected bot
+	// FIXME: Technically, we don't need a bot selected to teleport the player to a saved location, but this logic currently requires it
 	if (srv != -1)
 	{
 		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
@@ -52,18 +85,21 @@ user0:
 		{
 			botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
 			rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
-			player = GetLocalPlayerThing();
 			if (GetParam(0) == teleport_bot)
 			{
 				// Teleport bot to player's location
-				TeleportThing(rbot, player);
+				StopThing(rbot);
+				if (pos == -1) TeleportThing(rbot, player);
+				else TeleportThing(rbot, pos);
 				// Request new navigation instruction for bot
 				SendTrigger(-1, 13000, botid, rbot, botmode, -1);
 			}
 			else if (GetParam(0) == teleport_player)
 			{
 				// Teleport player to bot's location
-				TeleportThing(player, rbot);
+				StopThing(player);
+				if (pos == -1) TeleportThing(player, rbot);
+				else TeleportThing(player, pos);
 			}
 		}
 	}
@@ -75,8 +111,13 @@ user0:
 
 // Concat current state
 user1:
-	if (GetParam(0) == teleport_bot) jkStringConcatAsciiString("Teleport bot to player");
-	else if (GetParam(0) == teleport_player) jkStringConcatAsciiString("Teleport player to bot");
+	if (GetParam(0) == toggle_mode)
+	{
+		if (pos == -1) jkStringConcatAsciiString("Teleport mode (CURRENT POSITION)");
+		else jkStringConcatAsciiString("Teleport mode (SAVED POSITION)");
+	}
+	else if (GetParam(0) == teleport_bot) jkStringConcatAsciiString("Teleport bot");
+	else if (GetParam(0) == teleport_player) jkStringConcatAsciiString("Teleport player");
 	return;
 
 trigger:

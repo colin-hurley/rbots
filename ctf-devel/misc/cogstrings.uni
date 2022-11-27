@@ -3,10 +3,10 @@ MSGS 91
 #  "<key>"     <unused number>   "<string>"
 
 "ARENA-1" 0 "The Arena of Dark and Light"
-"ARENA-1_TEXT_00" 0 "Rbots CTF"
+"ARENA-1_TEXT_00" 0 "^Rbots"
 "ARENA-1_TEXT_01" 0 ""
 "CHALLENGE-1" 0 "The Challenge at Nar Shaddaa"
-"CHALLENGE-1_TEXT_00" 0 "Rbots CTF"
+"CHALLENGE-1_TEXT_00" 0 "^Rbots"
 "CHALLENGE-1_TEXT_01" 0 ""
 "COG_01001" 0 "Welcome to Jedi Knight CTF!"
 "COG_01002" 0 "Score Limit Reached..."
@@ -91,7 +91,7 @@ MSGS 91
 "COG_03003" 0 "Expert"
 "COG_03004" 0 "Inhuman"
 "DUEL-1" 0 "The Duel"
-"DUEL-1_TEXT_00" 0 "Rbots CTF"
+"DUEL-1_TEXT_00" 0 "^Rbots"
 "DUEL-1_TEXT_01" 0 ""
 
 END

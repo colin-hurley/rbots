@@ -244,6 +244,7 @@ killed:
 	StopThing(rbot);
 	botmode=BitClear(botmode,0x10000); // bot no longer alive
 	KillTimerEx(120); // stop checking for 'bot lost'
+	KillTimerEx(230); // stop periodic blindvec updates
 	KillTimerEx(300); // stop checking if bot is in a pit
 	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send bot died event
 	if (curweap == 10) // current weapon is saber
@@ -484,6 +485,7 @@ trigger:
 		botmode = BitSet(botmode, 0x10000); // bot alive
 		SetThingClassCog(rbot, GetSelfCog());
 		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
+		SetTimerEx(1.0, 230, -1, -1); // start periodic blindvec updates (i.e. random vector for blinded bots to move to)
 		SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 		SetPulse(0.1);
 
@@ -1313,8 +1315,9 @@ timer:
 
 	if (GetSenderId() == 230) // choose random move direction (force blinded)
 	{
-		blindvec = VectorSet((Rand()-0.5)*5, (Rand()-0.5)*5, 0.0);
-		if (GetActorFlags(rbot) & 0x800) SetTimerEx(3+rand()*5,230,-1,-1); // bot still blind
+		relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0.0)), 10);
+		blindvec = VectorAdd(GetThingPos(rbot), relpos);
+		SetTimerEx(2 + 5*Rand(), 230, -1, -1); // schedule next blindvec update
 		return;
 	}
 

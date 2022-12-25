@@ -183,6 +183,9 @@ int			nextblock=0							local
 # down.
 flex		fallcheck							local
 
+# This flag is set when the bot should jump at the next opportunity.
+int			jump								local
+
 # Transient working vars
 vector		relpos								local
 flex		tempflex1							local
@@ -467,6 +470,7 @@ trigger:
 		stopcount = 0;
 		allowdodge = 1;
 		fallcheck = 0;
+		jump = 0;
 
 		// Create bot
 		rbot = -1;
@@ -522,8 +526,16 @@ trigger:
 		{
 			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
-			//AddThingVel(rbot, VectorScale(VectorNorm(VectorSub(newpos, GetThingPos(rbot))), 0.3)); // increase bot speed toward next node before jump
-			ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
+			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
+			{
+				// Bot is on ground or in water, jump now
+				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
+			}
+			else
+			{
+				// Bot is airborne, set flag to jump at next opportunity
+				jump = 1;
+			}
 		}
 		if (BitTest(special, 0x200)) // Bot needs to run fast
 		{
@@ -870,13 +882,6 @@ move:
 			obstructed = 0;
 		}
 
-		if (obstructed && !(GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
-		{
-			// Bot is obstructed but appears to be airborne (not on floor/thing or in water)
-			// Players can't "jump" in the air, so bots shouldn't be able to, either
-			obstructed = 0;
-		}
-
 		// TODO: Possible force field detection logic:
 		//if (obstructed)
 		//{
@@ -900,7 +905,7 @@ move:
 			if (stopcount > 20 && Rand() > 0.25)
 			{
 				// Bot has not moved in several seconds, try to get over the obstruction
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
+				jump = 1;
 				stopcount = 0;
 			}
 		}
@@ -927,6 +932,16 @@ move:
 			drowning=0;
 			KillTimerEx(150); // disable any previous drowning timer
 		}
+	}
+
+	// Check to see if bot needs to jump now
+	// The bot can jump if he is on the ground or at the water surface
+	// Players can't "jump" in the air, so bots shouldn't be able to, either
+	// If underwater, the bot will "jump" by swimming upward a bit (this is to help get around underwater obstructions)
+	if (jump && (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
+	{
+		ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
+		jump = 0;
 	}
 
 	// Look for items and move to them
@@ -1120,7 +1135,7 @@ dodge:
 			choice=rand();
 			if (choice > 0.75)
 			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
+				jump = 1; // jump
 			}
 			else if (choice > 0.30)
 			{

@@ -7086,8 +7086,8 @@ World things 640
 70: ghost ghost -3.25 2.7 1.120114 0 0 0 4
 71: ghost ghost -2.65 3.3 1.120114 0 0 0 22
 72: ghost ghost -1.7 3.65 1.120114 0 0 0 24
-73: ghost ghost -.55005 3.66988 .620114 0 0 0 24 thingflags=0x2000000
-74: ghost ghost 1.34995 3.71988 -.419886 0 0 0 24 thingflags=0x2000000
+73: ghost ghost -.55005 3.66988 .620114 0 0 0 24
+74: ghost ghost 1.34995 3.71988 -.419886 0 0 0 24
 75: ghost ghost 2.24995 3.91988 -.879886 0 0 0 18
 76: ghost ghost 2.04995 3.31988 -.879886 0 0 0 18
 77: ghost ghost 2.04995 2.61988 -.879886 0 0 0 18
@@ -7114,14 +7114,14 @@ World things 640
 98: ghost ghost -.25005 -1.58012 .120114 0 0 0 12
 99: ghost ghost -.65005 -2.53012 .120114 0 0 0 12
 100: ghost ghost -2.50005 -2.33012 .120114 0 0 0 32
-101: ghost ghost -1.8 3.3 1.100114 0 0 0 22 thingflags=0x2000400
-102: ghost ghost -1.8 3.3 -.439886 0 0 0 53 thingflags=0x2000400
-103: ghost ghost -1.8 3.3 -1.639886 0 0 0 37 thingflags=0x2000400
-104: ghost ghost -1.45 1.1 -1.639886 0 0 0 34 thingflags=0x2000400
-105: ghost ghost -1.2 -.75 -1.639886 0 0 0 34 thingflags=0x2000400
-106: ghost ghost -.95 -2.25 -1.639886 0 0 0 34 thingflags=0x2000400
-107: ghost ghost -.75 -3.6 -1.639886 0 0 0 34 thingflags=0x2000400
-108: ghost ghost -.75 -3.6 -.879886 0 0 0 1 thingflags=0x2000000
+101: ghost ghost -1.8 3.3 1.100114 0 0 0 22
+102: ghost ghost -1.8 3.3 -.439886 0 0 0 53
+103: ghost ghost -1.8 3.3 -1.639886 0 0 0 37
+104: ghost ghost -1.45 1.1 -1.639886 0 0 0 34
+105: ghost ghost -1.2 -.75 -1.639886 0 0 0 34
+106: ghost ghost -.95 -2.25 -1.639886 0 0 0 34
+107: ghost ghost -.75 -3.6 -1.639886 0 0 0 34
+108: ghost ghost -.75 -3.6 -.879886 0 0 0 1
 109: ghost ghost -1.85 -3.6 -.879886 0 0 0 1
 110: ghost ghost -.55 -3.95 -.879886 0 0 0 1
 111: ghost ghost .75 -2.85 -.879886 0 0 0 1
@@ -7131,14 +7131,14 @@ World things 640
 115: ghost ghost .35 1.1 -.879886 0 0 0 3
 116: ghost ghost 1.45 1.55 -.879886 0 0 0 3
 117: ghost ghost -3.30005 -1.13012 .120114 0 0 0 39
-118: ghost ghost -2.15005 -.93012 -.219886 0 0 0 42 thingflags=0x2000400
-119: ghost ghost -2.15005 -.93012 -.719886 0 0 0 42 thingflags=0x2000400
-120: ghost ghost -2.15005 -.93012 -1.659886 0 0 0 36 thingflags=0x2000400
-121: ghost ghost .69995 -.48012 -1.659886 0 0 0 35 thingflags=0x2000400
-122: ghost ghost 2.99995 -.13012 -1.659886 0 0 0 40 thingflags=0x2000400
-123: ghost ghost 2.99995 -.13012 -.539886 0 0 0 54 thingflags=0x2000400
-124: ghost ghost 2.99995 -.13012 .600114 0 0 0 54 thingflags=0x2000400
-125: ghost ghost 3 -.15 1.120114 0 0 0 41 thingflags=0x2000000
+118: ghost ghost -2.15005 -.93012 -.219886 0 0 0 42
+119: ghost ghost -2.15005 -.93012 -.719886 0 0 0 42
+120: ghost ghost -2.15005 -.93012 -1.659886 0 0 0 36
+121: ghost ghost .69995 -.48012 -1.659886 0 0 0 35
+122: ghost ghost 2.99995 -.13012 -1.659886 0 0 0 40
+123: ghost ghost 2.99995 -.13012 -.539886 0 0 0 54
+124: ghost ghost 2.99995 -.13012 .600114 0 0 0 54
+125: ghost ghost 3 -.15 1.120114 0 0 0 41
 126: ghost ghost 2.7 .9 1.120114 0 0 0 41
 127: ghost ghost 2.4 1.8 1.120114 0 0 0 41
 128: ghost ghost 1.3 4.45 1.120114 0 0 0 30

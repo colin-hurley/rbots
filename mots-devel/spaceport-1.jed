@@ -12568,7 +12568,7 @@ SURFS 5
 END
 
 SEC: THINGS
-THS 236 640
+THS 239 640
 WALKPLAYER .74995 -.45 .120114 0 0 0 18 0
 
 STRUT06 -.2 .6 -.5 0 0 0 19 0
@@ -12887,160 +12887,166 @@ RAILCHARGES 3.342462 -6.224724 -.783694 0 -30.005741 .019783 265 0
  RESPAWNFACTOR=.9
 RAILCHARGES 3.739357 -6.547019 -.783694 0 15.000092 0 265 0
  RESPAWNFACTOR=.9
-GHOST 5.162964 -8.589077 -1.023663 0 0 0 363 1
+ghost 5.162964 -8.589077 -1.096165 0 0 0 363 1
 
-GHOST 5.162964 -7.689077 -.883663 0 0 0 363 1
+ghost 5.162964 -7.689077 -.946165 0 0 0 363 1
 
-GHOST 5.162964 -6.389077 -.583663 0 0 0 363 1
+ghost 5.162964 -6.389077 -.696165 0 0 0 363 1
 
-GHOST 5.162964 -4.589077 -.583663 0 0 0 94 1
+ghost 5.162964 -4.439077 -.621165 0 0 0 94 1
 
-GHOST 5.162964 -3.889077 -.583663 0 0 0 94 1
+ghost 5.162964 -3.889077 -.621165 0 0 0 94 1
 
-GHOST 5.162964 -2.089077 -.583663 0 0 0 87 1
+ghost 5.162964 -2.501577 -.671165 0 0 0 87 1
 
-GHOST 3.712964 -2.089077 -.583663 0 0 0 87 1
+ghost 3.725464 -2.164077 -.671165 0 0 0 87 1
 
-GHOST 2.162964 -2.089077 -.583663 0 0 0 87 1
+ghost 2.162964 -2.089077 -.671165 0 0 0 87 1
 
-GHOST .662964 -2.089077 -.583663 0 0 0 88 1
+ghost .662964 -2.089077 -.671165 0 0 0 88 1
 
-GHOST -.587036 -2.089077 -.583663 0 0 0 88 1
+ghost -.587036 -2.089077 -.671165 0 0 0 88 1
 
-GHOST -1.437036 -1.439077 -.583663 0 0 0 26 1
+ghost -1.449536 -1.439077 -.671165 0 0 0 26 1
 
-GHOST -1.437036 1.060923 -.583663 0 0 0 10 1
-
-GHOST -.687036 1.010923 -.583663 0 0 0 19 1
-
-GHOST 1.212964 -.989077 -.583663 0 0 0 20 1
-
-GHOST -.537036 -.989077 .176337 0 0 0 23 1
- THINGFLAGS=0x2000000
-GHOST -.587036 .060923 .176337 0 0 0 18 1
-
-GHOST .962964 1.560923 .176337 0 0 0 18 1
-
-GHOST -1.287036 -4.239077 -.583663 0 0 0 148 1
-
-GHOST .162964 -4.289077 .116337 0 0 0 147 1
-
-GHOST .162964 -3.589077 .116337 0 0 0 69 1
-
-GHOST -.737036 -3.289077 .116337 0 0 0 72 1
-
-GHOST -1.487036 -3.239077 .316337 0 0 0 34 1
-
-GHOST -1.637036 -4.539077 .316337 0 0 0 34 1
-
-GHOST .812964 -3.789077 .116337 0 0 0 69 1
-
-GHOST 1.062964 -4.489077 .116337 0 0 0 63 1
-
-GHOST 2.162964 -4.489077 .116337 0 0 0 60 1
-
-GHOST 3.462964 -4.489077 .116337 0 0 0 81 1
-
-GHOST 3.562964 -3.639077 .136337 0 0 0 82 1
-
-GHOST 4.012964 -3.639077 .136337 0 0 0 84 1
-
-GHOST 3.962964 -4.189077 .136337 0 0 0 84 1
-
-GHOST 6.262964 -4.376577 -.583663 0 0 0 93 1
-
-GHOST 7.062964 -4.039077 -.583663 0 0 0 122 1
- size=0.18
-GHOST 7.562964 -4.039077 -.243663 0 0 0 121 1
+ghost -1.437036 1.023423 -.671165 0 0 0 10 1
  size=0.15
-GHOST 7.962964 -4.039077 .136337 0 0 0 121 1
+ghost -.087036 .848423 -.671165 0 0 0 19 1
+
+ghost 1.212964 -1.026577 -.671165 0 0 0 20 1
+ size=0.12
+ghost -.537036 -1.026577 .126337 0 0 0 23 1
  size=0.15
-GHOST 7.900464 -3.726577 .316337 0 0 0 116 1
+ghost -.587036 .060923 .126337 0 0 0 18 1
+
+ghost .962964 1.560923 .126337 0 0 0 18 1
+
+ghost -1.287036 -4.239077 -.608663 0 0 0 148 1
+
+ghost .162964 -4.276577 .066337 0 0 0 147 1
+ size=0.15
+ghost .162964 -3.589077 .066337 0 0 0 69 1
+
+ghost -.737036 -3.289077 .116337 0 0 0 72 1
+
+ghost -1.487036 -3.239077 .316337 0 0 0 34 1
+
+ghost -1.637036 -4.539077 .316337 0 0 0 34 1
+
+ghost .812964 -3.764077 .116337 0 0 0 69 1
  size=0.2
-GHOST 6.862964 -3.789077 .316337 0 0 0 100 1
+ghost 1.062964 -4.489077 .116337 0 0 0 63 1
+
+ghost 2.200464 -4.489077 .166337 0 0 0 60 1
+
+ghost 3.562964 -4.501577 .166337 0 0 0 81 1
  size=0.15
-GHOST 6.862964 -2.339077 .316337 0 0 0 110 1
-
-GHOST 6.412964 -2.189077 .316337 0 0 0 113 1
-
-GHOST 4.212964 -3.889077 -.583663 0 0 0 92 1
-
-GHOST 2.212964 -3.889077 -.623663 0 0 0 187 1
-
-GHOST 2.162964 -6.339077 -.563663 0 0 0 221 1
-
-GHOST 2.162964 -7.239077 -.463663 0 0 0 284 1
-
-GHOST 1.812964 -7.589077 -.483663 0 0 0 296 1
-
-GHOST 1.812964 -8.889077 -.363663 0 0 0 289 1
-
-GHOST 2.812964 -8.889077 -.303663 0 0 0 293 1
-
-GHOST 3.812964 -8.889077 -.243663 0 0 0 279 1
-
-GHOST 3.712964 -9.889077 -.083663 0 0 0 277 1
-
-GHOST 5.412964 -9.889077 -.083663 0 0 0 276 1
-
-GHOST 7.312964 -9.889077 -.083663 0 0 0 274 1
-
-GHOST 7.312964 -8.589077 -.083663 0 0 0 275 1
-
-GHOST 7.312964 -7.439077 -.083663 0 0 0 273 1
-
-GHOST 6.512964 -7.439077 -.083663 0 0 0 272 1
-
-GHOST 6.512964 -7.939077 -.083663 0 0 0 272 1
-
-GHOST 4.062964 -7.639077 -.923663 0 0 0 131 1
-
-GHOST 3.412964 -7.639077 -.923663 0 0 0 250 1
-
-GHOST 3.362964 -8.239077 -.863663 0 0 0 298 1
-
-GHOST 2.312964 -8.189077 -.483663 0 0 0 318 1
-
-GHOST 2.312964 -8.589077 -.483663 0 0 0 318 1
-
-GHOST 3.412964 -8.539077 -.043663 0 0 0 338 1
-
-GHOST 3.412964 -7.689077 .056337 0 0 0 340 1
-
-GHOST 3.862964 -7.639077 .056337 0 0 0 357 1
-
-GHOST 6.512964 -7.939077 -.723663 0 0 0 140 1
-
-GHOST -1.337036 -2.089077 -.583663 0 0 0 88 1
-
-GHOST -2.537036 -2.039077 -.583663 0 0 0 88 1
-
-GHOST -2.587036 -3.139077 -.583663 0 0 0 36 1
-
-GHOST -2.587036 -4.239077 -.583663 0 0 0 36 1
-
-GHOST -2.587036 -5.739077 -.583663 0 0 0 36 1
-
-GHOST 3.512964 -6.389077 -.643663 0 0 0 265 1
-
-GHOST 4.012964 -6.389077 -.663663 0 0 0 176 1
-
-GHOST 5.712964 -5.039077 -.583663 0 0 0 93 1
-
-GHOST 5.862964 -3.389077 -.583663 0 0 0 93 1
-
-GHOST 6.062964 -1.389077 -.583663 0 0 0 30 1
-
-GHOST 6.012964 .160923 -.583663 0 0 0 31 1
-
-GHOST 6.112964 1.660923 -.583663 0 0 0 31 1
-
-GHOST 7.800464 -4.039077 -.038663 0 0 0 121 1
+ghost 3.562964 -3.639077 .173837 0 0 0 82 1
+ size=0.12
+ghost 4.012964 -3.639077 .173837 0 0 0 84 1
  size=0.15
-GHOST 7.362964 -4.039077 -.438663 0 0 0 121 1
- size=0.15
-GHOST 6.750464 -4.251577 -.583663 0 0 0 122 1
+ghost 3.962964 -4.189077 .173837 0 0 0 84 1
 
+ghost 6.275464 -4.439077 -.671165 0 0 0 93 1
+
+ghost 7.062964 -4.039077 -.671165 0 0 0 122 1
+ size=0.18
+ghost 7.562964 -4.039077 -.286163 0 0 0 121 1
+ size=0.15
+ghost 7.950464 -4.039077 .106337 0 0 0 121 1
+ size=0.15
+ghost 7.900464 -3.726577 .316337 0 0 0 116 1
+ size=0.2
+ghost 6.862964 -3.789077 .316337 0 0 0 100 1
+ size=0.15
+ghost 6.862964 -2.376577 .316337 0 0 0 110 1
+
+ghost 6.412964 -2.351577 .316337 0 0 0 113 1
+
+ghost 4.212964 -3.889077 -.671165 0 0 0 92 1
+
+ghost 2.212964 -3.889077 -.671165 0 0 0 187 1
+
+ghost 2.200464 -6.339077 -.571165 0 0 0 221 1
+
+ghost 2.162964 -7.239077 -.488663 0 0 0 284 1
+
+ghost 1.812964 -7.589077 -.496163 0 0 0 296 1
+ size=0.15
+ghost 1.812964 -8.939077 -.383663 0 0 0 289 1
+ size=0.15
+ghost 2.812964 -8.939077 -.328663 0 0 0 293 1
+
+ghost 3.737964 -8.939077 -.243663 0 0 0 279 1
+ size=0.12
+ghost 3.712964 -9.889077 -.108663 0 0 0 277 1
+ size=0.12
+ghost 5.412964 -9.889077 -.108663 0 0 0 276 1
+
+ghost 7.312964 -9.889077 -.108663 0 0 0 274 1
+ size=0.12
+ghost 7.312964 -8.589077 -.108663 0 0 0 275 1
+
+ghost 7.312964 -7.439077 -.108663 0 0 0 273 1
+ size=0.12
+ghost 6.512964 -7.439077 -.108663 0 0 0 272 1
+ size=0.15
+ghost 6.512964 -7.939077 -.171163 0 0 0 272 1
+
+ghost 4.062964 -7.639077 -.923663 0 0 0 131 1
+
+ghost 3.350464 -7.639077 -.923663 0 0 0 250 1
+ size=0.15
+ghost 3.350464 -8.239077 -.873663 0 0 0 298 1
+ size=0.15
+ghost 2.225464 -8.201577 -.483663 0 0 0 318 1
+ size=0.15
+ghost 2.225464 -8.551577 -.483663 0 0 0 318 1
+ size=0.15
+ghost 3.412964 -8.539077 -.081163 0 0 0 338 1
+ size=0.15
+ghost 3.375464 -7.664077 -.006163 0 0 0 340 1
+ size=0.15
+ghost 3.950464 -7.639077 -.031163 0 0 0 357 1
+
+ghost 6.512964 -8.101577 -.758665 0 0 0 140 1
+
+ghost -1.449536 -2.089077 -.671165 0 0 0 88 1
+
+ghost -2.487036 -2.089077 -.671165 0 0 0 88 1
+
+ghost -2.487036 -3.139077 -.671165 0 0 0 36 1
+
+ghost -2.487036 -4.151577 -.671165 0 0 0 36 1
+
+ghost -2.487036 -5.764077 -.671165 0 0 0 36 1
+
+ghost 3.512964 -6.389077 -.671165 0 0 0 265 1
+
+ghost 4.012964 -6.389077 -.671165 0 0 0 176 1
+
+ghost 5.887964 -1.601577 -.671165 0 0 0 87 1
+
+ghost 5.975464 .160923 -.671165 0 0 0 31 1
+
+ghost 6.200464 1.760923 -.671165 0 0 0 31 1
+
+ghost 7.787964 -4.039077 -.081163 0 0 0 121 1
+ size=0.15
+ghost 7.362964 -4.039077 -.481163 0 0 0 121 1
+ size=0.15
+ghost 6.712964 -4.401577 -.671165 0 0 0 122 1
+
+ghost -2.487036 -.889077 -.671165 0 0 0 29 1
+
+ghost -2.487036 .335923 -.671165 0 0 0 29 1
+
+ghost 8.000464 -4.514077 -.671165 0 0 0 121 1
+
+ghost 8.762964 -4.551577 -.671165 0 0 0 115 1
+
+ghost 3.712964 -9.164077 -.243663 0 0 0 279 1
+ size=0.12
 END
 
 SEC: LIGHTS
@@ -13048,7 +13054,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 155
+COGS 156
 00_SURFANIM.COG sign:surface=143 sign1:surface=115 sign2:surface=-1 sign3:surface=-1 fps:flex=10
 00_DOORSWITCH.COG door0:thing=24 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=148 switch1:surface=1686 movespeed:flex=8 sleeptime:flex=12 lightvalue:flex=0.5
 00_SLASHGRATE.COG grate:surface=2277 grateback:surface=2368
@@ -13062,18 +13068,6 @@ rbot-door.cog door:thing=22 moveSpeed:flex=8 sleepTime:flex=2
 rbot-door.cog door:thing=16 moveSpeed:flex=5 sleepTime:flex=4
 rbot-2door.cog door0:thing=17 door1:thing=18 moveSpeed:flex=8 sleepTime:flex=6
 rbot-startup.cog numbots:int=8 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
-rbot-nav.cog dflt_nodesize:flex=0.25
-rbot-path.cog pathid:int=0 node0:thing=159 node1:thing=160 node2:thing=161 node3:thing=162 node4:thing=163 node5:thing=164 node6:thing=165 node7:thing=166 node8:thing=167 node9:thing=168 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=1 node0:thing=221 node1:thing=169 node2:thing=170 node3:thing=171 node4:thing=172 node5:thing=173 node6:thing=174 node7:thing=175 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=2 node0:thing=224 node1:thing=176 node2:thing=177 node3:thing=178 node4:thing=179 node5:thing=180 node6:thing=181 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=3 node0:thing=178 node1:thing=182 node2:thing=183 node3:thing=184 node4:thing=185 node5:thing=186 node6:thing=187 node7:thing=188 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=4 node0:thing=162 node1:thing=189 node2:thing=235 node3:thing=190 node4:thing=234 node5:thing=191 node6:thing=233 node7:thing=192 node8:thing=193 node9:thing=194 node10:thing=195 node11:thing=196 node12:thing=164 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=5 node0:thing=163 node1:thing=197 node2:thing=198 node3:thing=199 node4:thing=200 node5:thing=201 node6:thing=202 node7:thing=203 node8:thing=204 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=6 node0:thing=204 node1:thing=205 node2:thing=206 node3:thing=207 node4:thing=208 node5:thing=209 node6:thing=210 node7:thing=211 node8:thing=220 node9:thing=159 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=7 node0:thing=160 node1:thing=212 node2:thing=213 node3:thing=214 node4:thing=215 node5:thing=216 node6:thing=217 node7:thing=218 node8:thing=219 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=8 node0:thing=168 node1:thing=221 node2:thing=222 node3:thing=223 node4:thing=224 node5:thing=225 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-path.cog pathid:int=9 node0:thing=226 node1:thing=227 node2:thing=161 node3:thing=228 node4:thing=229 node5:thing=230 node6:thing=231 node7:thing=232 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
-rbot-special.cog sp0:thing=190 sp1:thing=234 sp2:thing=191 sp3:thing=233 sp4:thing=192 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=6 spinf1:int=4 spinf2:int=4 spinf3:int=4 spinf4:int=4 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 team:int=1 teambotname:int=20 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv2.cog botid:int=0
@@ -13204,6 +13198,19 @@ rbot-srv2.cog botid:int=31
 rbot-skin.cog skinid:int=31 rtemp:template=rbot_silver weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
 rbot-skin.cog skinid:int=101 rtemp:template=rbot_kylered weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
 rbot-skin.cog skinid:int=102 rtemp:template=rbot_kylegold weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-nav.cog dflt_nodesize:flex=0.25
+rbot-special.cog sp0:thing=190 sp1:thing=232 sp2:thing=191 sp3:thing=231 sp4:thing=192 sp5:thing=199 sp6:thing=238 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=6 spinf1:int=4 spinf2:int=4 spinf3:int=4 spinf4:int=4 spinf5:int=4 spinf6:int=4 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-path.cog pathid:int=0 node0:thing=235 node1:thing=234 node2:thing=222 node3:thing=223 node4:thing=224 node5:thing=225 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=1 node0:thing=222 node1:thing=221 node2:thing=168 node3:thing=167 node4:thing=166 node5:thing=165 node6:thing=164 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=2 node0:thing=159 node1:thing=160 node2:thing=161 node3:thing=162 node4:thing=163 node5:thing=164 node6:thing=228 node7:thing=229 node8:thing=230 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=3 node0:thing=221 node1:thing=169 node2:thing=170 node3:thing=171 node4:thing=172 node5:thing=173 node6:thing=174 node7:thing=175 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=4 node0:thing=163 node1:thing=197 node2:thing=198 node3:thing=199 node4:thing=200 node5:thing=201 node6:thing=202 node7:thing=203 node8:thing=204 node9:thing=238 node10:thing=205 node11:thing=206 node12:thing=207 node13:thing=208 node14:thing=209 node15:thing=210 node16:thing=211 node17:thing=220 node18:thing=159 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=5 node0:thing=160 node1:thing=212 node2:thing=213 node3:thing=214 node4:thing=215 node5:thing=216 node6:thing=217 node7:thing=218 node8:thing=219 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=6 node0:thing=161 node1:thing=227 node2:thing=226 node3:thing=-1 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=7 node0:thing=224 node1:thing=176 node2:thing=177 node3:thing=178 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=8 node0:thing=181 node1:thing=180 node2:thing=179 node3:thing=178 node4:thing=182 node5:thing=183 node6:thing=184 node7:thing=185 node8:thing=186 node9:thing=187 node10:thing=188 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=9 node0:thing=162 node1:thing=189 node2:thing=233 node3:thing=236 node4:thing=237 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0
+rbot-path.cog pathid:int=10 node0:thing=233 node1:thing=190 node2:thing=232 node3:thing=191 node4:thing=231 node5:thing=192 node6:thing=193 node7:thing=194 node8:thing=195 node9:thing=196 node10:thing=164 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0
 END
 
 SEC: LAYERS

@@ -34,6 +34,7 @@ int			botid								local
 thing		rbot								local
 thing		spawnpoint							local
 int			curweap								local
+int			geo									local
 
 end
 
@@ -59,7 +60,11 @@ trigger:
 	{
 		rbot = GetParam(1);
 		curweap = GetParam(2);
+		// Setting a thing's model resets its current geo mode
+		// Preserve current geo mode to avoid bot becoming visible with force persuasion active
+		geo = GetThingCurGeoMode(rbot);
 		SetThingModel(rbot, weapmesh0[curweap]);
+		SetThingCurGeoMode(rbot, geo);
 		return;
 	}
 

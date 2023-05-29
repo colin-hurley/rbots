@@ -513,6 +513,7 @@ trigger:
 			jkStringConcatUNIString(1000+curbotname);
 			jkStringConcatAsciiString(" has left the game");
 			jkStringOutput(-3,-1);
+			ClearActorFlags(rbot, 0x8); // invulnerable
 			DamageThing(rbot,500,1,rbot); // Make sure bot is dead
 		}
 		return;
@@ -1263,6 +1264,7 @@ timer:
 				// Bot might be stuck somewhere (in a pit/hole, behind a corner, under a non-crushing
 				// elevator, etc.).  We don't want the bot to be stuck indefinitely, so kill it to
 				// force a respawn (like a player using the "kill" command).
+				ClearActorFlags(rbot, 0x8); // invulnerable
 				DamageThing(rbot, 800, 0x1, rbot); // kill bot
 				return;
 			}
@@ -1342,6 +1344,7 @@ timer:
 		if ((GetSectorFlags(cursector) & 0x40) && !(GetAttachFlags(rbot)) && VectorZ(GetThingVel(rbot)) < -3.0)
 		{
 			// Bot is aitborne and falling in a pit sector
+			ClearActorFlags(rbot, 0x8); // invulnerable
 			DamageThing(rbot, 800, 0x1, rbot); // kill bot
 		}
 		else SetTimerEx(1.0, 300, -1, -1); // schedule another check

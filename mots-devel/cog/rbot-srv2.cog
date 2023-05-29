@@ -613,7 +613,7 @@ pickupitem:
 		if (shields<200)
 		{
 			shields=shields+20;
-			if (shields>200) shields=100;
+			if (shields>200) shields=200;
 			TakeItem(item, rbot); // bot picked up this item
 		}
 		return;
@@ -621,9 +621,12 @@ pickupitem:
 
 	if (GetThingTemplate(item) == tmp_supershield)
 	{
+		shields=shields+50;
+		if (shields>200) shields=200;
 		TakeItem(item, rbot); // bot picked up this item
 		SetActorFlags(rbot, 8); // invulnerable
 		SetThingFlags(rbot, 4); // mag sealed
+		KillTimerEx(140);
 		SetTimerEx(30, 140, -1, -1); // switch off in 30 secs
 		return;
 	}
@@ -632,6 +635,7 @@ pickupitem:
 	{
 		TakeItem(item, rbot); // bot picked up this item
 		powerboost=2;
+		KillTimerEx(150);
 		SetTimerEx(30, 150, -1, -1); // switch off in 30 secs
 		return;
 	}

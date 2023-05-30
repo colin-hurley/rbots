@@ -187,15 +187,16 @@ taken:
 		{
 			ChangeInv(player, 11,item0[index]);
 			ChangeInv(player, 12,item0[10+index]);
-			ChangeInv(player, 8,item0[20+index]); 
+			ChangeInv(player, 128,item0[20+index]); 
+			if (item0[20+index]>0) SetInv(player, 138,1);
 			ChangeInv(player, 15,item0[30+index]); 
-			ChangeInv(player, 4,item0[40+index]); 
-			if (weap0[index]==1) SetInv(player, 2,1);
-			if (weap0[10+index]==1) SetInv(player, 3,1);
-			if (weap0[20+index]==1) SetInv(player, 5,1);
-			if (weap0[30+index]==1) SetInv(player, 6,1);
-			if (weap0[40+index]==1) SetInv(player, 7,1);
-			if (weap0[50+index]==1) SetInv(player, 9,1);
+			ChangeInv(player, 124,item0[40+index]); 
+			if (weap0[index]==1) SetInv(player, 122,1);
+			if (weap0[10+index]==1) SetInv(player, 123,1);
+			if (weap0[20+index]==1) SetInv(player, 135,1);
+			if (weap0[30+index]==1) SetInv(player, 126,1);
+			if (weap0[40+index]==1) SetInv(player, 127,1);
+			if (weap0[50+index]==1) SetInv(player, 129,1);
 
 			used0[index]=-1; // reset spot for another backpack
 			index=10; // break out of loop

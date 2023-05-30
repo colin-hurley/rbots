@@ -202,28 +202,28 @@ taken:
 		}
 	}
 
-
 	// New ammo is already assigned, so this is like a autopickup/autoreload mix,
 	// it will select the best weapon overall with all the stuff in the backpack
 	// taken into account.
 
-	//autopickup = GetAutoPickup();
-	//autoselect_weapon = AutoSelectWeapon(player, 0);
+	autopickup = GetAutoPickup();
+	autoselect_weapon = AutoSelectWeapon(player, 0);
 
-	//if(autopickup & 1)
-	//{
-	//	if( !((autopickup & 2) && ((autoselect_weapon == 4) || (autoselect_weapon == 8) || (autoselect_weapon == 9)) ))
-	//	{
-	//		if(!((autopickup & 4) && (GetWeaponPriority(player, GetWeaponBin(GetCurWeapon(player)), 0) >= GetWeaponPriority(player, autoselect_weapon, 0) )))
-	//		{
-	//			if(!((autopickup & 8) && (GetWeaponBin(GetCurWeapon(player)) == jkGetMultiParam(1))))
-	//			{
-	//				SelectWeapon(player, autoselect_weapon);
-	//				Return;
-	//			}
-	//		}
-	//	}
-	//}
+	if(autopickup & 1)
+	{
+		if( !((autopickup & 2) && ((autoselect_weapon == 4) || (autoselect_weapon == 8) || (autoselect_weapon == 9)) ))
+		{
+			if(!((autopickup & 4) && (GetWeaponPriority(player, GetCurWeapon(player), 0) >= GetWeaponPriority(player, autoselect_weapon, 0) )))
+			{
+				if(!((autopickup & 8) && (GetCurWeapon(player) == 10)))
+				{
+					SelectWeapon(player, autoselect_weapon);
+					Return;
+				}
+			}
+		}
+	}
+
 	Return;
 
 removed:

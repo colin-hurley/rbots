@@ -81883,7 +81883,7 @@ World soundclasses 28
 end
 
 Section: cogscripts
-World scripts 69
+World scripts 70
 0: 00_BREAKINGLAMPX.COG
 1: 00_desttrail.cog
 2: 00_smoketrail.cog
@@ -81950,14 +81950,15 @@ World scripts 69
 63: rbot-special.cog
 64: rbot-special-sector.cog
 65: rbot-srv.cog
-66: rbot-srv2.cog
+66: rbot-srv-ctf.cog
 67: rbot-srv-force.cog
-68: rbot-startup.cog
+68: rbot-srv-weapons.cog
+69: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 208
+World cogs 225
 #Num	Script          Symbol values
 0: C3_DUALELEV.COG 4 6 1.5
 1: C3_DUALELEV.COG 3 6 1.5
@@ -82022,82 +82023,98 @@ World cogs 208
 60: rbot-startup.cog 8 1 1 1 2 0 -256 -65281 0 0
 61: rbot-srv.cog 0 -1 -1 1 520 101
 62: rbot-srv-force.cog 0 255
-63: rbot-srv2.cog 0
-64: rbot-srv.cog 1 -1 -1 2 522 102
-65: rbot-srv-force.cog 1 255
-66: rbot-srv2.cog 1
-67: rbot-srv.cog 2 -1 -1 1 521 101
-68: rbot-srv-force.cog 2 7695
-69: rbot-srv2.cog 2
-70: rbot-srv.cog 3 -1 -1 2 523 102
-71: rbot-srv-force.cog 3 7695
-72: rbot-srv2.cog 3
-73: rbot-srv.cog 4 -1 -1 1 533 101
-74: rbot-srv-force.cog 4 255
-75: rbot-srv2.cog 4
-76: rbot-srv.cog 5 -1 -1 2 537 102
-77: rbot-srv-force.cog 5 255
-78: rbot-srv2.cog 5
-79: rbot-srv.cog 6 -1 -1 1 534 101
-80: rbot-srv-force.cog 6 7695
-81: rbot-srv2.cog 6
-82: rbot-srv.cog 7 -1 -1 2 535 102
-83: rbot-srv-force.cog 7 7695
-84: rbot-srv2.cog 7
-85: rbot-srv.cog 8 -1 -1 1 538 101
-86: rbot-srv-force.cog 8 255
-87: rbot-srv2.cog 8
-88: rbot-srv.cog 9 -1 -1 2 539 102
-89: rbot-srv-force.cog 9 255
-90: rbot-srv2.cog 9
-91: rbot-srv.cog 10 -1 -1 1 540 101
-92: rbot-srv-force.cog 10 7695
-93: rbot-srv2.cog 10
-94: rbot-srv.cog 11 -1 -1 2 541 102
-95: rbot-srv-force.cog 11 7695
-96: rbot-srv2.cog 11
-97: rbot-srv.cog 12 -1 -1 1 542 101
-98: rbot-srv-force.cog 12 255
-99: rbot-srv2.cog 12
-100: rbot-srv.cog 13 -1 -1 2 543 102
-101: rbot-srv-force.cog 13 255
-102: rbot-srv2.cog 13
-103: rbot-srv.cog 14 -1 -1 1 544 101
-104: rbot-srv-force.cog 14 7695
-105: rbot-srv2.cog 14
-106: rbot-srv.cog 15 -1 -1 2 545 102
-107: rbot-srv-force.cog 15 7695
-108: rbot-srv2.cog 15
-109: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
-110: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
-111: rbot-nav.cog 0.15
-112: rbot-nav-special.cog 406 419 412 372 385 386 459 460 463 478 499 411 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
-113: rbot-special.cog 475 491 402 -1 -1 -1 432 453 455 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 64 32 4 0 0 0 2 4 4 0 0 0 0 0 0 0 0 0 0 0
-114: rbot-special-sector.cog 91 105 142 513 700 693 512 790 793 122 121 123 148 144 240 76 309 337 603 346 1024 1024 1024 2 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024
-115: rbot-special-sector.cog 688 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-116: rbot-path.cog 0 350 453 454 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-117: rbot-path.cog 1 350 351 352 353 354 355 356 357 350 358 359 360 361 358 350 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-118: rbot-path.cog 2 394 395 396 397 398 399 400 401 402 403 354 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-119: rbot-path.cog 3 374 375 376 377 378 379 380 381 382 383 384 385 386 387 388 389 390 391 392 393 394 -1 -1 -1 -1 0 0 0
-120: rbot-path.cog 4 441 455 456 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-121: rbot-path.cog 5 438 439 440 441 444 445 446 447 444 441 442 443 438 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-122: rbot-path.cog 6 432 452 435 436 437 438 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-123: rbot-path.cog 7 423 430 431 432 433 434 426 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
-124: rbot-path.cog 8 374 407 408 409 410 457 503 411 412 413 414 415 420 421 422 423 424 425 426 -1 -1 -1 -1 -1 -1 0 0 0
-125: rbot-path.cog 9 345 346 347 348 349 359 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-126: rbot-path.cog 10 451 450 449 448 445 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-127: rbot-path.cog 11 361 362 363 364 365 366 370 371 458 372 373 374 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-128: rbot-path.cog 12 444 369 368 367 366 370 371 458 372 373 374 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-129: rbot-path.cog 13 426 427 428 429 394 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3
-130: rbot-path.cog 14 388 501 404 405 406 460 361 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 1
-131: rbot-path.cog 15 415 416 417 418 419 459 444 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2
-132: rbot-path.cog 16 388 461 462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 -1 -1 -1 0 0 0
-133: rbot-path.cog 17 481 482 483 484 485 486 487 488 489 490 491 492 493 494 495 496 497 498 499 500 414 -1 -1 -1 -1 0 0 0
-134: rbot-path.cog 18 502 503 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
-135: rbot-pathinfo-ctf.cog 0 1 2 3 4 5 6 7 8 9 100 90 70 60 -1 10 -1 -1 40 -1 1 -1 1 1 -1 -1 -1 -1 0 -1 -1 10 -1 40 100 90 80 70 60 -1 -1 -1 -1 0 1 -1 1 -1 1 -1
-136: rbot-pathinfo-ctf.cog 10 11 12 13 14 15 16 17 -1 -1 -1 -1 20 50 80 20 40 40 -1 -1 -1 -1 -1 1 1 0 0 0 -1 -1 -1 20 -1 50 20 80 40 40 -1 -1 -1 -1 -1 0 0 1 1 1 -1 -1
-137: rbot-arrival.cog 384 387 458 459 460 411 500 497 480 477 1 0 1 0 0 1 0 1 0 1 4 4 28 30 29 22 21 21 9 9 1 0 0 0 0 1 0 1 0 1 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
-138: rbot-arrival.cog 464 461 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 3 3 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
+63: rbot-srv-weapons.cog 0
+64: rbot-srv-ctf.cog 0
+65: rbot-srv.cog 1 -1 -1 2 522 102
+66: rbot-srv-force.cog 1 255
+67: rbot-srv-weapons.cog 1
+68: rbot-srv-ctf.cog 1
+69: rbot-srv.cog 2 -1 -1 1 521 101
+70: rbot-srv-force.cog 2 7695
+71: rbot-srv-weapons.cog 2
+72: rbot-srv-ctf.cog 2
+73: rbot-srv.cog 3 -1 -1 2 523 102
+74: rbot-srv-force.cog 3 7695
+75: rbot-srv-weapons.cog 3
+76: rbot-srv-ctf.cog 3
+77: rbot-srv.cog 4 -1 -1 1 533 101
+78: rbot-srv-force.cog 4 255
+79: rbot-srv-weapons.cog 4
+80: rbot-srv-ctf.cog 4
+81: rbot-srv.cog 5 -1 -1 2 537 102
+82: rbot-srv-force.cog 5 255
+83: rbot-srv-weapons.cog 5
+84: rbot-srv-ctf.cog 5
+85: rbot-srv.cog 6 -1 -1 1 534 101
+86: rbot-srv-force.cog 6 7695
+87: rbot-srv-weapons.cog 6
+88: rbot-srv-ctf.cog 6
+89: rbot-srv.cog 7 -1 -1 2 535 102
+90: rbot-srv-force.cog 7 7695
+91: rbot-srv-weapons.cog 7
+92: rbot-srv-ctf.cog 7
+93: rbot-srv.cog 8 -1 -1 1 538 101
+94: rbot-srv-force.cog 8 255
+95: rbot-srv-weapons.cog 8
+96: rbot-srv-ctf.cog 8
+97: rbot-srv.cog 9 -1 -1 2 539 102
+98: rbot-srv-force.cog 9 255
+99: rbot-srv-weapons.cog 9
+100: rbot-srv-ctf.cog 9
+101: rbot-srv.cog 10 -1 -1 1 540 101
+102: rbot-srv-force.cog 10 7695
+103: rbot-srv-weapons.cog 10
+104: rbot-srv-ctf.cog 10
+105: rbot-srv.cog 11 -1 -1 2 541 102
+106: rbot-srv-force.cog 11 7695
+107: rbot-srv-weapons.cog 11
+108: rbot-srv-ctf.cog 11
+109: rbot-srv.cog 12 -1 -1 1 542 101
+110: rbot-srv-force.cog 12 255
+111: rbot-srv-weapons.cog 12
+112: rbot-srv-ctf.cog 12
+113: rbot-srv.cog 13 -1 -1 2 543 102
+114: rbot-srv-force.cog 13 255
+115: rbot-srv-weapons.cog 13
+116: rbot-srv-ctf.cog 13
+117: rbot-srv.cog 14 -1 -1 1 544 101
+118: rbot-srv-force.cog 14 7695
+119: rbot-srv-weapons.cog 14
+120: rbot-srv-ctf.cog 14
+121: rbot-srv.cog 15 -1 -1 2 545 102
+122: rbot-srv-force.cog 15 7695
+123: rbot-srv-weapons.cog 15
+124: rbot-srv-ctf.cog 15
+125: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do
+126: rbot-skin.cog 102 rbot_kylegold yel-0.3do yel-1.3do yel-2.3do yel-3.3do yel-4.3do yel-5.3do yel-6.3do yel-7.3do yel-8.3do yel-9.3do yel-10.3do
+127: rbot-nav.cog 0.15
+128: rbot-nav-special.cog 406 419 412 372 385 386 459 460 463 478 499 411 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
+129: rbot-special.cog 475 491 402 -1 -1 -1 432 453 455 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 64 32 4 0 0 0 2 4 4 0 0 0 0 0 0 0 0 0 0 0
+130: rbot-special-sector.cog 91 105 142 513 700 693 512 790 793 122 121 123 148 144 240 76 309 337 603 346 1024 1024 1024 2 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024 1024
+131: rbot-special-sector.cog 688 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+132: rbot-path.cog 0 350 453 454 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+133: rbot-path.cog 1 350 351 352 353 354 355 356 357 350 358 359 360 361 358 350 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+134: rbot-path.cog 2 394 395 396 397 398 399 400 401 402 403 354 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+135: rbot-path.cog 3 374 375 376 377 378 379 380 381 382 383 384 385 386 387 388 389 390 391 392 393 394 -1 -1 -1 -1 0 0 0
+136: rbot-path.cog 4 441 455 456 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+137: rbot-path.cog 5 438 439 440 441 444 445 446 447 444 441 442 443 438 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+138: rbot-path.cog 6 432 452 435 436 437 438 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+139: rbot-path.cog 7 423 430 431 432 433 434 426 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
+140: rbot-path.cog 8 374 407 408 409 410 457 503 411 412 413 414 415 420 421 422 423 424 425 426 -1 -1 -1 -1 -1 -1 0 0 0
+141: rbot-path.cog 9 345 346 347 348 349 359 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+142: rbot-path.cog 10 451 450 449 448 445 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+143: rbot-path.cog 11 361 362 363 364 365 366 370 371 458 372 373 374 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+144: rbot-path.cog 12 444 369 368 367 366 370 371 458 372 373 374 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+145: rbot-path.cog 13 426 427 428 429 394 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 3
+146: rbot-path.cog 14 388 501 404 405 406 460 361 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 1
+147: rbot-path.cog 15 415 416 417 418 419 459 444 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2
+148: rbot-path.cog 16 388 461 462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 -1 -1 -1 0 0 0
+149: rbot-path.cog 17 481 482 483 484 485 486 487 488 489 490 491 492 493 494 495 496 497 498 499 500 414 -1 -1 -1 -1 0 0 0
+150: rbot-path.cog 18 502 503 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
+151: rbot-pathinfo-ctf.cog 0 1 2 3 4 5 6 7 8 9 100 90 70 60 -1 10 -1 -1 40 -1 1 -1 1 1 -1 -1 -1 -1 0 -1 -1 10 -1 40 100 90 80 70 60 -1 -1 -1 -1 0 1 -1 1 -1 1 -1
+152: rbot-pathinfo-ctf.cog 10 11 12 13 14 15 16 17 -1 -1 -1 -1 20 50 80 20 40 40 -1 -1 -1 -1 -1 1 1 0 0 0 -1 -1 -1 20 -1 50 20 80 40 40 -1 -1 -1 -1 -1 0 0 1 1 1 -1 -1
+153: rbot-arrival.cog 384 387 458 459 460 411 500 497 480 477 1 0 1 0 0 1 0 1 0 1 4 4 28 30 29 22 21 21 9 9 1 0 0 0 0 1 0 1 0 1 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
+154: rbot-arrival.cog 464 461 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 3 3 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
 end
 
 Section: TEMPLATES

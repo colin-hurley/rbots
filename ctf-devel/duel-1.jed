@@ -12336,7 +12336,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 71
+COGS 87
 C1_SECRETELEV.COG elevator:thing=28 switch:surface=2852 speed:flex=8 delay:flex=3 plate0:surface=2321 plate1:surface=2283 plate2:surface=-1 plate3:surface=-1
 CTF_MAIN.COG flag_red:thing=142 flag_gold:thing=143 flag_ghost_red:thing=4 flag_ghost_gold:thing=5 start_room:sector=237 mark_red:sector=286 mark_gold:sector=288 limit1:surface=2573 limit2:surface=2566 limit3:surface=2562 score_display_cog:cog=2 red_start:thing=39 red_start1:thing=43 red_start2:thing=40 red_start3:thing=41 red_start4:thing=42 red_start5:thing=16 red_start6:thing=19 red_start7:thing=32 gold_start:thing=33 gold_start1:thing=36 gold_start2:thing=34 gold_start3:thing=35 gold_start4:thing=37 gold_start5:thing=17 gold_start6:thing=18 gold_start7:thing=38 players_red1:surface=3012 players_red2:surface=3017 players_gold1:surface=3019 players_gold2:surface=3024
 CTF_DISPLAYSCORE.COG rl0:surface=1215 rl1:surface=1203 rl2:surface=699 rl3:surface=244 rm0:surface=1216 rm1:surface=1204 rm2:surface=700 rm3:surface=245 rr0:surface=1207 rr1:surface=1199 rr2:surface=691 rr3:surface=240 gl0:surface=1191 gl1:surface=361 gl2:surface=711 gl3:surface=1179 gm0:surface=1192 gm1:surface=362 gm2:surface=712 gm3:surface=1180 gr0:surface=1183 gr1:surface=357 gr2:surface=703 gr3:surface=1175 copies:int=4
@@ -12360,52 +12360,68 @@ rbot-pathinfo-ctf.cog pathid0:int=0 pathid1:int=1 pathid2:int=2 pathid3:int=3 pa
 rbot-special.cog sp0:thing=169 sp1:thing=170 sp2:thing=197 sp3:thing=186 sp4:thing=180 sp5:thing=187 sp6:thing=196 sp7:thing=184 sp8:thing=174 sp9:thing=185 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=4 spinf1:int=4 spinf2:int=2 spinf3:int=2 spinf4:int=2 spinf5:int=2 spinf6:int=2 spinf7:int=2 spinf8:int=2 spinf9:int=2 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-srv.cog botid:int=0 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=520 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=255
-rbot-srv2.cog botid:int=0
+rbot-srv-weapons.cog botid:int=0
+rbot-srv-ctf.cog botid:int=0
 rbot-srv.cog botid:int=1 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=522 teambotskinid:int=102
 rbot-srv-force.cog botid:int=1 forceflags:int=255
-rbot-srv2.cog botid:int=1
+rbot-srv-weapons.cog botid:int=1
+rbot-srv-ctf.cog botid:int=1
 rbot-srv.cog botid:int=2 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=521 teambotskinid:int=101
 rbot-srv-force.cog botid:int=2 forceflags:int=7695
-rbot-srv2.cog botid:int=2
+rbot-srv-weapons.cog botid:int=2
+rbot-srv-ctf.cog botid:int=2
 rbot-srv.cog botid:int=3 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=523 teambotskinid:int=102
 rbot-srv-force.cog botid:int=3 forceflags:int=7695
-rbot-srv2.cog botid:int=3
+rbot-srv-weapons.cog botid:int=3
+rbot-srv-ctf.cog botid:int=3
 rbot-srv.cog botid:int=4 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=533 teambotskinid:int=101
 rbot-srv-force.cog botid:int=4 forceflags:int=255
-rbot-srv2.cog botid:int=4
+rbot-srv-weapons.cog botid:int=4
+rbot-srv-ctf.cog botid:int=4
 rbot-srv.cog botid:int=5 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=537 teambotskinid:int=102
 rbot-srv-force.cog botid:int=5 forceflags:int=255
-rbot-srv2.cog botid:int=5
+rbot-srv-weapons.cog botid:int=5
+rbot-srv-ctf.cog botid:int=5
 rbot-srv.cog botid:int=6 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=534 teambotskinid:int=101
 rbot-srv-force.cog botid:int=6 forceflags:int=7695
-rbot-srv2.cog botid:int=6
+rbot-srv-weapons.cog botid:int=6
+rbot-srv-ctf.cog botid:int=6
 rbot-srv.cog botid:int=7 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=535 teambotskinid:int=102
 rbot-srv-force.cog botid:int=7 forceflags:int=7695
-rbot-srv2.cog botid:int=7
+rbot-srv-weapons.cog botid:int=7
+rbot-srv-ctf.cog botid:int=7
 rbot-srv.cog botid:int=8 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=538 teambotskinid:int=101
 rbot-srv-force.cog botid:int=8 forceflags:int=255
-rbot-srv2.cog botid:int=8
+rbot-srv-weapons.cog botid:int=8
+rbot-srv-ctf.cog botid:int=8
 rbot-srv.cog botid:int=9 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=539 teambotskinid:int=102
 rbot-srv-force.cog botid:int=9 forceflags:int=255
-rbot-srv2.cog botid:int=9
+rbot-srv-weapons.cog botid:int=9
+rbot-srv-ctf.cog botid:int=9
 rbot-srv.cog botid:int=10 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=540 teambotskinid:int=101
 rbot-srv-force.cog botid:int=10 forceflags:int=7695
-rbot-srv2.cog botid:int=10
+rbot-srv-weapons.cog botid:int=10
+rbot-srv-ctf.cog botid:int=10
 rbot-srv.cog botid:int=11 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=541 teambotskinid:int=102
 rbot-srv-force.cog botid:int=11 forceflags:int=7695
-rbot-srv2.cog botid:int=11
+rbot-srv-weapons.cog botid:int=11
+rbot-srv-ctf.cog botid:int=11
 rbot-srv.cog botid:int=12 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=542 teambotskinid:int=101
 rbot-srv-force.cog botid:int=12 forceflags:int=255
-rbot-srv2.cog botid:int=12
+rbot-srv-weapons.cog botid:int=12
+rbot-srv-ctf.cog botid:int=12
 rbot-srv.cog botid:int=13 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=543 teambotskinid:int=102
 rbot-srv-force.cog botid:int=13 forceflags:int=255
-rbot-srv2.cog botid:int=13
+rbot-srv-weapons.cog botid:int=13
+rbot-srv-ctf.cog botid:int=13
 rbot-srv.cog botid:int=14 botname:int=-1 botskinid:int=-1 team:int=1 teambotname:int=544 teambotskinid:int=101
 rbot-srv-force.cog botid:int=14 forceflags:int=7695
-rbot-srv2.cog botid:int=14
+rbot-srv-weapons.cog botid:int=14
+rbot-srv-ctf.cog botid:int=14
 rbot-srv.cog botid:int=15 botname:int=-1 botskinid:int=-1 team:int=2 teambotname:int=545 teambotskinid:int=102
 rbot-srv-force.cog botid:int=15 forceflags:int=7695
-rbot-srv2.cog botid:int=15
+rbot-srv-weapons.cog botid:int=15
+rbot-srv-ctf.cog botid:int=15
 rbot-skin.cog skinid:int=101 rtemp:template=rbot_kylered weapmesh0:model=red-0.3do weapmesh1:model=red-1.3do weapmesh2:model=red-2.3do weapmesh3:model=red-3.3do weapmesh4:model=red-4.3do weapmesh5:model=red-5.3do weapmesh6:model=red-6.3do weapmesh7:model=red-7.3do weapmesh8:model=red-8.3do weapmesh9:model=red-9.3do weapmesh10:model=red-10.3do
 rbot-skin.cog skinid:int=102 rtemp:template=rbot_kylegold weapmesh0:model=yel-0.3do weapmesh1:model=yel-1.3do weapmesh2:model=yel-2.3do weapmesh3:model=yel-3.3do weapmesh4:model=yel-4.3do weapmesh5:model=yel-5.3do weapmesh6:model=yel-6.3do weapmesh7:model=yel-7.3do weapmesh8:model=yel-8.3do weapmesh9:model=yel-9.3do weapmesh10:model=yel-10.3do
 END

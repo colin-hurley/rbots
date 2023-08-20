@@ -210,7 +210,7 @@ shutdown:
 
 killed:
    if(player != GetSenderRef()) Return;
-
+	killer=GetSourceRef();
    if(IsMulti())
    {
 		//CreateBackpack(player);
@@ -228,7 +228,7 @@ killed:
 		// Sends Trigger to rbot-startup.cog so the name of the bot
 		// can be displayed.  Was the only way I could get it to work [HR]
 
-		if(GetThingType(ref) == 2) SendTrigger(-1, 990, player, ref, -1, -1);
+		SendTrigger(-1, 961, player, killer, -1, -1);
    }
 
    SetActionCog(-1, 0);

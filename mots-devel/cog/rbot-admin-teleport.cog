@@ -80,11 +80,11 @@ user0:
 	// FIXME: Technically, we don't need a bot selected to teleport the player to a saved location, but this logic currently requires it
 	if (srv != -1)
 	{
-		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-		if (BitTest(botmode, 0x10000)) // Bot is alive
+		rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
+		if (rbot != -1 && GetThingHealth(rbot) > 0) // Bot is alive
 		{
-			botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
-			rbot = SendMessageEx(srv, user7, 1013, -1, -1, -1);
+			botid = SendMessageEx(srv, user7, 10201000, -1, -1, -1);
+			botmode = SendMessageEx(srv, user7, 10201003, -1, -1, -1);
 			if (GetParam(0) == teleport_bot)
 			{
 				// Teleport bot to player's location

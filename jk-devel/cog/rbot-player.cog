@@ -71,8 +71,6 @@ int			damager							local
 flex		dot								local
 template	tmp_backpack=+backpack			local
 thing		item							local
-int			ref								local
-
 
 message     startup
 message     killed
@@ -107,7 +105,7 @@ startup:
 
 killed:
    if(player != GetSenderRef()) Return;
-	ref=GetSourceRef();
+	killer=GetSourceRef();
    if(IsMulti())
    {
 		//CreateBackpack(player);
@@ -125,8 +123,7 @@ killed:
 		// Sends Trigger to rbot-startup.cog so the name of the bot
 		// can be displayed.  Was the only way I could get it to work [HR]
 
-		if(GetThingType(ref) == 2) SendTrigger(-1, 990, player, ref, -1, -1);
-
+		SendTrigger(-1, 961, player, killer, -1, -1);
    }
 
    // clean up force powers stuff

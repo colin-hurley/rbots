@@ -11,10 +11,13 @@ flags=0x280
 
 symbols
 
+message		trigger
 message		entered
 message		exited
 message		crossed
 message		timer
+
+cog			system=-1							local
 
 # Special surfaces
 surface		sp0=-1								mask=0x4
@@ -61,7 +64,6 @@ int			spinf18=0
 int			spinf19=0
 
 # Working variables
-cog			srv									local
 int			mode								local
 int			i									local
 int			botid								local
@@ -74,6 +76,19 @@ end
 
 code
 
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
+
 entered:
 	if (IsMulti() && !IsServer()) return; // Host only
 	rbot = GetSourceRef();
@@ -82,13 +97,13 @@ entered:
 	{
 		// Either this actor is not actually a bot, or it is a bot that just
 		// respawned on a surface with special info.  In the latter case, the
-		// bot's srv/srv2 cogs are still initializing and waiting for this
+		// bot's srv cogs are still initializing and waiting for this
 		// thread to return from the CreateThing* verb that is creating the
 		// bot, so we need to delay application of the special info until after
-		// the srv/srv2 cogs are fully initialized.  This is accomplished by
+		// the srv cogs are fully initialized.  This is accomplished by
 		// setting a timer to execute immediately after this thread returns.
-		// The capture cog is checked again in the tiemr, and if the actor
-		// still has no capture cog, we know it's not a bot.
+		// The class cog is checked again in the tiemr, and if the actor
+		// still has no class cog, we know it's not a bot.
 		SetTimerEx(0.001, 1, rbot, sf);
 		return;
 	}
@@ -120,9 +135,8 @@ timer:
 	return;
 
 update_bot:
-	srv = GetThingClassCog(rbot); // Get reference to the bot's srv cog
-	if (srv == -1) return; // Not a bot
-	botid = SendMessageEx(srv, user7, 1000, -1, -1, -1);
+	botid = SendMessageEx(system, user7, 10103000, rbot, -1, -1);
+	if (botid == -1) return; // Not a bot
 
 	// Apply special modes
 	for (i = 0 ; i < 20 ; i = i + 1)
@@ -136,4 +150,3 @@ update_bot:
 	return;
 
 end
-

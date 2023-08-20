@@ -25,7 +25,7 @@ int			prevbot								local
 int			selection=-1						local
 
 # Reference to rbot-startup.cog
-cog			manager=-1							local
+cog			system=-1							local
 
 # References to rbot-srv.cog, indexed by botid (up to 32 bots supported)
 cog			srv0=-1								local
@@ -86,7 +86,7 @@ startup:
 shutdown:
 	// Reset variables when exiting level so we don't have a stale references
 	// and values when the next level starts.
-	manager = -1;
+	system = -1;
 	for (i = 0 ; i < 32 ; i = i + 1)
 	{
 		srv0[i] = -1;
@@ -99,7 +99,7 @@ trigger:
 	{
 		if (GetParam(0) == 1010) // rbot-startup.cog
 		{
-			manager = GetParam(1);
+			system = GetParam(1);
 		}
 		else if (GetParam(0) == 1020) // rbot-srv.cog
 		{
@@ -111,7 +111,7 @@ trigger:
 
 // Execute
 user0:
-	numbots = SendMessageEx(manager, user7, 1000, -1, -1, -1);
+	numbots = SendMessageEx(system, user7, 10101000, -1, -1, -1);
 	if (GetParam(0) == nextbot)
 	{
 		selection = selection + 1; // Select next bot
@@ -129,7 +129,7 @@ user0:
 		srv = srv0[selection];
 		if (srv != -1)
 		{
-			botname = SendMessageEx(srv, user7, 1001, -1, -1, -1);
+			botname = SendMessageEx(srv, user7, 10201001, -1, -1, -1);
 			jkStringClear();
 			jkStringConcatAsciiString("Selected bot: ");
 			jkStringConcatUNIString(1000+botname);
@@ -166,21 +166,21 @@ user1:
 // Returns the function-specific result of the execution
 user7:
 	// Simple symbol value reads
-	if (GetParam(0) == 1000) ReturnEx(selection);
+	if (GetParam(0) == 1000) { ReturnEx(selection); return; }
+
 	// Computed values
-	else if (GetParam(0) == 2000)
+	if (GetParam(0) == 2000)
 	{
 		if (selection == -1) ReturnEx(-1);
 		else ReturnEx(srv0[selection]);
+		return;
 	}
-	// Otherwise, report error
-	else
-	{
-		jkStringClear();
-		jkStringConcatFormattedInt(GetSenderRef(), "rbot-admin-selection.cog :: ERROR :: Cog %d");
-		jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
-		jkStringOutput(-1, -1);
-	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-admin-selection.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
 end

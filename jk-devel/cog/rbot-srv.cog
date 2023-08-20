@@ -1,4 +1,4 @@
-# Rbot Server Cog - AI (synch)
+# Rbot Server Cog - Primary AI
 #
 # Server-only
 # Type ID: 1020
@@ -6,7 +6,7 @@
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
 
-flags=0x80
+flags=0x40
 
 symbols
 
@@ -16,7 +16,6 @@ message		pulse
 message		trigger
 message		timer
 message		damaged
-message		user1
 message		user7
 
 int			botid=0
@@ -34,114 +33,26 @@ int			teambotname=-1
 int			teambotskinid=-1
 
 # Game setup options - set from startup cog
-int			gamemode=0							local
+#int			gamemode=0							local
 int			difficulty=0						local
 
 # Internal bot references
-thing		rbot								local
+thing		rbot=-1								local
 int			botmode								local
-cog			srv2								local
-cog			srv_force							local
+cog			system=-1							local
+cog			srv_ext=-1							local
+cog			srv_force=-1						local
+cog			srv_weapons=-1						local
 cog			spitem=-1							local
-
-# Weapon fire projectiles
-template	projectile_weap00=+rbotsaber		local
-template	projectile_weap00a=+rbotsaber2		local
-template	projectile_weap01=+punch			local
-template	projectile_weap02=+bryarbolt		local
-template	projectile_weap03=+stlaser			local
-#template	projectile_weap05=+crossbowbolt		local
-#template	projectile_weap05a=+crossbowbolt2	local
-template	projectile_weap05b=+crossbowbolt3	local
-template	projectile_weap06=+repeaterball		local
-template	projectile_weap07=+raildet			local
-template	projectile_weap07a=+raildet2		local
-template	projectile_weap08=+seqchrg			local
-template	projectile_weap08a=+seqchrg2		local
-template	projectile_weap09=+concbullet		local
-template	projectile_weap09a=+concblast2		local
-
-# Projectiles to jump away from with saber
-#template	dproj0=+raildet						local
-#template	dproj1=+concbullet					local
-
-# Item models
-model		itemmodel0=conp.3do					local desc=conc_rifle
-model		itemmodel1=rldp.3do					local desc=rail_gun
-model		itemmodel2=rptp.3do					local desc=repeater
-model		itemmodel3=strp.3do					local desc=st_rifle
-model		itemmodel4=bowp.3do					local desc=crossbow
-model		itemmodel5=ecel.3do					local desc=energy_cell
-model		itemmodel6=pcel.3do					local desc=power_cell
-model		itemmodel7=rcrg.3do					local desc=rail_dets
-model		itemmodel8=detp.3do					local desc=thermal_dets
-model		itemmodel9=seqp.3do					local desc=sequencers
-model		itemmodel10=hepk.3do				local desc=health
-model		itemmodel11=shld.3do				local desc=shield
-model		itemmodel12=vest.3do				local desc=full_shield
-model		itemmodel13=flgr.3do				local desc=red_flag
-model		itemmodel14=flgy.3do				local desc=gold_flag
-#model		itemmodel15=seq0.3do				local desc=live_sequencer
-model		itemmodel16=r-key.3do				local desc=red_key
-model		itemmodel17=y-key.3do				local desc=gold_key
 
 # Respawn Effects
 template	teleport_particles=+telesparks		local
 sound		teleportsnd=ForceThrow01.WAV		local
 
-# Weapon sounds
-sound		mountSoundgun0=df_bry_ready.wav		local
-sound       mountSoundgun1=df_rif_ready.wav		local
-sound		mountSoundgun2=RailChargeArm01.WAV	local
-sound		mountSoundsaber=LtSaberOn01.WAV		local
-sound		dismountSoundsaber=LtSaberOff01.WAV	local
-sound		humSound01=LtSaberLp01.WAV			local
-
-# Weapon fire sounds
-sound		snd_fireweap01=SwingFist01.wav		local
-sound		snd_fireweap01a=SwingFist04.wav		local
-sound		snd_fireweap02=pistol-1.wav			local
-sound		snd_fireweap03=trprsht2.wav			local
-#sound		snd_fireweap05=BCFire01.wav			local
-sound		snd_fireweap05a=BCFire02.wav		local
-sound		snd_fireweap06=rpeatrlp.wav			local
-#sound		snd_fireweap06a=repeat-1.wav		local
-sound		snd_fireweap07=RailChargeFire01.WAV	local
-sound		snd_fireweap09=concuss5.wav			local
-
-# Saber attack sounds
-sound		swingSound0=LtSaberSwing01.WAV		local
-sound		swingSound1=LtSaberSwing02.WAV		local
-sound		swingSound2=LtSaberSwing03.WAV		local
-sound		swingSound3=LtSaberSwing04.WAV		local
-sound		swingSound4=LtSaberSwing05.WAV		local
-sound		swingSound5=LtSaberSwing06.WAV		local
-sound		swingSound6=LtSaberSwing07.WAV		local
-sound		swingSound7=LtSaberSwing08.WAV		local
-sound		swingSoundDbl01=LtSaberSwingDbl01.WAV	local
-
-# Saber attack animation
-keyframe	fireAnimR1=KYsabrr1.key				local
-keyframe	fireAnimL1=KYsabrl1.key				local
-keyframe	fireAnimB1=KYsabrb1.key				local
-keyframe	fireAnimB2=KYsabrb2.key				local
-keyframe	fireAnimF1=KYsnap1.key				local
-keyframe	fireAnimF2=KYsnap2.key				local
-keyframe	snapAnim0=KYsabrf1.key				local
-keyframe	snapAnim1=KYsabrf2.key				local
-keyframe	snapAnim2=KYsabrf1.key				local
-keyframe	chargeAnim=KYcharge.key				local
-
-# Saber block animation
-keyframe    blockAnim0=KYblock0.key				local
-keyframe    blockAnim1=KYblock1.key				local
-keyframe    blockAnim2=KYblock2.key				local
-
 # Misc
 int			curteam								local
 int			curbotname							local
 int			curbotskinid						local
-int			curweap								local
 thing		node								local
 sector		nodesec								local
 flex		nodesize							local
@@ -150,28 +61,19 @@ vector		waitpos								local
 vector		lastbotpos							local
 vector		newpos								local
 int			lastposnum							local
-thing		target								local
 vector		blindvec							local
-int			targweap							local
 # Which direction the bot is running
 # 0 = backward
 # 1 = forward
 int			rundir								local
-int			shields								local
 int			stopcount							local
-thing		newitem								local
 thing		prevnode							local
 int			lostcount							local
 int			drowning							local
-int			captured_red						local
-int			captured_gold						local
-int			redflag_taken						local
-int			goldflag_taken						local
+int			target_mask							local
 int			allowdodge							local
 int			arrival_event						local
-int			humChannel=-1						local
-int			blocktrack=-1						local
-int			nextblock=0							local
+int			maxthings							local
 
 # This symbol contains the fall threshold for the bot.  If the Z coordinate of
 # the bot's position drops below this value, then logic to check if the bot has
@@ -186,6 +88,29 @@ flex		fallcheck							local
 # This flag is set when the bot should jump at the next opportunity.
 int			jump								local
 
+# The target (bot or player) that this bot is trying to attack
+thing		target=-1							local
+
+# The bot or actor that most recently damaged the bot
+thing		attacker=-1							local
+
+# The item (powerup) that his bot is trying to collect
+thing		item=-1								local
+
+# Item templates
+template	tmp_bacta=BACTATANK					local
+template	tmp_health=HEALTHPACK				local
+template	tmp_shields=SHIELDRECHARGE			local
+template	tmp_supershield=SUPERSHIELD			local
+template	tmp_fullshield=FULLSHIELD			local
+template	tmp_revivepack=REVIVEPACK			local
+template	tmp_backpack=+backpack				local
+
+# Inventory items
+int			shields								local
+int			inv_bacta							local
+int			inv_keys							local
+
 # Transient working vars
 vector		relpos								local
 flex		tempflex1							local
@@ -196,26 +121,25 @@ vector		tempvector3							local
 vector		tempvector4							local
 flex		dist								local
 int			mode								local
-flex		dot									local
 flex		choice								local
 flex		damage								local
 int			damagetype							local
 thing		damager								local
+thing		killer								local
+int			extra								local
 sector		cursector							local
-int			forcemode							local
-int			bot_keys							local
-thing		item								local
-model		newitemmodel						local
+int			priority							local
 int			itempriority						local
-int			newitempriority						local
+int			targetpriority						local
 int			special								local
-int			nextanim							local
 thing		potential							local
 int			obstructed							local
 flex		timeout								local
-int			slashsound							local
 int			reachednode							local
+int			targetok							local
 thing		spawnpoint							local
+thing		backpack							local
+flex		movespeed							local
 
 end
 
@@ -229,86 +153,76 @@ startup:
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1020, GetSelfCog(), botid, -1);
 
+	// Select skin, name, etc. depending on whether team play is active
+	if (GetMultiModeFlags() & 0x1) // team play
+	{
+		// Team play
+		curteam = team;
+		curbotskinid = teambotskinid;
+		curbotname = teambotname;
+	}
+	else
+	{
+		// Non-team play
+		curteam = 0; // no team
+		curbotskinid = botskinid;
+		curbotname = botname;
+	}
+
+	maxthings = GetThingCount(); // work out how many objects in the level
+	target_mask = 0x404; // Attack both actors and players by default
+	botmode = 0x80000; // bot disabled
 	return;
 
 pulse:
 	if (IsMulti() && !IsServer()) return; // Host only
 	if (AIGetMode(rbot) & 0x2000) return; // bot AI disabled
-	forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
-	SendTrigger(-1, 100000, botid, rbot, forcemode, -1); // request update
-	call dodge;
+	call findtarget;
+	call finditem;
+	call checkitems;
+	call checknode;
 	call move;
-	syncthingpos(rbot);
+	call checkspeed;
+	SyncThingPos(rbot);
 	return;
 
 killed:
 	if (IsMulti() && !IsServer()) return; // Host only
-	setpulse(0);
+	killer = GetSourceRef();
 	StopThing(rbot);
-	botmode=BitClear(botmode,0x10000); // bot no longer alive
-	KillTimerEx(120); // stop checking for 'bot lost'
-	KillTimerEx(230); // stop periodic blindvec updates
-	KillTimerEx(300); // stop checking if bot is in a pit
-	SendTrigger(-1, 1000, botid, getsenderref(), getsourceref(), rbot); // send bot died event
-	if (curweap == 10) // current weapon is saber
-	{
-		// The bot died with the saber selected, stop the waber weapon effects
-		// For some reason, trying to do this in the killed/damaged message directly does not work (the saber dismount
-		// sound doesn't play), but doing it in a timer shortly after the bot dies does work.  Adding the 0x100 flag
-		// doesn't help.  Maybe the sound is conflicting with the bot's soundclass death sound?
-		SetTimerEx(0.05, 160, -1, -1);
-	}
+	backpack = CreateThingNr(tmp_backpack, rbot); // create backpack
+
+	// Tell other srv cogs that the bot died
+	SendMessageEx(srv_force, user7, 10223006, backpack, -1, -1);
+	SendMessageEx(srv_weapons, user7, 10233006, backpack, -1, -1); // fill backpack with weapons and ammo
+
+	call stop_bot_ai;
+
+	SendTrigger(-1, 960, rbot, killer, -1, -1); // send bot died event
+	SetTimerEx(5.0, 100, -1, -1); // respawn bot after a few seconds
 	return;
 
 damaged:
 	if (IsMulti() && !IsServer()) return; // Host only
-	if (!BitTest(botmode, 0x10000)) return; // bot already dead
 
-	damage=GetParam(0);
-	damagetype=GetParam(1);
-	damager=getsourceref(); // projectile - attacker=GetThingParent()
+	if (GetThingHealth(rbot) <= 0) return; // bot already dead
 
-	if (damager!= -1 && (GetThingType(GetThingParent(damager)) == 2 || GetThingType(GetThingParent(damager)) == 10)) // attacker is another bot or player
+	damage = GetParam(0);
+	damagetype = GetParam(1);
+	damager = GetSourceRef(); // projectile - attacker=GetThingParent()
+
+	if (BitTest(damagetype, 0x20)) // drowning
 	{
-		AiSetLookPos(rbot, getthingpos(GetThingParent(damager))); // briefly look at who damaged the bot
-	}
-
-	if (BitTest(damagetype,0x20)) // drowning
-	{
-		drowning=1;
-		KillTimerEx(150); // disable any previous drowning timer
-		SetTimerEx(7.0, 150, -1, -1);
+		drowning = 1;
 		ReturnEx(damage);
 		return;
 	}
 
-	if (curweap == 10 && BitTest(botmode,0x200000)) // bot has saber - check if it can block
-	{
-		// Check for saber blocking
-		dot = ThingViewDot(rbot, getthingparent(damager));
-		if ((BitTest(damagetype, 0x10) && dot > 0.9 && dot < 1.1 && difficulty < 2) || (BitTest(damagetype, 0x10) && dot > 0.5 && dot < 1.5 && difficulty < 4) || (BitTest(damagetype, 0x10) && dot > 0.3 && dot < 1.7)) // attacker has saber & bot is facing attacker
-		{
-			call block_anim; // play saber block animation
-			ReturnEx(0);
-			return;
-		}
-		if ((BitTest(damagetype, 0x2) && dot > 0.9 && dot < 1.1 && difficulty < 2) || (BitTest(damagetype, 0x2) && dot > 0.5 && dot < 1.5 && difficulty < 4) || (BitTest(damagetype, 0x2) && dot > 0.3 && dot < 1.7)) // attacked by energy weapon & bot is _mainly_ facing attacker
-		{
-			call block_anim; // play saber block animation
-			// Also deflect projectile
-			if (difficulty < 3) // test to see how random the blocked projectiles are
-			{
-				tempvector1=VectorSet((Rand()-0.5)*(5-difficulty), (Rand()-0.5)*(5-difficulty), 0.0);
-			}
-			else tempvector1=VectorSet(0.0, 0.0, 0.0);
-			FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10); // make it random fire vector later
-			ReturnEx(0);
-			return;
-		}
-	}
+	// Give saber a chance to block the damage
+	damage = SendMessageEx(srv_weapons, user7, 10233002, damage, damagetype, damager);
 
 	// If team play is enabled, prevent friendly fire from teammates
-	if (damager != rbot && BitTest(gamemode,0x8))
+	if (rbot != damager && rbot != GetThingParent(damager) && (GetMultiModeFlags() & 0x1) && (GetMultiModeFlags() & 0x2)) // team play and no damage to teammates
 	{
 		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam)
 		{
@@ -324,52 +238,54 @@ damaged:
 		}
 	}
 
+	attacker = -1;
+	if (damager != -1 && damager != rbot && GetThingParent(damager) != rbot && (GetThingType(GetThingParent(damager)) == 2 || GetThingType(GetThingParent(damager)) == 10)) // attacker is another bot or player
+	{
+		attacker = GetThingParent(damager);
+		KillTimerEx(170);
+		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage
+	}
+
 	// Force powers may reduce the damage
-	damage = SendMessageEx(srv_force, user7, 3002, damage, damagetype, damager);
+	damage = SendMessageEx(srv_force, user7, 10223002, damage, damagetype, damager);
 
 	// Shields may reduce the damage
 	// TODO: This currently behaves a bit differently than the player shields - when a player
 	// dips below 50 shields, the shields become less effective and the player starts taking
 	// more health damage.  Bots, on the other hand, use up the shields completely before
 	// taking any health damage.
-	// Note: The 100003 trigger sent to srv2 is what actually reduces the bot's shield amount
 	if (BitTest(damagetype, 0x10)) // saber attack damage - combined health & shields
 	{
-		if (shields > 0)
+		// Split damage between shields and health
+		damage = damage / 2;
+		if (damage > shields)
 		{
-			// Split damage between shields and health
-			damage = damage / 2;
-			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager),-1); // update srv2 with damage
-			if (damage > shields)
-			{
-				damage = damage + damage - shields;
-			}
-			else
-			{
-				damage = 0;
-			}
+			damage = damage + damage - shields;
+			shields = 0;
+		}
+		else
+		{
+			shields = shields - damage;
 		}
 	}
 	if (BitTest(damagetype, 0x2) || BitTest(damagetype, 0x4)) // Damage from energy or fire
 	{
-		if (shields > 0)
+		if (damage > shields)
 		{
-			SendTrigger(-1, 100003, botid, damage, GetThingParent(damager), -1); // update srv2 with damage
-			if (damage > shields)
-			{
-				damage = damage - shields;
-			}
-			else
-			{
-				damage = 0;
-			}
+			damage = damage - shields;
+			shields = 0;
+		}
+		else
+		{
+			shields = shields - damage;
+			damage = 0;
 		}
 	}
 
 	if (damage > GetThingHealth(rbot)) // if damage is going to kill bot - switch off checking routines
 	{
 		// make sure bot dies
-		SetThingHealth(rbot,1);
+		SetThingHealth(rbot, 1);
 		StopThing(rbot); //Make 'em stay in place like when player dies [HR]
 		ReturnEx(10);
 		return;
@@ -384,13 +300,22 @@ trigger:
 
 	if (GetSourceRef() == 1852000) // Rbot cog type discovery
 	{
-		if (GetParam(0) == 1021) // rbot-srv2.cog
+		if (GetParam(0) == 1010) // rbot-startup.cog
 		{
-			if (GetParam(2) == botid) srv2 = GetParam(1);
+			system = GetParam(1);
+		}
+		if (GetParam(0) == 1021) // rbot-srv-<ext>.cog
+		{
+			// The srv extension module (e.g. CTF, KFY)
+			if (GetParam(2) == botid) srv_ext = GetParam(1);
 		}
 		if (GetParam(0) == 1022) // rbot-srv-force.cog
 		{
 			if (GetParam(2) == botid) srv_force = GetParam(1);
+		}
+		if (GetParam(0) == 1023) // rbot-srv-weapons.cog
+		{
+			if (GetParam(2) == botid) srv_weapons = GetParam(1);
 		}
 		if (GetParam(0) == 1041) // rbot-item-special.cog
 		{
@@ -402,25 +327,8 @@ trigger:
 
 	if (GetSourceRef() == 800) // game setup options
 	{
-		gamemode=getparam(0);
-		difficulty=getparam(1);
-
-		// Select skin, name, etc. depending on whether team play is active
-		if (BitTest(gamemode, 0x8))
-		{
-			// Team play
-			curteam = team;
-			curbotskinid = teambotskinid;
-			curbotname = teambotname;
-		}
-		else
-		{
-			// Non-team play
-			curteam = 0; // no team
-			curbotskinid = botskinid;
-			curbotname = botname;
-		}
-
+		#gamemode = GetParam(0);
+		difficulty = GetParam(1);
 		return;
 	}
 
@@ -438,66 +346,28 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 12210) // updated CTF info
+	if (GetSourceRef() == 120000) // Update target mask
 	{
-		captured_red=GetParam(0);
-		captured_gold=GetParam(1);
-		redflag_taken=GetParam(2);
-		goldflag_taken=GetParam(3);
+		if (GetParam(0))
+		{
+			target_mask = BitSet(target_mask, 0x400); // Attack players
+		}
+		else
+		{
+			target_mask = BitClear(target_mask, 0x400); // Ignore players
+		}
+		if (GetParam(1))
+		{
+			target_mask = BitSet(target_mask, 0x4); // Attack bots
+		}
+		else
+		{
+			target_mask = BitClear(target_mask, 0x4); // Ignore bots
+		}
 		return;
 	}
 
 	if (GetParam(0) != botid) return; // not for this bot
-
-	if (GetSourceRef() == 900 && !BitTest(botmode,0x10000)) // respawn new bot && bot not already in-game and alive
-	{
-		spawnpoint = GetParam(1);
-		gamemode = GetParam(2);
-		difficulty = GetParam(3);
-
-		// Reinitialize to default bot state
-		botmode = 0x0;
-		node = -1;
-		newpos = '0 0 0';
-		nodesec = 0;
-		nodesize = 0.25;
-		nodeflags = 0x0;
-		lastposnum = -1;
-		lastbotpos = '0 0 0';
-		arrival_event = -1;
-		prevnode = -1;
-		lostcount = 0;
-		stopcount = 0;
-		allowdodge = 1;
-		fallcheck = 0;
-		jump = 0;
-
-		// Create bot
-		rbot = -1;
-		SendTrigger(-1, 101060, curbotskinid, botid, spawnpoint, -1);
-		if (rbot == -1) return; // bot creation failed, cogs may be misconfigured
-
-		// Do respawn effects
-		jkStringClear();
-		jkStringConcatUNIString(1000+curbotname);
-		jkStringConcatAsciiString(" respawns");
-		jkStringOutput(-3,-1);
-		CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
-		PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
-
-		// Start bot AI processes, etc.
-		botmode = BitSet(botmode, 0x10000); // bot alive
-		SetThingClassCog(rbot, GetSelfCog());
-		SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
-		SetTimerEx(1.0, 230, -1, -1); // start periodic blindvec updates (i.e. random vector for blinded bots to move to)
-		SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
-		SetPulse(0.1);
-
-		// Notify other cogs of bot respawn
-		SendTrigger(-1, 950, botid, rbot, curbotname, curteam); // Send bot respawn event
-
-		return;
-	}
 
 	if (GetSourceRef() == 101061) // new bot created
 	{
@@ -505,27 +375,30 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 901) // remove bot from game
-	{
-		if (BitTest(botmode,0x10000)) // bot alive
-		{
-			jkstringclear();
-			jkStringConcatUNIString(1000+curbotname);
-			jkStringConcatAsciiString(" has left the game");
-			jkStringOutput(-3,-1);
-			ClearActorFlags(rbot, 0x8); // invulnerable
-			DamageThing(rbot,500,1,rbot); // Make sure bot is dead
-		}
-		return;
-	}
-
 	if (GetSourceRef() == 11020) // Received special info
 	{
-		special = getparam(1);
+		special = GetParam(1);
 		mode = GetParam(2);
-		if (mode && ((BitTest(special, 0x4) && !BitTest(botmode, 0x1000)) || (BitTest(special, 0x8) && BitTest(botmode, 0x1000)))) // Bot needs to jump
+		if (BitTest(special, 0x2)) // Bot needs to walk instead of running
 		{
-			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
+			KillTimerEx(130);
+			if (mode) // Enable effect
+			{
+				botmode = BitSet(botmode, 0x100000);
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
+				}
+			}
+			else // Disable effect
+			{
+				botmode = BitClear(botmode, 0x100000);
+			}
+		}
+		if (mode && ((BitTest(special, 0x4) && rundir == 1) || (BitTest(special, 0x8) && rundir == 0))) // Bot needs to jump
+		{
+			if (target == -1) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
 			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
 			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
 			{
@@ -538,22 +411,48 @@ trigger:
 				jump = 1;
 			}
 		}
-		if (BitTest(special, 0x200)) // Bot needs to run fast
+		if (mode && ((BitTest(special, 0x20) && rundir == 1) || (BitTest(special, 0x40) && rundir == 0))) // Send activate to other cogs
 		{
-			KillTimerEx(220);
+			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger
+		}
+		if (mode && BitTest(special, 0x200)) // Bot needs to run fast
+		{
+			// Add a burst of speed toward the next node
+			tempvector1 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
+			AddThingVel(rbot, VectorScale(tempvector1, 2));
+		}
+		if (BitTest(special, 0x400)) // Disable item seeking, follow the path straight to the next node
+		{
+			KillTimerEx(180);
 			if (mode) // Enable effect
 			{
-				tempvector1 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-				AddThingVel(rbot, VectorScale(tempvector1, 2));
+				botmode = BitSet(botmode, 0x4000000);
 
 				if (mode == 2) // Enable effect for short duration only
 				{
-					SetTimerEx(3.0, 220, -1, -1);
+					SetTimerEx(5.0, 180, -1, -1); // allow bot to seek items again in a few seconds
 				}
 			}
 			else // Disable effect
 			{
-				AiSetMoveSpeed(rbot, 2.0); // Return to normal move speed
+				botmode = BitClear(botmode, 0x4000000);
+			}
+		}
+		if (BitTest(special, 0x800)) // Disable combat roaming, follow the path straight to the next node
+		{
+			KillTimerEx(181);
+			if (mode) // Enable effect
+			{
+				botmode = BitSet(botmode, 0x8000000);
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(5.0, 181, -1, -1); // allow bot to stray from the path during combat again in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				botmode = BitClear(botmode, 0x8000000);
 			}
 		}
 		return;
@@ -593,6 +492,8 @@ trigger:
 		node = GetParam(1);
 		nodesize = GetParam(2);
 		rundir = GetParam(3);
+		if (rundir) botmode = BitClear(botmode, 0x1000);
+		else botmode = BitSet(botmode, 0x1000);
 		return;
 	}
 
@@ -628,635 +529,21 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 100001) // New info available
-	{
-		target=getparam(1);
-		botmode=getparam(2);
-		curweap=getparam(3);
-		return;
-	}
-
-	if (GetSourceRef() == 100002) // New info available
-	{
-		shields=getparam(1);
-		return;
-	}
-
-	if (GetSourceRef() == 101000) // weapon changed
-	{
-		if (curweap == 10) // old weapon was saber
-		{
-			PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
-			if(humChannel != -1)
-			{
-				StopSound(humChannel, 0.5); // Stop resident saber noise
-				humChannel = -1;
-			}
-			SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
-		}
-		curweap=getparam(1);
-		if (curweap == 10) // saber
-		{
-			PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
-			humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
-			SetThingLight(rbot, 0.65, 0.25); // Extra light for saber glow
-		}
-		if (curweap == 2 || curweap == 5 || curweap == 6) // bryar, crossbow, repeater
-		{
-			PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
-		}
-		if (curweap == 3 || curweap == 9) // strifle, conc rifle
-		{
-			PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
-		}
-		if (curweap == 7) // railgun
-		{
-			PlaySoundThing(mountSoundgun2, rbot, 1.0, -1.0, -1.0, 0x80);
-		}
-
-		// Update weapon model
-		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1);
-		return;
-	}
-
-	if (GetSourceRef() == 101020) // weapon fired
-	{
-		curweap = GetParam(1);
-		mode = GetParam(2);
-		nextanim = GetParam(3);
-
-		// Stop saber block animation
-		if (blocktrack != -1)
-		{
-			StopKey(rbot, blocktrack, 0.1 );
-			blocktrack = -1;
-		}
-
-		// Bot accuracy		
-		if (curweap == 3) // st-rifle is always inaccurate
-		{
-			tempvector1=VectorSet((Rand()-0.5)*5, (Rand()-0.5)*5, 0.0);
-		}
-		else if (difficulty < 3) // set accuracy based on difficulty
-		{
-			tempvector1=VectorSet((Rand()-0.5)*(4-difficulty),(Rand()-0.5)*(4-difficulty), 0);
-		}
-		else
-		{
-			tempvector1=VectorSet(0, 0, 0); // perfect accuracy
-		}
-
-		// Lead distance
-		#if (difficulty == 4)
-		#{
-		#	// FIXME: projectile_weap00[curweap] does not retrieve the correct template (some weapons have two templates, so the index by weapon number is not accurate)
-		#	dummyproj = FireProjectile(rbot, projectile_weap00[curweap], -1, -1, '0 0 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-		#	targetvel = GetThingVel(target);
-		#	speed = VectorDist('0 0 0', VectorSub(GetThingVel(dummyproj), targetvel));
-		#	DestroyThing(dummyproj);
-		#	distance = VectorDist(GetThingPos(target), GetThingPos(rbot));
-		#	time = distance / speed;
-		#	AiSetLookPos(rbot, VectorAdd(GetThingPos(target), VectorScale(targetvel, time)));
-		#}
-
-		if (curweap == 1 && nextanim == 0) // fists
-		{
-			FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-			PlaySoundThing(snd_fireweap01, rbot, 1.0, 0.5, 2.5, 0x80);
-		}
-		if (curweap == 1 && nextanim == 1) // fists - alternate
-		{
-			FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0, 0.0, 0.0);
-			PlaySoundThing(snd_fireweap01a, rbot, 1.0, 0.5, 2.5, 0x80);
-		}
-		if (curweap == 2) // bryar
-		{
-			FireProjectile(rbot, projectile_weap02, snd_fireweap02, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x20, 30, 10);
-		}
-		if (curweap == 3) // st-rifle
-		{
-			FireProjectile(rbot, projectile_weap03, snd_fireweap03, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0, 0, 0);
-		}
-		if (curweap == 5) // bowcaster
-		{
-			FireProjectile(rbot, projectile_weap05b, snd_fireweap05a, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x20, 30, 20);
-		}
-		if (curweap == 6) // repeater
-		{
-			FireProjectile(rbot, projectile_weap06, -1, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x30, 25, 10 );
-			PlaySoundThing(snd_fireweap06, rbot, 1.0, -1, -1, 0x80);
-		}
-		if (curweap == 7 && mode == 0) // railgun
-		{
-			FireProjectile(rbot, projectile_weap07, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
-			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
-		}
-		if (curweap == 7 && mode == 1) // railgun - secondary fire
-		{
-			FireProjectile(rbot, projectile_weap07a, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x20, 30, 10);
-			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
-		}
-		if (curweap == 8 && mode == 0) // sequencer mine - explode now
-		{
-			FireProjectile(rbot, projectile_weap08, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0);
-		}
-		if (curweap == 8 && mode == 1) // sequencer mine - explode on contact
-		{
-			FireProjectile(rbot, projectile_weap08a, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0, 0.0, 0.0);
-		}
-		if (curweap == 9 && mode == 0) // conc rifle
-		{
-			FireProjectile(rbot, projectile_weap09, snd_fireweap09, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x20, 30, 5);
-			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
-		}
-		if (curweap == 9 && mode == 1) // conc rifle - secondary fire
-		{
-			FireProjectile(rbot, projectile_weap09a, snd_fireweap09, 18, '0.0 0.0 0.0', tempvector1, 1.0, 0x20, 30, 5);
-			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
-		}
-		if (curweap == 10) // lightsaber
-		{
-			// Schedule attack projectile creation
-			if (mode == 6) // Double swing slash
-			{
-				SetTimerEx(0.2, 200, -1, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 200, -1, -1); // fire 1st swing after 0.3 secs
-				SetTimerEx(0.6, 201, -1, -1); // fire 2nd swing after 0.6 secs
-				SetTimerEx(0.7, 201, -1, -1); // fire 2nd swing after 0.7 secs
-			}
-			else // Regular strike
-			{
-				SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
-			}
-
-			// Play attack animation
-			if (mode == 0) // underwater saber attack
-			{
-				if (nextanim == 0)
-					PlayMode(rbot, 8);
-				else
-					PlayMode(rbot, 18);
-				slashsound = Rand()*8;
-				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 1) // RIGHT Regular Strike
-			{
-				PlayKey(rbot, fireAnimR1, 1, 0x38);
-				slashSound = Rand()*8;
-				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 2) // LEFT Regular Strike
-			{
-				PlayKey(rbot, fireAnimL1, 1, 0x38);
-				slashSound = Rand()*8;
-				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 3) // BACKWARDS Strike
-			{
-				if (nextanim == 0)
-					PlayKey(rbot, fireAnimB1, 2, 0x38);
-				else
-					PlayKey(rbot, fireAnimB2, 2, 0x38);
-				slashsound = Rand()*8;
-				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 4) // STANDING Strike
-			{
-				if (nextanim == 0)
-					PlayKey(rbot, fireAnimF1, 2, 0x38);
-				else
-					PlayKey(rbot, fireAnimF2, 2, 0x38);
-				slashsound = Rand()*8;
-				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 5) // QUICK Slash
-			{
-				PlayKey(rbot, snapAnim0[GetParam(3)], 1, 0x38);
-				PlaySoundThing(swingSound0[GetParam(3)], rbot, 1.0, -1, -1, 0x80);
-			}
-			if (mode == 6) // HEAVY Slash
-			{
-				PlayKey(rbot, chargeAnim, 2, 0x38);
-				PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
-			}
-		}
-		return;
-	}
-
-	return;
-
-move:
-	if (GetActorFlags(rbot) & 0x40000) // bot is 'gripped', don't move
-	{
-		AiSetMovePos(rbot, GetThingPos(rbot));
-		return; 
-	}
-	if (GetActorFlags(rbot) & 0x800) // bot blind
-	{
-		AiSetMovePos(rbot, blindvec); // move to a random position
-		AiSetLookPos(rbot, blindvec); // look at the random position
-		return;
-	}
-
-	// Check our progress to the current node and request new node if necessary
-	call checknode;
-
-	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
-	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3)
-	{
-		// Bot is not moving forward, try to determine if it is truly obstructed
-		obstructed = 1;
-		if (GetThingFlags(rbot) & 0x2000000 && (VectorZ(GetThingPos(rbot)) - VectorZ(newpos)) > 0.25)
-		{
-			// Bot is underwater and is trying to swim down to the next node
-			obstructed = 0;
-		}
-		if (arrival_event != -1 && VectorDist(GetThingPos(rbot), waitpos) < 0.1)
-		{
-			// Bot is holding position while awaiting arrival
-			obstructed = 0;
-		}
-		if (VectorDist(GetThingPos(rbot), newpos) < (VectorDist(lastbotpos, newpos) - 0.05))
-		{
-			// Bot is still advancing toward the next node, despite not moving "forward" (e.g. elevators)
-			obstructed = 0;
-		}
-
-		// TODO: Possible force field detection logic:
-		//if (obstructed)
-		//{
-		//	for (index=0; index<GetSurfaceCount(); index=index+1)
-		//	{
-		//		if ((VectorDist(GetSurfaceCenter(index), GetThingPos(rbot)) < 0.3) && (GetSurfaceFlags(index) & 0x4000)) // close surface & magsealed - ie: forcefield
-		//		{
-		//			print("found force field!");
-		//			obstructed=0;
-		//			// TODO: do something about it
-		//		}
-		//	}
-		//}
-
-		// If the bot is obstructed for long enough, try to jump (or swim) up to get over the obstruction
-		if (obstructed)
-		{
-			stopcount = stopcount + 1;
-			// Jump at some random delay after reaching the obstruction threshold
-			// This encourages the bot to try slightly different timings for when it decides to jump
-			if (stopcount > 20 && Rand() > 0.25)
-			{
-				// Bot has not moved in several seconds, try to get over the obstruction
-				jump = 1;
-				stopcount = 0;
-			}
-		}
-	}
-	lastbotpos = GetThingPos(rbot);
-	
-	if (drowning) // Help bot from drowning
-	{
-		if (getthingflags(rbot) & 0x2000000) // bot is still underwater
-		{
-			if (GetHealth(rbot) < 70 || difficulty <2)
-			{
-				//print("drowning - moving up!");
-				// work out a vector postion 0.5 above the bot
-				tempvector1=VectorSet(VectorX(GetThingPos(rbot)),VectorY(GetThingPos(rbot)),VectorZ(GetThingPos(rbot))+0.5);
-				if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, tempvector1); // bot has no target - look at new position
-				AiSetMovePos(rbot, tempvector1); // move towards new position
-				call checkspeed;
-				return;
-			}
-		}
-		else
-		{
-			drowning=0;
-			KillTimerEx(150); // disable any previous drowning timer
-		}
-	}
-
-	// Check to see if bot needs to jump now
-	// The bot can jump if he is on the ground or at the water surface
-	// Players can't "jump" in the air, so bots shouldn't be able to, either
-	// If underwater, the bot will "jump" by swimming upward a bit (this is to help get around underwater obstructions)
-	if (jump && (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
-	{
-		ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
-		jump = 0;
-	}
-
-	// Look for items and move to them
-	newitem=-1; // Clear item target for all difficulty levels to prevent stale values
-	if (difficulty > 1 && !BitTest(botmode, 0x4000000)) // only look if difficulty allows and item seeking is not disabled
-	{
-		bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
-		if (BitTest(botmode,0x4000)) newitempriority=5; else newitempriority=-1; // bot has target - only pick up high priority items
-		dist = 100;
-		item = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 3, 0x020); // check if any items nearby
-		while (item != -1)
-		{
-			// Retrieve special info for this item
-			special = 0x0;
-			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, item, -1, -1);
-
-			// Find closest takable item that bot needs
-			tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(item));
-			tempflex2 = VectorZ(GetThingPos(item)) - VectorZ(GetThingPos(rbot));
-			if (tempflex2 < 0) tempflex2 = -tempflex2; // tempflex2 = abs(tempflex2)
-			if (!BitTest(special, 0x1) && HasLOS(rbot, item) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // item is not ignored and bot can see it and is close enough and item not too high/low
-			{
-				newitemmodel=GetThingModel(item);
-				itempriority=-1;
-
-				// work out item priority
-				if (newitemmodel == itemmodel13) // red flag
-				{
-					if (captured_red == 1) itempriority=10; // flag dropped
-					if (curteam == 1) // bot on red team
-					{
-						if (captured_red == 0 && goldflag_taken == rbot) itempriority=10; // red flag home & bot has gold flag
-					}
-					else // gold team
-					{
-						if (captured_red == 0) itempriority=10; // red flag at base
-					}
-				}
-				if (newitemmodel == itemmodel14) // gold flag
-				{
-					if (captured_gold == 1) itempriority=10; // flag dropped
-					if (curteam == 2) // bot on gold team
-					{
-						if (captured_gold == 0 && redflag_taken == rbot) itempriority=10; // gold flag home & bot has red flag
-					}
-					else // red team
-					{
-						if (captured_gold == 0) itempriority=10; // gold flag at base
-					}
-				}
-
-				if (tempflex1 > 0.2 && tempflex1 < dist) // item is greater than 0.2 away and is closer than the last item checked
-				{
-					if (newitemmodel==itemmodel16 && !BitTest(bot_keys, 0x1)) itempriority=9; // CTF red key
-					if (newitemmodel==itemmodel17 && !BitTest(bot_keys, 0x2)) itempriority=9; // CTF gold key
-					if (newitemmodel==itemmodel10 && BitTest(botmode,0x400)) itempriority=8; // health
-					if ((newitemmodel==itemmodel11 || newitemmodel==itemmodel12) && BitTest(botmode,0x800)) itempriority=7; // shield & full shield
-					if ((newitemmodel==itemmodel0 && BitTest(botmode,0x1)) || (newitemmodel==itemmodel1 && BitTest(botmode,0x2)) || (newitemmodel==itemmodel2 && BitTest(botmode,0x4)) || (newitemmodel==itemmodel3 && BitTest(botmode,0x8)) || (newitemmodel==itemmodel4 && BitTest(botmode,0x10))) itempriority=6; // weapons
-					if ((newitemmodel==itemmodel5 && BitTest(botmode,0x20)) || (newitemmodel==itemmodel6 && BitTest(botmode,0x40)) || (newitemmodel==itemmodel7 && BitTest(botmode,0x80)) || (newitemmodel==itemmodel8 && BitTest(botmode,0x100))) itempriority=5; // energy & power cells & rail dets
-					if ((newitemmodel==itemmodel9 && BitTest(botmode,0x200)) || (GetItemFlags(item) & 4)) itempriority=4; // sequencers or backpack
-				}
-
-				if (itempriority > newitempriority) // higher priority
-				{
-					newitem=item;
-					dist=tempflex1;
-					newitempriority=itempriority;
-				}
-			}
-			item = NextThingInView();
-		}
-		if (newitem != -1)
-		{
-			if (!BitTest(botmode,0x4000)) AiSetLookPos(rbot, getthingpos(newitem)); // only look at new item if no target
-			AiSetMovePos(rbot, getthingpos(newitem)); // move towards new item
-			call checkspeed;
-			// Reset the 'bot lost' timeout every pulse where the bot is going after an item
-			// After reaching the item, bot has 5 sec to get back to the next node before 'bot lost'
-			KillTimerEx(120); // Reset the 'bot lost' timeout
-			SetTimerEx(5.0, 120, -1, -1);
-			return;
-		}
-	}
-
-	if (BitTest(botmode,0x4000)) // bot has target
-	{
-		AiSetLookPos(rbot, GetThingPos(target));  // look at target
-		if (goldflag_taken == rbot || redflag_taken == rbot || GetThingHealth(rbot)<30 || BitTest(botmode, 0x8000000)) call movenode; else call targettactics; // if bot has flag or is low on health or combat roaming is disabled, keep moving to next node
-	}
-	else
-	{
-		AiSetLookPos(rbot, newpos); // look at move position
-		call movenode;
-	}
-	return;
-
-movenode:
-	if (arrival_event != -1) // bot is waiting, don't move
-	{
-		AiSetMovePos(rbot, waitpos);
-		return; 
-	}
-
-	call checkspeed;
-
-	// By default, move normally to next node
-	AiSetMovePos(rbot, newpos);
-
-	if (reachednode) // Reached node this pulse
-	{
-		// See if bot is moving fast and needs to make a sharp turn
-		tempvector1 = VectorNorm(GetThingVel(rbot));
-		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-		if (VectorLen(GetThingVel(rbot)) > 0.4 && VectorDot(tempvector1, tempvector2) < 0.7)
-		{
-			// If bot is not airborne, move to self position to help slow down for sharp turns
-			// This check is necessary because telling an actor to move to its own position seems to
-			// behave like StopThing and will reset vertical velocity like jumping and falling
-			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
-			{
-				AiSetMovePos(rbot, GetThingPos(rbot));
-			}
-		}
-	}
-	return;
-
-checknode:
-	// Call navigation cog for next move position
-	if (VectorDist(GetThingPos(rbot), newpos) < nodesize)
-	{
-		reachednode = 1;
-		if (node != -1) // Bot is heading for a node
-		{
-			if (prevnode != node) // Bot has reached a new node
-			{
-				// Reset lost counter to avoid unnecessary bot suicide
-				prevnode = node;
-				lostcount = 0;
-			}
-			// Reset stopcount - we've reached the next node, so any further obstructions should be new ones
-			stopcount = 0;
-		}
-		KillTimerEx(120); // reset 'bot lost' timeout
-		SetTimerEx(8.0, 120, -1, -1); 
-		SendTrigger(-1, 11010, botid, rbot, node, -1); // ask for special info on current pos
-		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
-		SendTrigger(-1, 13000, botid, rbot, botmode, lastposnum); // ask for new pos
-	}
-	else
-	{
-		reachednode = 0;
-		tempflex1 = VectorZ(GetThingPos(rbot));
-		tempflex2 = tempflex1 - 0.25;
-
-		// Update the fall threshold
-		if (fallcheck < tempflex2) // Bot is above the fall threshold
-		{
-			fallcheck = tempflex2; // Raise the fall threshold to slightly below the bot's current height
-			if (fallcheck > VectorZ(newpos)) fallcheck = VectorZ(newpos); // But don't raise the threshold above the node's actual position
-		}
-
-		// Check if bot has fallen
-		if (node != -1 && (tempflex1 < fallcheck) && !BitTest(nodeflags, 0x2000000)) // if bot is below the fall threshold & new pos is not in water
-		{
-			tempvector1=VectorSet(0,0,VectorZ(newpos));
-			tempvector2=VectorSet(0,0,VectorZ(GetThingPos(rbot)));
-			tempflex1 = VectorDist(tempvector1,tempvector2); // diff Z coord of bot and node
-
-			tempvector3=VectorSet(VectorX(newpos),VectorY(newpos),0);
-			tempvector4=VectorSet(VectorX(GetThingPos(rbot)),VectorY(GetThingPos(rbot)),0);
-			tempflex2 = VectorDist(tempvector3,tempvector4); // diff X/Y coords of bot and node
-
-			if (tempflex1 > 0.85 || (tempflex1 > 0.4 && tempflex2 < 0.2)) // bot fallen
-			{
-				KillTimerEx(120); // stop 'bot lost' timeout
-				SetTimerEx(0.1, 120, -1, -1); // force bot 'lost'
-			}
-		}
-	}
-	return;
-
-dodge:
-	// dodge projectiles
-	if (!allowdodge || difficulty < 3 || (difficulty < 4 && (10*rand() > difficulty))) return; // Difficulty 0,1,2 will never dodge. Difficulty 3 will sometimes dodge. Difficulty 4 will always dodge.
-
-	potential = FirstThingInView(rbot, 270, 0.8, 0x8); //Scan for projectiles to dodge (0x8)
-	while(potential != -1) // make sure projectile is not from this bot and is valid
-	{
-		if (rbot != GetThingParent(potential) && (GetAttachFlags(rbot) & 1))
-		{
-			choice=rand();
-			if (choice > 0.75)
-			{
-				jump = 1; // jump
-			}
-			else if (choice > 0.30)
-			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '-90 0 0'), 2.0)); // slide left
-			}
-			else
-			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '90 0 0'), 2.0)); // slide right
-			}
-			allowdodge=0;
-			SetTimerEx(0.4, 400, -1, -1); // allow to dodge projectiles again in 0.4 secs
-		}
-		potential = NextThingInView();
-	}
-	return;
-
-targettactics:
-	//******************Begin AI Tactics********************
-	relpos=VectorSet(0.0, 0.0, VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
-	dist=VectorDist(GetThingPos(rbot), GetThingPos(target));
-
-	//Get the current weapon of our target
-	if (GetThingType(target) == 2) // target is another bot
-	{
-		targweap=SendMessageEx(GetThingClassCog(target), user1, -1, -1, -1, -1);
-	}
-	else // target is a player
-	{
-		targweap=GetCurWeapon(target);
-		if (targweap==11) targweap=10; // If player has saber, set it to 10 for simplicity
-	}
-	if ((curweap==2 && targweap > 2 && difficulty > 0) || ((targweap==7 || targweap==9) && curweap < 6 && difficulty > 1)) // Need a better weapon than bryar
-	{
-		call movenode; 
-		return;
-	}
-
-	if ((vectorZ(relpos) > 1 && difficulty > 1) || (getthingflags(rbot) & 0x2000000)) // Can't fall down safely or Underwater, need to keep moving.
-	{
-		call movenode;
-		return;
-	}
-
-	// If bot not close enough to target move towards it
-	if (dist > 0.4)
-	{
-		if (difficulty < 3)
-		{
-			AiSetMovePos(rbot, GetThingPos(target)); // move directly towards target
-		}
-		else 
-		{
-			if (rand() > 0.4)
-			{
-				AiSetMovePos(rbot, GetThingPos(target)); // move directly towards target
-			}
-			else
-			{
-				tempvector1=VectorSet(VectorX(GetThingPos(target))+(0.2-rand()*0.4),VectorY(GetThingPos(target)),VectorZ(GetThingPos(target)));
-				AiSetMovePos(rbot, tempvector1); // move slightly left or right of target
-			}
-		}
-		//else // move towards where target is moving
-		//{
-		//	movepos=VectorNorm(VectorSub(VectorAdd(GetThingPos(target), VectorScale(GetThingVel(target), 0.4)), GetThingPos(rbot)));
-		//	movevec=VectorSet(VectorX(movepos), VectorY(movepos), 0.0);
-		//	AiSetMovePos(rbot, movevec);
-		//}
-	}
-	else if (difficulty > 2) // sometimes move around target
-	{
-		if (rand() > 0.6)
-		{
-			tempvector1=VectorSet(VectorX(GetThingPos(target))+(0.3-rand()*0.6),VectorY(GetThingPos(target)),VectorZ(GetThingPos(target)));
-			AiSetMovePos(rbot, tempvector1); // move slightly left or right of target
-		}
-	}
-	call checkspeed;
-	return;
-
-checkspeed:
-	if (BitTest(botmode,0x100000) || difficulty < 1)
-	{
-		AiSetMoveSpeed(rbot,2.0); // make bot run at 'walk speed'
-	}
-	else
-	{
-		forcemode = SendMessageEx(srv_force, user7, 1000, -1, -1, -1);
-		tempvector1=GetThingVel(rbot);
-		tempvector2=VectorSet(VectorX(tempvector1),VectorY(tempvector1),0);
-		if (BitTest(forcemode,0x01)) // force speed active
-		{
-			if (VectorLen(tempvector2) < 3.0) AddThingVel(rbot, VectorScale(tempvector2, 0.33)); // Attempt to increase bot speed
-		}
-		else
-		{
-			if (VectorLen(tempvector2) < 1.0) AddThingVel(rbot, VectorScale(tempvector2, 0.33)); // Attempt to increase bot speed
-		}
-	}
-	return;
-
-block_anim:
-	if (blocktrack != -1)
-	{
-		StopKey(rbot, blocktrack, 0.1 );
-		blocktrack = -1;
-	}
-	// Play saber block animation
-	blocktrack=PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
-	nextblock = nextblock + 1;
-	if (nextblock > 2) nextblock = 0;
 	return;
 
 timer:
 	if (IsMulti() && !IsServer()) return; // Host only
 
+	if (GetSenderId() == 100) // respawn bot
+	{
+		call respawn_bot;
+		return;
+	}
+
 	if (GetSenderId() == 120) // bot has not found its next node in time - bot lost
 	{
 		// Keep track of how long we're lost while not in combat or getting an item
-		if (!BitTest(botmode, 0x4000) && newitem == -1)
+		if (target == -1 && item == -1)
 		{
 			lostcount = lostcount + 1;
 			if (lostcount > 6)
@@ -1278,55 +565,45 @@ timer:
 		SetTimerEx(8.0, 120, -1, -1);
 
 		// Request new node
-		if (rundir) botmode=BitClear(botmode,0x1000); else botmode=BitSet(botmode,0x1000); // remember run direction
 		SendTrigger(-1, 13000, botid, rbot, botmode, -1);
 		return;
 	}
 
-	if (GetSenderId() == 150) // Drowning damage should be over by now
+	if (GetSenderId() == 130) // allow bot to run full speed again after slowdown
 	{
-		drowning = 0;
+		botmode = BitClear(botmode, 0x100000);
 		return;
 	}
 
-	if (GetSenderId() == 160) // Bot killed with saber lit, do saber dismount effects
+	if (GetSenderId() == 140) // after supershield
 	{
-		PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
-		if(humChannel != -1)
-		{
-			StopSound(humChannel, 0.5); // Stop resident saber noise
-			humChannel = -1;
-		}
-		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
-		curweap = 0; // unlit saber
-		SendTrigger(-1, 101062, curbotskinid, rbot, curweap, -1); // show model with saber turned off
+		ClearActorFlags(rbot, 8); // remove invulnerable
+		ClearThingFlags(rbot, 4); // remove mag sealed
 		return;
 	}
 
-	if (GetSenderId() == 200) // fire 1st swing saber projectile
+	if (GetSenderId() == 160) // ask for high score
 	{
-		AiSetLookPos(rbot, getthingpos(target));
-		FireProjectile(rbot, projectile_weap00a, -1, -1, '0.0 0.0 0.0', '0 0 0', 1.0, 0x20, 30, 10);
+		SendTrigger(-1, 101050, botid, -1, -1, -1); // ask for high scorer
+		SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
 		return;
 	}
 
-	if (GetSenderId() == 201) // fire 2nd swing saber projectile
+	if (GetSenderId() == 170) // Forget who damaged bot
 	{
-		AiSetLookPos(rbot, getthingpos(target));
-		FireProjectile(rbot, projectile_weap00a, -1, -1, '0 0 0', '0 0 0', 1.0, 0x20, 30, 10);
+		attacker = -1;
 		return;
 	}
 
-	if (GetSenderId() == 202) // fire swing saber projectile
+	if (GetSenderId() == 180) // enable item seeking
 	{
-		AiSetLookPos(rbot, getthingpos(target));
-		FireProjectile(rbot, projectile_weap00, -1, -1, '0 0 0', '0 0 0', 1.0, 0x20, 30, 10);
+		botmode = BitClear(botmode, 0x4000000);
 		return;
 	}
 
-	if (GetSenderId() == 220) // reduce bot speed after temporary speed increase
+	if (GetSenderId() == 181) // enable combat roaming
 	{
-		AiSetMoveSpeed(rbot,2.0);
+		botmode = BitClear(botmode, 0x8000000);
 		return;
 	}
 
@@ -1353,14 +630,10 @@ timer:
 
 	if (GetSenderId() == 400) // reset dodge timer
 	{
-		allowdodge=1;
+		allowdodge = 1;
 		return;
 	}
 
-	return;
-
-user1:
-	ReturnEx(curweap); // Current Weapon
 	return;
 
 // Execute public API function for this cog
@@ -1370,42 +643,659 @@ user1:
 // Returns the function-specific result of the execution
 user7:
 	// Simple symbol value reads
-	if (GetParam(0) == 1000) ReturnEx(botid);
-	if (GetParam(0) == 1001) ReturnEx(curbotname);
-	if (GetParam(0) == 1002) ReturnEx(curteam);
-	if (GetParam(0) == 1003) ReturnEx(botmode);
-	if (GetParam(0) == 1004) ReturnEx(gamemode);
-	if (GetParam(0) == 1005) ReturnEx(difficulty);
-	if (GetParam(0) == 1010) ReturnEx(target);
-	if (GetParam(0) == 1011) ReturnEx(newitem);
-	if (GetParam(0) == 1012)
+	if (GetParam(0) == 10201000) { ReturnEx(botid); return; }
+	if (GetParam(0) == 10201001) { ReturnEx(curbotname); return; }
+	if (GetParam(0) == 10201002) { ReturnEx(curteam); return; }
+	if (GetParam(0) == 10201003) { ReturnEx(botmode); return; }
+	if (GetParam(0) == 10201010) { ReturnEx(target); return; }
+	if (GetParam(0) == 10201011) { ReturnEx(item); return; }
+	if (GetParam(0) == 10201012)
 	{
-		if (GetParam(1) <= 0) ReturnEx(node);
-		if (GetParam(1) == 1) ReturnEx(VectorX(newpos));
-		if (GetParam(1) == 2) ReturnEx(VectorY(newpos));
-		if (GetParam(1) == 3) ReturnEx(VectorZ(newpos));
-		if (GetParam(1) == 4) ReturnEx(nodesec);
+		if (GetParam(1) <= 0) { ReturnEx(node); return; }
+		if (GetParam(1) == 1) { ReturnEx(VectorX(newpos)); return; }
+		if (GetParam(1) == 2) { ReturnEx(VectorY(newpos)); return; }
+		if (GetParam(1) == 3) { ReturnEx(VectorZ(newpos)); return; }
+		if (GetParam(1) == 4) { ReturnEx(nodesec); return; }
 	}
-	if (GetParam(0) == 1013) ReturnEx(rbot);
-	if (GetParam(0) == 1014) ReturnEx(curweap);
-	if (GetParam(0) == 1015) ReturnEx(targweap);
-	if (GetParam(0) == 1100) ReturnEx(srv2);
-	if (GetParam(0) == 1101) ReturnEx(srv_force);
-	// Simple symbol value writes
-	if (GetParam(0) == 2003) botmode = GetParam(1);
-	// Calculated values
-	if (GetParam(0) == 3000)
+	if (GetParam(0) == 10201013) { ReturnEx(rbot); return; }
+	if (GetParam(0) == 10201021) { ReturnEx(shields); return; }
+	if (GetParam(0) == 10201024) { ReturnEx(inv_bacta); return; }
+	if (GetParam(0) == 10201028) { ReturnEx(inv_keys); return; }
+
+	if (GetParam(0) == 10202028) { inv_keys = GetParam(1); return; }
+
+	if (GetParam(0) == 10203100) // enable bot
 	{
-		// Return reference to live bot thing, or -1 if dead
-		if (BitTest(botmode, 0x10000))
+		if (BitTest(botmode, 0x80000)) // bot is disabled
 		{
-			// Bot is alive, return thing number
-			ReturnEx(rbot);
+			jkStringClear();
+			jkStringConcatUNIString(1000 + curbotname);
+			jkStringConcatAsciiString(" has joined the game");
+			jkStringOutput(-3, -1);
+
+			botmode = BitClear(botmode, 0x80000);
+			call respawn_bot;
+			SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // Send bot join event
 		}
-		else
+		return;
+	}
+
+	if (GetParam(0) == 10203101) // disable bot
+	{
+		if (!BitTest(botmode, 0x80000)) // bot is enabled
 		{
-			// Bot is dead, return -1 since thing number may or may not be the bot thing
-			ReturnEx(-1);
+			jkStringClear();
+			jkStringConcatUNIString(1000 + curbotname);
+			jkStringConcatAsciiString(" has left the game");
+			jkStringOutput(-3, -1);
+
+			SendTrigger(-1, 971, botid, rbot, curbotname, curteam); // Send bot leave event
+			call destroy_bot;
+			botmode = BitSet(botmode, 0x80000);
+		}
+		return;
+	}
+
+	// Pass-through functions
+	// Automatically forward messages to subordinate srv cogs
+	// This is a convenience to make it look like one uber srv cog from an API perspective
+	if (GetParam(0) >= 10210000 && GetParam(0) <= 10219999)
+	{
+		if (srv_ext != -1) ReturnEx(SendMessageEx(srv_ext, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+		else ReturnEx(-1);
+		return;
+	}
+	if (GetParam(0) >= 10220000 && GetParam(0) <= 10229999)
+	{
+		ReturnEx(SendMessageEx(srv_force, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+		return;
+	}
+	if (GetParam(0) >= 10230000 && GetParam(0) <= 10239999)
+	{
+		ReturnEx(SendMessageEx(srv_weapons, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-srv.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+stop_bot_ai:
+	SetPulse(0);
+	KillTimerEx(100); // cancel any pending respawn
+	KillTimerEx(160); // stop asking for high scorer
+	KillTimerEx(120); // stop checking for 'bot lost'
+	KillTimerEx(230); // stop periodic blindvec updates
+	KillTimerEx(300); // stop checking if bot is in a pit
+
+	// Stop AI processes in other srv cogs
+	SendMessageEx(srv_force, user7, 10223007, -1, -1, -1);
+	SendMessageEx(srv_weapons, user7, 10233007, -1, -1, -1);
+	return;
+
+destroy_bot:
+	call stop_bot_ai;
+
+	// Destroy old dead bot
+	if (rbot != -1)
+	{
+		SendTrigger(-1, 949, botid, rbot, -1, -1); // Dead bot thing is being removed
+		DestroyThing(rbot);
+		rbot = -1;
+	}
+	return;
+
+respawn_bot:
+	call destroy_bot;
+
+	// Reinitialize to default bot state
+	botmode = 0x0; // reset botmode
+	node = -1;
+	newpos = '0 0 0';
+	nodesec = 0;
+	nodesize = 0.25;
+	nodeflags = 0x0;
+	lastposnum = -1;
+	lastbotpos = '0 0 0';
+	arrival_event = -1;
+	prevnode = -1;
+	lostcount = 0;
+	stopcount = 0;
+	drowning = 0;
+	allowdodge = 1;
+	fallcheck = 0;
+	jump = 0;
+	attacker = -1;
+	shields = 100;
+	inv_bacta = 0;
+	inv_keys = 0x0;
+
+	// Create bot
+	rbot = -1;
+	spawnpoint = SendMessageEx(system, user7, 10103200, curteam, -1, -1);
+	SendTrigger(-1, 101060, curbotskinid, botid, spawnpoint, -1);
+	if (rbot == -1) return; // bot creation failed, cogs may be misconfigured
+
+	// Do respawn effects
+	CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
+	PlaySoundThing(teleportsnd, rbot, 1.0, -1, -1, 0x180);
+
+	// Start bot AI processes, etc.
+	SetThingClassCog(rbot, GetSelfCog());
+	SetThingHealth(rbot, 100);
+	SetThingUserData(rbot, curteam);
+	ClearActorFlags(rbot, 0x8); // remove invulnerable
+	ClearThingFlags(rbot, 0x4); // remove mag sealed
+	SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs
+	SetTimerEx(0.1, 120, -1, -1); // start periodic check for 'bot lost' (short initial timeout makes bot ask for first node immediately)
+	SetTimerEx(1.0, 230, -1, -1); // start periodic blindvec updates (i.e. random vector for blinded bots to move to)
+	SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
+	SetPulse(0.1);
+
+	// Notify other cogs of bot respawn
+	SendMessageEx(srv_weapons, user7, 10233005, rbot, curbotskinid, -1);
+	SendMessageEx(srv_force, user7, 10223005, rbot, curbotskinid, -1);
+	SendTrigger(-1, 950, botid, rbot, curbotname, curteam); // Send bot respawn event
+	return;
+
+findtarget:
+	target = -1;
+	targetpriority = 0;
+	dist = 100;
+
+	potential = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 8.0, target_mask);
+	while (potential != -1)
+	{
+		targetok = 1;
+		if (GetMultiModeFlags() & 0x1) // team play - check if target is on our team
+		{
+			if (GetThingType(potential) == 2 && GetThingUserData(potential) == curteam) targetok = 0; // target is an actor and is on our team
+			if (GetThingType(potential) == 10 && GetPlayerTeam(potential) == curteam) targetok = 0;   // target is a player and is on our team
+		}
+		if (GetThingFlags(potential) & 0x200) targetok = 0; // target is dead
+		if (BitTest(GetSectorFlags(GetThingSector(potential)), 0x40)) targetok = 0; // target in pit
+
+		if (targetok && potential != rbot && HasLOS(rbot, potential)) // target is still ok, is not itself and bot can see it
+		{
+			// Work out target priority
+			priority = 3;
+
+			tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(potential));
+			if (tempflex1 < 1) priority = 6; // closer targets get higher priority
+
+			if (potential == attacker) priority = 7; // whoever hurt the bot last
+
+			// Give the other srv cogs a chance to adjust the priority
+			if (srv_ext != -1) priority = SendMessageEx(srv_ext, user7, 10213030, potential, priority, -1);
+			priority = SendMessageEx(srv_force, user7, 10223030, potential, priority, -1);
+			priority = SendMessageEx(srv_weapons, user7, 10233030, potential, priority, -1);
+
+			// Look for the closest target among the highest seen priority
+			if (priority > targetpriority || (priority == targetpriority && tempflex1 < dist))
+			{
+				target = potential;
+				targetpriority = priority;
+				dist = tempflex1;
+			}
+		}
+		potential = NextThingInView();
+	}
+
+	// Tell the other srv cogs about the new target
+	SendMessageEx(srv_force, user7, 10222010, target, -1, -1);
+	SendMessageEx(srv_weapons, user7, 10232010, target, -1, -1);
+
+	return;
+
+finditem:
+	item = -1;
+	itempriority = 0;
+	dist = 100;
+
+	if (difficulty < 2 || BitTest(botmode, 0x4000000)) return; // only look if difficulty allows and item seeking is not disabled
+
+	if (target != -1) itempriority = 5; // bot has target - only pick up high priority items
+	potential = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 3, 0x020); // check if any items nearby
+	while (potential != -1)
+	{
+		// Retrieve special info for this item
+		special = 0x0;
+		if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, potential, -1, -1);
+
+		// Find closest takable item that bot needs
+		tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(potential));
+		tempflex2 = VectorZ(GetThingPos(potential)) - VectorZ(GetThingPos(rbot));
+		if (tempflex2 < 0) tempflex2 = -tempflex2; // tempflex2 = abs(tempflex2)
+		if (!BitTest(special, 0x1) && HasLOS(rbot, potential) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // item is not ignored and bot can see it and is close enough and item not too high/low
+		{
+			// Work out item priority
+			priority = -1;
+
+			// Check for some standard items
+			if (GetThingTemplate(potential) == tmp_health && GetThingHealth(rbot) < 50) priority = 8;
+			if ((GetThingTemplate(potential) == tmp_shields && shields < 70) || (GetThingTemplate(potential) == tmp_fullshield && shields < 70)) priority = 7;
+			if (GetThingTemplate(potential) == tmp_backpack) priority = 4;
+
+			// Give the other srv cogs a chance to adjust the priority
+			if (srv_ext != -1) priority = SendMessageEx(srv_ext, user7, 10213010, potential, priority, -1);
+			priority = SendMessageEx(srv_force, user7, 10223010, potential, priority, -1);
+			priority = SendMessageEx(srv_weapons, user7, 10233010, potential, priority, -1);
+
+			// Look for the closest item among the highest seen priority
+			if (priority > itempriority || (priority == itempriority && tempflex1 < dist))
+			{
+				item = potential;
+				itempriority = priority;
+				dist = tempflex1;
+			}
+		}
+		potential = NextThingInView();
+	}
+
+	return;
+
+checkitems:
+	for (potential = 0 ; potential <= maxthings ; potential = potential + 1) // check every item
+	{
+		if (GetThingType(potential) == 5) // items
+		{
+			// Retrieve special info for this item
+			special = 0x0;
+			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, potential, -1, -1);
+
+			// If bot is close to item and it is available and it can be touched
+			if ((VectorDist(GetThingPos(rbot), GetThingPos(potential)) < 0.3) && !(GetThingFlags(potential) & 0x80000) && GetCollideType(potential) != 0)
+			{
+				if (HasLOS(rbot, potential) || BitTest(special, 0x2)) // Bot can see item or LOS check is disabled
+				{
+					call pickupitem; // bot can see item - pick it up
+				}
+			}
+		}
+	}
+	return;
+
+pickupitem:
+	if (GetThingTemplate(potential) == tmp_bacta)
+	{
+		if (inv_bacta < 5)
+		{
+			inv_bacta = inv_bacta + 1;
+			TakeItem(potential, rbot); // bot picked up this item
+		}
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_health)
+	{
+		if (GetThingHealth(rbot) < 100)
+		{
+			extra = GetThingHealth(rbot) + 20;
+			if (extra > 100) extra = 100;
+			SetThingHealth(rbot, extra);
+			TakeItem(potential, rbot); // bot picked up this item
+		}
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_shields)
+	{
+		if (shields < 200)
+		{
+			shields = shields + 20;
+			if (shields > 200) shields = 200;
+			TakeItem(potential, rbot); // bot picked up this item
+		}
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_supershield)
+	{
+		shields = shields + 50;
+		if (shields > 200) shields = 200;
+		TakeItem(potential, rbot); // bot picked up this item
+		SetActorFlags(rbot, 8); // invulnerable
+		SetThingFlags(rbot, 4); // mag sealed
+		KillTimerEx(140);
+		SetTimerEx(30, 140, -1, -1); // switch off in 30 secs
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_revivepack)
+	{
+		if (shields < 200 || GetThingHealth(rbot) < 100)
+		{
+			shields = 200;
+			SetThingHealth(rbot, 100);
+			TakeItem(potential, rbot); // bot picked up this item
+		}
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_fullshield)
+	{
+		if (shields < 200)
+		{
+			shields = 200;
+			TakeItem(potential, rbot); // bot picked up this item
+		}
+		return;
+	}
+
+	if (GetThingTemplate(potential) == tmp_backpack)
+	{
+		SendTrigger(-1, 12000, botid, potential, -1, -1); // send info to backpack cog
+		TakeItem(potential, rbot); // bot picked up this item
+		return;
+	}
+
+	// Give other srv cogs a chance to pickup the item
+	if (srv_ext != -1) SendMessageEx(srv_ext, user7, 10213020, potential, -1, -1);
+	SendMessageEx(srv_force, user7, 10223020, potential, -1, -1);
+	SendMessageEx(srv_weapons, user7, 10233020, potential, -1, -1);
+
+	return;
+
+checknode:
+	// Check our progress to the current node and request new node if necessary
+	if (VectorDist(GetThingPos(rbot), newpos) < nodesize)
+	{
+		reachednode = 1;
+		if (node != -1) // Bot is heading for a node
+		{
+			if (prevnode != node) // Bot has reached a new node
+			{
+				// Reset lost counter to avoid unnecessary bot suicide
+				prevnode = node;
+				lostcount = 0;
+			}
+			// Reset stopcount - we've reached the next node, so any further obstructions should be new ones
+			stopcount = 0;
+		}
+		KillTimerEx(120); // reset 'bot lost' timeout
+		SetTimerEx(8.0, 120, -1, -1); 
+		SendTrigger(-1, 11010, botid, rbot, node, -1); // ask for special info on current pos
+		SendTrigger(-1, 13000, botid, rbot, botmode, lastposnum); // ask navigation cog for next move position
+	}
+	else
+	{
+		reachednode = 0;
+		tempflex1 = VectorZ(GetThingPos(rbot));
+		tempflex2 = tempflex1 - 0.25;
+
+		// Update the fall threshold
+		if (fallcheck < tempflex2) // Bot is above the fall threshold
+		{
+			fallcheck = tempflex2; // Raise the fall threshold to slightly below the bot's current height
+			if (fallcheck > VectorZ(newpos)) fallcheck = VectorZ(newpos); // But don't raise the threshold above the node's actual position
+		}
+
+		// Check if bot has fallen
+		if (node != -1 && (tempflex1 < fallcheck) && !BitTest(nodeflags, 0x2000000)) // if bot is below the fall threshold & new pos is not in water
+		{
+			tempvector1 = VectorSet(0, 0, VectorZ(newpos));
+			tempvector2=VectorSet(0, 0, VectorZ(GetThingPos(rbot)));
+			tempflex1 = VectorDist(tempvector1, tempvector2); // diff Z coord of bot and node
+
+			tempvector3=VectorSet(VectorX(newpos), VectorY(newpos), 0);
+			tempvector4=VectorSet(VectorX(GetThingPos(rbot)), VectorY(GetThingPos(rbot)), 0);
+			tempflex2 = VectorDist(tempvector3, tempvector4); // diff X/Y coords of bot and node
+
+			if (tempflex1 > 0.85 || (tempflex1 > 0.4 && tempflex2 < 0.2)) // bot fallen
+			{
+				KillTimerEx(120); // stop 'bot lost' timeout
+				SetTimerEx(0.1, 120, -1, -1); // force bot 'lost'
+			}
+		}
+	}
+	return;
+
+move:
+	// By default, move normally to next node
+	AiSetLookPos(rbot, newpos);
+	AiSetMovePos(rbot, newpos);
+
+	// Now check for exceptions to the normal movement behavior
+
+	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
+	obstructed = 0;
+	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3)
+	{
+		// Bot is not moving forward, try to determine if it is truly obstructed
+		obstructed = 1;
+
+		if (VectorDist(GetThingPos(rbot), newpos) < (VectorDist(lastbotpos, newpos) - 0.05))
+		{
+			// Bot is still advancing toward the next node, despite not moving "forward" (e.g. elevators)
+			obstructed = 0;
+		}
+
+		// TODO: Possible force field detection logic:
+		//if (obstructed)
+		//{
+		//	for (index=0; index<GetSurfaceCount(); index=index+1)
+		//	{
+		//		if ((VectorDist(GetSurfaceCenter(index), GetThingPos(rbot)) < 0.3) && (GetSurfaceFlags(index) & 0x4000)) // close surface & magsealed - ie: forcefield
+		//		{
+		//			print("found force field!");
+		//			obstructed=0;
+		//			// TODO: do something about it
+		//		}
+		//	}
+		//}
+	}
+
+	if (target != -1) // bot is attacking a target
+	{
+		call targettactics;
+	}
+	else if (attacker != -1) // bot has no target and is under attack
+	{
+		AiSetLookPos(rbot, GetThingPos(attacker));
+	}
+
+	if (item != -1)
+	{
+		if (target == -1 && attacker == -1) AiSetLookPos(rbot, GetThingPos(item)); // only look at new item if no target
+		AiSetMovePos(rbot, GetThingPos(item)); // move towards new item
+		// Reset the 'bot lost' timeout every pulse where the bot is going after an item
+		// After reaching the item, bot has 5 sec to get back to the next node before 'bot lost'
+		KillTimerEx(120); // Reset the 'bot lost' timeout
+		SetTimerEx(5.0, 120, -1, -1);
+	}
+
+	if (GetActorFlags(rbot) & 0x800) // bot blind
+	{
+		AiSetMovePos(rbot, blindvec); // move to a random position
+		AiSetLookPos(rbot, blindvec); // look at the random position
+	}
+
+	if (GetThingFlags(rbot) & 0x2000000) // bot is underwater
+	{
+		if ((VectorZ(GetThingPos(rbot)) - VectorZ(newpos)) > 0.25) obstructed = 0; // bot is trying to swim down to the next node
+
+		if (drowning && (GetHealth(rbot) < 70 || difficulty < 2)) // Help bot from drowning
+		{
+			//print("drowning - moving up!");
+			// work out a vector postion 0.5 above the bot
+			tempvector1 = VectorAdd(GetThingPos(rbot), '0 0 0.5');
+			if (target == -1) AiSetLookPos(rbot, tempvector1); // bot has no target - look at new position
+			AiSetMovePos(rbot, tempvector1); // move towards new position
+		}
+	}
+	else // bot is not underwater
+	{
+		drowning = 0; // bot is no longer drowning
+	}
+
+	if (arrival_event != -1) // bot is waiting, don't move
+	{
+		AiSetMovePos(rbot, waitpos);
+		if (VectorDist(GetThingPos(rbot), waitpos) < 0.1) obstructed = 0; // Bot is holding position while awaiting arrival
+	}
+
+	if (GetActorFlags(rbot) & 0x40000) // bot is 'gripped', don't move
+	{
+		AiSetMovePos(rbot, GetThingPos(rbot));
+		obstructed = 0; // do not attempt to jump over obstacles
+	}
+
+	call dodge;
+
+	// If the bot is obstructed for long enough, try to jump (or swim) up to get over the obstruction
+	if (obstructed)
+	{
+		stopcount = stopcount + 1;
+		// Jump at some random delay after reaching the obstruction threshold
+		// This encourages the bot to try slightly different timings for when it decides to jump
+		if (stopcount > 20 && Rand() > 0.25)
+		{
+			// Bot has not moved in several seconds, try to get over the obstruction
+			jump = 1;
+			stopcount = 0;
+		}
+	}
+
+	// Update lastbotpos for the next pulse
+	lastbotpos = GetThingPos(rbot);
+
+	// Check to see if bot needs to jump now
+	// The bot can jump if he is on the ground or at the water surface
+	// Players can't "jump" in the air, so bots shouldn't be able to, either
+	// If underwater, the bot will "jump" by swimming upward a bit (this is to help get around underwater obstructions)
+	if (jump && (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
+	{
+		ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
+		jump = 0;
+	}
+
+	return;
+
+targettactics:
+	AiSetLookPos(rbot, GetThingPos(target));
+
+	// Check to see if we can move toward the target
+
+	if (GetThingHealth(rbot) < 30 || BitTest(botmode, 0x8000000)) return; // low on health or combat roaming is disabled
+
+	tempflex1 = VectorZ(GetThingPos(target)) - VectorZ(GetThingPos(rbot)); // work out relative position of target to bot
+	if (((tempflex1 < -1 || 1 < tempflex1) && difficulty >= 2) || (GetThingFlags(rbot) & 0x2000000)) return; // Can't fall down safely or Underwater
+
+	// Consult the other srv cogs to see if the bot should move toward the target
+	// Maintenance note: The two if-statements below are separated intentionally.
+	// When combined, I found that the gmae would evaluate the expression to true
+	// and execute the return statement even when srv_ext was -1.
+	if (srv_ext != -1) if (!SendMessageEx(srv_ext, user7, 10213050, target, -1, -1)) return;
+	if (!SendMessageEx(srv_force, user7, 10223050, target, -1, -1)) return;
+	if (!SendMessageEx(srv_weapons, user7, 10233050, target, -1, -1)) return;
+
+	AiSetMovePos(rbot, GetThingPos(target)); // by default, move directly towards target
+
+	dist = VectorDist(GetThingPos(rbot), GetThingPos(target));
+	if (dist > 0.4) // too far away, try to close in on target
+	{
+		if (difficulty >= 3) // on higher difficulty
+		{
+			if (Rand() < 0.4) // sometimes move around target
+			{
+				tempvector1 = VectorScale(GetThingRVec(rbot), (Rand()-0.5) * 0.4); // random left/right offset
+				tempvector1 = VectorAdd(GetThingPos(target), tempvector1); // target position + random left/right offset
+				AiSetMovePos(rbot, tempvector1); // move slightly left or right of target
+			}
+		}
+		// TODO potential code to move where target is moving
+		//	movepos = VectorNorm(VectorSub(VectorAdd(GetThingPos(target), VectorScale(GetThingVel(target), 0.4)), GetThingPos(rbot)));
+		//	movevec = VectorSet(VectorX(movepos), VectorY(movepos), 0.0);
+		//	AiSetMovePos(rbot, movevec);
+	}
+	else // close range
+	{
+		if (difficulty >= 2)
+		{
+			if (Rand() < 0.6) // sometimes move around target
+			{
+				tempvector1 = VectorScale(GetThingRVec(rbot), (Rand()-0.5) * 0.4); // random left/right offset
+				tempvector1 = VectorAdd(GetThingPos(target), tempvector1); // target position + random left/right offset
+				AiSetMovePos(rbot, tempvector1); // move slightly left or right of target
+			}
+		}
+	}
+
+	return;
+
+dodge:
+	// dodge projectiles
+	if (!allowdodge || difficulty < 3 || (difficulty < 4 && (10 * Rand() > difficulty))) return; // Difficulty 0,1,2 will never dodge. Difficulty 3 will sometimes dodge. Difficulty 4 will always dodge.
+
+	potential = FirstThingInView(rbot, 180, 3, 0x8); // Scan for projectiles to dodge (0x8)
+	while (potential != -1) // make sure projectile is not from this bot and is valid
+	{
+		if (rbot != GetThingParent(potential) && (GetAttachFlags(rbot) & 1))
+		{
+			choice = Rand();
+			if (choice > 0.75)
+			{
+				jump = 1; // jump
+			}
+			else if (choice > 0.30)
+			{
+				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '-90 0 0'), 2.0)); // slide left
+			}
+			else
+			{
+				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '90 0 0'), 2.0)); // slide right
+			}
+			allowdodge = 0;
+			SetTimerEx(0.4, 400, -1, -1); // allow to dodge projectiles again in 0.4 secs
+			return; // break -- don't execute multiple dodges in one pulse
+		}
+		potential = NextThingInView();
+	}
+	return;
+
+checkspeed:
+	AiSetMoveSpeed(rbot, 2.0);
+	if (reachednode) // Reached node this pulse
+	{
+		// See if bot is moving fast and needs to make a sharp turn
+		tempvector1 = VectorNorm(GetThingVel(rbot));
+		tempvector2 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
+		if (VectorLen(GetThingVel(rbot)) > 0.4 && VectorDot(tempvector1, tempvector2) < 0.7)
+		{
+			// If bot is not airborne, move to self position to help slow down for sharp turns
+			// This check is necessary because telling an actor to move to its own position seems to
+			// behave like StopThing and will reset vertical velocity like jumping and falling
+			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
+			{
+				AiSetMovePos(rbot, GetThingPos(rbot));
+			}
+		}
+	}
+	else // Haven't reached the node yet
+	{
+		if (!(GetPhysicsFlags(rbot) & 0x100000) && !(GetThingFlags(rbot) & 0x2000000)) // bot is not in water
+		{
+			movespeed = 1.0; // normal run speed
+			if (BitTest(botmode, 0x100000) || difficulty < 1)
+			{
+				movespeed = 0.4; // walk speed
+			}
+
+			// allow srv-force to adjust movement speed (e.g. force speed)
+			movespeed = SendMessageEx(srv_force, user7, 10223040, movespeed, -1, -1);
+
+			// TODO: adjust added velocity to always be in the direction the bot is trying to go (i.e. the location given to AiSetMovePos)
+
+			// Adjust speed for moving forward/backward and sideways. Vertical movement (i.e. jump/fall velocity) is not altered here.
+			// Note: Players can't really control their speed in the air, but we allow it for bots to assist with navigation
+			tempvector1 = VectorSet(VectorX(GetThingVel(rbot)), VectorY(GetThingVel(rbot)), 0.0);
+			if (VectorLen(tempvector1) < movespeed) // bot is moving slower than desired movement speed
+			{
+				AddThingVel(rbot, VectorScale(tempvector1, 0.33)); // Attempt to increase bot speed
+			}
 		}
 	}
 	return;

@@ -544,10 +544,11 @@ activated:
 
 # ........................................................................................
 trigger:
-	if (GetSourceRef() == 1000) // bot died
+	if (GetSourceRef() == 960) // bot died
 	{
-		sourceRef=GetParam(2);
-		rbot=GetParam(3);
+		rbot = GetParam(0);
+		sourceRef = GetParam(1);
+
 		if (rbot == redflag_taken)
 		{
 			DetachThing(flag_red);
@@ -576,8 +577,10 @@ trigger:
 
 			// Callback #13 : Red flag lost by Gold team
 			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 13, player, ctf_score_red, ctf_score_gold);
+			return;
 		}
-		else if (rbot == goldflag_taken)
+
+		if (rbot == goldflag_taken)
 		{
 			DetachThing(flag_gold);
 			captured_gold = 1;
@@ -605,16 +608,61 @@ trigger:
 
 			// Callback #23 : Gold flag lost by Red team
 			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 23, player, ctf_score_red, ctf_score_gold);
+			return;
+		}
+
+		return;
+	}
+
+	if (GetSourceRef() == 971) // bot has left the game
+	{
+		rbot = GetParam(1);
+
+		if (rbot == redflag_taken) // bot is holding the red flag
+		{
+			DetachThing(flag_red);
+			captured_red = 1;
+			redflag_taken = -1;
+
+			// return the flag after 2 seconds only
+			SetTimerEx(2, 1, 0, 0);
+		}
+
+		if (rbot == goldflag_taken) // bot is holding the gold flag
+		{
+			DetachThing(flag_gold);
+			captured_gold = 1;
+			goldflag_taken = -1;
+
+			// return the flag after 2 seconds only
+			SetTimerEx(2, 2, 0, 0);
+		}
+
+		return;
+	}
+
+	if (GetSourceRef() == 12200) // bot has touched a flag
+	{
+		senderRef = GetParam(1);
+		player = GetParam(2);
+		if (senderRef == flag_red && player != redflag_taken) // bot is trying to pick up the red flag
+		{
+			bottouched = 1;
+			call touched;
+			bottouched = 0;
+			return;
+		}
+		if (senderRef == flag_gold && player != goldflag_taken) // bot is trying to pick up the gold flag
+		{
+			bottouched = 1;
+			call touched;
+			bottouched = 0;
+			return;
 		}
 		return;
 	}
-	else if (GetSourceRef() != 12200 || (GetParam(1) != flag_red && GetParam(1) != flag_gold)) return;
-	// bot has touched a flag
-	senderRef=GetParam(1);
-	player=GetParam(2);
-	if (senderRef == flag_red && player == redflag_taken) return; // bot already has the redflag
-	if (senderRef == flag_gold && player == goldflag_taken) return; // bot already has the goldflag
-	bottouched=1;
+
+	return;
 
 touched:
 	// Exit if one of the limits has been reached or flag locked

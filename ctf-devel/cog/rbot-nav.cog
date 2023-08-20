@@ -59,7 +59,6 @@ vector		bot_pos								local
 int			botid								local
 thing		rbot								local
 cog			srv									local
-cog			srv2								local
 int			botmode								local
 int			lastposnum							local
 int			nextposnum							local
@@ -86,8 +85,7 @@ trigger:
 		lastposnum = GetParam(3);
 
 		srv = GetThingClassCog(rbot);
-		srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
-		bot_keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
+		bot_keys = SendMessageEx(srv, user7, 10201028, -1, -1, -1);
 
 		if (lastposnum == -1) // bot lost - find nearest node
 		{

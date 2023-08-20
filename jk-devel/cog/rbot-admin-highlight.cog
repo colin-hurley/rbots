@@ -26,7 +26,7 @@ int			active=0							local
 template	ghost=_ghostdecor					local
 
 cog			srv=-1								local
-int			botmode								local
+thing		rbot								local
 thing		target								local
 thing		enemy								local
 thing		item								local
@@ -92,17 +92,17 @@ pulse:
 	target = -1;
 	if (srv != -1)
 	{
-		botmode = SendMessageEx(srv, user7, 1003, -1, -1, -1);
-		if (BitTest(botmode, 0x10000)) // Bot is alive
+		rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
+		if (rbot != -1 && GetThingHealth(rbot) > 0) // Bot is alive
 		{
-			enemy = SendMessageEx(srv, user7, 1010, -1, -1, -1);
-			item = SendMessageEx(srv, user7, 1011, -1, -1, -1);
-			nodeposx = SendMessageEx(srv, user7, 1012, 1, -1, -1);
-			nodeposy = SendMessageEx(srv, user7, 1012, 2, -1, -1);
-			nodeposz = SendMessageEx(srv, user7, 1012, 3, -1, -1);
+			enemy = SendMessageEx(srv, user7, 10201010, -1, -1, -1);
+			item = SendMessageEx(srv, user7, 10201011, -1, -1, -1);
+			nodeposx = SendMessageEx(srv, user7, 10201012, 1, -1, -1);
+			nodeposy = SendMessageEx(srv, user7, 10201012, 2, -1, -1);
+			nodeposz = SendMessageEx(srv, user7, 10201012, 3, -1, -1);
 			nodepos = VectorSet(nodeposx, nodeposy, nodeposz);
-			nodesec = SendMessageEx(srv, user7, 1012, 4, -1, -1);
-			if (BitTest(botmode, 0x4000)) // Bot has enemy target
+			nodesec = SendMessageEx(srv, user7, 10201012, 4, -1, -1);
+			if (enemy != -1) // Bot has enemy target
 			{
 				jkSetTargetColors(6, 7, 8); // Red
 				target = enemy;

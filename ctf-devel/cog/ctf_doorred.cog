@@ -25,12 +25,13 @@ int         msgbase=1000                     local
 
 int         haskey                           local
 int         keys                             local
-cog         srv                              local
-cog         srv2                             local
+
+cog         system=-1                        local
 
 message     startup
 message     touched
 message     activated
+message     trigger
 
 end            
 
@@ -63,15 +64,13 @@ activated:
    player = GetSourceRef(); // Note: may be a player or a bot - check the thing type to find out
 
 	haskey = 0;
-	if (GetThingType(player) == 2)
+	if (SendMessageEx(system, user7, 10103000, player, -1, -1) != -1) // bot
 	{
 		// Check bot inventory for required key
-		srv = GetThingClassCog(player);
-		srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
-		keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
+		keys = SendMessageEx(GetThingClassCog(player), user7, 10201028, -1, -1, -1);
 		if (BitTest(keys, 0x1)) haskey = 1;
 	}
-	else
+	if (GetThingType(player) == 10) // player
 	{
 		// Check player inventory for required key
 		if (GetInv(player, 83) == 1.0) haskey = 1;
@@ -97,6 +96,19 @@ activated:
    }
    
    Return;
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
 
 end
 

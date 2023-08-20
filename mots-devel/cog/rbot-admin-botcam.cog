@@ -16,14 +16,13 @@ message		shutdown
 message		user0
 message		user1
 message		trigger
-message		timer
 
 int			active=0							local
 thing		camera								local
 
 int			old_camera							local
 thing		player								local
-thing		rbot								local
+thing		rbot=-1								local
 int			botid=-1							local
 cog			srv=-1								local
 
@@ -44,6 +43,7 @@ shutdown:
 	active = 0;
 	botid = -1;
 	srv = -1;
+	rbot = -1;
 	return;
 
 // Execute
@@ -69,25 +69,15 @@ user1:
 trigger:
 	if (GetSourceRef() == 949 && GetParam(0) == botid) // Dead bot is about to be removed
 	{
-		// srv will return -1 for but thing query, so view will momentarily switch back to player
+		rbot = -1;
 		call update_camera_focus;
 		return;
 	}
 
 	if (GetSourceRef() == 950 && GetParam(0) == botid) // Selected bot respawned
 	{
-		// Cancel any pending dead bot camera update timer
-		KillTimerEx(100);
-
-		// srv will return the new bot thing, so view will switch back to selected bot
+		rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
 		call update_camera_focus;
-		return;
-	}
-
-	if (GetSourceRef() == 1000 && GetParam(0) == botid) // Bot killed
-	{
-		// Schedule a camera update in case the bot doesn't respawn in a few moments
-		SetTimerEx(10.0, 100, -1, -1);
 		return;
 	}
 
@@ -95,21 +85,8 @@ trigger:
 	{
 		botid = GetParam(0);
 		srv = GetParam(1);
-		call update_camera_focus;
-		return;
-	}
-
-	return;
-
-timer:
-	if (GetSenderId() == 100) // bot died and didn't respawn
-	{
-		// The player may have removed the bot from the game
-		// Switch focus back to the player to prevent the game from crashing if
-		// the player lingers on the dead bot too long and then goes into the
-		// game menu (this will crash the game when the player closes the menu,
-		// since the bot corpse, which has camera focus, will have been removed
-		// by the game engine
+		rbot = -1;
+		if (srv != -1) rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
 		call update_camera_focus;
 		return;
 	}
@@ -120,25 +97,21 @@ update_camera_focus:
 	// Set focus to selected bot, if possible
 	if (active) // Botcam is activated
 	{
-		if (srv != -1) // A bot is selected
+		if (rbot != -1) // A bot is selected
 		{
-			rbot = SendMessageEx(srv, user7, 3000, -1, -1, -1);
-			if (rbot != -1) // Bot is alive
+			if (camera == player) // camera focus is currently the player
 			{
-				if (camera == player) // camer focus is currently the player
-				{
-					// Switching from player to bot
-					old_camera = GetCurrentCamera(); // save current camera state
-					SetCurrentCamera(1); // switch to external camera
-					SetActorFlags(player, 0x800000); // turn off HUD
-				}
-
-				// Focus camera on bot and return
-				SetCameraFocus(0, rbot);
-				SetCameraFocus(1, rbot);
-				camera = rbot;
-				return;
+				// Switching from player to bot
+				old_camera = GetCurrentCamera(); // save current camera state
+				SetCurrentCamera(1); // switch to external camera
+				SetActorFlags(player, 0x800000); // turn off HUD
 			}
+
+			// Focus camera on bot and return
+			SetCameraFocus(0, rbot);
+			SetCameraFocus(1, rbot);
+			camera = rbot;
+			return;
 		}
 	}
 

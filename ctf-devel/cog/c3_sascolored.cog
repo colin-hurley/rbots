@@ -49,12 +49,13 @@ int			sender									local
 int			msgbase=1000							local
 
 int			keys									local
-cog			srv										local
-cog			srv2									local
+
+cog			system=-1								local
 
 message		startup
 message		touched
 message		activated
+message		trigger
 
 end				
 
@@ -112,12 +113,10 @@ activated:
 			}
 			Return;
 		}
-		else if (GetThingType(player) == 2) // this is bot, not a player
+		if (SendMessageEx(system, user7, 10103000, player, -1, -1) != -1) // this is a bot, not a player
 		{
 			// Check for required key in bot inventory
-			srv = GetThingClassCog(player);
-			srv2 = SendMessageEx(srv, user7, 1100, -1, -1, -1);
-			keys = SendMessageEx(srv2, user7, 1008, -1, -1, -1);
+			keys = SendMessageEx(GetThingClassCog(player), user7, 10201028, -1, -1, -1);
 			if (sas_color == 1 && !BitTest(keys, 0x1)) return; // Door requires red key and bot doesn't have it
 			if (sas_color == 2 && !BitTest(keys, 0x2)) return; // Door requires gold key and bot doesn't have it
 		}
@@ -199,6 +198,19 @@ close_ext:
 	}
 	
 	Return;
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
 
 end
 

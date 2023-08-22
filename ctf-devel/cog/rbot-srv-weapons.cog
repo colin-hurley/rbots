@@ -437,7 +437,7 @@ user7:
 			if ((GetThingTemplate(item) == tmp_weap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_fpweap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_weap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_fpweap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_weap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_fpweap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_weap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_fpweap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_fpweap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_m5weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_weap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_fpweap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_m5weap9 && !inv_weap9)) priority = 6;
 
 			// Ammo
-			if ((GetThingTemplate(item) == tmp_energycell && energy < 100) || (GetThingTemplate(item) == tmp_powercell && power < 100) || (GetThingTemplate(item) == tmp_raildets && inv_raildets < 100)) priority = 5;
+			if ((GetThingTemplate(item) == tmp_energycell && energy < 100) || (GetThingTemplate(item) == tmp_powercell && power < 100) || (GetThingTemplate(item) == tmp_raildets && inv_raildets < 10)) priority = 5;
 
 			// TDs and sequencers
 			if ((GetThingTemplate(item) == tmp_weap4 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_weap4x1 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_fpweap4 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_weap8 && inv_weap8 < 5) || (GetThingTemplate(item) == tmp_weap8x1 && inv_weap8 < 5) || (GetThingTemplate(item) == tmp_fpweap8 && inv_weap8 < 5)) priority = 4;

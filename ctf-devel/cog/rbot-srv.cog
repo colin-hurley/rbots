@@ -1306,6 +1306,16 @@ checkspeed:
 		// Magic number explanation: 0.87 * x = 1.33 --> x = 1.33 / 0.87 = 1.53
 		// Plus a little extra because 1.53 only gets the bot up to about 1.2
 		movespeed = movespeed * 1.6;
+
+		if (!GetAttachFlags(rbot)) // bot is in the air
+		{
+			// Reduce bot maneuverability when in the air
+			// We don't want the bot to have too much control while in the air
+			// However, the effectiveness of some functions, such as obstruction jumps, depends
+			// on the bot being able to accelerate forward while in the air, so we also don't
+			// want to reduce this too much.
+			movespeed = movespeed / 2;
+		}
 	}
 
 	// allow srv-force to adjust movement speed (e.g. force speed)

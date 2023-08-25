@@ -621,7 +621,9 @@ user7:
 		movespeed = GetParam(1);
 		if (BitTest(forcemode, 0x1)) // force speed active
 		{
-			movespeed = movespeed + (0.5 * rank / 2); // add extra speed
+			rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
+			if (rank > 4) rank = 4;
+			movespeed = movespeed + (0.5 * rank / 2); // add extra speed: movespeed + [0.25,1.0]
 		}
 		ReturnEx(movespeed);
 		return;

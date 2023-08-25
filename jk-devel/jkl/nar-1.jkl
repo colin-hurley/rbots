@@ -10870,7 +10870,7 @@ end
 
 Section: TEMPLATES
 
-World templates 166
+World templates 165
 #Name:           Based On:        Params:
 twoonebee         none               orient=(0.000000/0.000000/0.000000) type=cog collide=1 thingflags=0x400 model3d=med.3do size=0.060000 movesize=0.060000 puppet=cr.pup cog=00_twoonebee.cog
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
@@ -10966,7 +10966,6 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +bryarbolt        _weapon            thingflags=0x20000001 light=0.400000 model3d=bry0.3do size=0.001000 movesize=0.001000 soundclass=bry.snd creatething=+smflash maxrotvel=0.000000 vel=(0.000000/4.000000/0.000000) explode=+laserhit fleshhit=+laserfleshhit damage=30.000000 mindamage=10.000000 typeflags=0x20440d rate=15.000000
 +backpack         _droppowerup       thingflags=0x400 model3d=bpck.3do cog=rbot-backpack.cog height=0.036337 typeflags=0x4
 _structure        _decor             collide=3 thingflags=0x8
-_humanactor       _actor             size=0.065000 movesize=0.065000 surfdrag=3.000000 airdrag=0.500000 maxvel=0.500000 maxthrust=0.80 typeflags=0x80000
 _ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
 rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
@@ -10989,7 +10988,7 @@ m5concrifle       concrifle          typeflags=0x9
 +concbullet       _weapon            thingflags=0x20000001 model3d=con0.3do size=0.005000 movesize=0.005000 soundclass=conc.snd creatething=+lgflash vel=(0.000000/7.000000/0.000000) explode=+conc_exp fleshhit=+conc_exp damage=20.000000 typeflags=0x20000d
 _zwalkstruct      _structure         thingflags=0x400040
 _walkstruct       _structure         thingflags=0x400048
-_rbotactor        _humanactor        size=0.060400 movesize=0.060400 puppet=ky.pup soundclass=ky.snd mass=160.000000 health=100.00 maxhealth=100.00 maxrotthrust=200.00 jumpspeed=1.60 error=0.60 fov=0.50 chance=1.00 aiclass=rbot-0.ai weapon=+elaser typeflags=0x1 thingflags=0x20000400
+_rbotactor        _actor             type=actor thingflags=0x20000400 light=0.200000 model3d=ky.3do size=0.065000 movesize=0.065000 puppet=ky.pup soundclass=ky.snd surfdrag=3.000000 airdrag=0.500000 health=100.00 maxhealth=100.00 maxthrust=2.00 typeflags=0x1 error=0.50 fov=0.71 chance=1.00 aiclass=rbot-0.ai weapon=+elaser
 _debris           none               orient=(0.000000/0.000000/0.000000) type=weapon collide=1 move=physics timer=1.100000 airdrag=3.000000 physflags=0x201 vel=(0.000000/4.000000/0.000000) angvel=(5.000000/10.000000/0.000000) explode=+debris_exp damage=5.000000 damageclass=0x1 typeflags=0xc
 xtank3a           _walkstruct        thingflags=0x400448 model3d=xtank3a.3do size=0.191956 movesize=0.191956 cog=xtank3.cog
 shrapnel_5        _debris            model3d=shrp_5.3do size=0.084000 movesize=0.084000

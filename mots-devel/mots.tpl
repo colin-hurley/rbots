@@ -2374,7 +2374,7 @@ rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
 +rbot_twinkles       none               orient=(0.000000/0.000000/0.000000) type=particle typeflags=0x3f material=00teleport.mat range=0.030000 rate=256.000000 maxthrust=80.000000 elementsize=0.002000 count=256
 # DESC: Rbot parent
 # BBOX: 0 0 0 0 0 0
-_rbotactor        _humanactor        size=0.060400 movesize=0.060400 puppet=ky.pup soundclass=ky.snd mass=160.000000 health=100.00 maxhealth=100.00 maxrotthrust=200.00 jumpspeed=1.60 error=0.60 fov=0.50 chance=1.00 aiclass=rbot-0.ai weapon=+elaser typeflags=0x1 thingflags=0x20000400
+_rbotactor        _actor             type=actor thingflags=0x20000400 light=0.200000 model3d=ky.3do size=0.065000 movesize=0.065000 puppet=ky.pup soundclass=ky.snd surfdrag=3.000000 airdrag=0.500000 health=100.00 maxhealth=100.00 maxthrust=2.00 typeflags=0x1 error=0.50 fov=0.71 chance=1.00 buoyancy=0.0 aiclass=rbot-0.ai weapon=+elaser
 # DESC: Rbot Yun
 # BBOX: -.031992 -.017003 -.134424 .032032 .024487 .073659
 rbot_yun          _rbotactor        model3d=kya18.3do soundclass=kyyun.snd

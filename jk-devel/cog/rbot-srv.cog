@@ -1257,7 +1257,6 @@ dodge:
 	return;
 
 checkspeed:
-	AiSetMoveSpeed(rbot, 2.0);
 	if (reachednode) // Reached node this pulse
 	{
 		// See if bot is moving fast and needs to make a sharp turn
@@ -1274,30 +1273,46 @@ checkspeed:
 			}
 		}
 	}
-	else // Haven't reached the node yet
+
+	if ((GetPhysicsFlags(rbot) & 0x100000) || (GetThingFlags(rbot) & 0x2000000)) // bot is in water
 	{
-		if (!(GetPhysicsFlags(rbot) & 0x100000) && !(GetThingFlags(rbot) & 0x2000000)) // bot is not in water
+		// Normal player WASD swim speed is about 0.6 JKU/s
+		// Combining WASD with jump/crouch boosts it to about 0.9 JKU/s
+		// Use the difficulty to scale the movement speed according to these values
+		// This emulates a more experienced player being able to swim faster and more efficiently
+		movespeed = 0.5 + 0.4 * (difficulty / 4); // Range: [0.5,0.9]
+
+		if (BitTest(botmode, 0x100000)) // move slowly
 		{
-			movespeed = 1.0; // normal run speed
-			if (BitTest(botmode, 0x100000) || difficulty < 1)
-			{
-				movespeed = 0.4; // walk speed
-			}
-
-			// allow srv-force to adjust movement speed (e.g. force speed)
-			movespeed = SendMessageEx(srv_force, user7, 10223040, movespeed, -1, -1);
-
-			// TODO: adjust added velocity to always be in the direction the bot is trying to go (i.e. the location given to AiSetMovePos)
-
-			// Adjust speed for moving forward/backward and sideways. Vertical movement (i.e. jump/fall velocity) is not altered here.
-			// Note: Players can't really control their speed in the air, but we allow it for bots to assist with navigation
-			tempvector1 = VectorSet(VectorX(GetThingVel(rbot)), VectorY(GetThingVel(rbot)), 0.0);
-			if (VectorLen(tempvector1) < movespeed) // bot is moving slower than desired movement speed
-			{
-				AddThingVel(rbot, VectorScale(tempvector1, 0.33)); // Attempt to increase bot speed
-			}
+			// Override for slow swim speed
+			movespeed = 0.4;
 		}
 	}
+	else // bot is on ground or in air
+	{
+		// Normal player WASD run speed is about 1.33 JKU/s
+		movespeed = 1.33;
+
+		if (BitTest(botmode, 0x100000) || difficulty < 1) // move slowly or low difficulty
+		{
+			// Normal player WASD walk speed is about 0.66 JKU/s
+			// Note that the bot will still use running animations even at this speed
+			// The movespeed needs to be set around 0.5 or lower to switch to walking animations
+			movespeed = 0.66;
+		}
+
+		// Surface drag reduces the bot speed from 1.33 to about 0.87
+		// Scale the speed value to approximate player movement speed after reduction from drag
+		// Magic number explanation: 0.87 * x = 1.33 --> x = 1.33 / 0.87 = 1.53
+		// Plus a little extra because 1.53 only gets the bot up to about 1.2
+		movespeed = movespeed * 1.6;
+	}
+
+	// allow srv-force to adjust movement speed (e.g. force speed)
+	movespeed = SendMessageEx(srv_force, user7, 10223040, movespeed, -1, -1);
+
+	AiSetMoveSpeed(rbot, movespeed);
+
 	return;
 
 end

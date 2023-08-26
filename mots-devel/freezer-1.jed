@@ -8469,8 +8469,8 @@ COGS 158
 00_PLAYAMBIENT.COG soundPos0:thing=51 soundPos1:thing=50 soundPos2:thing=-1 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00RUMBLEAMB03.WAV minDist:flex=-1 maxDist:flex=-1 volume:flex=1
 MDM02_CARBOSERVER.COG console:thing=76 platform:thing=52 freezefreq:flex=15
 MDM02_CARBOCLIENT.COG ghost0:thing=75 platform:thing=52 clamp:thing=68 switch:thing=45 freezesector:sector=232 freezetime:flex=7
-MDM02_LIGHTTUBE2.COG sector0:sector=3 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
-MDM02_LIGHTTUBE2.COG sector0:sector=41 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
+MDM02_LIGHTTUBE.COG sector0:sector=3 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
+MDM02_LIGHTTUBE.COG sector0:sector=41 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
 rbot-2door.cog door0:thing=1 door1:thing=44 moveSpeed:flex=10 sleepTime:flex=2
 rbot-2door.cog door0:thing=2 door1:thing=43 moveSpeed:flex=10 sleepTime:flex=2
 rbot-2door.cog door0:thing=3 door1:thing=41 moveSpeed:flex=10 sleepTime:flex=2

@@ -42,7 +42,7 @@ pulse:
    player = FirstThingInSector(sector0);
    while(player != -1)
    {
-      if(GetThingType(player) == 10)
+      if(GetThingType(player) == 2 || GetThingType(player) == 10) // actor or player
       {
          found = 1;
       }

@@ -266,6 +266,11 @@ int			rbot				local
 #int			red_touchlock=0		local
 #int			gold_touchlock=0		local
 
+int			botcount_red=0					local
+int			botcount_gold=0					local
+
+int			botteam							local
+
 message     startup
 message     activated
 message     touched
@@ -614,9 +619,40 @@ trigger:
 		return;
 	}
 
+	if (GetSourceRef() == 970) // bot has joined the game
+	{
+		#rbot = GetParam(1);
+		botteam = GetParam(3);
+
+		if (botteam == 1) // bot is on the red team
+		{
+			botcount_red = botcount_red + 1;
+		}
+
+		if (botteam == 2) // bot is on the gold team
+		{
+			botcount_gold = botcount_gold + 1;
+		}
+
+		call show_players;
+
+		return;
+	}
+
 	if (GetSourceRef() == 971) // bot has left the game
 	{
 		rbot = GetParam(1);
+		botteam = GetParam(3);
+
+		if (botteam == 1) // bot is on the red team
+		{
+			botcount_red = botcount_red - 1;
+		}
+
+		if (botteam == 2) // bot is on the gold team
+		{
+			botcount_gold = botcount_gold - 1;
+		}
 
 		if (rbot == redflag_taken) // bot is holding the red flag
 		{
@@ -637,6 +673,8 @@ trigger:
 			// return the flag after 2 seconds only
 			SetTimerEx(2, 2, 0, 0);
 		}
+
+		call show_players;
 
 		return;
 	}
@@ -1552,11 +1590,11 @@ shutdown:
 # ========================================================================================
 
 show_players:
-   numplayers = GetNumPlayersInTeam(1);
+   numplayers = GetNumPlayersInTeam(1) + botcount_red;
    dummy = SetWallCel(players_red1, numplayers / 10);
    dummy = SetWallCel(players_red2, numplayers % 10);
 
-   numplayers = GetNumPlayersInTeam(2);
+   numplayers = GetNumPlayersInTeam(2) + botcount_gold;
    dummy = SetWallCel(players_gold1, numplayers / 10);
    dummy = SetWallCel(players_gold2, numplayers % 10);
 

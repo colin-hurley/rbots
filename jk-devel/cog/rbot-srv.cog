@@ -1017,7 +1017,7 @@ checknode:
 		}
 		KillTimerEx(120); // reset 'bot lost' timeout
 		SetTimerEx(8.0, 120, -1, -1); 
-		SendTrigger(-1, 11010, botid, rbot, node, -1); // ask for special info on current pos
+		SendTrigger(-1, 11010, botid, rbot, node, rundir); // ask for special info on current pos
 		SendTrigger(-1, 13000, botid, rbot, botmode, lastposnum); // ask navigation cog for next move position
 	}
 	else

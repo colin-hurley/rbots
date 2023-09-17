@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots-devel</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS Devel</name>
+	<name>Rbots :: MotS Devel</name>
 	<build>
 		<plugins>
 			<plugin>

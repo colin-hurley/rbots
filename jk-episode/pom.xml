@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-jk-episode</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: JK Episode</name>
+	<name>Rbots :: JK Episode</name>
 	<build>
 		<plugins>
 			<plugin>

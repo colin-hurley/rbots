@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots-patch</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS Patch</name>
+	<name>Rbots :: MotS Patch</name>
 	<build>
 		<plugins>
 			<plugin>

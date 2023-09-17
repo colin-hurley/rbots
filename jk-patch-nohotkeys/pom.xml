@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-jk-patch-nohotkeys</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: JK Patch (No Hotkeys)</name>
+	<name>Rbots :: JK Patch (No Hotkeys)</name>
 	<build>
 		<plugins>
 			<plugin>

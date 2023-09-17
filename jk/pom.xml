@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-jk</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: JK</name>
+	<name>Rbots :: JK</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

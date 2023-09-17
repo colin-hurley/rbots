@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS</name>
+	<name>Rbots :: MotS</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

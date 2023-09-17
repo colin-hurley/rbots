@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-ctf-devel</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: CTF Devel</name>
+	<name>Rbots :: CTF Devel</name>
 	<build>
 		<plugins>
 			<plugin>

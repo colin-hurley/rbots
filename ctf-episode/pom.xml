@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-ctf-episode</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: CTF Episode</name>
+	<name>Rbots :: CTF Episode</name>
 	<build>
 		<plugins>
 			<plugin>

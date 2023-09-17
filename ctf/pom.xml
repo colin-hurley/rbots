@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-ctf</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: CTF</name>
+	<name>Rbots :: CTF</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

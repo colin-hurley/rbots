@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots-patch-nohotkeys</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS Patch (No Hotkeys)</name>
+	<name>Rbots :: MotS Patch (No Hotkeys)</name>
 	<build>
 		<plugins>
 			<plugin>

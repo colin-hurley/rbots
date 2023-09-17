@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots-sdk</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS SDK</name>
+	<name>Rbots :: MotS SDK</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

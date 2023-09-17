@@ -4,7 +4,7 @@
 	<artifactId>rbots</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
-	<name>RBots</name>
+	<name>Rbots</name>
 	<description>Multiplayer bots for Jedi Knight</description>
 	<properties>
 		<revision>0.32</revision>

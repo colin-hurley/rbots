@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-mots-episode</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: MotS Episode</name>
+	<name>Rbots :: MotS Episode</name>
 	<build>
 		<plugins>
 			<plugin>

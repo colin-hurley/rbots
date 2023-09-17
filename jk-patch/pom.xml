@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-jk-patch</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: JK Patch</name>
+	<name>Rbots :: JK Patch</name>
 	<build>
 		<plugins>
 			<plugin>

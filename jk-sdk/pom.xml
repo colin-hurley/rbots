@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-jk-sdk</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: JK SDK</name>
+	<name>Rbots :: JK SDK</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

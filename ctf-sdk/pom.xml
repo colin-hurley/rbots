@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>rbots-ctf-sdk</artifactId>
 	<packaging>pom</packaging>
-	<name>RBots :: CTF SDK</name>
+	<name>Rbots :: CTF SDK</name>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

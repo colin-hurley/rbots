@@ -5049,8 +5049,8 @@ COGS 92
 00_CONVEYOR.COG vec0:vector=(-1.000000/0.000000/0.000000) speed:flex=10 convey0:surface=222 convey1:surface=-1 convey2:surface=-1 convey3:surface=-1 convey4:surface=-1 convey5:surface=-1 convey6:surface=-1 convey7:surface=-1
 00_CONVEYOR.COG vec0:vector=(1.000000/0.000000/0.000000) speed:flex=10 convey0:surface=210 convey1:surface=-1 convey2:surface=-1 convey3:surface=-1 convey4:surface=-1 convey5:surface=-1 convey6:surface=-1 convey7:surface=-1
 00_RANDOMAMBIENT.COG wav0:sound=01SHIPFLYBY01.WAV wav1:sound=01SHIPFLYBY02.WAV wav2:sound=01SHIPFLYBY03.WAV wav3:sound=01SHIPFLYBY04.WAV numsounds:int=4 min_interval:flex=6 range_interval:flex=4 min_volume:flex=0.5 range_volume:flex=0.5
-rbot-door.cog door:thing=2 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=4 moveSpeed:flex=8 sleepTime:flex=2
+rbot-door.cog door0:thing=2 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=970 elevator:thing=48 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
 rbot-ffield-nar.cog switch:surface=890 switch1:surface=939 damsurf:surface=954 damsurf2:surface=962 maxdamage:flex=10 mindamage:flex=5
 rbot-tdets-nar.cog switch:surface=1054 tdg1:thing=45 tdg2:thing=47 tdg3:thing=46 tdg4:thing=44 rounds:int=2 rate:flex=0.1 delay:flex=3

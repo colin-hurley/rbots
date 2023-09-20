@@ -13062,13 +13062,13 @@ COGS 156
 00_SLASHGRATE.COG grate:surface=2277 grateback:surface=2368
 00_SLASHGRATE.COG grate:surface=2333 grateback:surface=2345
 MDM12_CROW.COG button1:surface=148 button2:surface=-1 ship:thing=67
-rbot-door.cog door:thing=7 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=8 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=23 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=15 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=22 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=16 moveSpeed:flex=5 sleepTime:flex=4
-rbot-2door.cog door0:thing=17 door1:thing=18 moveSpeed:flex=8 sleepTime:flex=6
+rbot-door.cog door0:thing=7 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=8 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=23 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=15 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=22 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=16 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=5 sleepTime:flex=4 lightValue:flex=0.5
+rbot-doubledoor.cog door0:thing=17 door1:thing=18 movespeed:flex=8 sleeptime:flex=6 lightvalue:flex=0.5
 rbot-startup.cog numbots:int=8 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 team:int=1 teambotname:int=20 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=7695

@@ -10777,8 +10777,8 @@ World cogs 140
 0: 00_CONVEYOR.COG (-1.000000/0.000000/0.000000) 10 222 -1 -1 -1 -1 -1 -1 -1
 1: 00_CONVEYOR.COG (1.000000/0.000000/0.000000) 10 210 -1 -1 -1 -1 -1 -1 -1
 2: 00_RANDOMAMBIENT.COG 01SHIPFLYBY01.WAV 01SHIPFLYBY02.WAV 01SHIPFLYBY03.WAV 01SHIPFLYBY04.WAV 4 6 4 0.5 0.5
-3: rbot-door.cog 2 8 2
-4: rbot-door.cog 4 8 2
+3: rbot-door.cog 2 -1 -1 -1 8 2 0.5
+4: rbot-door.cog 4 -1 -1 -1 8 2 0.5
 5: rbot-elev-switch.cog -1 -1 -1 970 48 0.25 2 4 ACTIVATE02.WAV
 6: rbot-ffield-nar.cog 890 939 954 962 10 5
 7: rbot-tdets-nar.cog 1054 45 47 46 44 2 0.1 3

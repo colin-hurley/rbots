@@ -8471,12 +8471,12 @@ MDM02_CARBOSERVER.COG console:thing=76 platform:thing=52 freezefreq:flex=15
 MDM02_CARBOCLIENT.COG ghost0:thing=75 platform:thing=52 clamp:thing=68 switch:thing=45 freezesector:sector=232 freezetime:flex=7
 MDM02_LIGHTTUBE.COG sector0:sector=3 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
 MDM02_LIGHTTUBE.COG sector0:sector=41 newliteval:flex=1 sound0:sound=ACTIVATE01.WAV
-rbot-2door.cog door0:thing=1 door1:thing=44 moveSpeed:flex=10 sleepTime:flex=2
-rbot-2door.cog door0:thing=2 door1:thing=43 moveSpeed:flex=10 sleepTime:flex=2
-rbot-2door.cog door0:thing=3 door1:thing=41 moveSpeed:flex=10 sleepTime:flex=2
-rbot-2door.cog door0:thing=4 door1:thing=42 moveSpeed:flex=10 sleepTime:flex=2
-rbot-door.cog door:thing=14 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=17 moveSpeed:flex=8 sleepTime:flex=2
+rbot-door.cog door0:thing=1 door1:thing=44 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=2 door1:thing=43 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=3 door1:thing=41 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=4 door1:thing=42 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=14 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=17 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-elev-switch.cog lower_adjoin0:surface=699 lower_adjoin1:surface=708 lower_adjoin2:surface=-1 button:surface=-1 elevator:thing=13 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
 rbot-elev-switch.cog lower_adjoin0:surface=1533 lower_adjoin1:surface=1542 lower_adjoin2:surface=-1 button:surface=-1 elevator:thing=16 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0

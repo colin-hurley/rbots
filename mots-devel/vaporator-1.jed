@@ -7607,9 +7607,9 @@ END
 
 SEC: COGS
 COGS 187
-rbot-door.cog door:thing=4 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=0 moveSpeed:flex=8 sleepTime:flex=2
-rbot-door.cog door:thing=1 moveSpeed:flex=8 sleepTime:flex=2
+rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=0 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=1 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-elev-call.cog callbutton:surface=508 upbutton:surface=-1 dnbutton:surface=520 elevator:thing=2 speed:flex=15 floorlevel:flex=1 totalfloors:flex=2 callnode:thing=180 upnode:thing=-1 dnnode:thing=181 callrundir:int=1 uprundir:int=-1 dnrundir:int=1 timeout:flex=10
 rbot-elev-call.cog callbutton:surface=491 upbutton:surface=471 dnbutton:surface=-1 elevator:thing=2 speed:flex=15 floorlevel:flex=0 totalfloors:flex=2 callnode:thing=183 upnode:thing=182 dnnode:thing=-1 callrundir:int=0 uprundir:int=0 dnrundir:int=-1 timeout:flex=10
 rbot-door-switch.cog door0:thing=18 door1:thing=17 door2:thing=-1 door3:thing=-1 switch0:surface=1142 switch1:surface=1279 movespeed:flex=15 sleeptime:flex=25 lightvalue:flex=0.5 switchnode0:thing=201 switchnode1:thing=217 switchrundir0:int=1 switchrundir1:int=1
@@ -7618,7 +7618,7 @@ MDM07_DOORSWITCH.COG door0:thing=32 door1:thing=-1 door2:thing=-1 door3:thing=-1
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=587 elevator:thing=65 start_wait:flex=0 sleeptime:flex=1 speed:flex=15 wav0:sound=ACTIVATE04.WAV
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=1353 elevator:thing=73 start_wait:flex=0 sleeptime:flex=1 speed:flex=25 wav0:sound=ACTIVATE02.WAV
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=1086 elevator:thing=73 start_wait:flex=0 sleeptime:flex=1 speed:flex=25 wav0:sound=ACTIVATE02.WAV
-rbot-door.cog door:thing=98 moveSpeed:flex=8 sleepTime:flex=2
+rbot-door.cog door0:thing=98 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-elev-switch2.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 call0:surface=1464 call1:surface=1465 call2:surface=-1 call3:surface=-1 elevator:thing=5 start_wait:flex=0.25 speed:flex=8 wav0:sound=LVRCLIK1.WAV
 00_PLAYAMBIENT.COG soundPos0:thing=-1 soundPos1:thing=155 soundPos2:thing=-1 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00TECHAMB02.WAV minDist:flex=-1 maxDist:flex=1 volume:flex=0.3
 rbot-door-switch.cog door0:thing=17 door1:thing=18 door2:thing=-1 door3:thing=-1 switch0:surface=1239 switch1:surface=-1 movespeed:flex=15 sleeptime:flex=25 lightvalue:flex=0.5 switchnode0:thing=-1 switchnode1:thing=-1 switchrundir0:int=-1 switchrundir1:int=-1
@@ -7626,7 +7626,7 @@ rbot-door-switch.cog door0:thing=17 door1:thing=18 door2:thing=-1 door3:thing=-1
 00_PLAYAMBIENT.COG soundPos0:thing=-1 soundPos1:thing=-1 soundPos2:thing=-1 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=DF_DOOR1-1.WAV minDist:flex=-1 maxDist:flex=-1 volume:flex=1
 00_SLASHGRATE.COG grate:surface=1400 grateback:surface=1391
 rbot-elev-switch2.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 call0:surface=958 call1:surface=-1 call2:surface=-1 call3:surface=-1 elevator:thing=5 start_wait:flex=0.25 speed:flex=8 wav0:sound=LVRCLIK1.WAV
-rbot-door.cog door:thing=147 moveSpeed:flex=8 sleepTime:flex=2
+rbot-door.cog door0:thing=147 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door-switch.cog door0:thing=149 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=1302 switch1:surface=1697 movespeed:flex=8 sleeptime:flex=2 lightvalue:flex=0.5 switchnode0:thing=-1 switchnode1:thing=213 switchrundir0:int=-1 switchrundir1:int=1
 00_SECTORTHRUST.COG vec0:vector=(0/1/0) speed:flex=3 sector0:sector=176 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1
 00_SECTORTHRUST.COG vec0:vector=(0/.707111/-.706831) speed:flex=3 sector0:sector=174 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1

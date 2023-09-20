@@ -8054,16 +8054,16 @@ rbot-elev-switch2.cog lower_adjoin0:surface=597 lower_adjoin1:surface=555 lower_
 rbot-elev-switch2.cog lower_adjoin0:surface=690 lower_adjoin1:surface=475 lower_adjoin2:surface=-1 call0:surface=1690 call1:surface=1678 call2:surface=1766 call3:surface=1893 elevator:thing=6 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
 rbot-elev-switch2.cog lower_adjoin0:surface=1499 lower_adjoin1:surface=1528 lower_adjoin2:surface=-1 call0:surface=1702 call1:surface=1708 call2:surface=-1 call3:surface=-1 elevator:thing=24 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
 rbot-elev-switch2.cog lower_adjoin0:surface=1146 lower_adjoin1:surface=1175 lower_adjoin2:surface=-1 call0:surface=1696 call1:surface=1714 call2:surface=-1 call3:surface=-1 elevator:thing=18 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
-rbot-2door.cog door0:thing=1 door1:thing=2 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=3 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=4 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=11 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=12 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=21 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=22 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=23 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=38 moveSpeed:flex=8 sleepTime:flex=3
-rbot-door.cog door:thing=39 moveSpeed:flex=8 sleepTime:flex=3
+rbot-door.cog door0:thing=1 door1:thing=2 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=3 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=11 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=12 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=21 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=22 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=23 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=38 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-door.cog door0:thing=39 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 team:int=1 teambotname:int=20 teambotskinid:int=101
 rbot-srv-force.cog botid:int=0 forceflags:int=255

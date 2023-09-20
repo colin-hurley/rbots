@@ -17825,9 +17825,9 @@ Section: cogs
 
 World cogs 255
 #Num	Script          Symbol values
-0: rbot-door.cog 4 8 2
-1: rbot-door.cog 0 8 2
-2: rbot-door.cog 1 8 2
+0: rbot-door.cog 4 -1 -1 -1 8 2 0.5
+1: rbot-door.cog 0 -1 -1 -1 8 2 0.5
+2: rbot-door.cog 1 -1 -1 -1 8 2 0.5
 3: rbot-elev-call.cog 508 -1 520 2 15 1 2 180 -1 181 1 -1 1 10
 4: rbot-elev-call.cog 491 471 -1 2 15 0 2 183 182 -1 0 0 -1 10
 5: rbot-door-switch.cog 18 17 -1 -1 1142 1279 15 25 0.5 201 217 1 1
@@ -17836,7 +17836,7 @@ World cogs 255
 8: rbot-elev-switch.cog -1 -1 -1 587 65 0 1 15 ACTIVATE04.WAV
 9: rbot-elev-switch.cog -1 -1 -1 1353 73 0 1 25 ACTIVATE02.WAV
 10: rbot-elev-switch.cog -1 -1 -1 1086 73 0 1 25 ACTIVATE02.WAV
-11: rbot-door.cog 98 8 2
+11: rbot-door.cog 98 -1 -1 -1 8 2 0.5
 12: rbot-elev-switch2.cog -1 -1 -1 1464 1465 -1 -1 5 0.25 8 LVRCLIK1.WAV
 13: 00_PLAYAMBIENT.COG -1 155 -1 -1 -1 -1 -1 -1 00TECHAMB02.WAV -1 1 0.3
 14: rbot-door-switch.cog 17 18 -1 -1 1239 -1 15 25 0.5 -1 -1 -1 -1
@@ -17844,7 +17844,7 @@ World cogs 255
 16: 00_PLAYAMBIENT.COG -1 -1 -1 -1 -1 -1 -1 -1 DF_DOOR1-1.WAV -1 -1 1
 17: 00_SLASHGRATE.COG 1400 1391
 18: rbot-elev-switch2.cog -1 -1 -1 958 -1 -1 -1 5 0.25 8 LVRCLIK1.WAV
-19: rbot-door.cog 147 8 2
+19: rbot-door.cog 147 -1 -1 -1 8 2 0.5
 20: rbot-door-switch.cog 149 -1 -1 -1 1302 1697 8 2 0.5 -1 213 -1 1
 21: 00_SECTORTHRUST.COG (0/1/0) 3 176 -1 -1 -1 -1 -1 -1 -1
 22: 00_SECTORTHRUST.COG (0/.707111/-.706831) 3 174 -1 -1 -1 -1 -1 -1 -1

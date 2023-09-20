@@ -16613,7 +16613,7 @@ World soundclasses 40
 end
 
 Section: cogscripts
-World scripts 47
+World scripts 46
 0: 00_desttrail.cog
 1: 00_FORCEFIELD.COG
 2: 00_MATANIM.COG
@@ -16644,28 +16644,27 @@ World scripts 47
 27: pow_supershield.cog
 28: pow_thermal.cog
 29: pow_vest.cog
-30: rbot-2door.cog
-31: rbot-arrival.cog
-32: rbot-backpack.cog
-33: rbot-door.cog
-34: rbot-elev-switch2.cog
-35: rbot-nav.cog
-36: rbot-nav-special.cog
-37: rbot-path.cog
-38: rbot-player.cog
-39: rbot-skin.cog
-40: rbot-special.cog
-41: rbot-special-sector.cog
-42: rbot-srv.cog
-43: rbot-srv-force.cog
-44: rbot-srv-weapons.cog
-45: rbot-startup.cog
-46: xtank3.cog
+30: rbot-arrival.cog
+31: rbot-backpack.cog
+32: rbot-door.cog
+33: rbot-elev-switch2.cog
+34: rbot-nav.cog
+35: rbot-nav-special.cog
+36: rbot-path.cog
+37: rbot-player.cog
+38: rbot-skin.cog
+39: rbot-special.cog
+40: rbot-special-sector.cog
+41: rbot-srv.cog
+42: rbot-srv-force.cog
+43: rbot-srv-weapons.cog
+44: rbot-startup.cog
+45: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 149
+World cogs 148
 #Num	Script          Symbol values
 0: M4_REACTORTHRUST.COG (0.000000/0.000000/1.000000) 8 2 2 46 45 48 47 1811 102 155 63 8 00EXHAUSTAMB04.WAV 00ALARMLOOP03.WAV 64 4
 1: 00_SURFANIM.COG 1799 -1 -1 -1 5
@@ -16676,16 +16675,16 @@ World cogs 149
 6: rbot-elev-switch2.cog 690 475 -1 1690 1678 1766 1893 6 0.25 10 LVRCLIK1.WAV
 7: rbot-elev-switch2.cog 1499 1528 -1 1702 1708 -1 -1 24 0.25 10 LVRCLIK1.WAV
 8: rbot-elev-switch2.cog 1146 1175 -1 1696 1714 -1 -1 18 0.25 10 LVRCLIK1.WAV
-9: rbot-2door.cog 1 2 8 3
-10: rbot-door.cog 3 8 3
-11: rbot-door.cog 4 8 3
-12: rbot-door.cog 11 8 3
-13: rbot-door.cog 12 8 3
-14: rbot-door.cog 21 8 3
-15: rbot-door.cog 22 8 3
-16: rbot-door.cog 23 8 3
-17: rbot-door.cog 38 8 3
-18: rbot-door.cog 39 8 3
+9: rbot-door.cog 1 2 -1 -1 8 3 0.5
+10: rbot-door.cog 3 -1 -1 -1 8 3 0.5
+11: rbot-door.cog 4 -1 -1 -1 8 3 0.5
+12: rbot-door.cog 11 -1 -1 -1 8 3 0.5
+13: rbot-door.cog 12 -1 -1 -1 8 3 0.5
+14: rbot-door.cog 21 -1 -1 -1 8 3 0.5
+15: rbot-door.cog 22 -1 -1 -1 8 3 0.5
+16: rbot-door.cog 23 -1 -1 -1 8 3 0.5
+17: rbot-door.cog 38 -1 -1 -1 8 3 0.5
+18: rbot-door.cog 39 -1 -1 -1 8 3 0.5
 19: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0
 20: rbot-srv.cog 0 0 0 1 20 101
 21: rbot-srv-force.cog 0 255

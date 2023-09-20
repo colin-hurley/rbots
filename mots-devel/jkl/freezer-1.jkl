@@ -18255,7 +18255,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 61
+World scripts 60
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -18302,26 +18302,25 @@ World scripts 61
 43: pow_supershield.cog
 44: pow_thermal_m.cog
 45: pow_vest.cog
-46: rbot-2door.cog
-47: rbot-arrival.cog
-48: rbot-backpack.cog
-49: rbot-door.cog
-50: rbot-elev-switch.cog
-51: rbot-nav.cog
-52: rbot-nav-special.cog
-53: rbot-path.cog
-54: rbot-player.cog
-55: rbot-skin.cog
-56: rbot-special.cog
-57: rbot-srv.cog
-58: rbot-srv-force.cog
-59: rbot-srv-weapons.cog
-60: rbot-startup.cog
+46: rbot-arrival.cog
+47: rbot-backpack.cog
+48: rbot-door.cog
+49: rbot-elev-switch.cog
+50: rbot-nav.cog
+51: rbot-nav-special.cog
+52: rbot-path.cog
+53: rbot-player.cog
+54: rbot-skin.cog
+55: rbot-special.cog
+56: rbot-srv.cog
+57: rbot-srv-force.cog
+58: rbot-srv-weapons.cog
+59: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 219
+World cogs 218
 #Num	Script          Symbol values
 0: 00_SECTORTHRUST.COG (0/0/1) 5 123 122 -1 -1 -1 -1 -1 -1
 1: 00_SECTORTHRUST.COG (0/0/1) 5 172 171 -1 -1 -1 -1 -1 -1
@@ -18335,12 +18334,12 @@ World cogs 219
 9: MDM02_CARBOCLIENT.COG 75 52 68 45 232 7
 10: MDM02_LIGHTTUBE.COG 3 1 ACTIVATE01.WAV
 11: MDM02_LIGHTTUBE.COG 41 1 ACTIVATE01.WAV
-12: rbot-2door.cog 1 44 10 2
-13: rbot-2door.cog 2 43 10 2
-14: rbot-2door.cog 3 41 10 2
-15: rbot-2door.cog 4 42 10 2
-16: rbot-door.cog 14 8 2
-17: rbot-door.cog 17 8 2
+12: rbot-door.cog 1 44 -1 -1 10 2 0.5
+13: rbot-door.cog 2 43 -1 -1 10 2 0.5
+14: rbot-door.cog 3 41 -1 -1 10 2 0.5
+15: rbot-door.cog 4 42 -1 -1 10 2 0.5
+16: rbot-door.cog 14 -1 -1 -1 8 2 0.5
+17: rbot-door.cog 17 -1 -1 -1 8 2 0.5
 18: rbot-elev-switch.cog 699 708 -1 -1 13 0.25 2 4 ACTIVATE02.WAV
 19: rbot-elev-switch.cog 1533 1542 -1 -1 16 0.25 2 4 ACTIVATE02.WAV
 20: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0

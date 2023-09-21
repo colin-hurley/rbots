@@ -2355,7 +2355,7 @@ m2boxturret       _zwalkstruct       model3d=tur1.3do size=0.139457 movesize=0.1
 throwcrate2       _throwable         model3d=crttoss2.3do size=0.036400 movesize=0.036400 height=0.036500
 # DESC: Rbots respawn ghost
 # BBOX: 0 0 0 0 0 0
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 # DESC: Rbot Saber Hit1
 # DESC: Rbot Saber Hit1
 # BBOX: 0 0 0 0 0 0

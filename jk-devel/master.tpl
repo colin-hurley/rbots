@@ -1968,7 +1968,7 @@ baydoor_a         _walkstruct        model3d=bayd_a.3do size=0.951508 movesize=0
 baydoor_b         _walkstruct        model3d=bayd_b.3do size=0.951508 movesize=0.951508
 # DESC: Rbots respawn ghost
 # BBOX: 0 0 0 0 0 0
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 # DESC: Rbot Saber Hit1
 # BBOX: 0 0 0 0 0 0
 +rbotsaberhit1    _explosion         timer=.001 soundclass=exp_saber_saber.snd typeflags=0x0

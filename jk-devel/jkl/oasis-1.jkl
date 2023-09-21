@@ -6244,7 +6244,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 259
+World models 258
 0: adm-0.3do
 1: adm-1.3do
 2: adm-10.3do
@@ -6400,110 +6400,109 @@ World models 259
 152: red-7.3do
 153: red-8.3do
 154: red-9.3do
-155: respawn.3DO
-156: rhn-0.3do
-157: rhn-1.3do
-158: rhn-10.3do
-159: rhn-2.3do
-160: rhn-3.3do
-161: rhn-4.3do
-162: rhn-5.3do
-163: rhn-6.3do
-164: rhn-7.3do
-165: rhn-8.3do
-166: rhn-9.3do
-167: rld0.3do
-168: rldg.3do
-169: rldp.3do
-170: rldv.3do
-171: rpt0.3do
-172: rptg.3do
-173: rptp.3do
-174: rptv.3do
-175: sabg.3do
-176: sabv.3do
-177: sar-0.3do
-178: sar-1.3do
-179: sar-10.3do
-180: sar-2.3do
-181: sar-3.3do
-182: sar-4.3do
-183: sar-5.3do
-184: sar-6.3do
-185: sar-7.3do
-186: sar-8.3do
-187: sar-9.3do
-188: seq0.3do
-189: seqg.3do
-190: seqp.3do
-191: seqp_1.3do
-192: seqv.3do
-193: shld.3do
-194: shrp_1.3do
-195: shrp_2.3do
-196: shrp_3.3do
-197: shrp_4.3do
-198: sil-0.3do
-199: sil-1.3do
-200: sil-10.3do
-201: sil-2.3do
-202: sil-3.3do
-203: sil-4.3do
-204: sil-5.3do
-205: sil-6.3do
-206: sil-7.3do
-207: sil-8.3do
-208: sil-9.3do
-209: stm-0.3do
-210: stm-1.3do
-211: stm-10.3do
-212: stm-2.3do
-213: stm-3.3do
-214: stm-4.3do
-215: stm-5.3do
-216: stm-6.3do
-217: stm-7.3do
-218: stm-8.3do
-219: stm-9.3do
-220: str0.3do
-221: strg.3do
-222: strp.3do
-223: strv.3do
-224: tus-0.3do
-225: tus-1.3do
-226: tus-10.3do
-227: tus-2.3do
-228: tus-3.3do
-229: tus-4.3do
-230: tus-5.3do
-231: tus-6.3do
-232: tus-7.3do
-233: tus-8.3do
-234: tus-9.3do
-235: vest.3do
-236: vestl.3do
-237: yel-0.3do
-238: yel-1.3do
-239: yel-10.3do
-240: yel-2.3do
-241: yel-3.3do
-242: yel-4.3do
-243: yel-5.3do
-244: yel-6.3do
-245: yel-7.3do
-246: yel-8.3do
-247: yel-9.3do
-248: yun-0.3do
-249: yun-1.3do
-250: yun-10.3do
-251: yun-2.3do
-252: yun-3.3do
-253: yun-4.3do
-254: yun-5.3do
-255: yun-6.3do
-256: yun-7.3do
-257: yun-8.3do
-258: yun-9.3do
+155: rhn-0.3do
+156: rhn-1.3do
+157: rhn-10.3do
+158: rhn-2.3do
+159: rhn-3.3do
+160: rhn-4.3do
+161: rhn-5.3do
+162: rhn-6.3do
+163: rhn-7.3do
+164: rhn-8.3do
+165: rhn-9.3do
+166: rld0.3do
+167: rldg.3do
+168: rldp.3do
+169: rldv.3do
+170: rpt0.3do
+171: rptg.3do
+172: rptp.3do
+173: rptv.3do
+174: sabg.3do
+175: sabv.3do
+176: sar-0.3do
+177: sar-1.3do
+178: sar-10.3do
+179: sar-2.3do
+180: sar-3.3do
+181: sar-4.3do
+182: sar-5.3do
+183: sar-6.3do
+184: sar-7.3do
+185: sar-8.3do
+186: sar-9.3do
+187: seq0.3do
+188: seqg.3do
+189: seqp.3do
+190: seqp_1.3do
+191: seqv.3do
+192: shld.3do
+193: shrp_1.3do
+194: shrp_2.3do
+195: shrp_3.3do
+196: shrp_4.3do
+197: sil-0.3do
+198: sil-1.3do
+199: sil-10.3do
+200: sil-2.3do
+201: sil-3.3do
+202: sil-4.3do
+203: sil-5.3do
+204: sil-6.3do
+205: sil-7.3do
+206: sil-8.3do
+207: sil-9.3do
+208: stm-0.3do
+209: stm-1.3do
+210: stm-10.3do
+211: stm-2.3do
+212: stm-3.3do
+213: stm-4.3do
+214: stm-5.3do
+215: stm-6.3do
+216: stm-7.3do
+217: stm-8.3do
+218: stm-9.3do
+219: str0.3do
+220: strg.3do
+221: strp.3do
+222: strv.3do
+223: tus-0.3do
+224: tus-1.3do
+225: tus-10.3do
+226: tus-2.3do
+227: tus-3.3do
+228: tus-4.3do
+229: tus-5.3do
+230: tus-6.3do
+231: tus-7.3do
+232: tus-8.3do
+233: tus-9.3do
+234: vest.3do
+235: vestl.3do
+236: yel-0.3do
+237: yel-1.3do
+238: yel-10.3do
+239: yel-2.3do
+240: yel-3.3do
+241: yel-4.3do
+242: yel-5.3do
+243: yel-6.3do
+244: yel-7.3do
+245: yel-8.3do
+246: yel-9.3do
+247: yun-0.3do
+248: yun-1.3do
+249: yun-10.3do
+250: yun-2.3do
+251: yun-3.3do
+252: yun-4.3do
+253: yun-5.3do
+254: yun-6.3do
+255: yun-7.3do
+256: yun-8.3do
+257: yun-9.3do
 end
 
 Section: SPRITES
@@ -6835,7 +6834,7 @@ end
 
 Section: TEMPLATES
 
-World templates 151
+World templates 150
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 bubble            none               orient=(0.000000/0.000000/0.000000) type=cog move=physics thingflags=0x10000000 timer=3.000000 sprite=bubble.spr mass=0.050000 physflags=0x200 vel=(0.000000/0.000000/0.300000)
@@ -6926,9 +6925,8 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +bryarbolt        _weapon            thingflags=0x20000001 light=0.400000 model3d=bry0.3do size=0.001000 movesize=0.001000 soundclass=bry.snd creatething=+smflash maxrotvel=0.000000 vel=(0.000000/4.000000/0.000000) explode=+laserhit fleshhit=+laserfleshhit damage=30.000000 mindamage=10.000000 typeflags=0x20440d rate=15.000000
 +backpack         _droppowerup       thingflags=0x400 model3d=bpck.3do cog=rbot-backpack.cog height=0.036337 typeflags=0x4
 _structure        _decor             collide=3 thingflags=0x8
-_ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 m5concrifle       concrifle          typeflags=0x9
 m10column         _structure         model3d=m10colmn.3do size=0.521699 movesize=0.521699
 +stlaser          +bryarbolt         model3d=str0.3do soundclass=stlaser.snd vel=(0.000000/6.000000/0.000000) rate=10.000000

@@ -6860,7 +6860,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 161
+World models 160
 0: 41rod.3do
 1: bact.3do
 2: battery.3do
@@ -6964,64 +6964,63 @@ World models 161
 100: packrev.3do
 101: pcel.3do
 102: rcrg.3do
-103: respawn.3DO
-104: rld0.3do
-105: rldg.3do
-106: rldp.3do
-107: rldv.3do
-108: rldv_m.3do
-109: rod02.3do
-110: rpt0.3do
-111: rptg.3do
-112: rptp.3do
-113: rptv.3do
-114: rptv_m.3do
-115: sab0.3do
-116: sab0blue.3do
-117: sab0dred.3do
-118: sab0gree.3do
-119: sab0oran.3do
-120: sab0purp.3do
-121: sab0red.3do
-122: sab0yell.3do
-123: sabg.3do
-124: sabgblue.3do
-125: sabggreen.3do
-126: sabgorange.3do
-127: sabgpurple.3do
-128: sabgred.3do
-129: sabgyellow.3do
-130: sabp.3do
-131: sabv.3do
-132: sabv_m.3do
-133: scpe.3do
-134: scrg.3do
-135: seq0.3do
-136: seqb.3do
-137: seqb_m.3do
-138: seqg.3do
-139: seqp.3do
-140: seqp_1.3do
-141: shld.3do
-142: shrp_1.3do
-143: shrp_2.3do
-144: shrp_3.3do
-145: shrp_4.3do
-146: skr0.3do
-147: skrg.3do
-148: skrp.3do
-149: skrv.3do
-150: skrv_m.3do
-151: sscg.3do
-152: str0.3do
-153: strg.3do
-154: strp.3do
-155: strv.3do
-156: strv_m.3do
-157: thrncolm.3do
-158: trpnl.3do
-159: vest.3do
-160: vestl.3do
+103: rld0.3do
+104: rldg.3do
+105: rldp.3do
+106: rldv.3do
+107: rldv_m.3do
+108: rod02.3do
+109: rpt0.3do
+110: rptg.3do
+111: rptp.3do
+112: rptv.3do
+113: rptv_m.3do
+114: sab0.3do
+115: sab0blue.3do
+116: sab0dred.3do
+117: sab0gree.3do
+118: sab0oran.3do
+119: sab0purp.3do
+120: sab0red.3do
+121: sab0yell.3do
+122: sabg.3do
+123: sabgblue.3do
+124: sabggreen.3do
+125: sabgorange.3do
+126: sabgpurple.3do
+127: sabgred.3do
+128: sabgyellow.3do
+129: sabp.3do
+130: sabv.3do
+131: sabv_m.3do
+132: scpe.3do
+133: scrg.3do
+134: seq0.3do
+135: seqb.3do
+136: seqb_m.3do
+137: seqg.3do
+138: seqp.3do
+139: seqp_1.3do
+140: shld.3do
+141: shrp_1.3do
+142: shrp_2.3do
+143: shrp_3.3do
+144: shrp_4.3do
+145: skr0.3do
+146: skrg.3do
+147: skrp.3do
+148: skrv.3do
+149: skrv_m.3do
+150: sscg.3do
+151: str0.3do
+152: strg.3do
+153: strp.3do
+154: strv.3do
+155: strv_m.3do
+156: thrncolm.3do
+157: trpnl.3do
+158: vest.3do
+159: vestl.3do
 end
 
 Section: SPRITES
@@ -7456,7 +7455,7 @@ end
 
 Section: TEMPLATES
 
-World templates 247
+World templates 246
 #Name:           Based On:        Params:
 ghostcam          none               orient=(0/0/0) type=ghost move=path puppet=cr.pup
 ghost             none               orient=(0/0/0) type=ghost move=path
@@ -7586,11 +7585,10 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +backpack         _droppowerup       thingflags=0x400 model3d=bpck.3do cog=rbot-backpack.cog height=.036337 typeflags=0x4
 _structure        _decor             collide=3 thingflags=0x8
 _humanactor       _actor             size=.065 movesize=.065 surfdrag=3 airdrag=.5 maxvel=.5 maxthrust=.8 typeflags=0x80000
-_ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
 visiblerod02      _structure         collide=1 model3d=rod02.3do size=.025 movesize=.025
 thronecolumn      _structure         model3d=thrncolm.3do size=.22094 movesize=.22094
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 inviscollide      _structure         collide=1 thingflags=0x10 model3d=41rod.3do size=.025 movesize=.025
 +stlaser          +bryarbolt         model3d=str0.3do soundclass=stlaser.snd vel=(0/6/0) rate=10
 +small_exp        _explosion         thingflags=0x1 light=.2 timer=.8 sprite=detx.spr soundclass=exp_det.snd creatething=+firecloud typeflags=0x17 damage=20 blasttime=.699 force=60 maxlight=.8 range=.1

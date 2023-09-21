@@ -36877,7 +36877,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 98
+World models 97
 0: 01c3x8.3do
 1: 15r2x1.3do
 2: 19e2x2.3do
@@ -36934,48 +36934,47 @@ World models 98
 53: red-7.3do
 54: red-8.3do
 55: red-9.3do
-56: respawn.3DO
-57: r-key.3do
-58: rld0.3do
-59: rldg.3do
-60: rldp.3do
-61: rldv.3do
-62: rpt0.3do
-63: rptg.3do
-64: rptp.3do
-65: rptv.3do
-66: sabg.3do
-67: sabv.3do
-68: seq0.3do
-69: seqg.3do
-70: seqp.3do
-71: seqp_1.3do
-72: seqv.3do
-73: shard0.3do
-74: shld.3do
-75: shrp_1.3do
-76: shrp_2.3do
-77: shrp_3.3do
-78: shrp_4.3do
-79: shut.3do
-80: str0.3do
-81: strg.3do
-82: strp.3do
-83: strv.3do
-84: vest.3do
-85: vestl.3do
-86: yel-0.3do
-87: yel-1.3do
-88: yel-10.3do
-89: yel-2.3do
-90: yel-3.3do
-91: yel-4.3do
-92: yel-5.3do
-93: yel-6.3do
-94: yel-7.3do
-95: yel-8.3do
-96: yel-9.3do
-97: y-key.3do
+56: r-key.3do
+57: rld0.3do
+58: rldg.3do
+59: rldp.3do
+60: rldv.3do
+61: rpt0.3do
+62: rptg.3do
+63: rptp.3do
+64: rptv.3do
+65: sabg.3do
+66: sabv.3do
+67: seq0.3do
+68: seqg.3do
+69: seqp.3do
+70: seqp_1.3do
+71: seqv.3do
+72: shard0.3do
+73: shld.3do
+74: shrp_1.3do
+75: shrp_2.3do
+76: shrp_3.3do
+77: shrp_4.3do
+78: shut.3do
+79: str0.3do
+80: strg.3do
+81: strp.3do
+82: strv.3do
+83: vest.3do
+84: vestl.3do
+85: yel-0.3do
+86: yel-1.3do
+87: yel-10.3do
+88: yel-2.3do
+89: yel-3.3do
+90: yel-4.3do
+91: yel-5.3do
+92: yel-6.3do
+93: yel-7.3do
+94: yel-8.3do
+95: yel-9.3do
+96: y-key.3do
 end
 
 Section: SPRITES
@@ -37476,7 +37475,7 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 _structure        _decor             collide=3 thingflags=0x8
 _ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 m5concrifle       concrifle          typeflags=0x9
 ceilinglight2     _ghoststructure    model3d=clight0.3do size=0.166487 movesize=0.166487
 ceilinglight      _structure         thingflags=0x9 light=0.500000 model3d=clight.3do size=0.116487 movesize=0.116487

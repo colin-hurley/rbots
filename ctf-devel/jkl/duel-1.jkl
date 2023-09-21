@@ -23101,7 +23101,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 90
+World models 89
 0: 19e2x2.3do
 1: bact.3do
 2: boost.3do
@@ -23152,46 +23152,45 @@ World models 90
 47: red-7.3do
 48: red-8.3do
 49: red-9.3do
-50: respawn.3DO
-51: r-key.3do
-52: rld0.3do
-53: rldg.3do
-54: rldp.3do
-55: rldv.3do
-56: rpt0.3do
-57: rptg.3do
-58: rptp.3do
-59: rptv.3do
-60: sabg.3do
-61: sabv.3do
-62: seq0.3do
-63: seqg.3do
-64: seqp.3do
-65: seqp_1.3do
-66: seqv.3do
-67: shld.3do
-68: shrp_1.3do
-69: shrp_2.3do
-70: shrp_3.3do
-71: shrp_4.3do
-72: str0.3do
-73: strg.3do
-74: strp.3do
-75: strv.3do
-76: vest.3do
-77: vestl.3do
-78: yel-0.3do
-79: yel-1.3do
-80: yel-10.3do
-81: yel-2.3do
-82: yel-3.3do
-83: yel-4.3do
-84: yel-5.3do
-85: yel-6.3do
-86: yel-7.3do
-87: yel-8.3do
-88: yel-9.3do
-89: y-key.3do
+50: r-key.3do
+51: rld0.3do
+52: rldg.3do
+53: rldp.3do
+54: rldv.3do
+55: rpt0.3do
+56: rptg.3do
+57: rptp.3do
+58: rptv.3do
+59: sabg.3do
+60: sabv.3do
+61: seq0.3do
+62: seqg.3do
+63: seqp.3do
+64: seqp_1.3do
+65: seqv.3do
+66: shld.3do
+67: shrp_1.3do
+68: shrp_2.3do
+69: shrp_3.3do
+70: shrp_4.3do
+71: str0.3do
+72: strg.3do
+73: strp.3do
+74: strv.3do
+75: vest.3do
+76: vestl.3do
+77: yel-0.3do
+78: yel-1.3do
+79: yel-10.3do
+80: yel-2.3do
+81: yel-3.3do
+82: yel-4.3do
+83: yel-5.3do
+84: yel-6.3do
+85: yel-7.3do
+86: yel-8.3do
+87: yel-9.3do
+88: y-key.3do
 end
 
 Section: SPRITES
@@ -23530,7 +23529,7 @@ end
 
 Section: TEMPLATES
 
-World templates 146
+World templates 145
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
@@ -23630,9 +23629,8 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +bryarbolt        _weapon            thingflags=0x20000001 light=0.400000 model3d=bry0.3do size=0.001000 movesize=0.001000 soundclass=bry.snd creatething=+smflash maxrotvel=0.000000 vel=(0.000000/4.000000/0.000000) explode=+laserhit fleshhit=+laserfleshhit damage=30.000000 mindamage=10.000000 typeflags=0x20440d rate=15.000000
 +backpack         _droppowerup       thingflags=0x400 model3d=bpck.3do cog=rbot-backpack.cog height=0.036337 typeflags=0x4
 _structure        _decor             collide=3 thingflags=0x8
-_ghoststructure   _structure         collide=0
 _ghostdecor       _decor             collide=0
-rbot_respawn      _ghoststructure    size=0 movesize=0 model3d=respawn.3DO
+rbot_respawn      _ghostdecor        size=0 movesize=0
 m5concrifle       concrifle          typeflags=0x9
 +stlaser          +bryarbolt         model3d=str0.3do soundclass=stlaser.snd vel=(0.000000/6.000000/0.000000) rate=10.000000
 +repeaterhit      +laserhit          sprite=rptx.spr soundclass=exp_rpthit.snd

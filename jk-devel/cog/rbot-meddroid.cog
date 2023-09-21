@@ -40,6 +40,10 @@ end
 code
 
 touched:
+	if (GetThingType(GetSourceRef()) != 2) return; // bots only
+	goto activated;
+	return;
+
 activated:
    if(active)
    {

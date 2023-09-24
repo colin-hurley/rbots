@@ -11,14 +11,8 @@ flags=0x40
 symbols
 
 message		startup
-message		shutdown
 message		user0
 message		user1
-message		trigger
-
-int			active=0							local
-
-cog			srv=-1								local
 
 end
 
@@ -29,18 +23,11 @@ startup:
 	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
 	return;
 
-shutdown:
-	// Reinitialize to default values when exiting level
-	active = 0;
-	srv = -1;
-	return;
 
 // Execute
 user0:
-	active = 1 - active;
-	if (active)
+	if (!(GetDebugModeFlags() & 0x400))
 	{
-		// Activate highlighter
 		Print("Slow motion on");
 		SetDebugModeFlags(0x400);
 	}
@@ -53,15 +40,8 @@ user0:
 
 // Concat current state
 user1:
-	if (active) jkStringConcatAsciiString("Slow motion (ACTIVE)");
+	if (GetDebugModeFlags() & 0x400) jkStringConcatAsciiString("Slow motion (ACTIVE)");
 	else jkStringConcatAsciiString("Slow motion (NOT ACTIVE)");
-	return;
-
-trigger:
-	if (GetSourceRef() == 15080) // New bot selected
-	{
-		srv = GetParam(1);
-	}
 	return;
 
 end

@@ -787,6 +787,7 @@ respawn_bot:
 	SetThingClassCog(rbot, GetSelfCog());
 	SetThingHealth(rbot, 100);
 	SetThingUserData(rbot, curteam);
+	SetActorFlags(rbot, 0x1000000); // fully damage other actors
 	ClearActorFlags(rbot, 0x8); // remove invulnerable
 	ClearThingFlags(rbot, 0x4); // remove mag sealed
 	SetTimerEx(5.0, 160, -1, -1); // ask for high scorer every 5 secs

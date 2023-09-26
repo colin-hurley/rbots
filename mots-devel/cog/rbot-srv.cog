@@ -191,10 +191,11 @@ killed:
 	killer = GetSourceRef();
 	StopThing(rbot);
 	backpack = CreateThingNr(tmp_backpack, rbot); // create backpack
+	SendMessageEx(GetThingClassCog(backpack), user7, 10502010, backpack, rbot, -1); // fill backpack
 
 	// Tell other srv cogs that the bot died
-	SendMessageEx(srv_force, user7, 10223006, backpack, -1, -1);
-	SendMessageEx(srv_weapons, user7, 10233006, backpack, -1, -1); // fill backpack with weapons and ammo
+	SendMessageEx(srv_force, user7, 10223006, -1, -1, -1);
+	SendMessageEx(srv_weapons, user7, 10233006, -1, -1, -1);
 
 	call stop_bot_ai;
 
@@ -988,8 +989,7 @@ pickupitem:
 
 	if (GetThingTemplate(potential) == tmp_backpack)
 	{
-		SendTrigger(-1, 12000, botid, potential, -1, -1); // send info to backpack cog
-		TakeItem(potential, rbot); // bot picked up this item
+		SendMessageEx(GetThingClassCog(potential), user7, 10502020, potential, rbot, -1);
 		return;
 	}
 

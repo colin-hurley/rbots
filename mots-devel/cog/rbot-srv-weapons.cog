@@ -217,42 +217,6 @@ trigger:
 		}
 	}
 
-	if (GetSourceRef() == 12001) // get inventory items from backpack
-	{
-		energy=energy+GetParam(1);
-		if (energy>500) energy=500;
-		power=power+GetParam(2);
-		if (power>500) power=500;
-		inv_weap8=inv_weap8+GetParam(3);
-		if (inv_weap8>30) inv_weap8=30;
-		return;
-	}
-
-	if (GetSourceRef() == 12002) // get inventory items from backpack
-	{
-		inv_raildets=inv_raildets+GetParam(1);
-		if (inv_raildets>30) inv_raildets=30;
-		inv_weap4=inv_weap4+GetParam(2);
-		if (inv_weap4>30) inv_weap4=30;
-		return;
-	}
-
-	if (GetSourceRef() == 12003) // get inventory items from backpack
-	{
-		if (GetParam(1)) inv_weap2=1;
-		if (GetParam(2)) inv_weap3=1;
-		if (GetParam(3)) inv_weap5=1;
-		return;
-	}
-
-	if (GetSourceRef() == 12004) // get inventory items from backpack
-	{
-		if (GetParam(1)) inv_weap6=1;
-		if (GetParam(2)) inv_weap7=1;
-		if (GetParam(3)) inv_weap9=1;
-		return;
-	}
-
 	return;
 
 timer:
@@ -323,6 +287,47 @@ user7:
 	if (GetParam(0) == 10231014) { ReturnEx(curweap); return; }
 
 	if (GetParam(0) == 10232010) { target = GetParam(1); return; }
+
+	if (GetParam(0) == 10232502) // add energy
+	{
+		energy = energy + GetParam(1);
+		if (energy > 500) energy = 500;
+		return;
+	}
+
+	if (GetParam(0) == 10232503) // add power
+	{
+		power = power + GetParam(1);
+		if (power > 500) power = 500;
+		return;
+	}
+
+	if (GetParam(0) == 10232505) // add rail charges
+	{
+		inv_raildets = inv_raildets + GetParam(1);
+		if (inv_raildets > 30) inv_raildets = 30;
+		return;
+	}
+
+	if (GetParam(0) == 10232506) // add weapons
+	{
+		if (GetParam(1) == 4)
+		{
+			inv_weap4 = inv_weap4 + GetParam(2);
+			if (inv_weap4 > 30) inv_weap4 = 30;
+			return;
+		}
+
+		if (GetParam(1) == 8)
+		{
+			inv_weap8 = inv_weap8 + GetParam(2);
+			if (inv_weap8 > 30) inv_weap8 = 30;
+			return;
+		}
+
+		if (GetParam(2)) inv_weap0[GetParam(1)] = 1;
+		return;
+	}
 
 	if (GetParam(0) == 10233002) // bot damaged (try to block with saber)
 	{
@@ -399,14 +404,6 @@ user7:
 
 	if (GetParam(0) == 10233006) // bot killed
 	{
-		item = GetParam(1); // backpack
-
-		// Fill backpack
-		SendTrigger(-1, 12010, item, energy, power, inv_weap8);
-		SendTrigger(-1, 12011, item, inv_raildets, inv_weap4, -1);
-		SendTrigger(-1, 12012, item, inv_weap2, inv_weap3, inv_weap5);
-		SendTrigger(-1, 12013, item, inv_weap6, inv_weap7, inv_weap9);
-
 		if (curweap == 10) // current weapon is saber
 		{
 			// The bot died with the saber selected, stop the saber weapon effects

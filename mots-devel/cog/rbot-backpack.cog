@@ -1,34 +1,33 @@
 # Rbot Backpack Cog
 #
-# Created by Raynar
-# Addtional code by Hell Raiser
+# Type ID: 1050
+#
+# Rbots originally created by Raynar
+# Additional code by Hell Raiser
 
 symbols
 
 message		touched
 message		taken
 message		removed
-message		created
-message		trigger
+message		user7
 
-thing		backpack							local
-thing		player								local
 sound		pickupsnd=BactaPu1.wav				local
 
-int			autopickup=0						local
-int			autoselect_weapon=-1				local
+# Backpacks
+thing		backpack0=-1						local
+thing		backpack1=-1						local
+thing		backpack2=-1						local
+thing		backpack3=-1						local
+thing		backpack4=-1						local
+thing		backpack5=-1						local
+thing		backpack6=-1						local
+thing		backpack7=-1						local
+thing		backpack8=-1						local
+thing		backpack9=-1						local
 
-int			used0=-1							local
-int			used1=-1							local
-int			used2=-1							local
-int			used3=-1							local
-int			used4=-1							local
-int			used5=-1							local
-int			used6=-1							local
-int			used7=-1							local
-int			used8=-1							local
-int			used9=-1							local
-
+# Backpack data
+# 10 backpacks * 11 items per backpack = 110 item var needed
 int			item0								local
 int			item1								local
 int			item2								local
@@ -89,89 +88,78 @@ int			item56								local
 int			item57								local
 int			item58								local
 int			item59								local
+int			item60								local
+int			item61								local
+int			item62								local
+int			item63								local
+int			item64								local
+int			item65								local
+int			item66								local
+int			item67								local
+int			item68								local
+int			item69								local
+int			item70								local
+int			item71								local
+int			item72								local
+int			item73								local
+int			item74								local
+int			item75								local
+int			item76								local
+int			item77								local
+int			item78								local
+int			item79								local
+int			item80								local
+int			item81								local
+int			item82								local
+int			item83								local
+int			item84								local
+int			item85								local
+int			item86								local
+int			item87								local
+int			item88								local
+int			item89								local
+int			item90								local
+int			item91								local
+int			item92								local
+int			item93								local
+int			item94								local
+int			item95								local
+int			item96								local
+int			item97								local
+int			item98								local
+int			item99								local
+int			item100								local
+int			item101								local
+int			item102								local
+int			item103								local
+int			item104								local
+int			item105								local
+int			item106								local
+int			item107								local
+int			item108								local
+int			item109								local
 
-int			weap0								local
-int			weap1								local
-int			weap2								local
-int			weap3								local
-int			weap4								local
-int			weap5								local
-int			weap6								local
-int			weap7								local
-int			weap8								local
-int			weap9								local
-int			weap10								local
-int			weap11								local
-int			weap12								local
-int			weap13								local
-int			weap14								local
-int			weap15								local
-int			weap16								local
-int			weap17								local
-int			weap18								local
-int			weap19								local
-int			weap20								local
-int			weap21								local
-int			weap22								local
-int			weap23								local
-int			weap24								local
-int			weap25								local
-int			weap26								local
-int			weap27								local
-int			weap28								local
-int			weap29								local
-int			weap30								local
-int			weap31								local
-int			weap32								local
-int			weap33								local
-int			weap34								local
-int			weap35								local
-int			weap36								local
-int			weap37								local
-int			weap38								local
-int			weap39								local
-int			weap40								local
-int			weap41								local
-int			weap42								local
-int			weap43								local
-int			weap44								local
-int			weap45								local
-int			weap46								local
-int			weap47								local
-int			weap48								local
-int			weap49								local
-int			weap50								local
-int			weap51								local
-int			weap52								local
-int			weap53								local
-int			weap54								local
-int			weap55								local
-int			weap56								local
-int			weap57								local
-int			weap58								local
-int			weap59								local
-
-int			index								local
-int			index2								local
-int			botid								local
+# Transient working vars
+int			i									local
+int			offset								local
+thing		player								local
+thing		backpack							local
+int			autopickup=0						local
+int			autoselect_weapon=-1				local
 
 end
-
-# ========================================================================================
 
 code
 
 touched:
-	player = GetSourceRef();
 	backpack = GetSenderRef();
+	player = GetSourceRef();
 	if (GetThingHealth(player) > 0) TakeItem(backpack, player);
 	Return;
 
-# ........................................................................................
-
 taken:
-	player = GetSourceRef();
 	backpack = GetSenderRef();
+	player = GetSourceRef();
 
 	jkPrintUNIString(player, 200);
 
@@ -180,29 +168,7 @@ taken:
 	AddDynamicTint(player, 0.0, 0.0, 0.2);
 
 	// Pickup the backpack
-	// Find backpack and add items to players inventory
-	for (index=0;index<10;index=index+1)
-	{
-		if (used0[index]==backpack) // found the item
-		{
-			ChangeInv(player, 11,item0[index]);
-			ChangeInv(player, 12,item0[10+index]);
-			ChangeInv(player, 128,item0[20+index]); 
-			if (item0[20+index]>0) SetInv(player, 138,1);
-			ChangeInv(player, 15,item0[30+index]); 
-			ChangeInv(player, 124,item0[40+index]); 
-			if (weap0[index]==1) SetInv(player, 122,1);
-			if (weap0[10+index]==1) SetInv(player, 123,1);
-			if (weap0[20+index]==1) SetInv(player, 135,1);
-			if (weap0[30+index]==1) SetInv(player, 126,1);
-			if (weap0[40+index]==1) SetInv(player, 127,1);
-			if (weap0[50+index]==1) SetInv(player, 129,1);
-
-			used0[index]=-1; // reset spot for another backpack
-			index=10; // break out of loop
-		}
-	}
-
+	call pickup_backpack;
 
 	// New ammo is already assigned, so this is like a autopickup/autoreload mix,
 	// it will select the best weapon overall with all the stuff in the backpack
@@ -229,112 +195,144 @@ taken:
 	Return;
 
 removed:
-	backpack=getsenderref(); // backpack not picked up in time
-	for (index=0;index<10;index=index+1)
-	{
-		if (used0[index]==backpack) // found the item
-		{
-			used0[index]=-1; // reset spot for another backpack 
-			index=10; // break out of loop
-		}
-	}
+	// Clear stored backpack data, backpack was picked up or timed out and is being removed
+	backpack = GetSenderRef();
+	player = -1; // no one is picking up this backpack
+
+	// Clear backpack data slot
+	call pickup_backpack;
 
 	return;
 
-created:
-	// look for an empty spot to store our info
-	for (index=0;index<10;index=index+1)
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 10502010) // fill backpack
 	{
-		if (used0[index]==-1) // found an empty slot
-		{
-			used0[index]=getsenderref(); // set used slot to powerup
-			for (index2=0;index2<60;index2=index2+10) // set up inventory defaults - wait for trigger to supply real info
-			{
-				item0[index2+index]=0;
-				weap0[index2+index]=0;
-			}
-			index=10; // break out of loop
-		}
-	}	
+		backpack = GetParam(1);
+		player = GetParam(2);
+
+		call fill_backpack;
+
+		ReturnEx(0);
+		return;
+	}
+
+	if (GetParam(0) == 10502020) // pickup backpack
+	{
+		backpack = GetParam(1);
+		player = GetParam(2);
+
+		call pickup_backpack;
+
+		TakeItem(backpack, player);
+		ReturnEx(0);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-backpack.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
-trigger:
-	if (getsourceref() == 12000) // backpack taken by bot
+# Params: backpack, player
+fill_backpack:
+	for (i = 0 ; i < 10 ; i = i + 1)
 	{
-		botid=getparam(0);
-		backpack=getparam(1);
-		for (index=0;index<10;index=index+1)
+		if (backpack0[i] == -1 || backpack0[i] == backpack) // found free slot to store the backpack data
 		{
-			if (used0[index]==backpack) // found the item
-			{
-				SendTrigger(-1, 12001, botid, item0[index], item0[10+index], item0[20+index]); 
-				SendTrigger(-1, 12002, botid, item0[30+index], item0[40+index], item0[50+index]); 
-				SendTrigger(-1, 12003, botid, weap0[index], weap0[10+index], weap0[20+index]); 
-				SendTrigger(-1, 12004, botid, weap0[30+index], weap0[40+index], weap0[50+index]); 
-				used0[index]=-1; // reset spot for another backpack 
-				index=10; // break out of loop
-			}
-		}
-	}
-	if (getsourceref() == 12010) // set inventory items from dead bot or player
-	{
-		backpack=getparam(0);
-		for (index=0;index<10;index=index+1)
-		{
-			if (used0[index]==backpack) // found the item
-			{
-				item0[index]=getparam(1);
-				item0[10+index]=getparam(2);
-				item0[20+index]=getparam(3);
-				index=10; // break out of loop
-			}
-		}
-	}
-	if (getsourceref() == 12011) // set inventory items from dead bot or player
-	{
-		backpack=getparam(0);
-		for (index=0;index<10;index=index+1)
-		{
-			if (used0[index]==backpack) // found the item
-			{
-				item0[30+index]=getparam(1);
-				item0[40+index]=getparam(2);
-				item0[50+index]=getparam(3);
-				index=10; // break out of loop
-			}
-		}
-	}
-	if (getsourceref() == 12012) // set inventory items from dead bot or player
-	{
-		backpack=getparam(0);
-		for (index=0;index<10;index=index+1)
-		{
-			if (used0[index]==backpack) // found the item
-			{
-				weap0[index]=getparam(1);
-				weap0[10+index]=getparam(2);
-				weap0[20+index]=getparam(3);
-				index=10; // break out of loop
-			}
-		}
-	}
-	if (getsourceref() == 12013) // set inventory items from dead bot or player
-	{
-		backpack=getparam(0);
-		for (index=0;index<10;index=index+1)
-		{
-			if (used0[index]==backpack) // found the item
-			{
-				weap0[30+index]=getparam(1);
-				weap0[40+index]=getparam(2);
-				weap0[50+index]=getparam(3);
-				index=10; // break out of loop
-			}
-		}
-	}
+			backpack0[i] = backpack; // reserve data slot for this backpack
+			offset = i * 11;
 
+			if (player != -1)
+			{
+				if (GetThingType(player) == 2) // bot
+				{
+					item0[offset]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 2, -1, -1);  // bryar
+					item0[offset+1]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 3, -1, -1);  // strifle
+					item0[offset+2]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 4, -1, -1);  // thermal detonators
+					item0[offset+3]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 5, -1, -1);  // bowcaster
+					item0[offset+4]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 6, -1, -1);  // repeater
+					item0[offset+5]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 7, -1, -1);  // raildet
+					item0[offset+6]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 8, -1, -1);  // sequencer charges
+					item0[offset+7]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 9, -1, -1);  // concrifle
+					item0[offset+8]  = SendMessageEx(GetThingClassCog(player), user7, 10231002, -1, -1, -1); // energy
+					item0[offset+9]  = SendMessageEx(GetThingClassCog(player), user7, 10231003, -1, -1, -1); // power
+					item0[offset+10] = SendMessageEx(GetThingClassCog(player), user7, 10231005, -1, -1, -1); // rail charges
+				}
+
+				if (GetThingType(player) == 10) // player
+				{
+					item0[offset]    = GetInv(player, 122);  // bryar
+					item0[offset+1]  = GetInv(player, 123);  // strifle
+					item0[offset+2]  = GetInv(player, 124);  // thermal detonators
+					item0[offset+3]  = GetInv(player, 135);  // bowcaster
+					item0[offset+4]  = GetInv(player, 126);  // repeater
+					item0[offset+5]  = GetInv(player, 127);  // raildet
+					item0[offset+6]  = GetInv(player, 128);  // sequencer charges
+					item0[offset+7]  = GetInv(player, 129);  // concrifle
+					item0[offset+8]  = GetInv(player, 11); // energy
+					item0[offset+9]  = GetInv(player, 12); // power
+					item0[offset+10] = GetInv(player, 15); // rail charges
+				}
+			}
+
+			return;
+		}
+	}
+	return;
+
+# Params: backpack, player
+pickup_backpack:
+	for (i = 0 ; i < 10 ; i = i + 1)
+	{
+		if (backpack0[i] == backpack) // found the slot containing the backpack data
+		{
+			backpack0[i] = -1; // clear data slot so another backpack can use it
+			offset = i * 11;
+
+			if (player != -1)
+			{
+				if (GetThingType(player) == 2) // bot
+				{
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 2, item0[offset], -1);     // bryar
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 3, item0[offset+1], -1);   // strifle
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 4, item0[offset+2], -1);   // thermal detonators
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 5, item0[offset+3], -1);   // bowcaster
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 6, item0[offset+4], -1);   // repeater
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 7, item0[offset+5], -1);   // raildet
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 8, item0[offset+6], -1);   // sequencer charges
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 9, item0[offset+7], -1);   // concrifle
+					SendMessageEx(GetThingClassCog(player), user7, 10232502, item0[offset+8], -1, -1);  // energy
+					SendMessageEx(GetThingClassCog(player), user7, 10232503, item0[offset+9], -1, -1);  // power
+					SendMessageEx(GetThingClassCog(player), user7, 10232505, item0[offset+10], -1, -1); // rail charges
+				}
+
+				if (GetThingType(player) == 10) // player
+				{
+					ChangeInv(player, 122,  item0[offset]);    // bryar
+					ChangeInv(player, 123,  item0[offset+1]);  // strifle
+					ChangeInv(player, 124,  item0[offset+2]);  // thermal detonators
+					ChangeInv(player, 135,  item0[offset+3]);  // bowcaster
+					ChangeInv(player, 126,  item0[offset+4]);  // repeater
+					ChangeInv(player, 127,  item0[offset+5]);  // raildet
+					ChangeInv(player, 128,  item0[offset+6]);  // sequencer charges
+					if (item0[offset+6] > 0) ChangeInv(player, 138, 1); // sequencer charge manual mode
+					ChangeInv(player, 129,  item0[offset+7]);  // concrifle
+					ChangeInv(player, 11, item0[offset+8]);  // energy
+					ChangeInv(player, 12, item0[offset+9]);  // power
+					ChangeInv(player, 15, item0[offset+10]); // rail charges
+				}
+			}
+
+			return;
+		}
+	}
 	return;
 
 end
-
-

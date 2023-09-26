@@ -155,6 +155,8 @@ int         killedByRancor=0                 local
 
 int         inbubble=0                       local
 
+template	tmp_backpack=+backpack			local
+
 message     startup
 message     killed
 message     newplayer
@@ -214,11 +216,8 @@ killed:
    if(IsMulti())
    {
 		//CreateBackpack(player);
-		item=CreateThingNr(tmp_backpack,player); // create backpack and send info to backpack cog
-		SendTrigger(-1, 12010, item, GetInv(player,11), GetInv(player,12), GetInv(player,8)); 
-		SendTrigger(-1, 12011, item, GetInv(player,15), GetInv(player,4), -1); 
-		SendTrigger(-1, 12012, item, GetInv(player,2), GetInv(player,3), GetInv(player,5)); 
-		SendTrigger(-1, 12013, item, GetInv(player,6), GetInv(player,7), GetInv(player,9));   
+		item = CreateThingNr(tmp_backpack, player); // create backpack
+		SendMessageEx(GetThingClassCog(item), user7, 10502010, item, player, -1); // fill backpack
 
 		ClearActorFlags(player, 0x2000);
 

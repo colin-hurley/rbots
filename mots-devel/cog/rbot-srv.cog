@@ -43,6 +43,8 @@ cog			system=-1							local
 cog			srv_ext=-1							local
 cog			srv_force=-1						local
 cog			srv_weapons=-1						local
+cog			botskin=-1							local
+cog			teambotskin=-1						local
 cog			spitem=-1							local
 
 # Respawn Effects
@@ -52,7 +54,7 @@ sound		teleportsnd=ForceThrow01.WAV		local
 # Misc
 int			curteam								local
 int			curbotname							local
-int			curbotskinid						local
+cog			curbotskin=-1						local
 thing		node								local
 sector		nodesec								local
 flex		nodesize							local
@@ -152,22 +154,6 @@ startup:
 
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1020, GetSelfCog(), botid, -1);
-
-	// Select skin, name, etc. depending on whether team play is active
-	if (GetMultiModeFlags() & 0x1) // team play
-	{
-		// Team play
-		curteam = team;
-		curbotskinid = teambotskinid;
-		curbotname = teambotname;
-	}
-	else
-	{
-		// Non-team play
-		curteam = 0; // no team
-		curbotskinid = botskinid;
-		curbotname = botname;
-	}
 
 	maxthings = GetThingCount(); // work out how many objects in the level
 	target_mask = 0x404; // Attack both actors and players by default
@@ -318,6 +304,11 @@ trigger:
 		{
 			if (GetParam(2) == botid) srv_weapons = GetParam(1);
 		}
+		if (GetParam(0) == 1030) // rbot-skin.cog
+		{
+			if (GetParam(2) == botskinid) botskin = GetParam(1);
+			if (GetParam(2) == teambotskinid) teambotskin = GetParam(1);
+		}
 		if (GetParam(0) == 1041) // rbot-item-special.cog
 		{
 			// Store the reference with the lowest number - this is the first instance in the list
@@ -369,12 +360,6 @@ trigger:
 	}
 
 	if (GetParam(0) != botid) return; // not for this bot
-
-	if (GetSourceRef() == 101061) // new bot created
-	{
-		rbot = GetParam(1);
-		return;
-	}
 
 	if (GetSourceRef() == 11020) // Received special info
 	{
@@ -669,6 +654,22 @@ user7:
 	{
 		if (BitTest(botmode, 0x80000)) // bot is disabled
 		{
+			// Select skin, name, etc. depending on whether team play is active
+			if (GetMultiModeFlags() & 0x1) // team play
+			{
+				// Team play
+				curteam = team;
+				curbotskin = teambotskin;
+				curbotname = teambotname;
+			}
+			else
+			{
+				// Non-team play
+				curteam = 0; // no team
+				curbotskin = botskin;
+				curbotname = botname;
+			}
+
 			jkStringClear();
 			jkStringConcatUNIString(1000 + curbotname);
 			jkStringConcatAsciiString(" has joined the game");
@@ -775,10 +776,9 @@ respawn_bot:
 	inv_keys = 0x0;
 
 	// Create bot
-	rbot = -1;
 	spawnpoint = SendMessageEx(system, user7, 10103200, curteam, -1, -1);
-	SendTrigger(-1, 101060, curbotskinid, botid, spawnpoint, -1);
-	if (rbot == -1) return; // bot creation failed, cogs may be misconfigured
+	rbot = SendMessageEx(curbotskin, user7, 10303000, spawnpoint, -1, -1);
+	if (rbot == -1 || GetThingType(rbot) != 2) return; // bot creation failed, cogs may be misconfigured
 
 	// Do respawn effects
 	CreateThingAtPos(teleport_particles, GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
@@ -798,8 +798,8 @@ respawn_bot:
 	SetPulse(0.1);
 
 	// Notify other cogs of bot respawn
-	SendMessageEx(srv_weapons, user7, 10233005, rbot, curbotskinid, -1);
-	SendMessageEx(srv_force, user7, 10223005, rbot, curbotskinid, -1);
+	SendMessageEx(srv_weapons, user7, 10233005, rbot, curbotskin, -1);
+	SendMessageEx(srv_force, user7, 10223005, rbot, curbotskin, -1);
 	SendTrigger(-1, 950, botid, rbot, curbotname, curteam); // Send bot respawn event
 	return;
 

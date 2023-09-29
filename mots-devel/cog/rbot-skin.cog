@@ -1,6 +1,7 @@
 # Rbot Skin Cog (MotS variant)
 #
-# Server only
+# Server-only
+# Type ID: 1030
 #
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
@@ -9,7 +10,8 @@ flags=0x80
 
 symbols
 
-message		trigger
+message		startup
+message		user7
 
 int			skinid=0
 
@@ -30,7 +32,6 @@ model		weapmesh9=cong.3do
 model		weapmesh10=sabgred.3do
 
 # Transient working vars
-int			botid								local
 thing		rbot								local
 thing		spawnpoint							local
 int			curweap								local
@@ -39,33 +40,42 @@ end
 
 code
 
-trigger:
+startup:
 	if (IsMulti() && !IsServer()) return; // Host only
 
-	// Ignore requests that are not for this skin instance
-	if (GetParam(0) != skinid) return;
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1030, GetSelfCog(), skinid, -1);
 
-	if (GetSourceRef() == 101060) // create bot
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 10303000) // create bot
 	{
-		botid = GetParam(1);
-		spawnpoint = GetParam(2);
+		spawnpoint = GetParam(1);
 		rbot = CreateThing(rtemp, spawnpoint);
-		// Return created bot thing number
-		SendTrigger(-1, 101061, botid, rbot, -1, -1);
+		ReturnEx(rbot);
 		return;
 	}
 
-	if (GetSourceRef() == 101062) // change weapon model
+	if (GetParam(0) == 10303010) // change weapon model
 	{
 		rbot = GetParam(1);
 		curweap = GetParam(2);
 		jkSetWeaponMesh(rbot, weapmesh0[curweap]);
+		ReturnEx(0);
 		return;
 	}
 
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-skin.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
-
 end
-
-

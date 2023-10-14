@@ -142,44 +142,9 @@ int			respawn_flags29=0					local
 int			respawn_flags30=0					local
 int			respawn_flags31=0					local
 
-# Bot scores
-int			botscore0							local
-int			botscore1							local
-int			botscore2							local
-int			botscore3							local
-int			botscore4							local
-int			botscore5							local
-int			botscore6							local
-int			botscore7							local
-int			botscore8							local
-int			botscore9							local
-int			botscore10							local
-int			botscore11							local
-int			botscore12							local
-int			botscore13							local
-int			botscore14							local
-int			botscore15							local
-int			botscore16							local
-int			botscore17							local
-int			botscore18							local
-int			botscore19							local
-int			botscore20							local
-int			botscore21							local
-int			botscore22							local
-int			botscore23							local
-int			botscore24							local
-int			botscore25							local
-int			botscore26							local
-int			botscore27							local
-int			botscore28							local
-int			botscore29							local
-int			botscore30							local
-int			botscore31							local
-
 # Misc vars
 int			botid								local
 thing		victim								local
-int			victimid							local # botid
 int			victimname							local
 thing		killer								local
 int			killerid							local # botid
@@ -193,6 +158,7 @@ int			mask_flag							local
 int			attempts							local
 int			team								local
 int			maxthings							local
+int			score								local
 int			highscore							local
 thing		highscorer							local
 template	walkplayer_temp=walkplayer			local
@@ -326,7 +292,6 @@ trigger:
 		killer = GetParam(1);
 
 		srv = GetThingClassCog(victim);
-		victimid = SendMessageEx(srv, user7, 10201000, -1, -1, -1);
 		victimname = SendMessageEx(srv, user7, 10201001, -1, -1, -1);
 
 		killerid = SendMessageEx(GetSelfCog(), user7, 10103000, killer, -1, -1);
@@ -341,12 +306,11 @@ trigger:
 			jkStringConcatUNIString(1000 + killername);
 			jkStringOutput(-3, -1);
 
-			// Figure bot score and spit it out [HR]
-			botscore0[killerid] = botscore0[killerid] + 1;					
+			score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
 			jkStringClear();
 			jkStringConcatUNIString(1000 + killername);
 			jkStringConcatAsciiString("'s Score: ");
-			jkStringConcatInt(botscore0[killerid]);
+			jkStringConcatInt(score);
 			jkStringOutput(-3, -1);
 
 			return;
@@ -372,12 +336,11 @@ trigger:
 		jkStringConcatUNIString(2000 + rand() * 5); // print death message
 		jkStringOutput(-3, -1);
 
-		// Figure bot score and spit it out [HR]
-		botscore0[victimid] = botscore0[victimid] - 1;					
+		score = SendMessageEx(srv, user7, 10203004, -1, -1, -1); // subtract a point from bot
 		jkStringClear();
 		jkStringConcatUNIString(1000 + victimname);
 		jkStringConcatAsciiString("'s Score: ");
-		jkStringConcatInt(botscore0[victimid]);
+		jkStringConcatInt(score);
 		jkStringOutput(-3, -1);
 
 		return;
@@ -406,12 +369,11 @@ trigger:
 			jkStringConcatUNIString(1000 + killername);
 			jkStringOutput(-3, -1);
 
-			// Figure bot score and spit it out [HR]
-			botscore0[killerid] = botscore0[killerid] + 1;
+			score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
 			jkStringClear();
 			jkStringConcatUNIString(1000 + killername);
 			jkStringConcatAsciiString("'s Score: ");
-			jkStringConcatInt(botscore0[killerid]);
+			jkStringConcatInt(score);
 			jkStringOutput(-3, -1);
 
 			return;
@@ -430,9 +392,10 @@ trigger:
 		highscorer = -1;
 		for (i = 0; i < numbots; i = i + 1)
 		{
-			if (botscore0[i] > highscore)
+			score = SendMessageEx(srv, user7, 10201004, -1, -1, -1); // get bot score
+			if (highscorer == -1 || score > highscore)
 			{
-				highscore = botscore0[i];
+				highscore = score;
 				srv = srv0[i];
 				highscorer = SendMessageEx(srv, user7, 10201013, -1, -1, -1); // bot thing
 			}

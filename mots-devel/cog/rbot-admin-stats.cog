@@ -116,6 +116,7 @@ pulse:
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10221002, -1, -1, -1), ", Forcearmor: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201028, -1, -1, -1), ", Keys: 0x%03x");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231001, -1, -1, -1), ", Weapmode: 0x%03x");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201004, -1, -1, -1), ", Score: %3d");
 		jkStringOutput(-1, -1);
 
 		// Clear remaining output lines for readability

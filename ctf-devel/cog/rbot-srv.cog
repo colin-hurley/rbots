@@ -52,6 +52,7 @@ template	teleport_particles=+telesparks		local
 sound		teleportsnd=ForceThrow01.WAV		local
 
 # Misc
+int			score=0								local
 int			curteam								local
 int			curbotname							local
 cog			curbotskin=-1						local
@@ -633,6 +634,7 @@ user7:
 	if (GetParam(0) == 10201001) { ReturnEx(curbotname); return; }
 	if (GetParam(0) == 10201002) { ReturnEx(curteam); return; }
 	if (GetParam(0) == 10201003) { ReturnEx(botmode); return; }
+	if (GetParam(0) == 10201004) { ReturnEx(score); return; }
 	if (GetParam(0) == 10201010) { ReturnEx(target); return; }
 	if (GetParam(0) == 10201011) { ReturnEx(item); return; }
 	if (GetParam(0) == 10201012)
@@ -649,6 +651,13 @@ user7:
 	if (GetParam(0) == 10201028) { ReturnEx(inv_keys); return; }
 
 	if (GetParam(0) == 10202028) { inv_keys = GetParam(1); return; }
+
+	if (GetParam(0) == 10203004) // Add to score
+	{
+		score = score + GetParam(1);
+		ReturnEx(score);
+		return;
+	}
 
 	if (GetParam(0) == 10203100) // enable bot
 	{
@@ -676,6 +685,7 @@ user7:
 			jkStringOutput(-3, -1);
 
 			botmode = BitClear(botmode, 0x80000);
+			score = 0; // reset score
 			call respawn_bot;
 			SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // Send bot join event
 		}

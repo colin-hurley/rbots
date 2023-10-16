@@ -98,8 +98,8 @@ int			goldrundir9=-1
 # CTF game state
 int			captured_red						local
 int			captured_gold						local
-thing		redflag_taken						local
-thing		goldflag_taken						local
+thing		red_flag_carrier					local
+thing		gold_flag_carrier					local
 
 # Working variables
 int			i									local
@@ -124,8 +124,8 @@ trigger:
 	{
 		captured_red = GetParam(0);
 		captured_gold = GetParam(1);
-		redflag_taken = GetParam(2);
-		goldflag_taken = GetParam(3);
+		red_flag_carrier = GetParam(2);
+		gold_flag_carrier = GetParam(3);
 		return;
 	}
 
@@ -156,7 +156,7 @@ trigger:
 		dest = -1; // Default - just wander
 		if (GetThingUserData(rbot) == 1) // Bot is on the red team
 		{
-			if (captured_gold == 2 && rbot == goldflag_taken) // Bot has stolen the gold flag
+			if (captured_gold == 2 && gold_flag_carrier == rbot) // Bot has stolen the gold flag
 			{
 				if (captured_red == 0) // The red flag is at base
 				{
@@ -170,7 +170,7 @@ trigger:
 		}
 		else if (GetThingUserData(rbot) == 2) // Bot is on the gold team
 		{
-			if (captured_red == 2 && rbot == redflag_taken) // Bot has stolen the red flag
+			if (captured_red == 2 && red_flag_carrier == rbot) // Bot has stolen the red flag
 			{
 				if (captured_gold == 0) // The gold flag is at base
 				{

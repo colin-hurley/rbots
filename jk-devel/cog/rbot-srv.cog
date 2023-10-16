@@ -40,12 +40,12 @@ int			difficulty=0						local
 thing		rbot=-1								local
 int			botmode								local
 cog			system=-1							local
-cog			srv_ext=-1							local
 cog			srv_force=-1						local
 cog			srv_weapons=-1						local
 cog			botskin=-1							local
 cog			teambotskin=-1						local
 cog			spitem=-1							local
+cog			customizer=-1						local
 
 # Respawn Effects
 template	teleport_particles=+telesparks		local
@@ -112,7 +112,7 @@ template	tmp_backpack=+backpack				local
 # Inventory items
 int			shields								local
 int			inv_bacta							local
-int			inv_keys							local
+int			inv_keys=0							local
 
 # Transient working vars
 vector		relpos								local
@@ -292,11 +292,6 @@ trigger:
 		{
 			system = GetParam(1);
 		}
-		if (GetParam(0) == 1021) // rbot-srv-<ext>.cog
-		{
-			// The srv extension module (e.g. CTF, KFY)
-			if (GetParam(2) == botid) srv_ext = GetParam(1);
-		}
 		if (GetParam(0) == 1022) // rbot-srv-force.cog
 		{
 			if (GetParam(2) == botid) srv_force = GetParam(1);
@@ -314,6 +309,10 @@ trigger:
 		{
 			// Store the reference with the lowest number - this is the first instance in the list
 			if (GetParam(1) < spitem || spitem == -1) spitem = GetParam(1);
+		}
+		if (GetParam(0) == 3000) // Customizer module (e.g. CTF, KFY)
+		{
+			customizer = GetParam(1);
 		}
 		return;
 	}
@@ -686,6 +685,7 @@ user7:
 
 			botmode = BitClear(botmode, 0x80000);
 			score = 0; // reset score
+			inv_keys = 0x0; // reset keys
 			call respawn_bot;
 			SendTrigger(-1, 970, botid, rbot, curbotname, curteam); // Send bot join event
 		}
@@ -711,12 +711,6 @@ user7:
 	// Pass-through functions
 	// Automatically forward messages to subordinate srv cogs
 	// This is a convenience to make it look like one uber srv cog from an API perspective
-	if (GetParam(0) >= 10210000 && GetParam(0) <= 10219999)
-	{
-		if (srv_ext != -1) ReturnEx(SendMessageEx(srv_ext, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
-		else ReturnEx(-1);
-		return;
-	}
 	if (GetParam(0) >= 10220000 && GetParam(0) <= 10229999)
 	{
 		ReturnEx(SendMessageEx(srv_force, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
@@ -783,7 +777,6 @@ respawn_bot:
 	attacker = -1;
 	shields = 100;
 	inv_bacta = 0;
-	inv_keys = 0x0;
 
 	// Create bot
 	spawnpoint = SendMessageEx(system, user7, 10103200, curteam, -1, -1);
@@ -841,9 +834,11 @@ findtarget:
 			if (potential == attacker) priority = 7; // whoever hurt the bot last
 
 			// Give the other srv cogs a chance to adjust the priority
-			if (srv_ext != -1) priority = SendMessageEx(srv_ext, user7, 10213030, potential, priority, -1);
 			priority = SendMessageEx(srv_force, user7, 10223030, potential, priority, -1);
 			priority = SendMessageEx(srv_weapons, user7, 10233030, potential, priority, -1);
+
+			// Also consult the customizer cog, if there is one
+			if (customizer != -1) priority = SendMessageEx(customizer, user7, 30003030, rbot, potential, priority);
 
 			// Look for the closest target among the highest seen priority
 			if (priority > targetpriority || (priority == targetpriority && tempflex1 < dist))
@@ -892,9 +887,11 @@ finditem:
 			if (GetThingTemplate(potential) == tmp_backpack) priority = 4;
 
 			// Give the other srv cogs a chance to adjust the priority
-			if (srv_ext != -1) priority = SendMessageEx(srv_ext, user7, 10213010, potential, priority, -1);
 			priority = SendMessageEx(srv_force, user7, 10223010, potential, priority, -1);
 			priority = SendMessageEx(srv_weapons, user7, 10233010, potential, priority, -1);
+
+			// Also consult the customizer cog, if there is one
+			if (customizer != -1) priority = SendMessageEx(customizer, user7, 30003010, rbot, potential, priority);
 
 			// Look for the closest item among the highest seen priority
 			if (priority > itempriority || (priority == itempriority && tempflex1 < dist))
@@ -1004,9 +1001,11 @@ pickupitem:
 	}
 
 	// Give other srv cogs a chance to pickup the item
-	if (srv_ext != -1) SendMessageEx(srv_ext, user7, 10213020, potential, -1, -1);
 	SendMessageEx(srv_force, user7, 10223020, potential, -1, -1);
 	SendMessageEx(srv_weapons, user7, 10233020, potential, -1, -1);
+
+	// Also consult the customizer cog, if there is one
+	if (customizer != -1) SendMessageEx(customizer, user7, 30003020, rbot, potential, -1);
 
 	return;
 
@@ -1196,12 +1195,14 @@ targettactics:
 	if (((tempflex1 < -1 || 1 < tempflex1) && difficulty >= 2) || (GetThingFlags(rbot) & 0x2000000)) return; // Can't fall down safely or Underwater
 
 	// Consult the other srv cogs to see if the bot should move toward the target
-	// Maintenance note: The two if-statements below are separated intentionally.
-	// When combined, I found that the gmae would evaluate the expression to true
-	// and execute the return statement even when srv_ext was -1.
-	if (srv_ext != -1) if (!SendMessageEx(srv_ext, user7, 10213050, target, -1, -1)) return;
 	if (!SendMessageEx(srv_force, user7, 10223050, target, -1, -1)) return;
 	if (!SendMessageEx(srv_weapons, user7, 10233050, target, -1, -1)) return;
+
+	// Also consult the customizer cog, if there is one
+	// Maintenance note: The two if-statements below are separated intentionally.
+	// When combined, I found that the gmae would evaluate the expression to true
+	// and execute the return statement even when customizer was -1.
+	if (customizer != -1) if (!SendMessageEx(customizer, user7, 30003050, rbot, target, -1)) return;
 
 	AiSetMovePos(rbot, GetThingPos(target)); // by default, move directly towards target
 

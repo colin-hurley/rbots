@@ -2,9 +2,6 @@
 #
 # CTF_MAIN.COG (CTF v 1.9)
 #
-# Heavily modified for Rbots 0.32
-#
-#
 # Rules :
 # -----
 #
@@ -140,8 +137,8 @@
 
 symbols
 
-thing		flag_red
-thing		flag_gold
+thing       flag_red                         desc=flag_red
+thing       flag_gold                        desc=flag_gold
 thing       flag_ghost_red                   nolink,desc=flagpos_red
 thing       flag_ghost_gold                  nolink,desc=flagpos_gold
 
@@ -192,7 +189,6 @@ int         senderRef=0                      local
 int         sourceRef=0                      local
 
 int         lock_touch=0                     local
-int         bot_lock_touch=0                 local
 int         play_sounds=1                    local
 int         anim                             local
 int         dummy                            local
@@ -256,20 +252,6 @@ int         ban_red=-1                       local
 int         ban_gold=-1                      local
 
 int         msgbase=1000                     local
-int			flag_team						local
-
-thing		redflag_taken				local
-thing		goldflag_taken				local
-
-int			bottouched=0		local
-int			rbot				local
-#int			red_touchlock=0		local
-#int			gold_touchlock=0		local
-
-int			botcount_red=0					local
-int			botcount_gold=0					local
-
-int			botteam							local
 
 message     startup
 message     activated
@@ -284,7 +266,6 @@ message     pulse
 message     user0
 message     user1
 message     user2
-message		trigger
 
 # Triggers
 #
@@ -294,6 +275,33 @@ message		trigger
 #
 # 10001 - BREAKINGGLASS (C2)
 # 10001 - LEVELSIZE (C3)
+
+# Rbots support
+# Type ID: 3000
+
+cog         system=-1                        local
+int         botcount_red=0                   local
+int         botcount_gold=0                  local
+thing       red_flag_carrier=-1              local
+thing       gold_flag_carrier=-1             local
+
+# Item templates
+template    tmp_ctfredkey=CTF_REDKEY         local
+template    tmp_ctfgoldkey=CTF_GOLDKEY       local
+template    tmp_ctfredflag=ctf_redflag       local
+template    tmp_ctfgoldflag=ctf_goldflag     local
+
+# Transient working vars
+thing       rbot                             local
+int         team                             local
+int         killerteam                       local
+int         inv_keys                         local
+int         priority                         local
+thing       item                             local
+thing       potential                        local
+
+message     trigger
+message     user7
 
 end
 
@@ -312,6 +320,9 @@ startup:
    // SERVER ONLY startup:
    if(IsServer() || !IsMulti())
    {
+      // Allow other server-side cogs to discover this one by its type
+      SendTrigger(-1, 1852000, 3000, GetSelfCog(), -1, -1);
+
       // Team mode                   (1)
       // No damage to teammates      (2)
       // CTF computes its own score  (4)
@@ -390,8 +401,6 @@ startup:
    PlayKey(flag_red, flag_anim, 1, 0);
    PlayKey(flag_gold, flag_anim, 1, 0);
 
-	redflag_taken=-1;
-	goldflag_taken=-1;
    Return;
 
 # ........................................................................................
@@ -411,8 +420,8 @@ pulse:
    else
       SyncThingAttachment(flag_gold);
 
-	// Update CTF info to all other cogs (rbots)
-	SendTrigger(-1, 12210 , captured_red, captured_gold, redflag_taken, goldflag_taken);
+   // Update CTF info to all other cogs (rbots)
+   SendTrigger(-1, 12210, captured_red, captured_gold, red_flag_carrier, gold_flag_carrier);
 
    Return;
 
@@ -465,18 +474,25 @@ leave:
 
    leaveplayer = GetSenderRef();
 
-   if(GetInv(leaveplayer, 81) > 0.0)
+do_leave:
+
+   if(red_flag_carrier == leaveplayer)
    {
       // Remove the flag from the leaving player's model
       DetachThing(flag_red);
 
-      // Remove the icon
-      // Send a TRIGGER_ICON with its parameters
-      SendTrigger(leaveplayer, 1001, 81, 0, 0, 0);
+      if(GetThingType(leaveplayer) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(leaveplayer, 1001, 81, 0, 0, 0);
 
-      // Remove the flag from the player's inventory
-	  redflag_taken=-1;
-      SetInv(leaveplayer, 81, 0.0);
+         // Remove the flag from the player's inventory
+         SetInv(leaveplayer, 81, 0.0);
+      }
+
+      // The flag no longer has a carrier
+      red_flag_carrier = -1;
 
       captured_red = 1;
 
@@ -484,18 +500,23 @@ leave:
       SetTimerEx(2, 1, 0, 0);
    }
 
-   if(GetInv(leaveplayer, 82) > 0.0)
+   if(gold_flag_carrier == leaveplayer)
    {
       // Remove the flag from the leaving player's model
       DetachThing(flag_gold);
 
-      // Remove the icon
-      // Send a TRIGGER_ICON with its parameters
-      SendTrigger(leaveplayer, 1001, 82, 0, 0, 0);
+      if(GetThingType(leaveplayer) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(leaveplayer, 1001, 82, 0, 0, 0);
 
-      // Remove the flag from the player's inventory
-	  goldflag_taken=-1;
-      SetInv(leaveplayer, 82, 0.0);
+         // Remove the flag from the player's inventory
+         SetInv(leaveplayer, 82, 0.0);
+      }
+
+      // The flag no longer has a carrier
+      gold_flag_carrier = -1;
 
       captured_gold = 1;
 
@@ -503,8 +524,11 @@ leave:
       SetTimerEx(2, 2, 0, 0);
    }
 
-   // Give the player a neutral costume
-   SetThingModel(leaveplayer, neutral_mdl);
+   if(GetThingType(leaveplayer) == 10) // player
+   {
+      // Give the player a neutral costume
+      SetThingModel(leaveplayer, neutral_mdl);
+   }
 
    call show_players;
 
@@ -548,546 +572,486 @@ activated:
    Return;
 
 # ........................................................................................
-trigger:
-	if (GetSourceRef() == 960) // bot died
-	{
-		rbot = GetParam(0);
-		sourceRef = GetParam(1);
 
-		if (rbot == redflag_taken)
-		{
-			DetachThing(flag_red);
-			captured_red = 1;
-			redflag_taken=-1;
-
-			// if SITH_SECTOR_FALLDEATH return the flag nearly immediately
-			if (GetSectorFlags(GetThingSector(rbot)) & 0x40) SetTimerEx(0.6, 1, 0, 0); else SetTimerEx(ctf_flag_return_time, 1, 0, 0);
-			if (verbose > 0)
-			{
-				// Print("Gold Team lost the Red Flag !");
-				jkPrintUNIString(-3, msgbase + 14);
-			}
-
-			// add to the red score, but only if it is not a gold suicide
-			killer = GetThingParent(sourceRef);
-			if (killer != rbot)
-			{
-				ctf_score_red = ctf_score_red + ctf_kill_flag_carrier;
-				SetTeamScore(1, ctf_score_red);
-				tmp_score_changed = 1;
-
-				// Increment player score
-				SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
-			}
-
-			// Callback #13 : Red flag lost by Gold team
-			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 13, player, ctf_score_red, ctf_score_gold);
-			return;
-		}
-
-		if (rbot == goldflag_taken)
-		{
-			DetachThing(flag_gold);
-			captured_gold = 1;
-			goldflag_taken=-1;
-
-			// if SITH_SECTOR_FALLDEATH return the flag nearly immediately
-			if (GetSectorFlags(GetThingSector(rbot)) & 0x40) SetTimerEx(0.6, 2, 0, 0); else SetTimerEx(ctf_flag_return_time, 2, 0, 0);
-			if (verbose > 0)
-			{
-				// Print("Red Team lost the Gold Flag !");
-				jkPrintUNIString(-3, msgbase + 24);
-			}
-
-			// add to the gold score, but only if it is not a red suicide
-			killer = GetThingParent(sourceRef);
-			if (killer != rbot)
-			{
-				ctf_score_gold = ctf_score_gold + ctf_kill_flag_carrier;
-				SetTeamScore(2, ctf_score_gold);
-				tmp_score_changed = 1;
-
-				// Increment player score
-				SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
-			}
-
-			// Callback #23 : Gold flag lost by Red team
-			if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 23, player, ctf_score_red, ctf_score_gold);
-			return;
-		}
-
-		return;
-	}
-
-	if (GetSourceRef() == 970) // bot has joined the game
-	{
-		#rbot = GetParam(1);
-		botteam = GetParam(3);
-
-		if (botteam == 1) // bot is on the red team
-		{
-			botcount_red = botcount_red + 1;
-		}
-
-		if (botteam == 2) // bot is on the gold team
-		{
-			botcount_gold = botcount_gold + 1;
-		}
-
-		call show_players;
-
-		return;
-	}
-
-	if (GetSourceRef() == 971) // bot has left the game
-	{
-		rbot = GetParam(1);
-		botteam = GetParam(3);
-
-		if (botteam == 1) // bot is on the red team
-		{
-			botcount_red = botcount_red - 1;
-		}
-
-		if (botteam == 2) // bot is on the gold team
-		{
-			botcount_gold = botcount_gold - 1;
-		}
-
-		if (rbot == redflag_taken) // bot is holding the red flag
-		{
-			DetachThing(flag_red);
-			captured_red = 1;
-			redflag_taken = -1;
-
-			// return the flag after 2 seconds only
-			SetTimerEx(2, 1, 0, 0);
-		}
-
-		if (rbot == goldflag_taken) // bot is holding the gold flag
-		{
-			DetachThing(flag_gold);
-			captured_gold = 1;
-			goldflag_taken = -1;
-
-			// return the flag after 2 seconds only
-			SetTimerEx(2, 2, 0, 0);
-		}
-
-		call show_players;
-
-		return;
-	}
-
-	if (GetSourceRef() == 12200) // bot has touched a flag
-	{
-		senderRef = GetParam(1);
-		player = GetParam(2);
-		if (senderRef == flag_red && player != redflag_taken) // bot is trying to pick up the red flag
-		{
-			bottouched = 1;
-			call touched;
-			bottouched = 0;
-			return;
-		}
-		if (senderRef == flag_gold && player != goldflag_taken) // bot is trying to pick up the gold flag
-		{
-			bottouched = 1;
-			call touched;
-			bottouched = 0;
-			return;
-		}
-		return;
-	}
-
-	return;
-
+# Note: For whatever reason, bots don't cause the flags to send a
+# touched message. Changing the mask on the flag_* symbols does not
+# make a difference. So for now, we will continue relying on the
+# item pickup message sent from rbot-srv.cog.
 touched:
-	// Exit if one of the limits has been reached or flag locked
-	if(level_ended != 0 || lock_touch == 1)
-	{
-		bottouched=0;
-		Return;
-	}
-	if (!bottouched)
-	{
-		if(GetSenderType() != 3) Return; // Exit if touched: was sent by anything else than a thing
-		player = GetSourceRef();
-		senderRef = GetSenderRef();
-	}
-
-	// sometimes a dead/dying player can touch the flag and snatch it...
-	// Health is not synched, so use SITH_TF_DYING instead
-	if (GetThingFlags(player) & 0x200) Return;
-
-	// Don't allow more than one touch per 0.5 second
-	lock_touch = 1;
-	SetTimerEx(0.5, 9990, 0, 0);
-
-	// *** RED FLAG ***
-	if(senderRef == flag_red)
-	{
-		if(captured_red == 2) Return;
-
-		// GOLD PLAYER takes it
-		if((!bottouched && GetPlayerTeam(player) == 2) || (bottouched && GetThingUserData(player) == 2))
-		{
-			// this is to avoid the same player retaking the flag
-			// while it is only detached and not teleported yet
-			if(player == ban_gold) Return;
-
-			if(play_sounds)
-			{
-				PlaySoundGlobal(pickupsnd, 1, 0, 4);
-				// Play an alarm sound in 2 seconds
-				KillTimerEx(9995);
-				SetTimerEx(2, 9995, 0, 0);
-			}
-
-			if(!bottouched && verbose > 0)
-			{
-				// Print("You got the Red Flag !");
-				jkPrintUNIString(player, msgbase + 10);
-			}
-
-			// Give the Red flag to the player
-			redflag_taken=player;
-			if (!bottouched) SetInv(player, 81, 1.0);
-
-			// Move the RED flag up relative to the player
-			SetThingPos(flag_red, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
-
-			// Attach the flag to the player
-			SetThingLook(flag_red, GetThingLVec(player));
-
-			// AttachThingToThing(flag_red, player);
-			// SetThingAttachFlags(flag_red, 0x8);
-			AttachThingToThingEx(flag_red, player, 0x8);
-
-			if (!bottouched)
-			{
-				// Set a red flag icon
-				// Send a TRIGGER_ICON with its parameters
-				SendTrigger(player, 1001, 81, 1, 0, 0);
-
-				// Increment player score
-				SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
-			}
-
-			// Increment team score
-			ctf_score_gold = ctf_score_gold + ctf_take_flag;
-			SetTeamScore(2, ctf_score_gold);
-
-			// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-			// Send a TRIGGER_SCORE with its parameters
-			SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-			call check_score_limit;
-
-			// Announce the score in 5 seconds
-			KillTimerEx(9997);
-			SetTimerEx(5, 9997, 0, 0);
-
-			if(ctf_callback != -1)
-				if(captured_red == 0)
-					dummy = SendMessageEx(ctf_callback, user0, 10, player, ctf_score_red, ctf_score_gold); // Callback #10 : Red flag taken
-				else
-					dummy = SendMessageEx(ctf_callback, user0, 15, player, ctf_score_red, ctf_score_gold); // Callback #15 : Red flag retaken
-
-			captured_red = 2;
-			bottouched=0;
-			lock_touch = 0;
-			Return;
-		}
-
-		// RED PLAYER
-		if((!bottouched && GetPlayerTeam(player) == 1) || (bottouched && GetThingUserData(player) == 1))
-		{
-			// Scores (has the gold flag and red flag is at home)
-			if ((!bottouched && GetInv(player, 82) == 1.0 && captured_red == 0) || (bottouched && goldflag_taken == player && captured_red == 0))
-			{
-				// this is to avoid the same player scoring multiple times due to lag
-				if(player == ban_red) Return;
-				ban_red = player;
-				SetTimerEx(5, 3, 0, 0);
-
-				// Remove the flag from the player's inventory
-				goldflag_taken=-1;
-				if (!bottouched) SetInv(player, 82, 0.0); 
-
-				ctf_score_red = ctf_score_red + ctf_capture_flag + ctf_capture_flag_team;
-				SetTeamScore(1, ctf_score_red);
-
-				// Teammates score a little here too
-				AddScoreToTeamMembers(1, ctf_capture_flag_team);
-
-				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag); // But this guy's getting the big score
-
-				// Announce the score in 3 seconds
-				KillTimerEx(9997);
-				SetTimerEx(5, 9997, 0, 0);
-
-				if(play_sounds)
-				{
-					PlaySoundGlobal(scoresnd2, 1, 0, 4);
-					// Play a success sound in 2 seconds
-					KillTimerEx(9994);
-					SetTimerEx(2, 9994, 0, 0);
-				}
-
-				if(verbose > 0)
-				{
-					// Print("Red Team Captured The Flag !");
-					jkPrintUNIString(-3, msgbase + 12);
-				}
-
-				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-				// Send a TRIGGER_SCORE with its parameters
-				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-
-				// Callback #12 : Red team captured the flag
-				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 12, player, ctf_score_red, ctf_score_gold);
-
-				// Remove the flag from the player's model
-				DetachThing(flag_gold);
-
-				// Remove the icon
-				// Send a TRIGGER_ICON with its parameters
-				if (!bottouched) SendTrigger(player, 1001, 82, 0, 0, 0);
-
-				// Teleport the flag back home
-				TeleportThing(flag_gold, flag_ghost_gold);
-
-				call check_score_limit;
-
-				captured_gold = 0;
-				bottouched=0;
-				lock_touch = 0;
-				Return;
-			}
-
-			// Returns it
-			if(captured_red == 1)
-			{
-				KillTimerEx(1);
-				TeleportThing(flag_red, flag_ghost_red);
-
-				if(play_sounds) dummy = PlaySoundThing(returnsnd, player, 1.0, -1, -1, 0);
-
-				if(verbose > 0)
-				{
-					// Print("Red Flag has been returned !");
-					jkPrintUNIString(-3, msgbase + 11);
-				}
-
-				ctf_score_red = ctf_score_red + ctf_return_flag;
-				SetTeamScore(1, ctf_score_red);
-
-				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-				// Send a TRIGGER_SCORE with its parameters
-				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-				call check_score_limit;
-
-	            if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag); // Increment player score
-
-				// Announce the score in 3 seconds
-				KillTimerEx(9997);
-				SetTimerEx(3, 9997, 0, 0);
-
-				// Callback #11 : Red flag returned
-				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 11, player, ctf_score_red, ctf_score_gold);
-
-				captured_red = 0;
-				bottouched=0;
-				lock_touch = 0;
-				Return;
-			}
-		}
-	}
-	// *** END RED FLAG ***
-
-	// *** GOLD FLAG ***
-	if(senderRef == flag_gold)
-	{
-		if(captured_gold == 2) Return;
-
-		// RED PLAYER takes it
-		if((!bottouched && GetPlayerTeam(player) == 1) || (bottouched && GetThingUserData(player) == 1))
-		{
-			// this is to avoid the same player retaking the flag
-			// while it is only detached and not teleported yet
-			if(player == ban_red) Return;
-
-			if(play_sounds)
-			{
-				PlaySoundGlobal(pickupsnd2, 1, 0, 4);
-				// Play an alarm sound in 2 seconds
-				KillTimerEx(9995);
-				SetTimerEx(2, 9995, 0, 0);
-			}
-
-			if(!bottouched && verbose > 0)
-			{
-				// Print("You got the Gold Flag !");
-				jkPrintUNIString(player, msgbase + 20);
-			}
-
-			// Give the Gold flag to the player
-			goldflag_taken=player;
-			if (!bottouched) SetInv(player, 82, 1.0);
-
-			// Move the GOLD flag up relative to the player
-			SetThingPos(flag_gold, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
-
-			// Attach the flag to the player
-			SetThingLook(flag_gold, GetThingLVec(player));
-
-			//AttachThingToThing(flag_gold, player);
-			//SetThingAttachFlags(flag_gold, 0x8);
-			AttachThingToThingEx(flag_gold, player, 0x8);
-
-			if (!bottouched)
-			{
-				// Set a gold flag icon
-				// Send a TRIGGER_ICON with its parameters
-				SendTrigger(player, 1001, 82, 1, 0, 0);
-
-				// Increment player score
-				SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
-			}
-
-			// Increment team score
-			ctf_score_red = ctf_score_red + ctf_take_flag;
-			SetTeamScore(1, ctf_score_red);
-
-			// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-			// Send a TRIGGER_SCORE with its parameters
-			SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-			call check_score_limit;
-
-			// Announce the score in 3 seconds
-			KillTimerEx(9997);
-			SetTimerEx(5, 9997, 0, 0);
-
-			if(ctf_callback != -1)
-				if(captured_gold == 0)
-					dummy = SendMessageEx(ctf_callback, user0, 20, player, ctf_score_red, ctf_score_gold); // Callback #20 : Gold flag taken
-				else
-					dummy = SendMessageEx(ctf_callback, user0, 25, player, ctf_score_red, ctf_score_gold); // Callback #25 : Gold flag retaken
-
-			captured_gold = 2;
-			bottouched=0;
-			lock_touch = 0;
-			Return;
-		}
-
-		// GOLD PLAYER
-		if((!bottouched && GetPlayerTeam(player) == 2) || (bottouched && GetThingUserData(player) == 2))
-		{
-			// Scores (has the red flag and gold flag is at home)
-			if ((!bottouched && GetInv(player, 81) == 1.0 && captured_gold == 0) || (bottouched && redflag_taken == player && captured_gold == 0))
-			{
-				// this is to avoid the same player scoring multiple times due to lag
-				if(player == ban_gold) Return;
-
-				ban_gold = player;
-				SetTimerEx(5, 4, 0, 0);
-
-				redflag_taken=-1;
-				if (!bottouched) SetInv(player, 81, 0.0); // Remove the flag from the player's inventory
-
-				ctf_score_gold = ctf_score_gold + ctf_capture_flag + ctf_capture_flag_team;
-				SetTeamScore(2, ctf_score_gold);
-
-				// Teammates score a little here too
-				AddScoreToTeamMembers(2, ctf_capture_flag_team);
-
-				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag); // But this guy's getting the big score
-
-				// Announce the score in 3 seconds
-				KillTimerEx(9997);
-				SetTimerEx(5, 9997, 0, 0);
-
-				if(play_sounds)
-				{
-					PlaySoundGlobal(scoresnd, 1, 0, 4);
-					// Play a success sound in 2 seconds
-					KillTimerEx(9994);
-					SetTimerEx(2, 9994, 0, 0);
-				}
-
-				if(verbose > 0)
-				{
-					// Print("Gold Team Captured The Flag !");
-					jkPrintUNIString(-3, msgbase + 22);
-				}
-
-				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-				// Send a TRIGGER_SCORE with its parameters
-				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-				call check_score_limit;
-
-				// Callback #22 : Gold flag captured
-				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 22, player, ctf_score_red, ctf_score_gold);
-
-				// Remove the flag from the player's model
-				DetachThing(flag_red);
-
-				// Remove the icon
-				// Send a TRIGGER_ICON with its parameters
-				if (!bottouched) SendTrigger(player, 1001, 81, 0, 0, 0);
-
-				// Teleport the flag back home
-				TeleportThing(flag_red, flag_ghost_red);
-
-				call check_score_limit;
-
-				captured_red = 0;
-				bottouched=0;
-				lock_touch = 0;
-				Return;
-			}
-
-			// Returns it
-			if(captured_gold == 1)
-			{
-				KillTimerEx(2);
-				TeleportThing(flag_gold, flag_ghost_gold);
-
-				if(play_sounds) dummy = PlaySoundThing(returnsnd2, player, 1.0, -1, -1, 0);
-
-				if(verbose > 0)
-				{
-					// Print("Gold Flag has been returned !");
-					jkPrintUNIString(-3, msgbase + 21);
-				}
-
-				ctf_score_gold = ctf_score_gold + ctf_return_flag;
-				SetTeamScore(2, ctf_score_gold);
-
-				// dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
-				// Send a TRIGGER_SCORE with its parameters
-				SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
-				call check_score_limit;
-
-				if (!bottouched) SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag); // Increment player score
-
-				// Announce the score in 3 seconds
-				KillTimerEx(9997);
-				SetTimerEx(3, 9997, 0, 0);
-
-				// Callback #21 : Gold flag returned
-				if(ctf_callback != -1) dummy = SendMessageEx(ctf_callback, user0, 21, player, ctf_score_red, ctf_score_gold);
-
-				captured_gold = 0;
-				bottouched=0;
-				lock_touch = 0;
-				Return;
-			}
-		}
-	}
-	// *** END GOLD FLAG ***
-
-	Return;
+   if(verbose > 2) Print("CTF Touched Evt");
+
+   player = GetSourceRef();
+   senderRef = GetSenderRef();
+
+   team = GetPlayerTeam(player);
+
+   // Exit if touched: was sent by anything else than a thing
+   if(GetSenderType() != 3) Return;
+
+do_touched:
+
+   if(lock_touch == 1) Return;
+
+   // Exit if one of the limits has been reached
+   if(level_ended != 0) Return;
+
+   // sometimes a dead/dying player can touch the flag and snatch it...
+   // Health is not synched, so use SITH_TF_DYING instead
+   if(GetThingFlags(player) & 0x200) Return;
+
+   // Don't allow more than one touch per 0.5 second
+   lock_touch = 1;
+   SetTimerEx(0.5, 9990, 0, 0);
+
+   // *** RED FLAG ***
+   if(senderRef == flag_red)
+   {
+      if(captured_red == 2) Return;
+
+      // GOLD PLAYER takes it
+      if(team == 2)
+      {
+         // this is to avoid the same player retaking the flag
+         // while it is only detached and not teleported yet
+         if(player == ban_gold) Return;
+
+         if(play_sounds)
+         {
+            PlaySoundGlobal(pickupsnd, 1, 0, 4);
+            // Play an alarm sound in 2 seconds
+            KillTimerEx(9995);
+            SetTimerEx(2, 9995, 0, 0);
+         }
+
+         if(GetThingType(player) == 10) // player
+         {
+            if(verbose > 0)
+            {
+               // Print("You got the Red Flag !");
+               jkPrintUNIString(player, msgbase + 10);
+            }
+
+            // Give the Red flag to the player
+            SetInv(player, 81, 1.0);
+         }
+
+         // The flag is now being carried by this player
+         red_flag_carrier = player;
+
+         // Move the RED flag up relative to the player
+         SetThingPos(flag_red, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
+
+         // Attach the flag to the player
+         SetThingLook(flag_red, GetThingLVec(player));
+
+         // AttachThingToThing(flag_red, player);
+         // SetThingAttachFlags(flag_red, 0x8);
+         AttachThingToThingEx(flag_red, player, 0x8);
+
+         if(GetThingType(player) == 10) // player
+         {
+            // Set a red flag icon
+            // Send a TRIGGER_ICON with its parameters
+            SendTrigger(player, 1001, 81, 1, 0, 0);
+
+            // Increment player score
+            SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            // Increment player score
+            SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_take_flag, -1, -1);
+         }
+
+         // Increment team score
+         ctf_score_gold = ctf_score_gold + ctf_take_flag;
+         SetTeamScore(2, ctf_score_gold);
+
+         // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+         // Send a TRIGGER_SCORE with its parameters
+         SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+         call check_score_limit;
+
+         // Announce the score in 5 seconds
+         KillTimerEx(9997);
+         SetTimerEx(5, 9997, 0, 0);
+
+         if(ctf_callback != -1)
+            if(captured_red == 0)
+               // Callback #10 : Red flag taken
+               dummy = SendMessageEx(ctf_callback, user0, 10, player, ctf_score_red, ctf_score_gold);
+            else
+               // Callback #15 : Red flag retaken
+               dummy = SendMessageEx(ctf_callback, user0, 15, player, ctf_score_red, ctf_score_gold);
+
+         captured_red = 2;
+
+         Return;
+      }
+
+      // RED PLAYER
+      if(team == 1)
+      {
+         // Scores (has the gold flag and red flag is at home)
+         if((gold_flag_carrier == player) && (captured_red == 0))
+         {
+
+            // this is to avoid the same player scoring multiple times due to lag
+            if(player == ban_red) Return;
+            ban_red = player;
+            SetTimerEx(5, 3, 0, 0);
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Remove the flag from the player's inventory
+               SetInv(player, 82, 0.0);
+            }
+
+            // The flag no longer has a carrier
+            gold_flag_carrier = -1;
+
+            ctf_score_red = ctf_score_red + ctf_capture_flag + ctf_capture_flag_team;
+            SetTeamScore(1, ctf_score_red);
+
+            // Teammates score a little here too
+            AddScoreToTeamMembers(1, ctf_capture_flag_team);
+            SendMessageEx(system, user7, 10103010, 1, ctf_capture_flag_team, -1); // give points to bots on team
+
+            if(GetThingType(player) == 10) // player
+            {
+               // But this guy's getting the big score
+               SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               // But this guy's getting the big score
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_capture_flag, -1, -1);
+            }
+
+            // Announce the score in 3 seconds
+            KillTimerEx(9997);
+            SetTimerEx(5, 9997, 0, 0);
+
+            if(play_sounds)
+            {
+               PlaySoundGlobal(scoresnd2, 1, 0, 4);
+               // Play a success sound in 2 seconds
+               KillTimerEx(9994);
+               SetTimerEx(2, 9994, 0, 0);
+            }
+
+            if(verbose > 0)
+            {
+               // Print("Red Team Captured The Flag !");
+               jkPrintUNIString(-3, msgbase + 12);
+            }
+
+            // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+            // Send a TRIGGER_SCORE with its parameters
+            SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+
+            // Callback #12 : Red team captured the flag
+            if(ctf_callback != -1)
+               dummy = SendMessageEx(ctf_callback, user0, 12, player, ctf_score_red, ctf_score_gold);
+
+            // Remove the flag from the player's model
+            DetachThing(flag_gold);
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Remove the icon
+               // Send a TRIGGER_ICON with its parameters
+               SendTrigger(player, 1001, 82, 0, 0, 0);
+            }
+
+            // Teleport the flag back home
+            TeleportThing(flag_gold, flag_ghost_gold);
+
+            call check_score_limit;
+
+            captured_gold = 0;
+
+            Return;
+         }
+
+         // Returns it
+         if(captured_red == 1)
+         {
+            KillTimerEx(1);
+            TeleportThing(flag_red, flag_ghost_red);
+
+            if(play_sounds) dummy = PlaySoundThing(returnsnd, player, 1.0, -1, -1, 0);
+
+            if(verbose > 0)
+            {
+               // Print("Red Flag has been returned !");
+               jkPrintUNIString(-3, msgbase + 11);
+            }
+
+            ctf_score_red = ctf_score_red + ctf_return_flag;
+            SetTeamScore(1, ctf_score_red);
+
+            // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+            // Send a TRIGGER_SCORE with its parameters
+            SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+            call check_score_limit;
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Increment player score
+               SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_return_flag, -1, -1);
+            }
+
+            // Announce the score in 3 seconds
+            KillTimerEx(9997);
+            SetTimerEx(3, 9997, 0, 0);
+
+            // Callback #11 : Red flag returned
+            if(ctf_callback != -1)
+               dummy = SendMessageEx(ctf_callback, user0, 11, player, ctf_score_red, ctf_score_gold);
+
+            captured_red = 0;
+
+            Return;
+         }
+      }
+   }
+   // *** END RED FLAG ***
+
+
+
+   // *** GOLD FLAG ***
+   if(senderRef == flag_gold)
+   {
+      if(captured_gold == 2) Return;
+
+      // RED PLAYER takes it
+      if(team == 1)
+      {
+         // this is to avoid the same player retaking the flag
+         // while it is only detached and not teleported yet
+         if(player == ban_red) Return;
+
+         if(play_sounds)
+         {
+            PlaySoundGlobal(pickupsnd2, 1, 0, 4);
+            // Play an alarm sound in 2 seconds
+            KillTimerEx(9995);
+            SetTimerEx(2, 9995, 0, 0);
+         }
+
+         if(GetThingType(player) == 10) // player
+         {
+            if(verbose > 0)
+            {
+               // Print("You got the Gold Flag !");
+               jkPrintUNIString(player, msgbase + 20);
+            }
+
+            // Give the Gold flag to the player
+            SetInv(player, 82, 1.0);
+         }
+
+         // The flag is now being carried by this player
+         gold_flag_carrier = player;
+
+         // Move the GOLD flag up relative to the player
+         SetThingPos(flag_gold, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
+
+         // Attach the flag to the player
+         SetThingLook(flag_gold, GetThingLVec(player));
+
+         //AttachThingToThing(flag_gold, player);
+         //SetThingAttachFlags(flag_gold, 0x8);
+         AttachThingToThingEx(flag_gold, player, 0x8);
+
+         if(GetThingType(player) == 10) // player
+         {
+            // Set a gold flag icon
+            // Send a TRIGGER_ICON with its parameters
+            SendTrigger(player, 1001, 82, 1, 0, 0);
+
+            // Increment player score
+            SetPlayerScore(player, GetPlayerScore(player) + ctf_take_flag);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            // Increment player score
+            SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_take_flag, -1, -1);
+         }
+
+         // Increment team score
+         ctf_score_red = ctf_score_red + ctf_take_flag;
+         SetTeamScore(1, ctf_score_red);
+
+         // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+         // Send a TRIGGER_SCORE with its parameters
+         SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+         call check_score_limit;
+
+         // Announce the score in 3 seconds
+         KillTimerEx(9997);
+         SetTimerEx(5, 9997, 0, 0);
+
+         if(ctf_callback != -1)
+            if(captured_gold == 0)
+               // Callback #20 : Gold flag taken
+               dummy = SendMessageEx(ctf_callback, user0, 20, player, ctf_score_red, ctf_score_gold);
+            else
+               // Callback #25 : Gold flag retaken
+               dummy = SendMessageEx(ctf_callback, user0, 25, player, ctf_score_red, ctf_score_gold);
+
+         captured_gold = 2;
+
+         Return;
+      }
+
+      // GOLD PLAYER
+      if(team == 2)
+      {
+         // Scores (has the red flag and gold flag is at home)
+         if((red_flag_carrier == player) && (captured_gold == 0))
+         {
+
+            // this is to avoid the same player scoring multiple times due to lag
+            if(player == ban_gold) Return;
+            ban_gold = player;
+            SetTimerEx(5, 4, 0, 0);
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Remove the flag from the player's inventory
+               SetInv(player, 81, 0.0);
+            }
+
+            // The flag no longer has a carrier
+            red_flag_carrier = -1;
+
+            ctf_score_gold = ctf_score_gold + ctf_capture_flag + ctf_capture_flag_team;
+            SetTeamScore(2, ctf_score_gold);
+
+            // Teammates score a little here too
+            AddScoreToTeamMembers(2, ctf_capture_flag_team);
+            SendMessageEx(system, user7, 10103010, 2, ctf_capture_flag_team, -1); // give points to bots on team
+
+            if(GetThingType(player) == 10) // player
+            {
+               // But this guy's getting the big score
+               SetPlayerScore(player, GetPlayerScore(player) + ctf_capture_flag);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               // But this guy's getting the big score
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_capture_flag, -1, -1);
+            }
+
+            // Announce the score in 3 seconds
+            KillTimerEx(9997);
+            SetTimerEx(5, 9997, 0, 0);
+
+            if(play_sounds)
+            {
+               PlaySoundGlobal(scoresnd, 1, 0, 4);
+               // Play a success sound in 2 seconds
+               KillTimerEx(9994);
+               SetTimerEx(2, 9994, 0, 0);
+            }
+
+            if(verbose > 0)
+            {
+               // Print("Gold Team Captured The Flag !");
+               jkPrintUNIString(-3, msgbase + 22);
+            }
+
+            // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+            // Send a TRIGGER_SCORE with its parameters
+            SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+
+            // Callback #22 : Gold flag captured
+            if(ctf_callback != -1)
+               dummy = SendMessageEx(ctf_callback, user0, 22, player, ctf_score_red, ctf_score_gold);
+
+            // Remove the flag from the player's model
+            DetachThing(flag_red);
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Remove the icon
+               // Send a TRIGGER_ICON with its parameters
+               SendTrigger(player, 1001, 81, 0, 0, 0);
+            }
+
+            // Teleport the flag back home
+            TeleportThing(flag_red, flag_ghost_red);
+
+            call check_score_limit;
+
+            captured_red = 0;
+
+            Return;
+         }
+
+         // Returns it
+         if(captured_gold == 1)
+         {
+            KillTimerEx(2);
+            TeleportThing(flag_gold, flag_ghost_gold);
+
+            if(play_sounds) dummy = PlaySoundThing(returnsnd2, player, 1.0, -1, -1, 0);
+
+            if(verbose > 0)
+            {
+               // Print("Gold Flag has been returned !");
+               jkPrintUNIString(-3, msgbase + 21);
+            }
+
+            ctf_score_gold = ctf_score_gold + ctf_return_flag;
+            SetTeamScore(2, ctf_score_gold);
+
+            // dummy = SendMessageEx(score_display_cog, User0, ctf_score_red, ctf_score_gold, 0.0, 0.0);
+            // Send a TRIGGER_SCORE with its parameters
+            SendTrigger(-1, 1002, ctf_score_red, ctf_score_gold, 0, 0);
+            call check_score_limit;
+
+            if(GetThingType(player) == 10) // player
+            {
+               // Increment player score
+               SetPlayerScore(player, GetPlayerScore(player) + ctf_return_flag);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_return_flag, -1, -1);
+            }
+
+            // Announce the score in 3 seconds
+            KillTimerEx(9997);
+            SetTimerEx(3, 9997, 0, 0);
+
+            // Callback #21 : Gold flag returned
+            if(ctf_callback != -1)
+               dummy = SendMessageEx(ctf_callback, user0, 21, player, ctf_score_red, ctf_score_gold);
+
+            captured_gold = 0;
+
+            Return;
+         }
+      }
+   }
+   // *** END GOLD FLAG ***
+
+   Return;
 
 # ........................................................................................
 
@@ -1295,11 +1259,6 @@ timer:
       lock_touch = 0;
    }
    else
-   if(GetSenderId() == 9991)
-   {
-      bot_lock_touch = 0;
-   }
-   else
    // play success sound
    if(GetSenderId() == 9994)
    {
@@ -1405,21 +1364,30 @@ killed:
 
    player = senderRef;
 
+   team = GetPlayerTeam(player);
+
+do_killed:
+
    tmp_score_changed = 0;
 
    // Drop the red flag where the carrier died
-   if(GetInv(player, 81) > 0.0)
+   if(red_flag_carrier == player)
    {
       // Remove the flag from the dead player's model
       DetachThing(flag_red);
 
-      // Remove the icon
-      // Send a TRIGGER_ICON with its parameters
-      SendTrigger(player, 1001, 81, 0, 0, 0);
+      if(GetThingType(player) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(player, 1001, 81, 0, 0, 0);
 
-      // Remove the flag from the player's inventory
-	  redflag_taken=-1;
-      SetInv(player, 81, 0.0);
+         // Remove the flag from the player's inventory
+         SetInv(player, 81, 0.0);
+      }
+
+      // The flag no longer has a carrier
+      red_flag_carrier = -1;
 
       captured_red = 1;
 
@@ -1443,8 +1411,20 @@ killed:
          SetTeamScore(1, ctf_score_red);
          tmp_score_changed = 1;
 
-         // Increment player score
-         SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+         if(GetThingType(killer) == 10) // player
+         {
+            // Increment player score
+            SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+         }
+
+         if(GetThingType(killer) == 2) // bot
+         {
+            if(SendMessageEx(system, user7, 10103000, killer, -1, -1) != -1) // not a non-bot actor
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, ctf_kill_flag_carrier, -1, -1);
+            }
+         }
       }
 
       // Callback #13 : Red flag lost by Gold team
@@ -1453,18 +1433,23 @@ killed:
    }
 
    // Drop the gold flag where the carrier died
-   if(GetInv(player, 82) > 0.0)
+   if(gold_flag_carrier == player)
    {
       // Remove the flag from the dead player's model
       DetachThing(flag_gold);
 
-      // Remove the icon
-      // Send a TRIGGER_ICON with its parameters
-      SendTrigger(player, 1001, 82, 0, 0, 0);
+      if(GetThingType(player) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(player, 1001, 82, 0, 0, 0);
 
-      // Remove the flag from the player's inventory
-	  goldflag_taken=-1;
-      SetInv(player, 82, 0.0);
+         // Remove the flag from the player's inventory
+         SetInv(player, 82, 0.0);
+      }
+
+      // The flag no longer has a carrier
+      gold_flag_carrier = -1;
 
       captured_gold = 1;
 
@@ -1488,8 +1473,20 @@ killed:
          SetTeamScore(2, ctf_score_gold);
          tmp_score_changed = 1;
 
-         // Increment player score
-         SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+         if(GetThingType(killer) == 10) // player
+         {
+            // Increment player score
+            SetPlayerScore(killer, GetPlayerScore(killer) + ctf_kill_flag_carrier);
+         }
+
+         if(GetThingType(killer) == 2) // bot
+         {
+            if(SendMessageEx(system, user7, 10103000, killer, -1, -1) != -1) // not a non-bot actor
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, ctf_kill_flag_carrier, -1, -1);
+            }
+         }
       }
 
       // Callback #23 : Gold flag lost by Red team
@@ -1499,24 +1496,62 @@ killed:
 
    // add to the killer score, but only if it is not a suicide
    killer = GetThingParent(sourceRef);
+   if(GetThingType(killer) == 2) // bot
+   {
+      if(SendMessageEx(system, user7, 10103000, killer, -1, -1) == -1) // non-bot actor
+      {
+         killer = player; // for non-bot actors, treat as suicide
+      }
+   }
+
    if(killer != player)
    {
-      // and the players are not in the same team
-      if(GetPlayerTeam(killer) != GetPlayerTeam(player))
+      if(GetThingType(killer) == 10) // plauer
       {
-         if(GetPlayerTeam(killer) == 1)
+         killerteam = GetPlayerTeam(killer);
+      }
+
+      if(GetThingType(killer) == 2) // bot
+      {
+         killerteam = GetThingUserData(killer);
+      }
+
+      // and the players are not in the same team
+      if(killerteam != team)
+      {
+         if(killerteam == 1)
          {
             ctf_score_red = ctf_score_red + 1;
             SetTeamScore(1, ctf_score_red);
-            SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+
+            if(GetThingType(killer) == 10) // player
+            {
+               SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+            }
+
+            if(GetThingType(killer) == 2) // bot
+            {
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, 1, -1, -1);
+            }
+
             tmp_score_changed = 1;
          }
          else
-         if(GetPlayerTeam(killer) == 2)
+         if(killerteam == 2)
          {
             ctf_score_gold = ctf_score_gold + 1;
             SetTeamScore(2, ctf_score_gold);
-            SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+
+            if(GetThingType(killer) == 10) // player
+            {
+               SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+            }
+
+            if(GetThingType(killer) == 2) // bot
+            {
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, 1, -1, -1);
+            }
+
             tmp_score_changed = 1;
          }
       }
@@ -1524,21 +1559,41 @@ killed:
    // else it is a player suicide
    else
    {
-      if(GetPlayerTeam(player) == 1)
+      if(team == 1)
       {
          ctf_score_red = ctf_score_red + ctf_suicide;
          if(ctf_score_red < 0) ctf_score_red = 0;
          SetTeamScore(1, ctf_score_red);
-         SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+
+         if(GetThingType(player) == 10) // player
+         {
+            SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_suicide, -1, -1);
+         }
+
          tmp_score_changed = 1;
       }
       else
-      if(GetPlayerTeam(player) == 2)
+      if(team == 2)
       {
          ctf_score_gold = ctf_score_gold + ctf_suicide;
          if(ctf_score_gold < 0) ctf_score_gold = 0;
          SetTeamScore(2, ctf_score_gold);
-         SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+
+         if(GetThingType(player) == 10) // player
+         {
+            SetPlayerScore(player, GetPlayerScore(player) + ctf_suicide);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            SendMessageEx(GetThingClassCog(player), user7, 10203004, ctf_suicide, -1, -1);
+         }
+
          tmp_score_changed = 1;
       }
    }
@@ -1559,22 +1614,42 @@ killed:
    // Remove the other team's key if the player had it
    if(ctf_keys)
    {
-      if(GetPlayerTeam(player) == 1)
+      if(team == 1) // red team
       {
-         // This is only on the server (inventory is NOT synched)
-         SetInv(player, 84, 0.0);
+         if(GetThingType(player) == 10) // player
+         {
+            // This is only on the server (inventory is NOT synched)
+            SetInv(player, 84, 0.0);
 
-         // so we need to tell the player to display the keys correctly
-         SendTrigger(player, 1003, 84, 0, 0, 0);
+            // so we need to tell the player to display the keys correctly
+            SendTrigger(player, 1003, 84, 0, 0, 0);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            inv_keys = SendMessageEx(GetThingClassCog(player), user7, 10201028, -1, -1, -1);
+            inv_keys = BitClear(inv_keys, 0x2); // take away gold CTF key
+            SendMessageEx(GetThingClassCog(player), user7, 10202028, inv_keys, -1, -1);
+         }
       }
       else
-      if(GetPlayerTeam(player) == 2)
+      if(team == 2) // gold team
       {
-         // This is only on the server (inventory is NOT synched)
-         SetInv(player, 83, 0.0);
+         if(GetThingType(player) == 10) // player
+         {
+            // This is only on the server (inventory is NOT synched)
+            SetInv(player, 83, 0.0);
 
-         // so we need to tell the player to display the keys correctly
-         SendTrigger(player, 1003, 83, 0, 0, 0);
+            // so we need to tell the player to display the keys correctly
+            SendTrigger(player, 1003, 83, 0, 0, 0);
+         }
+
+         if(GetThingType(player) == 2) // bot
+         {
+            inv_keys = SendMessageEx(GetThingClassCog(player), user7, 10201028, -1, -1, -1);
+            inv_keys = BitClear(inv_keys, 0x1); // take away red CTF key
+            SendMessageEx(GetThingClassCog(player), user7, 10202028, inv_keys, -1, -1);
+         }
       }
    }
 
@@ -1856,6 +1931,211 @@ user1:
 user2:
    SetInv(GetParam(0), GetParam(1), GetParam(2));
    SetInvAvailable(GetParam(0), GetParam(1), GetParam(2));
+   Return;
+
+# ........................................................................................
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+
+	if (GetSourceRef() == 970) goto botjoin;
+	if (GetSourceRef() == 971) goto botleave;
+	if (GetSourceRef() == 960) goto botkilled;
+	Return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 30003010) // get item priority
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+		priority = GetParam(3);
+		if (GetThingTemplate(item) == tmp_ctfredflag)
+		{
+			if (captured_red == 1) priority = 10; // red flag dropped
+			if (GetThingUserData(rbot) == 1) // bot on red team
+			{
+				if (captured_red == 0 && gold_flag_carrier == rbot) priority = 10; // red flag home & bot has gold flag
+			}
+			else // bot on gold team
+			{
+				if (captured_red == 0) priority = 10; // red flag home
+			}
+		}
+		if (GetThingTemplate(item) == tmp_ctfgoldflag)
+		{
+			if (captured_gold == 1) priority = 10; // gold flag dropped
+			if (GetThingUserData(rbot) == 2) // bot on gold team
+			{
+				if (captured_gold == 0 && red_flag_carrier == rbot) priority = 10; // gold flag home & bot has red flag
+			}
+			else // bot on red team
+			{
+				if (captured_gold == 0) priority = 10; // gold flag home
+			}
+		}
+		if (ctf_keys)
+		{
+			inv_keys = SendMessageEx(GetThingClassCog(rbot), user7, 10201028, -1, -1, -1);
+			if (GetThingTemplate(item) == tmp_ctfredkey && !BitTest(inv_keys, 0x1)) priority = 9; // CTF red key
+			if (GetThingTemplate(item) == tmp_ctfgoldkey && !BitTest(inv_keys, 0x2)) priority = 9; // CTF gold key
+		}
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003020) // pickup item
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+
+		if (GetThingTemplate(item) == tmp_ctfredkey)
+		{
+			// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
+			inv_keys = SendMessageEx(GetThingClassCog(rbot), user7, 10201028, -1, -1, -1);
+			inv_keys = BitSet(inv_keys, 0x1); // add red CTF key
+			SendMessageEx(GetThingClassCog(rbot), user7, 10202028, inv_keys, -1, -1);
+			return;
+		}
+
+		if (GetThingTemplate(item) == tmp_ctfgoldkey)
+		{
+			// CTF keys are simply added to the inventory - they don't get "taken" from the level like normal powerups
+			inv_keys = SendMessageEx(GetThingClassCog(rbot), user7, 10201028, -1, -1, -1);
+			inv_keys = BitSet(inv_keys, 0x2); // add gold CTF key
+			SendMessageEx(GetThingClassCog(rbot), user7, 10202028, inv_keys, -1, -1);
+			return;
+		}
+
+		if (GetThingTemplate(item) == tmp_ctfredflag && red_flag_carrier == -1)
+		{
+			goto bottouched;
+		}
+
+		if (GetThingTemplate(item) == tmp_ctfgoldflag && gold_flag_carrier == -1)
+		{
+			goto bottouched;
+		}
+
+		ReturnEx(0);
+		return;
+	}
+
+	if (GetParam(0) == 30003030) // get target priority
+	{
+		rbot = GetParam(1);
+		potential = GetParam(2);
+		priority = GetParam(3);
+		// Give bot on opposing team highest priority if they are carrying a flag
+		if (GetThingUserData(rbot) == 1 && captured_red == 2 && red_flag_carrier == potential) priority = 10; // teamplay - bot on red team - red flag has been taken and potential has it
+		if (GetThingUserData(rbot) == 2 && captured_gold == 2 && gold_flag_carrier == potential) priority = 10; // teamplay - bot on gold team - gold flag has been taken and potential has it
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003050) // decide whether to move toward target
+	{
+		rbot = GetParam(1);
+		#potential = GetParam(2);
+		if (red_flag_carrier == rbot || gold_flag_carrier == rbot) // bot has flag
+		{
+			// The bot has the flag and is trying to score, so continue moving toward the base
+			ReturnEx(0);
+			return;
+		}
+		ReturnEx(1);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "ctf_main.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+botjoin:
+   if(verbose > 2) Print("CTF Bot Join Evt");
+
+   player = GetParam(1);
+   team = GetThingUserData(player);
+
+   if (team == 1) // red team
+   {
+      botcount_red = botcount_red + 1;
+   }
+
+   if (team == 2) // gold team
+   {
+      botcount_gold = botcount_gold + 1;
+   }
+
+   if(ctf_keys)
+   {
+      inv_keys = SendMessageEx(GetThingClassCog(player), user7, 10201028, -1, -1, -1);
+      if (team == 1) inv_keys = BitSet(inv_keys, 0x1); // Red team - get red CTF key by default
+      if (team == 2) inv_keys = BitSet(inv_keys, 0x2); // Gold team - get gold CTF key by default
+      SendMessageEx(GetThingClassCog(player), user7, 10202028, inv_keys, -1, -1);
+   }
+
+   call show_players;
+
+   Return;
+
+botleave:
+   if(verbose > 2) Print("CTF Bot Leave Evt");
+
+   leaveplayer = GetParam(1);
+   team = GetThingUserData(leaveplayer);
+
+   if (team == 1) // red team
+   {
+      botcount_red = botcount_red - 1;
+   }
+
+   if (team == 2) // gold team
+   {
+      botcount_gold = botcount_gold - 1;
+   }
+
+   goto do_leave;
+   Return;
+
+bottouched:
+   if(verbose > 2) Print("CTF Bot Touched Evt");
+
+   player = GetParam(1);
+   senderRef = GetParam(2);
+
+   team = GetThingUserData(player);
+
+   goto do_touched;
+   Return;
+
+botkilled:
+   if(verbose > 2) Print("CTF Bot Killed Evt");
+
+   senderRef = GetParam(0);
+   sourceRef = GetParam(1);
+
+   player = senderRef;
+
+   team = GetThingUserData(player);
+
+   goto do_killed;
    Return;
 
 end

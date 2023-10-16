@@ -159,6 +159,7 @@ int			attempts							local
 int			team								local
 int			maxthings							local
 int			score								local
+int			amount								local
 int			highscore							local
 thing		highscorer							local
 template	walkplayer_temp=walkplayer			local
@@ -306,12 +307,15 @@ trigger:
 			jkStringConcatUNIString(1000 + killername);
 			jkStringOutput(-3, -1);
 
-			score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
-			jkStringClear();
-			jkStringConcatUNIString(1000 + killername);
-			jkStringConcatAsciiString("'s Score: ");
-			jkStringConcatInt(score);
-			jkStringOutput(-3, -1);
+			if (!(GetMultiModeFlags() & 0x4)) // custom scoring (e.g. CTF) is not in effect
+			{
+				score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
+				jkStringClear();
+				jkStringConcatUNIString(1000 + killername);
+				jkStringConcatAsciiString("'s Score: ");
+				jkStringConcatInt(score);
+				jkStringOutput(-3, -1);
+			}
 
 			return;
 		}
@@ -336,12 +340,15 @@ trigger:
 		jkStringConcatUNIString(2000 + rand() * 5); // print death message
 		jkStringOutput(-3, -1);
 
-		score = SendMessageEx(srv, user7, 10203004, -1, -1, -1); // subtract a point from bot
-		jkStringClear();
-		jkStringConcatUNIString(1000 + victimname);
-		jkStringConcatAsciiString("'s Score: ");
-		jkStringConcatInt(score);
-		jkStringOutput(-3, -1);
+		if (!(GetMultiModeFlags() & 0x4)) // custom scoring (e.g. CTF) is not in effect
+		{
+			score = SendMessageEx(srv, user7, 10203004, -1, -1, -1); // subtract a point from bot
+			jkStringClear();
+			jkStringConcatUNIString(1000 + victimname);
+			jkStringConcatAsciiString("'s Score: ");
+			jkStringConcatInt(score);
+			jkStringOutput(-3, -1);
+		}
 
 		return;
 	}
@@ -369,12 +376,15 @@ trigger:
 			jkStringConcatUNIString(1000 + killername);
 			jkStringOutput(-3, -1);
 
-			score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
-			jkStringClear();
-			jkStringConcatUNIString(1000 + killername);
-			jkStringConcatAsciiString("'s Score: ");
-			jkStringConcatInt(score);
-			jkStringOutput(-3, -1);
+			if (!(GetMultiModeFlags() & 0x4)) // custom scoring (e.g. CTF) is not in effect
+			{
+				score = SendMessageEx(srv, user7, 10203004, 1, -1, -1); // give bot a point
+				jkStringClear();
+				jkStringConcatUNIString(1000 + killername);
+				jkStringConcatAsciiString("'s Score: ");
+				jkStringConcatInt(score);
+				jkStringOutput(-3, -1);
+			}
 
 			return;
 		}
@@ -463,6 +473,20 @@ user7:
 			}
 		}
 		ReturnEx(-1); // not a bot
+		return;
+	}
+
+	if (GetParam(0) == 10103010) // Add to each team bot score
+	{
+		team = GetParam(1);
+		amount = GetParam(2);
+		for (i = 0 ; i < numbots ; i = i + 1)
+		{
+			if (SendMessageEx(srv0[i], user7, 10201002, -1, -1, -1) == team) // bot is on the team
+			{
+				score = SendMessageEx(srv0[i], user7, 10203004, amount, -1, -1); // give bot a point
+			}
+		}
 		return;
 	}
 

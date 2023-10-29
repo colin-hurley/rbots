@@ -1,115 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.jkhub.rbots</groupId>
-	<artifactId>rbots</artifactId>
+	<artifactId>rbots-parent</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
-	<name>Rbots</name>
+	<name>Rbots :: Parent</name>
 	<description>Multiplayer bots for Jedi Knight</description>
 	<properties>
 		<revision>0.33-SNAPSHOT</revision>
 		<jklib.version>0.0.1</jklib.version>
 	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-ctf</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-ctf-devel</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-ctf-episode</artifactId>
-				<version>${project.version}</version>
-				<type>gob</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-ctf-sdk</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk-devel</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk-episode</artifactId>
-				<version>${project.version}</version>
-				<type>gob</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk-patch</artifactId>
-				<version>${project.version}</version>
-				<type>gob</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk-patch-nohotkeys</artifactId>
-				<version>${project.version}</version>
-				<type>gob</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-jk-sdk</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots-devel</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots-episode</artifactId>
-				<version>${project.version}</version>
-				<type>goo</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots-patch</artifactId>
-				<version>${project.version}</version>
-				<type>goo</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots-patch-nohotkeys</artifactId>
-				<version>${project.version}</version>
-				<type>goo</type>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>rbots-mots-sdk</artifactId>
-				<version>${project.version}</version>
-				<type>zip</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -198,20 +98,7 @@
 	</build>
 	<modules>
 		<module>ctf</module>
-		<module>ctf-devel</module>
-		<module>ctf-episode</module>
-		<module>ctf-sdk</module>
 		<module>jk</module>
-		<module>jk-devel</module>
-		<module>jk-episode</module>
-		<module>jk-patch</module>
-		<module>jk-patch-nohotkeys</module>
-		<module>jk-sdk</module>
 		<module>mots</module>
-		<module>mots-devel</module>
-		<module>mots-episode</module>
-		<module>mots-patch</module>
-		<module>mots-patch-nohotkeys</module>
-		<module>mots-sdk</module>
 	</modules>
 </project>

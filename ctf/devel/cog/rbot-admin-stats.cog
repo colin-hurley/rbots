@@ -23,6 +23,7 @@ cog			srv=-1								local
 
 # Working vars
 thing		rbot								local
+thing		node								local
 int			health								local
 
 end
@@ -78,6 +79,9 @@ pulse:
 			health = GetThingHealth(rbot);
 		}
 
+		node = SendMessageEx(srv, user7, 10201012, -1, -1, -1);
+		if (node != -1) node = GetThingUserData(node); // get the placed thing number in the JKL
+
 		// Line 1
 		jkStringClear();
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201000, -1, -1, -1), "Botid: %2d");
@@ -85,7 +89,7 @@ pulse:
 		jkStringConcatUNIString(1000 + SendMessageEx(srv, user7, 10201001, -1, -1, -1));
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201002, -1, -1, -1), ", Team: %d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201003, -1, -1, -1), ", Botmode: 0x%08x");
-		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201012, -1, -1, -1), ", Node: %3d");
+		jkStringConcatFormattedInt(node, ", Node: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201021, -1, -1, -1), ", Shields: %3d");
 		jkStringConcatFormattedInt(health, ", Health: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10201024, -1, -1, -1), ", Bacta: %d");

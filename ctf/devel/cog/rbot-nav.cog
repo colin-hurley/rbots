@@ -22,6 +22,40 @@ int			path_size_max=25					local # Keep in sync with path cog
 # virtually identical.
 template	ghost=_ghostdecor					local
 
+# Temporary node things for each bot
+thing		node0=-1							local
+thing		node1=-1							local
+thing		node2=-1							local
+thing		node3=-1							local
+thing		node4=-1							local
+thing		node5=-1							local
+thing		node6=-1							local
+thing		node7=-1							local
+thing		node8=-1							local
+thing		node9=-1							local
+thing		node10=-1							local
+thing		node11=-1							local
+thing		node12=-1							local
+thing		node13=-1							local
+thing		node14=-1							local
+thing		node15=-1							local
+thing		node16=-1							local
+thing		node17=-1							local
+thing		node18=-1							local
+thing		node19=-1							local
+thing		node20=-1							local
+thing		node21=-1							local
+thing		node22=-1							local
+thing		node23=-1							local
+thing		node24=-1							local
+thing		node25=-1							local
+thing		node26=-1							local
+thing		node27=-1							local
+thing		node28=-1							local
+thing		node29=-1							local
+thing		node30=-1							local
+thing		node31=-1							local
+
 # Working variables
 int			i									local
 int			j									local
@@ -33,6 +67,7 @@ int			path_size							local
 int			pathflags							local
 thing		nodeghost							local
 thing		node								local
+int			nodenum								local
 vector		nodepos								local
 sector		nodesec								local
 flex		nodesize							local
@@ -43,7 +78,7 @@ int			path_rank							local
 int			success								local
 int			new_path_size						local
 int			new_pathflags						local
-thing		new_node							local
+thing		new_nodenum							local
 vector		new_nodepos							local
 sector		new_nodesec							local
 flex		new_nodesize						local
@@ -92,6 +127,7 @@ trigger:
 			path_index = -1;
 			node_index = -1;
 			node = -1;
+			nodenum = -1;
 			nodepos = '0 0 0';
 			nodesec = -1;
 			nodesize = 0;
@@ -113,11 +149,11 @@ trigger:
 					for (j = 0 ; j < new_path_size ; j = j + 1)
 					{
 						SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
-						if (new_node != node) // No need to compare against self
+						if (new_nodenum != nodenum) // No need to compare against self
 						{
 							// See if any special navigation flags have been set for this node
 							navspecial = 0;
-							SendTrigger(-1, 13120, new_node, -1, -1, -1); // Special nav info request
+							SendTrigger(-1, 13120, new_nodenum, -1, -1, -1); // Special nav info request
 							if (!BitTest(navspecial, 0x1)) // A lost bot is allowed to go directly to this node to get back on track
 							{
 								new_dist = VectorDist(bot_pos, new_nodepos);
@@ -128,7 +164,7 @@ trigger:
 									// Remember the closest node that the bot can see and is not too high for bot to reach
 									path_index = i;
 									node_index = j;
-									node = new_node;
+									nodenum = new_nodenum;
 									nodepos = new_nodepos;
 									nodesec = new_nodesec;
 									nodesize = new_nodesize;
@@ -162,7 +198,7 @@ trigger:
 			pathflags = new_pathflags;
 
 			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
-			node = new_node;
+			nodenum = new_nodenum;
 
 			// Validate bot state and make corrections if needed
 			// State issues can happen after e.g. getting lost and changes in CTF game state
@@ -201,7 +237,7 @@ trigger:
 						for (j = 0 ; j < new_path_size ; j = j + 1)
 						{
 							SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
-							if (node == new_node) // Same node = Intersection with the other path
+							if (nodenum == new_nodenum) // Same node = Intersection with the other path
 							{
 								// Don't switch to the end of a path going the wrong direction
 								new_path_end = 0;
@@ -304,7 +340,7 @@ trigger:
 				node_index = node_index - 1; // Backward
 			}
 			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
-			node = new_node;
+			nodenum = new_nodenum;
 			nodepos = new_nodepos;
 			nodesec = new_nodesec;
 			nodesize = new_nodesize;
@@ -312,23 +348,34 @@ trigger:
 		}
 
 		// Update bot navigation state
-		if (nodesize < 0.01) // No custom node size specified, use default
+
+		node = -1;
+		nextposnum = -1;
+
+		if (nodenum != -1)
 		{
-			nodesize = dflt_nodesize;
-		}
-		if (node == -1)
-		{
-			// Couldn't find a node for the bot
-			nextposnum = -1;
-		}
-		else
-		{
+			if (nodesize < 0.01) // No custom node size specified, use default
+			{
+				nodesize = dflt_nodesize;
+			}
+
+			// Create a temporary node thing
+			node = CreateThingAtPos(ghost, nodesec, nodepos, '0 0 0');
+			SetThingFlags(node, nodeflags);
+			SetThingCollideSize(node, nodesize);
+			SetThingUserData(node, nodenum); // the placed thing number in the JKL
+
 			// Found a node, synthesize a legacy index number to identify the path and node for later updates
 			nextposnum = path_index * path_size_max + node_index;
 		}
-		SendTrigger(-1, 13010, botid, node, nodesize, rundir); // New position response
-		SendTrigger(-1, 13011, botid, VectorX(nodepos), VectorY(nodepos), VectorZ(nodepos)); // New position response
-		SendTrigger(-1, 13012, botid, nextposnum, nodesec, nodeflags); // New position response
+
+		if (node0[botid] != -1)
+		{
+			DestroyThing(node0[botid]);
+		}
+		node0[botid] = node;
+
+		SendTrigger(-1, 13010, botid, node, rundir, nextposnum);
 		return;
 	}
 
@@ -350,7 +397,7 @@ trigger:
 
 	if (GetSourceRef() == 13050) // Path node data response
 	{
-		new_node = GetParam(0);
+		new_nodenum = GetParam(0);
 		new_nodepos = VectorSet(GetParam(1), GetParam(2), GetParam(3));
 		return;
 	}

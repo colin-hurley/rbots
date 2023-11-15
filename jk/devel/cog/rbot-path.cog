@@ -221,6 +221,15 @@ startup:
 		looping = 1;
 	}
 
+	// TODO: This can be removed unce the user is inputting pathflags directly
+	if (unidirectional) pathflags = BitSet(pathflags, 0x1);
+	if (looping) pathflags = BitSet(pathflags, 0x2);
+
+	// Give the other paths a chance to gather data before deleting any nodes.
+	// This will ensure that removal of shared nodes (i.e. path intersections)
+	// doesn't corrupt other paths (e.g. 0x2 thing flag getting set on removal).
+	Sleep(1.0);
+
 	// Delete the node things to free up thing references for larger levels
 	for (i = 0 ; i < 25 ; i = i + 1)
 	{
@@ -229,10 +238,6 @@ startup:
 			DestroyThing(node0[i]);
 		}
 	}
-
-	// TODO: This can be removed unce the user is inputting pathflags directly
-	if (unidirectional) pathflags = BitSet(pathflags, 0x1);
-	if (looping) pathflags = BitSet(pathflags, 0x2);
 
 	return;
 

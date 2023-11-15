@@ -20,22 +20,12 @@ message		pulse
 
 int			active=0							local
 
-# We can't dynamically create 'ghost' things (they can only be statically
-# placed in the JKL), so we create '_ghostdecor' things instead, which are
-# virtually identical.
-template	ghost=_ghostdecor					local
-
 cog			srv=-1								local
 thing		rbot								local
 thing		target								local
 thing		enemy								local
 thing		item								local
-thing		nodeghost=-1						local
-flex		nodeposx							local
-flex		nodeposy							local
-flex		nodeposz							local
-vector		nodepos								local
-sector		nodesec								local
+thing		node								local
 
 end
 
@@ -50,7 +40,6 @@ shutdown:
 	// Reinitialize to default values when exiting level
 	active = 0;
 	srv = -1;
-	nodeghost = -1;
 	return;
 
 // Execute
@@ -67,11 +56,6 @@ user0:
 		Print("Highlighter off");
 		SetPulse(0);
 		jkEndTarget();
-		if (nodeghost != -1)
-		{
-			DestroyThing(nodeghost);
-			nodeghost = -1;
-		}
 	}
 	return;
 
@@ -97,11 +81,7 @@ pulse:
 		{
 			enemy = SendMessageEx(srv, user7, 10201010, -1, -1, -1);
 			item = SendMessageEx(srv, user7, 10201011, -1, -1, -1);
-			nodeposx = SendMessageEx(srv, user7, 10201012, 1, -1, -1);
-			nodeposy = SendMessageEx(srv, user7, 10201012, 2, -1, -1);
-			nodeposz = SendMessageEx(srv, user7, 10201012, 3, -1, -1);
-			nodepos = VectorSet(nodeposx, nodeposy, nodeposz);
-			nodesec = SendMessageEx(srv, user7, 10201012, 4, -1, -1);
+			node = SendMessageEx(srv, user7, 10201012, -1, -1, -1);
 			if (enemy != -1) // Bot has enemy target
 			{
 				jkSetTargetColors(6, 7, 8); // Red
@@ -112,15 +92,11 @@ pulse:
 				jkSetTargetColors(1, 2, 3); // Green
 				target = item;
 			}
-			else
+			else if (node != -1) // bot is heading for a node
 			{
 				// Otherwise, highlight the bot's destination node
 				jkSetTargetColors(16, 17, 18); // Light Blue
-
-				// Create a temporary ghost thing that we can use to "highlight" the node position
-				if (nodeghost != -1) DestroyThing(nodeghost); // Remove previous ghost
-				nodeghost = CreateThingAtPos(ghost, nodesec, nodepos, '0 0 0'); // Create new ghost with correct position and sector
-				target = nodeghost;
+				target = node;
 			}
 		}
 	}

@@ -879,6 +879,8 @@ finditem:
 		potential = NextThingInView();
 	}
 
+	if (item != -1) botmode = BitSet(botmode, 0x1); // bot has left the path to seek items
+
 	return;
 
 checkitems:
@@ -985,6 +987,20 @@ pickupitem:
 	return;
 
 checknode:
+	// Check if bot got lost while seeking items
+	if (node != -1 && item == -1 && BitTest(botmode, 0x1)) // seeking node, not seeking items, and previously left the path to seek items
+	{
+		botmode = BitClear(botmode, 0x1); // bot has left the path to seek items
+
+		// Bot was seeking items but is now heading for the next node
+		if (!HasLOS(rbot, node)) // bot no longer has LOS with the node
+		{
+			// Bot may not be able to get to the current node, so find the nearest node and continue from there
+			KillTimerEx(120); // stop 'bot lost' timeout
+			SetTimerEx(0.1, 120, -1, -1); // force bot 'lost'
+		}
+	}
+
 	// Check our progress to the current node and request new node if necessary
 	if (node != -1 && VectorDist(GetThingPos(rbot), GetThingPos(node)) < GetThingCollideSize(node))
 	{

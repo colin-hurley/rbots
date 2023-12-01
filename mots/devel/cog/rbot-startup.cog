@@ -396,17 +396,16 @@ trigger:
 
 	if (GetSourceRef() == 101050) // ask for highest scorer
 	{
-		// TODO: Not currently used, but this would enable a bot to e.g. prefer the leading bot when selecting a target for attack
 		botid = GetParam(0);
 		highscore = 0;
 		highscorer = -1;
 		for (i = 0; i < numbots; i = i + 1)
 		{
+			srv = srv0[i];
 			score = SendMessageEx(srv, user7, 10201004, -1, -1, -1); // get bot score
 			if (highscorer == -1 || score > highscore)
 			{
 				highscore = score;
-				srv = srv0[i];
 				highscorer = SendMessageEx(srv, user7, 10201013, -1, -1, -1); // bot thing
 			}
 		}

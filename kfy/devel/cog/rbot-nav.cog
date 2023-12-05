@@ -1,0 +1,421 @@
+# Rbot Navigation Cog
+#
+# Server-only
+#
+# Rbots originally created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x240
+
+symbols
+
+message		trigger
+
+# The default size for a node.  This is used if the node thing does not have a
+# value set for its "size" property in the JKL.
+flex		dflt_nodesize=0.25
+
+int			path_size_max=25					local # Keep in sync with path cog
+
+# We can't dynamically create 'ghost' things (they can only be statically
+# placed in the JKL), so we create '_ghostdecor' things instead, which are
+# virtually identical.
+template	ghost=_ghostdecor					local
+
+# Temporary node things for each bot
+thing		node0=-1							local
+thing		node1=-1							local
+thing		node2=-1							local
+thing		node3=-1							local
+thing		node4=-1							local
+thing		node5=-1							local
+thing		node6=-1							local
+thing		node7=-1							local
+thing		node8=-1							local
+thing		node9=-1							local
+thing		node10=-1							local
+thing		node11=-1							local
+thing		node12=-1							local
+thing		node13=-1							local
+thing		node14=-1							local
+thing		node15=-1							local
+thing		node16=-1							local
+thing		node17=-1							local
+thing		node18=-1							local
+thing		node19=-1							local
+thing		node20=-1							local
+thing		node21=-1							local
+thing		node22=-1							local
+thing		node23=-1							local
+thing		node24=-1							local
+thing		node25=-1							local
+thing		node26=-1							local
+thing		node27=-1							local
+thing		node28=-1							local
+thing		node29=-1							local
+thing		node30=-1							local
+thing		node31=-1							local
+
+# Working variables
+int			i									local
+int			j									local
+
+int			cur_path_index						local
+int			path_index							local
+int			node_index							local
+int			path_size							local
+int			pathflags							local
+thing		nodeghost							local
+thing		node								local
+int			nodenum								local
+vector		nodepos								local
+sector		nodesec								local
+flex		nodesize							local
+int			nodeflags							local
+flex		dist								local
+int			path_rank							local
+
+int			success								local
+int			new_path_size						local
+int			new_pathflags						local
+thing		new_nodenum							local
+vector		new_nodepos							local
+sector		new_nodesec							local
+flex		new_nodesize						local
+int			new_nodeflags						local
+flex		new_dist							local
+int			new_path_rank						local
+int			new_path_rundir						local
+
+vector		bot_z								local
+vector		new_node_z							local
+vector		bot_pos								local
+
+int			botid								local
+thing		rbot								local
+cog			srv									local
+int			botmode								local
+int			lastposnum							local
+int			nextposnum							local
+int			rundir								local
+int			changepath							local
+int			choices								local
+int			new_path_end						local
+int			new_path_requirements				local
+int			bot_keys							local
+int			navspecial							local
+
+end
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 13000) // New position request
+	{
+		botid = GetParam(0); // which bot requested the info
+		rbot = GetParam(1);
+		botmode = GetParam(2);
+		lastposnum = GetParam(3);
+
+		srv = GetThingClassCog(rbot);
+		bot_keys = SendMessageEx(srv, user7, 10201028, -1, -1, -1);
+
+		if (lastposnum == -1) // bot lost - find nearest node
+		{
+			path_index = -1;
+			node_index = -1;
+			node = -1;
+			nodenum = -1;
+			nodepos = '0 0 0';
+			nodesec = -1;
+			nodesize = 0;
+			nodeflags = 0;
+			dist = 10000;
+			rundir = -1;
+
+			bot_pos = GetThingPos(rbot);
+			bot_z = VectorSet(0, 0, VectorZ(bot_pos));
+
+			for (i = 0 ; i < 999 ; i = i + 1)
+			{
+				// Check path requirements (e.g. keys)
+				success = 0;
+				SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
+				if (!success) i = 999; // break
+				else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
+				{
+					for (j = 0 ; j < new_path_size ; j = j + 1)
+					{
+						SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
+						if (new_nodenum != nodenum) // No need to compare against self
+						{
+							// See if any special navigation flags have been set for this node
+							navspecial = 0;
+							SendTrigger(-1, 13120, new_nodenum, -1, -1, -1); // Special nav info request
+							if (!BitTest(navspecial, 0x1)) // A lost bot is allowed to go directly to this node to get back on track
+							{
+								new_dist = VectorDist(bot_pos, new_nodepos);
+								new_node_z = VectorSet(0, 0, VectorZ(new_nodepos));
+								nodeghost = CreateThingAtPos(ghost, new_nodesec, new_nodepos, '0 0 0'); // Temporary thing for the HasLOS test
+								if (new_dist < dist && HasLOS(rbot, nodeghost) && (VectorDist(bot_z, new_node_z) < 0.4 || (GetThingFlags(rbot) & 0x2000000 && BitTest(new_nodeflags, 0x2000000))))
+								{
+									// Remember the closest node that the bot can see and is not too high for bot to reach
+									path_index = i;
+									node_index = j;
+									nodenum = new_nodenum;
+									nodepos = new_nodepos;
+									nodesec = new_nodesec;
+									nodesize = new_nodesize;
+									nodeflags = new_nodeflags;
+									dist = new_dist;
+									rundir = new_path_rundir;
+								}
+								DestroyThing(nodeghost); // clean up
+							}
+						}
+					}
+				}
+			}
+
+			// If the chosen path (if any) does not require a particular run direction, pick one randomly
+			if (rundir == -1)
+			{
+				if (Rand() > 0.5) rundir = 1; else rundir = 0;
+			}
+		}
+		else
+		{
+			// Bot reached current node, needs to know where to go next
+			node_index = lastposnum % path_size_max;
+			path_index = (lastposnum - node_index) / path_size_max;
+
+			SendTrigger(-1, 13020, path_index, rbot, -1, -1); // Path data request
+			path_size = new_path_size;
+			path_rank = new_path_rank;
+			rundir = new_path_rundir; // Make sure bot is running in the path's required direction
+			pathflags = new_pathflags;
+
+			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
+			nodenum = new_nodenum;
+
+			// Validate bot state and make corrections if needed
+			// State issues can happen after e.g. getting lost and changes in CTF game state
+			if (rundir == -1)
+			{
+				// Current path does not have a required run direction, so keep the bot's current run direction
+				if (BitTest(botmode, 0x1000)) rundir=0; else rundir=1; // set run direction from botmode
+			}
+
+			choices = 1;
+			// If we're at either end of a non-looping path, we should change paths if we can
+			if (!BitTest(pathflags, 0x2)) // Not looping
+			{
+				if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
+				{
+					choices = 0; // Cannot stay on current path if there is another option
+				}
+				else if (rundir == 0 && node_index <= 0) // At beginning of path and running backward
+				{
+					choices = 0; // Cannot stay on current path if there is another option
+				}
+			}
+
+			// Check for path intersections to possibly change to another path
+			cur_path_index = path_index; // Remember true current path when switching between paths
+			for (i = 0 ; i < 999 ; i = i + 1)
+			{
+				if (i != cur_path_index) // This is a different path
+				{
+					// Check path requirements (e.g. keys)
+					success = 0;
+					SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
+					if (!success) i = 999; // break
+					else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
+					{
+						for (j = 0 ; j < new_path_size ; j = j + 1)
+						{
+							SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
+							if (nodenum == new_nodenum) // Same node = Intersection with the other path
+							{
+								// Don't switch to the end of a path going the wrong direction
+								new_path_end = 0;
+								if (j >= (new_path_size - 1))
+								{
+									if (new_path_rundir == 1) // New path requires forward movement, but we're already at the end
+									{
+										new_path_end = 1;
+									}
+									else // Not required to run forward
+									{
+										// The only option is to move backward
+										new_path_rundir = 0;
+									}
+								}
+								else if (j <= 0)
+								{
+									if (new_path_rundir == 0) // New path requires backward movement, but we're already at the beginning
+									{
+										new_path_end = 1;
+									}
+									else // Not required to run backward
+									{
+										// The only option is to move forward
+										new_path_rundir = 1;
+									}
+								}
+
+								if (!new_path_end) // We are at least one node away from the end of the path
+								{
+									// Evaluate whether or not to change to this path
+									changepath = 0;
+									if (new_path_rank > path_rank) // New path is better than the current option - we are obligated to switch
+									{
+										choices = 1; // Reset number of choices to count only those in this path rank
+										changepath = 1;
+									}
+									else if (new_path_rank == path_rank) // New path is same rank as current option - change at random or if at end of current path
+									{
+										choices = choices + 1; // One more choice in the current path rank
+										if (Rand() < (1/choices)) // Each intersecting path has an equal chance of being chosen (one in N chance)
+										{
+											changepath = 1;
+										}
+									}
+									if (changepath)
+									{
+										path_index = i;
+										node_index = j;
+										path_size = new_path_size;
+										path_rank = new_path_rank;
+										rundir = new_path_rundir;
+										pathflags = new_pathflags;
+										j = new_path_size; // break (skip ahead to next path)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// If the path change does not require a particular run direction, pick one randomly
+			if (rundir == -1)
+			{
+				if (Rand() > 0.5) rundir = 1; else rundir = 0;
+			}
+
+			// Prevent the bot from moving beyond either end of the path
+			if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
+			{
+				if (BitTest(pathflags, 0x2)) // For looping paths, just wrap to the beginning of the path
+				{
+					node_index = 0;
+				}
+				else // Else, the bot needs to turn around and run the other direction
+				{
+					rundir = 0;
+				}
+			}
+			else if (rundir == 0 && node_index <= 0) // At beginning of path and running backward
+			{
+				if (BitTest(pathflags, 0x2)) // For looping paths, just wrap to the end of the path
+				{
+					node_index = path_size - 1;
+				}
+				else // Else, the bot needs to turn around and run the other direction
+				{
+					rundir = 1;
+				}
+			}
+
+			// Advance to next node
+			if (rundir)
+			{
+				node_index = node_index + 1; // Forward
+			}
+			else
+			{
+				node_index = node_index - 1; // Backward
+			}
+			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
+			nodenum = new_nodenum;
+			nodepos = new_nodepos;
+			nodesec = new_nodesec;
+			nodesize = new_nodesize;
+			nodeflags = new_nodeflags;
+		}
+
+		// Update bot navigation state
+
+		node = -1;
+		nextposnum = -1;
+
+		if (nodenum != -1)
+		{
+			if (nodesize < 0.01) // No custom node size specified, use default
+			{
+				nodesize = dflt_nodesize;
+			}
+
+			// Create a temporary node thing
+			node = CreateThingAtPos(ghost, nodesec, nodepos, '0 0 0');
+			SetThingFlags(node, nodeflags);
+			SetThingCollideSize(node, nodesize);
+			SetThingUserData(node, nodenum); // the placed thing number in the JKL
+
+			// Found a node, synthesize a legacy index number to identify the path and node for later updates
+			nextposnum = path_index * path_size_max + node_index;
+		}
+
+		if (node0[botid] != -1)
+		{
+			DestroyThing(node0[botid]);
+		}
+		node0[botid] = node;
+
+		SendTrigger(-1, 13010, botid, node, rundir, nextposnum);
+		return;
+	}
+
+	if (GetSourceRef() == 13030) // Path data response
+	{
+		new_path_size = GetParam(0);
+		new_path_requirements = GetParam(1);
+		new_path_rank = GetParam(2);
+		new_path_rundir = GetParam(3);
+		return;
+	}
+
+	if (GetSourceRef() == 13031) // Path data response
+	{
+		success = 1;
+		new_pathflags = GetParam(0);
+		return;
+	}
+
+	if (GetSourceRef() == 13050) // Path node data response
+	{
+		new_nodenum = GetParam(0);
+		new_nodepos = VectorSet(GetParam(1), GetParam(2), GetParam(3));
+		return;
+	}
+
+	if (GetSourceRef() == 13051) // Path node data response
+	{
+		new_nodesec = GetParam(0);
+		new_nodesize = GetParam(1);
+		new_nodeflags = GetParam(2);
+		return;
+	}
+
+	if (GetSourceRef() == 13130)  // Special nav info response
+	{
+		navspecial = GetParam(0);
+		return;
+	}
+
+	return;
+
+end

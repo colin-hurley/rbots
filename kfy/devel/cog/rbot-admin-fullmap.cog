@@ -1,0 +1,37 @@
+# Rbot Administration Cog - Full map
+#
+# Reveal the full overlay map and show bots on the overlay map
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		startup
+message		user0
+message		user1
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+// Execute
+user0:
+	Print("The full map is now visible");
+	SetMapModeFlags(0x3e); // Sectors, players, actors, powerups, projectiles, etc.
+	return;
+
+// Concat current state
+user1:
+	jkStringConcatAsciiString("Show full map");
+	return;
+
+end

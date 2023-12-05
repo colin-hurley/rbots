@@ -1,0 +1,235 @@
+# Jedi Knight Cog Script
+#
+# FORCE_BLINDING.COG
+#
+# FORCEPOWER Script - Blinding
+#  Light Side Power
+#  Bin 27
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       player                           local
+thing       victim                           local
+thing       potential                        local
+
+flex        mana                             local
+flex        cost=100.0                       local
+flex        targetcost=5                     local
+flex        targetcount=0                    local
+int         rank                             local
+int         count                            local
+int         retval=0                         local
+int         dummy                            local
+
+flex        dot                              local
+flex        maxDot                           local
+
+sound       blindingSound=ForceBlind01.WAV   local
+template    cone_tpl=+force_blind            local
+
+int         active=0                         local
+
+int         inbubble=0                       local
+
+message     startup
+message     activated
+message     deactivated
+message     pulse
+message     timer
+message     newplayer
+message     killed
+message     deselected
+message     selected
+message     enterbubble
+message     exitbubble
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   player = GetlocalPlayerThing();
+   inbubble = 0;
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   if(inbubble) Return;
+
+   if(active) Return;
+
+   mana = GetInv(player, 14);
+   rank = GetInv(player, 27);
+
+   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   {
+      victim = -1;
+      active = 1;
+      SetInvActivated(player, 27, 1);
+      SetPulse(0.33);
+   }
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+
+   targetCount = targetCount + 1;
+   if(targetCount == 3)
+   {
+      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -targetCost);
+      targetCount = 0;
+   }
+
+   // Check all things for our victim.
+   victim = -1;
+   maxDot = 0;
+
+   // Search for all players and actors.
+   potential = FirstThingInView(player, 30 + 15 * rank, 8, 0x404);
+   while(potential != -1)
+   {
+      if(
+         HasLOS(player, potential) &&
+         (potential != player) &&
+         (VectorDist(GetThingPos(player), GetThingPos(potential)) <= (1 + rank)) &&
+         !(GetThingFlags(potential) & 0x200) &&
+         !(GetActorFlags(potential) & 0x100) &&
+         !((jkGetFlags(potential) & 0x20) && !IsInvActivated(player, 23)) &&
+         (jkGetBubbleDistance(potential) > 1.0)
+        )
+      {
+         dot = ThingViewDot(player, potential);
+         if(dot > maxDot)
+         {
+            victim = potential;
+            maxDot = dot;
+         }
+      }
+      potential = NextThingInView();
+   }
+
+   // If we have a victim...
+   if(victim != -1)
+   {
+      jkSetTargetColors(1, 2, 3);
+      jkSetTarget(victim);
+   }
+   else
+   {
+      jkEndTarget();
+   }
+
+   Return;
+
+# ........................................................................................
+
+deactivated:
+   if((victim == -1) || (GetThingHealth(player) <= 0) || inbubble)
+   {
+      call stop_power;
+      Return;
+   }
+
+   SetPulse(0);
+   jkEndTarget();
+
+   mana = GetInv(player, 14);
+   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   {
+      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -cost);
+
+      // Send a "force disturbance"...
+      if(!IsMulti())
+         SendMessageExRadius(GetThingPos(player), cost, 0x4, splash, 27, 0, 0, 0);
+
+      SetBinWait(player, 27, 0.5);
+      rank = GetInv(player, 27);
+
+      if(HasLOS(player, victim) && (victim != player))
+      {
+         PlayMode(player, 24);
+         PlaySoundThing(blindingSound, player, 1.0, -1, -1, 0x80);
+         dummy = CreateThingAtPosNR(cone_tpl, GetThingSector(player), VectorAdd(GetThingPos(player), '0.0 0.0 0.04'), '0.0 0.0 0.0');
+         SetThingLook(dummy, VectorSub(GetThingPos(victim), GetThingPos(player)));
+
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
+            SendTrigger(-1, 101999, victim, player, 27, rank); // send "skill" trigger to player/bot
+      }
+   }
+
+   active = 0;
+   SetInvActivated(player, 27, 0);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   // This checks that the thing ref is still assigned to the same thing
+   // (remember the guy could have died and its ref reassigned to a generated thing)
+   if(GetThingSignature(GetSenderId()) == GetParam(0))
+   {
+      ClearActorFlags(GetSenderId(), 0x800);
+   }
+
+   Return;
+
+# ........................................................................................
+
+selected:
+   jkPrintUNIString(player, 27);
+   Return;
+
+# ........................................................................................
+
+deselected:
+   call stop_power;
+
+   Return;
+
+# ........................................................................................
+
+killed:
+   if(GetSenderRef() != player) Return;
+
+newplayer:
+   call stop_power;
+   Return;
+
+# ........................................................................................
+
+enterbubble:
+   inbubble = 1;
+   call stop_power;
+   Return;
+
+# ........................................................................................
+
+exitbubble:
+   inbubble = 0;
+   Return;
+
+# ........................................................................................
+
+stop_power:
+   SetPulse(0);
+   SetInvActivated(player, 27, 0);
+   active = 0;
+   jkEndTarget();
+
+   Return;
+
+end
+

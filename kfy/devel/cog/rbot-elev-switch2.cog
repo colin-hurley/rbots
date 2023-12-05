@@ -1,0 +1,114 @@
+# Rbot Elevator Switch Cog
+#
+# 00_elev_switch2.cog
+#
+# This elevator will go up to its next frame and hold there.  The elevator can be recalled
+# to a floor by hitting the respective "Call" button.
+#
+# This is a customized version of 00_elev_switch2.cog by LucasArts that has been updated
+# to support Rbots. It can be used as a drop-in replacement for any case where the
+# original is used, although it may need to be combined with other scripts (such as
+# rbot-arrival.cog) for best results.
+#
+# Rbots originally created by Raynar
+
+symbols
+
+message		crossed
+message		activate
+message		arrived
+message		trigger
+
+surface		lower_adjoin0			linkid=1 mask=0x405
+surface		lower_adjoin1			linkid=1 mask=0x405
+surface		lower_adjoin2			linkid=1 mask=0x405
+surface		call0					linkid=1
+surface		call1					linkid=1
+surface		call2					linkid=1
+surface		call3					linkid=1
+
+thing		elevator				desc=elevator_object
+
+int			curframe=0				Local
+flex		start_wait=0.25			desc=pause_before_moving_up
+flex		speed=4.0
+sound		wav0=lvrclik1.wav
+
+thing		rbot					local
+flex		dist					local
+surface		button					local
+int			i						local
+	
+end
+
+# ========================================================================================
+
+code
+
+activate:						// If player presses button
+	if (GetWallCel(call0) == 1) return;
+	if (GetSenderId() != 1) return;
+	button = GetSenderRef();
+
+	setwallcel(call0,1);
+	setwallcel(call1,1);
+	setwallcel(call2,1);
+	setwallcel(call3,1);
+	PlaySoundPos(wav0, SurfaceCenter(button), 1, -1, -1, 0);
+	curframe=getcurframe(elevator);
+	movetoframe(elevator, 1-curframe, speed);
+	stop;
+
+# ........................................................................................
+
+arrived:
+	setwallcel(call0,0);
+	setwallcel(call1,0);
+	setwallcel(call2,0);
+	setwallcel(call3,0);
+	PlaySoundPos(wav0, SurfaceCenter(button), 1, -1, -1, 0);
+	stop;		
+
+# ........................................................................................
+
+crossed:						// If player crosses adjoin(s)
+	if (IsMoving(elevator)) return;
+	sleep(start_wait);				// pause before moving up
+
+	curframe=getcurframe(elevator);
+	movetoframe(elevator, 1-curframe, speed);
+	stop;
+
+# ........................................................................................
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		if (GetWallCel(call0) == 1) return;
+		rbot = GetParam(1);
+		button = -1;
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (call0[i] != -1)
+			{
+				dist = VectorDist(GetThingPos(rbot), SurfaceCenter(call0[i]));
+				if (dist < 0.5) // if bot is close enough, activate call button
+				{
+					button = call0[i];
+				}
+			}
+		}
+		if (button == -1) return;
+
+		setwallcel(call0,1);
+		setwallcel(call1,1);
+		setwallcel(call2,1);
+		setwallcel(call3,1);
+		PlaySoundPos(wav0, SurfaceCenter(button), 1, -1, -1, 0);
+		curframe=getcurframe(elevator);
+		movetoframe(elevator, 1-curframe, speed);
+	}
+	return;
+
+end
+

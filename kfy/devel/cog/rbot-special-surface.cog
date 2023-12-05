@@ -1,0 +1,152 @@
+# Rbot Special Surface Cog
+#
+# Server-only
+#
+# This cog applies special modes and effects to a bot while it is attached to a
+# specified surface or for a short time after crossing a specified adjoin.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+message		entered
+message		exited
+message		crossed
+message		timer
+
+cog			system=-1							local
+
+# Special surfaces
+surface		sp0=-1								mask=0x4
+surface		sp1=-1								mask=0x4
+surface		sp2=-1								mask=0x4
+surface		sp3=-1								mask=0x4
+surface		sp4=-1								mask=0x4
+surface		sp5=-1								mask=0x4
+surface		sp6=-1								mask=0x4
+surface		sp7=-1								mask=0x4
+surface		sp8=-1								mask=0x4
+surface		sp9=-1								mask=0x4
+surface		sp10=-1								mask=0x4
+surface		sp11=-1								mask=0x4
+surface		sp12=-1								mask=0x4
+surface		sp13=-1								mask=0x4
+surface		sp14=-1								mask=0x4
+surface		sp15=-1								mask=0x4
+surface		sp16=-1								mask=0x4
+surface		sp17=-1								mask=0x4
+surface		sp18=-1								mask=0x4
+surface		sp19=-1								mask=0x4
+
+# Flags for each special surface
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+int			spinf10=0
+int			spinf11=0
+int			spinf12=0
+int			spinf13=0
+int			spinf14=0
+int			spinf15=0
+int			spinf16=0
+int			spinf17=0
+int			spinf18=0
+int			spinf19=0
+
+# Working variables
+int			mode								local
+int			i									local
+int			botid								local
+thing		rbot								local
+surface		sf									local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
+
+entered:
+	if (IsMulti() && !IsServer()) return; // Host only
+	rbot = GetSourceRef();
+	sf = GetSenderRef();
+	if (GetThingClassCog(rbot) == -1)
+	{
+		// Either this actor is not actually a bot, or it is a bot that just
+		// respawned on a surface with special info.  In the latter case, the
+		// bot's srv cogs are still initializing and waiting for this
+		// thread to return from the CreateThing* verb that is creating the
+		// bot, so we need to delay application of the special info until after
+		// the srv cogs are fully initialized.  This is accomplished by
+		// setting a timer to execute immediately after this thread returns.
+		// The class cog is checked again in the tiemr, and if the actor
+		// still has no class cog, we know it's not a bot.
+		SetTimerEx(0.001, 1, rbot, sf);
+		return;
+	}
+	mode = 1; // Enable effects
+	goto update_bot;
+	return;
+
+exited:
+	if (IsMulti() && !IsServer()) return; // Host only
+	rbot = GetSourceRef();
+	sf = GetSenderRef();
+	mode = 0; // Disable effects
+	goto update_bot;
+	return;
+
+crossed:
+	if (IsMulti() && !IsServer()) return; // Host only
+	rbot = GetSourceRef();
+	sf = GetSenderRef();
+	mode = 2; // Enable effects for a short time only
+	goto update_bot;
+	return;
+
+timer:
+	rbot = GetParam(0);
+	sf = GetParam(1);
+	mode = 1; // Enable effects
+	goto update_bot;
+	return;
+
+update_bot:
+	botid = SendMessageEx(system, user7, 10103000, rbot, -1, -1);
+	if (botid == -1) return; // Not a bot
+
+	// Apply special modes
+	for (i = 0 ; i < 20 ; i = i + 1)
+	{
+		if (sp0[i] == sf && spinf0[i]) // This is the surface that evented and it has special info
+		{
+			SendTrigger(-1, 11020, botid, spinf0[i], mode, -1); // send special info update to bot
+		}
+	}
+
+	return;
+
+end

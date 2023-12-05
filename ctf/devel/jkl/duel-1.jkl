@@ -23446,53 +23446,53 @@ World cogs 119
 6: CTF_RESPAWN.COG 286 288
 7: CTF_ICONSCLIENT.COG
 8: CTF_SAFEENTRY.COG 285 287 157 158
-9: rbot-startup.cog 4 1 1 1 2 0 -256 -65281 0 0
-10: rbot-srv.cog 0 -1 -1 1 520 101
+9: rbot-startup.cog 4 1 1 1 2 0 -256 -65281 0 0 101 102 -1 -1
+10: rbot-srv.cog 0 -1 -1 520
 11: rbot-srv-force.cog 0 255
 12: rbot-srv-weapons.cog 0
-13: rbot-srv.cog 1 -1 -1 2 522 102
+13: rbot-srv.cog 1 -1 -1 522
 14: rbot-srv-force.cog 1 255
 15: rbot-srv-weapons.cog 1
-16: rbot-srv.cog 2 -1 -1 1 521 101
+16: rbot-srv.cog 2 -1 -1 521
 17: rbot-srv-force.cog 2 7695
 18: rbot-srv-weapons.cog 2
-19: rbot-srv.cog 3 -1 -1 2 523 102
+19: rbot-srv.cog 3 -1 -1 523
 20: rbot-srv-force.cog 3 7695
 21: rbot-srv-weapons.cog 3
-22: rbot-srv.cog 4 -1 -1 1 533 101
+22: rbot-srv.cog 4 -1 -1 533
 23: rbot-srv-force.cog 4 255
 24: rbot-srv-weapons.cog 4
-25: rbot-srv.cog 5 -1 -1 2 537 102
+25: rbot-srv.cog 5 -1 -1 537
 26: rbot-srv-force.cog 5 255
 27: rbot-srv-weapons.cog 5
-28: rbot-srv.cog 6 -1 -1 1 534 101
+28: rbot-srv.cog 6 -1 -1 534
 29: rbot-srv-force.cog 6 7695
 30: rbot-srv-weapons.cog 6
-31: rbot-srv.cog 7 -1 -1 2 535 102
+31: rbot-srv.cog 7 -1 -1 535
 32: rbot-srv-force.cog 7 7695
 33: rbot-srv-weapons.cog 7
-34: rbot-srv.cog 8 -1 -1 1 538 101
+34: rbot-srv.cog 8 -1 -1 538
 35: rbot-srv-force.cog 8 255
 36: rbot-srv-weapons.cog 8
-37: rbot-srv.cog 9 -1 -1 2 539 102
+37: rbot-srv.cog 9 -1 -1 539
 38: rbot-srv-force.cog 9 255
 39: rbot-srv-weapons.cog 9
-40: rbot-srv.cog 10 -1 -1 1 540 101
+40: rbot-srv.cog 10 -1 -1 540
 41: rbot-srv-force.cog 10 7695
 42: rbot-srv-weapons.cog 10
-43: rbot-srv.cog 11 -1 -1 2 541 102
+43: rbot-srv.cog 11 -1 -1 541
 44: rbot-srv-force.cog 11 7695
 45: rbot-srv-weapons.cog 11
-46: rbot-srv.cog 12 -1 -1 1 542 101
+46: rbot-srv.cog 12 -1 -1 542
 47: rbot-srv-force.cog 12 255
 48: rbot-srv-weapons.cog 12
-49: rbot-srv.cog 13 -1 -1 2 543 102
+49: rbot-srv.cog 13 -1 -1 543
 50: rbot-srv-force.cog 13 255
 51: rbot-srv-weapons.cog 13
-52: rbot-srv.cog 14 -1 -1 1 544 101
+52: rbot-srv.cog 14 -1 -1 544
 53: rbot-srv-force.cog 14 7695
 54: rbot-srv-weapons.cog 14
-55: rbot-srv.cog 15 -1 -1 2 545 102
+55: rbot-srv.cog 15 -1 -1 545
 56: rbot-srv-force.cog 15 7695
 57: rbot-srv-weapons.cog 15
 58: rbot-skin.cog 101 rbot_kylered red-0.3do red-1.3do red-2.3do red-3.3do red-4.3do red-5.3do red-6.3do red-7.3do red-8.3do red-9.3do red-10.3do

@@ -6752,68 +6752,68 @@ World cogs 124
 3: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 520 514 375 54 34 367 545 539
 4: 00_CONVEYOR.COG (-0.999747/0.009783/0.019651) 1 565 -1 -1 -1 -1 -1 -1 -1
 5: rbot-lightning.cog 47 46 45 591 24
-6: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0
-7: rbot-srv.cog 0 0 0 1 20 101
+6: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+7: rbot-srv.cog 0 0 0 20
 8: rbot-srv-force.cog 0 255
 9: rbot-srv-weapons.cog 0
 10: rbot-skin.cog 0 rbot_yun yun-0.3do yun-1.3do yun-2.3do yun-3.3do yun-4.3do yun-5.3do yun-6.3do yun-7.3do yun-8.3do yun-9.3do yun-10.3do
-11: rbot-srv.cog 1 10 1 2 22 102
+11: rbot-srv.cog 1 10 1 22
 12: rbot-srv-force.cog 1 255
 13: rbot-srv-weapons.cog 1
 14: rbot-skin.cog 1 rbot_bobafett bob-0.3do bob-1.3do bob-2.3do bob-3.3do bob-4.3do bob-5.3do bob-6.3do bob-7.3do bob-8.3do bob-9.3do bob-10.3do
-15: rbot-srv.cog 2 1 2 1 21 101
+15: rbot-srv.cog 2 1 2 21
 16: rbot-srv-force.cog 2 7695
 17: rbot-srv-weapons.cog 2
 18: rbot-skin.cog 2 rbot_sariss sar-0.3do sar-1.3do sar-2.3do sar-3.3do sar-4.3do sar-5.3do sar-6.3do sar-7.3do sar-8.3do sar-9.3do sar-10.3do
-19: rbot-srv.cog 3 2 3 2 23 102
+19: rbot-srv.cog 3 2 3 23
 20: rbot-srv-force.cog 3 7695
 21: rbot-srv-weapons.cog 3
 22: rbot-skin.cog 3 rbot_jerec jer-0.3do jer-1.3do jer-2.3do jer-3.3do jer-4.3do jer-5.3do jer-6.3do jer-7.3do jer-8.3do jer-9.3do jer-10.3do
-23: rbot-srv.cog 4 28 4 1 33 101
+23: rbot-srv.cog 4 28 4 33
 24: rbot-srv-force.cog 4 255
 25: rbot-srv-weapons.cog 4
 26: rbot-skin.cog 4 rbot_commando com-0.3do com-1.3do com-2.3do com-3.3do com-4.3do com-5.3do com-6.3do com-7.3do com-8.3do com-9.3do com-10.3do
-27: rbot-srv.cog 5 24 5 2 37 102
+27: rbot-srv.cog 5 24 5 37
 28: rbot-srv-force.cog 5 255
 29: rbot-srv-weapons.cog 5
 30: rbot-skin.cog 5 rbot_trooper stm-0.3do stm-1.3do stm-2.3do stm-3.3do stm-4.3do stm-5.3do stm-6.3do stm-7.3do stm-8.3do stm-9.3do stm-10.3do
-31: rbot-srv.cog 6 15 6 1 34 101
+31: rbot-srv.cog 6 15 6 34
 32: rbot-srv-force.cog 6 7695
 33: rbot-srv-weapons.cog 6
 34: rbot-skin.cog 6 rbot_greedo gre-0.3do gre-1.3do gre-2.3do gre-3.3do gre-4.3do gre-5.3do gre-6.3do gre-7.3do gre-8.3do gre-9.3do gre-10.3do
-35: rbot-srv.cog 7 12 7 2 35 102
+35: rbot-srv.cog 7 12 7 35
 36: rbot-srv-force.cog 7 7695
 37: rbot-srv-weapons.cog 7
 38: rbot-skin.cog 7 rbot_tusken tus-0.3do tus-1.3do tus-2.3do tus-3.3do tus-4.3do tus-5.3do tus-6.3do tus-7.3do tus-8.3do tus-9.3do tus-10.3do
-39: rbot-srv.cog 8 17 8 1 38 101
+39: rbot-srv.cog 8 17 8 38
 40: rbot-srv-force.cog 8 255
 41: rbot-srv-weapons.cog 8
 42: rbot-skin.cog 8 rbot_jan jan-0.3do jan-1.3do jan-2.3do jan-3.3do jan-4.3do jan-5.3do jan-6.3do jan-7.3do jan-8.3do jan-9.3do jan-10.3do
-43: rbot-srv.cog 9 25 9 2 39 102
+43: rbot-srv.cog 9 25 9 39
 44: rbot-srv-force.cog 9 255
 45: rbot-srv-weapons.cog 9
 46: rbot-skin.cog 9 rbot_admiral adm-0.3do adm-1.3do adm-2.3do adm-3.3do adm-4.3do adm-5.3do adm-6.3do adm-7.3do adm-8.3do adm-9.3do adm-10.3do
-47: rbot-srv.cog 10 11 10 1 40 101
+47: rbot-srv.cog 10 11 10 40
 48: rbot-srv-force.cog 10 7695
 49: rbot-srv-weapons.cog 10
 50: rbot-skin.cog 10 rbot_bossk bsk-0.3do bsk-1.3do bsk-2.3do bsk-3.3do bsk-4.3do bsk-5.3do bsk-6.3do bsk-7.3do bsk-8.3do bsk-9.3do bsk-10.3do
-51: rbot-srv.cog 11 30 11 2 41 102
+51: rbot-srv.cog 11 30 11 41
 52: rbot-srv-force.cog 11 7695
 53: rbot-srv-weapons.cog 11
 54: rbot-skin.cog 11 rbot_cyborg cyb-0.3do cyb-1.3do cyb-2.3do cyb-3.3do cyb-4.3do cyb-5.3do cyb-6.3do cyb-7.3do cyb-8.3do cyb-9.3do cyb-10.3do
-55: rbot-srv.cog 12 29 12 1 42 101
+55: rbot-srv.cog 12 29 12 42
 56: rbot-srv-force.cog 12 255
 57: rbot-srv-weapons.cog 12
 58: rbot-skin.cog 12 rbot_redeye eye-0.3do eye-1.3do eye-2.3do eye-3.3do eye-4.3do eye-5.3do eye-6.3do eye-7.3do eye-8.3do eye-9.3do eye-10.3do
-59: rbot-srv.cog 13 5 13 2 43 102
+59: rbot-srv.cog 13 5 13 43
 60: rbot-srv-force.cog 13 255
 61: rbot-srv-weapons.cog 13
 62: rbot-skin.cog 13 rbot_rahn rhn-0.3do rhn-1.3do rhn-2.3do rhn-3.3do rhn-4.3do rhn-5.3do rhn-6.3do rhn-7.3do rhn-8.3do rhn-9.3do rhn-10.3do
-63: rbot-srv.cog 14 25 14 1 44 101
+63: rbot-srv.cog 14 25 14 44
 64: rbot-srv-force.cog 14 7695
 65: rbot-srv-weapons.cog 14
 66: rbot-skin.cog 14 rbot_officer off-0.3do off-1.3do off-2.3do off-3.3do off-4.3do off-5.3do off-6.3do off-7.3do off-8.3do off-9.3do off-10.3do
-67: rbot-srv.cog 15 32 15 2 45 102
+67: rbot-srv.cog 15 32 15 45
 68: rbot-srv-force.cog 15 7695
 69: rbot-srv-weapons.cog 15
 70: rbot-skin.cog 15 rbot_silver sil-0.3do sil-1.3do sil-2.3do sil-3.3do sil-4.3do sil-5.3do sil-6.3do sil-7.3do sil-8.3do sil-9.3do sil-10.3do

@@ -1,0 +1,119 @@
+# Rbot Item Special Cog
+#
+# Server-only
+# Type ID: 1041
+#
+# This cog supplies special information for items that bots can pick up.
+#
+# To allow unlimited expansion and avoid the need to maintain multiple cog
+# reference symbols, multiple cogs of this type will self-organize into a
+# linked list at startup.  The cog with the lowest reference number becomes
+# the first element of the list.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		startup
+message		trigger
+message		user7
+
+# Special items
+thing		item0=-1							nolink
+thing		item1=-1							nolink
+thing		item2=-1							nolink
+thing		item3=-1							nolink
+thing		item4=-1							nolink
+thing		item5=-1							nolink
+thing		item6=-1							nolink
+thing		item7=-1							nolink
+thing		item8=-1							nolink
+thing		item9=-1							nolink
+
+# Flags for each special item
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+
+# The next cog following this one in the linked list
+cog			listnext=-1							local
+
+# Working variables
+int			i									local
+thing		item								local
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1041, GetSelfCog(), -1, -1);
+	return;
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1041) // rbot-item-special.cog
+		{
+			// We will receive one of these triggers for each instance of the cog
+			// Set listnext to the instance with the lowest cog reference that is greater than our own
+			// If listnext is -1, then this instance is the last in the list
+			if (GetParam(1) > GetSelfCog() && (GetParam(1) < listnext || listnext == -1)) listnext = GetParam(1);
+		}
+		return;
+	}
+
+	return;
+
+user7:
+	if (GetParam(0) == 10411000) // Get item special mode
+	{
+		item = GetParam(1); // the item
+
+		// Search current cog for special info
+		for (i = 0 ; i < 10 ; i = i + 1)
+		{
+			if (item0[i] == item && spinf0[i]) // This is the requested item and it has special info
+			{
+				ReturnEx(spinf0[i]);
+				return;
+			}
+		}
+
+		// No special info specified in this cog, see if we can delegate to the next cog in the list
+		if (listnext != -1)
+		{
+			// Recursively delegate to next cog in the list
+			ReturnEx(SendMessageEx(listnext, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+			return;
+		}
+
+		// No more cogs in the list, no special info
+		ReturnEx(0x0);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-item-special.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+end

@@ -23,14 +23,7 @@ int			botid=0
 int			botname=-1
 int			botskinid=-1
 
-# Bot's team (only used in team play)
-# 1 = red
-# 2 = gold/yellow
-# 3 = blue
-# 4 = green
-int			team=0
 int			teambotname=-1
-int			teambotskinid=-1
 
 # Game setup options - set from startup cog
 #int			gamemode=0							local
@@ -43,7 +36,6 @@ cog			system=-1							local
 cog			srv_force=-1						local
 cog			srv_weapons=-1						local
 cog			botskin=-1							local
-cog			teambotskin=-1						local
 cog			spitem=-1							local
 cog			customizer=-1						local
 
@@ -206,7 +198,7 @@ damaged:
 	damage = SendMessageEx(srv_weapons, user7, 10233002, damage, damagetype, damager);
 
 	// If team play is enabled, prevent friendly fire from teammates
-	if (rbot != damager && rbot != GetThingParent(damager) && (GetMultiModeFlags() & 0x1) && (GetMultiModeFlags() & 0x2)) // team play and no damage to teammates
+	if (rbot != damager && rbot != GetThingParent(damager) && curteam != 0 && (GetMultiModeFlags() & 0x1) && (GetMultiModeFlags() & 0x2)) // team play and no damage to teammates
 	{
 		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam)
 		{
@@ -299,7 +291,6 @@ trigger:
 		if (GetParam(0) == 1030) // rbot-skin.cog
 		{
 			if (GetParam(2) == botskinid) botskin = GetParam(1);
-			if (GetParam(2) == teambotskinid) teambotskin = GetParam(1);
 		}
 		if (GetParam(0) == 1041) // rbot-item-special.cog
 		{
@@ -630,6 +621,13 @@ user7:
 
 	if (GetParam(0) == 10202028) { inv_keys = GetParam(1); return; }
 
+	if (GetParam(0) == 10203002) // Change bot team
+	{
+		curteam = GetParam(1);
+		SetThingUserData(rbot, curteam);
+		return;
+	}
+
 	if (GetParam(0) == 10203004) // Add to score
 	{
 		score = score + GetParam(1);
@@ -641,20 +639,17 @@ user7:
 	{
 		if (BitTest(botmode, 0x80000)) // bot is disabled
 		{
-			// Select skin, name, etc. depending on whether team play is active
-			if (GetMultiModeFlags() & 0x1) // team play
+			curteam = GetParam(1);
+			curbotskin = GetParam(2);
+
+			if (curbotskin != -1) // bot has been assigned a team skin
 			{
-				// Team play
-				curteam = team;
-				curbotskin = teambotskin;
 				curbotname = teambotname;
 			}
-			else
+			else // bot should use its own skin
 			{
-				// Non-team play
-				curteam = 0; // no team
-				curbotskin = botskin;
 				curbotname = botname;
+				curbotskin = botskin;
 			}
 
 			jkStringClear();
@@ -790,7 +785,7 @@ findtarget:
 	while (potential != -1)
 	{
 		targetok = 1;
-		if (GetMultiModeFlags() & 0x1) // team play - check if target is on our team
+		if (GetMultiModeFlags() & 0x1 && curteam != 0) // team play - check if target is on our team
 		{
 			if (GetThingType(potential) == 2 && GetThingUserData(potential) == curteam) targetok = 0; // target is an actor and is on our team
 			if (GetThingType(potential) == 10 && GetPlayerTeam(potential) == curteam) targetok = 0;   // target is a player and is on our team

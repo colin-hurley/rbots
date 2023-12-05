@@ -1,0 +1,86 @@
+# Jedi Knight Cog Script
+#
+# K3_SECTORLIGHTANIM.COG
+#
+# Make light animation of 15 surfaces.
+# The animation is made with the extralight value of the surfaces.
+#
+# [SD & YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+sector   sector0                          nolink
+sector   sector1                          nolink
+sector   sector2                          nolink
+sector   sector3                          nolink
+sector   sector4                          nolink
+sector   sector5                          nolink
+sector   sector6                          nolink
+sector   sector7                          nolink
+sector   sector8                          nolink
+sector   sector9                          nolink
+sector   sector10                         nolink
+sector   sector11                         nolink
+sector   sector12                         nolink
+sector   sector13                         nolink
+sector   sector14                         nolink
+
+int      counter=0                        local
+int      i                                local
+int      sectnum                          local
+
+flex     light=0.0                        local
+   
+message  startup
+message  pulse
+
+end
+
+#==================================================================================================
+
+code
+
+startup:
+   SetPulse(0.1);
+   return;
+
+# ........................................................................................
+
+pulse:
+
+   light=0.0;
+
+   for(i = 0; i <= 9; i = i+1)
+   {
+      sectnum = counter + i;
+      if(sectnum > 14)
+      {
+         sectnum = sectnum - 15;
+      }
+
+      SetSectorLight(sector0[sectnum], light, 0.0);
+
+      if(i >= 5)
+      {
+         light = light - 0.2;
+      }
+      else
+      {
+         light = light + 0.2;
+      }
+   }  
+
+   counter = counter + 1;
+   if (counter > 14)
+   {
+      counter = 0;
+   }
+
+   Return;
+
+end
+

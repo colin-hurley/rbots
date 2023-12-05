@@ -1,0 +1,143 @@
+# Rbot Special Sector Cog
+#
+# Server-only
+#
+# This cog applies special modes and effects to a bot while it is in a
+# specified sector.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+message		entered
+message		exited
+message		timer
+
+cog			system=-1							local
+
+# Special sectors
+sector		sp0=-1								mask=0x4
+sector		sp1=-1								mask=0x4
+sector		sp2=-1								mask=0x4
+sector		sp3=-1								mask=0x4
+sector		sp4=-1								mask=0x4
+sector		sp5=-1								mask=0x4
+sector		sp6=-1								mask=0x4
+sector		sp7=-1								mask=0x4
+sector		sp8=-1								mask=0x4
+sector		sp9=-1								mask=0x4
+sector		sp10=-1								mask=0x4
+sector		sp11=-1								mask=0x4
+sector		sp12=-1								mask=0x4
+sector		sp13=-1								mask=0x4
+sector		sp14=-1								mask=0x4
+sector		sp15=-1								mask=0x4
+sector		sp16=-1								mask=0x4
+sector		sp17=-1								mask=0x4
+sector		sp18=-1								mask=0x4
+sector		sp19=-1								mask=0x4
+
+# Flags for each special sector
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+int			spinf10=0
+int			spinf11=0
+int			spinf12=0
+int			spinf13=0
+int			spinf14=0
+int			spinf15=0
+int			spinf16=0
+int			spinf17=0
+int			spinf18=0
+int			spinf19=0
+
+# Working variables
+int			mode								local
+int			i									local
+int			botid								local
+thing		rbot								local
+sector		sc									local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
+
+entered:
+	if (IsMulti() && !IsServer()) return; // Host only
+	rbot = GetSourceRef();
+	sc = GetSenderRef();
+	if (GetThingClassCog(rbot) == -1)
+	{
+		// Either this actor is not actually a bot, or it is a bot that just
+		// respawned in a sector with special info.  In the latter case, the
+		// bot's srv cogs are still initializing and waiting for this
+		// thread to return from the CreateThing* verb that is creating the
+		// bot, so we need to delay application of the special info until after
+		// the srv cogs are fully initialized.  This is accomplished by
+		// setting a timer to execute immediately after this thread returns.
+		// The class cog is checked again in the tiemr, and if the actor
+		// still has no class cog, we know it's not a bot.
+		SetTimerEx(0.001, 1, rbot, sc);
+		return;
+	}
+	mode = 1; // Enable effects
+	goto update_bot;
+	return;
+
+exited:
+	if (IsMulti() && !IsServer()) return; // Host only
+	rbot = GetSourceRef();
+	sc = GetSenderRef();
+	mode = 0; // Disable effects
+	goto update_bot;
+	return;
+
+timer:
+	rbot = GetParam(0);
+	sc = GetParam(1);
+	mode = 1; // Enable effects
+	goto update_bot;
+	return;
+
+update_bot:
+	botid = SendMessageEx(system, user7, 10103000, rbot, -1, -1);
+	if (botid == -1) return; // Not a bot
+
+	// Apply special modes
+	for (i = 0 ; i < 20 ; i = i + 1)
+	{
+		if (sp0[i] == sc && spinf0[i]) // This is the sector that evented and it has special info
+		{
+			SendTrigger(-1, 11020, botid, spinf0[i], mode, -1); // send special info update to bot
+		}
+	}
+
+	return;
+
+end

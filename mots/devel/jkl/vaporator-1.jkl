@@ -17858,132 +17858,132 @@ World cogs 255
 31: 00_PLAYAMBIENT.COG -1 -1 -1 169 -1 170 -1 172 00RUMBLEAMB02.WAV -1 3 0
 32: 00_PLAYAMBIENT.COG -1 -1 -1 171 -1 -1 -1 -1 00RUMBLEAMB02.WAV -1 1 0.8
 33: 00_PLAYAMBIENT.COG -1 173 -1 -1 -1 -1 -1 -1 00RUMBLEAMB03.WAV -1 7 1
-34: rbot-startup.cog 6 1 1 1 2 0 0 0 0 0
-35: rbot-srv.cog 0 9 0 1 20 101
+34: rbot-startup.cog 6 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+35: rbot-srv.cog 0 9 0 20
 36: rbot-srv-force.cog 0 7695
 37: rbot-srv-weapons.cog 0
 38: rbot-skin.cog 0 rbot_vader sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-39: rbot-srv.cog 1 8 1 2 22 102
+39: rbot-srv.cog 1 8 1 22
 40: rbot-srv-force.cog 1 7695
 41: rbot-srv-weapons.cog 1
 42: rbot-skin.cog 1 rbot_luke sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-43: rbot-srv.cog 2 6 2 1 21 101
+43: rbot-srv.cog 2 6 2 21
 44: rbot-srv-force.cog 2 255
 45: rbot-srv-weapons.cog 2
 46: rbot-skin.cog 2 rbot_marajade sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-47: rbot-srv.cog 3 4 3 2 23 102
+47: rbot-srv.cog 3 4 3 23
 48: rbot-srv-force.cog 3 255
 49: rbot-srv-weapons.cog 3
 50: rbot-skin.cog 3 rbot_darkkyle sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-51: rbot-srv.cog 4 26 4 1 33 101
+51: rbot-srv.cog 4 26 4 33
 52: rbot-srv-force.cog 4 255
 53: rbot-srv-weapons.cog 4
 54: rbot-skin.cog 4 rbot_weequay sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-55: rbot-srv.cog 5 12 5 2 37 102
+55: rbot-srv.cog 5 12 5 37
 56: rbot-srv-force.cog 5 255
 57: rbot-srv-weapons.cog 5
 58: rbot-skin.cog 5 rbot_pirate sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-59: rbot-srv.cog 6 24 6 1 34 101
+59: rbot-srv.cog 6 24 6 34
 60: rbot-srv-force.cog 6 7695
 61: rbot-srv-weapons.cog 6
 62: rbot-skin.cog 6 rbot_pirate2 sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-63: rbot-srv.cog 7 7 7 2 35 102
+63: rbot-srv.cog 7 7 7 35
 64: rbot-srv-force.cog 7 7695
 65: rbot-srv-weapons.cog 7
 66: rbot-skin.cog 7 rbot_darkmara sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-67: rbot-srv.cog 8 46 8 1 38 101
+67: rbot-srv.cog 8 46 8 38
 68: rbot-srv-force.cog 8 255
 69: rbot-srv-weapons.cog 8
 70: rbot-skin.cog 8 rbot_rebsoldier sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-71: rbot-srv.cog 9 48 9 2 39 102
+71: rbot-srv.cog 9 48 9 39
 72: rbot-srv-force.cog 9 255
 73: rbot-srv-weapons.cog 9
 74: rbot-skin.cog 9 rbot_atatpilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-75: rbot-srv.cog 10 28 10 1 40 101
+75: rbot-srv.cog 10 28 10 40
 76: rbot-srv-force.cog 10 7695
 77: rbot-srv-weapons.cog 10
 78: rbot-skin.cog 10 rbot_scouttroop sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-79: rbot-srv.cog 11 47 11 2 41 102
+79: rbot-srv.cog 11 47 11 41
 80: rbot-srv-force.cog 11 7695
 81: rbot-srv-weapons.cog 11
 82: rbot-skin.cog 11 rbot_tiepilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-83: rbot-srv.cog 12 50 12 1 42 101
+83: rbot-srv.cog 12 50 12 42
 84: rbot-srv-force.cog 12 255
 85: rbot-srv-weapons.cog 12
 86: rbot-skin.cog 12 rbot_rebcomander sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-87: rbot-srv.cog 13 10 13 2 43 102
+87: rbot-srv.cog 13 10 13 43
 88: rbot-srv-force.cog 13 255
 89: rbot-srv-weapons.cog 13
 90: rbot-skin.cog 13 rbot_bobafett sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-91: rbot-srv.cog 14 15 14 1 44 101
+91: rbot-srv.cog 14 15 14 44
 92: rbot-srv-force.cog 14 7695
 93: rbot-srv-weapons.cog 14
 94: rbot-skin.cog 14 rbot_greedo sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-95: rbot-srv.cog 15 12 15 2 45 102
+95: rbot-srv.cog 15 12 15 45
 96: rbot-srv-force.cog 15 7695
 97: rbot-srv-weapons.cog 15
 98: rbot-skin.cog 15 rbot_tusken sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-99: rbot-srv.cog 16 28 16 1 51 101
+99: rbot-srv.cog 16 28 16 51
 100: rbot-srv-force.cog 16 255
 101: rbot-srv-weapons.cog 16
 102: rbot-skin.cog 16 rbot_commando sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
-103: rbot-srv.cog 17 24 17 2 52 102
+103: rbot-srv.cog 17 24 17 52
 104: rbot-srv-force.cog 17 255
 105: rbot-srv-weapons.cog 17
 106: rbot-skin.cog 17 rbot_trooper sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-107: rbot-srv.cog 18 2 18 1 53 101
+107: rbot-srv.cog 18 2 18 53
 108: rbot-srv-force.cog 18 7695
 109: rbot-srv-weapons.cog 18
 110: rbot-skin.cog 18 rbot_jerec sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-111: rbot-srv.cog 19 1 19 2 54 102
+111: rbot-srv.cog 19 1 19 54
 112: rbot-srv-force.cog 19 7695
 113: rbot-srv-weapons.cog 19
 114: rbot-skin.cog 19 rbot_sariss sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-115: rbot-srv.cog 20 0 20 1 55 101
+115: rbot-srv.cog 20 0 20 55
 116: rbot-srv-force.cog 20 255
 117: rbot-srv-weapons.cog 20
 118: rbot-skin.cog 20 rbot_yun sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-119: rbot-srv.cog 21 17 21 2 56 102
+119: rbot-srv.cog 21 17 21 56
 120: rbot-srv-force.cog 21 255
 121: rbot-srv-weapons.cog 21
 122: rbot-skin.cog 21 rbot_jan sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-123: rbot-srv.cog 22 11 22 1 57 101
+123: rbot-srv.cog 22 11 22 57
 124: rbot-srv-force.cog 22 7695
 125: rbot-srv-weapons.cog 22
 126: rbot-skin.cog 22 rbot_bossk sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-127: rbot-srv.cog 23 16 23 2 58 102
+127: rbot-srv.cog 23 16 23 58
 128: rbot-srv-force.cog 23 7695
 129: rbot-srv-weapons.cog 23
 130: rbot-skin.cog 23 rbot_abronmar sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-131: rbot-srv.cog 24 25 24 1 59 101
+131: rbot-srv.cog 24 25 24 59
 132: rbot-srv-force.cog 24 255
 133: rbot-srv-weapons.cog 24
 134: rbot-skin.cog 24 rbot_admiral sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
-135: rbot-srv.cog 25 29 25 2 60 102
+135: rbot-srv.cog 25 29 25 60
 136: rbot-srv-force.cog 25 255
 137: rbot-srv-weapons.cog 25
 138: rbot-skin.cog 25 rbot_redeye sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-139: rbot-srv.cog 26 30 26 1 61 101
+139: rbot-srv.cog 26 30 26 61
 140: rbot-srv-force.cog 26 7695
 141: rbot-srv-weapons.cog 26
 142: rbot-skin.cog 26 rbot_cyborg sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-143: rbot-srv.cog 27 49 27 2 62 102
+143: rbot-srv.cog 27 49 27 62
 144: rbot-srv-force.cog 27 7695
 145: rbot-srv-weapons.cog 27
 146: rbot-skin.cog 27 rbot_rebofficer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
-147: rbot-srv.cog 28 5 28 1 63 101
+147: rbot-srv.cog 28 5 28 63
 148: rbot-srv-force.cog 28 255
 149: rbot-srv-weapons.cog 28
 150: rbot-skin.cog 28 rbot_rahn sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-151: rbot-srv.cog 29 18 29 2 64 102
+151: rbot-srv.cog 29 18 29 64
 152: rbot-srv-force.cog 29 255
 153: rbot-srv-weapons.cog 29
 154: rbot-skin.cog 29 rbot_kaerrobanii sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-155: rbot-srv.cog 30 25 30 1 65 101
+155: rbot-srv.cog 30 25 30 65
 156: rbot-srv-force.cog 30 7695
 157: rbot-srv-weapons.cog 30
 158: rbot-skin.cog 30 rbot_officer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
-159: rbot-srv.cog 31 32 31 2 66 102
+159: rbot-srv.cog 31 32 31 66
 160: rbot-srv-force.cog 31 7695
 161: rbot-srv-weapons.cog 31
 162: rbot-skin.cog 31 rbot_silver sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do

@@ -1,0 +1,37 @@
+# Rbot Administration Cog - Change Difficulty
+#
+# Change the difficulty of the bots
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x240
+
+symbols
+
+message		startup
+message		user0
+message		user1
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+// Execute
+user0:
+	SendTrigger(-1, 930, -1, -1, -1, -1); // Tell startup cog to increase the difficulty
+	return;
+
+// Concat current state
+user1:
+	jkStringConcatAsciiString("Change difficulty");
+	return;
+
+end

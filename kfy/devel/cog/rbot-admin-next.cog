@@ -1,0 +1,28 @@
+# Rbot Administration Cog - Next Function
+#
+# Selects the next function in the Rbot administration utility.
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+symbols
+
+message		startup
+message		activated
+
+cog			admin								local
+
+end
+
+code
+
+startup:
+	admin = GetInvCog(GetLocalPlayerThing(), 118);
+	return;
+
+activated:
+	SendMessageEx(admin, user1, 1, -1, -1, -1);
+	return;
+
+end

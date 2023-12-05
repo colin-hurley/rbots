@@ -1,0 +1,1473 @@
+MSGS 1503   # <--- DON'T FORGET TO UPDATE THIS COUNT
+
+# FOR the moment, this is still ASCII text but it will be converted
+# to UNICODE when we find a UNICODE editor. [WW] 12/5/1996
+
+# "<key>"      <unused number> "<string>"
+
+
+#***************************
+#  ERROR MESSAGES
+#**************************/
+
+   # General errors
+   "ERROR"                       0 "Error"   # title for error message boxes.
+   "ERR_CANNOT_FIND_FILE %s %s"  0 "Could not find file '%s'.  I tried searching this path: '%s'"
+   "ERR_CANNOT_LOAD_FILE %s"     0 "Unable to load file '%s'.  It may be missing, already in use, or corrupted."
+   "ERR_OUT_OF_MEMORY"           0 "Out of memory."
+   "ERR_BAD_EPISODE_FILE %d %d"  0 "Bad Episode.jk file.  Line %d goes to line %d but that doesn't exist."
+   "ERR_NO_FIRST_LEVEL"          0 "This episode's EPISODE.JK file doesn't have a first level."
+   "ERR_CANNOT_LOAD_LEVEL"       0 "Could not load level!"
+   "ERR_MAY_BE_RELATED_TO"       0 "\n\nThis error may be related to:\n"
+   "ERR_CANNOT_FIND_CUTSCENE %s" 0 "Could not find cutscene '%s'."
+
+   # Config errors
+   "ERR_CANNOT_BIND_CONTROL"     0 "Unable to bind control to this action. There are probably too many other controls already attached; try removing some."
+   "ERR_REMOVING_CONTROL"        0 "No control is bound to this action."
+
+   # Multiplayer errors
+   "ERR_UNABLE_TO_HOST_GAME"     0 "Unable to host a network game."
+   "ERR_UNABLE_TO_START_NETWORK %s" 0 "Unable to start network service '%s'"
+   "ERR_CANNOT_CONTACT_HOST"     0 "Unable to contact the host server for this game."
+
+   # Miscellaneous errors
+   "ERR_BAD_PLAYER_NAME"         0 "This player name has invalid characters."
+   "ERR_NO_PLAYER_NAME"          0 "You must enter a name."
+   "ERR_PLAYER_ALREADY_EXISTS"   0 "A player with this name already exists."
+   "ERR_CANNOT_SET_PLAYER %s"    0 "Cannot set player %s"
+   "ERR_NEED_256_COLOR"          0 "Mysteries of the Sith requires that your display is set to at least 256 Colors."
+   "ERR_CHANGING_VIDEO_MODE"     0 "Unable to set video mode"
+   "ERR_CHANGING_VIDEO_DESC"     0 "Video card may not have enough memory for this mode - try a lower setting. Restoring previous settings."
+   "ERR_CHANGING_VIDEO_ABORT"    0 "Error setting last valid display mode, please recheck display settings"
+   "ERR_INVALID_EPISODE %s"      0 "Invalid Episode - %s"
+   "ERR_BAD_CHARACTER_NAME"       0 "This character name contains illegal characters"
+   "ERR_NO_CHARACTERS_TO_LOAD"    0 "No Characters to Load"
+   "ERR_COULD_NOT_LOAD_CHARACTER" 0 "Could not load this character"
+   "ERR_CD_NOT_IN_DRIVE"          0 "Mysteries of the Sith CD not in drive."
+
+
+
+#*******************
+#  GENERAL
+#******************/
+
+   "GUI_COPYRIGHT1"  0  "(c) 1998 Lucasfilm Ltd. and LucasArts Entertainment Company LLC."
+   "GUI_COPYRIGHT2"  0  "All rights reserved."
+
+   "GUI_VERSION"     0  "v%d.%02d%c%s"
+
+   "GUI_OK"          0 "Ok"         # Button title
+   "GUI_CANCEL"      0 "Cancel"     # button title
+   "GUI_CANCELED"    0 "Canceled."  # Confirmation message
+
+   "GUI_PAUSED"      0 "Paused"     # Paused
+
+   "GUI_INSERTCDTITLE"  0  "Insert CD"
+   "GUI_INSERTANYCD" 0 "Insert the Mysteries of the Sith CD and press Enter"
+   "GUI_INSERTCD"    0 "Insert the Mysteries of the Sith CD and press Enter"
+   "GUI_INSERTJKCD"  0 "For verification, please insert your original Jedi Knight CD number 2 and press Enter"
+
+   "GUI_OFF"         0 "Off"
+   "GUI_ON"          0 "On"
+
+   "GUI_1"           0 "1"
+   "GUI_8"           0 "8"
+   "GUI_16"          0 "16"
+   "GUI_24"          0 "24"
+
+
+#****************************
+#  GAMEPLAY MESSAGES
+#****************************/
+
+   "GAME_INTERNALCAM"   0  "Internal Camera"    # Internal camera selection
+   "GAME_EXTERNALCAM"   0  "External Camera"    # External camera selection
+
+   "GAME_GAMMA"         0  "Brightness level %d"   # Gamma level
+   "GAME_SCREENSIZE"    0  "Screen size %d"     # Screen size
+   "GAME_SCREENSHOT"    0  "Screenshot Taken"   # Screenshot taken
+
+
+   #  Cheat messages
+   "GAME_ALLWEAPONS"    0  "All Weapons"
+   "GAME_ALLITEMS"      0  "All Items"
+   "GAME_DARKMASTER"    0  "Dark Master"
+   "GAME_LIGHTMASTER"   0  "Light Master"
+   "GAME_UBERJEDI"      0  "Uber Jedi"
+   "GAME_ENDLEVEL"      0  "End Level"
+   "GAME_LEVELUP"       0  "Level Up"
+   "GAME_HEAL"          0  "Heal"
+   "GAME_ALLMAP"        0  "All Map"
+   "GAME_MANA"          0  "Mana"
+
+
+   #  Taunt messages
+   "TAUNT_UNDEFINED"    0  "Type '%d=Special Taunt Line' to program this taunt"
+   "TAUNT_DEFINED"      0  "Taunt %d defined as '%S'"
+
+
+
+#*******************
+#  JKGUIDIALOG.C
+#******************/
+
+   "GUI_YES"      0 "Yes"
+   "GUI_NO"       0 "No"
+
+
+#*******************
+#  JKGUIESC.C
+#******************/
+
+   "GUI_INVENTORY"       0 "Inventory"
+   "GUI_MAP"             0 "Map"
+   "GUI_JEDIPOWERS"      0 "Jedi Powers"
+   "GUI_OBJECTIVES"      0 "Objectives"
+   "GUI_LOAD"            0 "Load"
+   "GUI_RESTART"         0 "Restart"
+   "GUI_SAVE"            0 "Save"
+   "GUI_ABORT"           0 "Abort"
+   "GUI_RETURN_TO_GAME"  0 "Return To Game"
+   "GUI_ABORT_GAME"      0 "Abort Game"
+   "GUI_CONFIRM_ABORT"   0 "Are you sure you want to abort this mission?"
+   "GUI_RESTART_MISSION" 0 "Restart Mission"
+   "GUI_CONFIRM_RESTART" 0 "Are you sure you want to restart this mission?"
+   "GUI_ABORTCDREQUEST"  0 "Abort CD Request"
+   "GUI_CONFIRM_ABORTCD" 0 "Warning: This will cause you to return to the Main Menu without saving. Are you sure you wish to abort?"
+
+#*******************
+#  JKGUIMAIN.C
+#******************/
+
+   # main menu
+   "GUI_MAINMENU_TITLE"    0 "Main Menu"
+   "GUI_SINGLEPLAYER"      0 "Single Player"
+   "GUI_MULTIPLAYER"       0 "Multiplayer"
+   "GUI_QUIT"              0 "Quit"
+
+   "GUI_SETUP"             0 "Setup"
+   "GUI_CHOOSEPLAYER"      0 "Players"
+   "GUI_VIEWCUTSCENES"     0 "Cutscenes"
+   "GUI_VIEWDEMORECORDING" 0 "Recordings"
+   "GUI_CREDITS"           0 "Credits"
+
+   "GUI_QUITCONFIRM"       0 "Quit Mysteries of the Sith"
+   "GUI_QUITCONFIRM_Q"     0 "Are you sure you want to quit Mysteries of the Sith?"
+
+#*******************
+#  JKGUISINGLE.C
+#******************/
+
+   # Single player menu
+   "GUI_NEWGAME"        0 "New Game"
+   "GUI_REPLAY"         0 "Replay"
+   "GUI_DEBUG_PLAY"     0 "(Debug)"
+
+   # Choose episode menu
+   "GUI_CHOOSEEPISODE"  0 "Choose Episode:"
+   "GUI_CHOOSELEVEL"    0 "Choose Level:"
+
+   # In-Game menu
+   "USERSAVE"           0 "User-saved game"  # What to say in Single Player - Replay Menu
+
+
+#*******************
+#  JKGUISETUP.C
+#******************/
+
+   # Setup menu
+   "GUI_GENERAL"             0 "General"
+   "GUI_GENERAL_HINT"        0 "General options"
+   "GUI_GAMEPLAY"            0 "Gameplay"
+   "GUI_GAMEPLAY_HINT"       0 "Gameplay options"
+   "GUI_DISPLAY"             0 "Display"
+   "GUI_DISPLAY_HINT"        0 "Set video mode and hardware acceleration"
+   "GUI_SOUND"               0 "Sound"
+   "GUI_SOUND_HINT"          0 "Set volumes for music and sound effects"
+   "GUI_CONTROLS"            0 "Controls"
+   "GUI_CONTROLS_HINT"       0 "Configure keyboard, mouse, and joystick"
+
+   "GUI_KEYBOARD"            0 "Keyboard"
+   "GUI_KEYBOARD_HINT"       0 "Set keyboard controls"
+   "GUI_MOUSE"               0 "Mouse"
+   "GUI_MOUSE_HINT"          0 "Set mouse controls"
+   "GUI_JOYSTICK"            0 "Joystick"
+   "GUI_JOYSTICK_HINT"       0 "Set joystick controls"
+   "GUI_CONTROLOPTIONS"      0 "Options"
+   "GUI_CONTROLOPTIONS_HINT" 0 "Set control options"
+
+   "GUI_MAINMENU"            0 "Main Menu"
+
+#********************
+#  JKGUIGENERAL.C
+#******************/
+
+   "GUI_FULLSUB"           0 "Enable full subtitles on cutscenes"
+   "GUI_ROTATEOVERLAY"     0 "Enable rotation on overlay map"
+   "GUI_DISABLECUTSCENES"  0 "Disable cutscenes"
+
+   "GUI_FULLSUB_HINT"      0 "Display subtitles during the video sequences?"
+   "GUI_ROTATEOVERLAY_HINT" 0 "Rotate the overlay map as you rotate?"
+   "GUI_DISABLECUTSCENES_HINT" 0 "Automatically skip over all video sequences?"
+
+#********************
+#  JKGUIGAMEPLAY.C
+#******************/
+
+   "GUI_SINGLE"            0 "Single"
+   "GUI_MP"                0 "MP"
+
+   "GUI_AUTOPICKUP"        0 "Automatic pickup weapon"
+   "GUI_AUTOPICKUP_HINT"   0 "Automatically mount a weapon when you pick it up?"
+   "GUI_AUTOSWITCH"        0 "Automatic switch weapon"
+   "GUI_AUTOSWITCH_HINT"   0 "Automatically select another weapon when you run out of ammo?"
+   "GUI_AUTORELOAD"        0 "Automatic reload weapon"
+   "GUI_AUTORELOAD_HINT"   0 "Automatically select an empty weapon when you find ammo?"
+
+   "GUI_NODANGER"          0 "No dangerous weapons"
+   "GUI_NODANGER_HINT"     0 "Don't mount weapons that are dangerous to fire?"
+   "GUI_NOWEAKER"          0 "No weaker weapons"
+   "GUI_NOWEAKER_HINT"     0 "Don't mount weapons that are weaker than the current weapon?"
+   "GUI_KEEPSABER"         0 "Keep preferred weapon"
+   "GUI_KEEPSABER_HINT"    0 "Don't switch away from the preferred weapon?"
+
+   "GUI_AUTOAIM"           0 "Enable auto-aiming"
+   "GUI_AUTOAIM_HINT"      0 "Automatically aim at enemies?"
+   "GUI_CROSSHAIR"         0 "Enable aiming crosshair"
+   "GUI_CROSSHAIR_HINT"    0 "Show the targeting crosshair?"
+   "GUI_SABERCAM"          0 "Enable lightsaber auto-camera"
+   "GUI_SABERCAM_HINT"     0 "Automatically toggle external mode when activating the lightsaber?"
+
+
+#*******************
+#  JKGUIPLAYER.C
+#******************/
+
+   # Select Player Menu
+   "GUI_NEWPLAYER"             0 "New Player"
+   "GUI_SELECTPLAYER"          0 "Choose your player:"
+   "GUI_REMOVE"                0 "Remove"
+   "GUI_CONFIRM_REMOVE_PLAYER" 0 "Are you sure you want to remove player %ls?"
+
+   # Create New Player menu
+   "GUI_NAME"        0 "Name:"
+   "GUI_DIFFICULTY"  0 "Difficulty:"
+   "GUI_EASY"        0 "Easy"
+   "GUI_MED"         0 "Medium"
+   "GUI_HARD"        0 "Hard"
+
+#*******************
+#  JKGUIKEYBOARD.C
+#******************/
+
+   # Keyboard setup menu
+   "GUI_CONTROLSLIST_HINT"    0 "Lists each action in the game, and what control activates it"
+
+   "GUI_RESTOREDEFAULTS"            0 "Reset to Default" # Button titles
+   "GUI_LOAD_CONTROL_SET"      0 "Load Control Set"
+   "GUI_SAVE_CONTROL_SET"      0 "Save Control Set"
+   "GUI_ADD_CONTROL"           0 "Add"
+   "GUI_ADD_CONTROL_HINT"      0 "Assign a control to activate an action"
+   "GUI_EDIT_CONTROL"          0 "Edit"
+   "GUI_EDIT_CONTROL_HINT"     0 "Edit an assigned control"
+   "GUI_REMOVE_CONTROL"        0 "Remove"
+   "GUI_REMOVE_CONTROL_HINT"   0 "Remove a control from its action"
+
+   "GUI_HIT_KEY_TO_ATTACH"    0 "Press the key you want to use for %ls..."
+   "GUI_CONTROL_REMOVED"      0 "Control has been removed" # Messages for Control Setup functions
+   "GUI_KEY_ADDED"            0 "Key has been added to action"
+   "GUI_PICK_AN_ACTION_FIRST" 0 "Please pick an action first"
+
+   "GUI_ALREADY_BOUND"        0 "Rebind A Key"
+   "GUI_ALREADY_BOUND_Q"      0 "That key or button is already bound to the function %ls. Are you sure you wish to rebind it?"
+   "GUI_RESTORE_DEFAULTS"     0 "Restore Defaults"
+   "GUI_RESTORE_DEFAULTS_Q"   0 "Are you sure you want to replace the current settings with the Mysteries of the Sith default settings?"
+
+#*******************
+#  JKGUIMOUSE.C
+#******************/
+
+   "GUI_PICK_MOUSE_CONTROL" 0 "Pick a mouse axis or button to assign"
+   "GUI_REVERSE_AXIS"       0 "Reverse direction"
+   "GUI_SENSITIVITY"        0 "Sensitivity:"
+   "GUI_SENSITIVITY_TEXT"   0 "(1.0 is standard)"
+   "GUI_CONTROL_RAW"        0 "Map directly to axis value"
+   "GUI_SENSITIVITY_HINT"   0 "Adjust this slider to control the responsiveness of the selected axis."
+   "GUI_MOUSE_ADD_HINT"     0 "Assign an action to a control"
+   "GUI_MOUSE_REMOVE_HINT"  0 "Remove the action from this control"
+
+#*******************
+#  JKGUIJOYSTICK.C
+#******************/
+
+   "GUI_PICK_JOYSTICK_CONTROL"   0 "Pick a joystick axis or button to assign"
+   "GUI_NO_JOYSTICK"        0    "No Joystick Detected"
+   "GUI_DISABLE_JOYSTICK"   0    "Disable joystick"
+   "GUI_DISABLE_JOYSTICK_HINT" 0    "Check this box to disable all joystick controls."
+   "GUI_REVERSE_HINT"      0     "Check this box to reverse the direction of the selected axis."
+   "GUI_RAW_HINT"          0     "Check this box to use the current position of the selected axis as an angle."
+   "GUI_CALIBRATE_JOYSTICK" 0    "Configure"
+   "GUI_CALIBRATE_JOYSTICK_HINT" 0 "Display the Windows 95 joystick configuration dialog."
+   "GUI_CAPTURE"           0     "Identify"
+   "GUI_CAPTURE_HINT"      0     "Identify joystick buttons and axes."
+   "GUI_CAPTURE_TEXT"      0     "Press buttons and move the controller to identify buttons and axes.  Press the Esc key to quit."
+   "GUI_JOYSTICK_DISABLED" 0     "Joystick Disabled"
+
+#***********************
+#  JKGUICONTROLOPTIONS.C
+#***********************/
+
+   "GUI_FREELOOK"          0  "Free look (mouse look) always on"
+   "GUI_FREELOOK_HINT"     0  "Allow dynamic control of your view with the look controls"
+
+   "GUI_VIEWCENTER"        0  "Enable automatic view centering"
+   "GUI_VIEWCENTER_HINT"   0  "Allow the game to automatically center your view"
+
+   "GUI_ALWAYSRUN"         0  "Always Run"
+   "GUI_ALWAYSRUN_HINT"    0  "Character always moves at run speed"
+
+   "GUI_NOWINKEY"          0  "Disable Windows key"
+   "GUI_NOWINKEY_HINT"     0  "Disables the Windows key during gameplay"
+
+   "GUI_SAVECONFIG"        0  "Save Configuration"
+   "GUI_LOADCONFIG"        0  "Load Configuration"
+
+   "GUI_SAVECONFIG_HINT"   0  "Save the current control configuration to a file"
+   "GUI_LOADCONFIG_HINT"   0  "Load a completely new control configuration from a file"
+
+#*******************
+#  JKGUIDISPLAY.C
+#******************/
+
+   "GUI_3DACCEL"              0 "Enable 3D Acceleration"
+   "GUI_3DACCEL_HINT"         0 "Enable or disable hardware 3D acceleration"
+   "GUI_3DACCEL_NOHARDWARE"   0 "No 3D hardware acceleration found"
+   "GUI_VIDEOMODES"           0 "Available Video Modes"
+   "GUI_VIDEOMODE_HINT"       0 "Choose a video mode to use"
+   "GUI_BRIGHTNESS"           0 "Brightness"
+   "GUI_BRIGHTNESS_HINT"      0 "Set brightness level"
+   "GUI_MAX"                  0 "Max"
+   "GUI_MIN"                  0 "Min"
+   "GUI_ADVANCED"             0 "Advanced"
+   "GUI_ADVANCED_HINT"        0 "For advanced users and debugging"
+
+   "GUI_VIEWSIZE"             0 "View size"
+   "GUI_VIEWSIZE_HINT"        0 "Set screen view size"
+
+
+   "GUI_ADVANCED_TITLE"       0 "Advanced Display Settings"
+        #Warning! Modifying these advanced settings can seriously affect the performance of Mysteries of the Sith. Please leave these settings alone unless you are instructed by LEC Product Support to make changes.
+   "GUI_ADVANCED_WARNING"     0 "Warning! Only change these settings when instructed by LEC Product Support"
+
+   "GUI_DISPLAYDEVICES"       0 "Display Devices"
+   "GUI_DISPLAYDEVICES_HINT"  0 "Current display device"
+
+   "GUI_3DDEVICES"            0 "3D Devices"
+   "GUI_3DDEVICES_HINT"       0 "Current 3D device"
+
+   "GUI_TEXTURE"              0 "Texture"
+   "GUI_TEXTURE_HINT"         0 "Set texture mapping detail"
+   "GUI_TEXTURE_AFFINE"       0 "Affine"
+   "GUI_TEXTURE_PERSPECT"     0 "Perspect"
+
+   "GUI_LIGHTING"             0 "Lighting"
+   "GUI_LIGHTING_HINT"        0 "Set lighting detail"
+   "GUI_LIGHTING_NONE"        0 "None"
+   "GUI_LIGHTING_DIFFUSE"     0 "Diffuse"
+   "GUI_LIGHTING_GOURAUD"     0 "Gouraud"
+   "GUI_LIGHTING_FULL"        0 "Full"
+
+   "GUI_GEOMETRY"             0 "Geometry"
+   "GUI_GEOMETRY_HINT"        0 "Set geometry detail"
+   "GUI_GEOMETRY_VERTEX"      0 "Vertex"
+   "GUI_GEOMETRY_WIREFRAME"   0 "Wireframe"
+   "GUI_GEOMETRY_SOLID"       0 "Solid"
+   "GUI_GEOMETRY_TEXTURE"     0 "Texture"
+
+   "GUI_MINTEXDIM"            0 "3D Accelerator min texture size"
+   "GUI_MINTEXDIM_HINT"       0 "Set minimum allowed texture dimension"
+
+   "GUI_DISABLE_PAGE_FLIP"    0 "Disable Page Flip"
+   "GUI_BACKBUF_IN_SYSMEM"    0 "Backbuffer in System Memory"
+   "GUI_RGBVERTEX"            0 "Enable colored lighting"
+   "GUI_CLEAR_DISPLAY"        0 "Clear Display"
+
+
+#*******************
+#  JKGUISOUND.C
+#******************/
+
+   "GUI_MUSICVOLUME"          0  "Music Volume"
+   "GUI_MUSICVOLUME_HINT"     0  "Set volume of music during the game"
+
+   "GUI_SFXVOLUME"            0  "Sfx Volume"
+   "GUI_SFXVOLUME_HINT"       0  "Set volume of sound effects during the game"
+
+   "GUI_DIGICHANNELS"         0  "Digital Channels"
+   "GUI_DIGICHANNELS_HINT"    0  "Set max # of digital sound channels to use"
+
+   "GUI_ENABLE3DSOUND"        0  "Enable A3D Sound"
+   "GUI_ENABLE3DSOUND_HINT"   0  "Enable the use of A3D Interactive sound hardware"
+
+   "GUI_ENABLEHWMIX"          0  "Enable Hardware Mixing"
+   "GUI_ENABLEHWMIX_HINT"     0  "Enable digital sound mixing in hardware"
+
+   "GUI_LOWRESSOUNDS"         0  "Using Low-Res Sounds"
+   "GUI_HIGHRESSOUNDS"        0  "Using High-Res Sounds"
+
+   "GUISOUND_WARNING"         0  "Warning"
+   "GUISOUND_MUSTRESTART"     0  "You must quit and relaunch before 3D changes will take effect"
+
+#*******************
+#  JKGUINET.C
+#******************/
+
+   # First Multiplayer menu
+   "GUI_JOINGAME"          0 "Join Game"
+   "GUI_STARTGAME"         0 "Host Game"
+
+   # Choose service menu
+   "GUI_CHOOSEAPROVIDER"   0 "Choose a network provider:"
+   "GUI_PROVIDER_HINT"     0 "These are your machine's installed network drivers"
+
+   # Join a game menu
+   "GUI_NOGAMESTOJOIN"        0 "(Searching...)"
+   "GUI_CHOOSEAGAME"          0 "Choose one of these games to join:"
+   "GUI_GAMESTOJOIN_HINT"     0 "These are the games currently playing on the network you picked"
+   "GUI_GAMEINFO_HINT"        0 "Information about the currently selected game"
+   "GUI_LEVEL"                0 "Game: %s / Episode: %S / Level: %S"
+   "GUI_NUM_PLAYERS"          0 "Players: %d of %d / Max Rank: %s(%d)"
+   "GUI_SYNCHRONIZING"        0 "Contacting host computer..."
+
+   "GUINET_NUMPLAYERS"        0 "Players: %d of %d"
+   "GUINET_MAXRANK"           0 " / Max Rank: %s (%d)"
+
+   "GUINET_PASSWORD"          0 "Password"
+   "GUINET_GAMEPASSWORD"      0 " / Password"
+   "GUINET_CLIENTSERVER"      0 "Client/Server"
+   "GUINET_GAMETEAM"          0 " / Team"
+   "GUINET_GAMESABERONLY"     0 "Saber-Only"
+   "GUINET_GAMEJEDIONLY"      0 "Ranked Jedi"
+   "GUINET_GAMEPERSONALITIES" 0 "Personalities"
+   "GUINET_GAMEFULL"          0 "That game is full"
+   "GUINET_WRONGPASSWORD"     0 "Wrong password entered for game"
+   "GUINET_JOINERROR"         0 "Join Error"
+   "GUINET_HOSTERROR"         0 "Host Error"
+   "GUINET_NETERROR"          0 "Network Error"
+   "GUINET_USERCANCEL"        0 "Cancelled by user"
+   "GUINET_WRONGVERSION"      0 "Incorrect game version"
+   "GUINET_WRONGCHECKSUM"     0 "Checksum failure.  Your data version does not match the host's."
+   "GUINET_JOINCANCEL"        0 "Join was cancelled by the host.  Please re-try."
+   "GUINET_WRONGLEVEL"        0 "Host has advanced to a different level. Please try joining again."
+
+   "GUINET_JOININGOK"         0 "Host contacted - receiving data"
+   "GUINET_JOININGBUSY"       0 "Host is busy - waiting for our turn to join"
+   "GUINET_WAITHOSTSETTINGS"  0 "Waiting for host to select options"
+   "GUINET_NOTAVAIL"          0 "That connection is not available"
+   "GUINET_NOCONNECT"         0 "Cannot connect to that network service"
+   "GUINET_NOGAMECONNECT"     0 "Failed to connect to that game"
+
+   "GUINET_GAMECLOSED"        0 "Game is between levels -- Cannot join now"
+
+   "GUI_JOIN_TEAM"            0 "%s joins the %s team."
+
+
+#*******************
+#  JKGUINETHOST.C
+#******************/
+
+   # Host a game menu
+   "GUI_GAMENAME"             0 "Name for this game:"
+   "GUI_MAXPLAYERS"           0 "Max players (up to 32):"
+   "GUI_NO_LEVELS_IN_EPISODE" 0 "<No levels in this episode>"
+   "GUI_DEFAULT_GAME_NAME"    0 "%s's Game"                    # %s=player name. i.e. "Bob's Game"
+
+   "GUI_SCORELIMIT"           0  "Use Score Limit"
+   "GUI_SCORELIMIT_HINT"      0  "Ends a level when someone achieves the score limit"
+
+   "GUI_TIMELIMIT"            0  "Use Time Limit (minutes)"
+   "GUI_TIMELIMIT_HINT"       0  "Ends a level after the time limit"
+
+   "GUI_SINGLELEVEL"          0  "Single-level only"
+   "GUI_SINGLELEVEL_HINT"     0  "Do not continue game to next level in episode"
+
+   "GUI_JEDIONLY"             0  "Jedi Personality Only"
+   "GUI_JEDIONLY_HINT"        0  "Allow only players with the Jedi personality to join the game"
+
+   "GUI_TEAMMODE"             0  "Team play / Friendly mode"
+   "GUI_TEAMMODE_HINT"        0  "Enables friendly mode in KFY, or teams in other games."
+
+   "GUI_MAXSTARS"             0  "Max Jedi Rank:"
+
+   "GUI_CLIENTSERVER"         0  "Enable Client/Server"
+   "GUI_CLIENTSERVER_HINT"    0  "Run networking in client-server mode"
+
+   "GUI_PRIVATE"              0  "Enable Private Game"
+   "GUI_PRIVATE_HINT"         0  "Hide game from players without correct password"
+
+   "GUI_TICKRATE"             0  "Network tick rate (msec):"
+
+#*******************
+#  JKGUIFORCE.C
+#******************/
+
+   "GUI_RESET"             0 "Reset"
+
+   "GUI_HINT_ABSORB"       0 "Absorb"
+   "GUI_HINT_BLINDING"     0 "Blinding"
+   "GUI_HINT_DEADLYSIGHT"  0 "Deadly Sight"
+   "GUI_HINT_DESTRUCTION"  0 "Destruction"
+   "GUI_HINT_GRIP"         0 "Grip"
+   "GUI_HINT_HEALING"      0 "Health"
+   "GUI_HINT_JUMP"         0 "Jump"
+   "GUI_HINT_PERSUASION"   0 "Persuasion"
+   "GUI_HINT_PROTECTION"   0 "Protection"
+   "GUI_HINT_PULL"         0 "Pull"
+   "GUI_HINT_SEEING"       0 "Seeing"
+   "GUI_HINT_SPEED"        0 "Speed"
+   "GUI_HINT_THROW"        0 "Throw"
+   "GUI_HINT_LIGHTNING"    0 "Lightning Bolt"
+
+   "GUI_HINT_CHAINLIGHT"   0 "Chain Lightning"
+   "GUI_HINT_FARSIGHT"     0 "Far Sight"
+   "GUI_HINT_PROJECTION"   0 "Projection"
+   "GUI_HINT_SABERTHROW"   0 "Saber Throw"
+   "GUI_HINT_PUSH"         0 "Push"
+   "GUI_HINT_DEFENSE"      0 "Defense"
+
+   "GUI_LIGHTSIDE"         0 "Light Side"
+   "GUI_DARKSIDE"          0 "Dark Side"
+
+   "GUI_PATH_DARK"         0 "Seduced by the Dark Side"
+   "GUI_PATH_LIGHT"        0 "True to the Light Side"
+
+   "GUI_CHOOSE_N"          0 "Choose %d:"
+
+#************************
+#  JKGUIOBJECTIVES.C
+#***********************/
+
+   "GUI_NO_OBJECTIVES"     0 "No Objectives"
+
+#*************************
+#  JKGUISINGLETALLY.C
+#************************/
+
+   "GUI_SECRETS_FOUND"  0 "Secrets Found:"
+   "GUI_NO_SECRETS"     0 "No Secrets"
+   "GUI_STARS_EARNED"   0 "Stars Earned:"
+   "GUI_NO_STARS"       0 "No Stars"
+
+#************************
+#  JKGUIMULTITALLY.C
+#***********************/
+
+   "GUI_MULTIPLAYER_SCORE" 0 "Multiplayer Score"
+   "GUI_TEAM_SCORE"        0 "Team Score"
+   "GUI_SCORE"             0 "Score"
+   "GUI_KILLS"             0 "Kills"
+   "GUI_DEATHS"            0 "Deaths"
+   "GUI_SUICIDES"          0 "Self-Kills"
+   "GUI_TEAM"              0 "Team"
+   "GUI_PAGE1"             0 "Page 1"
+   "GUI_PAGE2"             0 "Page 2"
+
+#***********************
+#  JKGUITITLE.C
+#**********************/
+
+   "GUI_LOADING"     0 "Loading..."
+
+#***********************
+#  JKGUIDECISION.C
+#**********************/
+
+
+#***************************************
+#  JKGUIBUILDMULTI.C/JKGUIMULTIPLAYER.C
+#**************************************/
+
+   "GUI_S_MULTIPLAYER_CHARACTERS"      0 "%s's Multiplayer Character Configurations"
+   "GUI_MULTIPLAYER_CHARACTERS"        0 "Multiplayer Characters"
+   "GUI_CHARACTER"                     0 "Character"
+   "GUI_NEW_CHARACTER"                 0 "New Character"
+   "GUI_NEW_CHARACTER_CONFIG"          0 "New Character Configuration"
+   "GUI_LOAD_CHARACTER"                0 "Load Character"
+   "GUI_EDIT_CHARACTER"                0 "Edit Character"
+   "GUI_SAVE_CHARACTER"                0 "Save Character"
+   "GUI_EDIT"                          0 "Edit"
+   "GUI_NEW"                           0 "New"
+   "GUI_RANKLABELMAX"                  0 "Rank (%d Maximum)"
+   "GUI_RANKLABEL"                     0 "Rank:"
+   "GUI_RANK"                          0 "%d-%s"
+   "GUI_MODEL"                         0 "Model:"
+   "GUI_SABER"                         0 "Saber"
+
+   "GUI_NONE"                          0 "None"
+   "GUI_RED"                           0 "Red"
+   "GUI_GOLD"                          0 "Gold"
+   "GUI_BLUE"                          0 "Blue"
+   "GUI_GREEN"                         0 "Green"
+
+   "GUI_FORCEPOWERS"                   0 "Force Powers"
+   "GUI_DONE"                          0 "Done"
+
+   "GUI_NOVALIDCHARTITLE"              0 "No Valid Characters"
+   "GUI_NOVALIDCHARACTERS"             0 "You have no characters that meet the game restrictions"
+
+   "GUI_PERSONALITY"                   0 "Personality:"
+   "GUI_PERSONALITY1"                  0 "Jedi"
+   "GUI_PERSONALITY2"                  0 "Bounty Hunter"
+   "GUI_PERSONALITY3"                  0 "Scout"
+   "GUI_PERSONALITY4"                  0 "Soldier"
+
+   "GUI_TYPEOFGAME"                    0 "Select game format:"
+   "GUI_TYPEPERSONALITIES"             0 "Mysteries of the Sith (personalities)"
+   "GUI_TYPEJEDIONLY"                  0 "Jedi Knight (ranked Jedi only)"
+   "GUI_PERSONALITIES_HINT"            0 "Each player is allowed to choose one of four personalities to play with"
+   "GUI_JEDIONLY_HINT"                 0 "All players are Jedi; the maximum rank is determined by the server"
+
+#***********************
+#  JKGUISAVELOAD.C
+#**********************/
+
+   "GUI_SLSAVEGAME"          0 "Save Game"
+   "GUI_SLLOADGAME"          0 "Load Game"
+   "GUI_SLGAMESELECT"        0 "Select a savegame:"
+   "GUI_SLENTERGAMENAME"     0 "Enter the name of the new save game:"
+   "GUI_SLEPISODE"           0 "Episode:"
+   "GUI_SLLEVEL"             0 "Level:"
+   "GUI_SLHEALTH"            0 "Health: %d/%d"
+   "GUI_SLSHIELDS"           0 "Shields: %d/200"
+   "GUI_SLCONFIRM_DELETE"    0 "Are you sure you want to delete this save game?"
+   "GUI_SLDELETE"            0 "Delete"
+   "GUI_SLCONFIRM_OVERWRITE" 0 "Are you sure you want to replace the contents of this save game?"
+   "GUI_SLOVERWRITE"         0 "Replace File"
+   "GUI_SLQUICKSAVE"         0 "(Last QuickSave)"
+   "GUI_SLMUSTENTERNAME"     0 "You must enter a valid name!"
+
+   "GUI_SLGAMESAVED"         0 "Game saved."
+   "GUI_SLGAMEQUICKSAVED"    0 "Game quicksaved."
+
+#***********************
+#  JKGUICONTROLSAVELOAD.C
+#**********************/
+
+   "GUI_CSLSAVESET"          0 "Save Control Configuration"
+   "GUI_CSLLOADSET"          0 "Load Control Configuration"
+   "GUI_CSLSETSELECT"        0 "Select a configuration set:"
+   "GUI_CSLENTERSETNAME"     0 "Enter the name of the new configuration set:"
+   "GUI_CSLCONFIRM_DELETE"    0 "Are you sure you want to delete this configuration set?"
+   "GUI_CSLDELETE"            0 "Delete"
+   "GUI_CSLCONFIRM_OVERWRITE" 0 "Are you sure you want to replace the contents of this configuration set?"
+   "GUI_CSLOVERWRITE"         0 "Replace File"
+   "GUI_CSLMUSTENTERNAME"     0 "You must enter a valid name!"
+
+#******************
+#  JKHUD.C
+#******************
+
+   "HUD_YOUSAY"         0  "You say, '%S'"
+   "HUD_SENDTOALL"      0  "Send to all: "
+   "HUD_COMMAND"        0  "Command: "
+   "HUD_SENDTOTEAM"     0  "Send to team: "
+   "HUD_SENDTOPLAYER"   0  "Send to %s: "
+
+   "HUD_PLAYERSCORES"   0  "Player Scores"
+
+   "HUD_TEAMSCORESTITLE"   0  "Team Scores"
+   "HUD_TEAMNAME"       0  "Name"
+   "HUD_TEAMPLAYERS"    0  "# Players"
+   "HUD_TEAMSCORE"      0  "Score"
+
+   "HUD_CHANGETEAM"  0  "%s switched to the %s team."
+
+#******************************
+#  Control Setup strings
+#******************************/
+
+   ### Names for the control functions (actions).
+   ### They match the names returned in sithControl_EnumBindings() and
+   ### CONTROL_FUNCTION_NAMES in sithControl.h
+   "FORWARD"         0 "Move"
+      "FORWARD_A"    0 " Forward/Back" # Modifiers for "Move" function
+      "FORWARD_K"    0 " Forward"      # Note the space before word.
+      "FORWARD_R"    0 " Back"
+   "TURN"            0 "Turn"
+      "TURN_A"       0 " Left/Right"         # Modifiers for "Turn" function
+      "TURN_K"       0 " Left"
+      "TURN_R"       0 " Right"
+   "SLIDE"           0 "Slide"
+      "SLIDE_A"      0 " Left/Right"         # Modifiers for "Slide" function
+      "SLIDE_K"      0 " Left"
+      "SLIDE_R"      0 " Right"
+   "SLIDETOGGLE"     0 "Slide Toggle"
+   "JUMP"            0 "Jump"
+   "DUCK"            0 "Duck"
+   "FAST"            0 "Fast"
+   "SLOW"            0 "Slow"
+   "PITCH"           0 "Pitch"
+      "PITCH_A"      0 " Up/Down"      # Modifiers for "Pitch" function
+      "PITCH_K"      0 " Up"
+      "PITCH_R"      0 " Down"
+   "ROLL"            0 "Roll"
+      "ROLL_A"       0 " Left/Right"      # Modifiers for "Roll" function
+      "ROLL_K"       0 " Left"
+      "ROLL_R"       0 " Right"
+   "CENTER"          0 "Center"
+   "FIRE1"           0 "Fire 1"
+   "FIRE2"           0 "Fire 2"
+   "FIRE3"           0 "Fire 3"
+   "FIRE4"           0 "Fire 4"
+   "ACTIVATE"        0 "Activate"
+   "SELECT1"         0 "Fists/Lightsaber"
+   "SELECT2"         0 "Bryar/BlasTech Pistol"
+   "SELECT3"         0 "Stormtrooper Rifle/Scope"
+   "SELECT4"         0 "Thermal/Flash Detonator"
+   "SELECT5"         0 "Bowcaster"
+   "SELECT6"         0 "Repeater"
+   "SELECT7"         0 "Rail/Seeking Detonator"
+   "SELECT8"         0 "Auto/Manual Sequencer"
+   "SELECT9"         0 "Concussion Rifle"
+   "SELECT0"         0 "Carbonite Gun"
+   "GAMESAVE"        0 "Quick Save"
+#   "GAMERESTORE"     0 "Game Restore"
+#   "GAMERECORD"      0 "Game Record"
+#   "DEBUG"           0 "Debug"
+   "L_STOP"          0 "l_stop"
+   "NEXTINV"         0 "Next Inventory Item"
+   "PREVINV"         0 "Prev Inventory Item"
+   "USEINV"          0 "Use Inventory Item"
+   "NEXTWEAPON"      0 "Next Weapon"
+   "PREVWEAPON"      0 "Previous Weapon"
+   "NEXTSKILL"       0 "Next Force Power"
+   "PREVSKILL"       0 "Prev Force Power"
+   "USESKILL"        0 "Use Force Power"
+   "MAP"             0 "Map"
+   "INCREASE"        0 "Increase viewsize"
+   "DECREASE"        0 "Decrease viewsize"
+   "MLOOK"           0 "Free Look"
+   "CAMERAMODE"      0 "Camera Mode"
+   "TALK"            0 "Talk"
+   "GAMMA"           0 "Gamma"
+   "SCREENSHOT"      0 "Screenshot"
+   "TALLY"           0 "Score Tally"
+   "ACTIVATE0"       0 "Force Jump"
+   "ACTIVATE1"       0 "Force Speed"
+   "ACTIVATE2"       0 "Force Seeing"
+   "ACTIVATE3"       0 "Force Pull"
+   "ACTIVATE4"       0 "Force Healing"
+   "ACTIVATE5"       0 "Force Persuasion"
+   "ACTIVATE6"       0 "Force Blinding"
+   "ACTIVATE7"       0 "Force Absorb"
+   "ACTIVATE8"       0 "Force Protection"
+   "ACTIVATE9"      0 "Force Grip"
+   "ACTIVATE10"      0 "Force Destruction"
+   "ACTIVATE11"      0 "Force Deadlysight"
+   "ACTIVATE12"      0 "Force Farsight"
+   "ACTIVATE13"      0 "Force Projection"
+   "ACTIVATE14"      0 "Force Saber Throw"
+   "ACTIVATE15"      0 "Force Push"
+   "ACTIVATE16"      0 "Force Chain Lightning"
+   "ACTIVATE17"      0 "Bacta Tank"
+   "ACTIVATE18"      0 "IR Goggles"
+   "ACTIVATE19"      0 "Field Light"
+
+   "ACTIVATE20"      0 "Bot Admin Next"
+   "ACTIVATE21"      0 "Bot Admin Prev"
+   "ACTIVATE22"      0 "Bot Admin Exec"
+
+   ### ACTIVATExx bins up to ACTIVATE31 are available for user defined Hotkeys.
+   ### In items.dat, the script for the 'xx'th item with the hotkey flag 0x100 will be bound.
+
+   ### Names for all the keys
+   ### They match names in jkGUISetup.c
+   "KEY_UNKNOWN"           0 "Unknown Key"
+   "DIK_ESCAPE"            0 "Escape"
+   "DIK_1"                 0 "1"
+   "DIK_2"                 0 "2"
+   "DIK_3"                 0 "3"
+   "DIK_4"                 0 "4"
+   "DIK_5"                 0 "5"
+   "DIK_6"                 0 "6"
+   "DIK_7"                 0 "7"
+   "DIK_8"                 0 "8"
+   "DIK_9"                 0 "9"
+   "DIK_0"                 0 "0"
+   "DIK_MINUS"             0 "Minus"
+   "DIK_EQUALS"            0 "Equals"
+   "DIK_BACK"              0 "Backspace"
+   "DIK_TAB"               0 "Tab"
+   "DIK_Q"                 0 "Q"
+   "DIK_W"                 0 "W"
+   "DIK_E"                 0 "E"
+   "DIK_R"                 0 "R"
+   "DIK_T"                 0 "T"
+   "DIK_Y"                 0 "Y"
+   "DIK_U"                 0 "U"
+   "DIK_I"                 0 "I"
+   "DIK_O"                 0 "O"
+   "DIK_P"                 0 "P"
+   "DIK_LBRACKET"          0 "["
+   "DIK_RBRACKET"          0 "]"
+   "DIK_RETURN"            0 "Enter"
+   "DIK_LCONTROL"          0 "Left Control"
+   "DIK_A"                 0 "A"
+   "DIK_S"                 0 "S"
+   "DIK_D"                 0 "D"
+   "DIK_F"                 0 "F"
+   "DIK_G"                 0 "G"
+   "DIK_H"                 0 "H"
+   "DIK_J"                 0 "J"
+   "DIK_K"                 0 "K"
+   "DIK_L"                 0 "L"
+   "DIK_SEMICOLON"         0 ";"
+   "DIK_APOSTROPHE"        0 "'"
+   "DIK_GRAVE"             0 "Tilde (~)"
+   "DIK_LSHIFT"            0 "Left Shift"
+   "DIK_BACKSLASH"         0 "\"
+   "DIK_Z"                 0 "Z"
+   "DIK_X"                 0 "X"
+   "DIK_C"                 0 "C"
+   "DIK_V"                 0 "V"
+   "DIK_B"                 0 "B"
+   "DIK_N"                 0 "N"
+   "DIK_M"                 0 "M"
+   "DIK_COMMA"             0 "Comma"
+   "DIK_PERIOD"            0 "Period"
+   "DIK_SLASH"             0 "/"
+   "DIK_RSHIFT"            0 "Right Shift"
+   "DIK_MULTIPLY"          0 "Numpad *"
+   "DIK_LMENU"             0 "Left Alt"
+   "DIK_SPACE"             0 "Space"
+   "DIK_CAPITAL"           0 "Caps Lock"
+   "DIK_F1"                0 "F1"
+   "DIK_F2"                0 "F2"
+   "DIK_F3"                0 "F3"
+   "DIK_F4"                0 "F4"
+   "DIK_F5"                0 "F5"
+   "DIK_F6"                0 "F6"
+   "DIK_F7"                0 "F7"
+   "DIK_F8"                0 "F8"
+   "DIK_F9"                0 "F9"
+   "DIK_F10"               0 "F10"
+   "DIK_NUMLOCK"           0 "Num Lock"
+   "DIK_SCROLL"            0 "Scroll Lock"
+   "DIK_NUMPAD7"           0 "Numpad 7"
+   "DIK_NUMPAD8"           0 "Numpad 8"
+   "DIK_NUMPAD9"           0 "Numpad 9"
+   "DIK_SUBTRACT"          0 "Numpad -"
+   "DIK_NUMPAD4"           0 "Numpad 4"
+   "DIK_NUMPAD5"           0 "Numpad 5"
+   "DIK_NUMPAD6"           0 "Numpad 6"
+   "DIK_ADD"               0 "Numpad +"
+   "DIK_NUMPAD1"           0 "Numpad 1"
+   "DIK_NUMPAD2"           0 "Numpad 2"
+   "DIK_NUMPAD3"           0 "Numpad 3"
+   "DIK_NUMPAD0"           0 "Numpad 0"
+   "DIK_DECIMAL"           0 "Numpad Period"
+   "DIK_F11"               0 "F11"
+   "DIK_F12"               0 "F12"
+
+   "DIK_F13"      0 "F13"
+   "DIK_F14"      0 "F14"
+   "DIK_F15"      0 "F15"
+
+   "DIK_KANA"     0 "Kana"
+   "DIK_CONVERT"          0 "Convert"
+   "DIK_NOCONVERT"   0 "No Convert"
+   "DIK_YEN"      0 "Yen"
+   "DIK_NUMPADEQUALS"   0 "Numpad ="
+   "DIK_CIRCUMFLEX"  0 "^"
+   "DIK_AT"       0 "@"
+   "DIK_COLON"       0 ":"
+   "DIK_UNDERLINE"   0 "_"
+   "DIK_KANJI"       0 "Kanji"
+   "DIK_STOP"     0 "Stop"
+   "DIK_AX"       0 "ax"
+   "DIK_UNLABELED"   0 "Unlabeled"
+   "DIK_NUMPADENTER"    0 "Numpad Enter"
+   "DIK_RCONTROL"            0 "Right Control"
+   "DIK_NUMPADCOMMA"       0 "Numpad Comma"
+   "DIK_DIVIDE"            0 "Numpad /"
+   "DIK_SYSRQ"             0 "SysRq"
+   "DIK_RMENU"             0 "Right Alt"
+   "DIK_HOME"              0 "Home"
+   "DIK_UP"                0 "Up Arrow"
+   "DIK_PRIOR"             0 "Page Up"
+   "DIK_LEFT"              0 "Left Arrow"
+   "DIK_RIGHT"             0 "Right Arrow"
+   "DIK_END"               0 "End"
+   "DIK_DOWN"              0 "Down Arrow"
+   "DIK_NEXT"              0 "Page Dn"
+   "DIK_INSERT"            0 "Insert"
+   "DIK_DELETE"            0 "Delete"
+   "DIK_LWIN"              0 "Left Win"
+   "DIK_RWIN"              0 "Right Win"
+   "DIK_APPS"              0 "Apps"
+
+   # These are keys too, but on the mouse and joystick
+   "KEY_JOY1_B1"           0 "Joy 1 Button 1"
+   "KEY_JOY1_B2"           0 "Joy 1 Button 2"
+   "KEY_JOY1_B3"           0 "Joy 1 Button 3"
+   "KEY_JOY1_B4"           0 "Joy 1 Button 4"
+   "KEY_JOY1_B5"           0 "Joy 1 Button 5"
+   "KEY_JOY1_B6"           0 "Joy 1 Button 6"
+   "KEY_JOY1_B7"           0 "Joy 1 Button 7"
+   "KEY_JOY1_B8"           0 "Joy 1 Button 8"
+   "KEY_JOY1_B9"           0 "Joy 1 Button 9"
+   "KEY_JOY1_B10"          0 "Joy 1 Button 10"
+   "KEY_JOY1_B11"          0 "Joy 1 Button 11"
+   "KEY_JOY1_B12"          0 "Joy 1 Button 12"
+   "KEY_JOY1_B13"          0 "Joy 1 Button 13"
+   "KEY_JOY1_B14"          0 "Joy 1 Button 14"
+   "KEY_JOY1_B15"          0 "Joy 1 Button 15"
+   "KEY_JOY1_B16"          0 "Joy 1 Button 16"
+
+   "KEY_JOY1_HLEFT"        0 "Joy 1 Hat Left"
+   "KEY_JOY1_HUP"          0 "Joy 1 Hat Up"
+   "KEY_JOY1_HRIGHT"       0 "Joy 1 Hat Right"
+   "KEY_JOY1_HDOWN"        0 "Joy 1 Hat Down"
+
+   "KEY_JOY2_B1"           0 "Joy 2 Button 1"
+   "KEY_JOY2_B2"           0 "Joy 2 Button 2"
+   "KEY_JOY2_B3"           0 "Joy 2 Button 3"
+   "KEY_JOY2_B4"           0 "Joy 2 Button 4"
+   "KEY_JOY2_B5"           0 "Joy 2 Button 5"
+   "KEY_JOY2_B6"           0 "Joy 2 Button 6"
+   "KEY_JOY2_B7"           0 "Joy 2 Button 7"
+   "KEY_JOY2_B8"           0 "Joy 2 Button 8"
+   "KEY_JOY2_B9"           0 "Joy 2 Button 9"
+   "KEY_JOY2_B10"          0 "Joy 2 Button 10"
+   "KEY_JOY2_B11"          0 "Joy 2 Button 11"
+   "KEY_JOY2_B12"          0 "Joy 2 Button 12"
+   "KEY_JOY2_B13"          0 "Joy 2 Button 13"
+   "KEY_JOY2_B14"          0 "Joy 2 Button 14"
+   "KEY_JOY2_B15"          0 "Joy 2 Button 15"
+   "KEY_JOY2_B16"          0 "Joy 2 Button 16"
+
+   "KEY_JOY2_HLEFT"        0 "Joy 2 Hat Left"
+   "KEY_JOY2_HUP"          0 "Joy 2 Hat Up"
+   "KEY_JOY2_HRIGHT"       0 "Joy 2 Hat Right"
+   "KEY_JOY2_HDOWN"        0 "Joy 2 Hat Down"
+
+   "KEY_MOUSE_B1"          0 "Mouse Button 1"
+   "KEY_MOUSE_B2"          0 "Mouse Button 2"
+   "KEY_MOUSE_B3"          0 "Mouse Button 3"
+   "KEY_MOUSE_B4"          0 "Mouse Button 4"
+
+
+   ### Names for all mouse and joystick axes
+   "AXIS_UNKNOWN"    0 "unknown Axis"
+   "AXIS_JOY1_X"           0 "Joy 1 X Axis"
+   "AXIS_JOY1_Y"           0 "Joy 1 Y Axis"
+   "AXIS_JOY1_Z"           0 "Joy 1 Z Axis"
+   "AXIS_JOY1_R"           0 "Joy 1 R Axis"
+   "AXIS_JOY1_U"           0 "Joy 1 U Axis"
+   "AXIS_JOY1_V"           0 "Joy 1 V Axis"
+
+   "AXIS_JOY2_X"           0 "Joy 2 X Axis"
+   "AXIS_JOY2_Y"           0 "Joy 2 Y Axis"
+   "AXIS_JOY2_Z"           0 "Joy 2 Z Axis"
+   "AXIS_JOY2_R"           0 "Joy 2 R Axis"
+   "AXIS_JOY2_U"           0 "Joy 2 U Axis"
+   "AXIS_JOY2_V"           0 "Joy 2 V Axis"
+
+   "AXIS_MOUSE_X"          0 "Mouse X Axis"
+   "AXIS_MOUSE_Y"          0 "Mouse Y Axis"
+   "AXIS_MOUSE_Z"          0 "Mouse Z Axis/Wheel"
+
+
+#***************************
+#  NAMES OF JEDI RANKS
+#***************************
+   # first number is level, 2nd is alignment: Dark or Light
+   # Light side
+   "RANK_0_L"     0 "Uninitiated"
+   "RANK_1_L"     0 "Initiate"
+   "RANK_2_L"     0 "Learner"
+   "RANK_3_L"     0 "Apprentice"
+   "RANK_4_L"     0 "Journeyman"
+   "RANK_5_L"     0 "Charge"
+   "RANK_6_L"     0 "Disciple"
+   "RANK_7_L"     0 "Jedi Knight"
+   "RANK_8_L"     0 "Jedi Master"
+   "RANK_9_L"     0 "Unlimited"
+
+   # Dark side
+   "RANK_0_D"     0 "Uninitiated"
+   "RANK_1_D"     0 "Initiate"
+   "RANK_2_D"     0 "Learner"
+   "RANK_3_D"     0 "Apprentice"
+   "RANK_4_D"     0 "Journeyman"
+   "RANK_5_D"     0 "Charge"
+   "RANK_6_D"     0 "Disciple"
+   "RANK_7_D"     0 "Primarch"
+   "RANK_8_D"     0 "Dark Lord"
+   "RANK_9_D"     0 "Unlimited"
+
+#***************************
+#  Names of Episodes
+#***************************
+
+   "Mysteries of the Sith"    0  "Mysteries of the Sith"
+   "Kill the Fool with the Ysalimari"    0  "Kill the Fool with the Ysalimari"
+   "Sith Multiplayer Deathmatch" 0  "Sith Multiplayer Deathmatch"
+   "Sith Saber Deathmatch"    0  "Sith Saber Deathmatch"
+
+#***************************
+#  Names of Cutscenes
+#***************************
+   "JKMINTRO"        0  "0 - jkmintro"
+   "S1L1OCS"         0  "1 - s1l1o"
+   "S1L1ECS"         0  "2 - s1l1e"
+   "S1L2OCS"         0  "3 - s1l2o"
+   "S1L2ECS"         0  "4 - s1l2e"
+   "S1L3OCS"         0  "5 - s1l3o"
+   "S1L3ECS"         0  "7 - s1l3e"
+   "S1L4ECS"         0  "8 - s1l4e"
+   "S2L1OCS"         0  "9 - s2l1o"
+   "S2L1ECS"         0  "10 - s2l1e"
+   "S2L2OCS"         0  "11 - s2l2o"
+   "S2L2AECS"        0  "13 - s2l2ae"
+   "S2L2ECS"         0  "14 - s2l2e"
+   "S2L4ECS"         0  "15 - s2l4e"
+   "S4L1OCS"         0  "15 - s4l1o"
+   "S4L1ECS"         0  "16 - s4l1e"
+   "S4L2OCS"         0  "15 - s4l2o"
+   "S4L2ECS"         0  "16 - s4l2e"
+   "S4L3OCS"         0  "18 - s4l3o"
+   "S4L3ECS"         0  "19 - s4l3e"
+   "S5L2OCS"         0  "20 - s5l2o"
+   "S5L3ECS"         0  "21 - s5l3e"
+   "FINALE"          0  "22 - finale"
+
+#***************************
+#  Names of MP Models
+#***************************
+   "KK"              0  "Kyle Katarn"
+   "KY"              0  "Kyle Katarn"
+   "KY_SHORT"        0  "K. Katarn"
+   "KYB3"            0  "Krugon"
+   "KYC5"            0  "One-Eye"
+   "KYD0"            0  "Trainer"
+   "KYE6"            0  "Dark Kyle"
+   "KYF2"            0  "Veamon"
+   "KYG7"            0  "Admiral"
+   "KYH4"            0  "Mandalore"
+   "KYJ1"            0  "Dark Rahn"
+   "KYK7"            0  "Santiago"
+   "KYL8"            0  "Rugar"
+   "KYA9"            0  "Sariss"
+   "KYA10"           0  "Jan Ors"
+   "KYA11"           0  "Imperial Commando"
+   "KYA11_SHORT"     0  "I. Command"
+   "KYA12"           0  "Imperial Officer"
+   "KYA12_SHORT"     0  "I. Officer"
+   "KYM13"           0  "Stormtrooper"
+   "KYM13_SHORT"     0  "Trooper"
+   "KYI14"           0  "Trandoshan"
+   "KYA15"           0  "Tusken"
+   "KYA16"           0  "Protocol Droid"
+   "KYA16_SHORT"     0  "Pro. Droid"
+   "KYA17"           0  "Rodian"
+   "KYA18"           0  "Yun"
+   "KYA19"           0  "Jerec"
+   "KYMJ"            0  "Mara Jade"
+   "KYPR"            0  "Pirate Raider 1"
+   "KYPR_SHORT"      0  "Pirate 1"
+   "KYKB"            0  "Kaerobani"
+   "KYRC"            0  "Rebel Soldier"
+   "KYRC_SHORT"      0  "R. Soldier"
+   "KYRO"            0  "Rebel Officer"
+   "KYRO_SHORT"      0  "R. Officer"
+   "KYRM"            0  "Rebel Commander"
+   "KYRM_SHORT"      0  "R. Command"
+   "KYWQ"            0  "Weequay"
+   "KYST"            0  "Scout Trooper"
+   "KYST_SHORT"      0  "Scout Trp."
+   "KYTP"            0  "TIE Pilot"
+   "KYAP"            0  "AT-AT Pilot"
+   "KYAP_SHORT"      0  "AT-AT Plt."
+   "KYP2"            0  "Pirate Raider 2"
+   "KYP2_SHORT"      0  "Pirate 2"
+   "KYAB"            0  "Abron Mar"
+   "KYDM"            0  "Dark Mara"
+   "KYLUKE"          0  "Luke Skywalker"
+   "KYLUKE_SHORT"    0  "Skywalker"
+   "KYDARTH"         0  "Darth Vader"
+   "KYDARTH_SHORT"   0  "Vader"
+
+   "KYT0"            0  "Green"
+   "KYU0"            0  "Gold"
+   "KYV0"            0  "Blue"
+   "KYW0"            0  "Purple"
+   "KYX0"            0  "Red"
+   "KYY0"            0  "Orange"
+   "KYH4R"           0  "Red"
+   "KYH4Y"           0  "Gold"
+   "KYH4B"           0  "Blue"
+   "KYH4G"           0  "Green"
+   "KYPRR"           0  "Red"
+   "KYPRY"           0  "Gold"
+   "KYPRB"           0  "Blue"
+   "KYPRG"           0  "Green"
+   "KYM13R"          0  "Red"
+   "KYM13Y"          0  "Gold"
+   "KYM13B"          0  "Blue"
+   "KYM13G"          0  "Green"
+
+
+#### Put GENERIC Cog messages here  ####
+#
+#  This file is for Cog messages which apply to all episodes.
+#  Put messages which apply only to one episode in that
+#  episode's "cogStrings.uni" file.
+#
+#  Be sure to label each message with the .COG
+#  file which uses that message.
+#########################################
+
+#  General purpose messages.
+
+#       Weapon & Powerups messages (please keep these in synch with items.dat values [YB])
+   "COG_00001"    0 "Fists"
+   "COG_00002"    0 "Bryar Pistol"
+   "COG_00003"    0 "Stormtrooper Rifle"
+   "COG_00004"    0 "Thermal Detonators"
+   "COG_00005"    0 "Crossbow"
+   "COG_00006"    0 "Repeater Gun"
+   "COG_00007"    0 "Rail Detonator"
+   "COG_00008"    0 "Sequencer Charges"
+   "COG_00009"    0 "Concussion Rifle"
+   "COG_00010"    0 "Lightsaber"
+   "COG_00011"    0 "Energy Cells"
+   "COG_00012"    0 "Power Cells"
+   "COG_00013"    0 "Battery"
+   "COG_00014"    0 "Force Mana"
+   "COG_00015"    0 "Rail Charges"
+   "COG_00016"    0 "New Stars"
+   "COG_00017"    0 "Spend Stars"
+   "COG_00018"    0 "Total Stars"
+   "COG_00019"    0 "Force Defense"
+   "COG_00020"    0 "Jedi Rank"
+   "COG_00021"    0 "Force Jump"
+   "COG_00022"    0 "Force Speed"
+   "COG_00023"    0 "Force Seeing"
+   "COG_00024"    0 "Force Pull"
+   "COG_00025"    0 "Force Healing"
+   "COG_00026"    0 "Force Persuasion"
+   "COG_00027"    0 "Force Blinding"
+   "COG_00028"    0 "Force Absorb"
+   "COG_00029"    0 "Force Protection"
+   "COG_00030"    0 "Force Throw"
+   "COG_00031"    0 "Force Grip"
+   "COG_00032"    0 "Force Lightning"
+   "COG_00033"    0 "Force Destruction"
+   "COG_00034"    0 "Force Deadly Sight"
+
+   "COG_00035"    0 "Force Farsight"
+   "COG_00036"    0 "Force Projection"
+   "COG_00037"    0 "Force Saber Throw"
+   "COG_00038"    0 "Force Push"
+   "COG_00039"    0 "Force Chain Lightning"
+
+   "COG_00040"    0 "Bacta Tank"
+   "COG_00041"    0 "IR Goggles"
+   "COG_00042"    0 "Field Light"
+   "COG_00043"    0 "Jail Key"
+   "COG_00044"    0 "Wrench"
+   "COG_00045"    0 "Data Disk"
+   "COG_00046"    0 "Red Key"
+   "COG_00047"    0 "Blue Key"
+   "COG_00048"    0 "Yellow Key"
+   "COG_00049"    0 "Blue Wrench"
+   "COG_00050"    0 "Yellow Wrench"
+   "COG_00051"    0 "Green Key"
+   "COG_00052"    0 "Tusken Clothing"
+   "COG_00053"    0 "Heavy Explosives"
+   "COG_00054"    0 "The Holocron"
+   "COG_00055"    0 "Droid Arm"
+   "COG_00056"    0 "Pry Bar"
+   "COG_00057"    0 "Radio Listening Device"
+
+   "COG_00060"    0 "Shield Recharge"
+   "COG_00061"    0 "Force Armor"
+   "COG_00062"    0 "Super Shield"
+   "COG_00063"    0 "Power Boost"
+   "COG_00064"    0 "Force Surge"
+#"COG_00065"    0 "Light Surge"
+   "COG_00066"    0 "Revive"
+
+# Extra ammo types
+   "COG_00090"    0 "Carbonite"
+   "COG_00091"    0 "Seeking Rail Charges"
+   "COG_00092"    0 "Blaster Cannon Ammunition"
+
+# Relocated weapon names
+   "COG_00121"    0 "Fists"
+   "COG_00122"    0 "Bryar Pistol"
+   "COG_00123"    0 "Stormtrooper Rifle"
+   "COG_00124"    0 "Thermal Detonators"
+   "COG_00125"    0 "Carbonite Gun"
+   "COG_00126"    0 "Repeater Gun"
+   "COG_00127"    0 "Rail Detonator"
+   "COG_00128"    0 "Sequencer Charges"
+   "COG_00129"    0 "Concussion Rifle"
+   "COG_00130"    0 "Blaster Cannon Gun"
+
+   "COG_00131"    0 "Lightsaber "
+   "COG_00132"    0 "BlasTech Pistol"
+   "COG_00133"    0 "Rifle Scope"
+   "COG_00134"    0 "Flash Bombs"
+   "COG_00135"    0 "Bow Caster"
+   "COG_00136"    0 "Empty Slot"
+   "COG_00137"    0 "Seeking Rail Detonator"
+   "COG_00138"    0 "Sequencer Charges"
+   "COG_00139"    0 "Empty Slot"
+   "COG_00140"    0 "Carbonite Gun"
+
+
+   #       Other items related messages
+   "COG_00200"    0 "Backpack"
+   "COG_00201"    0 "Health Pack"
+
+   "COG_00204"    0 "Force Boost"
+   "COG_00205"    0 "Thermal Detonator"                           # no 's'
+   "COG_00206"    0 "Sequencer Charge"                            # no 's'
+   "COG_00207"    0 "Armor Vest"
+   "COG_00208"    0 "Stormtrooper Backpack"
+   "COG_00209"    0 "Smuggler Backpack"
+   "COG_00210"    0 "Explorer's Backpack"
+   "COG_00211"    0 "Flash Grenade"
+
+   "COG_00250"    0 "Using Bacta"
+   "COG_00251"    0 "Field Light ON"
+   "COG_00252"    0 "Field Light OFF"
+   "COG_00253"    0 "Field Light out of power"
+   "COG_00254"    0 "IR Goggles ON"
+   "COG_00255"    0 "IR Goggles OFF"
+   "COG_00256"    0 "IR Goggles out of power"
+   "COG_00257"    0 "This is a Blue Key..."
+   "COG_00258"    0 "This is a Red Key..."
+   "COG_00259"    0 "This is a Yellow Key..."
+   "COG_00260"    0 "This is a Blue Wrench..."
+   "COG_00261"    0 "This is a Yellow Wrench..."
+
+   "COG_00262"    0 "You need the Red Key"
+   "COG_00263"    0 "You need the Blue Key"
+   "COG_00264"    0 "You need the Yellow Key"
+
+   "COG_00265"    0 "You need the Green Key"
+   "COG_00266"    0 "This is a Green Key..."
+
+   "COG_00268"    0 "This is the Imperial Key..."
+   "COG_00269"    0 "This is a Data Disk..."
+   "COG_00270"    0 "This is a Wrench..."
+   "COG_00271"    0 "Putting on Tusken Clothing"
+   "COG_00272"    0 "Taking off Tusken Clothing"
+   "COG_00273"    0 "Heavy Explosives"
+   "COG_00274"    0 "Heavy Explosives"
+   "COG_00275"    0 "The Holocron"
+   "COG_00276"    0 "The Holocron"
+   "COG_00277"    0 "A Droid Arm..."
+   "COG_00278"    0 "This is a Prybar..."
+   "COG_00279"    0 "This is a Radio Listening Device..."
+
+   #       Force Powers messages
+
+   "COG_00300"    0 "You are taking Grip damage!"
+   "COG_00301"    0 "You are taking Deadly Sight damage!"
+   "COG_00302"    0 "You are taking Chain Lightning damage!"
+
+   #       Goal complete message
+   "COG_00350"    0 "Mission Objective Completed!"
+
+   #       Found a secret area message
+   "COG_00360"    0 "Entered Secret Area!"
+
+   #       Camera message
+   "COG_00365"    0 "Camera #"
+
+   #       Various nefarious sequencer charge messages
+   "COG_00370"    0 "Nothing to detonate!"
+   "COG_00371"    0 "You have no charges to lay!"
+   "COG_00372"    0 "You may only place 10 charges!"
+   "COG_00373"    0 "Manual Mode"
+   "COG_00374"    0 "Automatic Mode"
+
+   #       Blaster Cannon Messages
+   "COG_00380"    0 "You have no ammo to use with the blaster cannon!"
+   "COG_00381"    0 "Step off the blaster cannon first!"
+   "COG_00382"    0 "The Blaster Cannon!"
+
+   #       Scope Mode Messages
+   "COG_00385"    0 "Automatic Zoom Mode"
+   "COG_00386"    0 "Manual Zoom Mode"
+
+   # cutscene strings...
+   # a '|' character forces the message to always appear
+   "COG_50148"	   0  "Blast him!"
+   "COG_50166"	   0  "There he is. Stop him!"
+   "COG_71101"	   0  "Excellent, Mara."
+   "COG_71102"	   0  "You are becoming very adept at using the Force to anticipate my actions."
+   "COG_71103"	   0  "Someday that insight may save your life."
+   "COG_71104"	   0  "Ah, what's going on?!"
+   "COG_71105"	   0  "Captain Katarn, report to Ops immediately!  Captain Katarn, report to Ops immediately!"
+   "COG_71106"	   0  "Commander, what's the situation?"
+   "COG_71107"	   0  "We detected two asteroids approaching our atmosphere, and thought they'd break up on contact."
+   "COG_71108"	   0  "We became alarmed when they took up a geo-synchronous orbit and began bombarding our shields."
+   "COG_71109"	   0  "They appear to be some sort of new Imperial weapons disguised as asteroids to take us by surprise."
+   "COG_71110"	   0  "Looks like they were successful."
+   "COG_71111"	   0  "It's not something you typically see in an asteroid."
+   "COG_71113"	   0  "Sir, our long range outpost on Delta 3 has picked up an Imperial strike force entering hyperspace."
+   "COG_71114"	   0  "Using their last known course and speed, we estimate they will arrive within 3 hours."
+   "COG_71115"	   0  "We can't get our evacuation shuttles off the ground with those asteroids pinning us down, and once the primary force arrives we're done for."
+   "COG_71116"	   0  "Sensors detect Imperial ground troops landing just outside our shields."
+   "COG_71117"	   0  "Send Squads 2 and 5 to Blue Sector. Tell all troops to prepare for ground assault."
+   "COG_71118"	   0  "We still have a chance. I'm gonna see if I can 'borrow' a shuttle from our visitors. Then I'll see what I can do about those asteroids."
+   "COG_71119"	   0  "I'm going with you, you're gonna--"
+   "COG_71120"	   0  "No, Mara, I need you to stay here to coordinate the base defenses."
+   "COG_71121"	   0  "I'll signal you when it's clear to begin the evacuation."
+   "COG_71122"	   0  "Better make it fast, we have less than 3 hours."
+   "COG_71123"	   0  "And Katarn..."
+   "COG_71124"	   0  "Yes?"
+   "COG_71125"	   0  "Good Luck."
+   "COG_71127"	   0  "Thanks, I have a feeling I'm going to need it."
+   "COG_71302"	   0  "Gravity is a harsh mistress."
+   "COG_72101"	   0  "Mara, the New Republic is still in desperate need of supplies, and we aren't always able to locate them through... 'honest' channels."
+   "COG_72102"	   0  "Ka' Pa the Hutt has agreed to sell us these items in exchange for a certain degree of, how shall I say -- amnesty?"
+   "COG_72104"	   0  "Hey, if you want to do business with a slug it's none of my concern, but why me?"
+   "COG_72105"	   0  "Mon Mothma asked for you personally. She felt that because of your prior smuggler affiliations, that he might trust you more than any of our other envoys."
+   "COG_72106"	   0  "Also, with Kyle gone, we need your help more than ever."
+   "COG_72107"	   0  "All right, I'll do it."
+   "COG_72108"	   0  "|Who seeks audience with the exalted Ka' Pa the Hutt?"
+   "COG_72109"	   0  "Tell your master that Mara Jade wishes to discuss a deal on behalf of the New Republic, one which could be very lucrative for him."
+   "COG_72110"	   0  "|Mara Jade?  You were once a powerful smuggler, until you turned to the way of the Jedi."
+   "COG_72111"	   0  "|Unfortunately after what Skywalker did to poor Jabba, Ka' Pa does not wish to see you."
+   "COG_72112"	   0  "That was different, I'm not--"
+   "COG_72113"	   0  "|Goodbye, Mara Jade."
+   "COG_72114"	   0  "Hmmmm... I guess I'm going to have to find a way to let myself in..."
+   "COG_72201"	   0  "Ka' Pa's agents said Takara's lieutenant Abron Mar hangs out at the spaceport cantina."
+   "COG_72202"	   0  "Hope when I find him I can convince him to be cooperative..."
+   "COG_72203"	   0  "Now if I could just find the cantina, AND avoid all the unsavory characters along the way..."
+   "COG_74101"	   0  "This is Mara. I've finished my patrol, nothing to report... as usual."
+   "COG_74102"	   0  "Thanks, Mara. I know this feels like routine guard duty to you, but Mon Mothma wouldn't have asked if it weren't important."
+   "COG_74103"	   0  "A Jedi Holocron is an important artifact, and it must not fall into the wrong hands."
+   "COG_74105"	   0  "We've got a full squadron for an escort. No one would be stupid enough--"
+   "COG_74106"	   0  "What the-- we're dropping out of hyperspace."
+   "COG_74107"	   0  "New Republic Transport, prepare to be boarded!"
+   "COG_74108"	   0  "Your hyperdrive will not operate while under the influence of our gravity-well projectors."
+   "COG_74109"	   0  "If you cooperate, this will be over quickly and painlessly."
+   "COG_74110"	   0  "Pirates. I wonder if it's anyone I know..."
+   "COG_74202"	   0  "Hey, what did we get this time?"
+   "COG_74203"	   0  "Usual stuff."
+   "COG_74204"	   0  "What about that mag-sealed crate?"
+   "COG_74205"	   0  "Eh, someone said it was some kind of Jedi artifact."
+   "COG_74206"	   0  "Kaerobani's having it transferred to his private collection on the planet."
+   "COG_74208"	   0  "I gotta follow that crate."
+   "COG_74301"	   0  "Good thing for me these guys are sloppy. Karrde would have had them shot."
+   "COG_74302"	   0  "Now to find Kaerobani's collection."
+   "COG_75001"	   0  "Mara, this is Mon Mothma. Go ahead."
+   "COG_75002"	   0  "I'm concerned about Kyle, have you heard from him?"
+   "COG_75003"	   0  "He's been out of contact for quite some time now."
+   "COG_75004"	   0  "I understood he was on some sort of personal mission."
+   "COG_75005"	   0  "He was investigating a lead that he had regarding the ruins of a Sith temple on Dromund Kaas, but I'm afraid something may have happened to him. I think I should check it out."
+   "COG_75006"	   0  "I can't afford to lose either of you. Do what you must, but keep in touch."
+   "COG_75007"	   0  "I'll contact you as soon as I know anything. Jade out."
+   "COG_75203"	   0  "That looks like a good place to land."
+   "COG_75204"	   0  "Now to see if I can find Kyle's shuttle."
+   "COG_75205"	   0  "Although I'm not sure I like the look of that swamp."
+   "COG_75301"	   0  "Charming place. I guess I should get this over with."
+   "COG_75401"	   0  "Ugh!... Kyle? Where are you?"
+   "COG_75402"	   0  "Mara... I knew you would make the right choice."
+   "COG_75403"	   0  "Follow me to the heart of the temple, feel the power embrace you as your Jedi powers fail you."
+   "COG_75404"	   0  "Kyle? He's gone insane."
+   "COG_85301"	   0  "Mara, you should not have come."
+   "COG_85302"	   0  "What's going on, Kyle? When you located the temple, why didn't you report in?"
+   "COG_85303"	   0  "Because, when I found the temple, I found a part of me which I couldn't deny."
+   "COG_85304"	   0  "I found a greater source of power than I had ever known."
+   "COG_85305"	   0  "Here, in these ruins?"
+   "COG_85306"	   0  "Don't judge with your eyes, Mara."
+   "COG_85307"	   0  "Reach out with the Force. Sense the power of the Sith around you. Accept it."
+   "COG_85308"	   0  "No! I sense only evil and death! Kyle, we have to get you away from here."
+   "COG_85309"	   0  "I have chosen my destiny, and it lies here."
+   "COG_85310"	   0  "Because of our friendship, I offer you the chance to leave. But do not persist in pursuing me."
+   "COG_85311"	   0  "If you do, I will not be responsible for the consequences."
+   "COG_85312"	   0  "Kyle... Wait!"
+   "COG_85313"	   0  "I don't like the look of this, but there's no other way."
+   "COG_91101"	   0  "This is Kyle, I've captured the Imperial shuttle."
+   "COG_91102"	   0  "I'm preparing to lift off for the asteroids. I'll contact you when I have them neutralized."
+   "COG_91103"	   0  "Understood.  Better make it fast. Their primary force will be here in no time."
+   "COG_91201"	   0  "There's no way he survived that fall. Base, this is TK8252."
+   "COG_91202"	   0  "We have eliminated the intruder. Repeat, we have eliminated the intruder. Out."
+   "COG_91301"	   0  "That takes care of one of them. Now to set the self-destruct and get out of here!"
+   "COG_91401"	   0  "Mara, this is Kyle. Mission accomplished, it's clear to give the evacuation codes."
+   "COG_91402"	   0  "Way to go, Kyle! I'll meet you at the hangar."
+   "COG_91403"	   0  "But why take separate ships?"
+   "COG_91404"	   0  "Because I've discovered some references to a hidden temple on the remote planet of Dromund Kaas."
+   "COG_91405"	   0  "Something I don't think the Empire wanted anyone to see."
+   "COG_91406"	   0  "Are you going to investigate?"
+   "COG_91407"	   0  "I feel... as if I have to."
+   "COG_91408"	   0  "And I suppose you have to do it alone."
+   "COG_91409"	   0  "Mara, I need you to stay here. The New Republic needs you--"
+   "COG_91410"	   0  "But my training!"
+   "COG_91411"	   0  "You've learned all you can from me."
+   "COG_91412"	   0  "Yeah, I understand. Look, you know where to find me."
+   "COG_91413"	   0  "May the Force be with you, Mara."
+   "COG_91415"	   0  "Try to stay out of trouble, Kyle."
+   "COG_92101"	   0  "Ugh! Tell your men to back off! Back off!"
+   "COG_92102"	   0  "|Do as she says! BACK!"
+   "COG_92103"	   0  "Look, I came here to make a simple deal. But no, you wanted to do things the hard way."
+   "COG_92104"	   0  "|Wait! This has all been a misunderstanding. Perhaps we can still work something out."
+   "COG_92105"	   0  "|I admire the tenacity and resourcefulness of the great Mara Jade, I could have use for someone like you in my operation."
+   "COG_92106"	   0  "I'm not here to work for you."
+   "COG_92107"	   0  "|Just one simple job. As a sign of good faith."
+   "COG_92108"	   0  "You're in no position to negotiate."
+   "COG_92109"	   0  "|Neither are you, Jade."
+   "COG_92110"	   0  "Very well. What do you propose?"
+   "COG_92112"	   0  "|A simple task for a Jedi such as yourself."
+   "COG_92113"	   0  "|My rival Takara has stolen a valuable piece of surveillance equipment, which he uses to listen in on my operations."
+   "COG_92114"	   0  "|Since Mon Mothma won't sell me the military countermeasures I need, you must get it back for me."
+   "COG_92115"	   0  "Fine, where is it?"
+   "COG_92116"	   0  "|Heh, heh. That's the trick isn't it? It's hidden deep within his stronghold."
+   "COG_92117"	   0  "|But as you have shown here, that should be no problem for a powerful Jedi as yourself."
+   "COG_92118"	   0  "|Return the equipment, and I will supply the New Republic with all the supplies they need."
+   "COG_92119"	   0  "Why do I feel like I'm going to regret this?"
+   "COG_92120"	   0  "|Ha ha ha ha..."
+   "COG_92204"	   0  "So, it seems the rat has run out of places to hide."
+   "COG_92205"	   0  "Ughnnn!"
+   "COG_92206"	   0  "Who's the rat now? You walked right into my trap."
+   "COG_92207"	   0  "Is this the best that Ka' Pa has to offer?"
+   "COG_92208"	   0  "Let's find our rat some suitable accommodations. I'm sure Takara will have some questions he'll want to ask her."
+   "COG_92401"	   0  "Ka' Pa, how nice of your men to recover my ship and load all the supplies for me."
+   "COG_92402"	   0  "You keep this up and you might give yourself a good name."
+   "COG_92403"	   0  "|I wouldn't worry too much about that. When can I expect my payment?"
+   "COG_92404"	   0  "As soon as I get these supplies back, you'll get your payment."
+   "COG_92405"	   0  "Of course, first I'll have to tell Mon Mothma about your illegal surveillance equipment. Being an honest Jedi and all."
+   "COG_92406"	   0  "|Heh, heh. Mara, you wound me."
+   "COG_92407"	   0  "|Perhaps we could just forget all that has happened, and consider the supplies my gift to the New Republic's cause. Goodbye, Mara Jade."
+   "COG_92408"	   0  "A pleasure doing business with you."
+   "COG_94128"	   0  "I'm not sure this is a good idea, but it's the only way."
+   "COG_94129"	   0  "I love this job!"
+   "COG_94201"	   0  "I doubt these guys would notice an extra passenger."
+   "COG_94301"	   0  "It's always nice to meet new people and make new enemies."
+   "COG_95001"	   0  "You are foolish, and for that you will die."
+   "COG_95002"	   0  "Grhh... I can't... NOOOOOOOoooo! I won't do this!"
+   "COG_95003"	   0  "This is not the way. It asks too much of me. I can't kill my friends and allies."
+   "COG_95004"	   0  "No, you can't. Trust in your feelings."
+   "COG_95005"	   0  "I was deluded too easily, I thought I could control the power. Instead I lost myself to it. I have failed."
+   "COG_95006"	   0  "You haven't failed, Kyle."
+   "COG_95007"	   0  "So, now I suppose you're the teacher, and I'm the student."
+   "COG_95008"	   0  "You should be so lucky. Come on, let's go home."
+   "COG_95401"	   0  "I should congratulate you, reaching the heart of the temple is not an easy journey."
+   "COG_95402"	   0  "By finding me, you have chosen your destiny. You have traveled far, now take the final step on the path that lies before you."
+   "COG_95403"	   0  "Join me, and together we will restore the Sith to its former glory."
+   "COG_95404"	   0  "No. That will never happen. I will kill you if I must, but I sense that you will not make that necessary."
+   "COG_95405"	   0  "There is no conflict... only resolve."
+   "COG_95406"	   0  "The path of your destiny is now set, and you have but two choices."
+   "COG_95407"	   0  "Cross the bridge before you and join me... or maintain your pitiful faith in the Force by stepping off into oblivion and death."
+
+END   # !!! DON'T FORGET TO UPDATE THE COUNT AT TOP
+
+

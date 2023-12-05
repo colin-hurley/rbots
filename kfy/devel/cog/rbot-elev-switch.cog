@@ -1,0 +1,110 @@
+# Rbot Elevator Switch Cog
+#
+# This elevator will go up to frame one, sleep, then come back down to frame 0 when
+# entered from the bottom.  When entered from the top, it should stay at the bottom.
+# The button surface is a call switch you can put at the top to call the thing up there.
+#
+# This is a customized version of 00_elev_switch.cog by LucasArts that has been updated
+# to support Rbots. It can be used as a drop-in replacement for any case where the
+# original is used, although it may need to be combined with other scripts (such as
+# rbot-arrival.cog) for best results.
+#
+# Note: This can also be used to replace usage of 00_elev_switch3.cog, which is identical
+# to 00_elev_switch.cog except that it has a different initial value for the wav0 symbol.
+#
+# Rbots originally created by Raynar
+
+symbols
+
+message		crossed
+message		activate
+message		arrived
+message		timer
+message		trigger
+
+surface		lower_adjoin0			linkid=1 mask=0x405
+surface		lower_adjoin1			linkid=1 mask=0x405
+surface		lower_adjoin2			linkid=1 mask=0x405
+surface		button					linkid=1
+
+thing		elevator				linkid=2
+
+flex		start_wait=0.25			desc=pause_before_moving_up
+flex		sleeptime=2.0
+flex		speed=4.0
+sound		wav0=Activate02.wav
+
+thing		rbot					local
+flex		dist					local
+
+end
+
+# ========================================================================================
+
+code
+crossed:                // If player crosses adjoin(s)
+   // Note: The sender ID check must be done before the sleep. We cannot simply sleep and
+   // then fall through to the activate message because another message (e.g. trigger) may
+   // run during the sleep and reset the sender ID, which will cause this thread to return
+   // instead of activating the elevator.
+   if (GetSenderId() != 1) return;
+   if (GetWallCel(button) == 1) return;
+
+   Sleep(start_wait);            // pause before moving up
+
+   SetWallCel(button, 1);
+   PlaySoundPos(wav0, SurfaceCenter(button), 0.6, -1, -1, 0);
+
+   MoveToFrame(elevator, 1, speed);
+   return;
+
+# ........................................................................................
+
+activate:                 // If player presses button
+   if (GetSenderId() != 1) return;  // message came from elevator
+   if (GetWallCel(button) == 1) return;
+
+   SetWallCel(button, 1);
+   PlaySoundPos(wav0, SurfaceCenter(button), 0.6, -1, -1, 0);
+
+   MoveToFrame(elevator, 1, speed);
+   return;
+
+# ........................................................................................
+
+arrived:
+   if (GetCurFrame(elevator) == 0) {
+      SetWallCel(button, 0);
+      PlaySoundPos(wav0, SurfaceCenter(button), 0.6, -1, -1, 0);
+   } else {
+      // Set sleep time at top
+      SetTimer(sleeptime);
+   }
+   return;
+
+# ........................................................................................
+
+timer:
+   // Send elevator down
+   MoveToFrame(elevator, 0, speed);
+   return;
+
+# ........................................................................................
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		if (GetWallCel(button) == 1) return;
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(button));
+		if (dist < 0.5) // if bot is close enough, activate call button
+		{
+			SetWallCel(button, 1);
+			PlaySoundPos(wav0, SurfaceCenter(button), 0.6, -1, -1, 0);
+			MoveToFrame(elevator, 1, speed);
+		}
+	}
+	return;
+
+end
+

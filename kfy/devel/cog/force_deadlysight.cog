@@ -1,0 +1,201 @@
+# Jedi Knight Cog Script
+#
+# FORCE_DEADLYSIGHT.COG
+#
+# FORCEPOWER Script - Deadly Sight
+#  Dark Side Bonus Power
+#  Bin 34
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       player                           local
+thing       victim                           local
+
+flex        cost=300.0                       local
+flex        mana                             local
+flex        limit                            local
+flex        count                            local
+flex        damage                           local
+flex        starthealth                      local
+int         rank                             local
+int         oldlight                         local
+int         retval=0                         local
+
+sound       deadlySound=ForceDSight01.WAV    local
+sound       deadlySound2=ForceDSight02.WAV   local
+int         channel=-1                       local
+
+template    smoke_tpl=+heavysmoke            local
+int         smoke                            local
+
+int         inbubble=0                       local
+
+message     startup
+message     activated
+message     pulse
+message     newplayer
+message     killed
+message     selected
+message     enterbubble
+message     exitbubble
+message     user0
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   player = GetLocalPlayerThing();
+   inbubble = 0;
+
+   oldlight = GetThingLight(player);
+   call stop_power;
+
+   Return;
+
+# ........................................................................................
+
+activated:
+   // Cannot use power if blinded
+   if(GetActorFlags(player) & 0x800) Return;
+
+   if(IsInvActivated(player, 34)) Return;
+
+   if(inbubble) Return;
+
+   mana = GetInv(player, 14);
+   if(mana >= cost || GetInv(player, 14) >= GetInv(player, 69))
+   {
+      SetInvActivated(player, 34, 1);
+      if(GetInv(player, 64) != 1) ChangeInv(player, 14, -cost);
+
+      // Send a "force disturbance"...
+      if(!IsMulti())
+         SendMessageExRadius(GetThingPos(player), cost, 0x4, splash, 34, 0, 0, 0);
+
+      rank = GetInv(player, 34);
+
+      PlayMode(player, 24);
+
+      // Play activation sound
+      PlaySoundThing(deadlySound, player, 1.0, -1, -1, 0x80);
+
+      // Play loop sound at 0.0 volume and fade it in to 1.0 volume in 0.75 secs
+      channel = PlaySoundThing(deadlySound2, player, 0.0, -1, -1, 0x81);
+      ChangeSoundVol(channel, 1.0, 0.75);
+
+      // make him a dynamic light too
+      oldlight = GetThingLight(player);
+      SetThingLight(player, 1.0, 1.0);
+
+      count = 0;
+      limit = 3 * rank;
+
+      starthealth = GetThingHealth(player);
+
+      SetPulse(0.5);
+   }
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+   count = count + 1;
+   if((count > limit) || (GetThingHealth(player) < starthealth) || (GetActorFlags(player) & 0x800))
+   {
+      call stop_power;
+      Return;
+   }
+
+   victim = FirstThingInView(player, 20 + 15 * rank, 2 + rank, 0x404);
+   while(victim != -1)
+   {
+      if(
+         HasLOS(player, victim) &&
+         (victim != player) &&
+         !(GetThingFlags(victim) & 0x200) &&
+         !(GetActorFlags(victim) & 0x100) &&
+         !((jkGetFlags(victim) & 0x20) && !IsInvActivated(player, 23)) &&
+         (jkGetBubbleDistance(victim) > 1.0)
+        )
+      {
+         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         if(!(GetThingFlags(victim) & 0x200))
+         {
+            SendTrigger(-1, 101999, victim, player, 34, rank); // send "skill" trigger to player/bot
+
+            if(victim != -1)
+               ChangeSoundVol(channel, 1.0, 0.1);
+            else
+               ChangeSoundVol(channel, 0.0, 0.1);
+
+            if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
+         }
+
+      }
+      victim = NextThingInView();
+   }
+
+   Return;
+
+# ........................................................................................
+
+selected:
+   jkPrintUNIString(player, 34);
+   Return;
+
+# ........................................................................................
+
+killed:
+   if(GetSenderRef() != player) Return;
+
+newplayer:
+   call stop_power;
+
+   Return;
+
+# ........................................................................................
+
+enterbubble:
+   inbubble = 1;
+   call stop_power;
+   Return;
+
+# ........................................................................................
+
+exitbubble:
+   inbubble = 0;
+   Return;
+
+# ........................................................................................
+
+user0:
+   call stop_power;
+   Return;
+
+# ........................................................................................
+
+stop_power:
+   if(channel != -1)
+   {
+      StopSound(channel, 0.1);
+      channel = -1;
+   }
+
+   SetPulse(0);
+   SetThingLight(player, oldlight, 0.0);
+   SetInvActivated(player, 34, 0);
+
+   Return;
+
+end
+
+

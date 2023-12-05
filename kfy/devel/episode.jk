@@ -1,0 +1,11 @@
+"Rbots Kill The Fool With The Ysalamiri"
+
+TYPE 8
+
+SEQ 1
+
+# <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
+
+10:	0	1	LEVEL	temple-1.jkl	0	0	10	-1
+
+end

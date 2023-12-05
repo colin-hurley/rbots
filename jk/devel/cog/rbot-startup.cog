@@ -28,9 +28,14 @@ int			respawn_mask1=0					# Team 1 (red)
 int			respawn_mask2=0					# Team 2 (gold)
 int			respawn_mask3=0					# Team 3 (blue)
 int			respawn_mask4=0					# Team 4 (green)
+int			teambotskinid1=-1
+int			teambotskinid2=-1
+int			teambotskinid3=-1
+int			teambotskinid4=-1
 
 int			gamemode							local
 int			maxbots								local
+int			maxteams							local
 int			initialized=0						local
 
 # References to rbot-srv.cog instances
@@ -66,6 +71,12 @@ cog			srv28=-1							local
 cog			srv29=-1							local
 cog			srv30=-1							local
 cog			srv31=-1							local
+
+# Team skin references
+cog			teambotskin1=-1						local
+cog			teambotskin2=-1						local
+cog			teambotskin3=-1						local
+cog			teambotskin4=-1						local
 
 # Respawn locations
 thing		respawn0							local
@@ -166,6 +177,7 @@ template	walkplayer_temp=walkplayer			local
 template	ghost_temp=rbot_respawn				local
 thing		player								local
 cog			srv									local
+cog			teambotskin							local
 
 end
 
@@ -224,6 +236,20 @@ startup:
 	}
 	if (numbots > maxbots) numbots = maxbots;
 
+	// Count the number of available teams
+	maxteams = 0;
+	for (i = 0 ; i < 4 ; i = i + 1)
+	{
+		if (teambotskin1[i] != -1)
+		{
+			maxteams = maxteams + 1;
+		}
+		else
+		{
+			i = 4; // break - end of list, no gaps allowed
+		}
+	}
+
 	// Determine game settings
 	gamemode = 0x0;
 	if (allowguns) gamemode = BitSet(gamemode, 0x1);
@@ -260,6 +286,23 @@ startup:
 
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1020) // rbot-srv.cog
+		{
+			botid = GetParam(2);
+			srv0[botid] = GetParam(1);
+		}
+		if (GetParam(0) == 1030) // rbot-skin.cog
+		{
+			for (i = 0 ; i < 4 ; i = i + 1)
+			{
+				if (GetParam(2) == teambotskinid1[i]) teambotskin1[i] = GetParam(1);
+			}
+		}
+		return;
+	}
 
 	if (GetSourceRef() == 910) // Add bot
 	{
@@ -413,16 +456,6 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 1852000) // Rbot cog type discovery
-	{
-		if (GetParam(0) == 1020) // rbot-srv.cog
-		{
-			botid = GetParam(2);
-			srv0[botid] = GetParam(1);
-		}
-		return;
-	}
-
 	return;
 
 timer:
@@ -540,7 +573,15 @@ sync_bot_count:
 	{
 		for (i = 0 ; i < numbots ; i = i + 1)
 		{
-			SendMessageEx(srv0[i], user7, 10203100, -1, -1, -1); // Enable bot
+			// Initialize team settings if needed
+			team = 0;
+			teambotskin = -1;
+			if ((GetMultiModeFlags() & 0x1) && maxteams > 0) // Team play
+			{
+				team = 1 + (i % maxteams);
+				teambotskin = teambotskin1[team-1];
+			}
+			SendMessageEx(srv0[i], user7, 10203100, team, teambotskin, -1); // Enable bot
 		}
 
 		for (i = numbots ; i < maxbots ; i = i + 1)

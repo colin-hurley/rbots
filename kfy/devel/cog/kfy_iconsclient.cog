@@ -1,0 +1,67 @@
+# Jedi Knight Cog Script
+#
+# KFY_ICONSCLIENT.COG
+#
+# Client side script to display icons.
+# SetInvActivated is NOT synched over the network,
+# this is a more generic way to do this kind of things
+#
+# It also takes care of altering the Y carrier's velocity
+# a little to give a better chase...
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+flags=0x240
+
+symbols
+
+int         iconnum                          local
+int         onoff                            local
+int         player                           local
+flex        originalVelocity                 local
+flex        slowerVelocity                   local
+
+message     startup
+message     trigger
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+
+   player = GetLocalPlayerThing();
+
+   Sleep(1);
+
+   originalVelocity = GetThingMaxVelocity(player);
+   slowerVelocity = originalVelocity * 0.80;
+
+   Return;
+
+# ........................................................................................
+
+trigger:
+
+   // Handle only TRIGGER_ICONS
+   if(GetSourceRef() != 1001) Return;
+
+   iconnum     = GetParam(0);
+   onoff       = GetParam(1);
+
+   SetInvActivated(player, iconnum, onoff);
+
+   if(onoff)
+      SetThingMaxVelocity(player, slowerVelocity);
+   else
+      SetThingMaxVelocity(player, originalVelocity);
+
+   Return;
+
+end
+
+

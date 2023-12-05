@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.massassi.rbots</groupId>
+		<artifactId>rbots-parent</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>rbots-kfy-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Rbots :: KFY Parent</name>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import managed dependencies for Rbots MotS so we can reuse the patch artifacts -->
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rbots-mots</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rbots-kfy</artifactId>
+				<version>${project.version}</version>
+				<type>zip</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rbots-kfy-devel</artifactId>
+				<version>${project.version}</version>
+				<type>zip</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rbots-kfy-episode</artifactId>
+				<version>${project.version}</version>
+				<type>gob</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rbots-kfy-sdk</artifactId>
+				<version>${project.version}</version>
+				<type>zip</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<modules>
+		<module>devel</module>
+		<module>dist</module>
+		<module>episode</module>
+		<module>sdk</module>
+	</modules>
+</project>

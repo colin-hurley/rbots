@@ -1,0 +1,134 @@
+# Rbot Administration Cog - Botcam
+#
+# A camera to watch the selected bot
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+# Additional code by Hell Raiser
+
+flags=0x240
+
+symbols
+
+message		startup
+message		shutdown
+message		user0
+message		user1
+message		trigger
+
+int			active=0							local
+thing		camera								local
+
+int			old_camera							local
+thing		player								local
+thing		rbot=-1								local
+int			botid=-1							local
+cog			srv=-1								local
+
+end
+
+code
+
+startup:
+	player = GetLocalPlayerThing();
+	camera = player;
+
+	// Register functions
+	SendMessageEx(GetInvCog(player, 118), user0, -1, -1, -1, -1);
+	return;
+
+shutdown:
+	// Reinitialize to default values when exiting level
+	active = 0;
+	botid = -1;
+	srv = -1;
+	rbot = -1;
+	return;
+
+// Execute
+user0:
+	active = 1 - active;
+	if (active)
+	{
+		Print("Botcam on");
+	}
+	else
+	{
+		Print("Botcam off");
+	}
+	call update_camera_focus;
+	return;
+
+// Concat current state
+user1:
+	if (active) jkStringConcatAsciiString("Botcam (ACTIVE)");
+	else jkStringConcatAsciiString("Botcam (NOT ACTIVE)");
+	return;
+
+trigger:
+	if (GetSourceRef() == 949 && GetParam(0) == botid) // Dead bot is about to be removed
+	{
+		rbot = -1;
+		call update_camera_focus;
+		return;
+	}
+
+	if (GetSourceRef() == 950 && GetParam(0) == botid) // Selected bot respawned
+	{
+		rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
+		call update_camera_focus;
+		return;
+	}
+
+	if (GetSourceRef() == 15080) // New bot selected
+	{
+		botid = GetParam(0);
+		srv = GetParam(1);
+		rbot = -1;
+		if (srv != -1) rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
+		call update_camera_focus;
+		return;
+	}
+
+	return;
+
+update_camera_focus:
+	// Set focus to selected bot, if possible
+	if (active) // Botcam is activated
+	{
+		if (rbot != -1) // A bot is selected
+		{
+			if (camera == player) // camera focus is currently the player
+			{
+				// Switching from player to bot
+				old_camera = GetCurrentCamera(); // save current camera state
+				SetCurrentCamera(1); // switch to external camera
+				SetActorFlags(player, 0x800000); // turn off HUD
+			}
+
+			// Focus camera on bot and return
+			SetCameraFocus(0, rbot);
+			SetCameraFocus(1, rbot);
+			camera = rbot;
+			return;
+		}
+	}
+
+	// Otherwise, return focus to the player
+	if (camera != player) // camera focus is currently not the player
+	{
+		// Switching from bot to player
+		SetCurrentCamera(old_camera); // restore previous camera state
+		ClearActorFlags(player, 0x800000); // turn on HUD
+
+		// Focus camera on player and return
+		SetCameraFocus(0, player);
+		SetCameraFocus(1, player);
+		camera = player;
+		return;
+	}
+
+	return;
+
+end

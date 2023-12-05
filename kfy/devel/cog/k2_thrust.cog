@@ -1,0 +1,52 @@
+# Jedi Knight Cog Script
+#
+# K2_THRUST.COG
+#
+# All the effects will be done in the client script.
+# That script will also hadle deactivation, as to
+# further reduce network traffic.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     switch                           mask=0x448
+
+int         active=0                         local
+
+message     damaged
+message     activated
+message     timer
+
+end
+
+# ========================================================================================
+
+code
+
+damaged:
+activated:
+
+   if(active) Return;
+
+   active = 1;
+
+   // Send a TRIGGER_THRUST with its parameters
+   SendTrigger(-1, 20001, switch, 0, 0, 0);
+   SetTimer(20);
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   active = 0;
+
+   Return;
+
+end
+
+

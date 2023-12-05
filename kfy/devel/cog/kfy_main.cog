@@ -1,0 +1,1003 @@
+# Jedi Knight Cog Script
+#
+# KFY_MAIN.COG (KFY v 1.3)
+#
+# Rules :
+# -----
+#
+# The aim of the game is to capture the Ysalamiri
+# and hold it for as long as possible.
+# You score for each time interval you possess it.
+#
+#
+# History :
+# -------
+#
+# What's new in 1.3 ?
+#
+# * Added the translucent bubble
+# * Made player and bubble fully lit
+# * Hid the Ysalamiri when carried
+#
+# What's new in 1.2 ?
+#
+# * Added the real Ysalamiri model and sound
+# * Added the nokfy mode when the time limit is > 500
+# * Added a slightly delayed game start so the server
+#   cannot immediately grab the Ysalamiri.
+#
+# What's new in 1.1 ?
+#
+# * Added friendly/unfriendly mode for KFY.
+#   This is set with the "teammode" checkbox in the GUI.
+# * Fixed the touched: bug that allowed to take the Ysalamiri from
+#   someone simply by touching him.
+# * Fixed the only the high scorer can score more bug.
+#
+# What's new in 1.0 ?
+#
+# * This script is losely based on CTF_MAIN.COG,
+#   so reading that one's docs might be useful.
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+thing       ysalamiri                        desc=ysalamiri
+thing       ysalamiri_pos                    desc=ysalamiri_pos nolink
+
+int         redsphere=-1                     local
+template    redsphere_tpl=+redsphere         local
+
+int         captured=0                       local
+int         carrier=-1                       local
+int         verbose=3                        local
+int         teammode=0                       local
+int         time_limit=0                     local
+int         score_limit=0                    local
+int         level_started=0                  local
+int         level_ended=0                    local
+
+int         hi_score=-1                      local
+int         hi_player=-1                     local
+
+int         player                           local
+int         killer                           local
+int         leaveplayer=0                    local
+int         senderRef=0                      local
+int         sourceRef=0                      local
+
+int         lock_touch=0                     local
+int         play_sounds=1                    local
+int         anim                             local
+int         dummy                            local
+int         dispCounter=0                    local
+
+int         kfy_capture=7                    local
+flex        kfy_perpulse=1.0                 local
+int         kfy_suicide=-2                   local
+int         kfy_kill_carrier=3               local
+flex        kfy_return_time=60.0             local
+
+int         nokfy=0                          local
+int         game_started=0                   local
+
+#keyframe    ysalamiri_anim=YSbobbin.key      local
+sound       ysalamirisnd=YsalaIdle1.WAV      local
+
+sound       pickupsnd=ForceThrow01.WAV       local
+sound       scoresnd=ForceThrow01.WAV        local
+sound       alarmsnd=00AlarmLoop01.WAV       local
+sound       successsnd=Accomplish1.WAV       local
+
+int         msgbase=1000                     local
+
+#vector     timeDate                         local
+
+message     startup
+message     touched
+message     timer
+message     killed
+message     leave
+message     join
+message     pulse
+
+# Triggers
+#
+# 1001 - ICONS#
+
+# Rbots support
+# Type ID: 3000
+
+cog         system=-1                        local
+
+# Transient working vars
+thing       rbot                             local
+int         priority                         local
+thing       item                             local
+thing       potential                        local
+int         score                            local
+
+# Apparently this variable is not defined in the original LEC version of kfy_main.cog.
+# This caused the game to play the wrong sound when the ysalamiri returns.
+# We define the variable here to fix the problem so the correct sound is played.
+sound       returnsnd=ForceThrow01.WAV       local
+
+message     trigger
+message     user7
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   // Debug level
+   verbose = 2;
+
+   if(verbose > 2) Print("KFY Startup Evt");
+
+   player = GetLocalPlayerThing();
+
+   // Old stuff to play KFY levels as DM levels
+   //time_limit = GetTimeLimit();
+   //if(time_limit > 500)
+   //{
+   //   nokfy = 1;
+   //   SetTimeLimit(time_limit - 500);
+   //   DestroyThing(ysalamiri);
+   //   DestroyThing(ysalamiri_pos);
+   //   Return;
+   //}
+
+   // SERVER ONLY startup:
+   if(IsServer() || !IsMulti())
+   {
+      // Allow other server-side cogs to discover this one by its type
+      SendTrigger(-1, 1852000, 3000, GetSelfCog(), -1, -1);
+
+      // Team mode                   (1)
+      // No damage to teammates      (2)
+      // KFY computes its own score  (4)
+
+      if(GetMultiModeFlags() & 0x1)
+      {
+         teammode = 2;
+         SetMultiModeFlags(0x7);
+      }
+      else
+      {
+         teammode = 0;
+         SetMultiModeFlags(0x5);
+         ClearMultiModeFlags(0x2);
+      }
+
+      // Auto assign teams          (100)
+      // This also disallow the command to change teams
+      ClearMultiModeFlags(0x100);
+
+      // No team tally display      (200)
+      SetMultiModeFlags(0x200);
+
+      // Initialize Time limit
+      if(GetMultiModeFlags() & 0x8)
+      {
+         time_limit = GetTimeLimit();
+         if(time_limit > 0) SetTimerEx(time_limit * 60, 9998, 0, 0);
+         ClearMultiModeFlags(0x8);
+      }
+
+      // Initialize Score limit
+      if(GetMultiModeFlags() & 0x10)
+      {
+         score_limit = GetScoreLimit();
+         ClearMultiModeFlags(0x10);
+      }
+
+      captured = 0;
+
+      // Capture the server player
+      CaptureThing(player);
+
+      // Send the Welcome information to the server player
+      SetTimerEx(2, 9996, player, 0);
+
+      // Because team mode might have assigned the server player to team 1
+      SetPlayerTeam(player, 0);
+
+      // Start main pulse (and ysalamiri position synching)
+      // Don't push this timer's frequency too high, there is quite a
+      // lot of info to sync on the pulse... think bandwidth :-)
+      SetPulse(3.0);
+
+      // Start the game a while after the server joins so
+      // that the server cannot immediately grab the Y
+      // Note: Delay reduced for Rbots. Bots join immediately, so this long
+      // delay is unnecessary and could confuse the player (and developers)
+      // who don't know about it.
+      SetTimerEx(5, 9997, 0, 0);
+   }
+
+   // Prepare the Ysalamiri
+   anim = ThingLightAnim(ysalamiri, 0.0, 0.5, 3);
+   PlaySoundThing(ysalamirisnd, ysalamiri, 0.50, 1.0, 15.0, 0x81);
+
+   // Set the Master COG
+   SetMasterCOG(GetSelfCOG());
+
+   // KFY Team for everybody is 0 (unfriendly) or 2 (friendly),
+   // except the ysalamiri carrier who is always 1
+   SetPlayerTeam(player, teammode);
+
+   // KFY Score
+   SetPlayerScore(player, 0);
+
+   // KFY Inventory
+   SetInv(player, 81, 0.0);
+   SetInvActivated(player, 81, 0);
+
+   // Play the ysalamiri bobbing anim locally on each machine
+   // PlayKey(ysalamiri, ysalamiri_anim, 1, 0);
+
+   // Make the Ysalamiri a bubble in the Force
+   jkCreateBubble(ysalamiri, 1.0, 1);
+
+   Return;
+
+# ........................................................................................
+
+pulse:
+
+   // Main score update and ysalamiri position/attachment resync.
+   if(captured == 2)
+   {
+      SyncThingAttachment(ysalamiri);
+      SyncThingAttachment(redsphere);
+
+      if(level_ended != 0) Return;
+
+      score = hi_score;
+
+      if(GetThingType(carrier) == 10) // player
+      {
+         score = GetPlayerScore(carrier) + kfy_perpulse;
+         SetPlayerScore(carrier, score);
+      }
+
+      if(GetThingType(carrier) == 2) // bot
+      {
+         score = SendMessageEx(GetThingClassCog(carrier), user7, 10203004, kfy_perpulse, -1, -1);
+      }
+
+      if(score > hi_score)
+      {
+         hi_score = score;
+         hi_player = carrier;
+
+         call check_score_limit;
+      }
+
+      // Don't display the score on every pulse, it is way too much.
+      dispCounter = dispCounter + 1;
+      if(dispCounter > 4)
+      {
+         dispCounter = 0;
+         jkStringClear();
+         if(GetThingType(carrier) == 10) // player
+         {
+            jkStringConcatPlayerName(carrier);
+         }
+         if(GetThingType(carrier) == 2) // bot
+         {
+            jkStringConcatUNIString(1000 + SendMessageEx(GetThingClassCog(carrier), user7, 10201001, -1, -1, -1));
+         }
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 19);
+         jkStringConcatInt(score);
+         if(score == 1)
+            jkStringConcatUNIString(msgbase + 20);
+         else
+            jkStringConcatUNIString(msgbase + 21);
+         jkStringOutput(-3, -1);
+      }
+   }
+   else
+   {
+      SyncThingPos(ysalamiri);
+   }
+
+   // Update KFY info to all other cogs (rbots)
+   SendTrigger(-1, 12220, captured, carrier, -1, -1);
+
+   Return;
+
+# ........................................................................................
+
+join:
+   if(verbose > 2) Print("KFY Join Evt");
+
+   //if(nokfy) Return;
+
+   player = GetSenderRef();
+
+   // KFY must have permanent access to the players' events
+   CaptureThing(player);
+
+   SetPlayerTeam(player, teammode);
+   SetPlayerScore(player, 0);
+   SetPlayerKills(player, 0);
+   SetPlayerKilled(player, 0);
+   SetPlayerSuicides(player, 0);
+
+   // Send the Welcome information, but delay it by 2 seconds
+   SetTimerEx(2, 9996, player, 0);
+
+   if(captured == 2)
+   {
+      SyncThingAttachment(ysalamiri);
+      SyncThingAttachment(redsphere);
+   }
+   else
+   {
+      SyncThingPos(ysalamiri);
+   }
+
+   Return;
+
+# ........................................................................................
+
+leave:
+   if(verbose > 2) Print("KFY Leave Evt");
+
+   //if(nokfy) Return;
+
+   leaveplayer = GetSenderRef();
+
+do_leave:
+
+   if(carrier == leaveplayer)
+   {
+      // Remove the ysalamiri from the leaving player's model
+      DetachThing(ysalamiri);
+
+      // Show Ysalamiri
+      ClearThingFlags(ysalamiri, 0x10);
+
+      // Set the player's model to Gouraud lit
+      SetThingLightMode(leaveplayer, 3);
+
+      // Destoy the redsphere
+      DestroyThing(redsphere);
+      redsphere = -1;
+
+      if(GetThingType(leaveplayer) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(leaveplayer, 1001, 81, 0, 0, 0);
+
+         // Remove the ysalamiri from the player's inventory
+         SetInv(leaveplayer, 81, 0.0);
+      }
+
+      // The ysalamiri no longer has a carrier
+      carrier = -1;
+
+      captured = 1;
+
+      // return the ysalamiri after 2 seconds only
+      SetTimerEx(2, 1, 0, 0);
+   }
+
+   Return;
+
+# ........................................................................................
+
+# Note: For whatever reason, bots don't cause the ysalamiri to send a
+# touched message. Changing the mask on the ysalamiri symbol does not
+# make a difference. So for now, we will continue relying on the
+# item pickup message sent from rbot-srv.cog.
+touched:
+   if(verbose > 2) Print("KFY Touched Evt");
+
+   player = GetSourceRef();
+   senderRef = GetSenderRef();
+
+do_touched:
+
+   //if(nokfy) Return;
+
+   if(!game_started) Return;
+
+   if(lock_touch == 1) Return;
+
+   // Exit if the Ysalamiri is already captured
+   if(captured == 2) Return;
+
+   // Exit if one of the limits has been reached
+   if(level_ended != 0) Return;
+
+   // sometimes a dead/dying player can touch the ysalamiri and snatch it...
+   // Health is not synched, so use SITH_TF_DYING instead
+   if(GetThingFlags(player) & 0x200) Return;
+
+   // Don't allow more than one touch per 0.5 second
+   lock_touch = 1;
+   SetTimerEx(0.5, 9990, 0, 0);
+
+   if(senderRef == ysalamiri)
+   {
+      if(level_ended != 0) Return;
+
+      if(play_sounds)
+      {
+         PlaySoundGlobal(pickupsnd, 1, 0, 4);
+         // Play an alarm sound
+         KillTimerEx(9995);
+         SetTimerEx(1, 9995, 0, 0);
+      }
+
+      if(verbose > 0)
+      {
+         // "Playername took the Ysalamiri!"
+         jkStringClear();
+         if(GetThingType(player) == 10) // player
+         {
+            jkStringConcatPlayerName(player);
+         }
+         if(GetThingType(player) == 2) // bot
+         {
+            jkStringConcatUNIString(1000 + SendMessageEx(GetThingClassCog(player), user7, 10201001, -1, -1, -1));
+         }
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 10);
+         jkStringOutput(-3, -1);
+      }
+
+      if(GetThingType(player) == 10) // player
+      {
+         // Change the player's team to 1
+         SetPlayerTeam(player, 1);
+
+         // Set an Ysalamiri icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(player, 1001, 81, 1, 0, 0);
+
+         // Give the Ysalamiri to the player
+         SetInv(player, 81, 1.0);
+      }
+
+      if(GetThingType(player) == 2) // bot
+      {
+         // Change the player's team to 1
+         SendMessageEx(GetThingClassCog(player), user7, 10203002, 1, -1, -1);
+      }
+
+      // Move the Ysalamiri up relative to the player
+      SetThingPos(Ysalamiri, VectorAdd(GetThingPos(player), '0.0 0.0 0.095'));
+
+      // Attach the ysalamiri to the player
+      SetThingLook(Ysalamiri, GetThingLVec(player));
+      AttachThingToThingEx(Ysalamiri, player, 0x8);
+
+      // Hide Ysalamiri
+      SetThingFlags(ysalamiri, 0x10);
+
+      redsphere = CreateThing(redsphere_tpl, player);
+      AttachThingToThingEx(redsphere, player, 0x8);
+
+      // Set the player's model to fully lit
+      SetThingLightMode(player, 0);
+
+      // The ysalamiri is now being carried by this player
+      carrier = player;
+
+      if(GetThingType(carrier) == 10) // player
+      {
+         // Increment player score
+         score = GetPlayerScore(carrier) + kfy_capture;
+         SetPlayerScore(carrier, score);
+      }
+
+      if(GetThingType(carrier) == 2) // bot
+      {
+         // Increment player score
+         score = SendMessageEx(GetThingClassCog(carrier), user7, 10203004, kfy_capture, -1, -1);
+      }
+
+      if(score > hi_score)
+      {
+         hi_score = score;
+         hi_player = carrier;
+         call check_score_limit;
+      }
+
+      captured = 2;
+   }
+
+   Return;
+
+# ........................................................................................
+
+timer:
+   // Send the Ysalamiri home ?
+   if(GetSenderId() == 1)
+   {
+      if(captured == 1)
+      {
+         if(play_sounds) dummy = PlaySoundThing(returnsnd, ysalamiri, 1.0, -1, -1, 0);
+
+         TeleportThing(ysalamiri, ysalamiri_pos);
+
+         if(verbose > 0)
+         {
+            // Print("Ysalamiri has returned !");
+            jkPrintUNIString(-3, msgbase + 11);
+         }
+
+         captured = 0;
+         Return;
+      }
+   }
+   else
+   // unlock touched: messages
+   if(GetSenderId() == 9990)
+   {
+      lock_touch = 0;
+   }
+   else
+   // play success sound
+   if(GetSenderId() == 9994)
+   {
+      PlaySoundGlobal(successsnd, 1, 0, 4);
+   }
+   else
+   // play alarm sound
+   if(GetSenderId() == 9995)
+   {
+      PlaySoundGlobal(alarmsnd, 1, 0, 4);
+   }
+   else
+   // Time to display the welcome info for a new player
+   if(GetSenderId() == 9996)
+   {
+      if(verbose > 1)
+      {
+         player = GetParam(0);
+
+         // Print("Welcome to Jedi Knight KFY!");
+         jkPrintUNIString(player, msgbase + 1);
+
+         jkStringClear();
+         if(teammode == 0)
+            jkStringConcatUNIString(msgbase + 6); // "Unfriendly Mode"
+         else
+            jkStringConcatUNIString(msgbase + 5); // "Friendly Mode"
+         jkStringOutput(player, -1);
+
+         jkStringClear();
+         if(time_limit != 0)
+         {
+            jkStringConcatUNIString(msgbase + 7);
+            jkStringConcatInt(time_limit);
+            jkStringConcatSpace();
+            jkStringConcatSpace();
+         }
+
+         if(score_limit != 0)
+         {
+            jkStringConcatUNIString(msgbase + 8);
+            jkStringConcatInt(score_limit);
+         }
+
+         jkStringOutput(player, -1);
+      }
+   }
+   else
+   // Start the game
+   if(GetSenderId() == 9997)
+   {
+      game_started = 1;
+   }
+   else
+   // The event comes from the level's timelimit being reached
+   // Just check that a limit has not been reached before...
+   if(GetSenderId() == 9998)
+   {
+      if(level_ended != 0) Return;
+
+      if(verbose > 2) Print("KFY Time limit reached");
+      level_ended = 2;
+
+      call end_level;
+   }
+   else
+   // End the level
+   if(GetSenderId() == 9999)
+   {
+      SyncScores();
+      jkDestroyBubble(ysalamiri);
+      jkEndLevel(1);
+   }
+
+   Return;
+
+# ........................................................................................
+
+killed:
+   if(verbose > 2) Print("KFY Killed Evt");
+
+   //if(nokfy) Return;
+
+   senderRef = GetSenderRef();
+   sourceRef = GetSourceRef();
+
+   // Exit if killed: was sent by anything else than a thing
+   if(GetSenderType() != 3) Return;
+
+   // Exit if killed: was sent by one of the flags
+   // (powerups send killed: event when taken too...)
+
+   if(senderRef == ysalamiri) Return;
+
+   player = senderRef;
+
+do_killed:
+
+   // Drop the ysalamiri where the carrier died
+   if(carrier == player)
+   {
+      if(GetThingType(player) == 10) // player
+      {
+         // Change the player's team to 0 or 2
+         SetPlayerTeam(player, teammode);
+      }
+
+      if(GetThingType(player) == 2) // bot
+      {
+         // Change the player's team to 0 or 2
+         SendMessageEx(GetThingClassCog(player), user7, 10203002, teammode, -1, -1);
+      }
+
+      // Remove the flag from the dead player's model
+      DetachThing(ysalamiri);
+
+      // Make Ysalamiri visible again
+      ClearThingFlags(ysalamiri, 0x10);
+
+      // Set the player's model to Gouraud lit
+      SetThingLightMode(player, 3);
+
+      DestroyThing(redsphere);
+      redsphere = -1;
+
+      if(GetThingType(player) == 10) // player
+      {
+         // Remove the icon
+         // Send a TRIGGER_ICON with its parameters
+         SendTrigger(player, 1001, 81, 0, 0, 0);
+
+         // Remove the ysalamiri from the player's inventory
+         SetInv(player, 81, 0.0);
+      }
+
+      captured = 1;
+
+      // The ysalamiri no longer has a carrier
+      carrier = -1;
+
+      // the killed guy had the Ysalamiri
+      // add kfy_kill_carrier to the killer score if teammode = 0
+      killer = GetThingParent(sourceRef);
+      if(GetThingType(killer) == 2) // bot
+      {
+         if(SendMessageEx(system, user7, 10103000, killer, -1, -1) == -1) // non-bot actor
+         {
+            killer = player; // for non-bot actors, treat as suicide
+         }
+      }
+
+      if(teammode == 0)
+      {
+         if(killer != player)
+         {
+            if(GetThingType(killer) == 10) // player
+            {
+               // Increment player score
+               SetPlayerScore(killer, GetPlayerScore(killer) + kfy_kill_carrier);
+            }
+
+            if(GetThingType(killer) == 2) // bot
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, kfy_kill_carrier, -1, -1);
+            }
+         }
+         else
+         {
+            if(GetThingType(player) == 10) // player
+            {
+               SetPlayerScore(killer, GetPlayerScore(killer) + kfy_suicide);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, kfy_suicide, -1, -1);
+            }
+         }
+      }
+      else
+      {
+         if(killer != player)
+         {
+            if(GetThingType(killer) == 10) // player
+            {
+               // Increment player score
+               SetPlayerScore(killer, GetPlayerScore(killer) + kfy_kill_carrier);
+            }
+
+            if(GetThingType(killer) == 2) // bot
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, kfy_kill_carrier, -1, -1);
+            }
+         }
+      }
+
+      // if SITH_SECTOR_FALLDEATH return the ysalamiri nearly immediately
+      if(GetSectorFlags(GetThingSector(player)) & 0x40)
+         SetTimerEx(0.6, 1, 0, 0);
+      else
+      // if SITH_SECTOR_UNDERWATER return the ysalamiri quickly
+      if(GetSectorFlags(GetThingSector(player)) & 0x2)
+         SetTimerEx(5, 1, 0, 0);
+      else
+         SetTimerEx(kfy_return_time, 1, 0, 0);
+
+      if(verbose > 0)
+      {
+         // "Playername lost the Ysalamiri!"
+         jkStringClear();
+         if(GetThingType(player) == 10) // player
+         {
+            jkStringConcatPlayerName(player);
+         }
+         if(GetThingType(player) == 2) // bot
+         {
+            jkStringConcatUNIString(1000 + SendMessageEx(GetThingClassCog(player), user7, 10201001, -1, -1, -1));
+         }
+         jkStringConcatSpace();
+         jkStringConcatUNIString(msgbase + 12);
+         jkStringOutput(-3, -1);
+      }
+   }
+   else
+   {
+      // the killed guy didn't have the Ysalamiri
+      // add 1 to the killer score if teammode = 0
+      if(teammode == 0)
+      {
+         killer = GetThingParent(sourceRef);
+         if(GetThingType(killer) == 2) // bot
+         {
+            if(SendMessageEx(system, user7, 10103000, killer, -1, -1) == -1) // non-bot actor
+            {
+               killer = player; // for non-bot actors, treat as suicide
+            }
+         }
+
+         if(killer != player)
+         {
+            if(GetThingType(killer) == 10) // player
+            {
+               // Increment player score
+               SetPlayerScore(killer, GetPlayerScore(killer) + 1);
+            }
+
+            if(GetThingType(killer) == 2) // bot
+            {
+               // Increment player score
+               SendMessageEx(GetThingClassCog(killer), user7, 10203004, 1, -1, -1);
+            }
+         }
+         else
+         {
+            if(GetThingType(player) == 10) // player
+            {
+               SetPlayerScore(killer, GetPlayerScore(killer) + kfy_suicide);
+            }
+
+            if(GetThingType(player) == 2) // bot
+            {
+               SendMessageEx(GetThingClassCog(player), user7, 10203004, kfy_suicide, -1, -1);
+            }
+         }
+      }
+   }
+
+   Return;
+
+# ========================================================================================
+
+show_end:
+   if(verbose > 0)
+   {
+      // Space
+      jkPrintUNIString(-3, msgbase + 22);
+
+      if(level_ended == 1)
+      {
+         // Print("--==<< Score Limit Reached >>==--");
+         jkPrintUNIString(-3, msgbase + 2);
+      }
+
+      if(level_ended == 2)
+      {
+         // Print("--==<< Time Limit Reached >>==--");
+         jkPrintUNIString(-3, msgbase + 3);
+      }
+
+      // Space
+      jkPrintUNIString(-3, msgbase + 22);
+   }
+
+   Return;
+
+# ........................................................................................
+
+end_level:
+
+   SyncScores();
+
+   call show_end;
+
+   // display final scores
+   KillTimerEx(9997);
+   SetTimerEx(3, 9997, 0, 0);
+
+   // until it is time to quit the level
+   SetTimerEx(4, 9999, 0, 0);
+
+   Return;
+
+# ........................................................................................
+
+check_score_limit:
+
+   // there must be a score limit
+   if(score_limit <= 0) Return;
+
+   if(hi_score >= score_limit)
+   {
+      level_ended = 1;
+      call end_level;
+   }
+
+   Return;
+
+# ........................................................................................
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+
+	if (GetSourceRef() == 970) goto botjoin;
+	if (GetSourceRef() == 971) goto botleave;
+	if (GetSourceRef() == 960) goto botkilled;
+	Return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 30003010) // get item priority
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+		priority = GetParam(3);
+		if (item == ysalamiri)
+		{
+			if (captured != 2) priority = 10; // ysalamiri dropped or at home
+		}
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003020) // pickup item
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+
+		if (item == ysalamiri && captured != 2) // try to pick up the ysalamiri
+		{
+			goto bottouched;
+		}
+
+		ReturnEx(0);
+		return;
+	}
+
+	if (GetParam(0) == 30003030) // get target priority
+	{
+		rbot = GetParam(1);
+		potential = GetParam(2);
+		priority = GetParam(3);
+		// The player/bot carrying the ysalamiri gets highest target priority
+		if (carrier == potential) priority = 10;
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003050) // decide whether to move toward target
+	{
+		rbot = GetParam(1);
+		#potential = GetParam(2);
+		if (carrier == rbot) // bot has ysalamiri
+		{
+			// The bot has the ysalamiri, so try to stay away from other players to score more points
+			ReturnEx(0);
+			return;
+		}
+		ReturnEx(1);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "kfy_main.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+botjoin:
+   if(verbose > 2) Print("KFY Bot Join Evt");
+
+   player = GetParam(1);
+   SendMessageEx(GetThingClassCog(player), user7, 10203002, teammode, -1, -1);
+
+   Return;
+
+botleave:
+   if(verbose > 2) Print("KFY Bot Leave Evt");
+
+   leaveplayer = GetParam(1);
+
+   goto do_leave;
+   Return;
+
+bottouched:
+   if(verbose > 2) Print("KFY Bot Touched Evt");
+
+   player = GetParam(1);
+   senderRef = GetParam(2);
+
+   goto do_touched;
+   Return;
+
+botkilled:
+   if(verbose > 2) Print("KFY Bot Killed Evt");
+
+   senderRef = GetParam(0);
+   sourceRef = GetParam(1);
+
+   player = senderRef;
+
+   goto do_killed;
+   Return;
+
+end
+

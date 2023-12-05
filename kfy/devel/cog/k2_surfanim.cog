@@ -1,0 +1,35 @@
+# Jedi Knight Cog Script
+#
+# K2_SURFANIM.COG
+#
+# [YB]
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+
+
+symbols
+
+surface     sign
+surface     sign1
+surface     sign2
+surface     sign3
+
+flex        fps=5.0                       desc=playback_speed
+
+message     startup
+
+end
+
+# ========================================================================================
+
+code
+
+startup:
+   if(sign[0] >= 0) SurfaceAnim(sign[0], fps, 0x1);
+   if(sign[1] >= 0) SurfaceAnim(sign[1], fps, 0x1);
+   if(sign[2] >= 0) SurfaceAnim(sign[2], fps, 0x1);
+   if(sign[3] >= 0) SurfaceAnim(sign[3], fps, 0x1);
+
+   Return;
+
+end

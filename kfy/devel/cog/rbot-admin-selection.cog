@@ -1,0 +1,186 @@
+# Rbot Administration Cog - Bot selector
+# Type ID: 2010
+#
+# This cog provides the ability to select a bot for certain admin functions
+# that need to operate on a single bot at a time.
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		startup
+message		shutdown
+message		trigger
+message		user0
+message		user1
+message		user7
+
+int			nextbot								local
+int			prevbot								local
+
+int			selection=-1						local
+
+# Reference to rbot-startup.cog
+cog			system=-1							local
+
+# References to rbot-srv.cog, indexed by botid (up to 32 bots supported)
+cog			srv0=-1								local
+cog			srv1=-1								local
+cog			srv2=-1								local
+cog			srv3=-1								local
+cog			srv4=-1								local
+cog			srv5=-1								local
+cog			srv6=-1								local
+cog			srv7=-1								local
+cog			srv8=-1								local
+cog			srv9=-1								local
+cog			srv10=-1							local
+cog			srv11=-1							local
+cog			srv12=-1							local
+cog			srv13=-1							local
+cog			srv14=-1							local
+cog			srv15=-1							local
+cog			srv16=-1							local
+cog			srv17=-1							local
+cog			srv18=-1							local
+cog			srv19=-1							local
+cog			srv20=-1							local
+cog			srv21=-1							local
+cog			srv22=-1							local
+cog			srv23=-1							local
+cog			srv24=-1							local
+cog			srv25=-1							local
+cog			srv26=-1							local
+cog			srv27=-1							local
+cog			srv28=-1							local
+cog			srv29=-1							local
+cog			srv30=-1							local
+cog			srv31=-1							local
+
+# Working vars
+int			i									local
+int			numbots								local
+int			botid								local
+int			botname								local
+cog			srv									local
+
+end
+
+code
+
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Register functions
+	nextbot = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	prevbot = SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 2010, GetSelfCog(), botid, -1);
+	return;
+
+shutdown:
+	// Reset variables when exiting level so we don't have a stale references
+	// and values when the next level starts.
+	system = -1;
+	for (i = 0 ; i < 32 ; i = i + 1)
+	{
+		srv0[i] = -1;
+	}
+	selection = -1;
+	return;
+
+trigger:
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		else if (GetParam(0) == 1020) // rbot-srv.cog
+		{
+			botid = GetParam(2);
+			srv0[botid] = GetParam(1);
+		}
+	}
+	return;
+
+// Execute
+user0:
+	numbots = SendMessageEx(system, user7, 10101000, -1, -1, -1);
+	if (GetParam(0) == nextbot)
+	{
+		selection = selection + 1; // Select next bot
+		if (selection >= numbots) selection = -1; // Ensure valid bot reference
+	}
+	else if (GetParam(0) == prevbot)
+	{
+		if (selection == -1) selection = numbots - 1; // Wrap around and select last bot
+		else selection = selection - 1; // Select previous bot
+		if (selection >= numbots || selection < 0) selection = -1; // Ensure valid bot reference
+	}
+
+	if (selection != -1)
+	{
+		srv = srv0[selection];
+		if (srv != -1)
+		{
+			botname = SendMessageEx(srv, user7, 10201001, -1, -1, -1);
+			jkStringClear();
+			jkStringConcatAsciiString("Selected bot: ");
+			jkStringConcatUNIString(1000+botname);
+			jkStringOutput(-1, -1);
+			SendTrigger(-1, 15080, selection, srv, -1, -1);
+		}
+		else
+		{
+			jkStringClear();
+			jkStringConcatFormattedInt(selection, "Error: No rbot-srv.cog found for botid %d");
+			jkStringOutput(-1, -1);
+		}
+	}
+	else
+	{
+		jkStringClear();
+		jkStringConcatAsciiString("No bot selected");
+		jkStringOutput(-1, -1);
+		SendTrigger(-1, 15080, -1, -1, -1, -1);
+	}
+
+	return;
+
+// Concat current state
+user1:
+	if (GetParam(0) == nextbot) jkStringConcatAsciiString("Select next bot");
+	else if (GetParam(0) == prevbot) jkStringConcatAsciiString("Select previous bot");
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	// Simple symbol value reads
+	if (GetParam(0) == 1000) { ReturnEx(selection); return; }
+
+	// Computed values
+	if (GetParam(0) == 2000)
+	{
+		if (selection == -1) ReturnEx(-1);
+		else ReturnEx(srv0[selection]);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-admin-selection.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+end

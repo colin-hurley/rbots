@@ -1,0 +1,96 @@
+# Rbot Special Cog
+#
+# Server-only
+#
+# This cog applies special modes and effects to a bot for a short duration
+# after the bot reaches a node.
+#
+# Rbots originally created by Raynar
+
+flags=0x280
+
+symbols
+
+message		trigger
+
+# Special nodes
+thing		sp0=-1								nolink
+thing		sp1=-1								nolink
+thing		sp2=-1								nolink
+thing		sp3=-1								nolink
+thing		sp4=-1								nolink
+thing		sp5=-1								nolink
+thing		sp6=-1								nolink
+thing		sp7=-1								nolink
+thing		sp8=-1								nolink
+thing		sp9=-1								nolink
+thing		sp10=-1								nolink
+thing		sp11=-1								nolink
+thing		sp12=-1								nolink
+thing		sp13=-1								nolink
+thing		sp14=-1								nolink
+thing		sp15=-1								nolink
+thing		sp16=-1								nolink
+thing		sp17=-1								nolink
+thing		sp18=-1								nolink
+thing		sp19=-1								nolink
+
+# Flags for each special node
+int			spinf0=0
+int			spinf1=0
+int			spinf2=0
+int			spinf3=0
+int			spinf4=0
+int			spinf5=0
+int			spinf6=0
+int			spinf7=0
+int			spinf8=0
+int			spinf9=0
+int			spinf10=0
+int			spinf11=0
+int			spinf12=0
+int			spinf13=0
+int			spinf14=0
+int			spinf15=0
+int			spinf16=0
+int			spinf17=0
+int			spinf18=0
+int			spinf19=0
+
+# Working variables
+int			mode								local
+int			i									local
+int			botid								local
+#thing		rbot								local
+thing		node								local
+
+end
+
+# ========================================================================================
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+	
+	if (GetSourceRef() == 11010) // Special info request from bot
+	{
+		botid = GetParam(0); // which bot requested the info
+		#rbot = GetParam(1);
+		node = GetParam(2);
+
+		mode = 2; // Activate for short duration
+
+		// Apply special modes
+		for (i = 0 ; i < 20 ; i = i + 1)
+		{
+			if (sp0[i] == node && spinf0[i]) // This is the node that the bot reached and it has special info
+			{
+				SendTrigger(-1, 11020, botid, spinf0[i], mode, -1); // send special info update to bot
+			}
+		}
+	}
+	return;
+
+end
+

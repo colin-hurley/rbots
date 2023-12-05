@@ -1,0 +1,47 @@
+# Rbot Administration Cog - Slow Motion
+#
+# This utility will toggle slow motion play.
+#
+# See also: rbot-admin.cog
+#
+# Rbots originally created by Raynar
+
+flags=0x40
+
+symbols
+
+message		startup
+message		user0
+message		user1
+
+end
+
+code
+
+startup:
+	// Register functions
+	SendMessageEx(GetInvCog(GetLocalPlayerThing(), 118), user0, -1, -1, -1, -1);
+	return;
+
+
+// Execute
+user0:
+	if (!(GetDebugModeFlags() & 0x400))
+	{
+		Print("Slow motion on");
+		SetDebugModeFlags(0x400);
+	}
+	else
+	{
+		Print("Slow motion off");
+		ClearDebugModeFlags(0x400);
+	}
+	return;
+
+// Concat current state
+user1:
+	if (GetDebugModeFlags() & 0x400) jkStringConcatAsciiString("Slow motion (ACTIVE)");
+	else jkStringConcatAsciiString("Slow motion (NOT ACTIVE)");
+	return;
+
+end

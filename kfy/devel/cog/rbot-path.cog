@@ -1,5 +1,7 @@
 # Rbot Path Cog (KFY)
 #
+# Server-only
+#
 # Specify a path for bot navigation. The path is a sequence of nodes that the
 # bot will follow.
 #
@@ -20,7 +22,7 @@
 # Path run directions:
 #
 # In most cases, the bot will need to run in a certain direction on a path to
-# reach the target base.  The valid run direction values are:
+# reach the Ysalamiri home. The valid run direction values are:
 #   -1 = either direction
 #    0 = backward only
 #    1 = forward only
@@ -101,10 +103,10 @@ int			requirements=0
 
 # KFY path attributes
 
-# The rank for this path when seeking the ysalamiri home
+# The rank for this path when seeking the Ysalamiri home
 int			kfyrank=-1
 
-# The direction the bot must run on this path to reach the ysalamiri home
+# The direction the bot must run on this path to reach the Ysalamiri home
 int			kfyrundir=-1
 
 # KFY game state
@@ -230,8 +232,8 @@ int			looping=0							local
 # Working variables
 int			i									local
 #thing		rbot								local
-int			path_rank							local
-int			path_rundir							local
+int			rank								local
+int			rundir								local
 
 end
 
@@ -295,20 +297,20 @@ trigger:
 
 		#rbot = GetParam(1);
 
-		// Help bot navigate to ysalamiri home
-		path_rank = -1;
-		path_rundir = -1;
-		if (captured == 0) // ysalamiri is at home
+		// Help bot navigate to Ysalamiri home
+		rank = -1;
+		rundir = -1;
+		if (captured == 0) // Ysalamiri is at home
 		{
-			path_rank = kfyrank;
-			path_rundir = kfyrundir;
+			rank = kfyrank;
+			rundir = kfyrundir;
 		}
 		if (unidirectional) // Must run forward on this path
 		{
-			path_rundir = 1;
+			rundir = 1;
 		}
 
-		SendTrigger(-1, 13030, path_size, requirements, path_rank, path_rundir); // Path data response
+		SendTrigger(-1, 13030, path_size, requirements, rank, rundir); // Path data response
 		SendTrigger(-1, 13031, pathflags, -1, -1, -1); // Path data response
 		return;
 	}

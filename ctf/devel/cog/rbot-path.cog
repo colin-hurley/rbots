@@ -1,6 +1,34 @@
-# Rbot Path Cog
+# Rbot Path Cog (CTF)
 #
 # Server-only
+#
+# Specify a path for bot navigation. The path is a sequence of nodes that the
+# bot will follow.
+#
+# This variant of the cog supports intelligent navigation to the red and gold
+# flag bases for CTF matches.
+#
+# Path ranks:
+#
+# When the bot is seeking a flag base and reaches an intersection between
+# multiple paths, it will switch to the path with the highest priority. This
+# ensures that the bot will reach the base as quickly and efficiently as
+# possible, rather than wandering about the map randomly and hoping to come
+# across the base by chance. The highest priority path is the one with the
+# highest rank value.
+#
+# The rank value must be a non-negative integer (0,1,2,...) or -1 for no rank.
+#
+# Path run directions:
+#
+# In most cases, the bot will need to run in a certain direction on a path to
+# reach the target base. The valid run direction values are:
+#   -1 = either direction
+#    0 = backward only
+#    1 = forward only
+#
+# Note that if the path is unidirectional, the configured run direction will be
+# ignored, since the bot must always run forward on unidirectional paths.
 #
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
@@ -72,6 +100,26 @@ int			pathflags=0							local
 # 0x1 / 1 = require red CTF key
 # 0x2 / 2 = require gold CTF key
 int			requirements=0
+
+# CTF path attributes
+
+# The rank for this path when seeking the red base
+int			redrank=-1
+
+# The direction the bot must run on this path to reach the red base
+int			redrundir=-1
+
+# The rank for this path when seeking the gold base
+int			goldrank=-1
+
+# The direction the bot must run on this path to reach the gold base
+int			goldrundir=-1
+
+# CTF game state
+int			captured_red						local
+int			captured_gold						local
+thing		red_flag_carrier					local
+thing		gold_flag_carrier					local
 
 # Save positions of all nodes
 vector		nodepos0							local
@@ -192,8 +240,9 @@ int			looping=0							local
 # Working variables
 int			i									local
 thing		rbot								local
-int			path_rank							local
-int			path_rundir							local
+int			dest								local
+int			rank								local
+int			rundir								local
 
 end
 
@@ -244,24 +293,72 @@ startup:
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
 
+	if (GetSourceRef() == 12210) // CTF info update
+	{
+		captured_red = GetParam(0);
+		captured_gold = GetParam(1);
+		red_flag_carrier = GetParam(2);
+		gold_flag_carrier = GetParam(3);
+		return;
+	}
+
 	if (GetSourceRef() == 13020) // Path data request
 	{
 		if (GetParam(0) != pathid) return;
 
 		rbot = GetParam(1);
 
-		// See if there's any custom path info for this path
-		// Note: Responding to this trigger is optional, so assume no path info
-		// unless we receive some via trigger response.
-		path_rank = -1;
-		path_rundir = -1;
-		SendTrigger(-1, 13100, pathid, rbot, -1, -1); // Path info request
-		if (unidirectional) // Must run forward on this path
+		// Figure out if the bot is trying to reach a base
+		dest = -1; // Default - just wander
+		if (GetThingUserData(rbot) == 1) // Bot is on the red team
 		{
-			path_rundir = 1;
+			if (captured_gold == 2 && gold_flag_carrier == rbot) // Bot has stolen the gold flag
+			{
+				if (captured_red == 0) // The red flag is at base
+				{
+					dest = 1; // Head for the red base to score
+				}
+			}
+			else if (captured_gold == 0) // The gold flag is at base
+			{
+				dest = 2; // Head for the gold base to steal the flag
+			}
+		}
+		else if (GetThingUserData(rbot) == 2) // Bot is on the gold team
+		{
+			if (captured_red == 2 && red_flag_carrier == rbot) // Bot has stolen the red flag
+			{
+				if (captured_gold == 0) // The gold flag is at base
+				{
+					dest = 2; // Head for the gold base to score
+				}
+			}
+			else if (captured_red == 0) // The red flag is at base
+			{
+				dest = 1; // Head for the red base to steal the flag
+			}
 		}
 
-		SendTrigger(-1, 13030, path_size, requirements, path_rank, path_rundir); // Path data response
+		// Help bot navigate to the flag base
+		rank = -1;
+		rundir = -1;
+		if (dest == 1) // Seeking the red base
+		{
+			rank = redrank;
+			rundir = redrundir;
+		}
+		else if (dest == 2) // Seeking the gold base
+		{
+			rank = goldrank;
+			rundir = goldrundir;
+		}
+
+		if (unidirectional) // Must run forward on this path
+		{
+			rundir = 1;
+		}
+
+		SendTrigger(-1, 13030, path_size, requirements, rank, rundir); // Path data response
 		SendTrigger(-1, 13031, pathflags, -1, -1, -1); // Path data response
 		return;
 	}
@@ -274,15 +371,6 @@ trigger:
 
 		SendTrigger(-1, 13050, node0[i], VectorX(nodepos0[i]), VectorY(nodepos0[i]), VectorZ(nodepos0[i])); // Path node data response
 		SendTrigger(-1, 13051, nodesec0[i], nodesize0[i], nodeflags0[i], -1); // Path node data response
-		return;
-	}
-
-	if (GetSourceRef() == 13110) // Path info response
-	{
-		if (GetParam(0) != pathid) return;
-
-		path_rank = GetParam(1);
-		path_rundir = GetParam(2);
 		return;
 	}
 

@@ -2,6 +2,9 @@
 #
 # Server-only
 #
+# Specify a path for bot navigation. The path is a sequence of nodes that the
+# bot will follow.
+#
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
 
@@ -191,7 +194,7 @@ int			looping=0							local
 
 # Working variables
 int			i									local
-thing		rbot								local
+#thing		rbot								local
 int			path_rank							local
 int			path_rundir							local
 
@@ -248,14 +251,10 @@ trigger:
 	{
 		if (GetParam(0) != pathid) return;
 
-		rbot = GetParam(1);
+		#rbot = GetParam(1);
 
-		// See if there's any custom path info for this path
-		// Note: Responding to this trigger is optional, so assume no path info
-		// unless we receive some via trigger response.
 		path_rank = -1;
 		path_rundir = -1;
-		SendTrigger(-1, 13100, pathid, rbot, -1, -1); // Path info request
 		if (unidirectional) // Must run forward on this path
 		{
 			path_rundir = 1;
@@ -274,15 +273,6 @@ trigger:
 
 		SendTrigger(-1, 13050, node0[i], VectorX(nodepos0[i]), VectorY(nodepos0[i]), VectorZ(nodepos0[i])); // Path node data response
 		SendTrigger(-1, 13051, nodesec0[i], nodesize0[i], nodeflags0[i], -1); // Path node data response
-		return;
-	}
-
-	if (GetSourceRef() == 13110) // Path info response
-	{
-		if (GetParam(0) != pathid) return;
-
-		path_rank = GetParam(1);
-		path_rundir = GetParam(2);
 		return;
 	}
 

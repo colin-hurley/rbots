@@ -10,6 +10,7 @@ symbols
 
 message		trigger
 message		arrived
+message		timer
 
 # Nodes
 thing		node0=-1							nolink
@@ -61,6 +62,19 @@ int			frame6=-1
 int			frame7=-1
 int			frame8=-1
 int			frame9=-1
+
+# How long to wait after the thing arrives at the frame before generating an arrival event.
+# A delay of 0 will generate the arrival event immediately.
+flex		delay0=0.0
+flex		delay1=0.0
+flex		delay2=0.0
+flex		delay3=0.0
+flex		delay4=0.0
+flex		delay5=0.0
+flex		delay6=0.0
+flex		delay7=0.0
+flex		delay8=0.0
+flex		delay9=0.0
 
 # How long to wait for arrival before bot is 'lost'
 flex		timeout0=30.0
@@ -183,22 +197,48 @@ arrived:
 	// Send any pending arrival events
 	for (i = 0 ; i < 10 ; i = i + 1)
 	{
-		if (arriver0[i] == arriver && frame0[i] == frame && waiting0[i])
+		if (arriver0[i] == arriver && frame0[i] == frame)
 		{
-			node = node0[i];
-
-			// Generate the same distinct arrival event ID that the bot would be waiting for
-			event_id = 100000 + frame*1000 + node;
-
-			// Clear the waiting flag for this record - no need to send another arrival event
-			// until next time a bot is waiting for one
-			waiting0[i] = 0;
-
-			// Broadcast arrival event to all bots
-			SendTrigger(-1, 11050, event_id, -1, -1, -1);
+			index = i;
+			if (delay0[i] > 0) // send arrival event after a delay
+			{
+				SetTimerEx(delay0[i], 100, index, -1);
+			}
+			else // send arrival event immediately
+			{
+				call fire_arrival_event;
+			}
 		}
 	}
-	
+	return;
+
+timer:
+	if (GetSenderId() == 100) // fire delayed arrival event
+	{
+		index = GetParam(0);
+		call fire_arrival_event;
+		return;
+	}
+	return;
+
+# Parameters:
+# index = identifies the 0-9 slot for which the event will be generated
+fire_arrival_event:
+	if (waiting0[index]) // there is a bot waiting for this event
+	{
+		frame = frame0[index];
+		node = node0[index];
+
+		// Generate the same distinct arrival event ID that the bot would be waiting for
+		event_id = 100000 + frame*1000 + node;
+
+		// Clear the waiting flag for this record - no need to send another arrival event
+		// until next time a bot is waiting for one
+		waiting0[index] = 0;
+
+		// Broadcast arrival event to all bots
+		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+	}
 	return;
 
 end

@@ -288,8 +288,6 @@ thing       gold_flag_carrier=-1             local
 # Item templates
 template    tmp_ctfredkey=CTF_REDKEY         local
 template    tmp_ctfgoldkey=CTF_GOLDKEY       local
-template    tmp_ctfredflag=ctf_redflag       local
-template    tmp_ctfgoldflag=ctf_goldflag     local
 
 # Transient working vars
 thing       rbot                             local
@@ -1963,7 +1961,7 @@ user7:
 		rbot = GetParam(1);
 		item = GetParam(2);
 		priority = GetParam(3);
-		if (GetThingTemplate(item) == tmp_ctfredflag)
+		if (item == flag_red)
 		{
 			if (captured_red == 1) priority = 10; // red flag dropped
 			if (GetThingUserData(rbot) == 1) // bot on red team
@@ -1975,7 +1973,7 @@ user7:
 				if (captured_red == 0) priority = 10; // red flag home
 			}
 		}
-		if (GetThingTemplate(item) == tmp_ctfgoldflag)
+		if (item == flag_gold)
 		{
 			if (captured_gold == 1) priority = 10; // gold flag dropped
 			if (GetThingUserData(rbot) == 2) // bot on gold team
@@ -2020,12 +2018,12 @@ user7:
 			return;
 		}
 
-		if (GetThingTemplate(item) == tmp_ctfredflag && red_flag_carrier == -1)
+		if (item == flag_red && captured_red != 2)
 		{
 			goto bottouched;
 		}
 
-		if (GetThingTemplate(item) == tmp_ctfgoldflag && gold_flag_carrier == -1)
+		if (item == flag_gold && captured_gold != 2)
 		{
 			goto bottouched;
 		}

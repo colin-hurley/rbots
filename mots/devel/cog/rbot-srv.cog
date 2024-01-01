@@ -388,6 +388,23 @@ trigger:
 		{
 			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger
 		}
+		if (BitTest(special, 0x80)) // Allow bot to walk off cliffs
+		{
+			KillTimerEx(150);
+			if (mode) // Enable effect
+			{
+				AISetMode(rbot, 0x40); // Disable cliff checks
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(5.0, 150, -1, -1); // restore cliff checks in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				AIClearMode(rbot, 0x40); // Restore cliff checks
+			}
+		}
 		if (mode && BitTest(special, 0x200)) // Bot needs to run fast
 		{
 			// Add a burst of speed toward the next node
@@ -542,6 +559,12 @@ timer:
 	{
 		ClearActorFlags(rbot, 8); // remove invulnerable
 		ClearThingFlags(rbot, 4); // remove mag sealed
+		return;
+	}
+
+	if (GetSenderId() == 150) // don't allow bot to walk off cliffs anymore
+	{
+		AIClearMode(rbot, 0x40); // Restore cliff checks
 		return;
 	}
 

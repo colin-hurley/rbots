@@ -1,4 +1,4 @@
-MSGS 95
+MSGS 98
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -94,6 +94,9 @@ MSGS 95
 "THRONE-1" 0 "Imperial Throne Room"
 "THRONE-1_TEXT_00" 0 "^Rbots"
 "THRONE-1_TEXT_01" 0 ""
+"TIBANNA-1" 0 "Tibanna Mining Outpost"
+"TIBANNA-1_TEXT_00" 0 "^Rbots"
+"TIBANNA-1_TEXT_01" 0 ""
 "VAPORATOR-1" 0 "Moisture Vaporator Facility"
 "VAPORATOR-1_TEXT_00" 0 "^Rbots"
 "VAPORATOR-1_TEXT_01" 0 ""

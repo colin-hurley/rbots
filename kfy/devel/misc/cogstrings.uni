@@ -1,4 +1,4 @@
-MSGS 95
+MSGS 98
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -97,4 +97,7 @@ MSGS 95
 "TEMPLE-1" 0 "Ruins of the Sith"
 "TEMPLE-1_TEXT_00" 0 "^Rbots"
 "TEMPLE-1_TEXT_01" 0 ""
+"TIBANNA-1" 0 "Tibanna Mining Outpost"
+"TIBANNA-1_TEXT_00" 0 "^Rbots"
+"TIBANNA-1_TEXT_01" 0 ""
 END

@@ -9,6 +9,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
@@ -20,6 +22,59 @@ flex     waittime=1.5                     desc=wait_time_at_stop
 message  startup
 message  pulse
 message  arrived
+
+# Rbots support
+
+# Bot will wait for the elevator going up upon reaching one of these nodes
+thing    upnode0=-1                       nolink
+thing    upnode1=-1                       nolink
+thing    upnode2=-1                       nolink
+thing    upnode3=-1                       nolink
+
+# Bot will wait for the elevator going down upon reaching one of these nodes
+thing    downnode0=-1                     nolink
+thing    downnode1=-1                     nolink
+thing    downnode2=-1                     nolink
+thing    downnode3=-1                     nolink
+
+# Arrival events for up nodes will be generated after these delays
+flex     updelay0=0.0
+flex     updelay1=0.0
+flex     updelay2=0.0
+flex     updelay3=0.0
+
+# Arrival events for down nodes will be generated after these delays
+flex     downdelay0=0.0
+flex     downdelay1=0.0
+flex     downdelay2=0.0
+flex     downdelay3=0.0
+
+# How long to wait at a node for the arrival event before bot lost
+flex     timeout=20.0
+
+# Keep track of whether any bots might be waiting for any events
+# This prevents sending duplicate and unnecessary triggers
+
+# Waiting state for up nodes
+int      upwaiting0=0                     local
+int      upwaiting1=0                     local
+int      upwaiting2=0                     local
+int      upwaiting3=0                     local
+
+# Waiting state for down nodes
+int      downwaiting0=0                   local
+int      downwaiting1=0                   local
+int      downwaiting2=0                   local
+int      downwaiting3=0                   local
+
+int      i                                local
+int      index                            local
+thing    node                             local
+int      botid                            local
+int      event_id                         local
+
+message  trigger
+message  timer
 
 end
 
@@ -46,9 +101,144 @@ pulse:
 # ........................................................................................
 
 arrived:
+   call queue_arrival_events;
    Sleep(waittime);
    MoveToFrame(elevator, 1 - GetCurFrame(elevator), speed);
    Return;
+
+# ........................................................................................
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
+		botid = GetParam(0); // the bot making the request
+		node = GetParam(2); // which node the bot arrived at
+
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (upnode0[i] == node)
+			{
+				// Generate a distinct arrival event ID
+				event_id = 100 + i;
+
+				// Tell bot to wait until it is safe to board the elevator
+				// param 1 = 0x1 (await arrival forward)
+				// param 2 = arrival event ID to wait for
+				// param 3 = how long to wait for the event
+				SendTrigger(-1, 11040, botid, 0x1, event_id, timeout);
+
+				// Set the waiting flag so we know to send the arrival event later
+				upwaiting0[i] = 1;
+			}
+
+			if (downnode0[i] == node)
+			{
+				// Generate a distinct arrival event ID
+				event_id = 200 + i;
+
+				// Tell bot to wait until it is safe to board the elevator
+				// param 1 = 0x1 (await arrival forward)
+				// param 2 = arrival event ID to wait for
+				// param 3 = how long to wait for the event
+				SendTrigger(-1, 11040, botid, 0x1, event_id, timeout);
+
+				// Set the waiting flag so we know to send the arrival event later
+				downwaiting0[i] = 1;
+			}
+		}
+
+		return;
+	}
+
+	return;
+
+# ........................................................................................
+
+timer:
+	if (GetSenderId() == 100) // Fire up event after delay
+	{
+		index = GetParam(0);
+		call fire_up_arrival_event;
+		return;
+	}
+
+	if (GetSenderId() == 200) // Fire down event after delay
+	{
+		index = GetParam(0);
+		call fire_down_arrival_event;
+		return;
+	}
+
+	return;
+
+queue_arrival_events:
+	if (GetCurFrame(elevator) == 0) // elevator at bottom
+	{
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (updelay0[i] > 0) // send arrival event after a delay
+			{
+				SetTimerEx(updelay0[i], 100, i, -1);
+			}
+			else // send arrival event immediately
+			{
+				index = i;
+				call fire_up_arrival_event;
+			}
+		}
+	}
+	else // elevator at top
+	{
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (downdelay0[i] > 0) // send arrival event after a delay
+			{
+				SetTimerEx(downdelay0[i], 200, i, -1);
+			}
+			else // send arrival event immediately
+			{
+				index = i;
+				call fire_down_arrival_event;
+			}
+		}
+	}
+	return;
+
+# Parameters:
+# index = identifies the 0-3 slot for which the event will be generated
+fire_up_arrival_event:
+	if (upwaiting0[index]) // there is a bot waiting for this event
+	{
+		// Generate the same distinct arrival event ID that the bot would be waiting for
+		event_id = 100 + index;
+
+		// Clear the waiting flag - no need to send another arrival event until next time
+		// a bot is waiting for one
+		upwaiting0[index] = 0;
+
+		// Broadcast arrival event to all bots
+		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+	}
+	return;
+
+# Parameters:
+# index = identifies the 0-3 slot for which the event will be generated
+fire_down_arrival_event:
+	if (downwaiting0[index]) // there is a bot waiting for this event
+	{
+		// Generate the same distinct arrival event ID that the bot would be waiting for
+		event_id = 200 + index;
+
+		// Clear the waiting flag - no need to send another arrival event until next time
+		// a bot is waiting for one
+		downwaiting0[index] = 0;
+
+		// Broadcast arrival event to all bots
+		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+	}
+	return;
 
 end
 

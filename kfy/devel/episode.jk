@@ -2,10 +2,11 @@
 
 TYPE 8
 
-SEQ 1
+SEQ 2
 
 # <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
 
-10:	0	1	LEVEL	temple-1.jkl	0	0	10	-1
+10:	0	1	LEVEL	tibanna-1.jkl	0	0	20	-1
+20:	0	2	LEVEL	temple-1.jkl	0	0	10	-1
 
 end

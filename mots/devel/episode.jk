@@ -2,15 +2,16 @@
 
 TYPE 2
 
-SEQ 6
+SEQ 7
 
 # <line> <cd>  <level>  <type>   <file>         <lightpow>  <darkpow>   <gotoA>  <gotoB>
 
 10:	0	1	LEVEL	freezer-1.jkl	0	0	50	-1
 50:	0	2	LEVEL	throne-1.jkl	0	0	60	-1
-60:	0	2	LEVEL	vaporator-1.jkl	0	0	90	-1
-90:	0	3	LEVEL	gantry-1.jkl	0	0	100	-1
-100:	0	4	LEVEL	spaceport-1.jkl	0	0	150	-1
-150:	0	5	LEVEL	temple-1.jkl	0	0	10	-1
+60:	0	3	LEVEL	vaporator-1.jkl	0	0	90	-1
+90:	0	4	LEVEL	gantry-1.jkl	0	0	100	-1
+100:	0	5	LEVEL	spaceport-1.jkl	0	0	120	-1
+120:	0	6	LEVEL	tibanna-1.jkl	0	0	150	-1
+150:	0	7	LEVEL	temple-1.jkl	0	0	10	-1
 
 end

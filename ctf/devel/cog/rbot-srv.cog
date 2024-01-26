@@ -405,6 +405,23 @@ trigger:
 				AIClearMode(rbot, 0x40); // Restore cliff checks
 			}
 		}
+		if (BitTest(special, 0x100)) // Bot needs to crouch
+		{
+			KillTimerEx(190);
+			if (mode) // Enable effect
+			{
+				SetPhysicsFlags(rbot, 0x10000); // start crouching
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(5.0, 190, -1, -1); // stop crouching in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				ClearPhysicsFlags(rbot, 0x10000); // stop crouching
+			}
+		}
 		if (mode && BitTest(special, 0x200)) // Bot needs to run fast
 		{
 			// Add a burst of speed toward the next node
@@ -590,6 +607,12 @@ timer:
 	if (GetSenderId() == 181) // enable combat roaming
 	{
 		botmode = BitClear(botmode, 0x8000000);
+		return;
+	}
+
+	if (GetSenderId() == 190) // stop crouching
+	{
+		AIClearMode(rbot, 0x40); // Restore cliff checks
 		return;
 	}
 
@@ -1076,9 +1099,13 @@ move:
 
 	// Now check for exceptions to the normal movement behavior
 
+	// Determine an appropriate minimum movement speed for the obstruction check
+	tempflex1 = 0.3;
+	if (IsThingCrouching(rbot)) tempflex1 = tempflex1 * 0.5;
+
 	// If the bot is not moving forward to the next node, there may be an obstruction blocking the way
 	obstructed = 0;
-	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < 0.3)
+	if (VectorDot(GetThingLVec(rbot), GetThingVel(rbot)) < tempflex1)
 	{
 		// Bot is not moving forward, try to determine if it is truly obstructed
 		obstructed = 1;
@@ -1311,19 +1338,37 @@ checkspeed:
 		// Normal player WASD run speed is about 1.33 JKU/s
 		movespeed = 1.33;
 
-		if (BitTest(botmode, 0x100000) || difficulty < 1) // move slowly or low difficulty
-		{
-			// Normal player WASD walk speed is about 0.66 JKU/s
-			// Note that the bot will still use running animations even at this speed
-			// The movespeed needs to be set around 0.5 or lower to switch to walking animations
-			movespeed = 0.66;
-		}
-
 		// Surface drag reduces the bot speed from 1.33 to about 0.87
 		// Scale the speed value to approximate player movement speed after reduction from drag
 		// Magic number explanation: 0.87 * x = 1.33 --> x = 1.33 / 0.87 = 1.53
 		// Plus a little extra because 1.53 only gets the bot up to about 1.2
 		movespeed = movespeed * 1.6;
+
+		if (IsThingCrouching(rbot)) // bot is crouching
+		{
+			// Normal player WASD crouch speed is about 0.26 JKU/s (0.13 JKU/s if moving backward)
+			// Reduce bot speed if crouching
+			movespeed = movespeed * 0.2;
+		}
+		else if (BitTest(botmode, 0x100000) || difficulty < 1) // move slowly or low difficulty
+		{
+			// Normal player WASD walk speed is about 0.66 JKU/s
+			// Note that the bot will still use running animations even at this speed
+			// The movespeed needs to be set around 0.5 or lower to switch to walking animations
+			movespeed = movespeed * 0.5;
+		}
+
+		tempvector1 = GetThingVel(rbot);
+		if (VectorLen(tempvector1) > 0.2) // bot is moving
+		{
+			tempvector1 = VectorNorm(tempvector1);
+			tempvector2 = GetThingLVec(rbot);
+			if (VectorDot(tempvector2, tempvector1) < -0.5) // bot is moving backward
+			{
+				// Reduce bot speed if moving backwards
+				movespeed = movespeed * 0.5;
+			}
+		}
 
 		if (!GetAttachFlags(rbot)) // bot is in the air
 		{
@@ -1332,7 +1377,7 @@ checkspeed:
 			// However, the effectiveness of some functions, such as obstruction jumps, depends
 			// on the bot being able to accelerate forward while in the air, so we also don't
 			// want to reduce this too much.
-			movespeed = movespeed / 2;
+			movespeed = movespeed * 0.5;
 		}
 	}
 

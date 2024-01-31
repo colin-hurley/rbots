@@ -7,22 +7,24 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 symbols
 
-thing       elevator                      desc=elev_thing
+thing       elevator                      desc=elev_thing mask=0x404
 flex        speed=8.0                     desc=speed
 flex        delay=3.0                     desc=delay
 
-surface     plate0                        desc=plate0
-surface     plate1                        desc=plate1
-surface     plate2                        desc=plate2
-surface     plate3                        desc=plate3
+surface     plate0                        desc=plate0    mask=0x404
+surface     plate1                        desc=plate1    mask=0x404
+surface     plate2                        desc=plate2    mask=0x404
+surface     plate3                        desc=plate3    mask=0x404
 
-surface     cross0                        desc=cross0
-surface     cross1                        desc=cross1
-surface     cross2                        desc=cross2
-surface     cross3                        desc=cross3
+surface     cross0                        desc=cross0    mask=0x404
+surface     cross1                        desc=cross1    mask=0x404
+surface     cross2                        desc=cross2    mask=0x404
+surface     cross3                        desc=cross3    mask=0x404
 
 surface     switch1                       desc=switch1   mask=0x408
 surface     switch2                       desc=switch2   mask=0x408

@@ -9,6 +9,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
@@ -20,6 +22,20 @@ int         active=0                         local
 message     damaged
 message     activated
 message     timer
+
+# Rbots support
+
+# The node that a bot must reach to activate the switch
+thing       switchnode=-1                    nolink
+
+# The direction the bot must run on this path to reach the tube in the center of the map
+int         tuberundir=-1
+
+# Transient working variables
+thing       node                             local
+int         rundir                           local
+
+message     trigger
 
 end
 
@@ -46,6 +62,39 @@ timer:
    active = 0;
 
    Return;
+
+# ........................................................................................
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
+		#botid = GetParam(0);
+		#rbot = GetParam(1);
+		node = GetParam(2);
+		rundir = GetParam(3);
+
+		if (node == switchnode) // bot has arrived at the switch node
+		{
+			if (tuberundir != -1 && rundir == tuberundir) // Bot is running toward the tube
+			{
+				// Bot may or may not use the tube
+				// Decide by chance whether or not to activate the trap
+				if (Rand() < 0.5)
+				{
+					// Don't activate the trap now
+					return;
+				}
+			}
+
+			goto activated;
+		}
+
+		return;
+	}
+
+	return;
 
 end
 

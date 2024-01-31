@@ -1,4 +1,4 @@
-MSGS 98
+MSGS 101
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -94,6 +94,9 @@ MSGS 98
 "COG_03002" 0 "Skilled"
 "COG_03003" 0 "Expert"
 "COG_03004" 0 "Inhuman"
+"FORTRESS-1" 0 "Imperial Fortress"
+"FORTRESS-1_TEXT_00" 0 "^Rbots"
+"FORTRESS-1_TEXT_01" 0 ""
 "TEMPLE-1" 0 "Ruins of the Sith"
 "TEMPLE-1_TEXT_00" 0 "^Rbots"
 "TEMPLE-1_TEXT_01" 0 ""

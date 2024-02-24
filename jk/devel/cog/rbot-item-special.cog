@@ -7,8 +7,7 @@
 #
 # To allow unlimited expansion and avoid the need to maintain multiple cog
 # reference symbols, multiple cogs of this type will self-organize into a
-# linked list at startup.  The cog with the lowest reference number becomes
-# the first element of the list.
+# linked list at startup.
 #
 # Rbots originally created by Raynar
 
@@ -44,8 +43,10 @@ int			spinf7=0
 int			spinf8=0
 int			spinf9=0
 
+# The first cog in the linked list
+cog			spitem=-1							local
 # The next cog following this one in the linked list
-cog			listnext=-1							local
+cog			nextspitem=-1						local
 
 # Working variables
 int			i									local
@@ -61,7 +62,10 @@ startup:
 	if (IsMulti() && !IsServer()) return; // Host only
 
 	// Allow other server-side cogs to discover this one by its type
-	SendTrigger(-1, 1852000, 1041, GetSelfCog(), -1, -1);
+	// Only send the discovery trigger for the head of the list
+	// Any other cogs can append themselves to the list afterward
+	if (spitem == -1) SendTrigger(-1, 1852000, 1041, GetSelfCog(), -1, -1); // register as head of list
+	else SendMessageEx(spitem, user7, 10410001, GetSelfCog(), -1, -1); // append to list
 	return;
 
 trigger:
@@ -71,10 +75,7 @@ trigger:
 	{
 		if (GetParam(0) == 1041) // rbot-item-special.cog
 		{
-			// We will receive one of these triggers for each instance of the cog
-			// Set listnext to the instance with the lowest cog reference that is greater than our own
-			// If listnext is -1, then this instance is the last in the list
-			if (GetParam(1) > GetSelfCog() && (GetParam(1) < listnext || listnext == -1)) listnext = GetParam(1);
+			spitem = GetParam(1);
 		}
 		return;
 	}
@@ -82,7 +83,14 @@ trigger:
 	return;
 
 user7:
-	if (GetParam(0) == 10411000) // Get item special mode
+	if (GetParam(0) == 10410001) // Append cog to list
+	{
+		if (nextspitem == -1) nextspitem = GetParam(1); // this is the end of the list, append here
+		else SendMessageEx(nextspitem, user7, GetParam(0), GetParam(1), -1, -1); // try to append to next cog
+		return;
+	}
+
+	if (GetParam(0) == 10413000) // Get item special mode
 	{
 		item = GetParam(1); // the item
 
@@ -97,10 +105,10 @@ user7:
 		}
 
 		// No special info specified in this cog, see if we can delegate to the next cog in the list
-		if (listnext != -1)
+		if (nextspitem != -1)
 		{
 			// Recursively delegate to next cog in the list
-			ReturnEx(SendMessageEx(listnext, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+			ReturnEx(SendMessageEx(nextspitem, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
 			return;
 		}
 

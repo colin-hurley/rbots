@@ -1,6 +1,7 @@
 # Rbot Navigation Cog
 #
 # Server-only
+# Type ID: 1060
 #
 # Rbots originally created by Raynar
 # Additional code by Hell Raiser
@@ -9,7 +10,9 @@ flags=0x240
 
 symbols
 
+message		startup
 message		trigger
+message		user7
 
 # The default size for a node.  This is used if the node thing does not have a
 # value set for its "size" property in the JKL.
@@ -21,6 +24,9 @@ int			path_size_max=25					local # Keep in sync with path cog
 # placed in the JKL), so we create '_ghostdecor' things instead, which are
 # virtually identical.
 template	ghost=_ghostdecor					local
+
+cog			spnav=-1							local
+cog			firstpath=-1						local
 
 # Temporary node things for each bot
 thing		node0=-1							local
@@ -58,9 +64,11 @@ thing		node31=-1							local
 
 # Working variables
 int			i									local
-int			j									local
 
-int			cur_path_index						local
+flex		x									local
+flex		y									local
+flex		z									local
+
 int			path_index							local
 int			node_index							local
 int			path_size							local
@@ -75,7 +83,7 @@ int			nodeflags							local
 flex		dist								local
 int			path_rank							local
 
-int			success								local
+int			new_path_id							local
 int			new_path_size						local
 int			new_pathflags						local
 thing		new_nodenum							local
@@ -94,6 +102,8 @@ vector		bot_pos								local
 int			botid								local
 thing		rbot								local
 cog			srv									local
+cog			path								local
+cog			cur_path							local
 int			botmode								local
 int			lastposnum							local
 int			nextposnum							local
@@ -109,17 +119,45 @@ end
 
 code
 
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 1060, GetSelfCog(), -1, -1);
+	return;
+
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
 
-	if (GetSourceRef() == 13000) // New position request
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
 	{
-		botid = GetParam(0); // which bot requested the info
+		if (GetParam(0) == 1061) // rbot-nav-special.cog
+		{
+			spnav = GetParam(1);
+		}
+		if (GetParam(0) == 1070) // rbot-path.cog
+		{
+			firstpath = GetParam(1);
+		}
+		return;
+	}
+
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 10603000) // Request navigation update
+	{
 		rbot = GetParam(1);
-		botmode = GetParam(2);
-		lastposnum = GetParam(3);
+		lastposnum = GetParam(2);
 
 		srv = GetThingClassCog(rbot);
+		botid = SendMessageEx(srv, user7, 10201000, -1, -1, -1);
+		botmode = SendMessageEx(srv, user7, 10201003, -1, -1, -1);
 		bot_keys = SendMessageEx(srv, user7, 10201028, -1, -1, -1);
 
 		if (lastposnum == -1) // bot lost - find nearest node
@@ -138,22 +176,35 @@ trigger:
 			bot_pos = GetThingPos(rbot);
 			bot_z = VectorSet(0, 0, VectorZ(bot_pos));
 
-			for (i = 0 ; i < 999 ; i = i + 1)
+			path = firstpath;
+			while (path != -1)
 			{
-				// Check path requirements (e.g. keys)
-				success = 0;
-				SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
-				if (!success) i = 999; // break
-				else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
+				SendMessageEx(path, user7, 10703000, rbot, -1, -1);
+				new_path_id = SendMessageEx(path, user7, 10701000, -1, -1, -1);
+				new_path_size = SendMessageEx(path, user7, 10701001, -1, -1, -1);
+				new_path_requirements = SendMessageEx(path, user7, 10701002, -1, -1, -1);
+				new_pathflags = SendMessageEx(path, user7, 10701003, -1, -1, -1);
+				new_path_rundir = SendMessageEx(path, user7, 10701005, -1, -1, -1);
+
+				if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
 				{
-					for (j = 0 ; j < new_path_size ; j = j + 1)
+					for (i = 0 ; i < new_path_size ; i = i + 1)
 					{
-						SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
+						new_nodenum = SendMessageEx(path, user7, 10701100, i, -1, -1);
+						x = SendMessageEx(path, user7, 10701101, i, -1, -1);
+						y = SendMessageEx(path, user7, 10701102, i, -1, -1);
+						z = SendMessageEx(path, user7, 10701103, i, -1, -1);
+						new_nodepos = VectorSet(x, y, z);
+						new_nodesec = SendMessageEx(path, user7, 10701104, i, -1, -1);
+						new_nodesize = SendMessageEx(path, user7, 10701105, i, -1, -1);
+						new_nodeflags = SendMessageEx(path, user7, 10701106, i, -1, -1);
+
 						if (new_nodenum != nodenum) // No need to compare against self
 						{
 							// See if any special navigation flags have been set for this node
-							navspecial = 0;
-							SendTrigger(-1, 13120, new_nodenum, -1, -1, -1); // Special nav info request
+							navspecial = 0x0;
+							if (spnav != -1) navspecial = SendMessageEx(spnav, user7, 10613000, new_nodenum, -1, -1);
+
 							if (!BitTest(navspecial, 0x1)) // A lost bot is allowed to go directly to this node to get back on track
 							{
 								new_dist = VectorDist(bot_pos, new_nodepos);
@@ -162,8 +213,8 @@ trigger:
 								if (new_dist < dist && HasLOS(rbot, nodeghost) && (VectorDist(bot_z, new_node_z) < 0.4 || (GetThingFlags(rbot) & 0x2000000 && BitTest(new_nodeflags, 0x2000000))))
 								{
 									// Remember the closest node that the bot can see and is not too high for bot to reach
-									path_index = i;
-									node_index = j;
+									path_index = new_path_id;
+									node_index = i;
 									nodenum = new_nodenum;
 									nodepos = new_nodepos;
 									nodesec = new_nodesec;
@@ -177,6 +228,8 @@ trigger:
 						}
 					}
 				}
+
+				path = SendMessageEx(path, user7, 10701051, -1, -1, -1); // iterate to next path
 			}
 
 			// If the chosen path (if any) does not require a particular run direction, pick one randomly
@@ -191,14 +244,14 @@ trigger:
 			node_index = lastposnum % path_size_max;
 			path_index = (lastposnum - node_index) / path_size_max;
 
-			SendTrigger(-1, 13020, path_index, rbot, -1, -1); // Path data request
-			path_size = new_path_size;
-			path_rank = new_path_rank;
-			rundir = new_path_rundir; // Make sure bot is running in the path's required direction
-			pathflags = new_pathflags;
+			path = SendMessageEx(firstpath, user7, 10703001, path_index, -1, -1); // find path by ID
 
-			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
-			nodenum = new_nodenum;
+			SendMessageEx(path, user7, 10703000, rbot, -1, -1);
+			path_size = SendMessageEx(path, user7, 10701001, -1, -1, -1);
+			pathflags = SendMessageEx(path, user7, 10701003, -1, -1, -1);
+			path_rank = SendMessageEx(path, user7, 10701004, -1, -1, -1);
+			rundir = SendMessageEx(path, user7, 10701005, -1, -1, -1); // Make sure bot is running in the path's required direction
+			nodenum = SendMessageEx(path, user7, 10701100, node_index, -1, -1);
 
 			// Validate bot state and make corrections if needed
 			// State issues can happen after e.g. getting lost and changes in CTF game state
@@ -223,25 +276,30 @@ trigger:
 			}
 
 			// Check for path intersections to possibly change to another path
-			cur_path_index = path_index; // Remember true current path when switching between paths
-			for (i = 0 ; i < 999 ; i = i + 1)
+			cur_path = path; // Remember true current path when switching between paths
+			path = firstpath;
+			while (path != -1)
 			{
-				if (i != cur_path_index) // This is a different path
+				if (path != cur_path) // This is a different path
 				{
-					// Check path requirements (e.g. keys)
-					success = 0;
-					SendTrigger(-1, 13020, i, rbot, -1, -1); // Path data request
-					if (!success) i = 999; // break
-					else if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
+					SendMessageEx(path, user7, 10703000, rbot, -1, -1);
+					new_path_id = SendMessageEx(path, user7, 10701000, -1, -1, -1);
+					new_path_size = SendMessageEx(path, user7, 10701001, -1, -1, -1);
+					new_path_requirements = SendMessageEx(path, user7, 10701002, -1, -1, -1);
+					new_pathflags = SendMessageEx(path, user7, 10701003, -1, -1, -1);
+					new_path_rank = SendMessageEx(path, user7, 10701004, -1, -1, -1);
+					new_path_rundir = SendMessageEx(path, user7, 10701005, -1, -1, -1);
+
+					if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
 					{
-						for (j = 0 ; j < new_path_size ; j = j + 1)
+						for (i = 0 ; i < new_path_size ; i = i + 1)
 						{
-							SendTrigger(-1, 13040, i, j, -1, -1); // Path node data request
+							new_nodenum = SendMessageEx(path, user7, 10701100, i, -1, -1);
 							if (nodenum == new_nodenum) // Same node = Intersection with the other path
 							{
 								// Don't switch to the end of a path going the wrong direction
 								new_path_end = 0;
-								if (j >= (new_path_size - 1))
+								if (i >= (new_path_size - 1))
 								{
 									if (new_path_rundir == 1) // New path requires forward movement, but we're already at the end
 									{
@@ -253,7 +311,7 @@ trigger:
 										new_path_rundir = 0;
 									}
 								}
-								else if (j <= 0)
+								else if (i <= 0)
 								{
 									if (new_path_rundir == 0) // New path requires backward movement, but we're already at the beginning
 									{
@@ -285,19 +343,21 @@ trigger:
 									}
 									if (changepath)
 									{
-										path_index = i;
-										node_index = j;
+										path_index = new_path_id;
+										node_index = i;
 										path_size = new_path_size;
 										path_rank = new_path_rank;
 										rundir = new_path_rundir;
 										pathflags = new_pathflags;
-										j = new_path_size; // break (skip ahead to next path)
+										i = new_path_size; // break (skip ahead to next path)
 									}
 								}
 							}
 						}
 					}
 				}
+
+				path = SendMessageEx(path, user7, 10701051, -1, -1, -1); // iterate to next path
 			}
 
 			// If the path change does not require a particular run direction, pick one randomly
@@ -339,12 +399,16 @@ trigger:
 			{
 				node_index = node_index - 1; // Backward
 			}
-			SendTrigger(-1, 13040, path_index, node_index, -1, -1); // Path node data request
-			nodenum = new_nodenum;
-			nodepos = new_nodepos;
-			nodesec = new_nodesec;
-			nodesize = new_nodesize;
-			nodeflags = new_nodeflags;
+
+			path = SendMessageEx(firstpath, user7, 10703001, path_index, -1, -1); // find path by ID
+			nodenum = SendMessageEx(path, user7, 10701100, node_index, -1, -1);
+			x = SendMessageEx(path, user7, 10701101, node_index, -1, -1);
+			y = SendMessageEx(path, user7, 10701102, node_index, -1, -1);
+			z = SendMessageEx(path, user7, 10701103, node_index, -1, -1);
+			nodepos = VectorSet(x, y, z);
+			nodesec = SendMessageEx(path, user7, 10701104, node_index, -1, -1);
+			nodesize = SendMessageEx(path, user7, 10701105, node_index, -1, -1);
+			nodeflags = SendMessageEx(path, user7, 10701106, node_index, -1, -1);
 		}
 
 		// Update bot navigation state
@@ -375,47 +439,16 @@ trigger:
 		}
 		node0[botid] = node;
 
-		SendTrigger(-1, 13010, botid, node, rundir, nextposnum);
+		// Send navigation update to bot
+		SendMessageEx(srv, user7, 10203200, node, rundir, nextposnum);
 		return;
 	}
 
-	if (GetSourceRef() == 13030) // Path data response
-	{
-		new_path_size = GetParam(0);
-		new_path_requirements = GetParam(1);
-		new_path_rank = GetParam(2);
-		new_path_rundir = GetParam(3);
-		return;
-	}
-
-	if (GetSourceRef() == 13031) // Path data response
-	{
-		success = 1;
-		new_pathflags = GetParam(0);
-		return;
-	}
-
-	if (GetSourceRef() == 13050) // Path node data response
-	{
-		new_nodenum = GetParam(0);
-		new_nodepos = VectorSet(GetParam(1), GetParam(2), GetParam(3));
-		return;
-	}
-
-	if (GetSourceRef() == 13051) // Path node data response
-	{
-		new_nodesec = GetParam(0);
-		new_nodesize = GetParam(1);
-		new_nodeflags = GetParam(2);
-		return;
-	}
-
-	if (GetSourceRef() == 13130)  // Special nav info response
-	{
-		navspecial = GetParam(0);
-		return;
-	}
-
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-nav.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
 end

@@ -37,6 +37,7 @@ cog			srv_force=-1						local
 cog			srv_weapons=-1						local
 cog			botskin=-1							local
 cog			spitem=-1							local
+cog			nav=-1								local
 cog			customizer=-1						local
 
 # Respawn Effects
@@ -294,8 +295,11 @@ trigger:
 		}
 		if (GetParam(0) == 1041) // rbot-item-special.cog
 		{
-			// Store the reference with the lowest number - this is the first instance in the list
-			if (GetParam(1) < spitem || spitem == -1) spitem = GetParam(1);
+			spitem = GetParam(1);
+		}
+		if (GetParam(0) == 1060) // rbot-nav.cog
+		{
+			nav = GetParam(1);
 		}
 		if (GetParam(0) == 3000) // Customizer module (e.g. CTF, KFY)
 		{
@@ -494,38 +498,6 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 13010) // New position available
-	{
-		node = GetParam(1);
-		rundir = GetParam(2);
-		nextposnum = GetParam(3);
-
-		if (rundir) botmode = BitClear(botmode, 0x1000);
-		else botmode = BitSet(botmode, 0x1000);
-
-		if (node == -1)
-		{
-			// The nav cog couldn't find a suitable node for the bot, so have
-			// the bot wander off in a random direction instead
-			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
-			newpos = VectorAdd(GetThingPos(rbot), relpos);
-			// Use shorter 'bot lost' timer so we check for nearby nodes more frequently
-			KillTimerEx(120);
-			SetTimerEx(3.0, 120, -1, -1);
-		}
-		else
-		{
-			// Head for the next node
-			newpos = GetThingPos(node);
-		}
-
-		// Reset fall threshold - use bot's current position or node's position, whichever is lower
-		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
-		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
-
-		return;
-	}
-
 	return;
 
 timer:
@@ -561,8 +533,7 @@ timer:
 		KillTimerEx(120);
 		SetTimerEx(8.0, 120, -1, -1);
 
-		// Request new node
-		SendTrigger(-1, 13000, botid, rbot, botmode, -1);
+		SendMessageEx(nav, user7, 10603000, rbot, -1, -1); // request navigation update
 		return;
 	}
 
@@ -728,6 +699,38 @@ user7:
 		return;
 	}
 
+	if (GetParam(0) == 10203200) // Navigation update
+	{
+		node = GetParam(1);
+		rundir = GetParam(2);
+		nextposnum = GetParam(3);
+
+		if (rundir) botmode = BitClear(botmode, 0x1000);
+		else botmode = BitSet(botmode, 0x1000);
+
+		if (node == -1)
+		{
+			// The nav cog couldn't find a suitable node for the bot, so have
+			// the bot wander off in a random direction instead
+			relpos = VectorScale(VectorNorm(VectorSet(Rand()-0.5, Rand()-0.5, 0)), 10);
+			newpos = VectorAdd(GetThingPos(rbot), relpos);
+			// Use shorter 'bot lost' timer so we check for nearby nodes more frequently
+			KillTimerEx(120);
+			SetTimerEx(3.0, 120, -1, -1);
+		}
+		else
+		{
+			// Head for the next node
+			newpos = GetThingPos(node);
+		}
+
+		// Reset fall threshold - use bot's current position or node's position, whichever is lower
+		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
+		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
+
+		return;
+	}
+
 	// Pass-through functions
 	// Automatically forward messages to subordinate srv cogs
 	// This is a convenience to make it look like one uber srv cog from an API perspective
@@ -886,7 +889,7 @@ finditem:
 	{
 		// Retrieve special info for this item
 		special = 0x0;
-		if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, potential, -1, -1);
+		if (spitem != -1) special = SendMessageEx(spitem, user7, 10413000, potential, -1, -1);
 
 		// Find closest takable item that bot needs
 		tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(potential));
@@ -931,7 +934,7 @@ checkitems:
 		{
 			// Retrieve special info for this item
 			special = 0x0;
-			if (spitem != -1) special = SendMessageEx(spitem, user7, 10411000, potential, -1, -1);
+			if (spitem != -1) special = SendMessageEx(spitem, user7, 10413000, potential, -1, -1);
 
 			// If bot is close to item and it is available and it can be touched
 			if ((VectorDist(GetThingPos(rbot), GetThingPos(potential)) < 0.3) && !(GetThingFlags(potential) & 0x80000) && GetCollideType(potential) != 0)
@@ -1055,9 +1058,9 @@ checknode:
 			stopcount = 0;
 		}
 		KillTimerEx(120); // reset 'bot lost' timeout
-		SetTimerEx(8.0, 120, -1, -1); 
+		SetTimerEx(8.0, 120, -1, -1);
 		SendTrigger(-1, 11010, botid, rbot, GetThingUserData(node), rundir); // ask for special info on current pos
-		SendTrigger(-1, 13000, botid, rbot, botmode, nextposnum); // ask navigation cog for next move position
+		SendMessageEx(nav, user7, 10603000, rbot, nextposnum, -1); // request navigation update
 	}
 	else
 	{

@@ -48,6 +48,9 @@ sound       off_snd=lgclick1.wav             local
 thing       rbot                             local
 flex        dist                             local
 
+cog         firstpath=-1                     local
+cog         path=-1                          local
+
 message     startup
 message     trigger
 message     activated
@@ -69,6 +72,9 @@ startup:
       the_fan_snd = PlaySoundThing(fan_snd, the_fan, 1.0, 10.0, 13.0, 0x041);
       SetPulse(damage_pulse);
 
+      // Wait until after the path cogs have all registered before attempting to set/clear any flags
+      Sleep(0.5);
+
       call disable_extra_paths;
    }
 
@@ -77,6 +83,17 @@ startup:
 # ........................................................................................
 
 trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1070) // rbot-path.cog
+		{
+			firstpath = GetParam(1);
+		}
+		return;
+	}
+
 	if (GetSourceRef() == 11030) // "activate" trigger
 	{
 		rbot = GetParam(1);
@@ -90,7 +107,9 @@ trigger:
 		{
 			goto activated;
 		}
+		return;
 	}
+
 	return;
 
 # ........................................................................................
@@ -172,11 +191,18 @@ pulse:
 # ........................................................................................
 
 enable_extra_paths:
-	for (i = 0 ; i < 4 ; i = i + 1)
+	if (firstpath != -1)
 	{
-		if (pathid0[i] != -1)
+		for (i = 0 ; i < 4 ; i = i + 1)
 		{
-			SendTrigger(-1, 13201, pathid0[i], 0x4, -1, -1); // Enable path (clear disabled flag)
+			if (pathid0[i] != -1)
+			{
+				path = SendMessageEx(firstpath, user7, 10703001, pathid0[i], -1, -1);
+				if (path != -1)
+				{
+					SendMessageEx(path, user7, 10705003, 0x4, -1, -1); // Enable path (clear disabled flag)
+				}
+			}
 		}
 	}
 	return;
@@ -184,11 +210,18 @@ enable_extra_paths:
 # ........................................................................................
 
 disable_extra_paths:
-	for (i = 0 ; i < 4 ; i = i + 1)
+	if (firstpath != -1)
 	{
-		if (pathid0[i] != -1)
+		for (i = 0 ; i < 4 ; i = i + 1)
 		{
-			SendTrigger(-1, 13200, pathid0[i], 0x4, -1, -1); // Disable path (set disabled flag)
+			if (pathid0[i] != -1)
+			{
+				path = SendMessageEx(firstpath, user7, 10703001, pathid0[i], -1, -1);
+				if (path != -1)
+				{
+					SendMessageEx(path, user7, 10704003, 0x4, -1, -1); // Disable path (set disabled flag)
+				}
+			}
 		}
 	}
 	return;

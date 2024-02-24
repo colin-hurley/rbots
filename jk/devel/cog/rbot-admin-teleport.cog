@@ -19,6 +19,7 @@ message		user0
 message		user1
 message		trigger
 
+cog			nav=-1								local
 cog			srv=-1								local
 thing		pos=-1								local
 
@@ -32,8 +33,6 @@ int			teleport_bot						local
 int			teleport_player						local
 
 # Working vars
-int			botid								local
-int			botmode								local
 thing		rbot								local
 thing		player								local
 
@@ -50,6 +49,7 @@ startup:
 
 shutdown:
 	// Reinitialize to default values when exiting level
+	nav = -1;
 	srv = -1;
 	pos = -1;
 	return;
@@ -83,16 +83,13 @@ user0:
 		rbot = SendMessageEx(srv, user7, 10201013, -1, -1, -1);
 		if (rbot != -1 && GetThingHealth(rbot) > 0) // Bot is alive
 		{
-			botid = SendMessageEx(srv, user7, 10201000, -1, -1, -1);
-			botmode = SendMessageEx(srv, user7, 10201003, -1, -1, -1);
 			if (GetParam(0) == teleport_bot)
 			{
 				// Teleport bot to player's location
 				StopThing(rbot);
 				if (pos == -1) TeleportThing(rbot, player);
 				else TeleportThing(rbot, pos);
-				// Request new navigation instruction for bot
-				SendTrigger(-1, 13000, botid, rbot, botmode, -1);
+				SendMessageEx(nav, user7, 10603000, rbot, -1, -1); // request navigation update for bot
 			}
 			else if (GetParam(0) == teleport_player)
 			{
@@ -121,9 +118,21 @@ user1:
 	return;
 
 trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1060) // rbot-nav.cog
+		{
+			nav = GetParam(1);
+		}
+		return;
+	}
+
 	if (GetSourceRef() == 15080) // New bot selected
 	{
 		srv = GetParam(1);
+		return;
 	}
 	return;
 

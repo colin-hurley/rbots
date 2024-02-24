@@ -1,6 +1,7 @@
 # Rbot Navigation Special Cog
 #
 # Server-only
+# Type ID: 1061
 #
 # This cog supplies special navigation information for path nodes.
 #
@@ -10,7 +11,9 @@ flags=0x280
 
 symbols
 
+message		startup
 message		trigger
+message		user7
 
 # Special nodes
 thing		navsp0=-1							nolink
@@ -56,9 +59,13 @@ int			navspinf17=0
 int			navspinf18=0
 int			navspinf19=0
 
+# The first cog in the linked list
+cog			spnav=-1							local
+# The next cog following this one in the linked list
+cog			nextspnav=-1						local
+
 # Working variables
 int			i									local
-int			special								local
 thing		node								local
 
 end
@@ -67,25 +74,70 @@ end
 
 code
 
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	// Only send the discovery trigger for the head of the list
+	// Any other cogs can append themselves to the list afterward
+	if (spnav == -1) SendTrigger(-1, 1852000, 1061, GetSelfCog(), -1, -1); // register as head of list
+	else SendMessageEx(spnav, user7, 10610001, GetSelfCog(), -1, -1); // append to list
+	return;
+
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
-	
-	if (GetSourceRef() == 13120) // Special info request from nav
-	{
-		node = GetParam(0);
 
-		// work out special node info
-		special = 0;
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1061) // rbot-nav-special.cog
+		{
+			spnav = GetParam(1);
+		}
+		return;
+	}
+
+	return;
+
+user7:
+	if (GetParam(0) == 10610001) // Append cog to list
+	{
+		if (nextspnav == -1) nextspnav = GetParam(1); // this is the end of the list, append here
+		else SendMessageEx(nextspnav, user7, GetParam(0), GetParam(1), -1, -1); // try to append to next cog
+		return;
+	}
+
+	if (GetParam(0) == 10613000) // Get nav special mode
+	{
+		node = GetParam(1);
+
+		// Search current cog for special info
 		for (i = 0 ; i < 20 ; i = i + 1)
 		{
-			if (navsp0[i] == node) special = navspinf0[i]; // current pos is also a special node
+			if (navsp0[i] == node && navspinf0[i]) // This is the requested node and it has special info
+			{
+				ReturnEx(navspinf0[i]);
+				return;
+			}
 		}
-		if (special)
+
+		// No special info specified in this cog, see if we can delegate to the next cog in the list
+		if (nextspnav != -1)
 		{
-			SendTrigger(-1, 13130, special, -1, -1, -1); // send special info to nav
+			// Recursively delegate to next cog in the list
+			ReturnEx(SendMessageEx(nextspnav, user7, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+			return;
 		}
+
+		// No more cogs in the list, no special info
+		ReturnEx(0x0);
+		return;
 	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-nav-special.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
 end
-

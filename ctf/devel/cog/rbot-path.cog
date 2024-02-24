@@ -1,6 +1,7 @@
 # Rbot Path Cog (CTF)
 #
 # Server-only
+# Type ID: 1070
 #
 # Specify a path for bot navigation. The path is a sequence of nodes that the
 # bot will follow.
@@ -39,6 +40,7 @@ symbols
 
 message		startup
 message		trigger
+message		user7
 
 # An identifier for this path
 int			pathid
@@ -237,6 +239,11 @@ int			path_size=0							local
 # last nodes are the same, except if nonlooping is set to 1.
 int			looping=0							local
 
+# The first cog in the linked list
+cog			firstpath=-1						local
+# The next cog following this one in the linked list
+cog			nextpath=-1							local
+
 # Working variables
 int			i									local
 thing		rbot								local
@@ -250,6 +257,12 @@ code
 
 startup:
 	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	// Only send the discovery trigger for the head of the list
+	// Any other cogs can append themselves to the list afterward
+	if (firstpath == -1) SendTrigger(-1, 1852000, 1070, GetSelfCog(), -1, -1); // register as head of list
+	else SendMessageEx(firstpath, user7, 10700001, GetSelfCog(), -1, -1); // append to list
 
 	// Determine total number of nodes in path
 	for (i = 0 ; i < 25 ; i = i + 1)
@@ -293,6 +306,15 @@ startup:
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
 
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1070) // rbot-path.cog
+		{
+			firstpath = GetParam(1);
+		}
+		return;
+	}
+
 	if (GetSourceRef() == 12210) // CTF info update
 	{
 		captured_red = GetParam(0);
@@ -302,10 +324,42 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 13020) // Path data request
-	{
-		if (GetParam(0) != pathid) return;
+	return;
 
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 10700001) // Append cog to list
+	{
+		if (nextpath == -1) nextpath = GetParam(1); // this is the end of the list, append here
+		else SendMessageEx(nextpath, user7, GetParam(0), GetParam(1), -1, -1); // try to append to next cog
+		return;
+	}
+
+	// Path properties
+	if (GetParam(0) == 10701000) { ReturnEx(pathid); return; }
+	if (GetParam(0) == 10701001) { ReturnEx(path_size); return; }
+	if (GetParam(0) == 10701002) { ReturnEx(requirements); return; }
+	if (GetParam(0) == 10701003) { ReturnEx(pathflags); return; }
+	if (GetParam(0) == 10701004) { ReturnEx(rank); return; }
+	if (GetParam(0) == 10701005) { ReturnEx(rundir); return; }
+	#if (GetParam(0) == 10701050) { ReturnEx(firstpath); return; }
+	if (GetParam(0) == 10701051) { ReturnEx(nextpath); return; }
+
+	// Path node properties (param 1 = node index)
+	if (GetParam(0) == 10701100) { ReturnEx(node0[GetParam(1)]); return; }
+	if (GetParam(0) == 10701101) { ReturnEx(VectorX(nodepos0[GetParam(1)])); return; }
+	if (GetParam(0) == 10701102) { ReturnEx(VectorY(nodepos0[GetParam(1)])); return; }
+	if (GetParam(0) == 10701103) { ReturnEx(VectorZ(nodepos0[GetParam(1)])); return; }
+	if (GetParam(0) == 10701104) { ReturnEx(nodesec0[GetParam(1)]); return; }
+	if (GetParam(0) == 10701105) { ReturnEx(nodesize0[GetParam(1)]); return; }
+	if (GetParam(0) == 10701106) { ReturnEx(nodeflags0[GetParam(1)]); return; }
+
+	if (GetParam(0) == 10703000) // Path data request
+	{
 		rbot = GetParam(1);
 
 		// Figure out if the bot is trying to reach a base
@@ -342,6 +396,7 @@ trigger:
 		// Help bot navigate to the flag base
 		rank = -1;
 		rundir = -1;
+
 		if (dest == 1) // Seeking the red base
 		{
 			rank = redrank;
@@ -358,38 +413,39 @@ trigger:
 			rundir = 1;
 		}
 
-		SendTrigger(-1, 13030, path_size, requirements, rank, rundir); // Path data response
-		SendTrigger(-1, 13031, pathflags, -1, -1, -1); // Path data response
 		return;
 	}
 
-	if (GetSourceRef() == 13040) // Path node data request
+	if (GetParam(0) == 10703001) // Find path by ID
 	{
-		if (GetParam(0) != pathid) return;
-
-		i = GetParam(1);
-
-		SendTrigger(-1, 13050, node0[i], VectorX(nodepos0[i]), VectorY(nodepos0[i]), VectorZ(nodepos0[i])); // Path node data response
-		SendTrigger(-1, 13051, nodesec0[i], nodesize0[i], nodeflags0[i], -1); // Path node data response
+		if (pathid == GetParam(1))
+		{
+			// This is the requested path
+			ReturnEx(GetSelfCog());
+			return;
+		}
+		if (nextpath != -1)
+		{
+			// Check next path in the list
+			ReturnEx(SendMessageEx(nextpath, user7, GetParam(0), GetParam(1), -1, -1));
+			return;
+		}
+		// Path not found
+		ReturnEx(-1);
 		return;
 	}
 
-	if (GetSourceRef() == 13200) // Set path flag
-	{
-		if (GetParam(0) != pathid) return;
+	// Set flags
+	if (GetParam(0) == 10704003) { pathflags = BitSet(pathflags, GetParam(1)); return; }
 
-		pathflags = BitSet(pathflags, GetParam(1));
-		return;
-	}
+	// Clear flags
+	if (GetParam(0) == 10705003) { pathflags = BitClear(pathflags, GetParam(1)); return; }
 
-	if (GetSourceRef() == 13201) // Clear path flag
-	{
-		if (GetParam(0) != pathid) return;
-
-		pathflags = BitClear(pathflags, GetParam(1));
-		return;
-	}
-
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-path.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
 	return;
 
 end

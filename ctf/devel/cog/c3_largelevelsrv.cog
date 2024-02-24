@@ -34,6 +34,8 @@ int         allow_changes=1                  local
 int         small_level=-1                   local
 int         dummy                            local
 
+cog         firstpath=-1                     local
+cog         path=-1                          local
 
 int         i                                local
 
@@ -41,6 +43,7 @@ message     startup
 message     join
 message     damaged
 message     user0
+message     trigger
 
 end
 
@@ -55,12 +58,17 @@ startup:
       small_level=1;
       SendTrigger(-1, 10001, 1, 0, 0, 0);
 
-      call disable_extra_paths;
-
       this_cog = GetSelfCOG();
       Sleep(0.5);                            // CTF startup is heavy enough as it is
                                              // give it a 0.5 sec break...
                                              // This also ensures that MasterCOG is set
+
+      // Wait until after the path cogs have all registered before attempting to set/clear any flags
+      // Also check the small_level flag in case it got changed during the sleep
+      if (small_level == 1)
+         call disable_extra_paths;
+      else
+         call enable_extra_paths;
 
       ctf_main = GetMasterCOG();
       dummy = SendMessageEx(ctf_main, user0, this_cog, -1, -1, -1);
@@ -132,12 +140,35 @@ user0:
 
 # ........................................................................................
 
-enable_extra_paths:
-	for (i = 0 ; i < 4 ; i = i + 1)
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
 	{
-		if (pathid0[i] != -1)
+		if (GetParam(0) == 1070) // rbot-path.cog
 		{
-			SendTrigger(-1, 13201, pathid0[i], 0x4, -1, -1); // Enable path (clear disabled flag)
+			firstpath = GetParam(1);
+		}
+		return;
+	}
+
+	return;
+
+# ........................................................................................
+
+enable_extra_paths:
+	if (firstpath != -1)
+	{
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (pathid0[i] != -1)
+			{
+				path = SendMessageEx(firstpath, user7, 10703001, pathid0[i], -1, -1);
+				if (path != -1)
+				{
+					SendMessageEx(path, user7, 10705003, 0x4, -1, -1); // Enable path (clear disabled flag)
+				}
+			}
 		}
 	}
 	return;
@@ -145,11 +176,18 @@ enable_extra_paths:
 # ........................................................................................
 
 disable_extra_paths:
-	for (i = 0 ; i < 4 ; i = i + 1)
+	if (firstpath != -1)
 	{
-		if (pathid0[i] != -1)
+		for (i = 0 ; i < 4 ; i = i + 1)
 		{
-			SendTrigger(-1, 13200, pathid0[i], 0x4, -1, -1); // Disable path (set disabled flag)
+			if (pathid0[i] != -1)
+			{
+				path = SendMessageEx(firstpath, user7, 10703001, pathid0[i], -1, -1);
+				if (path != -1)
+				{
+					SendMessageEx(path, user7, 10704003, 0x4, -1, -1); // Disable path (set disabled flag)
+				}
+			}
 		}
 	}
 	return;

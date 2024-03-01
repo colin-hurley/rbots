@@ -583,7 +583,7 @@ timer:
 
 	if (GetSenderId() == 190) // stop crouching
 	{
-		AIClearMode(rbot, 0x40); // Restore cliff checks
+		ClearPhysicsFlags(rbot, 0x10000); // stop crouching
 		return;
 	}
 

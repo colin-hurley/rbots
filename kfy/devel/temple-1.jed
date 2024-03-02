@@ -8284,7 +8284,7 @@ KFY_MAIN.COG ysalamiri:thing=1 ysalamiri_pos:thing=0
 KFY_ICONSCLIENT.COG
 K4_PLAYAMBIENT.COG soundPos0:thing=103 soundPos1:thing=104 soundPos2:thing=105 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00WIND03.WAV minDist:flex=0 maxDist:flex=30 volume:flex=1
 K4_RANDOMAMBIENT.COG wav0:sound=THUNDER1.WAV wav1:sound=THUNDER2.WAV wav2:sound=THUNDER1.WAV wav3:sound=THUNDER2.WAV numsounds:int=2 min_interval:flex=2 range_interval:flex=20 min_volume:flex=0.2 range_volume:flex=20
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=-1 teambotskinid2:int=-1 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=-1 teambotskinid2:int=-1 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=509 botskinid:int=0 teambotname:int=-1
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

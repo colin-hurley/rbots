@@ -3078,7 +3078,7 @@ END
 SEC: COGS
 COGS 144
 rbot-elev-switch.cog lower_adjoin0:surface=577 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=571 elevator:thing=94 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=8 wav0:sound=ACTIVATE02.WAV
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

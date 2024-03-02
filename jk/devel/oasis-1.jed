@@ -2803,7 +2803,7 @@ COGS 84
 00_CONVEYOR.COG vec0:vector=(-0.999747/0.009783/0.019651) speed:flex=1 convey0:surface=520 convey1:surface=514 convey2:surface=375 convey3:surface=54 convey4:surface=34 convey5:surface=367 convey6:surface=545 convey7:surface=539
 00_CONVEYOR.COG vec0:vector=(-0.999747/0.009783/0.019651) speed:flex=1 convey0:surface=565 convey1:surface=-1 convey2:surface=-1 convey3:surface=-1 convey4:surface=-1 convey5:surface=-1 convey6:surface=-1 convey7:surface=-1
 rbot-lightning.cog ghost0:thing=47 ghost1:thing=46 ghost2:thing=45 switch0:surface=591 zapsector:sector=24
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv-weapons.cog botid:int=0

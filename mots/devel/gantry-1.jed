@@ -2560,7 +2560,7 @@ MDM10_PIPE.COG pipe:thing=65 broken_pos:thing=66 pipe_tpl:template=GANTRYPIPE2
 rbot-door.cog door0:thing=19 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-elev-switch.cog lower_adjoin0:surface=333 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=-1 elevator:thing=6 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=BEEP1.WAV
 rbot-window.cog damsurf1:surface=528 damsurf2:surface=500 sector0:sector=49 sector1:sector=50 sector2:sector=0 wav0:sound=00industrialamb02.wav wav1:sound=00industrialamb01.wav vec0:vector=(.696451/0/.717337) thrustspeed:flex=1 fadetime:flex=4 window:thing=49 broken_pos:thing=64 win_tpl:template=gantrydamwindow
-rbot-startup.cog numbots:int=3 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=3 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

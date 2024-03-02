@@ -7308,7 +7308,7 @@ Section: cogs
 World cogs 199
 #Num	Script          Symbol values
 0: rbot-elev-switch.cog 577 -1 -1 571 94 0.25 2 8 ACTIVATE02.WAV
-1: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+1: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 2: rbot-srv.cog 0 9 0 20
 3: rbot-srv-force.cog 0 7695
 4: rbot-srv-weapons.cog 0

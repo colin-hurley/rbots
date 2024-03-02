@@ -37254,7 +37254,7 @@ World cogs 171
 23: CTF_ICONSCLIENT.COG
 24: C2_BREAKINGGLASSCLIENT.COG
 25: CTF_SAFEENTRY.COG 357 355 250 249
-26: rbot-startup.cog 6 1 1 1 2 0 -256 -65281 0 0 101 102 -1 -1
+26: rbot-startup.cog 6 1 1 1 0 -256 -65281 0 0 101 102 -1 -1
 27: rbot-srv.cog 0 -1 -1 520
 28: rbot-srv-force.cog 0 255
 29: rbot-srv-weapons.cog 0

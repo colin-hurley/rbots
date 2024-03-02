@@ -17812,7 +17812,7 @@ World cogs 202
 1: KFY_ICONSCLIENT.COG
 2: K4_PLAYAMBIENT.COG 103 104 105 -1 -1 -1 -1 -1 00WIND03.WAV 0 30 1
 3: K4_RANDOMAMBIENT.COG THUNDER1.WAV THUNDER2.WAV THUNDER1.WAV THUNDER2.WAV 2 2 20 0.2 20
-4: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0 -1 -1 -1 -1
+4: rbot-startup.cog 4 1 1 1 0 0 0 0 0 -1 -1 -1 -1
 5: rbot-srv.cog 0 509 0 -1
 6: rbot-srv-force.cog 0 7695
 7: rbot-srv-weapons.cog 0

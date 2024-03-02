@@ -23445,7 +23445,7 @@ World cogs 117
 6: CTF_RESPAWN.COG 286 288
 7: CTF_ICONSCLIENT.COG
 8: CTF_SAFEENTRY.COG 285 287 157 158
-9: rbot-startup.cog 4 1 1 1 2 0 -256 -65281 0 0 101 102 -1 -1
+9: rbot-startup.cog 4 1 1 1 0 -256 -65281 0 0 101 102 -1 -1
 10: rbot-srv.cog 0 -1 -1 520
 11: rbot-srv-force.cog 0 255
 12: rbot-srv-weapons.cog 0

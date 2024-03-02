@@ -31547,7 +31547,7 @@ World cogs 260
 31: K2_PLAYAMBIENT.COG 116 119 118 117 121 120 -1 -1 00WATERFALL03.WAV 0 15 0.5
 32: 00_MULTICAM.COG 133 -1 132 131 135 134 136 137 138 -1 -1 -1 7 0.5
 33: 00_MULTICAM.COG 139 -1 132 131 135 134 136 137 138 -1 -1 -1 7 0.5
-34: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0 -1 -1 -1 -1
+34: rbot-startup.cog 4 1 1 1 0 0 0 0 0 -1 -1 -1 -1
 35: rbot-srv.cog 0 509 0 -1
 36: rbot-srv-force.cog 0 7695
 37: rbot-srv-weapons.cog 0

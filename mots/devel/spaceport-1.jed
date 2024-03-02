@@ -13069,7 +13069,7 @@ rbot-door.cog door0:thing=15 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSp
 rbot-door.cog door0:thing=22 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=16 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=5 sleepTime:flex=4 lightValue:flex=0.5
 rbot-doubledoor.cog door0:thing=17 door1:thing=18 movespeed:flex=8 sleeptime:flex=6 lightvalue:flex=0.5
-rbot-startup.cog numbots:int=8 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=8 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

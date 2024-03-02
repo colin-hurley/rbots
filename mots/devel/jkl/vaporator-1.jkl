@@ -17859,7 +17859,7 @@ World cogs 257
 31: 00_PLAYAMBIENT.COG -1 -1 -1 169 -1 170 -1 172 00RUMBLEAMB02.WAV -1 3 0
 32: 00_PLAYAMBIENT.COG -1 -1 -1 171 -1 -1 -1 -1 00RUMBLEAMB02.WAV -1 1 0.8
 33: 00_PLAYAMBIENT.COG -1 173 -1 -1 -1 -1 -1 -1 00RUMBLEAMB03.WAV -1 7 1
-34: rbot-startup.cog 6 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+34: rbot-startup.cog 6 1 1 1 0 0 0 0 0 101 102 -1 -1
 35: rbot-srv.cog 0 9 0 20
 36: rbot-srv-force.cog 0 7695
 37: rbot-srv-weapons.cog 0

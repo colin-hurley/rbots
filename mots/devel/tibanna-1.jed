@@ -13254,7 +13254,7 @@ K1_PLAYAMBIENT.COG soundPos0:thing=23 soundPos1:thing=24 soundPos2:thing=25 soun
 00_MULTICAM.COG tconsole:thing=100 sconsole:surface=-1 camera:thing=109 camera1:thing=99 camera2:thing=101 camera3:thing=103 camera4:thing=102 camera5:thing=125 camera6:thing=-1 camera7:thing=-1 camera8:thing=-1 camera9:thing=-1 numCameras:int=6 minChangeRate:flex=0.5
 K1_SECTORLIGHTANIM.COG sector0:sector=314 sector1:sector=315 sector2:sector=312 sector3:sector=311
 K1_SECTORLIGHTANIM.COG sector0:sector=319 sector1:sector=317 sector2:sector=-1 sector3:sector=-1
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

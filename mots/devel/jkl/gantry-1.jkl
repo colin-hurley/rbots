@@ -6120,7 +6120,7 @@ World cogs 197
 1: rbot-door.cog 19 -1 -1 -1 8 2 0.5
 2: rbot-elev-switch.cog 333 -1 -1 -1 6 0.25 2 4 BEEP1.WAV
 3: rbot-window.cog 528 500 49 50 0 00industrialamb02.wav 00industrialamb01.wav (.696451/0/.717337) 1 4 49 64 gantrydamwindow
-4: rbot-startup.cog 3 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+4: rbot-startup.cog 3 1 1 1 0 0 0 0 0 101 102 -1 -1
 5: rbot-srv.cog 0 9 0 20
 6: rbot-srv-force.cog 0 7695
 7: rbot-srv-weapons.cog 0

@@ -7641,7 +7641,7 @@ rbot-door-switch.cog door0:thing=149 door1:thing=-1 door2:thing=-1 door3:thing=-
 00_PLAYAMBIENT.COG soundPos0:thing=-1 soundPos1:thing=-1 soundPos2:thing=-1 soundPos3:thing=169 soundPos4:thing=-1 soundPos5:thing=170 soundPos6:thing=-1 soundPos7:thing=172 wav0:sound=00RUMBLEAMB02.WAV minDist:flex=-1 maxDist:flex=3 volume:flex=0
 00_PLAYAMBIENT.COG soundPos0:thing=-1 soundPos1:thing=-1 soundPos2:thing=-1 soundPos3:thing=171 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00RUMBLEAMB02.WAV minDist:flex=-1 maxDist:flex=1 volume:flex=0.8
 00_PLAYAMBIENT.COG soundPos0:thing=-1 soundPos1:thing=173 soundPos2:thing=-1 soundPos3:thing=-1 soundPos4:thing=-1 soundPos5:thing=-1 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00RUMBLEAMB03.WAV minDist:flex=-1 maxDist:flex=7 volume:flex=1
-rbot-startup.cog numbots:int=6 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=6 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

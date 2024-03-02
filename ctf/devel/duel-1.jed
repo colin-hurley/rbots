@@ -12346,7 +12346,7 @@ C1_CTFCALLBACK.COG red_forcefield1:surface=2924 red_forcefield2:surface=2932 red
 CTF_RESPAWN.COG mark_red:sector=286 mark_gold:sector=288
 CTF_ICONSCLIENT.COG
 CTF_SAFEENTRY.COG mark_red:sector=285 mark_gold:sector=287 ghost_red:thing=157 ghost_gold:thing=158
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=-256 respawn_mask2:int=-65281 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=-256 respawn_mask2:int=-65281 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=-1 botskinid:int=-1 teambotname:int=520
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv-weapons.cog botid:int=0

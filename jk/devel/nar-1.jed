@@ -5059,7 +5059,7 @@ rbot-tdets-nar.cog switch:surface=1048 tdg1:thing=53 tdg2:thing=54 tdg3:thing=55
 rbot-tdets-nar.cog switch:surface=1060 tdg1:thing=86 tdg2:thing=88 tdg3:thing=89 tdg4:thing=87 rounds:int=2 rate:flex=0.1 delay:flex=3
 rbot-turret-nar.cog switch:surface=1012 turret1:thing=57 turret2:thing=58 turret3:thing=59 turret4:thing=60 ghost1:thing=109 ghost2:thing=110 ghost3:thing=111 ghost4:thing=112 rounds:int=5 rate:flex=0.33 delay:flex=2 movespeed:flex=2 autoAimXFOV:flex=90 autoAimZFOV:flex=180
 rbot-meddroid.cog twoonebee:thing=90
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv-weapons.cog botid:int=0

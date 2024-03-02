@@ -17695,7 +17695,7 @@ M5_AUTODOOR.COG door:thing=14 plate0:surface=2043 plate1:surface=867 plate2:surf
 M5_AUTODOOR.COG door:thing=16 plate0:surface=1985 plate1:surface=683 plate2:surface=-1 plate3:surface=-1 movespeed:flex=3.5 delay:flex=3
 M5_AUTODOOR.COG door:thing=22 plate0:surface=2229 plate1:surface=681 plate2:surface=-1 plate3:surface=-1 movespeed:flex=3.5 delay:flex=3
 M5_FLASHINGREDLIGHT.COG flash00:sector=248 flash01:sector=255 flash02:sector=253 flash03:sector=254 flash04:sector=252 flash05:sector=243 flash06:sector=247 flash07:sector=245 flash08:sector=246 flash09:sector=244 flash10:sector=256 flash11:sector=258 flash12:sector=260 flash13:sector=259 flash14:sector=257 flash15:sector=235 flash16:sector=240 flash17:sector=242 flash18:sector=241 flash19:sector=239 flash20:sector=249 flash21:sector=250 flash22:sector=251 flash23:sector=237 flash24:sector=236 flash25:sector=238 flash26:sector=232 flash27:sector=233 flash28:sector=234 flash29:sector=-1 num_sectors:int=29
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=255
 rbot-srv-weapons.cog botid:int=0

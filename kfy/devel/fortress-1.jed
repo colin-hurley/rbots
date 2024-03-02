@@ -15259,7 +15259,7 @@ K2_SURFANIM.COG sign:surface=2760 sign1:surface=2785 sign2:surface=2784 sign3:su
 K2_PLAYAMBIENT.COG soundPos0:thing=116 soundPos1:thing=119 soundPos2:thing=118 soundPos3:thing=117 soundPos4:thing=121 soundPos5:thing=120 soundPos6:thing=-1 soundPos7:thing=-1 wav0:sound=00WATERFALL03.WAV minDist:flex=0 maxDist:flex=15 volume:flex=0.5
 00_MULTICAM.COG tconsole:thing=133 sconsole:surface=-1 camera:thing=132 camera1:thing=131 camera2:thing=135 camera3:thing=134 camera4:thing=136 camera5:thing=137 camera6:thing=138 camera7:thing=-1 camera8:thing=-1 camera9:thing=-1 numCameras:int=7 minChangeRate:flex=0.5
 00_MULTICAM.COG tconsole:thing=139 sconsole:surface=-1 camera:thing=132 camera1:thing=131 camera2:thing=135 camera3:thing=134 camera4:thing=136 camera5:thing=137 camera6:thing=138 camera7:thing=-1 camera8:thing=-1 camera9:thing=-1 numCameras:int=7 minChangeRate:flex=0.5
-rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 difficulty:int=2 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=-1 teambotskinid2:int=-1 teambotskinid3:int=-1 teambotskinid4:int=-1
+rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=-1 teambotskinid2:int=-1 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=509 botskinid:int=0 teambotname:int=-1
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0

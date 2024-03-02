@@ -25554,7 +25554,7 @@ World cogs 222
 4: 00_MULTICAM.COG 100 -1 109 99 101 103 102 125 -1 -1 -1 -1 6 0.5
 5: K1_SECTORLIGHTANIM.COG 314 315 312 311
 6: K1_SECTORLIGHTANIM.COG 319 317 -1 -1
-7: rbot-startup.cog 4 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+7: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 8: rbot-srv.cog 0 9 0 20
 9: rbot-srv-force.cog 0 7695
 10: rbot-srv-weapons.cog 0

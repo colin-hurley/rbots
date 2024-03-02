@@ -28127,7 +28127,7 @@ World cogs 217
 9: rbot-door.cog 22 -1 -1 -1 8 2 0.5
 10: rbot-door.cog 16 -1 -1 -1 5 4 0.5
 11: rbot-doubledoor.cog 17 18 8 6 0.5
-12: rbot-startup.cog 8 1 1 1 2 0 0 0 0 0 101 102 -1 -1
+12: rbot-startup.cog 8 1 1 1 0 0 0 0 0 101 102 -1 -1
 13: rbot-srv.cog 0 9 0 20
 14: rbot-srv-force.cog 0 7695
 15: rbot-srv-weapons.cog 0

@@ -22,7 +22,6 @@ int			numbots=4
 int			allowsaber=1
 int			allowguns=1
 int			allowforce=1
-int			difficulty=2
 int			respawn_mask0=0					# Team 0 (non-team play)
 int			respawn_mask1=0					# Team 1 (red)
 int			respawn_mask2=0					# Team 2 (gold)
@@ -33,6 +32,7 @@ int			teambotskinid2=-1
 int			teambotskinid3=-1
 int			teambotskinid4=-1
 
+int			difficulty							local
 int			gamemode							local
 int			maxbots								local
 int			maxteams							local
@@ -216,6 +216,10 @@ startup:
 			mask_flag = mask_flag * 2; // mask_flag << 1 (bit shift)
 		}
 	}
+
+	// Initialize bot difficulty from the player's difficulty selection
+	// By default, the difficulty will be set to 1, 2, or 3 for easy, medium, or hard, respectively
+	difficulty = 1 + GetDifficulty();
 
 	// Allow a brief delay for the game to settle
 	sleep(2.0);

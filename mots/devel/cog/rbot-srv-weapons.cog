@@ -220,13 +220,6 @@ trigger:
 	return;
 
 timer:
-	if (GetSenderId() == 110) // bot weapon AI "pulse"
-	{
-		call attacktarget;
-		SetTimerEx(0.25, 110, -1, -1); // schedule next "pulse"
-		return;
-	}
-
 	if (GetSenderId() == 120) // weapon cooldown complete
 	{
 		weaponmode = BitClear(weaponmode, 0x1); // weapon cooldown
@@ -317,6 +310,12 @@ user7:
 		return;
 	}
 
+	if (GetParam(0) == 10233000) // bot AI pulse
+	{
+		call attacktarget; // start attacking if we haven't already
+		return;
+	}
+
 	if (GetParam(0) == 10233002) // bot damaged (try to block with saber)
 	{
 		damage = GetParam(1);
@@ -384,9 +383,6 @@ user7:
 		curweap = 0;
 		weaponmode = 0x0;
 
-		// Start "pulse" to periodically try to attack the current target
-		SetTimerEx(0.25, 110, -1, -1);
-
 		return;
 	}
 
@@ -407,7 +403,9 @@ user7:
 
 	if (GetParam(0) == 10233007) // stop AI processes
 	{
-		KillTimerEx(110); // bot weapon AI "pulse"
+		KillTimerEx(120); // weapon cooldown
+		KillTimerEx(150); // powerboost
+		KillTimerEx(200); // saber attack
 		ReturnEx(0);
 		return;
 	}

@@ -159,6 +159,7 @@ pulse:
 	call checknode;
 	call move;
 	call checkspeed;
+	SendMessageEx(srv_weapons, user7, 10233000, -1, -1, -1); // AI pulse
 	SyncThingPos(rbot);
 	return;
 

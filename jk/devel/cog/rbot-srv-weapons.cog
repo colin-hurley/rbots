@@ -246,21 +246,9 @@ timer:
 		return;
 	}
 
-	if (GetSenderId() == 200) // fire 1st swing saber projectile
+	if (GetSenderId() == 200) // fire projectile to simulate a saber swing
 	{
-		FireProjectile(rbot, projectile_weap00a, -1, -1, '0.0 0.0 0.0', '0 0 0', 1.0, 0x0, 0, 0);
-		return;
-	}
-
-	if (GetSenderId() == 201) // fire 2nd swing saber projectile
-	{
-		FireProjectile(rbot, projectile_weap00a, -1, -1, '0 0 0', '0 0 0', 1.0, 0x0, 0, 0);
-		return;
-	}
-
-	if (GetSenderId() == 202) // fire swing saber projectile
-	{
-		FireProjectile(rbot, projectile_weap00, -1, -1, '0 0 0', '0 0 0', 1.0, 0x0, 0, 0);
+		FireProjectile(rbot, GetParam(0), -1, -1, '0 0 0', '0 0 0', 0.0, 0x0, 0, 0);
 		return;
 	}
 
@@ -1091,8 +1079,8 @@ firetarget:
 				nextanim = 1 - nextanim;
 				slashsound = Rand()*8;
 				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-				SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
+				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 				firedelay = 1.0;
 			}
 			else // Land based saber attacks
@@ -1109,10 +1097,10 @@ firetarget:
 					{
 						PlayKey(rbot, chargeAnim, 2, 0x38);
 						PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 200, -1, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 200, -1, -1); // fire 1st swing after 0.3 secs
-						SetTimerEx(0.6, 201, -1, -1); // fire 2nd swing after 0.6 secs
-						SetTimerEx(0.7, 201, -1, -1); // fire 2nd swing after 0.7 secs
+						SetTimerEx(0.2, 200, projectile_weap00a, -1); // fire 1st swing after 0.2 secs
+						SetTimerEx(0.3, 200, projectile_weap00a, -1); // fire 1st swing after 0.3 secs
+						SetTimerEx(0.6, 200, projectile_weap00a, -1); // fire 2nd swing after 0.6 secs
+						SetTimerEx(0.7, 200, projectile_weap00a, -1); // fire 2nd swing after 0.7 secs
 						firedelay = 2.0;
 					}
 					else if (tempflex1 > 1) // STANDING Strike
@@ -1124,16 +1112,16 @@ firetarget:
 						nextanim = 1 - nextanim;
 						slashsound = Rand()*8;
 						PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
+						SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+						SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 						firedelay = 0.8;
 					}
 					else // QUICK Slash
 					{
 						PlayKey(rbot, snapAnim0[slash], 1, 0x38);
 						PlaySoundThing(swingSound0[slash], rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
+						SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+						SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 						if (slash < 2) firedelay = 0.25; else firedelay = 1.0;
 						slash = (slash + 1) % 3;
 					}
@@ -1143,8 +1131,8 @@ firetarget:
 					PlayKey(rbot, fireAnimL1, 1, 0x38);
 					slashSound = Rand()*8;
 					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 					firedelay = 0.8;
 				}
 				else // RIGHT Regular Strike
@@ -1152,8 +1140,8 @@ firetarget:
 					PlayKey(rbot, fireAnimR1, 1, 0x38);
 					slashSound = Rand()*8;
 					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 202, -1, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 202, -1, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 					firedelay = 0.8;
 				}
 			}

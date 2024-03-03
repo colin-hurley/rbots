@@ -845,7 +845,6 @@ select_weap1: // Fists
 	call deselect_curweap;
 	curweap=1;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	// Note: No mount sound
 	SetArmedMode(rbot, 0);
 	minrange=0;
@@ -860,7 +859,6 @@ select_weap2: // Bryar Pistol
 	call deselect_curweap;
 	curweap=2;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange=0;
@@ -875,7 +873,6 @@ select_weap3: // Stormtrooper Rifle
 	call deselect_curweap;
 	curweap=3;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange=0;
@@ -890,7 +887,6 @@ select_weap4: // Thermal Detonators
 	call deselect_curweap;
 	curweap=4;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	// Note: No mount sound
 	SetArmedMode(rbot, 0);
 	minrange=0.3;
@@ -905,7 +901,6 @@ select_weap5: // Crossbow
 	call deselect_curweap;
 	curweap=5;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange=0;
@@ -920,7 +915,6 @@ select_weap6: // Repeater
 	call deselect_curweap;
 	curweap=6;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange=0;
@@ -935,7 +929,6 @@ select_weap7: // Rail Detonator
 	call deselect_curweap;
 	curweap=7;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // Set LOS from weapon's height
 	PlaySoundThing(mountSoundgun2, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange = 0;
@@ -951,7 +944,6 @@ select_weap8: // Sequencer Charges
 	call deselect_curweap;
 	curweap=8;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	// Note: No mount sound
 	SetArmedMode(rbot, 0);
 	minrange=0;
@@ -966,7 +958,6 @@ select_weap9: // Concussion Rifle
 	call deselect_curweap;
 	curweap=9;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	if (difficulty > 2) ParseArg(rbot,"eyeoffset=(0.032/0.0/0.0)"); else ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // // Set LOS from weapon's height
 	PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
 	SetArmedMode(rbot, 1);
 	minrange = 0;
@@ -982,7 +973,6 @@ select_weap10: // Lightsaber
 	call deselect_curweap;
 	curweap=10;
 	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	ParseArg(rbot,"eyeoffset=(0.0/0.0/0.037)"); // set normal LOS
 	PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
 	humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
 	SetThingLight(rbot, 0.65, 0.25); // Extra light for saber glow
@@ -1012,7 +1002,6 @@ firetarget:
 
 	tempvector1 = VectorSet((Rand()-0.5)*(4-difficulty)*2, (Rand()-0.5)*(4-difficulty)*2, 0); // set accuracy based on difficulty
 	disttotarg = VectorDist(GetThingPos(rbot), GetThingPos(target));
-	relpos = VectorSet(0.0, 0.0, VectorZ(GetThingPos(target))-VectorZ(GetThingPos(rbot))); // work out relative position of target to bot
 	if (minrange < disttotarg && disttotarg < maxrange && HasLOS(rbot, target)) // target within range & bot can see it
 	{
 		if (curweap == 1) // fists

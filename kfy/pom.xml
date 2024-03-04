@@ -34,7 +34,7 @@
 				<groupId>${project.groupId}</groupId>
 				<artifactId>rbots-kfy-episode</artifactId>
 				<version>${project.version}</version>
-				<type>gob</type>
+				<type>goo</type>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>

@@ -44,6 +44,9 @@ cog			customizer=-1						local
 template	teleport_particles=+telesparks		local
 sound		teleportsnd=ForceThrow01.WAV		local
 
+# Special Effects
+sound		bactaSnd=BactaUse01.WAV				local
+
 # Misc
 int			score=0								local
 int			curteam								local
@@ -159,6 +162,7 @@ pulse:
 	call checknode;
 	call move;
 	call checkspeed;
+	call checkinventory;
 	SendMessageEx(srv_weapons, user7, 10233000, -1, -1, -1); // AI pulse
 	SyncThingPos(rbot);
 	return;
@@ -615,6 +619,18 @@ timer:
 		return;
 	}
 
+	if (GetSenderId() == 500) // bacta tank
+	{
+		botmode = BitClear(botmode, 0x2); // inventory cooldown
+		if (inv_bacta > 0 && GetThingHealth(rbot) < 75) // has bacta, low health
+		{
+			PlaySoundThing(bactaSnd, rbot, 1.0, -1, -1, 128);
+			HealThing(rbot, 30.0);
+			inv_bacta = inv_bacta - 1;
+		}
+		return;
+	}
+
 	return;
 
 // Execute public API function for this cog
@@ -760,6 +776,7 @@ stop_bot_ai:
 	KillTimerEx(120); // stop checking for 'bot lost'
 	KillTimerEx(230); // stop periodic blindvec updates
 	KillTimerEx(300); // stop checking if bot is in a pit
+	KillTimerEx(500); // stop bacta tank usage
 
 	// Stop AI processes in other srv cogs
 	SendMessageEx(srv_force, user7, 10223007, -1, -1, -1);
@@ -905,6 +922,7 @@ finditem:
 			if (GetThingTemplate(potential) == tmp_health && GetThingHealth(rbot) < 50) priority = 8;
 			if ((GetThingTemplate(potential) == tmp_shields && shields < 70) || (GetThingTemplate(potential) == tmp_fullshield && shields < 70)) priority = 7;
 			if (GetThingTemplate(potential) == tmp_backpack) priority = 4;
+			if (GetThingTemplate(potential) == tmp_bacta && inv_bacta < 2) priority = 3;
 
 			// Give the other srv cogs a chance to adjust the priority
 			priority = SendMessageEx(srv_force, user7, 10223010, potential, priority, -1);
@@ -1389,6 +1407,21 @@ checkspeed:
 	movespeed = SendMessageEx(srv_force, user7, 10223040, movespeed, -1, -1);
 
 	AiSetMoveSpeed(rbot, movespeed);
+
+	return;
+
+checkinventory:
+	if (difficulty < 1 || BitTest(botmode, 0x2)) return; // use items only if inventory allows and cooldown not in effect
+
+	// See if we should use a bacta tank to heal
+	if (inv_bacta > 0 && GetThingHealth(rbot) < 75)
+	{
+		botmode = BitSet(botmode, 0x2); // inventory cooldown
+		// Simulate appropriate reaction speed - the higher the difficulty, the faster the bot will use the item
+		tempflex1 = 0.1 + 2*(4-difficulty) + Rand()*2*(4-difficulty+1);
+		SetTimerEx(tempflex1, 500, -1, -1);
+		return;
+	}
 
 	return;
 

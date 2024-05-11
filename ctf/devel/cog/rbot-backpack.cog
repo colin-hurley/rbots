@@ -26,122 +26,130 @@ thing		backpack7=-1						local
 thing		backpack8=-1						local
 thing		backpack9=-1						local
 
-# Backpack data
-# 10 backpacks * 11 items per backpack = 110 item var needed
-int			item0								local
-int			item1								local
-int			item2								local
-int			item3								local
-int			item4								local
-int			item5								local
-int			item6								local
-int			item7								local
-int			item8								local
-int			item9								local
-int			item10								local
-int			item11								local
-int			item12								local
-int			item13								local
-int			item14								local
-int			item15								local
-int			item16								local
-int			item17								local
-int			item18								local
-int			item19								local
-int			item20								local
-int			item21								local
-int			item22								local
-int			item23								local
-int			item24								local
-int			item25								local
-int			item26								local
-int			item27								local
-int			item28								local
-int			item29								local
-int			item30								local
-int			item31								local
-int			item32								local
-int			item33								local
-int			item34								local
-int			item35								local
-int			item36								local
-int			item37								local
-int			item38								local
-int			item39								local
-int			item40								local
-int			item41								local
-int			item42								local
-int			item43								local
-int			item44								local
-int			item45								local
-int			item46								local
-int			item47								local
-int			item48								local
-int			item49								local
-int			item50								local
-int			item51								local
-int			item52								local
-int			item53								local
-int			item54								local
-int			item55								local
-int			item56								local
-int			item57								local
-int			item58								local
-int			item59								local
-int			item60								local
-int			item61								local
-int			item62								local
-int			item63								local
-int			item64								local
-int			item65								local
-int			item66								local
-int			item67								local
-int			item68								local
-int			item69								local
-int			item70								local
-int			item71								local
-int			item72								local
-int			item73								local
-int			item74								local
-int			item75								local
-int			item76								local
-int			item77								local
-int			item78								local
-int			item79								local
-int			item80								local
-int			item81								local
-int			item82								local
-int			item83								local
-int			item84								local
-int			item85								local
-int			item86								local
-int			item87								local
-int			item88								local
-int			item89								local
-int			item90								local
-int			item91								local
-int			item92								local
-int			item93								local
-int			item94								local
-int			item95								local
-int			item96								local
-int			item97								local
-int			item98								local
-int			item99								local
-int			item100								local
-int			item101								local
-int			item102								local
-int			item103								local
-int			item104								local
-int			item105								local
-int			item106								local
-int			item107								local
-int			item108								local
-int			item109								local
+# Backpack contents
+int			bryar0								local
+int			bryar1								local
+int			bryar2								local
+int			bryar3								local
+int			bryar4								local
+int			bryar5								local
+int			bryar6								local
+int			bryar7								local
+int			bryar8								local
+int			bryar9								local
+
+int			strifle0							local
+int			strifle1							local
+int			strifle2							local
+int			strifle3							local
+int			strifle4							local
+int			strifle5							local
+int			strifle6							local
+int			strifle7							local
+int			strifle8							local
+int			strifle9							local
+
+int			thermdets0							local
+int			thermdets1							local
+int			thermdets2							local
+int			thermdets3							local
+int			thermdets4							local
+int			thermdets5							local
+int			thermdets6							local
+int			thermdets7							local
+int			thermdets8							local
+int			thermdets9							local
+
+int			bowcaster0							local
+int			bowcaster1							local
+int			bowcaster2							local
+int			bowcaster3							local
+int			bowcaster4							local
+int			bowcaster5							local
+int			bowcaster6							local
+int			bowcaster7							local
+int			bowcaster8							local
+int			bowcaster9							local
+
+int			repeater0							local
+int			repeater1							local
+int			repeater2							local
+int			repeater3							local
+int			repeater4							local
+int			repeater5							local
+int			repeater6							local
+int			repeater7							local
+int			repeater8							local
+int			repeater9							local
+
+int			raildet0							local
+int			raildet1							local
+int			raildet2							local
+int			raildet3							local
+int			raildet4							local
+int			raildet5							local
+int			raildet6							local
+int			raildet7							local
+int			raildet8							local
+int			raildet9							local
+
+int			seqcharges0							local
+int			seqcharges1							local
+int			seqcharges2							local
+int			seqcharges3							local
+int			seqcharges4							local
+int			seqcharges5							local
+int			seqcharges6							local
+int			seqcharges7							local
+int			seqcharges8							local
+int			seqcharges9							local
+
+int			concrifle0							local
+int			concrifle1							local
+int			concrifle2							local
+int			concrifle3							local
+int			concrifle4							local
+int			concrifle5							local
+int			concrifle6							local
+int			concrifle7							local
+int			concrifle8							local
+int			concrifle9							local
+
+int			energy0								local
+int			energy1								local
+int			energy2								local
+int			energy3								local
+int			energy4								local
+int			energy5								local
+int			energy6								local
+int			energy7								local
+int			energy8								local
+int			energy9								local
+
+int			power0								local
+int			power1								local
+int			power2								local
+int			power3								local
+int			power4								local
+int			power5								local
+int			power6								local
+int			power7								local
+int			power8								local
+int			power9								local
+
+int			railcharges0						local
+int			railcharges1						local
+int			railcharges2						local
+int			railcharges3						local
+int			railcharges4						local
+int			railcharges5						local
+int			railcharges6						local
+int			railcharges7						local
+int			railcharges8						local
+int			railcharges9						local
 
 # Transient working vars
 int			i									local
-int			offset								local
 thing		player								local
 thing		backpack							local
 int			autopickup=0						local
@@ -247,38 +255,37 @@ fill_backpack:
 		if (backpack0[i] == -1 || backpack0[i] == backpack) // found free slot to store the backpack data
 		{
 			backpack0[i] = backpack; // reserve data slot for this backpack
-			offset = i * 11;
 
 			if (player != -1)
 			{
 				if (GetThingType(player) == 2) // bot
 				{
-					item0[offset]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 2, -1, -1);  // bryar
-					item0[offset+1]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 3, -1, -1);  // strifle
-					item0[offset+2]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 4, -1, -1);  // thermal detonators
-					item0[offset+3]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 5, -1, -1);  // bowcaster
-					item0[offset+4]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 6, -1, -1);  // repeater
-					item0[offset+5]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 7, -1, -1);  // raildet
-					item0[offset+6]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 8, -1, -1);  // sequencer charges
-					item0[offset+7]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 9, -1, -1);  // concrifle
-					item0[offset+8]  = SendMessageEx(GetThingClassCog(player), user7, 10231002, -1, -1, -1); // energy
-					item0[offset+9]  = SendMessageEx(GetThingClassCog(player), user7, 10231003, -1, -1, -1); // power
-					item0[offset+10] = SendMessageEx(GetThingClassCog(player), user7, 10231005, -1, -1, -1); // rail charges
+					bryar0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231006, 2, -1, -1);
+					strifle0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 3, -1, -1);
+					thermdets0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 4, -1, -1);
+					bowcaster0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 5, -1, -1);
+					repeater0[i]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 6, -1, -1);
+					raildet0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 7, -1, -1);
+					seqcharges0[i]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 8, -1, -1);
+					concrifle0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 9, -1, -1);
+					energy0[i]      = SendMessageEx(GetThingClassCog(player), user7, 10231002, -1, -1, -1);
+					power0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231003, -1, -1, -1);
+					railcharges0[i] = SendMessageEx(GetThingClassCog(player), user7, 10231005, -1, -1, -1);
 				}
 
 				if (GetThingType(player) == 10) // player
 				{
-					item0[offset]    = GetInv(player, 2);  // bryar
-					item0[offset+1]  = GetInv(player, 3);  // strifle
-					item0[offset+2]  = GetInv(player, 4);  // thermal detonators
-					item0[offset+3]  = GetInv(player, 5);  // bowcaster
-					item0[offset+4]  = GetInv(player, 6);  // repeater
-					item0[offset+5]  = GetInv(player, 7);  // raildet
-					item0[offset+6]  = GetInv(player, 8);  // sequencer charges
-					item0[offset+7]  = GetInv(player, 9);  // concrifle
-					item0[offset+8]  = GetInv(player, 11); // energy
-					item0[offset+9]  = GetInv(player, 12); // power
-					item0[offset+10] = GetInv(player, 15); // rail charges
+					bryar0[i]       = GetInv(player, 2);
+					strifle0[i]     = GetInv(player, 3);
+					thermdets0[i]   = GetInv(player, 4);
+					bowcaster0[i]   = GetInv(player, 5);
+					repeater0[i]    = GetInv(player, 6);
+					raildet0[i]     = GetInv(player, 7);
+					seqcharges0[i]  = GetInv(player, 8);
+					concrifle0[i]   = GetInv(player, 9);
+					energy0[i]      = GetInv(player, 11);
+					power0[i]       = GetInv(player, 12);
+					railcharges0[i] = GetInv(player, 15);
 				}
 			}
 
@@ -294,38 +301,37 @@ pickup_backpack:
 		if (backpack0[i] == backpack) // found the slot containing the backpack data
 		{
 			backpack0[i] = -1; // clear data slot so another backpack can use it
-			offset = i * 11;
 
 			if (player != -1)
 			{
 				if (GetThingType(player) == 2) // bot
 				{
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 2, item0[offset], -1);     // bryar
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 3, item0[offset+1], -1);   // strifle
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 4, item0[offset+2], -1);   // thermal detonators
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 5, item0[offset+3], -1);   // bowcaster
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 6, item0[offset+4], -1);   // repeater
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 7, item0[offset+5], -1);   // raildet
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 8, item0[offset+6], -1);   // sequencer charges
-					SendMessageEx(GetThingClassCog(player), user7, 10232506, 9, item0[offset+7], -1);   // concrifle
-					SendMessageEx(GetThingClassCog(player), user7, 10232502, item0[offset+8], -1, -1);  // energy
-					SendMessageEx(GetThingClassCog(player), user7, 10232503, item0[offset+9], -1, -1);  // power
-					SendMessageEx(GetThingClassCog(player), user7, 10232505, item0[offset+10], -1, -1); // rail charges
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 2, bryar0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 3, strifle0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 4, thermdets0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 5, bowcaster0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 6, repeater0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 7, raildet0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 8, seqcharges0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 9, concrifle0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232502, energy0[i], -1, -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232503, power0[i], -1, -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232505, railcharges0[i], -1, -1);
 				}
 
 				if (GetThingType(player) == 10) // player
 				{
-					ChangeInv(player, 2,  item0[offset]);    // bryar
-					ChangeInv(player, 3,  item0[offset+1]);  // strifle
-					ChangeInv(player, 4,  item0[offset+2]);  // thermal detonators
-					ChangeInv(player, 5,  item0[offset+3]);  // bowcaster
-					ChangeInv(player, 6,  item0[offset+4]);  // repeater
-					ChangeInv(player, 7,  item0[offset+5]);  // raildet
-					ChangeInv(player, 8,  item0[offset+6]);  // sequencer charges
-					ChangeInv(player, 9,  item0[offset+7]);  // concrifle
-					ChangeInv(player, 11, item0[offset+8]);  // energy
-					ChangeInv(player, 12, item0[offset+9]);  // power
-					ChangeInv(player, 15, item0[offset+10]); // rail charges
+					ChangeInv(player, 2,  bryar0[i]);
+					ChangeInv(player, 3,  strifle0[i]);
+					ChangeInv(player, 4,  thermdets0[i]);
+					ChangeInv(player, 5,  bowcaster0[i]);
+					ChangeInv(player, 6,  repeater0[i]);
+					ChangeInv(player, 7,  raildet0[i]);
+					ChangeInv(player, 8,  seqcharges0[i]);
+					ChangeInv(player, 9,  concrifle0[i]);
+					ChangeInv(player, 11, energy0[i]);
+					ChangeInv(player, 12, power0[i]);
+					ChangeInv(player, 15, railcharges0[i]);
 				}
 			}
 

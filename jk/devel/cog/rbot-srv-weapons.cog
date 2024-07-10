@@ -11,8 +11,10 @@ flags=0x40
 symbols
 
 message		startup
+message		damaged
 message		trigger
 message		timer
+message		skill
 message		user7
 
 int			botid=0
@@ -95,7 +97,7 @@ keyframe    blockAnim2=KYblock2.key				local
 # Item templates
 template	tmp_energycell=ENERGYCELL			local
 template	tmp_powercell=POWERCELL				local
-template	tmp_raildets=RAILCHARGES			local
+template	tmp_railcharges=RAILCHARGES			local
 template	tmp_powerboost=POWERBOOST			local
 template	tmp_weap2=bryarpistol				local
 template	tmp_weap3=STRIFLE					local
@@ -110,6 +112,7 @@ template	tmp_weap8x1=singleseqcharge			local
 template	tmp_m5weap7=m5railgun				local
 template	tmp_m5weap9=m5concrifle				local
 
+
 # Force-pulled weapon templates
 template	tmp_fpweap2=+FPBryarPistol			local
 template	tmp_fpweap3=+FPSTrifle				local
@@ -121,9 +124,9 @@ template	tmp_fpweap8=+FPSeqCharge			local
 template	tmp_fpweap9=+FPConcRifle			local
 
 # Inventory items
-int			energy								local
-int			power								local
-int			inv_raildets						local
+int			inv_energy							local
+int			inv_power							local
+int			inv_railcharges						local
 int			inv_weap0							local desc=saber_unlit
 int			inv_weap1							local desc=fists
 int			inv_weap2							local desc=bryar
@@ -147,10 +150,6 @@ int			nextblock=0							local
 int			nextanim=0							local
 int			slash=0								local
 int			curweap								local
-flex		firedelay							local
-flex		minrange							local
-flex		maxrange							local
-flex		fire2range							local
 
 # Transient working vars
 vector		tempvector1							local
@@ -178,6 +177,33 @@ startup:
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1023, GetSelfCog(), botid, -1);
 
+	return;
+
+damaged:
+	damage = GetParam(0);
+	damagetype= GetParam(1);
+	damager = GetParam(2);
+
+	if (curweap == 10 && !BitTest(weaponmode, 0x1)) // bot has saber and is not awaiting weapon cooldown
+	{
+		// Check for saber blocking
+		dot = ThingViewDot(rbot, GetThingParent(damager));
+		if (BitTest(damagetype, 0x10) && dot > 0.5) // attacker has saber and bot is facing attacker
+		{
+			call block_anim; // play saber block animation
+			damage = 0;
+		}
+		if (BitTest(damagetype, 0x2) && dot > 0.5) // attacked by energy weapon and bot is facing the projectile
+		{
+			call block_anim; // play saber block animation
+			damage = 0;
+			// Also deflect projectile
+			tempvector1 = VectorSet((Rand()-0.5)*36, (Rand()-0.5)*36, 0.0);
+			FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
+		}
+	}
+
+	ReturnEx(damage);
 	return;
 
 trigger:
@@ -209,12 +235,11 @@ trigger:
 		{
 			if (inv_weap8 > 0 && target == -1) // The bot has ammo and not already attacking a target
 			{
-				call select_weap8;
 				// lay a mine (secondary fire)
-				FireProjectile(rbot, projectile_weap08a, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0x0, 0, 0);
-				inv_weap8 = inv_weap8 - 1;
+				call use_weap8;
 			}
 		}
+		return;
 	}
 
 	return;
@@ -253,6 +278,11 @@ timer:
 
 	return;
 
+skill:
+	// No weapon effects implemented in JK
+	ReturnEx(-1);
+	return;
+
 // Execute public API function for this cog
 // Param 0 = Function ID
 // The remaining params will be processed according to the requested function
@@ -260,9 +290,9 @@ timer:
 // Returns the function-specific result of the execution
 user7:
 	if (GetParam(0) == 10231001) { ReturnEx(weaponmode); return; }
-	if (GetParam(0) == 10231002) { ReturnEx(energy); return; }
-	if (GetParam(0) == 10231003) { ReturnEx(power); return; }
-	if (GetParam(0) == 10231005) { ReturnEx(inv_raildets); return; }
+	if (GetParam(0) == 10231002) { ReturnEx(inv_energy); return; }
+	if (GetParam(0) == 10231003) { ReturnEx(inv_power); return; }
+	if (GetParam(0) == 10231005) { ReturnEx(inv_railcharges); return; }
 	if (GetParam(0) == 10231006) { ReturnEx(inv_weap0[GetParam(1)]); return; }
 	if (GetParam(0) == 10231007) { ReturnEx(powerboost); return; }
 	if (GetParam(0) == 10231014) { ReturnEx(curweap); return; }
@@ -271,22 +301,22 @@ user7:
 
 	if (GetParam(0) == 10232502) // add energy
 	{
-		energy = energy + GetParam(1);
-		if (energy > 500) energy = 500;
+		inv_energy = inv_energy + GetParam(1);
+		if (inv_energy > 500) inv_energy = 500;
 		return;
 	}
 
 	if (GetParam(0) == 10232503) // add power
 	{
-		power = power + GetParam(1);
-		if (power > 500) power = 500;
+		inv_power = inv_power + GetParam(1);
+		if (inv_power > 500) inv_power = 500;
 		return;
 	}
 
 	if (GetParam(0) == 10232505) // add rail charges
 	{
-		inv_raildets = inv_raildets + GetParam(1);
-		if (inv_raildets > 30) inv_raildets = 30;
+		inv_railcharges = inv_railcharges + GetParam(1);
+		if (inv_railcharges > 30) inv_railcharges = 30;
 		return;
 	}
 
@@ -316,44 +346,17 @@ user7:
 		return;
 	}
 
-	if (GetParam(0) == 10233002) // bot damaged (try to block with saber)
-	{
-		damage = GetParam(1);
-		damagetype= GetParam(2);
-		damager = GetParam(3);
-		if (curweap == 10 && !BitTest(weaponmode, 0x1)) // bot has saber and is not awaiting weapon cooldown
-		{
-			// Check for saber blocking
-			dot = ThingViewDot(rbot, GetThingParent(damager));
-			if (BitTest(damagetype, 0x10) && dot > 0.5) // attacker has saber and bot is facing attacker
-			{
-				call block_anim; // play saber block animation
-				damage = 0;
-			}
-			if (BitTest(damagetype, 0x2) && dot > 0.5) // attacked by energy weapon and bot is facing the projectile
-			{
-				call block_anim; // play saber block animation
-				damage = 0;
-				// Also deflect projectile
-				tempvector1 = VectorSet((Rand()-0.5)*36, (Rand()-0.5)*36, 0.0);
-				FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
-			}
-		}
-		ReturnEx(damage);
-		return;
-	}
-
 	if (GetParam(0) == 10233003) // force pull used against bot
 	{
 		item = -1;
-		if (1 < curweap && curweap < 10) // don't force pull fists or saber
+		if (1 < curweap && curweap != 10) // don't force pull fists or saber
 		{
 			if (inv_weap0[curweap] > 0) // bot has weapon/ammo
 			{
 				// Remove the weapon from the bot and create a powerup corresponding to the current weapon
 				inv_weap0[curweap] = inv_weap0[curweap] - 1;
 				item = CreateThingAtPos(tmp_fpweap2[curweap-2], GetThingSector(rbot), GetThingPos(rbot), '0 0 0');
-				call select_weap1; // Select fists
+				call use_weap1; // Select fists
 			}
 		}
 		ReturnEx(item); // return the powerup
@@ -376,9 +379,9 @@ user7:
 		inv_weap8 = 0; // sequencers
 		inv_weap9 = 0; // concrifle
 		inv_weap10 = 1; // saber lit
-		energy = 50;
-		power = 0;
-		inv_raildets = 0;
+		inv_energy = 50;
+		inv_power = 0;
+		inv_railcharges = 0;
 		powerboost = 1; // normal fire rate
 		curweap = 0;
 		weaponmode = 0x0;
@@ -420,7 +423,7 @@ user7:
 			if ((GetThingTemplate(item) == tmp_weap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_fpweap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_weap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_fpweap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_weap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_fpweap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_weap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_fpweap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_fpweap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_m5weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_weap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_fpweap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_m5weap9 && !inv_weap9)) priority = 6;
 
 			// Ammo
-			if ((GetThingTemplate(item) == tmp_energycell && energy < 100) || (GetThingTemplate(item) == tmp_powercell && power < 100) || (GetThingTemplate(item) == tmp_raildets && inv_raildets < 10)) priority = 5;
+			if ((GetThingTemplate(item) == tmp_energycell && inv_energy < 100) || (GetThingTemplate(item) == tmp_powercell && inv_power < 100) || (GetThingTemplate(item) == tmp_railcharges && inv_railcharges < 10)) priority = 5;
 
 			// TDs and sequencers
 			if ((GetThingTemplate(item) == tmp_weap4 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_weap4x1 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_fpweap4 && inv_weap4 < 6) || (GetThingTemplate(item) == tmp_weap8 && inv_weap8 < 5) || (GetThingTemplate(item) == tmp_weap8x1 && inv_weap8 < 5) || (GetThingTemplate(item) == tmp_fpweap8 && inv_weap8 < 5)) priority = 4;
@@ -435,10 +438,10 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_energycell)
 		{
-			if (energy < 500)
+			if (inv_energy < 500)
 			{
-				energy = energy + 20;
-				if (energy > 500) energy = 500;
+				inv_energy = inv_energy + 20;
+				if (inv_energy > 500) inv_energy = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -446,10 +449,10 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_powercell)
 		{
-			if (power < 500)
+			if (inv_power < 500)
 			{
-				power = power + 25;
-				if (power > 500) power = 500;
+				inv_power = inv_power + 25;
+				if (inv_power > 500) inv_power = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -465,7 +468,6 @@ user7:
 			}
 			return;
 		}
-
 		if (GetThingTemplate(item) == tmp_weap4x1 || GetThingTemplate(item) == tmp_fpweap4)
 		{
 			if (inv_weap4 < 30)
@@ -497,12 +499,12 @@ user7:
 			return;
 		}
 
-		if (GetThingTemplate(item) == tmp_raildets)
+		if (GetThingTemplate(item) == tmp_railcharges)
 		{
-			if (inv_raildets < 30)
+			if (inv_railcharges < 30)
 			{
-				inv_raildets = inv_raildets + 3;
-				if (inv_raildets > 30) inv_raildets = 30;
+				inv_railcharges = inv_railcharges + 3;
+				if (inv_railcharges > 30) inv_railcharges = 30;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -519,11 +521,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap2 || GetThingTemplate(item) == tmp_fpweap2)
 		{
-			if (inv_weap3 == 0 || energy < 500)
+			if (inv_weap2 == 0 || inv_energy < 500)
 			{
 				inv_weap2 = 1;
-				energy = energy + 10;
-				if (energy > 500) energy = 500;
+				inv_energy = inv_energy + 10;
+				if (inv_energy > 500) inv_energy = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -531,11 +533,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap3 || GetThingTemplate(item) == tmp_fpweap3)
 		{
-			if (inv_weap3 == 0 || energy < 500)
+			if (inv_weap3 == 0 || inv_energy < 500)
 			{
 				inv_weap3 = 1;
-				energy = energy + 24;
-				if (energy > 500) energy = 500;
+				inv_energy = inv_energy + 24;
+				if (inv_energy > 500) inv_energy = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -543,11 +545,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap5 || GetThingTemplate(item) == tmp_fpweap5)
 		{
-			if (inv_weap5 == 0 || power < 500)
+			if (inv_weap5 == 0 || inv_power < 500)
 			{
 				inv_weap5 = 1;
-				power = power + 16;
-				if (power > 500) power = 500;
+				inv_power = inv_power + 16;
+				if (inv_power > 500) inv_power = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -555,11 +557,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap6 || GetThingTemplate(item) == tmp_fpweap6)
 		{
-			if (inv_weap6 == 0 || power < 500)
+			if (inv_weap6 == 0 || inv_power < 500)
 			{
 				inv_weap6 = 1;
-				power = power + 24;
-				if (power > 500) power = 500;
+				inv_power = inv_power + 24;
+				if (inv_power > 500) inv_power = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}  
 			return;
@@ -567,11 +569,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7 || GetThingTemplate(item) == tmp_m5weap7)
 		{
-			if (inv_weap7 ==0 || inv_raildets < 30)
+			if (inv_weap7 == 0 || inv_railcharges < 30)
 			{
 				inv_weap7 = 1;
-				inv_raildets = inv_raildets + 6;
-				if (inv_raildets > 30) inv_raildets = 30;
+				inv_railcharges = inv_railcharges + 6;
+				if (inv_railcharges > 30) inv_railcharges = 30;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -579,11 +581,11 @@ user7:
 
 		if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9 || GetThingTemplate(item) == tmp_m5weap9)
 		{
-			if (inv_weap9 == 0 || power < 500)
+			if (inv_weap9 == 0 || inv_power < 500)
 			{
 				inv_weap9 = 1;
-				power = power + 32;
-				if (power > 500) power = 500;
+				inv_power = inv_power + 32;
+				if (inv_power > 500) inv_power = 500;
 				TakeItem(item, rbot); // bot picked up this item
 			}
 			return;
@@ -614,7 +616,6 @@ user7:
 		if (GetThingType(target) == 10) // target is a player
 		{
 			targweap = GetCurWeapon(target);
-			if (targweap == 11) targweap = 10; // If player has saber, set it to 10 for simplicity
 		}
 		if ((curweap == 2 && targweap > 2 && difficulty >= 1) || ((targweap == 7 || targweap == 9) && curweap < 6 && difficulty >= 2)) // Need a better weapon
 		{
@@ -647,331 +648,16 @@ block_anim:
 	return;
 
 attacktarget:
-	if (rbot == -1 || GetThingHealth(rbot) <= 0 || AIGetMode(rbot) & 0x2000) return; // bot dead or AI disabled
-	call bestweapon;
-	call firetarget;
-	return;
+	if (BitTest(weaponmode, 0x1)) return; // can't attack during cooldown
 
-bestweapon:
-	if (BitTest(weaponmode, 0x1)) return; // don't select new weapon until after cooldown
-
-	if (!BitTest(gamemode, 0x1)) // no guns
+	if (rbot == -1 || GetThingHealth(rbot) <= 0 || GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000) // bot dead or frozen or AI disabled
 	{
-		if (BitTest(gamemode, 0x2)) goto select_weap10; // sabers only
-		goto select_weap1; // fists only
+		return;
 	}
 
-	// Select best weapon based on difficulty
-	if (difficulty < 3 || target == -1) // use the biggest gun on lower difficulties or if bot has no target
-	{
-		if (inv_weap9 == 1 && power > 7)
-		{
-			goto select_weap9;
-		}
-		if (inv_weap7 == 1 && inv_raildets > 0)
-		{
-			goto select_weap7;
-		}
-		if (inv_weap6 == 1 && power > 0)
-		{
-			goto select_weap6;
-		}
-		if (inv_weap5 == 1 && power > 1)
-		{
-			goto select_weap5;
-		}
-		if (inv_weap3 == 1 && energy > 1)
-		{
-			goto select_weap3;
-		}
-		if (inv_weap2 == 1 && energy > 0)
-		{
-			goto select_weap2;
-		}
-	}
-	else // On higher difficulties, make smarter gun selection choices
-	{
-		// Determine how far away the target is
-		disttotarg = VectorDist(GetThingPos(rbot), GetThingPos(target));
-
-		// Get the current weapon of our target
-		targweap = 0;
-		if (SendMessageEx(system, user7, 10103000, target, -1, -1) != -1) // target is a bot
-		{
-			targweap = SendMessageEx(GetThingClassCog(target), user7, 10231014, -1, -1, -1);
-		}
-		if (GetThingType(target) == 10) // target is a player
-		{
-			targweap = GetCurWeapon(target);
-			if (targweap == 11) targweap = 10; // If player has saber, set it to 10 for simplicity
-		}
-
-		if (disttotarg < 0.4) // very close range
-		{
-			// Note: We don't want to use explosive guns at this range
-
-			// We don't want to fight the target bot with energy bullets at this range if the target can block them with a saber
-			if (targweap == 10) // target is using saber
-			{
-				goto select_weap10; // enemy saber can block energy weapons, use saber to attack
-			}
-
-			// Target is not using a saber, resume normal gun selection
-			if (inv_weap6 == 1 && power > 0)
-			{
-				goto select_weap6;
-			}
-			if (inv_weap5 == 1 && power > 1)
-			{
-				goto select_weap5;
-			}
-			if (inv_weap3 == 1 && energy > 1)
-			{
-				goto select_weap3;
-			}
-			if (inv_weap2 == 1 && energy > 0)
-			{
-				goto select_weap2;
-			}
-		}
-		else if (disttotarg < 0.9) // close range
-		{
-			// First preference is explosive weapons
-			if (inv_weap9 == 1 && power > 7)
-			{
-				goto select_weap9;
-			}
-			if (inv_weap7 == 1 && inv_raildets > 0)
-			{
-				goto select_weap7;
-			}
-
-			// We don't want to fight the target bot with energy bullets at this range if the target can block them with a saber
-			if (targweap == 10) // target is using saber
-			{
-				goto select_weap10; // enemy saber can block energy weapons, use saber to attack
-			}
-
-			// Target is not using a saber, resume normal gun selection
-			if (inv_weap6 == 1 && power > 0)
-			{
-				goto select_weap6;
-			}
-			if (inv_weap5 == 1 && power > 1)
-			{
-				goto select_weap5;
-			}
-			if (inv_weap3 == 1 && energy > 1)
-			{
-				goto select_weap3;
-			}
-			if (inv_weap2 == 1 && energy > 0)
-			{
-				goto select_weap2;
-			}
-		}
-		else // far range
-		{
-			// Pick from available guns, don't need to use saber at this range
-			if (inv_weap9 == 1 && power > 7)
-			{
-				goto select_weap9;
-			}
-			if (inv_weap7 == 1 && inv_raildets > 0)
-			{
-				goto select_weap7;
-			}
-			if (inv_weap6 == 1 && power > 0)
-			{
-				goto select_weap6;
-			}
-			if (inv_weap5 == 1 && power > 1)
-			{
-				goto select_weap5;
-			}
-			if (inv_weap3 == 1 && energy > 1)
-			{
-				goto select_weap3;
-			}
-			if (inv_weap2 == 1 && energy > 0)
-			{
-				goto select_weap2;
-			}
-		}
-	}
-
-	// No appropriate guns to use, choice is now between saber and fists
-	if (BitTest(gamemode, 0x2)) // sabers allowed
-	{
-		goto select_weap10; // prefer saber over fists
-	}
-
-	goto select_weap1; // no other option available, select fists
-
-	return;
-
-// Some weapons have dismount effects to perform before changing to the new weapon
-deselect_curweap:
-	if (curweap == 10) // old weapon was saber
-	{
-		PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber dismount sound
-		if(humChannel != -1)
-		{
-			StopSound(humChannel, 0.5); // Stop resident saber noise
-			humChannel = -1;
-		}
-		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
-		curweap = 0; // unlit saber
-		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // show model with saber turned off
-	}
-	return;
-
-select_weap1: // Fists
-	if (curweap==1) return;
-	call deselect_curweap;
-	curweap=1;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	// Note: No mount sound
-	SetArmedMode(rbot, 0);
-	minrange=0;
-	maxrange=0.3;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap2: // Bryar Pistol
-	if (curweap==2) return;
-	call deselect_curweap;
-	curweap=2;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange=0;
-	maxrange=8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap3: // Stormtrooper Rifle
-	if (curweap==3) return;
-	call deselect_curweap;
-	curweap=3;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange=0;
-	maxrange=8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap4: // Thermal Detonators
-	if (curweap==4) return;
-	call deselect_curweap;
-	curweap=4;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	// Note: No mount sound
-	SetArmedMode(rbot, 0);
-	minrange=0.3;
-	maxrange=2.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap5: // Crossbow
-	if (curweap==5) return;
-	call deselect_curweap;
-	curweap=5;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange=0;
-	maxrange=8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap6: // Repeater
-	if (curweap==6) return;
-	call deselect_curweap;
-	curweap=6;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun0, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange=0;
-	maxrange=8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap7: // Rail Detonator
-	if (curweap==7) return;
-	call deselect_curweap;
-	curweap=7;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun2, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange = 0;
-	fire2range = 0.8;
-	maxrange = 8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap8: // Sequencer Charges
-	if (curweap==8) return;
-	call deselect_curweap;
-	curweap=8;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	// Note: No mount sound
-	SetArmedMode(rbot, 0);
-	minrange=0;
-	maxrange=0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap9: // Concussion Rifle
-	if (curweap==9) return;
-	call deselect_curweap;
-	curweap=9;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundgun1, rbot, 1.0, -1.0, -1.0, 0x80);
-	SetArmedMode(rbot, 1);
-	minrange = 0;
-	fire2range = 0.8;
-	maxrange = 8.0;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-select_weap10: // Lightsaber
-	if (curweap==10) return;
-	call deselect_curweap;
-	curweap=10;
-	SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
-	PlaySoundThing(mountSoundsaber, rbot, 1.0, -1.0, -1.0, 0x80); // Play saber mount sound
-	humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
-	SetThingLight(rbot, 0.65, 0.25); // Extra light for saber glow
-	SetArmedMode(rbot, 2);
-	minrange=0;
-	maxrange=0.4;
-	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
-	KillTimerEx(120);
-	SetTimerEx(1.0, 120, -1, -1); // clear cooldown after mount complete
-	return;
-
-firetarget:
-	if (BitTest(weaponmode, 0x1) || target == -1) return; // weapon cooldown or no target
+	// Determine how far away the target is
+	disttotarg = 0;
+	if (target != -1) disttotarg = VectorDist(GetThingPos(rbot), GetThingPos(target));
 
 	// Lead distance
 	#if (difficulty == 4)
@@ -987,173 +673,507 @@ firetarget:
 	#}
 
 	tempvector1 = VectorSet((Rand()-0.5)*(4-difficulty)*2, (Rand()-0.5)*(4-difficulty)*2, 0); // set accuracy based on difficulty
-	disttotarg = VectorDist(GetThingPos(rbot), GetThingPos(target));
-	if (minrange < disttotarg && disttotarg < maxrange && HasLOS(rbot, target)) // target within range & bot can see it
+
+	if (!BitTest(gamemode, 0x1)) // no guns
 	{
-		if (curweap == 1) // fists
-		{
-			if (nextanim == 0)
-			{
-				FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0x0, 0, 0);
-				PlaySoundThing(snd_fireweap01, rbot, 1.0, 0.5, 2.5, 0x80);
-			}
-			else
-			{
-				FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0x0, 0, 0);
-				PlaySoundThing(snd_fireweap01a, rbot, 1.0, 0.5, 2.5, 0x80);
-			}
-			nextanim = 1 - nextanim;
-			firedelay = 0.65;
-		}
-		if (curweap == 2) // bryar
-		{
-			FireProjectile(rbot, projectile_weap02, snd_fireweap02, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
-			energy = energy - 1;
-			firedelay = 0.5 / powerboost;
-		}
-		if (curweap == 3) // st-rifle
-		{
-			tempvector1 = VectorSet((Rand()-0.5)*5, (Rand()-0.5)*5, 0.0); // st-rifle is always inaccurate, override difficulty-based accuracy
-			FireProjectile(rbot, projectile_weap03, snd_fireweap03, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0x0, 0, 0);
-			energy = energy - 2;
-			firedelay = 0.2 / powerboost;
-		}
-		# TODO thermal detonators
-		if (curweap == 5) // bowcaster
-		{
-			FireProjectile(rbot, projectile_weap05b, snd_fireweap05a, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x0, 0, 0);
-			power = power - 2;
-			firedelay = 0.6 / powerboost;
-		}
-		if (curweap == 6) // repeater
-		{
-			FireProjectile(rbot, projectile_weap06, snd_fireweap06, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x0, 0, 0);
-			power = power - 1;
-			firedelay = 0.1 / powerboost;
-		}
-		if (curweap == 7) // raildet
-		{
-			if (disttotarg > fire2range || difficulty < 1) // primary fire - target is far enough away, or difficulty is too low
-			{
-				FireProjectile(rbot, projectile_weap07, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x0, 0, 0);
-				ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
-				inv_raildets = inv_raildets - 1;
-			}
-			else // secondary fire - target is too close and difficulty allows secondary fire
-			{
-				FireProjectile(rbot, projectile_weap07a, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x0, 0, 0);
-				ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
-				inv_raildets = inv_raildets - 1;
-			}
-			firedelay = 1.0 / powerboost;
-		}
-		# TODO sequencer charges
-		if (curweap == 9) // conc rifle (primary fire)
-		{
-			if (disttotarg > fire2range || difficulty < 1) // primary fire - target is far enough away, or difficulty is too low
-			{
-				FireProjectile(rbot, projectile_weap09, snd_fireweap09, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x0, 0, 0);
-				ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
-				power = power - 8;
-			}
-			else // secondary fire - target is too close and difficulty allows secondary fire
-			{
-				FireProjectile(rbot, projectile_weap09a, snd_fireweap09, 18, '0.0 0.0 0.0', tempvector1, 1.0, 0x0, 0, 0);
-				ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
-				power = power - 4;
-			}
-			firedelay = 1.2 / powerboost;
-		}
-		if (curweap == 10) // lightsaber
-		{
-			// TODO: some of the attacks don't seem to apply base damage amount consistent with weap_saber.cog
+		if (BitTest(gamemode, 0x2)) goto use_weap10; // sabers only
+		goto use_weap1; // fists only
+	}
 
-			if (GetMajorMode(rbot) == 5) // Underwater saber attacks
+	// Select best weapon based on difficulty
+	if (difficulty < 3 || target == -1) // use the biggest gun on lower difficulties or if bot has no target
+	{
+		if (inv_weap9 == 1 && inv_power > 7)
+		{
+			goto use_weap9;
+		}
+		if (inv_weap7 == 1 && inv_railcharges > 0)
+		{
+			goto use_weap7;
+		}
+		if (inv_weap6 == 1 && inv_power > 0)
+		{
+			goto use_weap6;
+		}
+		if (inv_weap5 == 1 && inv_power > 1)
+		{
+			goto use_weap5;
+		}
+		if (inv_weap3 == 1 && inv_energy > 1)
+		{
+			goto use_weap3;
+		}
+		if (inv_weap2 == 1 && inv_energy > 0)
+		{
+			goto use_weap2;
+		}
+	}
+	else // On higher difficulties, make smarter gun selection choices
+	{
+		// Get the current weapon of our target
+		targweap = 0;
+		if (SendMessageEx(system, user7, 10103000, target, -1, -1) != -1) // target is a bot
+		{
+			targweap = SendMessageEx(GetThingClassCog(target), user7, 10231014, -1, -1, -1);
+		}
+		if (GetThingType(target) == 10) // target is a player
+		{
+			targweap = GetCurWeapon(target);
+		}
+
+		// We don't want to use explosive weapons at very close range
+		if (disttotarg > 0.4)
+		{
+			if (inv_weap9 == 1 && inv_power > 7)
 			{
-				if (nextanim == 0)
-					PlayMode(rbot, 8);
-				else
-					PlayMode(rbot, 18);
-				nextanim = 1 - nextanim;
-				slashsound = Rand()*8;
-				PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-				firedelay = 1.0;
+				goto use_weap9;
 			}
-			else // Land based saber attacks
+			if (inv_weap7 == 1 && inv_railcharges > 0)
 			{
-				dot=ThingViewDot(rbot,target);
-				// TODO relpos is essentially VectorSub(GetThingPos(target), GetThingPos(rbot)) with Z component zeroed
-				// The left/right strike checks assume relpos is relative to bot's lvec, but it is absolute
-				// Those checks should be adjusted to use vector dots relative to lvec and rvec to determine left/right offset
-				relpos=VectorSet(VectorX(GetThingPos(target))-VectorX(GetThingPos(rbot)), VectorY(GetThingPos(target))-VectorY(GetThingPos(rbot)), 0.0); // work out relative position of target to bot
-				if (dot > 0.4) // target is front of bot
-				{
-					tempflex1=rand()*3;
-					if (tempflex1 > 2) // HEAVY Slash
-					{
-						PlayKey(rbot, chargeAnim, 2, 0x38);
-						PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 200, projectile_weap00a, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 200, projectile_weap00a, -1); // fire 1st swing after 0.3 secs
-						SetTimerEx(0.6, 200, projectile_weap00a, -1); // fire 2nd swing after 0.6 secs
-						SetTimerEx(0.7, 200, projectile_weap00a, -1); // fire 2nd swing after 0.7 secs
-						firedelay = 2.0;
-					}
-					else if (tempflex1 > 1) // STANDING Strike
-					{
-						if (nextanim == 0)
-							PlayKey(rbot, fireAnimF1, 2, 0x38);
-						else
-							PlayKey(rbot, fireAnimF2, 2, 0x38);
-						nextanim = 1 - nextanim;
-						slashsound = Rand()*8;
-						PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-						firedelay = 0.8;
-					}
-					else // QUICK Slash
-					{
-						PlayKey(rbot, snapAnim0[slash], 1, 0x38);
-						PlaySoundThing(swingSound0[slash], rbot, 1.0, -1, -1, 0x80);
-						SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-						SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-						if (slash < 2) firedelay = 0.25; else firedelay = 1.0;
-						slash = (slash + 1) % 3;
-					}
-				}
-				else if (VectorX(relpos) < 0) // LEFT Regular Strike
-				{
-					PlayKey(rbot, fireAnimL1, 1, 0x38);
-					slashSound = Rand()*8;
-					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-					firedelay = 0.8;
-				}
-				else // RIGHT Regular Strike
-				{
-					PlayKey(rbot, fireAnimR1, 1, 0x38);
-					slashSound = Rand()*8;
-					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-					firedelay = 0.8;
-				}
+				goto use_weap7;
 			}
 		}
+
+		// We don't want to fight the target bot with energy bullets at close range if the target can block them with a saber
+		if (disttotarg < 0.9 && targweap == 10 && BitTest(gamemode, 0x2)) // target is using saber and bot is allowed to use a saber
+		{
+			goto use_weap10; // enemy saber can block energy weapons, use saber to attack
+		}
+
+		if (inv_weap6 == 1 && inv_power > 0)
+		{
+			goto use_weap6;
+		}
+		if (inv_weap5 == 1 && inv_power > 1)
+		{
+			goto use_weap5;
+		}
+		if (inv_weap3 == 1 && inv_energy > 1)
+		{
+			goto use_weap3;
+		}
+		if (inv_weap2 == 1 && inv_energy > 0)
+		{
+			goto use_weap2;
+		}
+	}
+
+	// No appropriate guns to use, choice is now between saber and fists
+	if (BitTest(gamemode, 0x2)) // sabers allowed
+	{
+		goto use_weap10; // prefer saber over fists
+	}
+
+	goto use_weap1; // no other option available, select fists
+
+	return;
+
+// Some weapons have dismount effects to perform before changing to the new weapon
+deselect_curweap:
+	if (curweap == 10) // lightsaber
+	{
+		PlaySoundThing(dismountSoundsaber, rbot, 1.0, -1, -1, 0x80); // Play saber dismount sound
+		if(humChannel != -1)
+		{
+			StopSound(humChannel, 0.5); // Stop resident saber noise
+			humChannel = -1;
+		}
+		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
+		curweap = 0; // unlit saber
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // show model with saber turned off
+		return;
+	}
+	return;
+
+use_weap1: // Fists
+	if (curweap != 1) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 1;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		// Note: No mount sound
+		SetArmedMode(rbot, 0);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 0.3 && HasLOS(rbot, target)) // target is in range
+	{
+		if (nextanim == 0)
+		{
+			FireProjectile(rbot, projectile_weap01, -1, 8, '-0.02 0.03 0', '0 0 0', 1.0, 0x0, 0, 0);
+			PlaySoundThing(snd_fireweap01, rbot, 1.0, 0.5, 2.5, 0x80);
+		}
+		else
+		{
+			FireProjectile(rbot, projectile_weap01, -1, 18, '0.02 0.03 0', '0 0 0', 1.0, 0x0, 0, 0);
+			PlaySoundThing(snd_fireweap01a, rbot, 1.0, 0.5, 2.5, 0x80);
+		}
+		nextanim = 1 - nextanim;
 		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
-		SetTimerEx(firedelay, 120, -1, -1); // wait for a short time before firing again
+		SetTimerEx(0.65, 120, -1, -1); // wait for a short time before firing again
+		return;
+	}
 
-		// Bot has fired at target, stop saber block animation
+	return;
+
+use_weap2: // Bryar Pistol
+	if (curweap != 2) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 2;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun0, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		FireProjectile(rbot, projectile_weap02, snd_fireweap02, 8, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
+		inv_energy = inv_energy - 1;
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+		SetTimerEx(0.5 / powerboost, 120, -1, -1); // wait for a short time before firing again
+		return;
+	}
+
+	return;
+
+use_weap3: // Stormtrooper Rifle
+	if (curweap != 3) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 3;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun1, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		tempvector1 = VectorSet((Rand()-0.5)*5, (Rand()-0.5)*5, 0.0); // st-rifle is always inaccurate, override difficulty-based accuracy
+		FireProjectile(rbot, projectile_weap03, snd_fireweap03, 8, '0.0168 0.1896 0.00', tempvector1, 1.0, 0x0, 0, 0);
+		inv_energy = inv_energy - 2;
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+		SetTimerEx(0.2 / powerboost, 120, -1, -1); // wait for a short time before firing again
+		return;
+	}
+
+	return;
+
+#use_weap4: // Thermal Detonators
+#	if (curweap != 4) // this weapon has not yet been mounted
+#	{
+#		call deselect_curweap;
+#		curweap = 4;
+#		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+#		// Note: No mount sound
+#		SetArmedMode(rbot, 0);
+#		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+#		KillTimerEx(120);
+#		SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
+#		return;
+#	}
+#
+#	if (target != -1 && 0.3 < disttotarg && disttotarg < 2.0 && HasLOS(rbot, target)) // target is in range
+#	{
+#		// TODO fire weapon
+#		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+#		SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+#		return;
+#	}
+#
+#	return;
+
+use_weap5: // Crossbow
+	if (curweap != 5) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 5;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun0, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		FireProjectile(rbot, projectile_weap05b, snd_fireweap05a, 18, '0.0207 0.0888 0.00', tempvector1, 1.0, 0x0, 0, 0);
+		inv_power = inv_power - 2;
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+		SetTimerEx(0.6 / powerboost, 120, -1, -1); // wait for a short time before firing again
+		return;
+	}
+
+	return;
+
+use_weap6: // Repeater
+	if (curweap != 6) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 6;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun0, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		FireProjectile(rbot, projectile_weap06, snd_fireweap06, 8, '0.0186 0.0102 0.00', tempvector1, 1.0, 0x0, 0, 0);
+		inv_power = inv_power - 1;
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+		SetTimerEx(0.1 / powerboost, 120, -1, -1); // wait for a short time before firing again
+		return;
+	}
+
+	return;
+
+use_weap7: // Rail Detonator
+	if (curweap != 7) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 7;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun2, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		if (disttotarg > 0.8 || difficulty < 1) // primary fire - target is far enough away, or difficulty is too low
+		{
+			FireProjectile(rbot, projectile_weap07, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x0, 0, 0);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
+			inv_railcharges = inv_railcharges - 1;
+			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+			SetTimerEx(1.0 / powerboost, 120, -1, -1); // wait for a short time before firing again
+			return;
+		}
+		else // secondary fire - target is too close and difficulty allows secondary fire
+		{
+			FireProjectile(rbot, projectile_weap07a, snd_fireweap07, 18, '0.0214 0.15 0.00', tempvector1, 1.0, 0x0, 0, 0);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -40)); // Provide a kick backwards
+			inv_railcharges = inv_railcharges - 1;
+			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+			SetTimerEx(1.0 / powerboost, 120, -1, -1); // wait for a short time before firing again
+			return;
+		}
+		return;
+	}
+
+	return;
+
+use_weap8: // Sequencer Charges
+	if (curweap != 8) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 8;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		// Note: No mount sound
+		SetArmedMode(rbot, 0);
+		// TODO: Implement proper mount wait
+		// This code is called from the special info trigger, not the attacktarget: message
+		// For now, just fall through and drop a mine
+		// Then attacktarget: will switch back to ordinary weapon usage
+		#weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		#KillTimerEx(120);
+		#SetTimerEx(0.25, 120, -1, -1); // clear cooldown after mount complete
+		#return;
+	}
+
+	// lay a mine (secondary fire)
+	FireProjectile(rbot, projectile_weap08a, -1, 16, '0 0.05 0.00', '0 0 0', 1.0, 0x0, 0, 0);
+	inv_weap8 = inv_weap8 - 1;
+	weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+	SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+	return;
+
+use_weap9: // Concussion Rifle
+	if (curweap != 9) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 9;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundgun1, rbot, 1.0, -1, -1, 0x80);
+		SetArmedMode(rbot, 1);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(0.5, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 8.0 && HasLOS(rbot, target)) // target is in range
+	{
+		if (disttotarg > 0.8 || difficulty < 1) // primary fire - target is far enough away, or difficulty is too low
+		{
+			FireProjectile(rbot, projectile_weap09, snd_fireweap09, 18, '0.02 0.15 0.0', tempvector1, 1.0, 0x0, 0, 0);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
+			inv_power = inv_power - 8;
+			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+			SetTimerEx(1.2 / powerboost, 120, -1, -1); // wait for a short time before firing again
+			return;
+		}
+		else // secondary fire - target is too close and difficulty allows secondary fire
+		{
+			FireProjectile(rbot, projectile_weap09a, snd_fireweap09, 18, '0.0 0.0 0.0', tempvector1, 1.0, 0x0, 0, 0);
+			ApplyForce(rbot, VectorScale(GetThingLVec(rbot), -80)); // Provide a kick backwards
+			inv_power = inv_power - 4;
+			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+			SetTimerEx(1.2 / powerboost, 120, -1, -1); // wait for a short time before firing again
+			return;
+		}
+		return;
+	}
+
+	return;
+
+use_weap10: // Lightsaber
+	if (curweap != 10) // this weapon has not yet been mounted
+	{
+		call deselect_curweap;
+		curweap = 10;
+		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // Update bot weapon mesh
+		PlaySoundThing(mountSoundsaber, rbot, 1.0, -1, -1, 0x80); // Play saber mount sound
+		humChannel = PlaySoundThing(humSound01, rbot, 1.0, -1, -1, 0x81); // Play resident saber noise
+		SetThingLight(rbot, 0.65, 0.25); // Extra light for saber glow
+		SetArmedMode(rbot, 2);
+		weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon mounted)
+		KillTimerEx(120);
+		SetTimerEx(1.0, 120, -1, -1); // clear cooldown after mount complete
+		return;
+	}
+
+	if (target != -1 && disttotarg < 0.4 && HasLOS(rbot, target)) // target is in range
+	{
+		// Bot is going to swing the saber now, so stop any active saber block animation
 		if (blocktrack != -1)
 		{
 			StopKey(rbot, blocktrack, 0.1);
 			KillTimerEx(450); // cancel timer to clear blocktrack
 			blocktrack = -1;
 		}
+
+		// TODO: some of the attacks don't seem to apply base damage amount consistent with weap_saber.cog
+
+		if (GetMajorMode(rbot) == 5) // Underwater saber attacks
+		{
+			if (nextanim == 0)
+				PlayMode(rbot, 8);
+			else
+				PlayMode(rbot, 18);
+			nextanim = 1 - nextanim;
+			slashsound = Rand()*8;
+			PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+			SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+			SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+			SetTimerEx(1.0, 120, -1, -1); // wait for a short time before firing again
+			return;
+		}
+		else // Land based saber attacks
+		{
+			dot = ThingViewDot(rbot,target);
+			// TODO relpos is essentially VectorSub(GetThingPos(target), GetThingPos(rbot)) with Z component zeroed
+			// The left/right strike checks assume relpos is relative to bot's lvec, but it is absolute
+			// Those checks should be adjusted to use vector dots relative to lvec and rvec to determine left/right offset
+			relpos = VectorSet(VectorX(GetThingPos(target))-VectorX(GetThingPos(rbot)), VectorY(GetThingPos(target))-VectorY(GetThingPos(rbot)), 0.0); // work out relative position of target to bot
+			if (dot > 0.4) // target is front of bot
+			{
+				tempflex1=rand()*3;
+				if (tempflex1 > 2) // HEAVY Slash
+				{
+					PlayKey(rbot, chargeAnim, 2, 0x38);
+					PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
+					SetTimerEx(0.2, 200, projectile_weap00a, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00a, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.6, 200, projectile_weap00a, -1); // fire 2nd swing after 0.6 secs
+					SetTimerEx(0.7, 200, projectile_weap00a, -1); // fire 2nd swing after 0.7 secs
+					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+					SetTimerEx(2.0, 120, -1, -1); // wait for a short time before firing again
+					return;
+				}
+				else if (tempflex1 > 1) // STANDING Strike
+				{
+					if (nextanim == 0)
+						PlayKey(rbot, fireAnimF1, 2, 0x38);
+					else
+						PlayKey(rbot, fireAnimF2, 2, 0x38);
+					nextanim = 1 - nextanim;
+					slashsound = Rand()*8;
+					PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+					return;
+				}
+				else // QUICK Slash
+				{
+					PlayKey(rbot, snapAnim0[slash], 1, 0x38);
+					PlaySoundThing(swingSound0[slash], rbot, 1.0, -1, -1, 0x80);
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+
+					// Shorter fire delay for the first two slashes
+					if (slash < 2)
+					{
+						slash = slash + 1;
+						weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+						SetTimerEx(0.25, 120, -1, -1); // wait for a short time before firing again
+						return;
+					}
+
+					// Longer fire delay for the third slash
+					slash = 0;
+					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+					SetTimerEx(1.0, 120, -1, -1); // wait for a short time before firing again
+					return;
+				}
+			}
+			else if (VectorX(relpos) < 0) // LEFT Regular Strike
+			{
+				PlayKey(rbot, fireAnimL1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+				weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+				SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+				return;
+			}
+			else // RIGHT Regular Strike
+			{
+				PlayKey(rbot, fireAnimR1, 1, 0x38);
+				slashSound = Rand()*8;
+				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+				weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+				SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+				return;
+			}
+		}
+		return;
 	}
 
 	return;

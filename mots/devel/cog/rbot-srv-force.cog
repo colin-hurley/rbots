@@ -11,8 +11,10 @@ flags=0x40
 symbols
 
 message		startup
+message		damaged
 message		trigger
 message		timer
+message		skill
 message		user7
 
 int			botid=0
@@ -107,6 +109,53 @@ startup:
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1022, GetSelfCog(), botid, -1);
 
+	return;
+
+damaged:
+	damage = GetParam(0);
+	damagetype = GetParam(1);
+	#damager = GetParam(2); // projectile - attacker=GetThingParent()
+	rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
+	if (rank > 4) rank = 4;
+
+	if (BitTest(damagetype,0x8) && BitTest(forcemode,0x80)) // force damage & force absorb is active
+	{
+		PlaySoundThing(absorbSound2, rbot, 1.0, -1, -1, 0x80);
+		if (allowAbsorbFx)
+		{
+			// Add some visual effects, but not too often
+			allowAbsorbFx = 0;
+			SetTimerEx(1, 28, 1, -1);
+			sphere = CreateThingAtPosNR(sphere_tpl, GetThingSector(rbot), GetThingPos(rbot), '0.0 0.0 0.0');
+			AttachThingToThingEx(sphere, rbot, 0x8);
+			SetParticleGrowthSpeed(sphere, -0.8);
+			SetLifeLeft(sphere, 0.5);
+		}
+		// Convert some of the damage to mana
+		mana = mana + damage * rank / 4;
+		if (mana > 400) mana = 400;
+		damage = damage - damage * rank / 4;
+	}
+
+	if (BitTest(forcemode,0x100)) // protection enabled
+	{
+		if (BitTest(30, damagetype)) // If damage from energy, fire, force or saber
+		{
+			forcearmor = forcearmor - damage;
+			damage = 0; // No damage unless force armor runs out
+			if (forceArmor < 0) // No force armor left
+			{
+				damage = -forceArmor;
+			}
+		}
+		if (forcearmor <= 0) // no force armor left - switch off protection
+		{
+			call stop_force_protection;
+		}
+	}
+
+	// Return any leftover damage
+	ReturnEx(damage);
 	return;
 
 trigger:
@@ -321,7 +370,7 @@ timer:
 	}
 	if (GetSenderId() == 501) // force power attacks
 	{
-		if (BitTest(gamemode, 0x4) && !(AIGetMode(rbot) & 0x2000)) // allowed to use force powers and bot AI is not disabled
+		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0 && target != -1) // bot has mana & has a target
 			{
@@ -379,7 +428,7 @@ timer:
 	}
 	if (GetSenderId() == 502) // force power defensive/evasive
 	{
-		if (BitTest(gamemode, 0x4) && !(AIGetMode(rbot) & 0x2000)) // allowed to use forcepowers and bot AI is not disabled
+		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0) // bot has mana
 			{
@@ -446,6 +495,17 @@ timer:
 	}
 	return;
 
+skill:
+	if (GetThingHealth(rbot) <= 0) // bot is dead
+	{
+		ReturnEx(-1);
+		return;
+	}
+
+	# TODO refactor skill trigger to be handled here instead
+	ReturnEx(-1);
+	return;
+
 // Execute public API function for this cog
 // Param 0 = Function ID
 // The remaining params will be processed according to the requested function
@@ -457,55 +517,6 @@ user7:
 	if (GetParam(0) == 10221002) { ReturnEx(forcearmor); return; }
 
 	if (GetParam(0) == 10222010) { target = GetParam(1); return; }
-
-	if (GetParam(0) == 10223002) // Bot damaged
-	{
-		damage = GetParam(1);
-		damagetype = GetParam(2);
-		#damager = GetParam(3); // projectile - attacker=GetThingParent()
-		rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
-		if (rank > 4) rank = 4;
-
-		if (BitTest(damagetype,0x8) && BitTest(forcemode,0x80)) // force damage & force absorb is active
-		{
-			PlaySoundThing(absorbSound2, rbot, 1.0, -1, -1, 0x80);
-			if (allowAbsorbFx)
-			{
-				// Add some visual effects, but not too often
-				allowAbsorbFx = 0;
-				SetTimerEx(1, 28, 1, -1);
-				sphere = CreateThingAtPosNR(sphere_tpl, GetThingSector(rbot), GetThingPos(rbot), '0.0 0.0 0.0');
-				AttachThingToThingEx(sphere, rbot, 0x8);
-				SetParticleGrowthSpeed(sphere, -0.8);
-				SetLifeLeft(sphere, 0.5);
-			}
-			// Convert some of the damage to mana
-			mana = mana + damage * rank / 4;
-			if (mana > 400) mana = 400;
-			damage = damage - damage * rank / 4;
-		}
-
-		if (BitTest(forcemode,0x100)) // protection enabled
-		{
-			if (BitTest(30, damagetype)) // If damage from energy, fire, force or saber
-			{
-				forcearmor = forcearmor - damage;
-				damage = 0; // No damage unless force armor runs out
-				if (forceArmor < 0) // No force armor left
-				{
-					damage = -forceArmor;
-				}
-			}
-			if (forcearmor <= 0) // no force armor left - switch off protection
-			{
-				call stop_force_protection;
-			}
-		}
-
-		// Return any leftover damage
-		ReturnEx(damage);
-		return;
-	}
 
 	if (GetParam(0) == 10223005) // bot respawned
 	{

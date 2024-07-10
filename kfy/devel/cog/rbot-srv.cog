@@ -11,11 +11,12 @@ flags=0x40
 symbols
 
 message		startup
-message		killed
 message		pulse
+message		killed
+message		damaged
 message		trigger
 message		timer
-message		damaged
+message		skill
 message		user7
 
 int			botid=0
@@ -155,7 +156,7 @@ startup:
 
 pulse:
 	if (IsMulti() && !IsServer()) return; // Host only
-	if (AIGetMode(rbot) & 0x2000) return; // bot AI disabled
+	if (GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000) return; // bot AI disabled or frozen
 	call findtarget;
 	call finditem;
 	call checkitems;
@@ -193,43 +194,13 @@ damaged:
 	damagetype = GetParam(1);
 	damager = GetSourceRef(); // projectile - attacker=GetThingParent()
 
-	if (BitTest(damagetype, 0x20)) // drowning
-	{
-		drowning = 1;
-		ReturnEx(damage);
-		return;
-	}
+	if (BitTest(damagetype, 0x20)) drowning = 1;
 
 	// Give saber a chance to block the damage
-	damage = SendMessageEx(srv_weapons, user7, 10233002, damage, damagetype, damager);
-
-	// If team play is enabled, prevent friendly fire from teammates
-	if (rbot != damager && rbot != GetThingParent(damager) && curteam != 0 && (GetMultiModeFlags() & 0x1) && (GetMultiModeFlags() & 0x2)) // team play and no damage to teammates
-	{
-		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam)
-		{
-			// Damaged by player on same team
-			ReturnEx(0);
-			return;
-		}
-		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == curteam)
-		{
-			// Damaged by bot on same team
-			ReturnEx(0);
-			return;
-		}
-	}
-
-	attacker = -1;
-	if (damager != -1 && damager != rbot && GetThingParent(damager) != rbot && (GetThingType(GetThingParent(damager)) == 2 || GetThingType(GetThingParent(damager)) == 10)) // attacker is another bot or player
-	{
-		attacker = GetThingParent(damager);
-		KillTimerEx(170);
-		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage
-	}
+	damage = SendMessageEx(srv_weapons, damaged, damage, damagetype, damager, -1);
 
 	// Force powers may reduce the damage
-	damage = SendMessageEx(srv_force, user7, 10223002, damage, damagetype, damager);
+	damage = SendMessageEx(srv_force, damaged, damage, damagetype, damager, -1);
 
 	// Shields may reduce the damage
 	// TODO: This currently behaves a bit differently than the player shields - when a player
@@ -264,13 +235,29 @@ damaged:
 		}
 	}
 
-	if (damage > GetThingHealth(rbot)) // if damage is going to kill bot - switch off checking routines
+	// If team play is enabled, prevent friendly fire from teammates
+	// Note: Only damage to health is prevented; friendly fire still drains shields and force armor even for players
+	if (rbot != damager && rbot != GetThingParent(damager) && curteam != 0 && (GetMultiModeFlags() & 0x1) && (GetMultiModeFlags() & 0x2)) // team play and no damage to teammates
 	{
-		// make sure bot dies
-		SetThingHealth(rbot, 1);
-		StopThing(rbot); //Make 'em stay in place like when player dies [HR]
-		ReturnEx(10);
-		return;
+		if (GetThingType(GetThingParent(damager)) == 10 && GetPlayerTeam(GetThingParent(damager)) == curteam)
+		{
+			// Damaged by player on same team
+			ReturnEx(0);
+			return;
+		}
+		if (GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == curteam)
+		{
+			// Damaged by bot on same team
+			ReturnEx(0);
+			return;
+		}
+	}
+
+	if (damager != -1 && damager != rbot && GetThingParent(damager) != rbot && (GetThingType(GetThingParent(damager)) == 2 || GetThingType(GetThingParent(damager)) == 10)) // attacker is another bot or player
+	{
+		attacker = GetThingParent(damager);
+		KillTimerEx(170);
+		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage
 	}
 
 	// Return the modified damage value - this is how much health damage the bot will take
@@ -631,6 +618,37 @@ timer:
 		return;
 	}
 
+	return;
+
+skill:
+	if (GetSenderType() == 3) // sender is a thing
+	{
+		// If the sender is a thing, that means we were called with SkillTarget().
+		// Prepare to delegate to the other rbot-srv-*.cog files below.
+
+		// Add 500 to the 'bin' param so the delegate cog knows this is a SkillTarget() call.
+		SetParam(0, 500 + GetParam(0));
+
+		// We cannot set the sender/source with SendMessageEx(), so pass them as extra params instead.
+		SetParam(2, GetSenderRef()); // victim
+		SetParam(3, GetSourceRef()); // attacker
+	}
+
+	// If the 'bin' is >= 1000, it is a weapon effect
+	if (GetParam(0) >= 1000)
+	{
+		// We cannot set the sender/source with SendMessageEx(), so pass them as extra params instead.
+		// Note: Params 2 and 3 are unused for almost all weapon skill calls from LEC cogs, so we are not squashing any important params here.
+		SetParam(2, GetSenderRef()); // the cog that sent this message
+		SetParam(3, GetSourceRef()); // the player that sent this message
+		// Delegate handling to rbot-srv-weapons.cog
+		ReturnEx(SendMessageEx(srv_weapons, skill, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
+		return;
+	}
+
+	// If the 'bin' is < 1000, it is a force power
+	// Delegate handling to rbot-srv-force.cog
+	ReturnEx(SendMessageEx(srv_force, skill, GetParam(0), GetParam(1), GetParam(2), GetParam(3)));
 	return;
 
 // Execute public API function for this cog
@@ -1255,7 +1273,7 @@ targettactics:
 
 	// Also consult the customizer cog, if there is one
 	// Maintenance note: The two if-statements below are separated intentionally.
-	// When combined, I found that the gmae would evaluate the expression to true
+	// When combined, I found that the game would evaluate the expression to true
 	// and execute the return statement even when customizer was -1.
 	if (customizer != -1) if (!SendMessageEx(customizer, user7, 30003050, rbot, target, -1)) return;
 

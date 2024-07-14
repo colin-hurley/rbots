@@ -52,7 +52,7 @@ Perspective distance 2
 Gouraud distance 2
 
 SECTION: SOUNDS
-World sounds 212
+World sounds 213
 00industrialamb01.wav
 00industrialamb02.wav
 00RUMBLEAMB03.WAV
@@ -84,6 +84,7 @@ BS50064.WAV
 cgunfire.wav
 concuss1.wav
 concuss5.wav
+cpelletexplo.wav
 CRPickup01.WAV
 deactivate03.wav
 deactivate04.wav
@@ -268,7 +269,7 @@ weapfail.wav
 end
 
 SECTION: MATERIALS
-World materials 751
+World materials 753
 0: 00_GREY8.MAT 1 1
 1: 00carbonite.mat 1 1
 2: 00explosion.mat 1 1
@@ -400,626 +401,628 @@ World materials 751
 128: bsuparm.mat 1 1
 129: bubble.mat 1 1
 130: carbonit.mat 1 1
-131: CBNPBARL.MAT 1 1
-132: CBNPBDSD.MAT 1 1
-133: CBNPCNSD.MAT 1 1
-134: CBNPECAP.MAT 1 1
-135: CBNVCNSD.MAT 1 1
-136: con0side.mat 1 1
-137: con0top.mat 1 1
-138: CON1SDE.MAT 1 1
-139: CON1TOP.MAT 1 1
-140: CON2TOP.MAT 1 1
-141: CON4SDE.MAT 1 1
-142: CON5TOP.MAT 1 1
-143: CONPCLIP.MAT 1 1
-144: CONPFRNT.MAT 1 1
-145: CONPSIDE.MAT 1 1
-146: CONPTOP.MAT 1 1
-147: CONVBRL1.MAT 1 1
-148: CONVBRL2.MAT 1 1
-149: CONVBRL3.MAT 1 1
-150: CONVBUTP.MAT 1 1
-151: CONVBUTT.MAT 1 1
-152: CONVCLBK.MAT 1 1
-153: CONVCLIP.MAT 1 1
-154: CONVGRIL.MAT 1 1
-155: CONVGRIP.MAT 1 1
-156: CONVTOP.MAT 1 1
-157: conx.mat 1 1
-158: D2X3_4.MAT 1 1
-159: DARK.MAT 1 1
-160: ddblue.mat 1 1
-161: debrisx.mat 1 1
-162: destruct8.mat 1 1
-163: DET.MAT 1 1
-164: det0metl.mat 1 1
-165: det0side.mat 1 1
-166: DETPBELT.MAT 1 1
-167: detx.mat 1 1
-168: DFLT.MAT 1 1
-169: dgreen.mat 1 1
-170: dorange.mat 1 1
-171: dpurple.mat 1 1
-172: dred.mat 1 1
-173: dstructparts.mat 1 1
-174: dusty.mat 1 1
-175: dvback.mat 1 1
-176: dvbutt.mat 1 1
-177: dvcalfbk.mat 1 1
-178: dvcalfft.mat 1 1
-179: dvchest.mat 1 1
-180: dvfaceft.mat 1 1
-181: dvfacesd.mat 1 1
-182: dvhand.mat 1 1
-183: dvhandf.mat 1 1
-184: dvhelmt1.mat 1 1
-185: dvhelmt2.mat 1 1
-186: dvhips.mat 1 1
-187: dvlowarm.mat 1 1
-188: dvthigh.mat 1 1
-189: dvuprarm.mat 1 1
-190: dyellow.mat 1 1
-191: e2x2st.mat 1 1
-192: e2x2top1.mat 1 1
-193: ECELBACK.MAT 1 1
-194: ECELFRNT.MAT 1 1
-195: ECELSIDE.MAT 1 1
-196: ECELTOP.MAT 1 1
-197: embers.mat 1 1
-198: EWEB0SID.MAT 1 1
-199: EWEB0TOP.MAT 1 1
-200: EWEBBACK.MAT 1 1
-201: EWEBBASE.MAT 1 1
-202: EWEBCHBK.MAT 1 1
-203: EWEBSEAT.MAT 1 1
-204: FLS.MAT 1 1
-205: FLS0side.mat 1 1
-206: forceDstruct.mat 1 1
-207: grback.mat 1 1
-208: grboot.mat 1 1
-209: grbutt.mat 1 1
-210: grchest.mat 1 1
-211: grchstsd.mat 1 1
-212: grchsttp.mat 1 1
-213: grear.mat 1 1
-214: grface.mat 1 1
-215: grforarm.mat 1 1
-216: grhandtp.mat 1 1
-217: grheadbk.mat 1 1
-218: grheadsd.mat 1 1
-219: grhips.mat 1 1
-220: grlegl.mat 1 1
-221: grneck.mat 1 1
-222: grpalm.mat 1 1
-223: grthigh.mat 1 1
-224: gruparm.mat 1 1
-225: GYCWLKSD.MAT 1 1
-226: GYCWLKTP.MAT 1 1
-227: GYFLOOR.MAT 1 1
-228: GYFLORSD.MAT 1 1
-229: GYMETAL.MAT 1 1
-230: GYSUPORT.MAT 1 1
-231: GYTUBE1.MAT 1 1
-232: GYTUBE2.MAT 1 1
-233: HDBACK.MAT 1 1
-234: HDBOTTOM.MAT 1 1
-235: HDFTIP.MAT 1 1
-236: HDGRIP.MAT 1 1
-237: HDINSID1.MAT 1 1
-238: HDSDTHUM.MAT 1 1
-239: HLTHSIDE.MAT 1 1
-240: HLTHTOP.MAT 1 1
-241: HND-WRT.MAT 1 1
-242: icarm.mat 1 1
-243: icback.mat 1 1
-244: icboot.mat 1 1
-245: icchest.mat 1 1
-246: icface4.mat 1 1
-247: icfaceb.mat 1 1
-248: icfacesd.mat 1 1
-249: icforarm.mat 1 1
-250: ichandf.mat 1 1
-251: icleg.mat 1 1
-252: icneck.mat 1 1
-253: icthigh.mat 1 1
-254: ioarm.mat 1 1
-255: ioback.mat 1 1
-256: ioboot.mat 1 1
-257: iobutt.mat 1 1
-258: iocap.mat 1 1
-259: iochest.mat 1 1
-260: ioface3.mat 1 1
-261: iofacebk.mat 1 1
-262: iofacesd.mat 1 1
-263: ioforarm.mat 1 1
-264: iohandf.mat 1 1
-265: iohip.mat 1 1
-266: ioleg.mat 1 1
-267: ioneck.mat 1 1
-268: iothigh.mat 1 1
-269: j_backf.mat 1 1
-270: j_boot.mat 1 1
-271: j_foot.mat 1 1
-272: j_forearm.mat 1 1
-273: j_hand.mat 1 1
-274: j_neck.mat 1 1
-275: j_shou~1.mat 1 1
-276: j_thigh.mat 1 1
-277: ja-arm.mat 1 1
-278: ja-clf.mat 1 1
-279: ja-leg.mat 1 1
-280: ja-neck.mat 1 1
-281: ja-slv.mat 1 1
-282: ja-wst.mat 1 1
-283: ja-wstf.mat 1 1
-284: k10bodyb.mat 1 1
-285: k10bodyf.mat 1 1
-286: k10face.mat 1 1
-287: k10faceb.mat 1 1
-288: k10facesd.mat 1 1
-289: k11butt.mat 1 1
-290: k11hip.mat 1 1
-291: k14hand.mat 1 1
-292: k14handi.mat 1 1
-293: k14neck.mat 1 1
-294: k18faceb.mat 1 1
-295: k18facef.mat 1 1
-296: k18faces.mat 1 1
-297: k18facet.mat 1 1
-298: k19arm.mat 1 1
-299: k19bodyb.mat 1 1
-300: k19bodyf.mat 1 1
-301: k19facef.mat 1 1
-302: k19faces.mat 1 1
-303: k1facef.mat 1 1
-304: k1facesd.mat 1 1
-305: k1hdbk.mat 1 1
-306: k1hdtp.mat 1 1
-307: k1neck.mat 1 1
-308: k2facebk.mat 1 1
-309: k2facef.mat 1 1
-310: k2facesd.mat 1 1
-311: k2facetp.mat 1 1
-312: k2neck.mat 1 1
-313: k3facebk.mat 1 1
-314: k3facef.mat 1 1
-315: k3facesd.mat 1 1
-316: k3facetp.mat 1 1
-317: k3neck.mat 1 1
-318: k9arm.mat 1 1
-319: k9bodyb.mat 1 1
-320: k9bodyf.mat 1 1
-321: k9face.mat 1 1
-322: k9faceb.mat 1 1
-323: k9facesd.mat 1 1
-324: k9forarm.mat 1 1
-325: k9hand.mat 1 1
-326: k9handi.mat 1 1
-327: KBARM.mat 1 1
-328: KBBODYB.mat 1 1
-329: KBBODYF.mat 1 1
-330: KBBUTT.mat 1 1
-331: KBFACE.mat 1 1
-332: KBFACEB.mat 1 1
-333: KBFACETP.mat 1 1
-334: KBFARM.mat 1 1
-335: KBFASDSH.mat 1 1
-336: KBFOOT.mat 1 1
-337: KBHAND.mat 1 1
-338: KBHANDF.mat 1 1
-339: KBHIP.mat 1 1
-340: KBLEG.mat 1 1
-341: KBNECK.mat 1 1
-342: KBTHIGH.mat 1 1
-343: kkdbodyf.mat 1 1
-344: kkdleg.mat 1 1
-345: kkfaceb.mat 1 1
-346: kkfacetp.mat 1 1
-347: kkfagoat.mat 1 1
-348: kkfasdsh.mat 1 1
-349: kybf4arm.mat 1 1
-350: kybfarm.mat 1 1
-351: kybfbodb.mat 1 1
-352: kybfbodf.mat 1 1
-353: kybfbutt.mat 1 1
-354: kybfhip.mat 1 1
-355: kybfleg.mat 1 1
-356: kybfspad.mat 1 1
-357: kybfthi2.mat 1 1
-358: kybfthig.mat 1 1
-359: kybodyb.mat 1 1
-360: kybodyf2.mat 1 1
-361: kybsthig.mat 1 1
-362: kybutt.mat 1 1
-363: kyd1arm.mat 1 1
-364: kyd1farm.mat 1 1
-365: kyd2bodb.mat 1 1
-366: kyd2bodf.mat 1 1
-367: kyd3arm.mat 1 1
-368: kyd3bodb.mat 1 1
-369: kyd3bodf.mat 1 1
-370: kyd3butt.mat 1 1
-371: kyd3farm.mat 1 1
-372: kyd3foot.mat 1 1
-373: kyd3ftop.mat 1 1
-374: kyd3hip.mat 1 1
-375: kyd3leg.mat 1 1
-376: kyd3neck.mat 1 1
-377: kyd3thig.mat 1 1
-378: kydbodyb.mat 1 1
-379: KYDBODYF.mat 1 1
-380: kydfoot.mat 1 1
-381: kydfotop.mat 1 1
-382: KYDLEG.mat 1 1
-383: kydneck.mat 1 1
-384: kydshpad.mat 1 1
-385: kyface3.mat 1 1
-386: kyfaceb.mat 1 1
-387: kyfacesd.mat 1 1
-388: kyfacetp.mat 1 1
-389: kyfaeyep.mat 1 1
-390: kyfagoat.mat 1 1
-391: kyfascar.mat 1 1
-392: kyfasdsh.mat 1 1
-393: kyfoot.mat 1 1
-394: kyforarm.mat 1 1
-395: KYHAND.MAT 1 1
-396: KYHANDF.MAT 1 1
-397: kyhip.mat 1 1
-398: kyl1arm.mat 1 1
-399: kyl1bodb.mat 1 1
-400: kyl1bodf.mat 1 1
-401: kyl1farm.mat 1 1
-402: kyl1leg.mat 1 1
-403: kyl1spad.mat 1 1
-404: kyl2arm.mat 1 1
-405: kyl2bodb.mat 1 1
-406: kyl2bodf.mat 1 1
-407: kyl2farm.mat 1 1
-408: kyl3thir.mat 1 1
-409: kyleg.mat 1 1
-410: kyn1bodb.mat 1 1
-411: kyn1bodf.mat 1 1
-412: kyneck.mat 1 1
-413: KYRARM.MAT 1 1
-414: kys2shpar.mat 1 1
-415: KYSABER.MAT 1 1
-416: KYSABER1.MAT 1 1
-417: KYSABER2.MAT 1 1
-418: kyshotop.mat 1 1
-419: kyshpad.mat 1 1
-420: kysole.mat 1 1
-421: kyst4arm.mat 1 1
-422: kystarm.mat 1 1
-423: kystbodb.mat 1 1
-424: kystbodf.mat 1 1
-425: kystbutt.mat 1 1
-426: kystcup.mat 1 1
-427: kysthand.mat 1 1
-428: kysthandb.mat 1 1
-429: kystleglo.mat 1 1
-430: kyt2bodb.mat 1 1
-431: kyt2bodf.mat 1 1
-432: kyt2butt.mat 1 1
-433: kyt2hip.mat 1 1
-434: kyt2thig.mat 1 1
-435: kyt5bodb.mat 1 1
-436: kyt5bodf.mat 1 1
-437: kyt5butt.mat 1 1
-438: kyt5hip.mat 1 1
-439: kythigh.mat 1 1
-440: LIGT3.MAT 1 1
-441: lsback.mat 1 1
-442: lsbutt.mat 1 1
-443: lschest.mat 1 1
-444: lsfacebk.mat 1 1
-445: lsfaceft.mat 1 1
-446: lsfacesd.mat 1 1
-447: lsfacetp.mat 1 1
-448: lsfoot.mat 1 1
-449: lshand.mat 1 1
-450: lshandf.mat 1 1
-451: lships.mat 1 1
-452: lslowarm.mat 1 1
-453: lslowleg.mat 1 1
-454: lsneck.mat 1 1
-455: lsthigh.mat 1 1
-456: lsuprarm.mat 1 1
-457: M4BESPN1.MAT 1 1
-458: M4BESPN2.MAT 1 1
-459: MDM10P1A.MAT 1 1
-460: MDM10P1B.MAT 1 1
-461: MDM10P1C.MAT 1 1
-462: mj-arm.mat 1 1
-463: mj-bd.mat 1 1
-464: mj-bdf.mat 1 1
-465: mj-clfbk.mat 1 1
-466: mj-clfft.mat 1 1
-467: mjface.mat 1 1
-468: mjfaceb.mat 1 1
-469: mjfacesd.mat 1 1
-470: mjHDBOTTOM.MAT 1 1
-471: mjHDINSID1.MAT 1 1
-472: mjHND-WRT.MAT 1 1
-473: mj-leg.mat 1 1
-474: mj-leg2.mat 1 1
-475: mj-legft.mat 1 1
-476: mj-neck.mat 1 1
-477: mj-neck2.mat 1 1
-478: mj-slv.mat 1 1
-479: mj-slvbk.MAT 1 1
-480: mj-wst.mat 1 1
-481: mj-wstf.mat 1 1
-482: multi_abarm.mat 1 1
-483: multi_abbutt.mat 1 1
-484: multi_abfaceb.mat 1 1
-485: multi_abfacef.mat 1 1
-486: multi_abfacesd.mat 1 1
-487: multi_abfacet.mat 1 1
-488: multi_abfoot.mat 1 1
-489: multi_abforarm.mat 1 1
-490: multi_abhand.mat 1 1
-491: multi_abhandi.mat 1 1
-492: multi_abhipf.mat 1 1
-493: multi_abllegf.mat 1 1
-494: multi_abneck.mat 1 1
-495: multi_abthighf.mat 1 1
-496: multi_abtorsb.mat 1 1
-497: multi_abtorsf.mat 1 1
-498: multi_dmj-arm.mat 1 1
-499: multi_dmj-bd.mat 1 1
-500: multi_dmj-bdf.mat 1 1
-501: multi_dmj-clf.mat 1 1
-502: multi_dmjface.mat 1 1
-503: multi_dmj-leg.mat 1 1
-504: multi_dmj-neck.mat 1 1
-505: multi_dmj-slv.mat 1 1
-506: multi_dmj-wstb.mat 1 1
-507: multi_dmj-wstf.mat 1 1
-508: p1armf.mat 1 1
-509: p1butt.mat 1 1
-510: p1faceb.mat 1 1
-511: p1facef.mat 1 1
-512: p1facesd.mat 1 1
-513: p1facet.mat 1 1
-514: p1foot.mat 1 1
-515: p1forarm.mat 1 1
-516: p1hand.mat 1 1
-517: p1handi.mat 1 1
-518: p1hipf.mat 1 1
-519: p1leg.mat 1 1
-520: p1neck.mat 1 1
-521: p1padt.mat 1 1
-522: p1thighf.mat 1 1
-523: p1torsb.mat 1 1
-524: p1torsf.mat 1 1
-525: p2arm.mat 1 1
-526: p2back.mat 1 1
-527: p2butt.mat 1 1
-528: p2chest.mat 1 1
-529: p2chstsd.mat 1 1
-530: p2chsttp.mat 1 1
-531: p2faceb.mat 1 1
-532: p2facef.mat 1 1
-533: p2facesd.mat 1 1
-534: p2foot.mat 1 1
-535: p2forarm.mat 1 1
-536: p2handtp.mat 1 1
-537: p2hips.mat 1 1
-538: p2leg.mat 1 1
-539: p2neck.mat 1 1
-540: p2palm.mat 1 1
-541: p2thigh.mat 1 1
-542: PACKREV1.MAT 1 1
-543: PCELSIDE.MAT 1 1
-544: PCELTOP.MAT 1 1
-545: PCELTUBE.MAT 1 1
-546: rcback.mat 1 1
-547: rcbutt.mat 1 1
-548: rcchest.mat 1 1
-549: rcface4.mat 1 1
-550: rcfaceb.mat 1 1
-551: rcfacesd.mat 1 1
-552: rcforarm.mat 1 1
-553: rchip.mat 1 1
-554: rcleg.mat 1 1
-555: rcthigh.mat 1 1
-556: RLD0CLMP.MAT 1 1
-557: RLDVBDSD.MAT 1 1
-558: RLDVBDTP.MAT 1 1
-559: RLDVBRL1.MAT 1 1
-560: RLDVBRL2.MAT 1 1
-561: RLDVBRL3.MAT 1 1
-562: rldvbutt.mat 1 1
-563: RLDVCHM1.MAT 1 1
-564: RLDVCHM2.MAT 1 1
-565: RLDVCHM3.MAT 1 1
-566: RLDVCLP2.MAT 1 1
-567: RLDVPRJF.MAT 1 1
-568: RLDVPRJS.MAT 1 1
-569: rldvsgt.mat 1 1
-570: rldx.mat 1 1
-571: rmchest.mat 1 1
-572: rmfacebk.mat 1 1
-573: rmfaceft.mat 1 1
-574: rmfacesd.mat 1 1
-575: roarm.mat 1 1
-576: roback.mat 1 1
-577: robutt.mat 1 1
-578: rocap.mat 1 1
-579: rochest.mat 1 1
-580: roface3.mat 1 1
-581: rofacebk.mat 1 1
-582: rofacesd.mat 1 1
-583: roforarm.mat 1 1
-584: rohandf.mat 1 1
-585: rohip.mat 1 1
-586: roleg.mat 1 1
-587: rothigh.mat 1 1
-588: RPT0TOP.MAT 1 1
-589: RPTPBUT1.MAT 1 1
-590: RPTPBUT2.MAT 1 1
-591: RPTPGRIL.MAT 1 1
-592: RPTPSIDE.MAT 1 1
-593: RPTPTOP.MAT 1 1
-594: RPTPUNDR.MAT 1 1
-595: RPTVBACK.MAT 1 1
-596: rptx.mat 1 1
-597: SAB0blue.MAT 1 1
-598: SAB0dred.MAT 1 1
-599: SAB0gree.MAT 1 1
-600: SAB0oran.MAT 1 1
-601: SAB0purp.MAT 1 1
-602: SAB0RED.MAT 1 1
-603: SAB0yell.MAT 1 1
-604: saberblue1.mat 1 1
-605: saberdred1.mat 1 1
-606: sabergreen1.mat 1 1
-607: saberorange0.mat 1 1
-608: saberorange1.mat 1 1
-609: saberpurple1.mat 1 1
-610: saberred1.mat 1 1
-611: saberyellow1.mat 1 1
-612: sabutt.mat 1 1
-613: SABVBLD.MAT 1 1
-614: safoot.mat 1 1
-615: sahip.mat 1 1
-616: saleg.mat 1 1
-617: salegb.mat 1 1
-618: saneck.mat 1 1
-619: sathigh.mat 1 1
-620: sathighb.mat 1 1
-621: scarmlo.mat 1 1
-622: scarmup.mat 1 1
-623: scbck.mat 1 1
-624: scbutt.mat 1 1
-625: scchest.mat 1 1
-626: sccup.mat 1 1
-627: scfoot.mat 1 1
-628: schand.mat 1 1
-629: schandb.mat 1 1
-630: schdbk2.mat 1 1
-631: schdfr2.mat 1 1
-632: schdsd.mat 1 1
-633: schdtp2.mat 1 1
-634: scleglo.mat 1 1
-635: scneck.mat 1 1
-636: scpack.mat 1 1
-637: scsd1.mat 1 1
-638: scthigh.mat 1 1
-639: seq0mbck.mat 1 1
-640: SEQ0MTP1.MAT 1 1
-641: seq0mtp3.mat 1 1
-642: seq0side.mat 1 1
-643: seq0top.mat 1 1
-644: SEQP1.MAT 1 1
-645: SEQP2.MAT 1 1
-646: SEQP3.MAT 1 1
-647: SEQP4.MAT 1 1
-648: SEQTBODY.MAT 1 1
-649: SEQTHANDI.MAT 1 1
-650: SEQTTHUMB.MAT 1 1
-651: SEQTTRIG.MAT 1 1
-652: SEQVMTP2.MAT 1 1
-653: SEQVSD.MAT 1 1
-654: SEQVSID2.MAT 1 1
-655: SEQVTOP2.MAT 1 1
-656: seqx2.mat 1 1
-657: SHLD1.MAT 1 1
-658: SHLD2.MAT 1 1
-659: SHLD3.MAT 1 1
-660: SHRP.MAT 1 1
-661: SKRVCLP2.MAT 1 1
-662: SKRVPRJF.MAT 1 1
-663: SKRVPRJS.MAT 1 1
-664: sparky.mat 1 1
-665: SplashX.mat 1 1
-666: Splooshx.mat 1 1
-667: stfoot.mat 1 1
-668: sthdbk2.mat 1 1
-669: sthdfr2.mat 1 1
-670: sthdsd.mat 1 1
-671: STR0SIDE.MAT 1 1
-672: STR0TOP.MAT 1 1
-673: STRPGRIP.MAT 1 1
-674: strpport.mat 1 1
-675: strpsitf.mat 1 1
-676: STRVBRL4.MAT 1 1
-677: strvbutt.mat 1 1
-678: STRVCLP.MAT 1 1
-679: strvsid1.mat 1 1
-680: strvsid2.mat 1 1
-681: strvsitb.mat 1 1
-682: strvsite.mat 1 1
-683: strvtop2.mat 1 1
-684: stthigh.mat 1 1
-685: th4arm.mat 1 1
-686: tharm.mat 1 1
-687: thback.mat 1 1
-688: thbutt.mat 1 1
-689: thfaceb.mat 1 1
-690: thfacef.mat 1 1
-691: thfacesd.mat 1 1
-692: thfacet.mat 1 1
-693: thfoot.mat 1 1
-694: thhand.mat 1 1
-695: thhandi.mat 1 1
-696: thhip.mat 1 1
-697: thleg.mat 1 1
-698: thpadt.mat 1 1
-699: ththigh.mat 1 1
-700: thtors.mat 1 1
-701: tkcollar.mat 1 1
-702: tkneck.mat 1 1
-703: tparm.mat 1 1
-704: tpback.mat 1 1
-705: tpbox.mat 1 1
-706: tpbutt.mat 1 1
-707: tpchest.mat 1 1
-708: tpface4.mat 1 1
-709: tpfaceb.mat 1 1
-710: tpfacesd.mat 1 1
-711: tpforarm.mat 1 1
-712: tpleg.mat 1 1
-713: tpneck.mat 1 1
-714: tpthigh.mat 1 1
-715: VEST1.MAT 1 1
-716: VEST2.MAT 1 1
-717: VEST3.MAT 1 1
-718: VEST4.MAT 1 1
-719: VEST5.MAT 1 1
-720: vestl1.mat 1 1
-721: vestl2.mat 1 1
-722: vestl5.mat 1 1
-723: white.mat 1 1
-724: wqarm.mat 1 1
-725: wqbutt.mat 1 1
-726: wqfaceb.mat 1 1
-727: wqfacef.mat 1 1
-728: wqfacet.mat 1 1
-729: wqfcesdr.mat 1 1
-730: wqfoot.mat 1 1
-731: wqforarm.mat 1 1
-732: wqhand.mat 1 1
-733: wqhandi.mat 1 1
-734: wqhipf.mat 1 1
-735: wqleg.mat 1 1
-736: wqneck.mat 1 1
-737: wqthighf.mat 1 1
-738: wqtorsb.mat 1 1
-739: wqtorsf.mat 1 1
-740: y_arm.mat 1 1
-741: y_foot.mat 1 1
-742: y_forarm.mat 1 1
-743: y_hand.mat 1 1
-744: y_handi.mat 1 1
-745: y_leg.mat 1 1
-746: y_legb.mat 1 1
-747: y_neck.mat 1 1
-748: y_thigh.mat 1 1
-749: y_torsb.mat 1 1
-750: y_torsf.mat 1 1
+131: CBN0FRNT.MAT 1 1
+132: CBN0SIDE.MAT 1 1
+133: CBNPBARL.MAT 1 1
+134: CBNPBDSD.MAT 1 1
+135: CBNPCNSD.MAT 1 1
+136: CBNPECAP.MAT 1 1
+137: CBNVCNSD.MAT 1 1
+138: con0side.mat 1 1
+139: con0top.mat 1 1
+140: CON1SDE.MAT 1 1
+141: CON1TOP.MAT 1 1
+142: CON2TOP.MAT 1 1
+143: CON4SDE.MAT 1 1
+144: CON5TOP.MAT 1 1
+145: CONPCLIP.MAT 1 1
+146: CONPFRNT.MAT 1 1
+147: CONPSIDE.MAT 1 1
+148: CONPTOP.MAT 1 1
+149: CONVBRL1.MAT 1 1
+150: CONVBRL2.MAT 1 1
+151: CONVBRL3.MAT 1 1
+152: CONVBUTP.MAT 1 1
+153: CONVBUTT.MAT 1 1
+154: CONVCLBK.MAT 1 1
+155: CONVCLIP.MAT 1 1
+156: CONVGRIL.MAT 1 1
+157: CONVGRIP.MAT 1 1
+158: CONVTOP.MAT 1 1
+159: conx.mat 1 1
+160: D2X3_4.MAT 1 1
+161: DARK.MAT 1 1
+162: ddblue.mat 1 1
+163: debrisx.mat 1 1
+164: destruct8.mat 1 1
+165: DET.MAT 1 1
+166: det0metl.mat 1 1
+167: det0side.mat 1 1
+168: DETPBELT.MAT 1 1
+169: detx.mat 1 1
+170: DFLT.MAT 1 1
+171: dgreen.mat 1 1
+172: dorange.mat 1 1
+173: dpurple.mat 1 1
+174: dred.mat 1 1
+175: dstructparts.mat 1 1
+176: dusty.mat 1 1
+177: dvback.mat 1 1
+178: dvbutt.mat 1 1
+179: dvcalfbk.mat 1 1
+180: dvcalfft.mat 1 1
+181: dvchest.mat 1 1
+182: dvfaceft.mat 1 1
+183: dvfacesd.mat 1 1
+184: dvhand.mat 1 1
+185: dvhandf.mat 1 1
+186: dvhelmt1.mat 1 1
+187: dvhelmt2.mat 1 1
+188: dvhips.mat 1 1
+189: dvlowarm.mat 1 1
+190: dvthigh.mat 1 1
+191: dvuprarm.mat 1 1
+192: dyellow.mat 1 1
+193: e2x2st.mat 1 1
+194: e2x2top1.mat 1 1
+195: ECELBACK.MAT 1 1
+196: ECELFRNT.MAT 1 1
+197: ECELSIDE.MAT 1 1
+198: ECELTOP.MAT 1 1
+199: embers.mat 1 1
+200: EWEB0SID.MAT 1 1
+201: EWEB0TOP.MAT 1 1
+202: EWEBBACK.MAT 1 1
+203: EWEBBASE.MAT 1 1
+204: EWEBCHBK.MAT 1 1
+205: EWEBSEAT.MAT 1 1
+206: FLS.MAT 1 1
+207: FLS0side.mat 1 1
+208: forceDstruct.mat 1 1
+209: grback.mat 1 1
+210: grboot.mat 1 1
+211: grbutt.mat 1 1
+212: grchest.mat 1 1
+213: grchstsd.mat 1 1
+214: grchsttp.mat 1 1
+215: grear.mat 1 1
+216: grface.mat 1 1
+217: grforarm.mat 1 1
+218: grhandtp.mat 1 1
+219: grheadbk.mat 1 1
+220: grheadsd.mat 1 1
+221: grhips.mat 1 1
+222: grlegl.mat 1 1
+223: grneck.mat 1 1
+224: grpalm.mat 1 1
+225: grthigh.mat 1 1
+226: gruparm.mat 1 1
+227: GYCWLKSD.MAT 1 1
+228: GYCWLKTP.MAT 1 1
+229: GYFLOOR.MAT 1 1
+230: GYFLORSD.MAT 1 1
+231: GYMETAL.MAT 1 1
+232: GYSUPORT.MAT 1 1
+233: GYTUBE1.MAT 1 1
+234: GYTUBE2.MAT 1 1
+235: HDBACK.MAT 1 1
+236: HDBOTTOM.MAT 1 1
+237: HDFTIP.MAT 1 1
+238: HDGRIP.MAT 1 1
+239: HDINSID1.MAT 1 1
+240: HDSDTHUM.MAT 1 1
+241: HLTHSIDE.MAT 1 1
+242: HLTHTOP.MAT 1 1
+243: HND-WRT.MAT 1 1
+244: icarm.mat 1 1
+245: icback.mat 1 1
+246: icboot.mat 1 1
+247: icchest.mat 1 1
+248: icface4.mat 1 1
+249: icfaceb.mat 1 1
+250: icfacesd.mat 1 1
+251: icforarm.mat 1 1
+252: ichandf.mat 1 1
+253: icleg.mat 1 1
+254: icneck.mat 1 1
+255: icthigh.mat 1 1
+256: ioarm.mat 1 1
+257: ioback.mat 1 1
+258: ioboot.mat 1 1
+259: iobutt.mat 1 1
+260: iocap.mat 1 1
+261: iochest.mat 1 1
+262: ioface3.mat 1 1
+263: iofacebk.mat 1 1
+264: iofacesd.mat 1 1
+265: ioforarm.mat 1 1
+266: iohandf.mat 1 1
+267: iohip.mat 1 1
+268: ioleg.mat 1 1
+269: ioneck.mat 1 1
+270: iothigh.mat 1 1
+271: j_backf.mat 1 1
+272: j_boot.mat 1 1
+273: j_foot.mat 1 1
+274: j_forearm.mat 1 1
+275: j_hand.mat 1 1
+276: j_neck.mat 1 1
+277: j_shou~1.mat 1 1
+278: j_thigh.mat 1 1
+279: ja-arm.mat 1 1
+280: ja-clf.mat 1 1
+281: ja-leg.mat 1 1
+282: ja-neck.mat 1 1
+283: ja-slv.mat 1 1
+284: ja-wst.mat 1 1
+285: ja-wstf.mat 1 1
+286: k10bodyb.mat 1 1
+287: k10bodyf.mat 1 1
+288: k10face.mat 1 1
+289: k10faceb.mat 1 1
+290: k10facesd.mat 1 1
+291: k11butt.mat 1 1
+292: k11hip.mat 1 1
+293: k14hand.mat 1 1
+294: k14handi.mat 1 1
+295: k14neck.mat 1 1
+296: k18faceb.mat 1 1
+297: k18facef.mat 1 1
+298: k18faces.mat 1 1
+299: k18facet.mat 1 1
+300: k19arm.mat 1 1
+301: k19bodyb.mat 1 1
+302: k19bodyf.mat 1 1
+303: k19facef.mat 1 1
+304: k19faces.mat 1 1
+305: k1facef.mat 1 1
+306: k1facesd.mat 1 1
+307: k1hdbk.mat 1 1
+308: k1hdtp.mat 1 1
+309: k1neck.mat 1 1
+310: k2facebk.mat 1 1
+311: k2facef.mat 1 1
+312: k2facesd.mat 1 1
+313: k2facetp.mat 1 1
+314: k2neck.mat 1 1
+315: k3facebk.mat 1 1
+316: k3facef.mat 1 1
+317: k3facesd.mat 1 1
+318: k3facetp.mat 1 1
+319: k3neck.mat 1 1
+320: k9arm.mat 1 1
+321: k9bodyb.mat 1 1
+322: k9bodyf.mat 1 1
+323: k9face.mat 1 1
+324: k9faceb.mat 1 1
+325: k9facesd.mat 1 1
+326: k9forarm.mat 1 1
+327: k9hand.mat 1 1
+328: k9handi.mat 1 1
+329: KBARM.mat 1 1
+330: KBBODYB.mat 1 1
+331: KBBODYF.mat 1 1
+332: KBBUTT.mat 1 1
+333: KBFACE.mat 1 1
+334: KBFACEB.mat 1 1
+335: KBFACETP.mat 1 1
+336: KBFARM.mat 1 1
+337: KBFASDSH.mat 1 1
+338: KBFOOT.mat 1 1
+339: KBHAND.mat 1 1
+340: KBHANDF.mat 1 1
+341: KBHIP.mat 1 1
+342: KBLEG.mat 1 1
+343: KBNECK.mat 1 1
+344: KBTHIGH.mat 1 1
+345: kkdbodyf.mat 1 1
+346: kkdleg.mat 1 1
+347: kkfaceb.mat 1 1
+348: kkfacetp.mat 1 1
+349: kkfagoat.mat 1 1
+350: kkfasdsh.mat 1 1
+351: kybf4arm.mat 1 1
+352: kybfarm.mat 1 1
+353: kybfbodb.mat 1 1
+354: kybfbodf.mat 1 1
+355: kybfbutt.mat 1 1
+356: kybfhip.mat 1 1
+357: kybfleg.mat 1 1
+358: kybfspad.mat 1 1
+359: kybfthi2.mat 1 1
+360: kybfthig.mat 1 1
+361: kybodyb.mat 1 1
+362: kybodyf2.mat 1 1
+363: kybsthig.mat 1 1
+364: kybutt.mat 1 1
+365: kyd1arm.mat 1 1
+366: kyd1farm.mat 1 1
+367: kyd2bodb.mat 1 1
+368: kyd2bodf.mat 1 1
+369: kyd3arm.mat 1 1
+370: kyd3bodb.mat 1 1
+371: kyd3bodf.mat 1 1
+372: kyd3butt.mat 1 1
+373: kyd3farm.mat 1 1
+374: kyd3foot.mat 1 1
+375: kyd3ftop.mat 1 1
+376: kyd3hip.mat 1 1
+377: kyd3leg.mat 1 1
+378: kyd3neck.mat 1 1
+379: kyd3thig.mat 1 1
+380: kydbodyb.mat 1 1
+381: KYDBODYF.mat 1 1
+382: kydfoot.mat 1 1
+383: kydfotop.mat 1 1
+384: KYDLEG.mat 1 1
+385: kydneck.mat 1 1
+386: kydshpad.mat 1 1
+387: kyface3.mat 1 1
+388: kyfaceb.mat 1 1
+389: kyfacesd.mat 1 1
+390: kyfacetp.mat 1 1
+391: kyfaeyep.mat 1 1
+392: kyfagoat.mat 1 1
+393: kyfascar.mat 1 1
+394: kyfasdsh.mat 1 1
+395: kyfoot.mat 1 1
+396: kyforarm.mat 1 1
+397: KYHAND.MAT 1 1
+398: KYHANDF.MAT 1 1
+399: kyhip.mat 1 1
+400: kyl1arm.mat 1 1
+401: kyl1bodb.mat 1 1
+402: kyl1bodf.mat 1 1
+403: kyl1farm.mat 1 1
+404: kyl1leg.mat 1 1
+405: kyl1spad.mat 1 1
+406: kyl2arm.mat 1 1
+407: kyl2bodb.mat 1 1
+408: kyl2bodf.mat 1 1
+409: kyl2farm.mat 1 1
+410: kyl3thir.mat 1 1
+411: kyleg.mat 1 1
+412: kyn1bodb.mat 1 1
+413: kyn1bodf.mat 1 1
+414: kyneck.mat 1 1
+415: KYRARM.MAT 1 1
+416: kys2shpar.mat 1 1
+417: KYSABER.MAT 1 1
+418: KYSABER1.MAT 1 1
+419: KYSABER2.MAT 1 1
+420: kyshotop.mat 1 1
+421: kyshpad.mat 1 1
+422: kysole.mat 1 1
+423: kyst4arm.mat 1 1
+424: kystarm.mat 1 1
+425: kystbodb.mat 1 1
+426: kystbodf.mat 1 1
+427: kystbutt.mat 1 1
+428: kystcup.mat 1 1
+429: kysthand.mat 1 1
+430: kysthandb.mat 1 1
+431: kystleglo.mat 1 1
+432: kyt2bodb.mat 1 1
+433: kyt2bodf.mat 1 1
+434: kyt2butt.mat 1 1
+435: kyt2hip.mat 1 1
+436: kyt2thig.mat 1 1
+437: kyt5bodb.mat 1 1
+438: kyt5bodf.mat 1 1
+439: kyt5butt.mat 1 1
+440: kyt5hip.mat 1 1
+441: kythigh.mat 1 1
+442: LIGT3.MAT 1 1
+443: lsback.mat 1 1
+444: lsbutt.mat 1 1
+445: lschest.mat 1 1
+446: lsfacebk.mat 1 1
+447: lsfaceft.mat 1 1
+448: lsfacesd.mat 1 1
+449: lsfacetp.mat 1 1
+450: lsfoot.mat 1 1
+451: lshand.mat 1 1
+452: lshandf.mat 1 1
+453: lships.mat 1 1
+454: lslowarm.mat 1 1
+455: lslowleg.mat 1 1
+456: lsneck.mat 1 1
+457: lsthigh.mat 1 1
+458: lsuprarm.mat 1 1
+459: M4BESPN1.MAT 1 1
+460: M4BESPN2.MAT 1 1
+461: MDM10P1A.MAT 1 1
+462: MDM10P1B.MAT 1 1
+463: MDM10P1C.MAT 1 1
+464: mj-arm.mat 1 1
+465: mj-bd.mat 1 1
+466: mj-bdf.mat 1 1
+467: mj-clfbk.mat 1 1
+468: mj-clfft.mat 1 1
+469: mjface.mat 1 1
+470: mjfaceb.mat 1 1
+471: mjfacesd.mat 1 1
+472: mjHDBOTTOM.MAT 1 1
+473: mjHDINSID1.MAT 1 1
+474: mjHND-WRT.MAT 1 1
+475: mj-leg.mat 1 1
+476: mj-leg2.mat 1 1
+477: mj-legft.mat 1 1
+478: mj-neck.mat 1 1
+479: mj-neck2.mat 1 1
+480: mj-slv.mat 1 1
+481: mj-slvbk.MAT 1 1
+482: mj-wst.mat 1 1
+483: mj-wstf.mat 1 1
+484: multi_abarm.mat 1 1
+485: multi_abbutt.mat 1 1
+486: multi_abfaceb.mat 1 1
+487: multi_abfacef.mat 1 1
+488: multi_abfacesd.mat 1 1
+489: multi_abfacet.mat 1 1
+490: multi_abfoot.mat 1 1
+491: multi_abforarm.mat 1 1
+492: multi_abhand.mat 1 1
+493: multi_abhandi.mat 1 1
+494: multi_abhipf.mat 1 1
+495: multi_abllegf.mat 1 1
+496: multi_abneck.mat 1 1
+497: multi_abthighf.mat 1 1
+498: multi_abtorsb.mat 1 1
+499: multi_abtorsf.mat 1 1
+500: multi_dmj-arm.mat 1 1
+501: multi_dmj-bd.mat 1 1
+502: multi_dmj-bdf.mat 1 1
+503: multi_dmj-clf.mat 1 1
+504: multi_dmjface.mat 1 1
+505: multi_dmj-leg.mat 1 1
+506: multi_dmj-neck.mat 1 1
+507: multi_dmj-slv.mat 1 1
+508: multi_dmj-wstb.mat 1 1
+509: multi_dmj-wstf.mat 1 1
+510: p1armf.mat 1 1
+511: p1butt.mat 1 1
+512: p1faceb.mat 1 1
+513: p1facef.mat 1 1
+514: p1facesd.mat 1 1
+515: p1facet.mat 1 1
+516: p1foot.mat 1 1
+517: p1forarm.mat 1 1
+518: p1hand.mat 1 1
+519: p1handi.mat 1 1
+520: p1hipf.mat 1 1
+521: p1leg.mat 1 1
+522: p1neck.mat 1 1
+523: p1padt.mat 1 1
+524: p1thighf.mat 1 1
+525: p1torsb.mat 1 1
+526: p1torsf.mat 1 1
+527: p2arm.mat 1 1
+528: p2back.mat 1 1
+529: p2butt.mat 1 1
+530: p2chest.mat 1 1
+531: p2chstsd.mat 1 1
+532: p2chsttp.mat 1 1
+533: p2faceb.mat 1 1
+534: p2facef.mat 1 1
+535: p2facesd.mat 1 1
+536: p2foot.mat 1 1
+537: p2forarm.mat 1 1
+538: p2handtp.mat 1 1
+539: p2hips.mat 1 1
+540: p2leg.mat 1 1
+541: p2neck.mat 1 1
+542: p2palm.mat 1 1
+543: p2thigh.mat 1 1
+544: PACKREV1.MAT 1 1
+545: PCELSIDE.MAT 1 1
+546: PCELTOP.MAT 1 1
+547: PCELTUBE.MAT 1 1
+548: rcback.mat 1 1
+549: rcbutt.mat 1 1
+550: rcchest.mat 1 1
+551: rcface4.mat 1 1
+552: rcfaceb.mat 1 1
+553: rcfacesd.mat 1 1
+554: rcforarm.mat 1 1
+555: rchip.mat 1 1
+556: rcleg.mat 1 1
+557: rcthigh.mat 1 1
+558: RLD0CLMP.MAT 1 1
+559: RLDVBDSD.MAT 1 1
+560: RLDVBDTP.MAT 1 1
+561: RLDVBRL1.MAT 1 1
+562: RLDVBRL2.MAT 1 1
+563: RLDVBRL3.MAT 1 1
+564: rldvbutt.mat 1 1
+565: RLDVCHM1.MAT 1 1
+566: RLDVCHM2.MAT 1 1
+567: RLDVCHM3.MAT 1 1
+568: RLDVCLP2.MAT 1 1
+569: RLDVPRJF.MAT 1 1
+570: RLDVPRJS.MAT 1 1
+571: rldvsgt.mat 1 1
+572: rldx.mat 1 1
+573: rmchest.mat 1 1
+574: rmfacebk.mat 1 1
+575: rmfaceft.mat 1 1
+576: rmfacesd.mat 1 1
+577: roarm.mat 1 1
+578: roback.mat 1 1
+579: robutt.mat 1 1
+580: rocap.mat 1 1
+581: rochest.mat 1 1
+582: roface3.mat 1 1
+583: rofacebk.mat 1 1
+584: rofacesd.mat 1 1
+585: roforarm.mat 1 1
+586: rohandf.mat 1 1
+587: rohip.mat 1 1
+588: roleg.mat 1 1
+589: rothigh.mat 1 1
+590: RPT0TOP.MAT 1 1
+591: RPTPBUT1.MAT 1 1
+592: RPTPBUT2.MAT 1 1
+593: RPTPGRIL.MAT 1 1
+594: RPTPSIDE.MAT 1 1
+595: RPTPTOP.MAT 1 1
+596: RPTPUNDR.MAT 1 1
+597: RPTVBACK.MAT 1 1
+598: rptx.mat 1 1
+599: SAB0blue.MAT 1 1
+600: SAB0dred.MAT 1 1
+601: SAB0gree.MAT 1 1
+602: SAB0oran.MAT 1 1
+603: SAB0purp.MAT 1 1
+604: SAB0RED.MAT 1 1
+605: SAB0yell.MAT 1 1
+606: saberblue1.mat 1 1
+607: saberdred1.mat 1 1
+608: sabergreen1.mat 1 1
+609: saberorange0.mat 1 1
+610: saberorange1.mat 1 1
+611: saberpurple1.mat 1 1
+612: saberred1.mat 1 1
+613: saberyellow1.mat 1 1
+614: sabutt.mat 1 1
+615: SABVBLD.MAT 1 1
+616: safoot.mat 1 1
+617: sahip.mat 1 1
+618: saleg.mat 1 1
+619: salegb.mat 1 1
+620: saneck.mat 1 1
+621: sathigh.mat 1 1
+622: sathighb.mat 1 1
+623: scarmlo.mat 1 1
+624: scarmup.mat 1 1
+625: scbck.mat 1 1
+626: scbutt.mat 1 1
+627: scchest.mat 1 1
+628: sccup.mat 1 1
+629: scfoot.mat 1 1
+630: schand.mat 1 1
+631: schandb.mat 1 1
+632: schdbk2.mat 1 1
+633: schdfr2.mat 1 1
+634: schdsd.mat 1 1
+635: schdtp2.mat 1 1
+636: scleglo.mat 1 1
+637: scneck.mat 1 1
+638: scpack.mat 1 1
+639: scsd1.mat 1 1
+640: scthigh.mat 1 1
+641: seq0mbck.mat 1 1
+642: SEQ0MTP1.MAT 1 1
+643: seq0mtp3.mat 1 1
+644: seq0side.mat 1 1
+645: seq0top.mat 1 1
+646: SEQP1.MAT 1 1
+647: SEQP2.MAT 1 1
+648: SEQP3.MAT 1 1
+649: SEQP4.MAT 1 1
+650: SEQTBODY.MAT 1 1
+651: SEQTHANDI.MAT 1 1
+652: SEQTTHUMB.MAT 1 1
+653: SEQTTRIG.MAT 1 1
+654: SEQVMTP2.MAT 1 1
+655: SEQVSD.MAT 1 1
+656: SEQVSID2.MAT 1 1
+657: SEQVTOP2.MAT 1 1
+658: seqx2.mat 1 1
+659: SHLD1.MAT 1 1
+660: SHLD2.MAT 1 1
+661: SHLD3.MAT 1 1
+662: SHRP.MAT 1 1
+663: SKRVCLP2.MAT 1 1
+664: SKRVPRJF.MAT 1 1
+665: SKRVPRJS.MAT 1 1
+666: sparky.mat 1 1
+667: SplashX.mat 1 1
+668: Splooshx.mat 1 1
+669: stfoot.mat 1 1
+670: sthdbk2.mat 1 1
+671: sthdfr2.mat 1 1
+672: sthdsd.mat 1 1
+673: STR0SIDE.MAT 1 1
+674: STR0TOP.MAT 1 1
+675: STRPGRIP.MAT 1 1
+676: strpport.mat 1 1
+677: strpsitf.mat 1 1
+678: STRVBRL4.MAT 1 1
+679: strvbutt.mat 1 1
+680: STRVCLP.MAT 1 1
+681: strvsid1.mat 1 1
+682: strvsid2.mat 1 1
+683: STRVSITB.MAT 1 1
+684: STRVSITE.MAT 1 1
+685: strvtop2.mat 1 1
+686: stthigh.mat 1 1
+687: th4arm.mat 1 1
+688: tharm.mat 1 1
+689: thback.mat 1 1
+690: thbutt.mat 1 1
+691: thfaceb.mat 1 1
+692: thfacef.mat 1 1
+693: thfacesd.mat 1 1
+694: thfacet.mat 1 1
+695: thfoot.mat 1 1
+696: thhand.mat 1 1
+697: thhandi.mat 1 1
+698: thhip.mat 1 1
+699: thleg.mat 1 1
+700: thpadt.mat 1 1
+701: ththigh.mat 1 1
+702: thtors.mat 1 1
+703: tkcollar.mat 1 1
+704: tkneck.mat 1 1
+705: tparm.mat 1 1
+706: tpback.mat 1 1
+707: tpbox.mat 1 1
+708: tpbutt.mat 1 1
+709: tpchest.mat 1 1
+710: tpface4.mat 1 1
+711: tpfaceb.mat 1 1
+712: tpfacesd.mat 1 1
+713: tpforarm.mat 1 1
+714: tpleg.mat 1 1
+715: tpneck.mat 1 1
+716: tpthigh.mat 1 1
+717: VEST1.MAT 1 1
+718: VEST2.MAT 1 1
+719: VEST3.MAT 1 1
+720: VEST4.MAT 1 1
+721: VEST5.MAT 1 1
+722: vestl1.mat 1 1
+723: vestl2.mat 1 1
+724: vestl5.mat 1 1
+725: white.mat 1 1
+726: wqarm.mat 1 1
+727: wqbutt.mat 1 1
+728: wqfaceb.mat 1 1
+729: wqfacef.mat 1 1
+730: wqfacet.mat 1 1
+731: wqfcesdr.mat 1 1
+732: wqfoot.mat 1 1
+733: wqforarm.mat 1 1
+734: wqhand.mat 1 1
+735: wqhandi.mat 1 1
+736: wqhipf.mat 1 1
+737: wqleg.mat 1 1
+738: wqneck.mat 1 1
+739: wqthighf.mat 1 1
+740: wqtorsb.mat 1 1
+741: wqtorsf.mat 1 1
+742: y_arm.mat 1 1
+743: y_foot.mat 1 1
+744: y_forarm.mat 1 1
+745: y_hand.mat 1 1
+746: y_handi.mat 1 1
+747: y_leg.mat 1 1
+748: y_legb.mat 1 1
+749: y_neck.mat 1 1
+750: y_thigh.mat 1 1
+751: y_torsb.mat 1 1
+752: y_torsf.mat 1 1
 end
 
 SECTION: GEORESOURCE
@@ -2735,119 +2738,119 @@ World adjoins 190
 
 World surfaces 611
 #num:   mat:     surfflags:	faceflags:	geo:	light:	tex:	adjoin:	extralight:	nverts:	vertices:			intensities:
-0:	457	0x44	0x0	4	3	1	-1	0	4 0,0 1,1 2,2 3,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-1:	457	0x44	0x0	4	3	1	-1	0	4 1,0 4,1 5,2 2,3 0 0 0 0 0 0 0 0 .5143 .5143 .5143 .5143 .5 .5 .5 .5
-2:	457	0x44	0x0	4	3	1	-1	0	6 4,0 6,1 7,2 8,4 9,5 5,3 0 0 0 0 0 0 0 0 .5155 .5155 .5155 .5155 .5226 .5226 .5226 .5226 .5157 .5157 .5157 .5157 .5058 .5058 .5058 .5058
-3:	457	0x44	0x0	4	3	1	-1	0	4 6,6 10,7 11,8 7,9 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5389 .5389 .5389 .5389
-4:	457	0x44	0x0	4	3	1	-1	0	4 10,0 12,1 13,2 11,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-5:	457	0x44	0x0	4	3	1	-1	0	4 12,10 14,11 15,12 13,13 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-6:	457	0x44	0x0	4	3	1	-1	0	4 14,0 16,1 17,2 15,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-7:	457	0x44	0x0	4	3	1	-1	0	4 16,14 18,15 19,16 17,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-8:	457	0x44	0x0	4	3	1	-1	0	4 18,14 20,18 21,19 19,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-9:	457	0x44	0x0	4	3	1	-1	0	4 20,6 22,20 23,21 21,9 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-10:	457	0x44	0x0	4	3	1	-1	0	4 22,0 24,22 25,23 23,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-11:	457	0x44	0x0	4	3	1	-1	0	4 24,0 26,24 27,25 25,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-12:	457	0x44	0x0	4	3	1	-1	0	4 26,26 28,6 29,9 27,27 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-13:	457	0x44	0x0	4	3	1	-1	0	4 28,14 30,18 31,19 29,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-14:	457	0x44	0x0	4	3	1	-1	0	4 30,0 32,1 33,2 31,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-15:	457	0x44	0x0	4	3	1	-1	0	4 32,0 0,1 3,2 33,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
-16:	457	0x4	0x0	4	3	1	-1	0	16 32,28 30,29 28,30 26,31 24,32 22,33 20,34 18,35 16,36 14,37 12,38 10,39 6,40 4,41 1,42 0,43 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0:	459	0x44	0x0	4	3	1	-1	0	4 0,0 1,1 2,2 3,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+1:	459	0x44	0x0	4	3	1	-1	0	4 1,0 4,1 5,2 2,3 0 0 0 0 0 0 0 0 .5143 .5143 .5143 .5143 .5 .5 .5 .5
+2:	459	0x44	0x0	4	3	1	-1	0	6 4,0 6,1 7,2 8,4 9,5 5,3 0 0 0 0 0 0 0 0 .5155 .5155 .5155 .5155 .5226 .5226 .5226 .5226 .5157 .5157 .5157 .5157 .5058 .5058 .5058 .5058
+3:	459	0x44	0x0	4	3	1	-1	0	4 6,6 10,7 11,8 7,9 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5389 .5389 .5389 .5389
+4:	459	0x44	0x0	4	3	1	-1	0	4 10,0 12,1 13,2 11,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+5:	459	0x44	0x0	4	3	1	-1	0	4 12,10 14,11 15,12 13,13 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+6:	459	0x44	0x0	4	3	1	-1	0	4 14,0 16,1 17,2 15,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+7:	459	0x44	0x0	4	3	1	-1	0	4 16,14 18,15 19,16 17,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+8:	459	0x44	0x0	4	3	1	-1	0	4 18,14 20,18 21,19 19,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+9:	459	0x44	0x0	4	3	1	-1	0	4 20,6 22,20 23,21 21,9 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+10:	459	0x44	0x0	4	3	1	-1	0	4 22,0 24,22 25,23 23,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+11:	459	0x44	0x0	4	3	1	-1	0	4 24,0 26,24 27,25 25,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+12:	459	0x44	0x0	4	3	1	-1	0	4 26,26 28,6 29,9 27,27 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+13:	459	0x44	0x0	4	3	1	-1	0	4 28,14 30,18 31,19 29,17 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+14:	459	0x44	0x0	4	3	1	-1	0	4 30,0 32,1 33,2 31,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+15:	459	0x44	0x0	4	3	1	-1	0	4 32,0 0,1 3,2 33,3 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
+16:	459	0x4	0x0	4	3	1	-1	0	16 32,28 30,29 28,30 26,31 24,32 22,33 20,34 18,35 16,36 14,37 12,38 10,39 6,40 4,41 1,42 0,43 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 17:	-1	0x0	0x0	0	3	1	0	0	14 17,0 19,0 21,0 23,0 25,0 27,0 29,0 31,0 33,0 34,0 35,0 36,0 37,0 15,0 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 .5 .5 .5
 18:	-1	0x0	0x0	0	3	1	1	0	11 8,0 7,0 11,0 13,0 15,0 37,0 38,0 39,0 40,0 41,0 42,0 .0139 .0139 .0139 .0139 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 19:	-1	0x0	0x0	0	3	1	2	0	6 9,0 8,0 42,0 43,0 44,0 45,0 .0071 .0071 .0071 .0071 .0139 .0139 .0139 .0139 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 20:	-1	0x0	0x0	0	3	1	3	0	9 2,0 5,0 9,0 45,0 46,0 47,0 34,0 33,0 3,0 .5 .5 .5 .5 .5 .5 .5 .5 .0071 .0071 .0071 .0071 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 .5 .5 .5 .5 .5 .5 .5
 21:	-1	0x0	0x0	0	3	1	4	0	3 42,0 41,0 43,0 0 0 0 0 0 0 0 0 0 0 0 0
 22:	-1	0x0	0x0	0	3	1	5	0	4 38,0 37,0 36,0 48,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-23:	458	0x5	0x0	4	3	1	-1	0	12 41,44 40,45 39,46 38,47 48,48 49,49 50,50 51,51 47,52 46,53 44,54 43,55 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+23:	460	0x5	0x0	4	3	1	-1	0	12 41,44 40,45 39,46 38,47 48,48 49,49 50,50 51,51 47,52 46,53 44,54 43,55 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 24:	-1	0x0	0x0	0	3	1	6	0	4 35,0 34,0 47,0 51,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 25:	-1	0x0	0x0	0	3	1	7	0	3 46,0 45,0 44,0 0 0 0 0 0 0 0 0 0 0 0 0
 26:	-1	0x0	0x0	0	3	1	8	0	6 48,0 36,0 35,0 51,0 50,0 49,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 27:	-1	0x0	0x0	0	3	1	9	0	14 52,0 53,0 54,0 55,0 56,0 57,0 58,0 59,0 60,0 61,0 62,0 63,0 64,0 65,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1744 .1744 .1744 .1744 .1791 .1791 .1791 .1791 .1791 .1791 .1791 .1791 .1744 .1744 .1744 .1744 0 0 0 0
 28:	-1	0x0	0x0	0	3	1	10	0	14 31,0 29,0 27,0 25,0 23,0 21,0 19,0 17,0 15,0 37,0 36,0 35,0 34,0 33,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-29:	457	0x44	0x0	4	3	1	-1	0	4 19,56 53,57 52,58 17,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-30:	457	0x44	0x0	4	3	1	-1	0	4 21,60 54,61 53,62 19,63 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-31:	457	0x44	0x0	4	3	1	-1	0	4 23,64 55,65 54,58 21,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-32:	457	0x44	0x0	4	3	1	-1	0	4 25,66 56,67 55,58 23,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-33:	457	0x44	0x0	4	3	1	-1	0	4 27,68 57,69 56,62 25,63 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-34:	457	0x44	0x0	4	3	1	-1	0	4 29,59 58,58 57,70 27,71 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
-35:	457	0x44	0x0	4	3	1	-1	0	4 31,72 59,57 58,58 29,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+29:	459	0x44	0x0	4	3	1	-1	0	4 19,56 53,57 52,58 17,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+30:	459	0x44	0x0	4	3	1	-1	0	4 21,60 54,61 53,62 19,63 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+31:	459	0x44	0x0	4	3	1	-1	0	4 23,64 55,65 54,58 21,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+32:	459	0x44	0x0	4	3	1	-1	0	4 25,66 56,67 55,58 23,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+33:	459	0x44	0x0	4	3	1	-1	0	4 27,68 57,69 56,62 25,63 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+34:	459	0x44	0x0	4	3	1	-1	0	4 29,59 58,58 57,70 27,71 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+35:	459	0x44	0x0	4	3	1	-1	0	4 31,72 59,57 58,58 29,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
 36:	-1	0x0	0x0	0	3	1	11	0	4 61,0 60,0 33,0 34,0 .0093 .0093 .0093 .0093 .7 .7 .7 .7 .5 .5 .5 .5 0 0 0 0
-37:	457	0x44	0x0	4	3	1	-1	0	4 59,62 31,63 33,60 60,61 .7 .7 .7 .7 .5 .5 .5 .5 .5 .5 .5 .5 .7 .7 .7 .7
-38:	457	0x44	0x0	4	3	1	-1	0	4 17,72 52,73 65,58 15,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
+37:	459	0x44	0x0	4	3	1	-1	0	4 59,62 31,63 33,60 60,61 .7 .7 .7 .7 .5 .5 .5 .5 .5 .5 .5 .5 .7 .7 .7 .7
+38:	459	0x44	0x0	4	3	1	-1	0	4 17,72 52,73 65,58 15,59 .5 .5 .5 .5 .7 .7 .7 .7 .7 .7 .7 .7 .5 .5 .5 .5
 39:	-1	0x0	0x0	0	3	1	12	0	4 15,0 65,0 64,0 37,0 .5 .5 .5 .5 .7 .7 .7 .7 .0093 .0093 .0093 .0093 0 0 0 0
 40:	-1	0x0	0x0	0	3	1	13	0	6 64,0 63,0 66,0 67,0 36,0 37,0 .0093 .0093 .0093 .0093 .0098 .0098 .0098 .0098 .7539 .7539 .7539 .7539 .6204 .6204 .6204 .6204 0 0 0 0 0 0 0 0
 41:	-1	0x0	0x0	0	3	1	14	0	4 63,0 62,0 68,0 66,0 .0098 .0098 .0098 .0098 .0098 .0098 .0098 .0098 .7539 .7539 .7539 .7539 .7539 .7539 .7539 .7539
 42:	-1	0x0	0x0	0	3	1	15	0	6 62,0 61,0 34,0 35,0 69,0 68,0 .0098 .0098 .0098 .0098 .0093 .0093 .0093 .0093 0 0 0 0 0 0 0 0 .6203 .6203 .6203 .6203 .7539 .7539 .7539 .7539
-43:	458	0x4	0x0	4	3	1	-1	0	6 68,74 69,75 70,76 71,77 67,78 66,79 .7539 .7539 .7539 .7539 .6203 .6203 .6203 .6203 .8737 .8737 .8737 .8737 .8737 .8737 .8737 .8737 .6204 .6204 .6204 .6204 .7539 .7539 .7539 .7539
+43:	460	0x4	0x0	4	3	1	-1	0	6 68,74 69,75 70,76 71,77 67,78 66,79 .7539 .7539 .7539 .7539 .6203 .6203 .6203 .6203 .8737 .8737 .8737 .8737 .8737 .8737 .8737 .8737 .6204 .6204 .6204 .6204 .7539 .7539 .7539 .7539
 44:	-1	0x0	0x0	0	3	1	16	0	6 69,0 35,0 36,0 67,0 71,0 70,0 .6203 .6203 .6203 .6203 0 0 0 0 0 0 0 0 .6204 .6204 .6204 .6204 .8737 .8737 .8737 .8737 .8737 .8737 .8737 .8737
-45:	457	0x44	0x0	4	3	1	-1	0	4 72,80 73,81 74,82 75,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-46:	457	0x44	0x0	4	3	1	-1	0	4 75,84 74,85 76,86 77,87 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-47:	457	0x44	0x0	4	3	1	-1	0	4 77,88 76,89 78,90 79,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-48:	457	0x44	0x0	4	3	1	-1	0	4 80,92 81,93 82,94 83,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-49:	457	0x44	0x0	4	3	1	-1	0	4 79,92 78,93 81,94 80,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-50:	457	0x44	0x0	4	3	1	-1	0	4 84,95 80,96 83,97 85,98 5 5 5 5 25 25 25 25 25 25 25 25 4.5357 4.5357 4.5357 4.5357
-51:	457	0x44	0x0	4	3	1	-1	0	4 86,95 79,96 80,99 84,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-52:	457	0x44	0x0	4	3	1	-1	0	4 87,95 77,100 79,99 86,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-53:	457	0x44	0x0	4	3	1	-1	0	4 88,101 75,96 77,99 87,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-54:	457	0x44	0x0	4	3	1	-1	0	4 89,95 72,96 75,97 88,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-55:	457	0x44	0x0	4	3	1	-1	0	4 90,92 91,93 92,90 93,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-56:	457	0x44	0x0	4	3	1	-1	0	4 94,102 95,103 91,104 90,105 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-57:	457	0x44	0x0	4	3	1	-1	0	4 96,80 97,81 95,82 94,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-58:	457	0x44	0x0	4	3	1	-1	0	4 98,106 99,107 97,94 96,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-59:	457	0x44	0x0	4	3	1	-1	0	4 100,108 101,109 99,94 98,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-60:	457	0x44	0x0	4	3	1	-1	0	4 102,110 103,111 101,82 100,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-61:	457	0x44	0x0	4	3	1	-1	0	4 104,112 105,113 103,114 102,115 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-62:	457	0x44	0x0	4	3	1	-1	0	4 106,92 107,89 105,90 104,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-63:	457	0x44	0x0	4	3	1	-1	0	4 108,92 109,89 107,94 106,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-64:	457	0x44	0x0	4	3	1	-1	0	4 83,116 82,117 109,94 108,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-65:	457	0x44	0x0	4	3	1	-1	0	4 93,92 92,93 73,94 72,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
-66:	457	0x44	0x0	4	3	1	-1	0	4 110,95 90,96 93,99 111,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-67:	457	0x44	0x0	4	3	1	-1	0	4 112,118 94,119 90,120 110,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-68:	457	0x44	0x0	4	3	1	-1	0	4 113,122 96,123 94,120 112,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-69:	457	0x44	0x0	4	3	1	-1	0	4 114,124 98,125 96,120 113,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-70:	457	0x44	0x0	4	3	1	-1	0	4 115,126 100,127 98,99 114,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-71:	457	0x44	0x0	4	3	1	-1	0	4 116,128 102,129 100,99 115,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-72:	457	0x44	0x0	4	3	1	-1	0	4 117,130 104,131 102,132 116,133 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-73:	457	0x44	0x0	4	3	1	-1	0	4 118,95 106,96 104,99 117,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-74:	457	0x44	0x0	4	3	1	-1	0	4 119,95 108,96 106,99 118,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-75:	457	0x44	0x0	4	3	1	-1	0	4 85,101 83,134 108,97 119,98 4.5357 4.5357 4.5357 4.5357 25 25 25 25 25 25 25 25 5 5 5 5
-76:	457	0x44	0x0	4	3	1	-1	0	4 111,95 93,96 72,99 89,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
-77:	457	0x44	0x0	4	3	1	-1	0	4 120,135 84,136 85,137 121,138 1 1 1 1 5 5 5 5 4.5357 4.5357 4.5357 4.5357 1 1 1 1
-78:	457	0x44	0x0	4	3	1	-1	0	4 122,139 86,136 84,137 120,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-79:	457	0x44	0x0	4	3	1	-1	0	4 123,135 87,136 86,137 122,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-80:	457	0x44	0x0	4	3	1	-1	0	4 124,139 88,140 87,137 123,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-81:	457	0x44	0x0	4	3	1	-1	0	4 125,135 89,136 88,137 124,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-82:	457	0x44	0x0	4	3	1	-1	0	4 126,135 111,136 89,137 125,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-83:	457	0x44	0x0	4	3	1	-1	0	4 127,139 110,136 111,137 126,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-84:	457	0x44	0x0	4	3	1	-1	0	4 128,141 112,142 110,143 127,144 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-85:	457	0x44	0x0	4	3	1	-1	0	4 129,145 113,146 112,147 128,148 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-86:	457	0x44	0x0	4	3	1	-1	0	4 130,149 114,150 113,143 129,144 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-87:	457	0x44	0x0	4	3	1	-1	0	4 131,151 115,152 114,137 130,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-88:	457	0x44	0x0	4	3	1	-1	0	4 132,153 116,154 115,137 131,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-89:	457	0x44	0x0	4	3	1	-1	0	4 133,138 117,155 116,156 132,157 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-90:	457	0x44	0x0	4	3	1	-1	0	4 134,135 118,136 117,158 133,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-91:	457	0x44	0x0	4	3	1	-1	0	4 135,135 119,136 118,137 134,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
-92:	457	0x44	0x0	4	3	1	-1	0	4 121,139 85,140 119,137 135,138 1 1 1 1 4.5357 4.5357 4.5357 4.5357 5 5 5 5 1 1 1 1
-93:	457	0x5	0x0	4	3	1	-1	0	16 82,28 81,159 78,160 76,161 74,162 73,163 92,164 91,165 95,166 97,167 99,168 101,169 103,170 105,171 107,172 109,173 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+45:	459	0x44	0x0	4	3	1	-1	0	4 72,80 73,81 74,82 75,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+46:	459	0x44	0x0	4	3	1	-1	0	4 75,84 74,85 76,86 77,87 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+47:	459	0x44	0x0	4	3	1	-1	0	4 77,88 76,89 78,90 79,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+48:	459	0x44	0x0	4	3	1	-1	0	4 80,92 81,93 82,94 83,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+49:	459	0x44	0x0	4	3	1	-1	0	4 79,92 78,93 81,94 80,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+50:	459	0x44	0x0	4	3	1	-1	0	4 84,95 80,96 83,97 85,98 5 5 5 5 25 25 25 25 25 25 25 25 4.5357 4.5357 4.5357 4.5357
+51:	459	0x44	0x0	4	3	1	-1	0	4 86,95 79,96 80,99 84,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+52:	459	0x44	0x0	4	3	1	-1	0	4 87,95 77,100 79,99 86,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+53:	459	0x44	0x0	4	3	1	-1	0	4 88,101 75,96 77,99 87,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+54:	459	0x44	0x0	4	3	1	-1	0	4 89,95 72,96 75,97 88,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+55:	459	0x44	0x0	4	3	1	-1	0	4 90,92 91,93 92,90 93,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+56:	459	0x44	0x0	4	3	1	-1	0	4 94,102 95,103 91,104 90,105 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+57:	459	0x44	0x0	4	3	1	-1	0	4 96,80 97,81 95,82 94,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+58:	459	0x44	0x0	4	3	1	-1	0	4 98,106 99,107 97,94 96,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+59:	459	0x44	0x0	4	3	1	-1	0	4 100,108 101,109 99,94 98,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+60:	459	0x44	0x0	4	3	1	-1	0	4 102,110 103,111 101,82 100,83 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+61:	459	0x44	0x0	4	3	1	-1	0	4 104,112 105,113 103,114 102,115 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+62:	459	0x44	0x0	4	3	1	-1	0	4 106,92 107,89 105,90 104,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+63:	459	0x44	0x0	4	3	1	-1	0	4 108,92 109,89 107,94 106,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+64:	459	0x44	0x0	4	3	1	-1	0	4 83,116 82,117 109,94 108,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+65:	459	0x44	0x0	4	3	1	-1	0	4 93,92 92,93 73,94 72,91 25 25 25 25 0 0 0 0 0 0 0 0 25 25 25 25
+66:	459	0x44	0x0	4	3	1	-1	0	4 110,95 90,96 93,99 111,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+67:	459	0x44	0x0	4	3	1	-1	0	4 112,118 94,119 90,120 110,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+68:	459	0x44	0x0	4	3	1	-1	0	4 113,122 96,123 94,120 112,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+69:	459	0x44	0x0	4	3	1	-1	0	4 114,124 98,125 96,120 113,121 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+70:	459	0x44	0x0	4	3	1	-1	0	4 115,126 100,127 98,99 114,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+71:	459	0x44	0x0	4	3	1	-1	0	4 116,128 102,129 100,99 115,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+72:	459	0x44	0x0	4	3	1	-1	0	4 117,130 104,131 102,132 116,133 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+73:	459	0x44	0x0	4	3	1	-1	0	4 118,95 106,96 104,99 117,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+74:	459	0x44	0x0	4	3	1	-1	0	4 119,95 108,96 106,99 118,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+75:	459	0x44	0x0	4	3	1	-1	0	4 85,101 83,134 108,97 119,98 4.5357 4.5357 4.5357 4.5357 25 25 25 25 25 25 25 25 5 5 5 5
+76:	459	0x44	0x0	4	3	1	-1	0	4 111,95 93,96 72,99 89,98 5 5 5 5 25 25 25 25 25 25 25 25 5 5 5 5
+77:	459	0x44	0x0	4	3	1	-1	0	4 120,135 84,136 85,137 121,138 1 1 1 1 5 5 5 5 4.5357 4.5357 4.5357 4.5357 1 1 1 1
+78:	459	0x44	0x0	4	3	1	-1	0	4 122,139 86,136 84,137 120,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+79:	459	0x44	0x0	4	3	1	-1	0	4 123,135 87,136 86,137 122,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+80:	459	0x44	0x0	4	3	1	-1	0	4 124,139 88,140 87,137 123,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+81:	459	0x44	0x0	4	3	1	-1	0	4 125,135 89,136 88,137 124,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+82:	459	0x44	0x0	4	3	1	-1	0	4 126,135 111,136 89,137 125,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+83:	459	0x44	0x0	4	3	1	-1	0	4 127,139 110,136 111,137 126,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+84:	459	0x44	0x0	4	3	1	-1	0	4 128,141 112,142 110,143 127,144 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+85:	459	0x44	0x0	4	3	1	-1	0	4 129,145 113,146 112,147 128,148 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+86:	459	0x44	0x0	4	3	1	-1	0	4 130,149 114,150 113,143 129,144 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+87:	459	0x44	0x0	4	3	1	-1	0	4 131,151 115,152 114,137 130,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+88:	459	0x44	0x0	4	3	1	-1	0	4 132,153 116,154 115,137 131,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+89:	459	0x44	0x0	4	3	1	-1	0	4 133,138 117,155 116,156 132,157 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+90:	459	0x44	0x0	4	3	1	-1	0	4 134,135 118,136 117,158 133,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+91:	459	0x44	0x0	4	3	1	-1	0	4 135,135 119,136 118,137 134,138 1 1 1 1 5 5 5 5 5 5 5 5 1 1 1 1
+92:	459	0x44	0x0	4	3	1	-1	0	4 121,139 85,140 119,137 135,138 1 1 1 1 4.5357 4.5357 4.5357 4.5357 5 5 5 5 1 1 1 1
+93:	459	0x5	0x0	4	3	1	-1	0	16 82,28 81,159 78,160 76,161 74,162 73,163 92,164 91,165 95,166 97,167 99,168 101,169 103,170 105,171 107,172 109,173 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 94:	-1	0x0	0x0	0	3	1	17	0	16 121,0 135,0 134,0 133,0 132,0 131,0 130,0 129,0 128,0 127,0 126,0 125,0 124,0 123,0 122,0 120,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 95:	-1	0x0	0x0	0	3	1	18	0	14 52,0 65,0 64,0 63,0 62,0 61,0 60,0 59,0 58,0 57,0 56,0 55,0 54,0 53,0 .7 .7 .7 .7 .7 .7 .7 .7 .1304 .1304 .1304 .1304 .1315 .1315 .1315 .1315 .1315 .1315 .1315 .1315 .1304 .1304 .1304 .1304 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7 .7
 96:	-1	0x0	0x0	0	3	1	19	0	11 64,0 65,0 136,0 137,0 138,0 139,0 140,0 141,0 142,0 143,0 144,0 .1304 .1304 .1304 .1304 .7 .7 .7 .7 .6759 .6759 .6759 .6759 .7 .7 .7 .7 .7186 .7186 .7186 .7186 .6389 .6389 .6389 .6389 .1306 .1306 .1306 .1306 .6685 .6685 .6685 .6685 .4426 .4426 .4426 .4426 .4046 .4046 .4046 .4046 .6688 .6688 .6688 .6688
-97:	457	0x44	0x0	4	3	1	-1	0	4 145,174 120,175 121,176 146,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .5904 .5904 .5904 .5904
-98:	457	0x44	0x0	4	3	1	-1	0	4 147,178 122,179 120,176 145,177 .725 .725 .725 .725 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-99:	457	0x44	0x0	4	3	1	-1	0	6 138,174 123,175 122,176 147,177 148,180 139,181 .7306 .7306 .7306 .7306 1 1 1 1 1 1 1 1 .7109 .7109 .7109 .7109 .7312 .7312 .7312 .7312 .6517 .6517 .6517 .6517
-100:	457	0x44	0x0	4	3	1	-1	0	4 137,178 124,179 123,176 138,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7633 .7633 .7633 .7633
-101:	457	0x44	0x0	4	3	1	-1	0	4 136,174 125,175 124,176 137,177 .6759 .6759 .6759 .6759 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-102:	457	0x44	0x0	4	3	1	-1	0	4 65,174 126,175 125,176 136,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .6759 .6759 .6759 .6759
-103:	457	0x44	0x0	4	3	1	-1	0	4 52,178 127,179 126,176 65,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-104:	457	0x44	0x0	4	3	1	-1	0	4 53,174 128,175 127,176 52,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-105:	457	0x44	0x0	4	3	1	-1	0	4 54,178 129,179 128,176 53,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-106:	457	0x44	0x0	4	3	1	-1	0	4 55,182 130,183 129,176 54,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-107:	457	0x44	0x0	4	3	1	-1	0	4 56,184 131,185 130,176 55,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-108:	457	0x44	0x0	4	3	1	-1	0	4 57,186 132,187 131,176 56,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-109:	457	0x44	0x0	4	3	1	-1	0	4 58,177 133,176 132,188 57,189 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-110:	457	0x44	0x0	4	3	1	-1	0	4 59,174 134,175 133,176 58,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-111:	457	0x44	0x0	4	3	1	-1	0	4 60,174 135,175 134,176 59,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
-112:	457	0x44	0x0	4	3	1	-1	0	4 146,178 121,179 135,176 60,177 .5904 .5904 .5904 .5904 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+97:	459	0x44	0x0	4	3	1	-1	0	4 145,174 120,175 121,176 146,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .5904 .5904 .5904 .5904
+98:	459	0x44	0x0	4	3	1	-1	0	4 147,178 122,179 120,176 145,177 .725 .725 .725 .725 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+99:	459	0x44	0x0	4	3	1	-1	0	6 138,174 123,175 122,176 147,177 148,180 139,181 .7306 .7306 .7306 .7306 1 1 1 1 1 1 1 1 .7109 .7109 .7109 .7109 .7312 .7312 .7312 .7312 .6517 .6517 .6517 .6517
+100:	459	0x44	0x0	4	3	1	-1	0	4 137,178 124,179 123,176 138,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7633 .7633 .7633 .7633
+101:	459	0x44	0x0	4	3	1	-1	0	4 136,174 125,175 124,176 137,177 .6759 .6759 .6759 .6759 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+102:	459	0x44	0x0	4	3	1	-1	0	4 65,174 126,175 125,176 136,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .6759 .6759 .6759 .6759
+103:	459	0x44	0x0	4	3	1	-1	0	4 52,178 127,179 126,176 65,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+104:	459	0x44	0x0	4	3	1	-1	0	4 53,174 128,175 127,176 52,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+105:	459	0x44	0x0	4	3	1	-1	0	4 54,178 129,179 128,176 53,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+106:	459	0x44	0x0	4	3	1	-1	0	4 55,182 130,183 129,176 54,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+107:	459	0x44	0x0	4	3	1	-1	0	4 56,184 131,185 130,176 55,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+108:	459	0x44	0x0	4	3	1	-1	0	4 57,186 132,187 131,176 56,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+109:	459	0x44	0x0	4	3	1	-1	0	4 58,177 133,176 132,188 57,189 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+110:	459	0x44	0x0	4	3	1	-1	0	4 59,174 134,175 133,176 58,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+111:	459	0x44	0x0	4	3	1	-1	0	4 60,174 135,175 134,176 59,177 .7 .7 .7 .7 1 1 1 1 1 1 1 1 .7 .7 .7 .7
+112:	459	0x44	0x0	4	3	1	-1	0	4 146,178 121,179 135,176 60,177 .5904 .5904 .5904 .5904 1 1 1 1 1 1 1 1 .7 .7 .7 .7
 113:	-1	0x0	0x0	0	3	1	20	0	16 120,0 122,0 123,0 124,0 125,0 126,0 127,0 128,0 129,0 130,0 131,0 132,0 133,0 134,0 135,0 121,0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 114:	-1	0x0	0x0	0	3	1	21	0	4 61,0 62,0 149,0 150,0 .1304 .1304 .1304 .1304 .1315 .1315 .1315 .1315 .6899 .6899 .6899 .6899 .6688 .6688 .6688 .6688
 115:	-1	0x0	0x0	0	3	1	22	0	9 60,0 61,0 150,0 151,0 152,0 148,0 147,0 145,0 146,0 .7 .7 .7 .7 .1304 .1304 .1304 .1304 .6688 .6688 .6688 .6688 .6685 .6685 .6685 .6685 .1306 .1306 .1306 .1306 .7209 .7209 .7209 .7209 .7081 .7081 .7081 .7081 .7 .7 .7 .7 .5904 .5904 .5904 .5904
@@ -2856,18 +2859,18 @@ World surfaces 611
 118:	-1	0x0	0x0	0	3	1	25	0	4 63,0 64,0 144,0 155,0 .1315 .1315 .1315 .1315 .1304 .1304 .1304 .1304 .6688 .6688 .6688 .6688 .6899 .6899 .6899 .6899
 119:	-1	0x0	0x0	0	3	1	26	0	4 141,0 140,0 154,0 156,0 .6685 .6685 .6685 .6685 .1306 .1306 .1306 .1306 .1317 .1317 .1317 .1317 .6896 .6896 .6896 .6896
 120:	-1	0x0	0x0	0	3	1	27	0	4 153,0 152,0 151,0 157,0 .1317 .1317 .1317 .1317 .1306 .1306 .1306 .1306 .6685 .6685 .6685 .6685 .6896 .6896 .6896 .6896
-121:	458	0x4	0x0	4	3	1	-1	0	10 155,190 144,191 143,192 142,193 141,194 156,195 157,196 151,197 150,198 149,199 .6899 .6899 .6899 .6899 .6688 .6688 .6688 .6688 .4046 .4046 .4046 .4046 .4426 .4426 .4426 .4426 .6685 .6685 .6685 .6685 .6896 .6896 .6896 .6896 .6896 .6896 .6896 .6896 .6685 .6685 .6685 .6685 .6688 .6688 .6688 .6688 .6899 .6899 .6899 .6899
+121:	460	0x4	0x0	4	3	1	-1	0	10 155,190 144,191 143,192 142,193 141,194 156,195 157,196 151,197 150,198 149,199 .6899 .6899 .6899 .6899 .6688 .6688 .6688 .6688 .4046 .4046 .4046 .4046 .4426 .4426 .4426 .4426 .6685 .6685 .6685 .6685 .6896 .6896 .6896 .6896 .6896 .6896 .6896 .6896 .6685 .6685 .6685 .6685 .6688 .6688 .6688 .6688 .6899 .6899 .6899 .6899
 122:	-1	0x0	0x0	0	3	1	28	0	4 156,0 154,0 153,0 157,0 .6896 .6896 .6896 .6896 .1317 .1317 .1317 .1317 .1317 .1317 .1317 .1317 .6896 .6896 .6896 .6896
 123:	-1	0x0	0x0	0	3	1	29	0	3 69,0 35,0 51,0 .3769 .3769 .3769 .3769 0 0 0 0 0 0 0 0
 124:	-1	0x0	0x0	0	3	1	30	0	6 36,0 35,0 69,0 70,0 71,0 67,0 0 0 0 0 0 0 0 0 .0088 .0088 .0088 .0088 .2287 .2287 .2287 .2287 .2285 .2285 .2285 .2285 .0088 .0088 .0088 .0088
 125:	-1	0x0	0x0	0	3	1	31	0	3 36,0 67,0 48,0 0 0 0 0 .3769 .3769 .3769 .3769 0 0 0 0
 126:	-1	0x0	0x0	0	3	1	32	0	6 35,0 36,0 48,0 49,0 50,0 51,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-127:	458	0x4	0x0	4	3	1	-1	0	5 69,200 51,201 50,202 158,203 70,204 .3052 .3052 .3052 .3052 0 0 0 0 0 0 0 0 .3801 .3801 .3801 .3801 .5 .5 .5 .5
-128:	458	0x4	0x0	4	3	1	-1	0	5 49,205 48,206 67,207 71,208 159,209 0 0 0 0 0 0 0 0 .3053 .3053 .3053 .3053 .5 .5 .5 .5 .3801 .3801 .3801 .3801
-129:	458	0x4	0x0	4	3	1	-1	0	6 50,210 49,211 159,212 160,213 161,214 158,215 0 0 0 0 0 0 0 0 .3801 .3801 .3801 .3801 .3998 .3998 .3998 .3998 .3998 .3998 .3998 .3998 .3801 .3801 .3801 .3801
-130:	458	0x4	0x0	4	3	1	-1	0	3 159,216 71,217 160,218 .3801 .3801 .3801 .3801 .5 .5 .5 .5 .3998 .3998 .3998 .3998
+127:	460	0x4	0x0	4	3	1	-1	0	5 69,200 51,201 50,202 158,203 70,204 .3052 .3052 .3052 .3052 0 0 0 0 0 0 0 0 .3801 .3801 .3801 .3801 .5 .5 .5 .5
+128:	460	0x4	0x0	4	3	1	-1	0	5 49,205 48,206 67,207 71,208 159,209 0 0 0 0 0 0 0 0 .3053 .3053 .3053 .3053 .5 .5 .5 .5 .3801 .3801 .3801 .3801
+129:	460	0x4	0x0	4	3	1	-1	0	6 50,210 49,211 159,212 160,213 161,214 158,215 0 0 0 0 0 0 0 0 .3801 .3801 .3801 .3801 .3998 .3998 .3998 .3998 .3998 .3998 .3998 .3998 .3801 .3801 .3801 .3801
+130:	460	0x4	0x0	4	3	1	-1	0	3 159,216 71,217 160,218 .3801 .3801 .3801 .3801 .5 .5 .5 .5 .3998 .3998 .3998 .3998
 131:	-1	0x0	0x0	0	3	1	33	0	4 71,0 70,0 161,0 160,0 .5 .5 .5 .5 .5 .5 .5 .5 .3998 .3998 .3998 .3998 .3998 .3998 .3998 .3998
-132:	458	0x4	0x0	4	3	1	-1	0	3 70,219 158,220 161,221 .5 .5 .5 .5 .3801 .3801 .3801 .3801 .3998 .3998 .3998 .3998
+132:	460	0x4	0x0	4	3	1	-1	0	3 70,219 158,220 161,221 .5 .5 .5 .5 .3801 .3801 .3801 .3801 .3998 .3998 .3998 .3998
 133:	12	0x4	0x0	4	3	1	-1	0	4 162,14 163,222 161,223 160,224 .5656 .5656 .5656 .5656 .5657 .5657 .5657 .5657 .5671 .5671 .5671 .5671 .5671 .5671 .5671 .5671
 134:	12	0x4	0x0	4	3	1	-1	0	4 163,0 164,225 70,226 161,227 .5656 .5656 .5656 .5656 .7019 .7019 .7019 .7019 .7905 .7905 .7905 .7905 .5633 .5633 .5633 .5633
 135:	16	0x5	0x0	4	3	1	-1	0	4 164,228 165,229 71,230 70,231 .7357 .7357 .7357 .7357 .7357 .7357 .7357 .7357 .6495 .6495 .6495 .6495 .6495 .6495 .6495 .6495
@@ -3166,8 +3169,8 @@ World surfaces 611
 428:	10	0x5	0x0	4	3	1	-1	0	6 480,608 481,609 482,610 483,611 484,612 485,613 .4714 .4714 .4714 .4714 .4929 .4929 .4929 .4929 .005 .005 .005 .005 .0638 .0638 .0638 .0638 .0632 .0632 .0632 .0632 .0067 .0067 .0067 .0067
 429:	-1	0x0	0x0	0	3	1	104	0	4 486,0 487,0 481,0 480,0 .2815 .2815 .2815 .2815 .2868 .2868 .2868 .2868 .3991 .3991 .3991 .3991 .379 .379 .379 .379
 430:	12	0x4	0x0	4	3	1	-1	0	7 485,614 484,615 488,616 384,617 383,618 489,619 490,620 .0173 .0173 .0173 .0173 .0788 .0788 .0788 .0788 .0795 .0795 .0795 .0795 .5785 .5785 .5785 .5785 .5227 .5227 .5227 .5227 .0213 .0213 .0213 .0213 .02 .02 .02 .02
-431:	458	0x4	0x0	4	3	1	-1	0	4 482,621 481,622 487,623 491,624 .021 .021 .021 .021 .4218 .4218 .4218 .4218 .3143 .3143 .3143 .3143 .0251 .0251 .0251 .0251
-432:	458	0x4	0x0	4	3	1	-1	0	4 486,625 490,626 491,627 487,628 .3194 .3194 .3194 .3194 .0131 .0131 .0131 .0131 .01 .01 .01 .01 .3265 .3265 .3265 .3265
+431:	460	0x4	0x0	4	3	1	-1	0	4 482,621 481,622 487,623 491,624 .021 .021 .021 .021 .4218 .4218 .4218 .4218 .3143 .3143 .3143 .3143 .0251 .0251 .0251 .0251
+432:	460	0x4	0x0	4	3	1	-1	0	4 486,625 490,626 491,627 487,628 .3194 .3194 .3194 .3194 .0131 .0131 .0131 .0131 .01 .01 .01 .01 .3265 .3265 .3265 .3265
 433:	-1	0x0	0x0	0	3	1	105	0	8 377,0 387,0 378,0 379,0 383,0 384,0 391,0 376,0 .5827 .5827 .5827 .5827 .5264 .5264 .5264 .5264 .5147 .5147 .5147 .5147 .5074 .5074 .5074 .5074 .5227 .5227 .5227 .5227 .5785 .5785 .5785 .5785 .5577 .5577 .5577 .5577 .5594 .5594 .5594 .5594
 434:	12	0x4	0x0	4	3	1	-1	0	3 387,618 492,619 378,629 .5264 .5264 .5264 .5264 .0247 .0247 .0247 .0247 .5147 .5147 .5147 .5147
 435:	12	0x4	0x0	4	3	1	-1	0	3 379,630 489,631 383,632 .5074 .5074 .5074 .5074 .0213 .0213 .0213 .0213 .5227 .5227 .5227 .5227
@@ -3176,20 +3179,20 @@ World surfaces 611
 438:	12	0x4	0x0	4	3	1	-1	0	6 492,619 491,620 490,637 489,631 379,630 378,629 .0247 .0247 .0247 .0247 .0131 .0131 .0131 .0131 .02 .02 .02 .02 .0213 .0213 .0213 .0213 .5074 .5074 .5074 .5074 .5147 .5147 .5147 .5147
 439:	12	0x4	0x0	4	3	1	-1	0	7 483,638 482,639 491,640 492,641 387,642 377,643 493,644 .0829 .0829 .0829 .0829 .0109 .0109 .0109 .0109 .0131 .0131 .0131 .0131 .0247 .0247 .0247 .0247 .5264 .5264 .5264 .5264 .5827 .5827 .5827 .5827 .0837 .0837 .0837 .0837
 440:	12	0x4	0x0	4	3	1	-1	0	6 484,645 483,615 493,616 376,636 391,635 488,634 .0788 .0788 .0788 .0788 .0829 .0829 .0829 .0829 .0837 .0837 .0837 .0837 .5594 .5594 .5594 .5594 .5577 .5577 .5577 .5577 .0795 .0795 .0795 .0795
-441:	458	0x4	0x0	4	3	1	-1	0	4 486,646 480,647 485,648 490,649 .3154 .3154 .3154 .3154 .4076 .4076 .4076 .4076 .0261 .0261 .0261 .0261 .0306 .0306 .0306 .0306
+441:	460	0x4	0x0	4	3	1	-1	0	4 486,646 480,647 485,648 490,649 .3154 .3154 .3154 .3154 .4076 .4076 .4076 .4076 .0261 .0261 .0261 .0261 .0306 .0306 .0306 .0306
 442:	-1	0x0	0x0	0	3	1	106	0	4 36,0 37,0 38,0 48,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 443:	-1	0x0	0x0	0	3	1	107	0	6 37,0 36,0 67,0 66,0 63,0 64,0 0 0 0 0 0 0 0 0 .0088 .0088 .0088 .0088 .0188 .0188 .0188 .0188 .2081 .2081 .2081 .2081 .1966 .1966 .1966 .1966
 444:	-1	0x0	0x0	0	3	1	108	0	4 64,0 63,0 155,0 144,0 .1744 .1744 .1744 .1744 .1791 .1791 .1791 .1791 .7152 .7152 .7152 .7152 .6862 .6862 .6862 .6862
 445:	-1	0x0	0x0	0	3	1	109	0	4 37,0 64,0 144,0 38,0 0 0 0 0 .1692 .1692 .1692 .1692 .2326 .2326 .2326 .2326 0 0 0 0
 446:	-1	0x0	0x0	0	3	1	110	0	3 155,0 63,0 66,0 .6631 .6631 .6631 .6631 .1168 .1168 .1168 .1168 .5059 .5059 .5059 .5059
 447:	-1	0x0	0x0	0	3	1	111	0	3 67,0 36,0 48,0 .3024 .3024 .3024 .3024 0 0 0 0 0 0 0 0
-448:	458	0x4	0x0	4	3	1	-1	0	6 38,650 144,651 155,652 66,653 67,654 48,655 0 0 0 0 .6367 .6367 .6367 .6367 .6631 .6631 .6631 .6631 .5059 .5059 .5059 .5059 .3024 .3024 .3024 .3024 0 0 0 0
+448:	460	0x4	0x0	4	3	1	-1	0	6 38,650 144,651 155,652 66,653 67,654 48,655 0 0 0 0 .6367 .6367 .6367 .6367 .6631 .6631 .6631 .6631 .5059 .5059 .5059 .5059 .3024 .3024 .3024 .3024 0 0 0 0
 449:	-1	0x0	0x0	0	3	1	112	0	3 41,0 42,0 43,0 0 0 0 0 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025
 450:	-1	0x0	0x0	0	3	1	113	0	6 141,0 140,0 494,0 495,0 42,0 41,0 .2322 .2322 .2322 .2322 .1675 .1675 .1675 .1675 .4487 .4487 .4487 .4487 .2241 .2241 .2241 .2241 .0005 .0005 .0005 .0005 0 0 0 0
 451:	-1	0x0	0x0	0	3	1	114	0	4 154,0 140,0 141,0 156,0 .1676 .1676 .1676 .1676 .1635 .1635 .1635 .1635 .685 .685 .685 .685 .7034 .7034 .7034 .7034
 452:	-1	0x0	0x0	0	3	1	115	0	4 496,0 43,0 42,0 495,0 0 0 0 0 0 0 0 0 0 0 0 0 .0177 .0177 .0177 .0177
 453:	-1	0x0	0x0	0	3	1	116	0	3 154,0 156,0 497,0 .1172 .1172 .1172 .1172 .6628 .6628 .6628 .6628 .102 .102 .102 .102
-454:	458	0x4	0x0	4	3	1	-1	0	7 156,656 141,657 41,658 43,659 496,660 498,661 497,662 .6628 .6628 .6628 .6628 .6364 .6364 .6364 .6364 0 0 0 0 .0005 .0005 .0005 .0005 .2023 .2023 .2023 .2023 .4079 .4079 .4079 .4079 .102 .102 .102 .102
+454:	460	0x4	0x0	4	3	1	-1	0	7 156,656 141,657 41,658 43,659 496,660 498,661 497,662 .6628 .6628 .6628 .6628 .6364 .6364 .6364 .6364 0 0 0 0 .0005 .0005 .0005 .0005 .2023 .2023 .2023 .2023 .4079 .4079 .4079 .4079 .102 .102 .102 .102
 455:	-1	0x0	0x0	0	3	1	117	0	5 140,0 154,0 497,0 498,0 494,0 .1968 .1968 .1968 .1968 .2083 .2083 .2083 .2083 .0708 .0708 .0708 .0708 .017 .017 .017 .017 .0348 .0348 .0348 .0348
 456:	-1	0x0	0x0	0	3	1	118	0	4 498,0 496,0 495,0 494,0 .017 .017 .017 .017 0 0 0 0 .0177 .0177 .0177 .0177 .0348 .0348 .0348 .0348
 457:	-1	0x0	0x0	0	3	1	119	0	4 151,0 152,0 153,0 157,0 .6767 .6767 .6767 .6767 .1635 .1635 .1635 .1635 .1676 .1676 .1676 .1676 .7034 .7034 .7034 .7034
@@ -3197,7 +3200,7 @@ World surfaces 611
 459:	-1	0x0	0x0	0	3	1	121	0	5 153,0 152,0 499,0 500,0 501,0 .2083 .2083 .2083 .2083 .1968 .1968 .1968 .1968 .0233 .0233 .0233 .0233 .017 .017 .017 .017 .0708 .0708 .0708 .0708
 460:	-1	0x0	0x0	0	3	1	122	0	6 45,0 502,0 499,0 152,0 151,0 46,0 .0005 .0005 .0005 .0005 .2241 .2241 .2241 .2241 .4487 .4487 .4487 .4487 .1675 .1675 .1675 .1675 .2322 .2322 .2322 .2322 0 0 0 0
 461:	-1	0x0	0x0	0	3	1	123	0	3 153,0 501,0 157,0 .1172 .1172 .1172 .1172 .102 .102 .102 .102 .6628 .6628 .6628 .6628
-462:	458	0x4	0x0	4	3	1	-1	0	7 501,663 500,664 503,665 44,666 46,667 151,668 157,669 .102 .102 .102 .102 .4079 .4079 .4079 .4079 .2023 .2023 .2023 .2023 .0005 .0005 .0005 .0005 0 0 0 0 .6364 .6364 .6364 .6364 .6628 .6628 .6628 .6628
+462:	460	0x4	0x0	4	3	1	-1	0	7 501,663 500,664 503,665 44,666 46,667 151,668 157,669 .102 .102 .102 .102 .4079 .4079 .4079 .4079 .2023 .2023 .2023 .2023 .0005 .0005 .0005 .0005 0 0 0 0 .6364 .6364 .6364 .6364 .6628 .6628 .6628 .6628
 463:	-1	0x0	0x0	0	3	1	124	0	4 499,0 502,0 503,0 500,0 .0233 .0233 .0233 .0233 0 0 0 0 0 0 0 0 .017 .017 .017 .017
 464:	-1	0x0	0x0	0	3	1	125	0	4 502,0 45,0 44,0 503,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 465:	-1	0x0	0x0	0	3	1	126	0	4 62,0 61,0 150,0 149,0 .1791 .1791 .1791 .1791 .1744 .1744 .1744 .1744 .6779 .6779 .6779 .6779 .7152 .7152 .7152 .7152
@@ -3206,52 +3209,52 @@ World surfaces 611
 468:	-1	0x0	0x0	0	3	1	129	0	4 34,0 35,0 51,0 47,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 469:	-1	0x0	0x0	0	3	1	130	0	3 35,0 69,0 51,0 0 0 0 0 .3023 .3023 .3023 .3023 0 0 0 0
 470:	-1	0x0	0x0	0	3	1	131	0	3 68,0 62,0 149,0 .5059 .5059 .5059 .5059 .1168 .1168 .1168 .1168 .6631 .6631 .6631 .6631
-471:	458	0x4	0x0	4	3	1	-1	0	6 69,670 68,671 149,672 150,673 47,674 51,675 .3023 .3023 .3023 .3023 .5059 .5059 .5059 .5059 .6631 .6631 .6631 .6631 .6367 .6367 .6367 .6367 0 0 0 0 0 0 0 0
+471:	460	0x4	0x0	4	3	1	-1	0	6 69,670 68,671 149,672 150,673 47,674 51,675 .3023 .3023 .3023 .3023 .5059 .5059 .5059 .5059 .6631 .6631 .6631 .6631 .6367 .6367 .6367 .6367 0 0 0 0 0 0 0 0
 472:	-1	0x0	0x0	0	3	1	132	0	3 149,0 62,0 68,0 .1173 .1173 .1173 .1173 .0733 .0733 .0733 .0733 .2606 .2606 .2606 .2606
 473:	-1	0x0	0x0	0	3	1	133	0	3 66,0 63,0 155,0 .2606 .2606 .2606 .2606 .0733 .0733 .0733 .0733 .1173 .1173 .1173 .1173
 474:	-1	0x0	0x0	0	3	1	134	0	4 68,0 62,0 63,0 66,0 .0188 .0188 .0188 .0188 .2081 .2081 .2081 .2081 .2081 .2081 .2081 .2081 .0188 .0188 .0188 .0188
 475:	-1	0x0	0x0	0	3	1	135	0	4 63,0 62,0 149,0 155,0 .1791 .1791 .1791 .1791 .1791 .1791 .1791 .1791 .7152 .7152 .7152 .7152 .7152 .7152 .7152 .7152
-476:	458	0x4	0x0	4	3	1	-1	0	4 149,676 68,677 66,678 155,679 .5177 .5177 .5177 .5177 .6155 .6155 .6155 .6155 .6155 .6155 .6155 .6155 .5177 .5177 .5177 .5177
+476:	460	0x4	0x0	4	3	1	-1	0	4 149,676 68,677 66,678 155,679 .5177 .5177 .5177 .5177 .6155 .6155 .6155 .6155 .6155 .6155 .6155 .6155 .5177 .5177 .5177 .5177
 477:	-1	0x0	0x0	0	3	1	136	0	3 156,0 154,0 497,0 .113 .113 .113 .113 .0722 .0722 .0722 .0722 .0523 .0523 .0523 .0523
 478:	-1	0x0	0x0	0	3	1	137	0	3 501,0 153,0 157,0 .0523 .0523 .0523 .0523 .0722 .0722 .0722 .0722 .113 .113 .113 .113
 479:	-1	0x0	0x0	0	3	1	138	0	4 157,0 153,0 154,0 156,0 .7034 .7034 .7034 .7034 .1676 .1676 .1676 .1676 .1676 .1676 .1676 .1676 .7034 .7034 .7034 .7034
 480:	-1	0x0	0x0	0	3	1	139	0	4 154,0 153,0 501,0 497,0 .2083 .2083 .2083 .2083 .2083 .2083 .2083 .2083 .0708 .0708 .0708 .0708 .0708 .0708 .0708 .0708
-481:	458	0x4	0x0	4	3	1	-1	0	4 501,680 157,681 156,682 497,205 .0167 .0167 .0167 .0167 .5118 .5118 .5118 .5118 .5118 .5118 .5118 .5118 .0167 .0167 .0167 .0167
+481:	460	0x4	0x0	4	3	1	-1	0	4 501,680 157,681 156,682 497,205 .0167 .0167 .0167 .0167 .5118 .5118 .5118 .5118 .5118 .5118 .5118 .5118 .0167 .0167 .0167 .0167
 482:	-1	0x0	0x0	0	3	1	140	0	11 139,0 138,0 137,0 136,0 65,0 64,0 144,0 143,0 142,0 141,0 140,0 .0329 .0329 .0329 .0329 .0153 .0153 .0153 .0153 0 0 0 0 0 0 0 0 0 0 0 0 .1744 .1744 .1744 .1744 .6862 .6862 .6862 .6862 .4133 .4133 .4133 .4133 .4514 .4514 .4514 .4514 .685 .685 .685 .685 .1635 .1635 .1635 .1635
 483:	-1	0x0	0x0	0	3	1	141	0	11 37,0 15,0 13,0 11,0 7,0 8,0 42,0 41,0 40,0 39,0 38,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .0137 .0137 .0137 .0137 .5106 .5106 .5106 .5106 .0025 .0025 .0025 .0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 484:	-1	0x0	0x0	0	3	1	142	0	4 65,0 15,0 37,0 64,0 0 0 0 0 0 0 0 0 0 0 0 0 .1966 .1966 .1966 .1966
-485:	457	0x44	0x0	4	3	1	-1	0	6 7,60 138,61 139,683 504,684 505,685 8,686 .5155 .5155 .5155 .5155 .7306 .7306 .7306 .7306 .6517 .6517 .6517 .6517 .4254 .4254 .4254 .4254 .2067 .2067 .2067 .2067 .5226 .5226 .5226 .5226
-486:	457	0x44	0x0	4	3	1	-1	0	4 11,72 137,73 138,58 7,59 .5 .5 .5 .5 .7 .7 .7 .7 .7633 .7633 .7633 .7633 .5389 .5389 .5389 .5389
-487:	457	0x44	0x0	4	3	1	-1	0	4 13,60 136,61 137,62 11,63 .5 .5 .5 .5 .6759 .6759 .6759 .6759 .7 .7 .7 .7 .5 .5 .5 .5
-488:	457	0x44	0x0	4	3	1	-1	0	4 15,56 65,57 136,58 13,59 .5 .5 .5 .5 .7 .7 .7 .7 .6759 .6759 .6759 .6759 .5 .5 .5 .5
+485:	459	0x44	0x0	4	3	1	-1	0	6 7,60 138,61 139,683 504,684 505,685 8,686 .5155 .5155 .5155 .5155 .7306 .7306 .7306 .7306 .6517 .6517 .6517 .6517 .4254 .4254 .4254 .4254 .2067 .2067 .2067 .2067 .5226 .5226 .5226 .5226
+486:	459	0x44	0x0	4	3	1	-1	0	4 11,72 137,73 138,58 7,59 .5 .5 .5 .5 .7 .7 .7 .7 .7633 .7633 .7633 .7633 .5389 .5389 .5389 .5389
+487:	459	0x44	0x0	4	3	1	-1	0	4 13,60 136,61 137,62 11,63 .5 .5 .5 .5 .6759 .6759 .6759 .6759 .7 .7 .7 .7 .5 .5 .5 .5
+488:	459	0x44	0x0	4	3	1	-1	0	4 15,56 65,57 136,58 13,59 .5 .5 .5 .5 .7 .7 .7 .7 .6759 .6759 .6759 .6759 .5 .5 .5 .5
 489:	-1	0x0	0x0	0	3	1	143	0	4 64,0 37,0 38,0 144,0 .0085 .0085 .0085 .0085 0 0 0 0 0 0 0 0 .5105 .5105 .5105 .5105
 490:	-1	0x0	0x0	0	3	1	144	0	4 42,0 8,0 505,0 495,0 0 0 0 0 .5609 .5609 .5609 .5609 0 0 0 0 .0038 .0038 .0038 .0038
 491:	-1	0x0	0x0	0	3	1	145	0	6 41,0 42,0 495,0 494,0 140,0 141,0 0 0 0 0 0 0 0 0 .0038 .0038 .0038 .0038 .0071 .0071 .0071 .0071 .0085 .0085 .0085 .0085 .5105 .5105 .5105 .5105
-492:	458	0x4	0x0	4	3	1	-1	0	3 41,687 506,688 40,689 0 0 0 0 .2852 .2852 .2852 .2852 0 0 0 0
-493:	458	0x4	0x0	4	3	1	-1	0	3 143,690 144,691 507,692 .3681 .3681 .3681 .3681 .5105 .5105 .5105 .5105 .486 .486 .486 .486
-494:	458	0x4	0x0	4	3	1	-1	0	6 142,693 143,694 507,695 508,696 509,697 510,698 .4048 .4048 .4048 .4048 .3681 .3681 .3681 .3681 .486 .486 .486 .486 .6028 .6028 .6028 .6028 .6028 .6028 .6028 .6028 .486 .486 .486 .486
-495:	458	0x4	0x0	4	3	1	-1	0	6 511,699 39,700 40,701 506,702 512,703 513,704 .2852 .2852 .2852 .2852 0 0 0 0 0 0 0 0 .2852 .2852 .2852 .2852 .3023 .3023 .3023 .3023 .3023 .3023 .3023 .3023
-496:	458	0x4	0x0	4	3	1	-1	0	3 507,705 514,706 508,707 .486 .486 .486 .486 .474 .474 .474 .474 .6028 .6028 .6028 .6028
-497:	458	0x4	0x0	4	3	1	-1	0	3 515,708 511,709 513,710 .4309 .4309 .4309 .4309 .2852 .2852 .2852 .2852 .3023 .3023 .3023 .3023
-498:	458	0x4	0x0	4	3	1	-1	0	3 512,711 506,712 516,713 .3023 .3023 .3023 .3023 .2852 .2852 .2852 .2852 .4309 .4309 .4309 .4309
-499:	458	0x4	0x0	4	3	1	-1	0	3 517,714 510,715 509,716 .474 .474 .474 .474 .486 .486 .486 .486 .6028 .6028 .6028 .6028
+492:	460	0x4	0x0	4	3	1	-1	0	3 41,687 506,688 40,689 0 0 0 0 .2852 .2852 .2852 .2852 0 0 0 0
+493:	460	0x4	0x0	4	3	1	-1	0	3 143,690 144,691 507,692 .3681 .3681 .3681 .3681 .5105 .5105 .5105 .5105 .486 .486 .486 .486
+494:	460	0x4	0x0	4	3	1	-1	0	6 142,693 143,694 507,695 508,696 509,697 510,698 .4048 .4048 .4048 .4048 .3681 .3681 .3681 .3681 .486 .486 .486 .486 .6028 .6028 .6028 .6028 .6028 .6028 .6028 .6028 .486 .486 .486 .486
+495:	460	0x4	0x0	4	3	1	-1	0	6 511,699 39,700 40,701 506,702 512,703 513,704 .2852 .2852 .2852 .2852 0 0 0 0 0 0 0 0 .2852 .2852 .2852 .2852 .3023 .3023 .3023 .3023 .3023 .3023 .3023 .3023
+496:	460	0x4	0x0	4	3	1	-1	0	3 507,705 514,706 508,707 .486 .486 .486 .486 .474 .474 .474 .474 .6028 .6028 .6028 .6028
+497:	460	0x4	0x0	4	3	1	-1	0	3 515,708 511,709 513,710 .4309 .4309 .4309 .4309 .2852 .2852 .2852 .2852 .3023 .3023 .3023 .3023
+498:	460	0x4	0x0	4	3	1	-1	0	3 512,711 506,712 516,713 .3023 .3023 .3023 .3023 .2852 .2852 .2852 .2852 .4309 .4309 .4309 .4309
+499:	460	0x4	0x0	4	3	1	-1	0	3 517,714 510,715 509,716 .474 .474 .474 .474 .486 .486 .486 .486 .6028 .6028 .6028 .6028
 500:	-1	0x6	0x0	0	3	1	146	0	8 514,0 515,0 513,0 512,0 516,0 517,0 509,0 508,0 .474 .474 .474 .474 .4309 .4309 .4309 .4309 .3023 .3023 .3023 .3023 .3023 .3023 .3023 .3023 .4309 .4309 .4309 .4309 .474 .474 .474 .474 .6028 .6028 .6028 .6028 .6028 .6028 .6028 .6028
 501:	-1	0x0	0x0	0	3	1	147	0	4 504,0 139,0 140,0 494,0 .0183 .0183 .0183 .0183 .6894 .6894 .6894 .6894 .0085 .0085 .0085 .0085 .0071 .0071 .0071 .0071
 502:	-1	0x0	0x0	0	3	1	148	0	4 505,0 504,0 494,0 495,0 0 0 0 0 .0183 .0183 .0183 .0183 .0071 .0071 .0071 .0071 .0038 .0038 .0038 .0038
-503:	458	0x4	0x0	4	3	1	-1	0	6 41,717 141,718 510,719 517,720 516,721 506,689 0 0 0 0 .5105 .5105 .5105 .5105 .486 .486 .486 .486 .474 .474 .474 .474 .4309 .4309 .4309 .4309 .2852 .2852 .2852 .2852
-504:	458	0x4	0x0	4	3	1	-1	0	3 141,718 142,722 510,719 .5105 .5105 .5105 .5105 .4048 .4048 .4048 .4048 .486 .486 .486 .486
-505:	458	0x4	0x0	4	3	1	-1	0	6 144,723 38,724 511,725 515,726 514,727 507,728 .5105 .5105 .5105 .5105 0 0 0 0 .2852 .2852 .2852 .2852 .4309 .4309 .4309 .4309 .474 .474 .474 .474 .486 .486 .486 .486
-506:	458	0x4	0x0	4	3	1	-1	0	3 38,729 39,725 511,730 0 0 0 0 0 0 0 0 .2852 .2852 .2852 .2852
-507:	457	0x44	0x0	4	3	1	-1	0	6 148,731 147,62 5,63 9,732 518,733 519,734 .7312 .7312 .7312 .7312 .7109 .7109 .7109 .7109 .5058 .5058 .5058 .5058 .5157 .5157 .5157 .5157 .2067 .2067 .2067 .2067 .4263 .4263 .4263 .4263
+503:	460	0x4	0x0	4	3	1	-1	0	6 41,717 141,718 510,719 517,720 516,721 506,689 0 0 0 0 .5105 .5105 .5105 .5105 .486 .486 .486 .486 .474 .474 .474 .474 .4309 .4309 .4309 .4309 .2852 .2852 .2852 .2852
+504:	460	0x4	0x0	4	3	1	-1	0	3 141,718 142,722 510,719 .5105 .5105 .5105 .5105 .4048 .4048 .4048 .4048 .486 .486 .486 .486
+505:	460	0x4	0x0	4	3	1	-1	0	6 144,723 38,724 511,725 515,726 514,727 507,728 .5105 .5105 .5105 .5105 0 0 0 0 .2852 .2852 .2852 .2852 .4309 .4309 .4309 .4309 .474 .474 .474 .474 .486 .486 .486 .486
+506:	460	0x4	0x0	4	3	1	-1	0	3 38,729 39,725 511,730 0 0 0 0 0 0 0 0 .2852 .2852 .2852 .2852
+507:	459	0x44	0x0	4	3	1	-1	0	6 148,731 147,62 5,63 9,732 518,733 519,734 .7312 .7312 .7312 .7312 .7109 .7109 .7109 .7109 .5058 .5058 .5058 .5058 .5157 .5157 .5157 .5157 .2067 .2067 .2067 .2067 .4263 .4263 .4263 .4263
 508:	-1	0x0	0x0	0	3	1	149	0	4 34,0 33,0 60,0 61,0 0 0 0 0 0 0 0 0 0 0 0 0 .1966 .1966 .1966 .1966
 509:	-1	0x0	0x0	0	3	1	150	0	9 3,0 33,0 34,0 47,0 46,0 45,0 9,0 5,0 2,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .0025 .0025 .0025 .0025 .5106 .5106 .5106 .5106 .0058 .0058 .0058 .0058 0 0 0 0
-510:	457	0x44	0x0	4	3	1	-1	0	4 3,60 146,61 60,62 33,63 .5 .5 .5 .5 .5904 .5904 .5904 .5904 .7 .7 .7 .7 .5 .5 .5 .5
-511:	457	0x44	0x0	4	3	1	-1	0	4 5,72 147,73 145,58 2,59 .5143 .5143 .5143 .5143 .725 .725 .725 .725 .7 .7 .7 .7 .5 .5 .5 .5
-512:	457	0x44	0x0	4	3	1	-1	0	4 2,60 145,61 146,62 3,63 .5 .5 .5 .5 .7 .7 .7 .7 .5904 .5904 .5904 .5904 .5 .5 .5 .5
+510:	459	0x44	0x0	4	3	1	-1	0	4 3,60 146,61 60,62 33,63 .5 .5 .5 .5 .5904 .5904 .5904 .5904 .7 .7 .7 .7 .5 .5 .5 .5
+511:	459	0x44	0x0	4	3	1	-1	0	4 5,72 147,73 145,58 2,59 .5143 .5143 .5143 .5143 .725 .725 .725 .725 .7 .7 .7 .7 .5 .5 .5 .5
+512:	459	0x44	0x0	4	3	1	-1	0	4 2,60 145,61 146,62 3,63 .5 .5 .5 .5 .7 .7 .7 .7 .5904 .5904 .5904 .5904 .5 .5 .5 .5
 513:	-1	0x0	0x0	0	3	1	151	0	9 146,0 145,0 147,0 148,0 152,0 151,0 150,0 61,0 60,0 0 0 0 0 0 0 0 0 .0081 .0081 .0081 .0081 .0329 .0329 .0329 .0329 .1635 .1635 .1635 .1635 .6767 .6767 .6767 .6767 .6779 .6779 .6779 .6779 .1744 .1744 .1744 .1744 0 0 0 0
 514:	-1	0x0	0x0	0	3	1	152	0	4 34,0 61,0 150,0 47,0 0 0 0 0 .0085 .0085 .0085 .0085 .5088 .5088 .5088 .5088 0 0 0 0
 515:	-1	0x0	0x0	0	3	1	153	0	4 152,0 148,0 519,0 499,0 .0085 .0085 .0085 .0085 .7303 .7303 .7303 .7303 .0178 .0178 .0178 .0178 .0042 .0042 .0042 .0042
-516:	458	0x4	0x0	4	3	1	-1	0	4 150,735 151,736 46,737 47,738 .5088 .5088 .5088 .5088 .5088 .5088 .5088 .5088 0 0 0 0 0 0 0 0
+516:	460	0x4	0x0	4	3	1	-1	0	4 150,735 151,736 46,737 47,738 .5088 .5088 .5088 .5088 .5088 .5088 .5088 .5088 0 0 0 0 0 0 0 0
 517:	-1	0x0	0x0	0	3	1	154	0	6 151,0 152,0 499,0 502,0 45,0 46,0 .5088 .5088 .5088 .5088 .0085 .0085 .0085 .0085 .0042 .0042 .0042 .0042 0 0 0 0 0 0 0 0 0 0 0 0
 518:	-1	0x0	0x0	0	3	1	155	0	4 519,0 518,0 502,0 499,0 .0178 .0178 .0178 .0178 0 0 0 0 0 0 0 0 .0042 .0042 .0042 .0042
 519:	-1	0x0	0x0	0	3	1	156	0	4 518,0 9,0 45,0 502,0 0 0 0 0 .5221 .5221 .5221 .5221 0 0 0 0 0 0 0 0
@@ -3261,91 +3264,91 @@ World surfaces 611
 523:	12	0x4	0x0	4	3	1	-1	0	4 446,751 442,752 176,753 175,754 .5629 .5629 .5629 .5629 .4237 .4237 .4237 .4237 .3781 .3781 .3781 .3781 .2886 .2886 .2886 .2886
 524:	-1	0x0	0x0	0	3	1	157	0	4 446,0 447,0 441,0 442,0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 525:	-1	0x0	0x0	0	3	1	158	0	4 189,0 188,0 175,0 176,0 .1319 .1319 .1319 .1319 .149 .149 .149 .149 .149 .149 .149 .149 .1319 .1319 .1319 .1319
-526:	458	0x4	0x0	4	3	1	-1	0	4 520,755 521,756 512,757 516,758 .1824 .1824 .1824 .1824 .3573 .3573 .3573 .3573 .36 .36 .36 .36 .4818 .4818 .4818 .4818
-527:	458	0x5	0x0	4	3	1	-1	0	4 509,759 508,760 522,761 523,762 .6452 .6452 .6452 .6452 .6165 .6165 .6165 .6165 .0262 .0262 .0262 .0262 .0568 .0568 .0568 .0568
+526:	460	0x4	0x0	4	3	1	-1	0	4 520,755 521,756 512,757 516,758 .1824 .1824 .1824 .1824 .3573 .3573 .3573 .3573 .36 .36 .36 .36 .4818 .4818 .4818 .4818
+527:	460	0x5	0x0	4	3	1	-1	0	4 509,759 508,760 522,761 523,762 .6452 .6452 .6452 .6452 .6165 .6165 .6165 .6165 .0262 .0262 .0262 .0262 .0568 .0568 .0568 .0568
 528:	-1	0x6	0x0	0	3	1	159	0	8 514,0 508,0 509,0 517,0 516,0 512,0 513,0 515,0 .0625 .0625 .0625 .0625 .068 .068 .068 .068 .0942 .0942 .0942 .0942 .0811 .0811 .0811 .0811 .0775 .0775 .0775 .0775 .0828 .0828 .0828 .0828 .0614 .0614 .0614 .0614 .0601 .0601 .0601 .0601
-529:	458	0x5	0x0	4	3	1	-1	0	4 524,763 522,764 508,765 514,766 .1954 .1954 .1954 .1954 .0334 .0334 .0334 .0334 .3312 .3312 .3312 .3312 .1976 .1976 .1976 .1976
-530:	458	0x4	0x0	4	3	1	-1	0	4 521,756 525,767 513,768 512,757 .3576 .3576 .3576 .3576 .3688 .3688 .3688 .3688 .3236 .3236 .3236 .3236 .3462 .3462 .3462 .3462
+529:	460	0x5	0x0	4	3	1	-1	0	4 524,763 522,764 508,765 514,766 .1954 .1954 .1954 .1954 .0334 .0334 .0334 .0334 .3312 .3312 .3312 .3312 .1976 .1976 .1976 .1976
+530:	460	0x4	0x0	4	3	1	-1	0	4 521,756 525,767 513,768 512,757 .3576 .3576 .3576 .3576 .3688 .3688 .3688 .3688 .3236 .3236 .3236 .3236 .3462 .3462 .3462 .3462
 531:	-1	0x0	0x0	0	3	1	160	0	8 521,0 520,0 526,0 523,0 522,0 524,0 527,0 525,0 .2964 .2964 .2964 .2964 .1287 .1287 .1287 .1287 .1676 .1676 .1676 .1676 0 0 0 0 0 0 0 0 .1676 .1676 .1676 .1676 .1287 .1287 .1287 .1287 .2964 .2964 .2964 .2964
-532:	458	0x4	0x0	4	3	1	-1	0	4 525,769 527,770 515,771 513,772 .3326 .3326 .3326 .3326 .1611 .1611 .1611 .1611 .4611 .4611 .4611 .4611 .336 .336 .336 .336
-533:	458	0x4	0x0	4	3	1	-1	0	4 515,205 527,773 524,774 514,775 .4637 .4637 .4637 .4637 .1635 .1635 .1635 .1635 .2038 .2038 .2038 .2038 .507 .507 .507 .507
-534:	458	0x5	0x0	4	3	1	-1	0	4 523,776 526,777 517,778 509,779 .0621 .0621 .0621 .0621 .2166 .2166 .2166 .2166 .2183 .2183 .2183 .2183 .359 .359 .359 .359
-535:	458	0x4	0x0	4	3	1	-1	0	4 517,780 526,781 520,782 516,783 .5276 .5276 .5276 .5276 .225 .225 .225 .225 .1832 .1832 .1832 .1832 .4828 .4828 .4828 .4828
-536:	458	0x4	0x0	4	3	1	-1	0	4 522,784 524,785 528,786 529,787 .082 .082 .082 .082 .2435 .2435 .2435 .2435 .2539 .2539 .2539 .2539 .1444 .1444 .1444 .1444
-537:	458	0x4	0x0	4	3	1	-1	0	4 526,788 530,789 531,790 520,791 .3178 .3178 .3178 .3178 .2826 .2826 .2826 .2826 .2392 .2392 .2392 .2392 .2713 .2713 .2713 .2713
-538:	458	0x4	0x0	4	3	1	-1	0	4 527,388 532,792 528,793 524,794 .2081 .2081 .2081 .2081 .222 .222 .222 .222 .2606 .2606 .2606 .2606 .2506 .2506 .2506 .2506
-539:	458	0x4	0x0	4	3	1	-1	0	4 521,756 520,755 531,795 533,796 .4036 .4036 .4036 .4036 .2709 .2709 .2709 .2709 .2386 .2386 .2386 .2386 .2963 .2963 .2963 .2963
+532:	460	0x4	0x0	4	3	1	-1	0	4 525,769 527,770 515,771 513,772 .3326 .3326 .3326 .3326 .1611 .1611 .1611 .1611 .4611 .4611 .4611 .4611 .336 .336 .336 .336
+533:	460	0x4	0x0	4	3	1	-1	0	4 515,205 527,773 524,774 514,775 .4637 .4637 .4637 .4637 .1635 .1635 .1635 .1635 .2038 .2038 .2038 .2038 .507 .507 .507 .507
+534:	460	0x5	0x0	4	3	1	-1	0	4 523,776 526,777 517,778 509,779 .0621 .0621 .0621 .0621 .2166 .2166 .2166 .2166 .2183 .2183 .2183 .2183 .359 .359 .359 .359
+535:	460	0x4	0x0	4	3	1	-1	0	4 517,780 526,781 520,782 516,783 .5276 .5276 .5276 .5276 .225 .225 .225 .225 .1832 .1832 .1832 .1832 .4828 .4828 .4828 .4828
+536:	460	0x4	0x0	4	3	1	-1	0	4 522,784 524,785 528,786 529,787 .082 .082 .082 .082 .2435 .2435 .2435 .2435 .2539 .2539 .2539 .2539 .1444 .1444 .1444 .1444
+537:	460	0x4	0x0	4	3	1	-1	0	4 526,788 530,789 531,790 520,791 .3178 .3178 .3178 .3178 .2826 .2826 .2826 .2826 .2392 .2392 .2392 .2392 .2713 .2713 .2713 .2713
+538:	460	0x4	0x0	4	3	1	-1	0	4 527,388 532,792 528,793 524,794 .2081 .2081 .2081 .2081 .222 .222 .222 .222 .2606 .2606 .2606 .2606 .2506 .2506 .2506 .2506
+539:	460	0x4	0x0	4	3	1	-1	0	4 521,756 520,755 531,795 533,796 .4036 .4036 .4036 .4036 .2709 .2709 .2709 .2709 .2386 .2386 .2386 .2386 .2963 .2963 .2963 .2963
 540:	-1	0x0	0x0	0	3	1	161	0	8 533,0 531,0 530,0 534,0 529,0 528,0 532,0 535,0 .1883 .1883 .1883 .1883 .0829 .0829 .0829 .0829 .1086 .1086 .1086 .1086 0 0 0 0 0 0 0 0 .1039 .1039 .1039 .1039 .0801 .0801 .0801 .0801 .1871 .1871 .1871 .1871
-541:	458	0x4	0x0	4	3	1	-1	0	4 525,767 521,756 533,797 535,798 .4226 .4226 .4226 .4226 .4115 .4115 .4115 .4115 .307 .307 .307 .307 .3194 .3194 .3194 .3194
-542:	458	0x4	0x0	4	3	1	-1	0	4 527,770 525,769 535,799 532,800 .2141 .2141 .2141 .2141 .4163 .4163 .4163 .4163 .3095 .3095 .3095 .3095 .314 .314 .314 .314
+541:	460	0x4	0x0	4	3	1	-1	0	4 525,767 521,756 533,797 535,798 .4226 .4226 .4226 .4226 .4115 .4115 .4115 .4115 .307 .307 .307 .307 .3194 .3194 .3194 .3194
+542:	460	0x4	0x0	4	3	1	-1	0	4 527,770 525,769 535,799 532,800 .2141 .2141 .2141 .2141 .4163 .4163 .4163 .4163 .3095 .3095 .3095 .3095 .314 .314 .314 .314
 543:	-1	0x0	0x0	0	3	1	162	0	8 524,0 522,0 523,0 526,0 520,0 521,0 525,0 527,0 .102 .102 .102 .102 .0982 .0982 .0982 .0982 .1294 .1294 .1294 .1294 .1427 .1427 .1427 .1427 .1354 .1354 .1354 .1354 .112 .112 .112 .112 .1233 .1233 .1233 .1233 .0963 .0963 .0963 .0963
-544:	458	0x4	0x0	4	3	1	-1	0	4 526,777 523,776 534,801 530,802 .3105 .3105 .3105 .3105 .1101 .1101 .1101 .1101 .1682 .1682 .1682 .1682 .2721 .2721 .2721 .2721
+544:	460	0x4	0x0	4	3	1	-1	0	4 526,777 523,776 534,801 530,802 .3105 .3105 .3105 .3105 .1101 .1101 .1101 .1101 .1682 .1682 .1682 .1682 .2721 .2721 .2721 .2721
 545:	10	0x5	0x0	4	3	1	-1	0	4 529,803 534,804 523,805 522,806 .1866 .1866 .1866 .1866 .1128 .1128 .1128 .1128 .0568 .0568 .0568 .0568 .0262 .0262 .0262 .0262
-546:	458	0x4	0x0	4	3	1	-1	0	5 536,807 537,808 531,809 538,810 539,811 .0743 .0743 .0743 .0743 .1126 .1126 .1126 .1126 .1365 .1365 .1365 .1365 .0411 .0411 .0411 .0411 .032 .032 .032 .032
-547:	458	0x4	0x0	4	3	1	-1	0	6 540,812 541,813 535,814 533,815 537,797 536,816 .1037 .1037 .1037 .1037 .1552 .1552 .1552 .1552 .1169 .1169 .1169 .1169 .1031 .1031 .1031 .1031 .1126 .1126 .1126 .1126 .0743 .0743 .0743 .0743
-548:	458	0x4	0x0	4	3	1	-1	0	5 542,817 543,818 532,819 541,820 540,821 .061 .061 .061 .061 .1398 .1398 .1398 .1398 .2225 .2225 .2225 .2225 .1552 .1552 .1552 .1552 .1037 .1037 .1037 .1037
-549:	458	0x4	0x0	4	3	1	-1	0	5 544,822 545,823 480,824 546,825 547,826 .0069 .0069 .0069 .0069 .0084 .0084 .0084 .0084 .102 .102 .102 .102 .0774 .0774 .0774 .0774 .0387 .0387 .0387 .0387
-550:	458	0x4	0x0	4	3	1	-1	0	6 547,827 546,828 486,829 487,830 548,831 549,832 .0387 .0387 .0387 .0387 .0774 .0774 .0774 .0774 .0451 .0451 .0451 .0451 .0488 .0488 .0488 .0488 .084 .084 .084 .084 .0435 .0435 .0435 .0435
-551:	458	0x4	0x0	4	3	1	-1	0	4 543,818 550,833 528,834 532,819 .1398 .1398 .1398 .1398 .2434 .2434 .2434 .2434 .2452 .2452 .2452 .2452 .2225 .2225 .2225 .2225
+546:	460	0x4	0x0	4	3	1	-1	0	5 536,807 537,808 531,809 538,810 539,811 .0743 .0743 .0743 .0743 .1126 .1126 .1126 .1126 .1365 .1365 .1365 .1365 .0411 .0411 .0411 .0411 .032 .032 .032 .032
+547:	460	0x4	0x0	4	3	1	-1	0	6 540,812 541,813 535,814 533,815 537,797 536,816 .1037 .1037 .1037 .1037 .1552 .1552 .1552 .1552 .1169 .1169 .1169 .1169 .1031 .1031 .1031 .1031 .1126 .1126 .1126 .1126 .0743 .0743 .0743 .0743
+548:	460	0x4	0x0	4	3	1	-1	0	5 542,817 543,818 532,819 541,820 540,821 .061 .061 .061 .061 .1398 .1398 .1398 .1398 .2225 .2225 .2225 .2225 .1552 .1552 .1552 .1552 .1037 .1037 .1037 .1037
+549:	460	0x4	0x0	4	3	1	-1	0	5 544,822 545,823 480,824 546,825 547,826 .0069 .0069 .0069 .0069 .0084 .0084 .0084 .0084 .102 .102 .102 .102 .0774 .0774 .0774 .0774 .0387 .0387 .0387 .0387
+550:	460	0x4	0x0	4	3	1	-1	0	6 547,827 546,828 486,829 487,830 548,831 549,832 .0387 .0387 .0387 .0387 .0774 .0774 .0774 .0774 .0451 .0451 .0451 .0451 .0488 .0488 .0488 .0488 .084 .084 .084 .084 .0435 .0435 .0435 .0435
+551:	460	0x4	0x0	4	3	1	-1	0	4 543,818 550,833 528,834 532,819 .1398 .1398 .1398 .1398 .2434 .2434 .2434 .2434 .2452 .2452 .2452 .2452 .2225 .2225 .2225 .2225
 552:	10	0x5	0x0	4	3	1	-1	0	5 529,835 550,836 346,837 347,838 481,839 .1866 .1866 .1866 .1866 .1953 .1953 .1953 .1953 .5284 .5284 .5284 .5284 .5677 .5677 .5677 .5677 .4929 .4929 .4929 .4929
 553:	10	0x5	0x0	4	3	1	-1	0	4 534,840 529,841 481,842 480,843 .1128 .1128 .1128 .1128 .1866 .1866 .1866 .1866 .4929 .4929 .4929 .4929 .4714 .4714 .4714 .4714
 554:	10	0x5	0x0	4	3	1	-1	0	3 297,844 538,845 551,846 .3223 .3223 .3223 .3223 .0135 .0135 .0135 .0135 .1049 .1049 .1049 .1049
 555:	10	0x5	0x0	4	3	1	-1	0	3 550,847 543,848 346,849 .1953 .1953 .1953 .1953 .1117 .1117 .1117 .1117 .5284 .5284 .5284 .5284
-556:	458	0x4	0x0	4	3	1	-1	0	3 528,850 550,851 529,852 .2452 .2452 .2452 .2452 .2434 .2434 .2434 .2434 .2382 .2382 .2382 .2382
-557:	458	0x4	0x0	4	3	1	-1	0	3 534,853 551,854 530,855 .1618 .1618 .1618 .1618 .1501 .1501 .1501 .1501 .1521 .1521 .1521 .1521
-558:	458	0x4	0x0	4	3	1	-1	0	3 531,856 537,857 533,858 .1365 .1365 .1365 .1365 .1126 .1126 .1126 .1126 .1031 .1031 .1031 .1031
+556:	460	0x4	0x0	4	3	1	-1	0	3 528,850 550,851 529,852 .2452 .2452 .2452 .2452 .2434 .2434 .2434 .2434 .2382 .2382 .2382 .2382
+557:	460	0x4	0x0	4	3	1	-1	0	3 534,853 551,854 530,855 .1618 .1618 .1618 .1618 .1501 .1501 .1501 .1501 .1521 .1521 .1521 .1521
+558:	460	0x4	0x0	4	3	1	-1	0	3 531,856 537,857 533,858 .1365 .1365 .1365 .1365 .1126 .1126 .1126 .1126 .1031 .1031 .1031 .1031
 559:	-1	0x0	0x0	0	3	1	163	0	8 532,0 528,0 529,0 534,0 530,0 531,0 533,0 535,0 .2225 .2225 .2225 .2225 .2452 .2452 .2452 .2452 .2382 .2382 .2382 .2382 .1618 .1618 .1618 .1618 .1521 .1521 .1521 .1521 .1365 .1365 .1365 .1365 .1031 .1031 .1031 .1031 .1169 .1169 .1169 .1169
-560:	458	0x4	0x0	4	3	1	-1	0	3 541,859 532,860 535,861 .1552 .1552 .1552 .1552 .2225 .2225 .2225 .2225 .1169 .1169 .1169 .1169
-561:	458	0x4	0x0	4	3	1	-1	0	4 538,810 531,862 530,863 551,864 .0411 .0411 .0411 .0411 .1365 .1365 .1365 .1365 .1521 .1521 .1521 .1521 .1501 .1501 .1501 .1501
+560:	460	0x4	0x0	4	3	1	-1	0	3 541,859 532,860 535,861 .1552 .1552 .1552 .1552 .2225 .2225 .2225 .2225 .1169 .1169 .1169 .1169
+561:	460	0x4	0x0	4	3	1	-1	0	4 538,810 531,862 530,863 551,864 .0411 .0411 .0411 .0411 .1365 .1365 .1365 .1365 .1521 .1521 .1521 .1521 .1501 .1501 .1501 .1501
 562:	10	0x5	0x0	4	3	1	-1	0	5 297,865 551,866 534,867 480,868 296,869 .3223 .3223 .3223 .3223 .1049 .1049 .1049 .1049 .1128 .1128 .1128 .1128 .4714 .4714 .4714 .4714 .3269 .3269 .3269 .3269
 563:	10	0x5	0x0	4	3	1	-1	0	3 480,870 545,871 296,872 .4714 .4714 .4714 .4714 .0045 .0045 .0045 .0045 .3269 .3269 .3269 .3269
 564:	10	0x5	0x0	4	3	1	-1	0	3 347,838 552,873 481,839 .5677 .5677 .5677 .5677 .0065 .0065 .0065 .0065 .4929 .4929 .4929 .4929
-565:	458	0x4	0x0	4	3	1	-1	0	3 548,874 487,875 481,876 .084 .084 .084 .084 .0488 .0488 .0488 .0488 .1117 .1117 .1117 .1117
-566:	458	0x4	0x0	4	3	1	-1	0	3 480,877 486,878 546,879 .102 .102 .102 .102 .0451 .0451 .0451 .0451 .0774 .0774 .0774 .0774
+565:	460	0x4	0x0	4	3	1	-1	0	3 548,874 487,875 481,876 .084 .084 .084 .084 .0488 .0488 .0488 .0488 .1117 .1117 .1117 .1117
+566:	460	0x4	0x0	4	3	1	-1	0	3 480,877 486,878 546,879 .102 .102 .102 .102 .0451 .0451 .0451 .0451 .0774 .0774 .0774 .0774
 567:	-1	0x0	0x0	0	3	1	164	0	4 487,0 486,0 480,0 481,0 .0488 .0488 .0488 .0488 .0451 .0451 .0451 .0451 .102 .102 .102 .102 .1117 .1117 .1117 .1117
-568:	458	0x4	0x0	4	3	1	-1	0	5 552,880 553,881 549,882 548,874 481,876 .0202 .0202 .0202 .0202 .0132 .0132 .0132 .0132 .0435 .0435 .0435 .0435 .084 .084 .084 .084 .1117 .1117 .1117 .1117
-569:	458	0x4	0x0	4	3	1	-1	0	4 349,883 554,395 555,307 348,884 .1201 .1201 .1201 .1201 .0752 .0752 .0752 .0752 .0774 .0774 .0774 .0774 .1202 .1202 .1202 .1202
+568:	460	0x4	0x0	4	3	1	-1	0	5 552,880 553,881 549,882 548,874 481,876 .0202 .0202 .0202 .0202 .0132 .0132 .0132 .0132 .0435 .0435 .0435 .0435 .084 .084 .084 .084 .1117 .1117 .1117 .1117
+569:	460	0x4	0x0	4	3	1	-1	0	4 349,883 554,395 555,307 348,884 .1201 .1201 .1201 .1201 .0752 .0752 .0752 .0752 .0774 .0774 .0774 .0774 .1202 .1202 .1202 .1202
 570:	-1	0x0	0x0	0	3	1	165	0	4 347,0 346,0 349,0 348,0 .1462 .1462 .1462 .1462 .1422 .1422 .1422 .1422 .1201 .1201 .1201 .1201 .1202 .1202 .1202 .1202
-571:	458	0x4	0x0	4	3	1	-1	0	5 346,885 543,364 542,227 554,886 349,887 .1422 .1422 .1422 .1422 .1393 .1393 .1393 .1393 .0613 .0613 .0613 .0613 .0752 .0752 .0752 .0752 .1201 .1201 .1201 .1201
-572:	458	0x4	0x0	4	3	1	-1	0	4 295,888 556,889 557,890 294,891 .1096 .1096 .1096 .1096 .0781 .0781 .0781 .0781 .0738 .0738 .0738 .0738 .0926 .0926 .0926 .0926
-573:	458	0x4	0x0	4	3	1	-1	0	5 296,892 545,893 544,894 556,895 295,888 .1208 .1208 .1208 .1208 .0205 .0205 .0205 .0205 .0169 .0169 .0169 .0169 .0781 .0781 .0781 .0781 .1096 .1096 .1096 .1096
+571:	460	0x4	0x0	4	3	1	-1	0	5 346,885 543,364 542,227 554,886 349,887 .1422 .1422 .1422 .1422 .1393 .1393 .1393 .1393 .0613 .0613 .0613 .0613 .0752 .0752 .0752 .0752 .1201 .1201 .1201 .1201
+572:	460	0x4	0x0	4	3	1	-1	0	4 295,888 556,889 557,890 294,891 .1096 .1096 .1096 .1096 .0781 .0781 .0781 .0781 .0738 .0738 .0738 .0738 .0926 .0926 .0926 .0926
+573:	460	0x4	0x0	4	3	1	-1	0	5 296,892 545,893 544,894 556,895 295,888 .1208 .1208 .1208 .1208 .0205 .0205 .0205 .0205 .0169 .0169 .0169 .0169 .0781 .0781 .0781 .0781 .1096 .1096 .1096 .1096
 574:	-1	0x0	0x0	0	3	1	166	0	4 297,0 296,0 295,0 294,0 .0929 .0929 .0929 .0929 .1208 .1208 .1208 .1208 .1096 .1096 .1096 .1096 .0926 .0926 .0926 .0926
-575:	458	0x4	0x0	4	3	1	-1	0	5 538,0 297,896 294,897 557,898 539,10 .0485 .0485 .0485 .0485 .0929 .0929 .0929 .0929 .0926 .0926 .0926 .0926 .0738 .0738 .0738 .0738 .038 .038 .038 .038
-576:	458	0x4	0x0	4	3	1	-1	0	5 552,899 347,900 348,884 555,307 553,474 .0197 .0197 .0197 .0197 .1462 .1462 .1462 .1462 .1202 .1202 .1202 .1202 .0774 .0774 .0774 .0774 .0154 .0154 .0154 .0154
-577:	458	0x4	0x0	4	3	1	-1	0	12 539,0 557,901 556,902 544,903 547,904 549,905 553,906 555,907 554,908 542,909 540,910 536,911 .0228 .0228 .0228 .0228 .0422 .0422 .0422 .0422 .0457 .0457 .0457 .0457 .007 .007 .007 .007 .0464 .0464 .0464 .0464 .0496 .0496 .0496 .0496 .0114 .0114 .0114 .0114 .0603 .0603 .0603 .0603 .0591 .0591 .0591 .0591 .0498 .0498 .0498 .0498 .0938 .0938 .0938 .0938 .0699 .0699 .0699 .0699
+575:	460	0x4	0x0	4	3	1	-1	0	5 538,0 297,896 294,897 557,898 539,10 .0485 .0485 .0485 .0485 .0929 .0929 .0929 .0929 .0926 .0926 .0926 .0926 .0738 .0738 .0738 .0738 .038 .038 .038 .038
+576:	460	0x4	0x0	4	3	1	-1	0	5 552,899 347,900 348,884 555,307 553,474 .0197 .0197 .0197 .0197 .1462 .1462 .1462 .1462 .1202 .1202 .1202 .1202 .0774 .0774 .0774 .0774 .0154 .0154 .0154 .0154
+577:	460	0x4	0x0	4	3	1	-1	0	12 539,0 557,901 556,902 544,903 547,904 549,905 553,906 555,907 554,908 542,909 540,910 536,911 .0228 .0228 .0228 .0228 .0422 .0422 .0422 .0422 .0457 .0457 .0457 .0457 .007 .007 .007 .007 .0464 .0464 .0464 .0464 .0496 .0496 .0496 .0496 .0114 .0114 .0114 .0114 .0603 .0603 .0603 .0603 .0591 .0591 .0591 .0591 .0498 .0498 .0498 .0498 .0938 .0938 .0938 .0938 .0699 .0699 .0699 .0699
 578:	-1	0x0	0x0	0	3	1	167	0	5 499,0 152,0 153,0 501,0 500,0 .4099 .4099 .4099 .4099 .0071 .0071 .0071 .0071 .0076 .0076 .0076 .0076 .0953 .0953 .0953 .0953 .4154 .4154 .4154 .4154
 579:	-1	0x0	0x0	0	3	1	168	0	4 519,0 148,0 152,0 499,0 .4733 .4733 .4733 .4733 .784 .784 .784 .784 .1675 .1675 .1675 .1675 .4487 .4487 .4487 .4487
-580:	458	0x4	0x0	4	3	1	-1	0	4 497,912 498,913 500,914 501,915 .0953 .0953 .0953 .0953 .4154 .4154 .4154 .4154 .4154 .4154 .4154 .4154 .0953 .0953 .0953 .0953
+580:	460	0x4	0x0	4	3	1	-1	0	4 497,912 498,913 500,914 501,915 .0953 .0953 .0953 .0953 .4154 .4154 .4154 .4154 .4154 .4154 .4154 .4154 .0953 .0953 .0953 .0953
 581:	-1	0x0	0x0	0	3	1	169	0	4 153,0 154,0 497,0 501,0 .0076 .0076 .0076 .0076 .0076 .0076 .0076 .0076 .0953 .0953 .0953 .0953 .0953 .0953 .0953 .0953
 582:	-1	0x0	0x0	0	3	1	170	0	5 154,0 140,0 494,0 498,0 497,0 .0076 .0076 .0076 .0076 .0071 .0071 .0071 .0071 .4099 .4099 .4099 .4099 .4154 .4154 .4154 .4154 .0953 .0953 .0953 .0953
 583:	-1	0x0	0x0	0	3	1	171	0	6 148,0 139,0 140,0 154,0 153,0 152,0 .0329 .0329 .0329 .0329 .0329 .0329 .0329 .0329 .1635 .1635 .1635 .1635 .1676 .1676 .1676 .1676 .1676 .1676 .1676 .1676 .1635 .1635 .1635 .1635
 584:	-1	0x0	0x0	0	3	1	172	0	4 139,0 504,0 494,0 140,0 .6874 .6874 .6874 .6874 .464 .464 .464 .464 .4487 .4487 .4487 .4487 .1675 .1675 .1675 .1675
-585:	457	0x44	0x0	4	3	1	-1	0	6 139,916 148,917 519,918 558,919 559,920 504,921 .6517 .6517 .6517 .6517 .7312 .7312 .7312 .7312 .4263 .4263 .4263 .4263 .4322 .4322 .4322 .4322 .4327 .4327 .4327 .4327 .4254 .4254 .4254 .4254
+585:	459	0x44	0x0	4	3	1	-1	0	6 139,916 148,917 519,918 558,919 559,920 504,921 .6517 .6517 .6517 .6517 .7312 .7312 .7312 .7312 .4263 .4263 .4263 .4263 .4322 .4322 .4322 .4322 .4327 .4327 .4327 .4327 .4254 .4254 .4254 .4254
 586:	-1	0x0	0x0	0	3	1	173	0	4 558,0 519,0 499,0 500,0 .4841 .4841 .4841 .4841 .4764 .4764 .4764 .4764 .4415 .4415 .4415 .4415 .4429 .4429 .4429 .4429
 587:	-1	0x0	0x0	0	3	1	174	0	4 498,0 494,0 504,0 559,0 .4429 .4429 .4429 .4429 .4415 .4415 .4415 .4415 .4779 .4779 .4779 .4779 .4875 .4875 .4875 .4875
-588:	458	0x4	0x0	4	3	1	-1	0	4 498,922 559,923 558,924 500,925 .4429 .4429 .4429 .4429 .4875 .4875 .4875 .4875 .4841 .4841 .4841 .4841 .4429 .4429 .4429 .4429
-589:	457	0x44	0x0	4	3	1	-1	0	6 518,733 9,732 8,686 505,685 560,926 561,927 .2067 .2067 .2067 .2067 .5157 .5157 .5157 .5157 .5226 .5226 .5226 .5226 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .2094 .2094 .2094 .2094
+588:	460	0x4	0x0	4	3	1	-1	0	4 498,922 559,923 558,924 500,925 .4429 .4429 .4429 .4429 .4875 .4875 .4875 .4875 .4841 .4841 .4841 .4841 .4429 .4429 .4429 .4429
+589:	459	0x44	0x0	4	3	1	-1	0	6 518,733 9,732 8,686 505,685 560,926 561,927 .2067 .2067 .2067 .2067 .5157 .5157 .5157 .5157 .5226 .5226 .5226 .5226 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .2094 .2094 .2094 .2094
 590:	-1	0x0	0x0	0	3	1	175	0	4 505,0 8,0 42,0 495,0 .2241 .2241 .2241 .2241 .5479 .5479 .5479 .5479 .0005 .0005 .0005 .0005 .2241 .2241 .2241 .2241
 591:	-1	0x0	0x0	0	3	1	176	0	4 495,0 42,0 43,0 496,0 .2067 .2067 .2067 .2067 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .2094 .2094 .2094 .2094
-592:	458	0x4	0x0	4	3	1	-1	0	4 496,928 43,913 44,914 503,929 .2094 .2094 .2094 .2094 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .2094 .2094 .2094 .2094
+592:	460	0x4	0x0	4	3	1	-1	0	4 496,928 43,913 44,914 503,929 .2094 .2094 .2094 .2094 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .0005 .2094 .2094 .2094 .2094
 593:	-1	0x0	0x0	0	3	1	177	0	6 42,0 8,0 9,0 45,0 44,0 43,0 .0025 .0025 .0025 .0025 .5106 .5106 .5106 .5106 .5106 .5106 .5106 .5106 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025 .0025
 594:	-1	0x0	0x0	0	3	1	178	0	4 9,0 518,0 502,0 45,0 .5535 .5535 .5535 .5535 .2241 .2241 .2241 .2241 .2241 .2241 .2241 .2241 .0005 .0005 .0005 .0005
 595:	-1	0x0	0x0	0	3	1	179	0	4 45,0 502,0 503,0 44,0 .0005 .0005 .0005 .0005 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .0005 .0005 .0005 .0005
 596:	-1	0x0	0x0	0	3	1	180	0	4 505,0 495,0 496,0 560,0 .2044 .2044 .2044 .2044 .2044 .2044 .2044 .2044 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071
 597:	-1	0x0	0x0	0	3	1	181	0	4 503,0 502,0 518,0 561,0 .2071 .2071 .2071 .2071 .2044 .2044 .2044 .2044 .2044 .2044 .2044 .2044 .2071 .2071 .2071 .2071
-598:	458	0x5	0x0	4	3	1	-1	0	4 496,930 503,931 561,932 560,933 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071
+598:	460	0x5	0x0	4	3	1	-1	0	4 496,930 503,931 561,932 560,933 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071 .2071
 599:	-1	0x0	0x0	0	3	1	182	0	4 500,0 499,0 519,0 558,0 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057
 600:	-1	0x0	0x0	0	3	1	183	0	4 518,0 502,0 503,0 561,0 .0114 .0114 .0114 .0114 .0114 .0114 .0114 .0114 .0115 .0115 .0115 .0115 .0115 .0115 .0115 .0115
-601:	457	0x44	0x0	4	3	1	-1	0	4 519,918 518,934 561,935 558,919 .4263 .4263 .4263 .4263 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .4322 .4322 .4322 .4322
+601:	459	0x44	0x0	4	3	1	-1	0	4 519,918 518,934 561,935 558,919 .4263 .4263 .4263 .4263 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .4322 .4322 .4322 .4322
 602:	-1	0x0	0x0	0	3	1	184	0	4 502,0 499,0 500,0 503,0 .2067 .2067 .2067 .2067 .4099 .4099 .4099 .4099 .4154 .4154 .4154 .4154 .2094 .2094 .2094 .2094
 603:	-1	0x0	0x0	0	3	1	185	0	4 518,0 519,0 499,0 502,0 .2241 .2241 .2241 .2241 .4733 .4733 .4733 .4733 .4487 .4487 .4487 .4487 .2241 .2241 .2241 .2241
-604:	458	0x4	0x0	4	3	1	-1	0	4 558,936 561,937 503,938 500,939 .418 .418 .418 .418 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .4079 .4079 .4079 .4079
+604:	460	0x4	0x0	4	3	1	-1	0	4 558,936 561,937 503,938 500,939 .418 .418 .418 .418 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .4079 .4079 .4079 .4079
 605:	-1	0x0	0x0	0	3	1	186	0	4 559,0 504,0 494,0 498,0 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0057 .0139 .0139 .0139 .0139 .0057 .0057 .0057 .0057
-606:	457	0x44	0x0	4	3	1	-1	0	4 560,940 505,941 504,921 559,920 .2094 .2094 .2094 .2094 .2067 .2067 .2067 .2067 .4254 .4254 .4254 .4254 .4327 .4327 .4327 .4327
+606:	459	0x44	0x0	4	3	1	-1	0	4 560,940 505,941 504,921 559,920 .2094 .2094 .2094 .2094 .2067 .2067 .2067 .2067 .4254 .4254 .4254 .4254 .4327 .4327 .4327 .4327
 607:	-1	0x0	0x0	0	3	1	187	0	4 496,0 495,0 505,0 560,0 .0115 .0115 .0115 .0115 .0179 .0179 .0179 .0179 .0114 .0114 .0114 .0114 .0115 .0115 .0115 .0115
 608:	-1	0x0	0x0	0	3	1	188	0	4 504,0 505,0 495,0 494,0 .464 .464 .464 .464 .2241 .2241 .2241 .2241 .2241 .2241 .2241 .2241 .4487 .4487 .4487 .4487
 609:	-1	0x0	0x0	0	3	1	189	0	4 494,0 495,0 496,0 498,0 .4099 .4099 .4099 .4099 .2067 .2067 .2067 .2067 .2094 .2094 .2094 .2094 .4154 .4154 .4154 .4154
-610:	458	0x4	0x0	4	3	1	-1	0	4 498,942 496,943 560,944 559,945 .4079 .4079 .4079 .4079 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .4197 .4197 .4197 .4197
+610:	460	0x4	0x0	4	3	1	-1	0	4 498,942 496,943 560,944 559,945 .4079 .4079 .4079 .4079 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .2023 .4197 .4197 .4197 .4197
 
 #--- Surface normals ---
 0: .707054 .707159 0
@@ -5664,7 +5667,7 @@ World AIClasses 1
 end
 
 Section: MODELS
-World models 165
+World models 169
 0: 15r2x1.3do
 1: bact.3do
 2: battery.3do
@@ -5675,7 +5678,7 @@ World models 165
 7: boost.3do
 8: bow0.3do
 9: bow1.3do
-10: bowg.3do
+10: BowG.3do
 11: bowp.3do
 12: BowV.3do
 13: bpck.3do
@@ -5686,150 +5689,154 @@ World models 165
 18: bryv_m.3do
 19: cbng.3do
 20: cbnp.3do
-21: cbnv.3do
-22: cbnv_m.3do
-23: con0.3do
-24: con1.3do
-25: con2.3do
-26: con5.3do
-27: cong.3do
-28: conp.3do
-29: conv.3do
-30: conv_m.3do
-31: crbn.3do
-32: crbn_0.3do
-33: crbn_1.3do
-34: crbn_2.3do
-35: crbn_3.3do
-36: crbn_4.3do
-37: crbnstem.3do
-38: d2x3_4.3do
-39: dark.3do
-40: det0.3do
-41: detg.3do
-42: detp.3do
-43: detp_1.3do
-44: detv.3do
-45: detv_m.3do
-46: e2x2_0.3do
-47: ecel.3do
-48: eweb.3do
-49: eweb0.3do
-50: farsight.3do
-51: fistg.3do
-52: fistv.3do
-53: fistv_m.3do
-54: fls0.3do
-55: flsg.3do
-56: flsp_1.3do
-57: flsv.3do
-58: flsv_m.3do
-59: gan1.3do
-60: gan2.3do
-61: gan3.3do
-62: gwndw.3do
-63: gwndwdam.3do
-64: hepk.3do
-65: kk.3do
-66: ky.3do
-67: kya10.3do
-68: kya11.3do
-69: kya12.3do
-70: kyA15.3do
-71: kya17.3do
-72: kya18.3do
-73: kya19.3do
-74: kya9.3do
-75: kyab.3do
-76: kyap.3do
-77: kyb3.3do
-78: kyc5.3do
-79: kydarth.3do
-80: kydm.3do
-81: kyE6.3do
-82: kyf2.3do
-83: kyg7.3do
-84: kyh4.3do
-85: kyi14.3do
-86: kyj1.3do
-87: kykb.3do
-88: kyluke.3do
-89: kym13.3do
-90: kyMJ.3do
-91: kyp2.3do
-92: kyPR.3do
-93: kyrc.3do
-94: kyrm.3do
-95: kyro.3do
-96: kyst.3do
-97: kytp.3do
-98: kyu0.3do
-99: kywq.3do
-100: kyx0.3do
-101: ligt2.3do
-102: mana1.3do
-103: mdm10p.3do
-104: mdm10p2.3do
-105: mdm10wlk.3do
-106: mj.3do
-107: nullpov.3do
-108: packrev.3do
-109: pcel.3do
-110: raillite.3do
-111: rcrg.3do
-112: rld0.3do
-113: rldg.3do
-114: rldp.3do
-115: rldv.3do
-116: rldv_m.3do
-117: rpt0.3do
-118: rptg.3do
-119: rptp.3do
-120: rptv.3do
-121: rptv_m.3do
-122: sab0.3do
-123: sab0blue.3do
-124: sab0dred.3do
-125: sab0gree.3do
-126: sab0oran.3do
-127: sab0purp.3do
-128: sab0red.3do
-129: sab0yell.3do
-130: sabg.3do
-131: sabgblue.3do
-132: sabggreen.3do
-133: sabgorange.3do
-134: sabgpurple.3do
-135: sabgred.3do
-136: sabgyellow.3do
-137: sabp.3do
-138: sabv.3do
-139: sabv_m.3do
-140: scpe.3do
-141: seq0.3do
-142: seqb.3do
-143: seqb_m.3do
-144: seqg.3do
-145: seqp.3do
-146: seqp_1.3do
-147: shld.3do
-148: shrp_1.3do
-149: shrp_2.3do
-150: shrp_3.3do
-151: shrp_4.3do
-152: skr0.3do
-153: skrg.3do
-154: skrp.3do
-155: skrv.3do
-156: skrv_m.3do
-157: sscg.3do
-158: str0.3do
-159: strg.3do
-160: strp.3do
-161: strv.3do
-162: strv_m.3do
-163: vest.3do
-164: vestl.3do
+21: cbnpk5.3do
+22: cbnv.3do
+23: cbnv_m.3do
+24: con0.3do
+25: con1.3do
+26: con2.3do
+27: con5.3do
+28: cong.3do
+29: conp.3do
+30: conv.3do
+31: conv_m.3do
+32: crbn.3do
+33: crbn_0.3do
+34: crbn_1.3do
+35: crbn_2.3do
+36: crbn_3.3do
+37: crbn_4.3do
+38: crbnstem.3do
+39: d2x3_4.3do
+40: dark.3do
+41: det0.3do
+42: detg.3do
+43: detp.3do
+44: detp_1.3do
+45: detv.3do
+46: detv_m.3do
+47: e2x2_0.3do
+48: ecel.3do
+49: eweb.3do
+50: eweb0.3do
+51: farsight.3do
+52: fistg.3do
+53: fistv.3do
+54: fistv_m.3do
+55: fls0.3do
+56: flsg.3do
+57: flsp.3do
+58: flsp_1.3do
+59: flsv.3do
+60: flsv_m.3do
+61: gan1.3do
+62: gan2.3do
+63: gan3.3do
+64: ggun.3do
+65: gwndw.3do
+66: gwndwdam.3do
+67: hepk.3do
+68: kk.3do
+69: ky.3do
+70: kya10.3do
+71: kya11.3do
+72: kya12.3do
+73: kyA15.3do
+74: kya17.3do
+75: kya18.3do
+76: kya19.3do
+77: kya9.3do
+78: kyab.3do
+79: kyap.3do
+80: kyb3.3do
+81: kyc5.3do
+82: kydarth.3do
+83: kydm.3do
+84: kyE6.3do
+85: kyf2.3do
+86: kyg7.3do
+87: kyh4.3do
+88: kyi14.3do
+89: kyj1.3do
+90: kykb.3do
+91: kyluke.3do
+92: kym13.3do
+93: kyMJ.3do
+94: kyp2.3do
+95: kyPR.3do
+96: kyrc.3do
+97: kyrm.3do
+98: kyro.3do
+99: kyst.3do
+100: kytp.3do
+101: kyu0.3do
+102: kywq.3do
+103: kyx0.3do
+104: ligt2.3do
+105: mana1.3do
+106: mdm10p.3do
+107: mdm10p2.3do
+108: mdm10wlk.3do
+109: mj.3do
+110: nullpov.3do
+111: packrev.3do
+112: pcel.3do
+113: raillite.3do
+114: rcrg.3do
+115: rld0.3do
+116: rldg.3do
+117: rldp.3do
+118: rldv.3do
+119: rldv_m.3do
+120: rpt0.3do
+121: rptg.3do
+122: rptp.3do
+123: rptv.3do
+124: rptv_m.3do
+125: sab0.3do
+126: sab0blue.3do
+127: sab0dred.3do
+128: sab0gree.3do
+129: sab0oran.3do
+130: sab0purp.3do
+131: sab0red.3do
+132: sab0yell.3do
+133: sabg.3do
+134: sabgblue.3do
+135: sabggreen.3do
+136: sabgorange.3do
+137: sabgpurple.3do
+138: sabgred.3do
+139: sabgyellow.3do
+140: sabp.3do
+141: sabv.3do
+142: sabv_m.3do
+143: scpe.3do
+144: scrg.3do
+145: seq0.3do
+146: seqb.3do
+147: seqb_m.3do
+148: seqg.3do
+149: seqp.3do
+150: seqp_1.3do
+151: shld.3do
+152: shrp_1.3do
+153: shrp_2.3do
+154: shrp_3.3do
+155: shrp_4.3do
+156: skr0.3do
+157: skrg.3do
+158: skrp.3do
+159: skrv.3do
+160: skrv_m.3do
+161: sscg.3do
+162: str0.3do
+163: strg.3do
+164: strp.3do
+165: strv.3do
+166: strv_m.3do
+167: vest.3do
+168: vestl.3do
 end
 
 Section: SPRITES
@@ -6054,7 +6061,7 @@ World soundclasses 36
 end
 
 Section: cogscripts
-World scripts 55
+World scripts 59
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -6062,59 +6069,63 @@ World scripts 55
 4: 00_smoketrail.cog
 5: 00_thrownsaber.cog
 6: class_sequencer.cog
-7: exp_flash.cog
-8: exp_hrail.cog
-9: MDM10_PIPE.COG
-10: pow_bacta.cog
-11: pow_battery_m.cog
-12: pow_blastech_m.cog
-13: pow_bryar_m.cog
-14: pow_carbgun_m.cog
-15: pow_concrifle_m.cog
-16: pow_crossbow_m.cog
-17: pow_darkside.cog
-18: pow_energy_m.cog
-19: pow_health.cog
-20: pow_livethermal.cog
-21: pow_mana.cog
-22: pow_power_m.cog
-23: pow_powerboost.cog
-24: pow_railcharges_m.cog
-25: pow_railgun_m.cog
-26: pow_railseek_m.cog
-27: pow_repeater_m.cog
-28: pow_revive.cog
-29: pow_saber_m.cog
-30: pow_scope_m.cog
-31: pow_sequencer_m.cog
-32: pow_shields.cog
-33: pow_single_flashbomb_m.cog
-34: pow_single_sequencer_m.cog
-35: pow_single_thermal_m.cog
-36: pow_strifle_m.cog
-37: pow_supershield.cog
-38: pow_thermal_m.cog
-39: pow_vest.cog
-40: rbot-arrival.cog
-41: rbot-backpack.cog
-42: rbot-door.cog
-43: rbot-elev-switch.cog
-44: rbot-nav.cog
-45: rbot-nav-special.cog
-46: rbot-path.cog
-47: rbot-player.cog
-48: rbot-skin.cog
-49: rbot-special-sector.cog
-50: rbot-srv.cog
-51: rbot-srv-force.cog
-52: rbot-srv-weapons.cog
-53: rbot-startup.cog
-54: rbot-window.cog
+7: exp_cpel.cog
+8: exp_flash.cog
+9: exp_hrail.cog
+10: MDM10_PIPE.COG
+11: pow_bacta.cog
+12: pow_battery_m.cog
+13: pow_blastech_m.cog
+14: pow_bryar_m.cog
+15: pow_carbgun_m.cog
+16: pow_carbpellets_m.cog
+17: pow_concrifle_m.cog
+18: pow_crossbow_m.cog
+19: pow_darkside.cog
+20: pow_energy_m.cog
+21: pow_flashbombs_m.cog
+22: pow_health.cog
+23: pow_livethermal.cog
+24: pow_mana.cog
+25: pow_power_m.cog
+26: pow_powerboost.cog
+27: pow_railcharges_m.cog
+28: pow_railgun_m.cog
+29: pow_railseek_m.cog
+30: pow_repeater_m.cog
+31: pow_revive.cog
+32: pow_saber_m.cog
+33: pow_scope_m.cog
+34: pow_sequencer_m.cog
+35: pow_shields.cog
+36: pow_single_flashbomb_m.cog
+37: pow_single_sequencer_m.cog
+38: pow_single_thermal_m.cog
+39: pow_srailcharges_m.cog
+40: pow_strifle_m.cog
+41: pow_supershield.cog
+42: pow_thermal_m.cog
+43: pow_vest.cog
+44: rbot-arrival.cog
+45: rbot-backpack.cog
+46: rbot-door.cog
+47: rbot-elev-switch.cog
+48: rbot-nav.cog
+49: rbot-nav-special.cog
+50: rbot-path.cog
+51: rbot-player.cog
+52: rbot-skin.cog
+53: rbot-special-sector.cog
+54: rbot-srv.cog
+55: rbot-srv-force.cog
+56: rbot-srv-weapons.cog
+57: rbot-startup.cog
+58: rbot-window.cog
 end
 
 Section: cogs
 
-World cogs 197
+World cogs 201
 #Num	Script          Symbol values
 0: MDM10_PIPE.COG 65 66 GANTRYPIPE2
 1: rbot-door.cog 19 -1 -1 -1 8 2 0.5
@@ -6124,133 +6135,133 @@ World cogs 197
 5: rbot-srv.cog 0 9 0 20
 6: rbot-srv-force.cog 0 7695
 7: rbot-srv-weapons.cog 0
-8: rbot-skin.cog 0 rbot_vader sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+8: rbot-skin.cog 0 0 rbot_vader
 9: rbot-srv.cog 1 8 1 22
 10: rbot-srv-force.cog 1 7695
 11: rbot-srv-weapons.cog 1
-12: rbot-skin.cog 1 rbot_luke sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+12: rbot-skin.cog 1 2 rbot_luke
 13: rbot-srv.cog 2 6 2 21
 14: rbot-srv-force.cog 2 255
 15: rbot-srv-weapons.cog 2
-16: rbot-skin.cog 2 rbot_marajade sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+16: rbot-skin.cog 2 4 rbot_marajade
 17: rbot-srv.cog 3 4 3 23
 18: rbot-srv-force.cog 3 255
 19: rbot-srv-weapons.cog 3
-20: rbot-skin.cog 3 rbot_darkkyle sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+20: rbot-skin.cog 3 3 rbot_darkkyle
 21: rbot-srv.cog 4 26 4 33
 22: rbot-srv-force.cog 4 255
 23: rbot-srv-weapons.cog 4
-24: rbot-skin.cog 4 rbot_weequay sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+24: rbot-skin.cog 4 3 rbot_weequay
 25: rbot-srv.cog 5 12 5 37
 26: rbot-srv-force.cog 5 255
 27: rbot-srv-weapons.cog 5
-28: rbot-skin.cog 5 rbot_pirate sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+28: rbot-skin.cog 5 1 rbot_pirate
 29: rbot-srv.cog 6 24 6 34
 30: rbot-srv-force.cog 6 7695
 31: rbot-srv-weapons.cog 6
-32: rbot-skin.cog 6 rbot_pirate2 sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+32: rbot-skin.cog 6 5 rbot_pirate2
 33: rbot-srv.cog 7 7 7 35
 34: rbot-srv-force.cog 7 7695
 35: rbot-srv-weapons.cog 7
-36: rbot-skin.cog 7 rbot_darkmara sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+36: rbot-skin.cog 7 0 rbot_darkmara
 37: rbot-srv.cog 8 46 8 38
 38: rbot-srv-force.cog 8 255
 39: rbot-srv-weapons.cog 8
-40: rbot-skin.cog 8 rbot_rebsoldier sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+40: rbot-skin.cog 8 2 rbot_rebsoldier
 41: rbot-srv.cog 9 48 9 39
 42: rbot-srv-force.cog 9 255
 43: rbot-srv-weapons.cog 9
-44: rbot-skin.cog 9 rbot_atatpilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+44: rbot-skin.cog 9 2 rbot_atatpilot
 45: rbot-srv.cog 10 28 10 40
 46: rbot-srv-force.cog 10 7695
 47: rbot-srv-weapons.cog 10
-48: rbot-skin.cog 10 rbot_scouttroop sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+48: rbot-skin.cog 10 1 rbot_scouttroop
 49: rbot-srv.cog 11 47 11 41
 50: rbot-srv-force.cog 11 7695
 51: rbot-srv-weapons.cog 11
-52: rbot-skin.cog 11 rbot_tiepilot sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+52: rbot-skin.cog 11 1 rbot_tiepilot
 53: rbot-srv.cog 12 50 12 42
 54: rbot-srv-force.cog 12 255
 55: rbot-srv-weapons.cog 12
-56: rbot-skin.cog 12 rbot_rebcomander sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+56: rbot-skin.cog 12 4 rbot_rebcomander
 57: rbot-srv.cog 13 10 13 43
 58: rbot-srv-force.cog 13 255
 59: rbot-srv-weapons.cog 13
-60: rbot-skin.cog 13 rbot_bobafett sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+60: rbot-skin.cog 13 3 rbot_bobafett
 61: rbot-srv.cog 14 15 14 44
 62: rbot-srv-force.cog 14 7695
 63: rbot-srv-weapons.cog 14
-64: rbot-skin.cog 14 rbot_greedo sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+64: rbot-skin.cog 14 5 rbot_greedo
 65: rbot-srv.cog 15 12 15 45
 66: rbot-srv-force.cog 15 7695
 67: rbot-srv-weapons.cog 15
-68: rbot-skin.cog 15 rbot_tusken sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+68: rbot-skin.cog 15 2 rbot_tusken
 69: rbot-srv.cog 16 28 16 51
 70: rbot-srv-force.cog 16 255
 71: rbot-srv-weapons.cog 16
-72: rbot-skin.cog 16 rbot_commando sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgpurple.3do
+72: rbot-skin.cog 16 4 rbot_commando
 73: rbot-srv.cog 17 24 17 52
 74: rbot-srv-force.cog 17 255
 75: rbot-srv-weapons.cog 17
-76: rbot-skin.cog 17 rbot_trooper sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+76: rbot-skin.cog 17 1 rbot_trooper
 77: rbot-srv.cog 18 2 18 53
 78: rbot-srv-force.cog 18 7695
 79: rbot-srv-weapons.cog 18
-80: rbot-skin.cog 18 rbot_jerec sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+80: rbot-skin.cog 18 0 rbot_jerec
 81: rbot-srv.cog 19 1 19 54
 82: rbot-srv-force.cog 19 7695
 83: rbot-srv-weapons.cog 19
-84: rbot-skin.cog 19 rbot_sariss sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
+84: rbot-skin.cog 19 1 rbot_sariss
 85: rbot-srv.cog 20 0 20 55
 86: rbot-srv-force.cog 20 255
 87: rbot-srv-weapons.cog 20
-88: rbot-skin.cog 20 rbot_yun sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+88: rbot-skin.cog 20 5 rbot_yun
 89: rbot-srv.cog 21 17 21 56
 90: rbot-srv-force.cog 21 255
 91: rbot-srv-weapons.cog 21
-92: rbot-skin.cog 21 rbot_jan sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+92: rbot-skin.cog 21 2 rbot_jan
 93: rbot-srv.cog 22 11 22 57
 94: rbot-srv-force.cog 22 7695
 95: rbot-srv-weapons.cog 22
-96: rbot-skin.cog 22 rbot_bossk sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+96: rbot-skin.cog 22 3 rbot_bossk
 97: rbot-srv.cog 23 16 23 58
 98: rbot-srv-force.cog 23 7695
 99: rbot-srv-weapons.cog 23
-100: rbot-skin.cog 23 rbot_abronmar sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+100: rbot-skin.cog 23 5 rbot_abronmar
 101: rbot-srv.cog 24 25 24 59
 102: rbot-srv-force.cog 24 255
 103: rbot-srv-weapons.cog 24
-104: rbot-skin.cog 24 rbot_admiral sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+104: rbot-skin.cog 24 5 rbot_admiral
 105: rbot-srv.cog 25 29 25 60
 106: rbot-srv-force.cog 25 255
 107: rbot-srv-weapons.cog 25
-108: rbot-skin.cog 25 rbot_redeye sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+108: rbot-skin.cog 25 0 rbot_redeye
 109: rbot-srv.cog 26 30 26 61
 110: rbot-srv-force.cog 26 7695
 111: rbot-srv-weapons.cog 26
-112: rbot-skin.cog 26 rbot_cyborg sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+112: rbot-skin.cog 26 2 rbot_cyborg
 113: rbot-srv.cog 27 49 27 62
 114: rbot-srv-force.cog 27 7695
 115: rbot-srv-weapons.cog 27
-116: rbot-skin.cog 27 rbot_rebofficer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgorange.3do
+116: rbot-skin.cog 27 3 rbot_rebofficer
 117: rbot-srv.cog 28 5 28 63
 118: rbot-srv-force.cog 28 255
 119: rbot-srv-weapons.cog 28
-120: rbot-skin.cog 28 rbot_rahn sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+120: rbot-skin.cog 28 0 rbot_rahn
 121: rbot-srv.cog 29 18 29 64
 122: rbot-srv-force.cog 29 255
 123: rbot-srv-weapons.cog 29
-124: rbot-skin.cog 29 rbot_kaerrobanii sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
+124: rbot-skin.cog 29 0 rbot_kaerrobanii
 125: rbot-srv.cog 30 25 30 65
 126: rbot-srv-force.cog 30 7695
 127: rbot-srv-weapons.cog 30
-128: rbot-skin.cog 30 rbot_officer sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabggreen.3do
+128: rbot-skin.cog 30 2 rbot_officer
 129: rbot-srv.cog 31 32 31 66
 130: rbot-srv-force.cog 31 7695
 131: rbot-srv-weapons.cog 31
-132: rbot-skin.cog 31 rbot_silver sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgblue.3do
-133: rbot-skin.cog 101 rbot_kylered sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgred.3do
-134: rbot-skin.cog 102 rbot_kylegold sabg.3do fistg.3do bryg.3do strg.3do detg.3do bowg.3do rptg.3do rldg.3do seqg.3do cong.3do sabgyellow.3do
+132: rbot-skin.cog 31 1 rbot_silver
+133: rbot-skin.cog 101 0 rbot_kylered
+134: rbot-skin.cog 102 5 rbot_kylegold
 135: rbot-nav.cog 0.25
 136: rbot-nav-special.cog 92 93 98 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 137: rbot-path.cog 0 85 86 87 88 99 89 90 91 106 92 93 94 95 96 97 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0
@@ -6262,7 +6273,7 @@ end
 
 Section: TEMPLATES
 
-World templates 250
+World templates 256
 #Name:           Based On:        Params:
 ghostcam          none               orient=(0/0/0) type=ghost move=path puppet=cr.pup
 ghost             none               orient=(0/0/0) type=ghost move=path
@@ -6288,10 +6299,12 @@ bubble            none               orient=(0/0/0) type=cog move=physics thingf
 +farsight         none               orient=(0/0/0) type=cog collide=1 move=physics timer=25 model3d=farsight.3do size=.05 movesize=.1 airdrag=.5 mass=.05 physflags=0xa00 maxvel=.5
 +dustcloud        +whitecloud        timer=.119 material=dusty.mat range=.015 rate=256 maxthrust=80 elementsize=.01
 +dest_trail       +smoke             vel=(0/0/0) material=dstructparts.mat
++cpel_exp         none               orient=(0/0/0) type=cog thingflags=0x400 cog=exp_cpel.cog
 +conccloud        +dustcloud         rate=512 maxthrust=100 count=256 minsize=.012 pitchrange=5
 +concblast2p      +dustcloud         orient=(90/0/0) range=.0015 rate=128 elementsize=.005 count=64 minsize=.0012 pitchrange=5
 +carbsparks       +sparks            timer=2 vel=(0/1/0) material=00carbonite.mat range=.07 count=96 pitchrange=90 yawrange=90
 +carbodeb_exp     none               orient=(0/0/0) type=particle move=physics timer=.3 mass=.5 physflags=0x60000 typeflags=0x3f material=00gsmoke.mat range=.03 rate=128 maxthrust=5 elementsize=.005 count=32
++carbchunks       none               orient=(0/0/0) type=particle move=physics timer=.2 typeflags=0x27 material=00explosion.mat range=.2 rate=48 maxthrust=16 elementsize=.015 count=96
 _weapon           none               orient=(0/0/0) type=weapon collide=1 move=physics thingflags=0x20000000 timer=10 mass=5 physflags=0x200 maxrotvel=90 damageclass=0x2 typeflags=0x1
 _powerup          none               orient=(0/0/0) type=item collide=1 move=physics size=.1 movesize=.01 surfdrag=3 airdrag=1 mass=10 height=.05 physflags=0x400000 typeflags=0x1 respawn=30
 _explosion        none               orient=(0/0/0) type=explosion typeflags=0x1 damageclass=0x4
@@ -6303,6 +6316,7 @@ _actor            none               orient=(0/0/0) type=actor collide=1 move=ph
 walkplayer        _actor             type=player thingflags=0x20000401 light=.2 model3d=kk.3do size=.065 movesize=.065 puppet=ky.pup soundclass=ky.snd cog=rbot-player.cog surfdrag=3 airdrag=.5 staticdrag=.3 health=100 maxhealth=100 maxthrust=2 typeflags=0x1 error=.5 fov=.71 chance=1 buoyancy=0.0
 supershield       _powerup           thingflags=0x400 model3d=vestl.3do cog=pow_supershield.cog respawn=60
 strifle           _powerup           thingflags=0x400 model3d=strp.3do cog=pow_strifle_m.cog
+srailcharges      _cpowerup          thingflags=0x400 model3d=scrg.3do cog=pow_srailcharges_m.cog
 singleseqcharge   _cpowerup          thingflags=0x400 model3d=seqp_1.3do cog=pow_single_sequencer_m.cog
 singleflashbomb   _cpowerup          thingflags=0x400 model3d=flsp_1.3do cog=pow_single_flashbomb_m.cog
 singledetonator   _cpowerup          thingflags=0x400 model3d=detp_1.3do cog=pow_single_thermal_m.cog
@@ -6320,7 +6334,10 @@ manaboost         _powerup           thingflags=0x400 model3d=dark.3do cog=pow_m
 lightside         _powerup           thingflags=0x400 model3d=mana1.3do cog=pow_darkside.cog respawn=60
 lightsaber        _powerup           thingflags=0x400 model3d=sabp.3do cog=pow_saber_m.cog
 healthpack        _powerup           thingflags=0x408 model3d=hepk.3do cog=pow_health.cog
+greedopistol      _powerup           thingflags=0x400 model3d=ggun.3do cog=pow_blastech_m.cog
 fullshield        _powerup           thingflags=0x400 model3d=vest.3do cog=pow_vest.cog respawn=60
+flash_bombs       _cpowerup          thingflags=0x400 model3d=flsp.3do cog=pow_flashbombs_m.cog
+fivepellets       _cpowerup          thingflags=0x400 model3d=cbnpk5.3do cog=pow_carbpellets_m.cog
 energycell        _powerup           thingflags=0x400 model3d=ecel.3do cog=pow_energy_m.cog
 detonator         _cpowerup          thingflags=0x400 model3d=detp.3do cog=pow_thermal_m.cog
 darkside          _powerup           thingflags=0x400 model3d=mana1.3do cog=pow_darkside.cog respawn=60

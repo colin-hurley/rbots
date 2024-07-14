@@ -115,6 +115,61 @@ int			concrifle7							local
 int			concrifle8							local
 int			concrifle9							local
 
+int			blastech0							local
+int			blastech1							local
+int			blastech2							local
+int			blastech3							local
+int			blastech4							local
+int			blastech5							local
+int			blastech6							local
+int			blastech7							local
+int			blastech8							local
+int			blastech9							local
+
+int			stscope0							local
+int			stscope1							local
+int			stscope2							local
+int			stscope3							local
+int			stscope4							local
+int			stscope5							local
+int			stscope6							local
+int			stscope7							local
+int			stscope8							local
+int			stscope9							local
+
+int			flashbombs0							local
+int			flashbombs1							local
+int			flashbombs2							local
+int			flashbombs3							local
+int			flashbombs4							local
+int			flashbombs5							local
+int			flashbombs6							local
+int			flashbombs7							local
+int			flashbombs8							local
+int			flashbombs9							local
+
+int			railseeker0							local
+int			railseeker1							local
+int			railseeker2							local
+int			railseeker3							local
+int			railseeker4							local
+int			railseeker5							local
+int			railseeker6							local
+int			railseeker7							local
+int			railseeker8							local
+int			railseeker9							local
+
+int			carbogun0							local
+int			carbogun1							local
+int			carbogun2							local
+int			carbogun3							local
+int			carbogun4							local
+int			carbogun5							local
+int			carbogun6							local
+int			carbogun7							local
+int			carbogun8							local
+int			carbogun9							local
+
 int			energy0								local
 int			energy1								local
 int			energy2								local
@@ -147,6 +202,28 @@ int			railcharges6						local
 int			railcharges7						local
 int			railcharges8						local
 int			railcharges9						local
+
+int			seekercharges0						local
+int			seekercharges1						local
+int			seekercharges2						local
+int			seekercharges3						local
+int			seekercharges4						local
+int			seekercharges5						local
+int			seekercharges6						local
+int			seekercharges7						local
+int			seekercharges8						local
+int			seekercharges9						local
+
+flex		carbopellets0						local
+flex		carbopellets1						local
+flex		carbopellets2						local
+flex		carbopellets3						local
+flex		carbopellets4						local
+flex		carbopellets5						local
+flex		carbopellets6						local
+flex		carbopellets7						local
+flex		carbopellets8						local
+flex		carbopellets9						local
 
 # Transient working vars
 int			i									local
@@ -260,32 +337,46 @@ fill_backpack:
 			{
 				if (GetThingType(player) == 2) // bot
 				{
-					bryar0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231006, 2, -1, -1);
-					strifle0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 3, -1, -1);
-					thermdets0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 4, -1, -1);
-					bowcaster0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 5, -1, -1);
-					repeater0[i]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 6, -1, -1);
-					raildet0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 7, -1, -1);
-					seqcharges0[i]  = SendMessageEx(GetThingClassCog(player), user7, 10231006, 8, -1, -1);
-					concrifle0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231006, 9, -1, -1);
-					energy0[i]      = SendMessageEx(GetThingClassCog(player), user7, 10231002, -1, -1, -1);
-					power0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231003, -1, -1, -1);
-					railcharges0[i] = SendMessageEx(GetThingClassCog(player), user7, 10231005, -1, -1, -1);
+					bryar0[i]         = SendMessageEx(GetThingClassCog(player), user7, 10231006, 2, -1, -1);
+					strifle0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231006, 3, -1, -1);
+					thermdets0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 4, -1, -1);
+					bowcaster0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 5, -1, -1);
+					repeater0[i]      = SendMessageEx(GetThingClassCog(player), user7, 10231006, 6, -1, -1);
+					raildet0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231006, 7, -1, -1);
+					seqcharges0[i]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 8, -1, -1);
+					concrifle0[i]     = SendMessageEx(GetThingClassCog(player), user7, 10231006, 9, -1, -1);
+					blastech0[i]      = SendMessageEx(GetThingClassCog(player), user7, 10231006, 12, -1, -1);
+					stscope0[i]       = SendMessageEx(GetThingClassCog(player), user7, 10231006, 13, -1, -1);
+					flashbombs0[i]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 14, -1, -1);
+					railseeker0[i]    = SendMessageEx(GetThingClassCog(player), user7, 10231006, 17, -1, -1);
+					carbogun0[i]      = SendMessageEx(GetThingClassCog(player), user7, 10231006, 20, -1, -1);
+					energy0[i]        = SendMessageEx(GetThingClassCog(player), user7, 10231002, -1, -1, -1);
+					power0[i]         = SendMessageEx(GetThingClassCog(player), user7, 10231003, -1, -1, -1);
+					railcharges0[i]   = SendMessageEx(GetThingClassCog(player), user7, 10231005, -1, -1, -1);
+					seekercharges0[i] = SendMessageEx(GetThingClassCog(player), user7, 10231008, -1, -1, -1);
+					carbopellets0[i]  = SendMessageEx(GetThingClassCog(player), user7, 10231009, -1, -1, -1);
 				}
 
 				if (GetThingType(player) == 10) // player
 				{
-					bryar0[i]       = GetInv(player, 122);
-					strifle0[i]     = GetInv(player, 123);
-					thermdets0[i]   = GetInv(player, 124);
-					bowcaster0[i]   = GetInv(player, 135);
-					repeater0[i]    = GetInv(player, 126);
-					raildet0[i]     = GetInv(player, 127);
-					seqcharges0[i]  = GetInv(player, 128);
-					concrifle0[i]   = GetInv(player, 129);
-					energy0[i]      = GetInv(player, 11);
-					power0[i]       = GetInv(player, 12);
-					railcharges0[i] = GetInv(player, 15);
+					bryar0[i]         = GetInv(player, 122);
+					strifle0[i]       = GetInv(player, 123);
+					thermdets0[i]     = GetInv(player, 124);
+					bowcaster0[i]     = GetInv(player, 135);
+					repeater0[i]      = GetInv(player, 126);
+					raildet0[i]       = GetInv(player, 127);
+					seqcharges0[i]    = GetInv(player, 128);
+					concrifle0[i]     = GetInv(player, 129);
+					blastech0[i]      = GetInv(player, 132);
+					stscope0[i]       = GetInv(player, 133);
+					flashbombs0[i]    = GetInv(player, 134);
+					railseeker0[i]    = GetInv(player, 137);
+					carbogun0[i]      = GetInv(player, 140);
+					energy0[i]        = GetInv(player, 11);
+					power0[i]         = GetInv(player, 12);
+					railcharges0[i]   = GetInv(player, 15);
+					seekercharges0[i] = GetInv(player, 91);
+					carbopellets0[i]  = GetInv(player, 90);
 				}
 			}
 
@@ -314,9 +405,16 @@ pickup_backpack:
 					SendMessageEx(GetThingClassCog(player), user7, 10232506, 7, raildet0[i], -1);
 					SendMessageEx(GetThingClassCog(player), user7, 10232506, 8, seqcharges0[i], -1);
 					SendMessageEx(GetThingClassCog(player), user7, 10232506, 9, concrifle0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 12, blastech0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 13, stscope0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 14, flashbombs0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 17, railseeker0[i], -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232506, 20, carbogun0[i], -1);
 					SendMessageEx(GetThingClassCog(player), user7, 10232502, energy0[i], -1, -1);
 					SendMessageEx(GetThingClassCog(player), user7, 10232503, power0[i], -1, -1);
 					SendMessageEx(GetThingClassCog(player), user7, 10232505, railcharges0[i], -1, -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232508, seekercharges0[i], -1, -1);
+					SendMessageEx(GetThingClassCog(player), user7, 10232509, carbopellets0[i], -1, -1);
 				}
 
 				if (GetThingType(player) == 10) // player
@@ -328,11 +426,18 @@ pickup_backpack:
 					ChangeInv(player, 126, repeater0[i]);
 					ChangeInv(player, 127, raildet0[i]);
 					ChangeInv(player, 128, seqcharges0[i]);
-					if (seqcharges0[i] > 0) ChangeInv(player, 138, 1); // sequencer charge manual mode
 					ChangeInv(player, 129, concrifle0[i]);
+					ChangeInv(player, 132, blastech0[i]);
+					ChangeInv(player, 133, stscope0[i]);
+					ChangeInv(player, 134, flashbombs0[i]);
+					ChangeInv(player, 137, railseeker0[i]);
+					if (seqcharges0[i] > 0) ChangeInv(player, 138, 1); // sequencer charge manual mode
+					ChangeInv(player, 140, carbogun0[i]);
 					ChangeInv(player, 11, energy0[i]);
 					ChangeInv(player, 12, power0[i]);
 					ChangeInv(player, 15, railcharges0[i]);
+					ChangeInv(player, 91, seekercharges0[i]);
+					ChangeInv(player, 90, carbopellets0[i]);
 				}
 			}
 

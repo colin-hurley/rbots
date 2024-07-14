@@ -1,4 +1,4 @@
-# Rbot Server Cog - Force Powers
+# Rbot Server Cog - Force Powers (MotS variant)
 #
 # Server-only
 # Type ID: 1022
@@ -98,6 +98,7 @@ int			damagetype							local
 int			priority							local
 thing		potential							local
 flex		movespeed							local
+int			frozenNow							local
 
 end
 
@@ -193,6 +194,8 @@ trigger:
 
 		if (bin == 24) // Force Pull
 		{
+			frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
+			if (frozenNow) return; // frozen in carbonite, immune to pull
 			if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
 			item = SendMessageEx(srv, user7, 10233003, -1, -1, -1); // ask srv-weapons to drop the current weapon
 			if (item != -1)
@@ -206,6 +209,8 @@ trigger:
 
 		if (bin == 27) // Force Blinding
 		{
+			frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
+			if (frozenNow) return; // frozen in carbonite, immune to blinding
 			if (BitTest(forcemode, 0x8)) return; // force seeing makes bot immume to blinding
 			if(GetActorFlags(rbot) & 0x800) return; // bot already blind
 			SetActorFlags(rbot, 0x800); // blind bot
@@ -215,6 +220,8 @@ trigger:
 
 		if (bin == 31) // Force Grip
 		{
+			frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
+			if (frozenNow) return; // frozen in carbonite, immune to grip
 			if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
 			griptrackID = PlayMode(rbot, 25); // make rbot play 'gripped' key
 			SetActorFlags(rbot, 0x40000); // gripped/immobilized
@@ -563,6 +570,16 @@ user7:
 		call stop_force_grip;
 		call stop_force_lightning;
 		call stop_force_destruction;
+		call stop_force_deadlysight;
+
+		ReturnEx(0);
+		return;
+	}
+
+	if (GetParam(0) == 10223008) // frozen in carbonite
+	{
+		// Stop certain force powers
+		call stop_force_grip;
 		call stop_force_deadlysight;
 
 		ReturnEx(0);

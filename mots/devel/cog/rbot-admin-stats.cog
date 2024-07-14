@@ -1,4 +1,4 @@
-# Rbot Administration Cog - Stats
+# Rbot Administration Cog - Stats (MotS variant)
 #
 # This utility will display stats for the selected bot.
 #
@@ -126,6 +126,11 @@ pulse:
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 8, -1, -1), ", seq:%2d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 9, -1, -1), ", con:%d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 10, -1, -1), ", sab:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 12, -1, -1), ", bls:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 13, -1, -1), ", sts:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 14, -1, -1), ", fls:%2d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 17, -1, -1), ", skr:%d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231006, 20, -1, -1), ", cbn:%d");
 		jkStringOutput(-1, -1);
 
 		// Line 3
@@ -136,6 +141,8 @@ pulse:
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231002, -1, -1, -1), ", Energy: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231003, -1, -1, -1), ", Power: %3d");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231005, -1, -1, -1), ", Raildets: %2d");
+		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231008, -1, -1, -1), ", S.Raildets: %2d");
+		jkStringConcatFormattedFlex(SendMessageEx(srv, user7, 10231009, -1, -1, -1), ", Carbonite: %0.1f");
 		jkStringConcatFormattedInt(SendMessageEx(srv, user7, 10231007, -1, -1, -1), ", Pboost: %d");
 		jkStringOutput(-1, -1);
 

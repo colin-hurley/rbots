@@ -14,22 +14,41 @@ message		startup
 message		user7
 
 int			skinid=0
+int			sabercolor=0
 
 # The template to create the bot
 template	rtemp=rbot_kylered
 
 # Weapon mesh models
-model		weapmesh0=sabg.3do
-model		weapmesh1=fistg.3do
-model		weapmesh2=bryg.3do
-model		weapmesh3=strg.3do
-model		weapmesh4=detg.3do
-model		weapmesh5=bowg.3do
-model		weapmesh6=rptg.3do
-model		weapmesh7=rldg.3do
-model		weapmesh8=seqg.3do
-model		weapmesh9=cong.3do
-model		weapmesh10=sabgred.3do
+model		weapmesh0=sabg.3do					local
+model		weapmesh1=fistg.3do					local
+model		weapmesh2=bryg.3do					local
+model		weapmesh3=strg.3do					local
+model		weapmesh4=detg.3do					local
+model		weapmesh5=bowg.3do					local
+model		weapmesh6=rptg.3do					local
+model		weapmesh7=rldg.3do					local
+model		weapmesh8=seqg.3do					local
+model		weapmesh9=cong.3do					local
+model		weapmesh10=sabg.3do					local
+model		weapmesh11=fistg.3do				local
+model		weapmesh12=blsg.3do					local
+model		weapmesh13=sscg.3do					local
+model		weapmesh14=flsg.3do					local
+model		weapmesh15=fistg.3do				local
+model		weapmesh16=fistg.3do				local
+model		weapmesh17=skrg.3do					local
+model		weapmesh18=fistg.3do				local
+model		weapmesh19=fistg.3do				local
+model		weapmesh20=cbng.3do					local
+
+# Switched on lightsaber weapon mesh models
+model		sabermesh0=sabgred.3do				local
+model		sabermesh1=sabgblue.3do				local
+model		sabermesh2=sabggreen.3do			local
+model		sabermesh3=sabgorange.3do			local
+model		sabermesh4=sabgpurple.3do			local
+model		sabermesh5=sabgyellow.3do			local
 
 # Transient working vars
 thing		rbot								local
@@ -45,6 +64,12 @@ startup:
 
 	// Allow other server-side cogs to discover this one by its type
 	SendTrigger(-1, 1852000, 1030, GetSelfCog(), skinid, -1);
+
+	// Initialize lightsaber weapon mesh to specified color
+	if (0 <= sabercolor && sabercolor <= 5)
+	{
+		weapmesh10 = sabermesh0[sabercolor];
+	}
 
 	return;
 

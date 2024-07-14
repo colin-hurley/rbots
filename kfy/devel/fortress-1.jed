@@ -15263,131 +15263,131 @@ rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1
 rbot-srv.cog botid:int=0 botname:int=509 botskinid:int=0 teambotname:int=-1
 rbot-srv-force.cog botid:int=0 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=0
-rbot-skin.cog skinid:int=0 rtemp:template=rbot_vader weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=0 sabercolor:int=0 rtemp:template=rbot_vader
 rbot-srv.cog botid:int=1 botname:int=508 botskinid:int=1 teambotname:int=-1
 rbot-srv-force.cog botid:int=1 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=1
-rbot-skin.cog skinid:int=1 rtemp:template=rbot_luke weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=1 sabercolor:int=2 rtemp:template=rbot_luke
 rbot-srv.cog botid:int=2 botname:int=506 botskinid:int=2 teambotname:int=-1
 rbot-srv-force.cog botid:int=2 forceflags:int=255
 rbot-srv-weapons.cog botid:int=2
-rbot-skin.cog skinid:int=2 rtemp:template=rbot_marajade weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgpurple.3do
+rbot-skin.cog skinid:int=2 sabercolor:int=4 rtemp:template=rbot_marajade
 rbot-srv.cog botid:int=3 botname:int=504 botskinid:int=3 teambotname:int=-1
 rbot-srv-force.cog botid:int=3 forceflags:int=255
 rbot-srv-weapons.cog botid:int=3
-rbot-skin.cog skinid:int=3 rtemp:template=rbot_darkkyle weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgorange.3do
+rbot-skin.cog skinid:int=3 sabercolor:int=3 rtemp:template=rbot_darkkyle
 rbot-srv.cog botid:int=4 botname:int=526 botskinid:int=4 teambotname:int=-1
 rbot-srv-force.cog botid:int=4 forceflags:int=255
 rbot-srv-weapons.cog botid:int=4
-rbot-skin.cog skinid:int=4 rtemp:template=rbot_weequay weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgorange.3do
+rbot-skin.cog skinid:int=4 sabercolor:int=3 rtemp:template=rbot_weequay
 rbot-srv.cog botid:int=5 botname:int=512 botskinid:int=5 teambotname:int=-1
 rbot-srv-force.cog botid:int=5 forceflags:int=255
 rbot-srv-weapons.cog botid:int=5
-rbot-skin.cog skinid:int=5 rtemp:template=rbot_pirate weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=5 sabercolor:int=1 rtemp:template=rbot_pirate
 rbot-srv.cog botid:int=6 botname:int=524 botskinid:int=6 teambotname:int=-1
 rbot-srv-force.cog botid:int=6 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=6
-rbot-skin.cog skinid:int=6 rtemp:template=rbot_pirate2 weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-skin.cog skinid:int=6 sabercolor:int=5 rtemp:template=rbot_pirate2
 rbot-srv.cog botid:int=7 botname:int=507 botskinid:int=7 teambotname:int=-1
 rbot-srv-force.cog botid:int=7 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=7
-rbot-skin.cog skinid:int=7 rtemp:template=rbot_darkmara weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=7 sabercolor:int=0 rtemp:template=rbot_darkmara
 rbot-srv.cog botid:int=8 botname:int=546 botskinid:int=8 teambotname:int=-1
 rbot-srv-force.cog botid:int=8 forceflags:int=255
 rbot-srv-weapons.cog botid:int=8
-rbot-skin.cog skinid:int=8 rtemp:template=rbot_rebsoldier weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=8 sabercolor:int=2 rtemp:template=rbot_rebsoldier
 rbot-srv.cog botid:int=9 botname:int=548 botskinid:int=9 teambotname:int=-1
 rbot-srv-force.cog botid:int=9 forceflags:int=255
 rbot-srv-weapons.cog botid:int=9
-rbot-skin.cog skinid:int=9 rtemp:template=rbot_atatpilot weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=9 sabercolor:int=2 rtemp:template=rbot_atatpilot
 rbot-srv.cog botid:int=10 botname:int=528 botskinid:int=10 teambotname:int=-1
 rbot-srv-force.cog botid:int=10 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=10
-rbot-skin.cog skinid:int=10 rtemp:template=rbot_scouttroop weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=10 sabercolor:int=1 rtemp:template=rbot_scouttroop
 rbot-srv.cog botid:int=11 botname:int=547 botskinid:int=11 teambotname:int=-1
 rbot-srv-force.cog botid:int=11 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=11
-rbot-skin.cog skinid:int=11 rtemp:template=rbot_tiepilot weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=11 sabercolor:int=1 rtemp:template=rbot_tiepilot
 rbot-srv.cog botid:int=12 botname:int=550 botskinid:int=12 teambotname:int=-1
 rbot-srv-force.cog botid:int=12 forceflags:int=255
 rbot-srv-weapons.cog botid:int=12
-rbot-skin.cog skinid:int=12 rtemp:template=rbot_rebcomander weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgpurple.3do
+rbot-skin.cog skinid:int=12 sabercolor:int=4 rtemp:template=rbot_rebcomander
 rbot-srv.cog botid:int=13 botname:int=510 botskinid:int=13 teambotname:int=-1
 rbot-srv-force.cog botid:int=13 forceflags:int=255
 rbot-srv-weapons.cog botid:int=13
-rbot-skin.cog skinid:int=13 rtemp:template=rbot_bobafett weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgorange.3do
+rbot-skin.cog skinid:int=13 sabercolor:int=3 rtemp:template=rbot_bobafett
 rbot-srv.cog botid:int=14 botname:int=515 botskinid:int=14 teambotname:int=-1
 rbot-srv-force.cog botid:int=14 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=14
-rbot-skin.cog skinid:int=14 rtemp:template=rbot_greedo weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-skin.cog skinid:int=14 sabercolor:int=5 rtemp:template=rbot_greedo
 rbot-srv.cog botid:int=15 botname:int=512 botskinid:int=15 teambotname:int=-1
 rbot-srv-force.cog botid:int=15 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=15
-rbot-skin.cog skinid:int=15 rtemp:template=rbot_tusken weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=15 sabercolor:int=2 rtemp:template=rbot_tusken
 rbot-srv.cog botid:int=16 botname:int=528 botskinid:int=16 teambotname:int=-1
 rbot-srv-force.cog botid:int=16 forceflags:int=255
 rbot-srv-weapons.cog botid:int=16
-rbot-skin.cog skinid:int=16 rtemp:template=rbot_commando weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgpurple.3do
+rbot-skin.cog skinid:int=16 sabercolor:int=4 rtemp:template=rbot_commando
 rbot-srv.cog botid:int=17 botname:int=524 botskinid:int=17 teambotname:int=-1
 rbot-srv-force.cog botid:int=17 forceflags:int=255
 rbot-srv-weapons.cog botid:int=17
-rbot-skin.cog skinid:int=17 rtemp:template=rbot_trooper weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=17 sabercolor:int=1 rtemp:template=rbot_trooper
 rbot-srv.cog botid:int=18 botname:int=502 botskinid:int=18 teambotname:int=-1
 rbot-srv-force.cog botid:int=18 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=18
-rbot-skin.cog skinid:int=18 rtemp:template=rbot_jerec weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=18 sabercolor:int=0 rtemp:template=rbot_jerec
 rbot-srv.cog botid:int=19 botname:int=501 botskinid:int=19 teambotname:int=-1
 rbot-srv-force.cog botid:int=19 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=19
-rbot-skin.cog skinid:int=19 rtemp:template=rbot_sariss weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=19 sabercolor:int=1 rtemp:template=rbot_sariss
 rbot-srv.cog botid:int=20 botname:int=500 botskinid:int=20 teambotname:int=-1
 rbot-srv-force.cog botid:int=20 forceflags:int=255
 rbot-srv-weapons.cog botid:int=20
-rbot-skin.cog skinid:int=20 rtemp:template=rbot_yun weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-skin.cog skinid:int=20 sabercolor:int=5 rtemp:template=rbot_yun
 rbot-srv.cog botid:int=21 botname:int=517 botskinid:int=21 teambotname:int=-1
 rbot-srv-force.cog botid:int=21 forceflags:int=255
 rbot-srv-weapons.cog botid:int=21
-rbot-skin.cog skinid:int=21 rtemp:template=rbot_jan weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=21 sabercolor:int=2 rtemp:template=rbot_jan
 rbot-srv.cog botid:int=22 botname:int=511 botskinid:int=22 teambotname:int=-1
 rbot-srv-force.cog botid:int=22 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=22
-rbot-skin.cog skinid:int=22 rtemp:template=rbot_bossk weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgorange.3do
+rbot-skin.cog skinid:int=22 sabercolor:int=3 rtemp:template=rbot_bossk
 rbot-srv.cog botid:int=23 botname:int=516 botskinid:int=23 teambotname:int=-1
 rbot-srv-force.cog botid:int=23 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=23
-rbot-skin.cog skinid:int=23 rtemp:template=rbot_abronmar weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-skin.cog skinid:int=23 sabercolor:int=5 rtemp:template=rbot_abronmar
 rbot-srv.cog botid:int=24 botname:int=525 botskinid:int=24 teambotname:int=-1
 rbot-srv-force.cog botid:int=24 forceflags:int=255
 rbot-srv-weapons.cog botid:int=24
-rbot-skin.cog skinid:int=24 rtemp:template=rbot_admiral weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgyellow.3do
+rbot-skin.cog skinid:int=24 sabercolor:int=5 rtemp:template=rbot_admiral
 rbot-srv.cog botid:int=25 botname:int=529 botskinid:int=25 teambotname:int=-1
 rbot-srv-force.cog botid:int=25 forceflags:int=255
 rbot-srv-weapons.cog botid:int=25
-rbot-skin.cog skinid:int=25 rtemp:template=rbot_redeye weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=25 sabercolor:int=0 rtemp:template=rbot_redeye
 rbot-srv.cog botid:int=26 botname:int=530 botskinid:int=26 teambotname:int=-1
 rbot-srv-force.cog botid:int=26 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=26
-rbot-skin.cog skinid:int=26 rtemp:template=rbot_cyborg weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=26 sabercolor:int=2 rtemp:template=rbot_cyborg
 rbot-srv.cog botid:int=27 botname:int=549 botskinid:int=27 teambotname:int=-1
 rbot-srv-force.cog botid:int=27 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=27
-rbot-skin.cog skinid:int=27 rtemp:template=rbot_rebofficer weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgorange.3do
+rbot-skin.cog skinid:int=27 sabercolor:int=3 rtemp:template=rbot_rebofficer
 rbot-srv.cog botid:int=28 botname:int=505 botskinid:int=28 teambotname:int=-1
 rbot-srv-force.cog botid:int=28 forceflags:int=255
 rbot-srv-weapons.cog botid:int=28
-rbot-skin.cog skinid:int=28 rtemp:template=rbot_rahn weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=28 sabercolor:int=0 rtemp:template=rbot_rahn
 rbot-srv.cog botid:int=29 botname:int=518 botskinid:int=29 teambotname:int=-1
 rbot-srv-force.cog botid:int=29 forceflags:int=255
 rbot-srv-weapons.cog botid:int=29
-rbot-skin.cog skinid:int=29 rtemp:template=rbot_kaerrobanii weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgred.3do
+rbot-skin.cog skinid:int=29 sabercolor:int=0 rtemp:template=rbot_kaerrobanii
 rbot-srv.cog botid:int=30 botname:int=525 botskinid:int=30 teambotname:int=-1
 rbot-srv-force.cog botid:int=30 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=30
-rbot-skin.cog skinid:int=30 rtemp:template=rbot_officer weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabggreen.3do
+rbot-skin.cog skinid:int=30 sabercolor:int=2 rtemp:template=rbot_officer
 rbot-srv.cog botid:int=31 botname:int=532 botskinid:int=31 teambotname:int=-1
 rbot-srv-force.cog botid:int=31 forceflags:int=7695
 rbot-srv-weapons.cog botid:int=31
-rbot-skin.cog skinid:int=31 rtemp:template=rbot_silver weapmesh0:model=sabg.3do weapmesh1:model=fistg.3do weapmesh2:model=bryg.3do weapmesh3:model=strg.3do weapmesh4:model=detg.3do weapmesh5:model=bowg.3do weapmesh6:model=rptg.3do weapmesh7:model=rldg.3do weapmesh8:model=seqg.3do weapmesh9:model=cong.3do weapmesh10:model=sabgblue.3do
+rbot-skin.cog skinid:int=31 sabercolor:int=1 rtemp:template=rbot_silver
 rbot-nav.cog dflt_nodesize:flex=0.2
 rbot-nav-special.cog navsp0:thing=165 navsp1:thing=164 navsp2:thing=174 navsp3:thing=175 navsp4:thing=-1 navsp5:thing=-1 navsp6:thing=-1 navsp7:thing=-1 navsp8:thing=-1 navsp9:thing=-1 navsp10:thing=-1 navsp11:thing=-1 navsp12:thing=-1 navsp13:thing=-1 navsp14:thing=-1 navsp15:thing=-1 navsp16:thing=-1 navsp17:thing=-1 navsp18:thing=-1 navsp19:thing=-1 navspinf0:int=1 navspinf1:int=1 navspinf2:int=1 navspinf3:int=1 navspinf4:int=0 navspinf5:int=0 navspinf6:int=0 navspinf7:int=0 navspinf8:int=0 navspinf9:int=0 navspinf10:int=0 navspinf11:int=0 navspinf12:int=0 navspinf13:int=0 navspinf14:int=0 navspinf15:int=0 navspinf16:int=0 navspinf17:int=0 navspinf18:int=0 navspinf19:int=0
 rbot-path.cog pathid:int=0 node0:thing=142 node1:thing=143 node2:thing=263 node3:thing=144 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 kfyrank:int=3 kfyrundir:int=1

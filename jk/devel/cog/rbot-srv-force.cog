@@ -181,58 +181,6 @@ trigger:
 		return;
 	}
 
-	// This should behave very similarly to the player cog's skill message
-	if (GetSourceRef() == 101999) // handle the "skill" trigger (force power used against bot)
-	{
-		if (rbot == -1 || GetParam(0) != rbot) return; // not for this bot
-		if (GetThingHealth(rbot) <= 0) return; // bot is dead
-
-		enemy = GetParam(1);
-		bin = GetParam(2);
-		rank = GetParam(3);
-
-		if (bin == 24) // Force Pull
-		{
-			if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
-			item = SendMessageEx(srv, user7, 10233003, -1, -1, -1); // ask srv-weapons to drop the current weapon
-			if (item != -1)
-			{
-				SetTimerEx(0.2, 524, item, -1); // Make the powerup collide later
-				SetTimerEx(0.25, 524, item, -1); // Duplicate for internet games
-				ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
-			}
-			return;
-		}
-
-		if (bin == 27) // Force Blinding
-		{
-			if (BitTest(forcemode, 0x8)) return; // force seeing makes bot immume to blinding
-			if(GetActorFlags(rbot) & 0x800) return; // bot already blind
-			SetActorFlags(rbot, 0x800); // blind bot
-			SetTimerEx(4 * rank, 527, -1, -1); // remove blind effect later
-			return;
-		}
-
-		if (bin == 31) // Force Grip
-		{
-			if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
-			griptrackID = PlayMode(rbot, 25); // make rbot play 'gripped' key
-			SetActorFlags(rbot, 0x40000); // gripped/immobilized
-			DamageThing(rbot, 2 * rank, 0x8, enemy);
-			SetTimerEx(0.5, 531, rbot, -1); // remove gripped effect later
-			return;
-		}
-
-		if (bin == 34) // Force Deadly Sight
-		{
-			DamageThing(rbot, 4 * rank, 0x8, enemy);
-			CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
-			return;
-		}
-
-		return;
-	}
-
 	return;
 
 timer:
@@ -323,7 +271,7 @@ timer:
 			return;
 		}
 		gripsleft = gripsleft - 1;
-		SendTrigger(-1, 101999, target, rbot, 31, rank); // send "skill" trigger to target
+		SendMessageEx(GetThingClassCog(target), skill, 31, rank, target, rbot);
 		PlaySoundThing(gripSound, target, 1.0, -1, -1, 0x80);
 		SetTimerEx(0.5, 31, target, -1); // schedule next grip "pulse"
 		return;
@@ -343,7 +291,7 @@ timer:
 		{
 			if (HasLOS(rbot, enemy) && (enemy != rbot) && !(GetThingFlags(enemy) & 0x200))
 			{
-				SendTrigger(-1, 101999, enemy, rbot, 34, rank); // send "skill" trigger to target
+				SendMessageEx(GetThingClassCog(enemy), skill, 34, rank, enemy, rbot);
 			}
 			enemy = NextThingInView();
 		}
@@ -502,7 +450,55 @@ skill:
 		return;
 	}
 
-	# TODO refactor skill trigger to be handled here instead
+	bin = GetParam(0);
+	rank = GetParam(1);
+	enemy = GetParam(3);
+
+	ReturnEx(0);
+
+	if (bin == 24) // Force Pull
+	{
+		if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
+		item = SendMessageEx(srv, user7, 10233003, -1, -1, -1); // ask srv-weapons to drop the current weapon
+		if (item != -1)
+		{
+			SetTimerEx(0.2, 524, item, -1); // Make the powerup collide later
+			SetTimerEx(0.25, 524, item, -1); // Duplicate for internet games
+			ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
+			ReturnEx(1);
+		}
+		return;
+	}
+
+	if (bin == 27) // Force Blinding
+	{
+		if (BitTest(forcemode, 0x8)) return; // force seeing makes bot immume to blinding
+		if(GetActorFlags(rbot) & 0x800) return; // bot already blind
+		SetActorFlags(rbot, 0x800); // blind bot
+		SetTimerEx(4 * rank, 527, -1, -1); // remove blind effect later
+		ReturnEx(1);
+		return;
+	}
+
+	if (bin == 31) // Force Grip
+	{
+		if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
+		griptrackID = PlayMode(rbot, 25); // make rbot play 'gripped' key
+		SetActorFlags(rbot, 0x40000); // gripped/immobilized
+		DamageThing(rbot, 2 * rank, 0x8, enemy);
+		SetTimerEx(0.5, 531, rbot, -1); // remove gripped effect later
+		ReturnEx(1);
+		return;
+	}
+
+	if (bin == 34) // Force Deadly Sight
+	{
+		DamageThing(rbot, 4 * rank, 0x8, enemy);
+		CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
+		ReturnEx(1);
+		return;
+	}
+
 	ReturnEx(-1);
 	return;
 
@@ -725,7 +721,7 @@ force_pull:
 	// Activate power
 	PlayMode(rbot, 24); // play 'force attack' key
 	PlaySoundThing(pullSound, rbot, 1.0, -1, -1, 0x80); // play 'pull' sound
-	SendTrigger(-1, 101999, target, rbot, 24, rank); // send "skill" trigger to target
+	SendMessageEx(GetThingClassCog(target), skill, 24, rank, target, rbot);
 	return;
 
 stop_force_pull:
@@ -859,7 +855,7 @@ force_blinding:
 	PlaySoundThing(blindingSound, rbot, 1.0, -1, -1, 0x80);
 	sparkle = CreateThingAtPosNR(f_blinding_tpl, GetThingSector(rbot), VectorAdd(GetThingPos(rbot), '0.0 0.0 0.04'), '0.0 0.0 0.0');
 	SetThingLook(sparkle, VectorSub(GetThingPos(target), GetThingPos(rbot)));
-	SendTrigger(-1, 101999, target, rbot, 27, rank); // send "skill" trigger to target
+	SendMessageEx(GetThingClassCog(target), skill, 27, rank, target, rbot);
 	return;
 
 stop_force_blinding:
@@ -997,7 +993,7 @@ force_grip:
 	PlayMode(rbot, 24);
 	gripsleft = 1 + rank * 2; // how many grip "pulses" we can do
 	starthealth = GetThingHealth(rbot); // we need to stop the power if the bot takes any health damage
-	SendTrigger(-1, 101999, target, rbot, 31, rank); // send "skill" trigger to target
+	SendMessageEx(GetThingClassCog(target), skill, 31, rank, target, rbot);
 	KillTimerEx(31);
 	SetTimerEx(0.1, 31, target, -1); // schedule the first grip "pulse"
 	return;

@@ -140,9 +140,9 @@ deactivated:
          dummy = CreateThingAtPosNR(cone_tpl, GetThingSector(player), VectorAdd(GetThingPos(player), '0.0 0.0 0.04'), '0.0 0.0 0.0');
          SetThingLook(dummy, VectorSub(GetThingPos(victim), GetThingPos(player)));
 
-         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         // Hacked for Rbots - send the same skill message for both players and bots
          if(!(GetThingFlags(victim) & 0x200))
-            SendTrigger(-1, 101999, victim, player, 27, rank); // send "skill" trigger to player/bot
+            SendMessageEx(GetThingClassCog(victim), skill, 27, rank, victim, player);
       }
    }
 

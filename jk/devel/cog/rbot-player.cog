@@ -77,10 +77,10 @@ message     killed
 message     newplayer
 message     timer
 message     blocked
+message		skill
 message     damaged
 message     splash
 message     user0
-message		trigger
 
 end
 
@@ -313,17 +313,26 @@ user0:
 
 # ........................................................................................
 
-// Because SkillTarget does not send the "skill" message to the player on the local machine,
-// SkillTarget cannot be used to trigger force powers by bots against the player.  We use
-// a "skill" trigger to work around this limitation.
-skill_trigger:
+skill:
+	if (GetSenderType() == 3) // sender is a thing
+	{
+		// If the sender is a thing, that means we were called with SkillTarget().
+		sender = GetSenderRef();
+		source = GetSourceRef();
+	}
+	else
+	{
+		// Otherwise, we were called with SendMessageEx
+		sender = GetParam(2);
+		source = GetParam(3);
+	}
+
    // player might be dead when skill: arrives over the net...
    if(GetThingHealth(player) <= 0) Return;
 
    // Handle multiplayer force power effects
-   source = GetParam(1);
-   bin = GetParam(2);
-   rank = GetParam(3);
+   bin = GetParam(0);
+   rank = GetParam(1);
 
    if(bin == 24)                             // Force Pull
    {
@@ -530,14 +539,6 @@ init_multi_kyle:
    SelectWeapon(player, AutoSelectWeapon(player, 1));
 
    Return;
-
-trigger:
-	if (GetSourceRef() == 101999 && GetParam(0) == player) // skill trigger for the local player
-	{
-		call skill_trigger;
-		return;
-	}
-	return;
 
 end
 

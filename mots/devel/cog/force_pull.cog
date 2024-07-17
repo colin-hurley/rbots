@@ -182,11 +182,11 @@ deactivated:
 
          throwThing = -1;
          type = GetThingType(victim);
-         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         // Hacked for Rbots - send the same skill message for both players and bots
          if(type == 2 || type == 10)         // ACTOR or PLAYER
          {
             if(!(GetThingFlags(victim) & 0x200))
-               SendTrigger(-1, 101999, victim, player, 24, rank); // send "skill" trigger to bot
+               SendMessageEx(GetThingClassCog(victim), skill, 24, rank, victim, player);
             SetInvActivated(player, 24, 0);
             Return;
          }

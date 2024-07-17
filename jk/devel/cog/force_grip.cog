@@ -104,10 +104,10 @@ deactivated:
          limit = rank * 2;
          starthealth = GetThingHealth(player);
 
-         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         // Hacked for Rbots - send the same skill message for both players and bots
          if(!(GetThingFlags(victim) & 0x200))
          {
-            SendTrigger(-1, 101999, victim, player, 31, rank); // send "skill" trigger to player/bot
+            SendMessageEx(GetThingClassCog(victim), skill, 31, rank, victim, player);
             SetPulse(0.1);
             count = 0;
             SetInvActivated(player, 31, 1);
@@ -183,9 +183,9 @@ pulse:
 
       if(HasLOS(player, victim))
       {
-         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         // Hacked for Rbots - send the same skill message for both players and bots
          if(!(GetThingFlags(victim) & 0x200))
-            SendTrigger(-1, 101999, victim, player, 31, rank); // send "skill" trigger to player/bot
+            SendMessageEx(GetThingClassCog(victim), skill, 31, rank, victim, player);
 
          PlaySoundThing(gripSound, victim, 1.0, -1, -1, 0x80);
          count = count + 1;

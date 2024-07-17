@@ -764,17 +764,26 @@ user5:
 
 # ........................................................................................
 
-// Because SkillTarget does not send the "skill" message to the player on the local machine,
-// SkillTarget cannot be used to trigger force powers by bots against the player.  We use
-// a "skill" trigger to work around this limitation.
-skill_trigger:
+skill:
+	if (GetSenderType() == 3) // sender is a thing
+	{
+		// If the sender is a thing, that means we were called with SkillTarget().
+		sender = GetSenderRef();
+		source = GetSourceRef();
+	}
+	else
+	{
+		// Otherwise, we were called with SendMessageEx
+		sender = GetParam(2);
+		source = GetParam(3);
+	}
+
    // player might be dead when skill: arrives over the net...
    if(GetThingHealth(player) <= 0) Return;
 
    // Handle multiplayer force power effects
-   source = GetParam(1);
-   bin = GetParam(2);
-   rank = GetParam(3);
+   bin = GetParam(0);
+   rank = GetParam(1);
 
    defenseFactor = 1.0;
 
@@ -941,24 +950,7 @@ skill_trigger:
       ReturnEx(1);
       Return;
    }
-
-   // TODO: need to handle remaining MotS-specific powers here
-
-   ReturnEx(-1);
-   Return;
-
-// Some MotS-only force powers still use the original skill message because bots don't use them, yet.
-// Those powers are handled here.
-skill:
-   // player might be dead when skill: arrives over the net...
-   if(GetThingHealth(player) <= 0) Return;
-
-   // Handle multiplayer force power effects
-   bin = GetParam(0);
-   rank = GetParam(1);
-
-   defenseFactor = 1.0;
-
+   else
    if (bin == 38)                            // Force Push
    {
       ReturnEx(0);
@@ -979,7 +971,7 @@ skill:
 
       defenseFactor = 1 - GetInv(player, 19) * 0.1;
 
-      ApplyForce(player, VectorScale(VectorNorm(VectorSub(GetThingPos(player),GetThingPos(GetSourceRef()))), 120 * rank * defenseFactor));
+      ApplyForce(player, VectorScale(VectorNorm(VectorSub(GetThingPos(player),GetThingPos(source))), 120 * rank * defenseFactor));
       ReturnEx(1);
       Return;
    }
@@ -994,7 +986,7 @@ skill:
       jkPrintUNIString(player, 302);
 
       // rank is actually the damage here
-      DamageThing(player, rank, 0x8, GetSourceRef());
+      DamageThing(player, rank, 0x8, source);
 
       ReturnEx(1);
       Return;
@@ -1375,11 +1367,6 @@ stop_powers:
 # ........................................................................................
 
 trigger:
-	if (GetSourceRef() == 101999 && GetParam(0) == player) // skill trigger for the local player
-	{
-		call skill_trigger;
-		return;
-	}
 
    // TRIGGER_CARBXPLODE
    if(GetSourceRef() == 99001)

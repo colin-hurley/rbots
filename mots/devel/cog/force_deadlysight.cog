@@ -127,10 +127,10 @@ pulse:
          (jkGetBubbleDistance(victim) > 1.0)
         )
       {
-         // Hacked for Rbots - use "skill" trigger to handle players and bots the same
+         // Hacked for Rbots - send the same skill message for both players and bots
          if(!(GetThingFlags(victim) & 0x200))
          {
-            SendTrigger(-1, 101999, victim, player, 34, rank); // send "skill" trigger to player/bot
+            SendMessageEx(GetThingClassCog(victim), skill, 34, rank, victim, player);
 
             if(victim != -1)
                ChangeSoundVol(channel, 1.0, 0.1);

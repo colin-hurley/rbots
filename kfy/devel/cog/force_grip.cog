@@ -11,6 +11,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 
 symbols
@@ -120,19 +122,47 @@ deactivated:
          limit = rank * 2;
          starthealth = GetThingHealth(player);
 
-         // Hacked for Rbots - send the same skill message for both players and bots
-         if(!(GetThingFlags(victim) & 0x200))
+         if(GetThingType(victim) == 10)
          {
-            SendMessageEx(GetThingClassCog(victim), skill, 31, rank, victim, player);
-            SetPulse(0.1);
-            count = 0;
-            SetInvActivated(player, 31, 1);
+            // Multiplayer enemies
+            if(!(GetThingFlags(victim) & 0x200))
+            {
+               retval = SkillTarget(victim, player, 31, rank);
+               SetPulse(0.1);
+               count = 0;
+               SetInvActivated(player, 31, 1);
+            }
+            else
+            {
+               Return;
+            }
          }
          else
          {
-            Return;
-         }
+            #damage = SkillTarget(victim, player, 31, 0);
+            #
+            #if(damage > 0.0)
+            #{
+            #   // Play choke animation on the victim.
+            #   PlayMode(victim, 25);
+            #   SetPulse(0.1);
+            #   count = 0;
+            #   SetInvActivated(player, 31, 1);
+            #}
 
+            // Multiplayer enemies
+            if(!(GetThingFlags(victim) & 0x200))
+            {
+               retval = SkillTarget(victim, player, 31, rank);
+               SetPulse(0.1);
+               count = 0;
+               SetInvActivated(player, 31, 1);
+            }
+            else
+            {
+               Return;
+            }
+         }
       }
    }
 
@@ -208,9 +238,23 @@ pulse:
 
       if(HasLOS(player, victim))
       {
-         // Hacked for Rbots - send the same skill message for both players and bots
-         if(!(GetThingFlags(victim) & 0x200))
-            SendMessageEx(GetThingClassCog(victim), skill, 31, rank, victim, player);
+         if(GetThingType(victim) == 10)      // OTHER PLAYER
+         {
+            // everything is done in the victim's KYLE.COG handler
+            if(!(GetThingFlags(victim) & 0x200))
+               retval = SkillTarget(victim, player, 31, rank);
+         }
+         else                                // ENEMY
+         {
+            #DamageThing(victim, damage * rank / 2, 0x8, player);
+            #// Force the victim to stay in place
+            #SetActorFlags(victim, 0x40000);
+            #// But prepare to free it again in 0.45 seconds
+            #SetTimerEx(0.45, victim, GetThingSignature(victim), 0);
+
+            if(!(GetThingFlags(victim) & 0x200))
+               retval = SkillTarget(victim, player, 31, rank);
+         }
 
          PlaySoundThing(gripSound, victim, 1.0, -1, -1, 0x80);
          count = count + 1;

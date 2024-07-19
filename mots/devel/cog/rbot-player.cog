@@ -8,6 +8,8 @@
 # [YB & CYW]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 symbols
 
@@ -155,8 +157,6 @@ int         killedByRancor=0                 local
 
 int         inbubble=0                       local
 
-template	tmp_backpack=+backpack			local
-
 message     startup
 message     killed
 message     newplayer
@@ -173,6 +173,13 @@ message     exitbubble
 message     preblock
 message     trigger
 message     shutdown
+
+# Rbots support
+thing		damager							local
+thing		killer							local
+flex		dot								local
+template	tmp_backpack=+backpack			local
+thing		item							local
 
 end
 
@@ -212,9 +219,11 @@ shutdown:
 
 killed:
    if(player != GetSenderRef()) Return;
-	killer=GetSourceRef();
+
    if(IsMulti())
    {
+		killer = GetSourceRef();
+
 		//CreateBackpack(player);
 		item = CreateThingNr(tmp_backpack, player); // create backpack
 		SendMessageEx(GetThingClassCog(item), user7, 10502010, item, player, -1); // fill backpack
@@ -261,26 +270,27 @@ killed:
 # ........................................................................................
 
 damaged:
-	damageType = GetParam (1);
-	damage = GetParam(0);
-	damager=getsourceref(); // projectile - attacker=GetThingParent()
+   damageType = GetParam (1);
+   damage = GetParam(0);
 
+	damager = GetSourceRef(); // projectile = damager, attacker = GetThingParent(damager)
+
+	// TODO: Allow shields, force armor, etc. to be drained; only prevent health damage from teammates
 	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from bot team mates
 	{
 		ReturnEx(0);
 		Return;
 	}
 
-	if (BitTest (damageType, 0x10)) // saber damage
+	if (BitTest(GetParam(1), 0x10)) // saber damage
 	{
-		if (GetThingType(getthingparent(damager)) == 2 && GetCurWeapon(player) == 11) // saber attack from bot and player has saber activated
+		if (GetThingType(GetThingParent(damager)) == 2 && GetCurWeapon(player) == 11) // saber attack from bot and player has saber activated
 		{
-			dot = ThingViewDot(player, getthingparent(getsourceref()));
-			if (dot > 0.7 && dot < 1.4) // player is facing bot
+			dot = ThingViewDot(player, GetThingParent(damager));
+			if (dot > 0.7) // player is facing bot
 			{
-				damage=0;
 				call blocked; // play saber block animations
-				ReturnEx(damage);
+				ReturnEx(0);
 				Return;
 			}
 		}

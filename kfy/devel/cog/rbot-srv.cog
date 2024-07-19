@@ -626,9 +626,6 @@ skill:
 		// If the sender is a thing, that means we were called with SkillTarget().
 		// Prepare to delegate to the other rbot-srv-*.cog files below.
 
-		// Add 500 to the 'bin' param so the delegate cog knows this is a SkillTarget() call.
-		SetParam(0, 500 + GetParam(0));
-
 		// We cannot set the sender/source with SendMessageEx(), so pass them as extra params instead.
 		SetParam(2, GetSenderRef()); // victim
 		SetParam(3, GetSourceRef()); // attacker

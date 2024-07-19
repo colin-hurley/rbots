@@ -9,6 +9,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 
 symbols
@@ -158,11 +160,34 @@ deactivated:
 
          throwThing = -1;
          type = GetThingType(victim);
-         // Hacked for Rbots - send the same skill message for both players and bots
-         if(type == 2 || type == 10)         // ACTOR or PLAYER
+         if(type == 2)                       // ACTOR
+         {
+            #if(GetActorWeapon(victim, 1) != -1)
+            #{
+            #   // Make victim drop powerup.
+            #   throwThing = SkillTarget(victim, player, 24, 0);
+            #   if(throwThing != -1)
+            #   {
+            #      SetActorWeapon(victim, 1, -1);
+            #      AmputateJoint(victim, 3);
+            #   }
+            #}
+            #else
+            #{
+            #   SetInvActivated(player, 24, 0);
+            #   Return;
+            #}
+
+            if(!(GetThingFlags(victim) & 0x200))
+               retval = SkillTarget(victim, player, 24, rank);
+            SetInvActivated(player, 24, 0);
+            Return;
+         }
+         else
+         if(type == 10)                      // OTHER PLAYER
          {
             if(!(GetThingFlags(victim) & 0x200))
-               SendMessageEx(GetThingClassCog(victim), skill, 24, rank, victim, player);
+               retval = SkillTarget(victim, player, 24, rank);
             SetInvActivated(player, 24, 0);
             Return;
          }

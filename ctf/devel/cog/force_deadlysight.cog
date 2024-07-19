@@ -9,6 +9,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 
 symbols
@@ -113,19 +115,53 @@ pulse:
          !((jkGetFlags(victim) & 0x20) && !IsInvActivated(player, 23))
         )
       {
-         // Hacked for Rbots - send the same skill message for both players and bots
-         if(!(GetThingFlags(victim) & 0x200))
+         if(GetThingType(victim) == 10)      // OTHER PLAYER
          {
-            SendMessageEx(GetThingClassCog(victim), skill, 34, rank, victim, player);
+            if(!(GetThingFlags(victim) & 0x200))
+            {
+               retval = SkillTarget(victim, player, 34, rank);
 
-            if(victim != -1)
-               ChangeSoundVol(channel, 1.0, 0.1);
-            else
-               ChangeSoundVol(channel, 0.0, 0.1);
+               if(victim != -1)
+                  ChangeSoundVol(channel, 1.0, 0.1);
+               else
+                  ChangeSoundVol(channel, 0.0, 0.1);
 
-            if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
+               if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
+            }
+
          }
+         else                                // ENEMY
+         {
+            #if(!BitTest(GetActorFlags(victim), 0x100))
+            #{
+            #   damage = SkillTarget(victim, player, 34, 0) * (rank / 2);
+            #   if(damage > 0)
+            #   {
+            #      DamageThing(victim, damage, 0x8, player);
+            #      smoke = CreateThingAtPos(smoke_tpl, GetThingSector(victim), GetThingPos(victim), '0 0 0');
+            #
+            #      if(victim != -1)
+            #         ChangeSoundVol(channel, 1.0, 0.1);
+            #      else
+            #         ChangeSoundVol(channel, 0.0, 0.1);
+            #
+            #      if(GetCurrentCamera() == 0)
+            #         AddDynamicTint(player, 0.15, 0.0, 0.07);
+            #   }
+            #}
 
+            if(!(GetThingFlags(victim) & 0x200))
+            {
+               retval = SkillTarget(victim, player, 34, rank);
+
+               if(victim != -1)
+                  ChangeSoundVol(channel, 1.0, 0.1);
+               else
+                  ChangeSoundVol(channel, 0.0, 0.1);
+
+               if(GetCurrentCamera() == 0) AddDynamicTint(player, 0.15, 0.0, 0.07);
+            }
+         }
       }
       victim = NextThingInView();
    }

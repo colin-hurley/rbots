@@ -8,6 +8,8 @@
 # [YB & CYW]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 symbols
 
@@ -60,27 +62,28 @@ keyframe    blockAnim0=KYblock0.key          local
 keyframe    blockAnim1=KYblock1.key          local
 keyframe    blockAnim2=KYblock2.key          local
 
-int         dummy=0							local
-int         blockPOVTrack=-1				local
-int			blockTrack=-1					local
+int         dummy=0                          local
+int         blockPOVTrack=-1                 local
+int         blockTrack=-1                    local
 
-int         griptrackID=-1					local
-flex		damageType						local
-flex		damage							local
-int			damager							local
-flex		dot								local
-template	tmp_backpack=+backpack			local
-thing		item							local
+int         griptrackID=-1                   local
 
 message     startup
 message     killed
 message     newplayer
 message     timer
 message     blocked
-message		skill
+message     skill
 message     damaged
 message     splash
 message     user0
+
+# Rbots support
+thing		damager							local
+thing		killer							local
+flex		dot								local
+template	tmp_backpack=+backpack			local
+thing		item							local
 
 end
 
@@ -105,9 +108,11 @@ startup:
 
 killed:
    if(player != GetSenderRef()) Return;
-	killer=GetSourceRef();
+
    if(IsMulti())
    {
+		killer = GetSourceRef();
+
 		//CreateBackpack(player);
 		item = CreateThingNr(tmp_backpack, player); // create backpack
 		SendMessageEx(GetThingClassCog(item), user7, 10502010, item, player, -1); // fill backpack
@@ -146,34 +151,33 @@ killed:
 # ........................................................................................
 
 damaged:
-	// hacked for Rbots
-	damageType = GetParam (1);
-	damage = GetParam(0);
-	damager=getsourceref(); // projectile - attacker=GetThingParent()
+   if(GetParam(1) == 32) call make_bubbles;
 
-	if(GetParam(1) == 32) call make_bubbles;
+	damager = GetSourceRef(); // projectile = damager, attacker = GetThingParent(damager)
 
-	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from team mates
+	// TODO: Allow shields, force armor, etc. to be drained; only prevent health damage from teammates
+	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from bot team mates
 	{
 		ReturnEx(0);
 		Return;
 	}
 
-
-	if (BitTest (damageType, 0x10)) // saber damage
+	if (BitTest(GetParam(1), 0x10)) // saber damage
 	{
-		if (GetThingType(getthingparent(getsourceref())) == 2 && GetCurWeapon(player) == 10) // saber attack from bot and player has saber activated
+		if (GetThingType(GetThingParent(damager)) == 2 && GetCurWeapon(player) == 10) // saber attack from bot and player has saber activated
 		{
-			dot = ThingViewDot(player, getthingparent(getsourceref()));
-			if (dot > 0.8 && dot < 1.2) // player is facing bot
+			dot = ThingViewDot(player, GetThingParent(damager));
+			if (dot > 0.7) // player is facing bot
 			{
-				damage=0;
 				call blocked; // play saber block animations
+				ReturnEx(0);
+				Return;
 			}
 		}
 	}
-	ReturnEx(damage);
-	Return;
+
+   ReturnEx(GetParam(0));
+   Return;
 
 # ........................................................................................
 

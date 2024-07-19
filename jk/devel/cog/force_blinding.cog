@@ -9,6 +9,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified for use with Rbots
 
 
 symbols
@@ -140,9 +142,24 @@ deactivated:
          dummy = CreateThingAtPosNR(cone_tpl, GetThingSector(player), VectorAdd(GetThingPos(player), '0.0 0.0 0.04'), '0.0 0.0 0.0');
          SetThingLook(dummy, VectorSub(GetThingPos(victim), GetThingPos(player)));
 
-         // Hacked for Rbots - send the same skill message for both players and bots
-         if(!(GetThingFlags(victim) & 0x200))
-            SendMessageEx(GetThingClassCog(victim), skill, 27, rank, victim, player);
+         // Blind victim for 5 seconds per rank
+         if(GetThingType(victim) == 10)      // OTHER PLAYER
+         {
+            if(!(GetThingFlags(victim) & 0x200))
+               retval = SkillTarget(victim, player, 27, rank);
+         }
+         else                                // ENEMY
+         {
+            #// If bit is already set we kill the existing timer and start a new one
+            #if(GetActorFlags(victim) & 0x800) KillTimerEx(victim);
+            #SetActorFlags(victim, 0x800);
+            #
+            #// Pass signature (i.e. unique ID) as a check in param 0
+            #SetTimerEx(rank * 5, victim, GetThingSignature(victim), 0.0);
+
+            if(!(GetThingFlags(victim) & 0x200))
+               retval = SkillTarget(victim, player, 27, rank);
+         }
       }
    }
 

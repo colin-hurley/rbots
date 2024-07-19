@@ -459,6 +459,12 @@ skill:
 
 	if (bin == 24) // Force Pull
 	{
+		if (rank == 0) // unpatched force_pull.cog
+		{
+			// Do the pull effects here, do not let the caller do it
+			ReturnEx(-1);
+		}
+
 		frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
 		if (frozenNow) return; // frozen in carbonite, immune to pull
 		if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
@@ -470,6 +476,14 @@ skill:
 			ApplyForce(item, VectorScale(VectorNorm(VectorSub(GetThingPos(enemy), GetThingPos(rbot))), 30)); // Throw the powerup at the player
 			ReturnEx(1);
 		}
+
+		if (rank == 0) // unpatched force_pull.cog
+		{
+			// If the weapon gets pulled, the return value will be set to the powerup thing
+			// Make sure we do not return any thing references to the caller
+			ReturnEx(-1);
+		}
+
 		return;
 	}
 
@@ -487,6 +501,13 @@ skill:
 
 	if (bin == 31) // Force Grip
 	{
+		if (rank == 0) // unpatched force_grip.cog
+		{
+			// Let the caller do the actor damage effects
+			ReturnEx(4); // Player damage = 2 * rank ; Actor damage = retval * rank / 2
+			return;
+		}
+
 		frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
 		if (frozenNow) return; // frozen in carbonite, immune to grip
 		if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
@@ -500,6 +521,13 @@ skill:
 
 	if (bin == 34) // Force Deadly Sight
 	{
+		if (rank == 0) // unpatched force_deadlysight.cog
+		{
+			// Let the caller do the actor damage effects
+			ReturnEx(8); // Player damage = 4 * rank ; Actor damage = retval * rank / 2
+			return;
+		}
+
 		DamageThing(rbot, 4 * rank, 0x8, enemy);
 		CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
 		ReturnEx(1);

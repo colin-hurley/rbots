@@ -2047,12 +2047,15 @@ user7:
 	if (GetParam(0) == 30003050) // decide whether to move toward target
 	{
 		rbot = GetParam(1);
-		#potential = GetParam(2);
+		potential = GetParam(2);
 		if (red_flag_carrier == rbot || gold_flag_carrier == rbot) // bot has flag
 		{
-			// The bot has the flag and is trying to score, so continue moving toward the base
-			ReturnEx(0);
-			return;
+			if (red_flag_carrier != potential && gold_flag_carrier != potential) // potential does not have the other flag
+			{
+				// The bot has the flag and is trying to score, so continue moving toward the base
+				ReturnEx(0);
+				return;
+			}
 		}
 		ReturnEx(1);
 		return;

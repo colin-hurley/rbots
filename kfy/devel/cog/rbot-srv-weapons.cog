@@ -255,7 +255,6 @@ thing		item								local
 int			priority							local
 int			targweap							local
 flex		disttotarg							local
-vector		relpos								local
 int			slashsound							local
 thing		dummy								local
 
@@ -1514,14 +1513,12 @@ use_weap10: // Lightsaber
 		}
 		else // Land based saber attacks
 		{
-			dot = ThingViewDot(rbot,target);
-			// TODO relpos is essentially VectorSub(GetThingPos(target), GetThingPos(rbot)) with Z component zeroed
-			// The left/right strike checks assume relpos is relative to bot's lvec, but it is absolute
-			// Those checks should be adjusted to use vector dots relative to lvec and rvec to determine left/right offset
-			relpos = VectorSet(VectorX(GetThingPos(target))-VectorX(GetThingPos(rbot)), VectorY(GetThingPos(target))-VectorY(GetThingPos(rbot)), 0.0); // work out relative position of target to bot
-			if (dot > 0.4) // target is front of bot
+			dot = ThingViewDot(rbot, target);
+			// The bot is always trying to face its target, so the target will usually be in front of the bot
+			// As a result, the dot is >0.9 most of the time, so we can make this check pretty sensitive
+			if (dot > 0.95) // target is front of bot
 			{
-				tempflex1=rand()*3;
+				tempflex1 = rand() * 3;
 				if (tempflex1 > 2) // HEAVY Slash
 				{
 					PlayKey(rbot, chargeAnim, 2, 0x38);
@@ -1572,27 +1569,31 @@ use_weap10: // Lightsaber
 					return;
 				}
 			}
-			else if (VectorX(relpos) < 0) // LEFT Regular Strike
+			else
 			{
-				PlayKey(rbot, fireAnimL1, 1, 0x38);
-				slashSound = Rand()*8;
-				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-				weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
-				SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
-				return;
-			}
-			else // RIGHT Regular Strike
-			{
-				PlayKey(rbot, fireAnimR1, 1, 0x38);
-				slashSound = Rand()*8;
-				PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-				SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-				SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
-				weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
-				SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
-				return;
+				tempvector1 = VectorSub(GetThingPos(target), GetThingPos(rbot));
+				if (VectorDot(tempvector1, GetThingRVec(rbot)) > 0) // LEFT Regular Strike
+				{
+					PlayKey(rbot, fireAnimL1, 1, 0x38); // Left strafe attack = Slash to the right
+					slashSound = Rand() * 8;
+					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+					return;
+				}
+				else // RIGHT Regular Strike
+				{
+					PlayKey(rbot, fireAnimR1, 1, 0x38); // Right strafe attack = Slash to the left
+					slashSound = Rand() * 8;
+					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
+					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
+					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
+					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
+					return;
+				}
 			}
 		}
 		return;

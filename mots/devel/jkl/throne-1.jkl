@@ -7247,7 +7247,7 @@ World soundclasses 36
 end
 
 Section: cogscripts
-World scripts 56
+World scripts 57
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -7293,22 +7293,23 @@ World scripts 56
 42: pow_vest.cog
 43: rbot-arrival.cog
 44: rbot-backpack.cog
-45: rbot-elev-switch.cog
-46: rbot-nav.cog
-47: rbot-path.cog
-48: rbot-player.cog
-49: rbot-skin.cog
-50: rbot-special.cog
-51: rbot-special-surface.cog
-52: rbot-srv.cog
-53: rbot-srv-force.cog
-54: rbot-srv-weapons.cog
-55: rbot-startup.cog
+45: rbot-custom-throne.cog
+46: rbot-elev-switch.cog
+47: rbot-nav.cog
+48: rbot-path.cog
+49: rbot-player.cog
+50: rbot-skin.cog
+51: rbot-special.cog
+52: rbot-special-surface.cog
+53: rbot-srv.cog
+54: rbot-srv-force.cog
+55: rbot-srv-weapons.cog
+56: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 200
+World cogs 202
 #Num	Script          Symbol values
 0: rbot-elev-switch.cog 577 -1 -1 571 94 0.25 2 8 ACTIVATE02.WAV
 1: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
@@ -7454,6 +7455,7 @@ World cogs 200
 141: rbot-arrival.cog 230 262 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 94 94 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 30 30 30 30 30 30 30 30 30 30 0 64 0 0 0 0 0 0 0 0
 142: rbot-special.cog 237 238 239 240 241 242 243 244 245 246 247 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 3074 3074 3074 3074 3074 3074 3074 3072 3072 0 0 0 0 0 0 0 0 0
 143: rbot-special-surface.cog 411 407 183 185 87 85 197 200 3 15 10 7 572 562 -1 -1 -1 -1 -1 -1 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 0 0 0 0 0 0
+144: rbot-custom-throne.cog 22 17 19 18 24 9 30 31 32 34 33 44 -1 -1 -1 -1 -1 -1 -1 -1 1 1 2 2 3 3 4 4 4 4 4 5 -1 -1 -1 -1 -1 -1 -1 -1
 end
 
 Section: TEMPLATES

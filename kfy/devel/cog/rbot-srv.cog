@@ -14,6 +14,7 @@ message		startup
 message		pulse
 message		killed
 message		damaged
+message		blocked
 message		trigger
 message		timer
 message		skill
@@ -257,11 +258,23 @@ damaged:
 	{
 		attacker = GetThingParent(damager);
 		KillTimerEx(170);
-		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage
+		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage or blocking
 	}
 
 	// Return the modified damage value - this is how much health damage the bot will take
 	ReturnEx(damage);
+	return;
+
+blocked:
+	if (attacker != -1 && HasLOS(rbot, attacker) && ThingViewDot(rbot, attacker) > 0.8)
+	{
+		// We cannot tell for certain that the bot is blocking the attacker right now
+		// But since we know the attacker is still in front of the bot, it is a good chance
+		// So extend the timer so the bot continues to face the current attacker
+		KillTimerEx(170);
+		SetTimerEx(2.0, 170, -1, -1); // forget who damaged the bot after 2.0 secs if no further damage or blocking
+	}
+	SendMessageEx(srv_weapons, blocked, -1, -1, -1, -1);
 	return;
 
 trigger:

@@ -12,6 +12,7 @@ symbols
 
 message		startup
 message		damaged
+message		blocked
 message		trigger
 message		timer
 message		skill
@@ -247,7 +248,6 @@ flex		tempflex1							local
 int			special								local
 int			mode								local
 flex		damage								local
-int			damagetype							local
 thing		damager								local
 thing		potential							local
 flex		dot									local
@@ -272,7 +272,7 @@ startup:
 
 damaged:
 	damage = GetParam(0);
-	damagetype= GetParam(1);
+	#damagetype= GetParam(1);
 	damager = GetParam(2);
 
 	// Special case for when the bot is carbo frozen
@@ -310,26 +310,40 @@ damaged:
 		return;
 	}
 
+	// In JK, actors automatically block both projectiles and saber attacks
+	// In MotS, actors will block saber attacks but not projectiles
+	// Emulate deflection of projectiles with the saber to work around this bug
 	if (curweap == 10 && !BitTest(weaponmode, 0x1)) // bot has saber and is not awaiting weapon cooldown
 	{
 		// Check for saber blocking
-		dot = ThingViewDot(rbot, GetThingParent(damager));
-		if (BitTest(damagetype, 0x10) && dot > 0.5) // attacker has saber and bot is facing attacker
+		dot = ThingViewDot(rbot, damager);
+		if (GetThingType(damager) == 3 && GetWeaponFlags(damager) & 0x400 && dot > 0.7) // damaged by deflectable projectile and bot is facing it
 		{
-			call block_anim; // play saber block animation
-			damage = 0;
-		}
-		if (BitTest(damagetype, 0x2) && dot > 0.5) // attacked by energy weapon and bot is facing the projectile
-		{
-			call block_anim; // play saber block animation
-			damage = 0;
-			// Also deflect projectile
-			tempvector1 = VectorSet((Rand()-0.5)*36, (Rand()-0.5)*36, 0.0);
-			FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
+			damage = 0; // take no damage when blocking
+
+			// Temporarily clear this flag so the projectile won't explode when we return here
+			// This will cause the projectile to just "bounce" off of the bot instead of exploding
+			ClearWeaponFlags(damager, 0x8); // explode on thing collision
+
+			// Perform actual deflection effects at earliest opportunity after this daamged call returns
+			SetTimerEx(0.001, 900, damager, GetThingSignature(damager));
 		}
 	}
 
 	ReturnEx(damage);
+	return;
+
+blocked:
+	if (blocktrack != -1)
+	{
+		StopKey(rbot, blocktrack, 0.1);
+		KillTimerEx(450); // cancel timer to clear blocktrack
+		blocktrack = -1;
+	}
+	// Play saber block animation
+	blocktrack = PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
+	SetTimerEx(GetKeyLen(blockAnim0[nextblock]), 450, -1, -1); // Clear blocktrack after the animation is complete
+	nextblock = (nextblock + 1) % 3;
 	return;
 
 trigger:
@@ -403,6 +417,45 @@ timer:
 	if (GetSenderId() == 450) // block animation complete
 	{
 		blocktrack = -1;
+		return;
+	}
+
+	if (GetSenderId() == 900) // projectile deflected by saber
+	{
+		damager = GetParam(0);
+		if (GetThingSignature(damager) == GetParam(1))
+		{
+			// Restore the flag so the projectile will explode correctly again
+			SetWeaponFlags(damager, 0x8); // explode on thing collision
+
+			// Now perform the same deflection effects that the game normally would do
+
+			// Collision of projectile with bot greatly reduces its movement speed
+			// Create a temporary copy of the projectile to determine the proper movement speed
+			dummy = CreateThingLocal(GetThingTemplate(damager), damager);
+			tempflex1 = VectorLen(GetThingVel(dummy));
+			DestroyThing(dummy);
+
+			// Point the projectile in the new direction
+			tempvector1 = VectorScale(GetThingLVec(damager), -1); // turn the projectile around
+			tempvector1 = VectorAdd(tempvector1, VectorScale(GetThingRVec(damager), (Rand()-0.5)*0.6)); // add some horizontal error
+			tempvector1 = VectorAdd(tempvector1, VectorScale(GetThingUVec(damager), (Rand()-0.5)*0.6)); // add some vertical error
+			tempvector1 = VectorNorm(tempvector1);
+			SetThingLook(damager, tempvector1);
+
+			// Move the projectile in the new direction at the proper speed
+			tempvector1 = VectorScale(tempvector1, tempflex1); // move at same speed as a newly-created projectile
+			SetThingVel(damager, tempvector1);
+
+			// Play ricochet sound
+			PlaySoundClass(damager, 49); // deflected
+
+			// Update the parent so the bot gets credit for anything the deflected projectile damages later
+			SetThingParent(damager, rbot);
+
+			// Simulate the blocked message that would normally be sent by the game
+			SendMessageEx(srv, blocked, -1, -1, -1, -1);
+		}
 		return;
 	}
 
@@ -992,19 +1045,6 @@ user7:
 	jkStringOutput(-1, -1);
 	return;
 
-block_anim:
-	if (blocktrack != -1)
-	{
-		StopKey(rbot, blocktrack, 0.1);
-		KillTimerEx(450); // cancel timer to clear blocktrack
-		blocktrack = -1;
-	}
-	// Play saber block animation
-	blocktrack = PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
-	SetTimerEx(GetKeyLen(blockAnim0[nextblock]), 450, -1, -1); // Clear blocktrack after the animation is complete
-	nextblock = (nextblock + 1) % 3;
-	return;
-
 attacktarget:
 	if (BitTest(weaponmode, 0x1)) return; // can't attack during cooldown
 
@@ -1191,6 +1231,7 @@ deselect_curweap:
 			humChannel = -1;
 		}
 		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
+		ClearActorFlags(rbot, 0x2000); // lightsaber auto-blocking
 		curweap = 0; // unlit saber
 		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // show model with saber turned off
 		return;
@@ -1494,6 +1535,8 @@ use_weap10: // Lightsaber
 			blocktrack = -1;
 		}
 
+		ClearActorFlags(rbot, 0x2000); // lightsaber auto-blocking
+
 		// TODO: some of the attacks don't seem to apply base damage amount consistent with weap_saber.cog
 
 		if (GetMajorMode(rbot) == 5) // Underwater saber attacks
@@ -1598,6 +1641,8 @@ use_weap10: // Lightsaber
 		}
 		return;
 	}
+
+	SetActorFlags(rbot, 0x2000); // lightsaber auto-blocking
 
 	return;
 

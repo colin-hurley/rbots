@@ -12,6 +12,7 @@ symbols
 
 message		startup
 message		damaged
+message		blocked
 message		trigger
 message		timer
 message		skill
@@ -157,8 +158,6 @@ flex		tempflex1							local
 int			special								local
 int			mode								local
 flex		damage								local
-int			damagetype							local
-thing		damager								local
 flex		dot									local
 thing		item								local
 int			priority							local
@@ -180,29 +179,25 @@ startup:
 
 damaged:
 	damage = GetParam(0);
-	damagetype= GetParam(1);
-	damager = GetParam(2);
+	#damagetype= GetParam(1);
+	#damager = GetParam(2);
 
-	if (curweap == 10 && !BitTest(weaponmode, 0x1)) // bot has saber and is not awaiting weapon cooldown
-	{
-		// Check for saber blocking
-		dot = ThingViewDot(rbot, GetThingParent(damager));
-		if (BitTest(damagetype, 0x10) && dot > 0.5) // attacker has saber and bot is facing attacker
-		{
-			call block_anim; // play saber block animation
-			damage = 0;
-		}
-		if (BitTest(damagetype, 0x2) && dot > 0.5) // attacked by energy weapon and bot is facing the projectile
-		{
-			call block_anim; // play saber block animation
-			damage = 0;
-			// Also deflect projectile
-			tempvector1 = VectorSet((Rand()-0.5)*36, (Rand()-0.5)*36, 0.0);
-			FireProjectile(rbot, GetThingTemplate(damager), -1, -1, '0.0135 0.1624 0.0', tempvector1, 1.0, 0x0, 0, 0);
-		}
-	}
+	// No special damage handling implemented here
 
 	ReturnEx(damage);
+	return;
+
+blocked:
+	if (blocktrack != -1)
+	{
+		StopKey(rbot, blocktrack, 0.1);
+		KillTimerEx(450); // cancel timer to clear blocktrack
+		blocktrack = -1;
+	}
+	// Play saber block animation
+	blocktrack = PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
+	SetTimerEx(GetKeyLen(blockAnim0[nextblock]), 450, -1, -1); // Clear blocktrack after the animation is complete
+	nextblock = (nextblock + 1) % 3;
 	return;
 
 trigger:
@@ -633,19 +628,6 @@ user7:
 	jkStringOutput(-1, -1);
 	return;
 
-block_anim:
-	if (blocktrack != -1)
-	{
-		StopKey(rbot, blocktrack, 0.1);
-		KillTimerEx(450); // cancel timer to clear blocktrack
-		blocktrack = -1;
-	}
-	// Play saber block animation
-	blocktrack = PlayKey(rbot, blockAnim0[nextblock], 2, 0x1a);
-	SetTimerEx(GetKeyLen(blockAnim0[nextblock]), 450, -1, -1); // Clear blocktrack after the animation is complete
-	nextblock = (nextblock + 1) % 3;
-	return;
-
 attacktarget:
 	if (BitTest(weaponmode, 0x1)) return; // can't attack during cooldown
 
@@ -778,6 +760,7 @@ deselect_curweap:
 			humChannel = -1;
 		}
 		SetThingLight(rbot, 0.0, 0.25); // Turn off extra light for saber glow
+		ClearActorFlags(rbot, 0x2000); // lightsaber auto-blocking
 		curweap = 0; // unlit saber
 		SendMessageEx(skin, user7, 10303010, rbot, curweap, -1); // show model with saber turned off
 		return;
@@ -1072,6 +1055,8 @@ use_weap10: // Lightsaber
 			blocktrack = -1;
 		}
 
+		ClearActorFlags(rbot, 0x2000); // lightsaber auto-blocking
+
 		// TODO: some of the attacks don't seem to apply base damage amount consistent with weap_saber.cog
 
 		if (GetMajorMode(rbot) == 5) // Underwater saber attacks
@@ -1176,6 +1161,8 @@ use_weap10: // Lightsaber
 		}
 		return;
 	}
+
+	SetActorFlags(rbot, 0x2000); // lightsaber auto-blocking
 
 	return;
 

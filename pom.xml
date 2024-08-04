@@ -35,7 +35,7 @@
 							<!-- TODO: investigate this - according to the maven site, dep plugin 3.1.1 uses commons io 2.5, not 1.x -->
 							<groupId>commons-io</groupId>
 							<artifactId>commons-io</artifactId>
-							<version>2.6</version>
+							<version>2.16.1</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -55,7 +55,7 @@
 							<!-- TODO: investigate this - according to the maven site, dep plugin 3.1.1 uses commons io 2.5, not 1.x -->
 							<groupId>commons-io</groupId>
 							<artifactId>commons-io</artifactId>
-							<version>2.6</version>
+							<version>2.16.1</version>
 						</dependency>
 					</dependencies>
 				</plugin>

@@ -35859,7 +35859,7 @@ World soundclasses 36
 end
 
 Section: cogscripts
-World scripts 44
+World scripts 45
 0: 00_desttrail.cog
 1: 00_smoketrail.cog
 2: class_sequencer.cog
@@ -35894,21 +35894,22 @@ World scripts 44
 31: pow_thermal.cog
 32: pow_vest.cog
 33: rbot-backpack.cog
-34: rbot-nav.cog
-35: rbot-path.cog
-36: rbot-player.cog
-37: rbot-skin.cog
-38: rbot-special.cog
-39: rbot-special-sector.cog
-40: rbot-srv.cog
-41: rbot-srv-force.cog
-42: rbot-srv-weapons.cog
-43: rbot-startup.cog
+34: rbot-custom-blades.cog
+35: rbot-nav.cog
+36: rbot-path.cog
+37: rbot-player.cog
+38: rbot-skin.cog
+39: rbot-special.cog
+40: rbot-special-sector.cog
+41: rbot-srv.cog
+42: rbot-srv-force.cog
+43: rbot-srv-weapons.cog
+44: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 150
+World cogs 152
 #Num	Script          Symbol values
 0: M5_HEALINGSECTOR.COG 263 3
 1: M5_HEALINGSECTOR.COG 45 3
@@ -36016,6 +36017,7 @@ World cogs 150
 103: rbot-path.cog 17 278 279 281 185 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0
 104: rbot-special.cog 235 262 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 105: rbot-special-sector.cog 47 58 61 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1026 1024 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+106: rbot-custom-blades.cog
 end
 
 Section: TEMPLATES

@@ -135,8 +135,6 @@ template	tmp_weap20=carbgun					local
 template	tmp_weap4x1=singledetonator			local
 template	tmp_weap8x1=singleseqcharge			local
 template	tmp_weap14x1=singleflashbomb		local
-#template	tmp_mdm04weap9=+mdm04concrifle		local
-#template	tmp_mdm04weap9decoy=+mdm04concrifledecoy	local
 
 # Force-pulled weapon templates
 template	tmp_fpweap2=+FPBryarPistol			local

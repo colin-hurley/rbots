@@ -1,0 +1,125 @@
+# Rbot Customizer Cog - Blades of Death
+#
+# Server-only
+# Type ID: 3000
+#
+# Rbots originally created by Raynar
+
+flags=0x40
+
+symbols
+
+message		startup
+message		user7
+
+template	tmp_m5weap7=m5railgun				local
+template	tmp_m5weap9=m5concrifle				local
+
+thing		rbot								local
+thing		item								local
+int			priority							local
+int			inv_power							local
+int			inv_railcharges						local
+int			inv_weap7							local
+int			inv_weap9							local
+
+end
+
+code
+
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 3000, GetSelfCog(), -1, -1);
+
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 30003010) // get item priority
+	{
+		#rbot = GetParam(1);
+		#item = GetParam(2);
+		priority = GetParam(3);
+
+		// No priority customization implemented
+
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003020) // pickup item
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+
+		// Bot must be in the tube sector containing the powerup
+		if (GetThingSector(rbot) == GetThingSector(item))
+		{
+			if (GetThingTemplate(item) == tmp_m5weap7)
+			{
+				inv_weap7 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 7, -1, -1);
+				inv_railcharges = SendMessageEx(GetThingClassCog(rbot), user7, 10231005, -1, -1, -1);
+				if (inv_weap7 == 0 || inv_railcharges < 30)
+				{
+					SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 7, 1, -1); // add gun
+					SendMessageEx(GetThingClassCog(rbot), user7, 10232505, 6, -1, -1); // add ammo
+					TakeItem(item, rbot); // bot picked up this item
+				}
+				return;
+			}
+
+			if (GetThingTemplate(item) == tmp_m5weap9)
+			{
+				inv_weap9 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 9, -1, -1);
+				inv_power = SendMessageEx(GetThingClassCog(rbot), user7, 10231003, -1, -1, -1);
+				if (inv_weap9 == 0 || inv_power < 500)
+				{
+					SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 9, 1, -1); // add gun
+					SendMessageEx(GetThingClassCog(rbot), user7, 10232503, 32, -1, -1); // add ammo
+					TakeItem(item, rbot); // bot picked up this item
+				}
+				return;
+			}
+		}
+
+		ReturnEx(0);
+		return;
+	}
+
+	if (GetParam(0) == 30003030) // get target priority
+	{
+		#rbot = GetParam(1);
+		#potential = GetParam(2);
+		priority = GetParam(3);
+
+		// No priority customization implemented
+
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003050) // decide whether to move toward target
+	{
+		#rbot = GetParam(1);
+		#potential = GetParam(2);
+
+		// No customization implemented
+
+		ReturnEx(1);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-custom-throne.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+end

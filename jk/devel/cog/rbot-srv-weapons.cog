@@ -110,9 +110,6 @@ template	tmp_weap8=SEQCHARGE					local
 template	tmp_weap9=CONCRIFLE					local
 template	tmp_weap4x1=singledetonator			local
 template	tmp_weap8x1=singleseqcharge			local
-template	tmp_m5weap7=m5railgun				local
-template	tmp_m5weap9=m5concrifle				local
-
 
 # Force-pulled weapon templates
 template	tmp_fpweap2=+FPBryarPistol			local
@@ -414,7 +411,7 @@ user7:
 		if (BitTest(gamemode, 0x1)) // allow guns
 		{
 			// Weapons
-			if ((GetThingTemplate(item) == tmp_weap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_fpweap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_weap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_fpweap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_weap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_fpweap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_weap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_fpweap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_fpweap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_m5weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_weap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_fpweap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_m5weap9 && !inv_weap9)) priority = 6;
+			if ((GetThingTemplate(item) == tmp_weap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_fpweap2 && !inv_weap2) || (GetThingTemplate(item) == tmp_weap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_fpweap3 && !inv_weap3) || (GetThingTemplate(item) == tmp_weap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_fpweap5 && !inv_weap5) || (GetThingTemplate(item) == tmp_weap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_fpweap6 && !inv_weap6) || (GetThingTemplate(item) == tmp_weap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_fpweap7 && !inv_weap7) || (GetThingTemplate(item) == tmp_weap9 && !inv_weap9) || (GetThingTemplate(item) == tmp_fpweap9 && !inv_weap9)) priority = 6;
 
 			// Ammo
 			if ((GetThingTemplate(item) == tmp_energycell && inv_energy < 100) || (GetThingTemplate(item) == tmp_powercell && inv_power < 100) || (GetThingTemplate(item) == tmp_railcharges && inv_railcharges < 10)) priority = 5;
@@ -561,7 +558,7 @@ user7:
 			return;
 		}
 
-		if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7 || GetThingTemplate(item) == tmp_m5weap7)
+		if (GetThingTemplate(item) == tmp_weap7 || GetThingTemplate(item) == tmp_fpweap7)
 		{
 			if (inv_weap7 == 0 || inv_railcharges < 30)
 			{
@@ -573,7 +570,7 @@ user7:
 			return;
 		}
 
-		if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9 || GetThingTemplate(item) == tmp_m5weap9)
+		if (GetThingTemplate(item) == tmp_weap9 || GetThingTemplate(item) == tmp_fpweap9)
 		{
 			if (inv_weap9 == 0 || inv_power < 500)
 			{

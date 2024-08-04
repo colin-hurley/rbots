@@ -18,16 +18,19 @@
 			<directory>${project.basedir}\..\devel</directory>
 			<includes>
 				<include>3do\**\*</include>
-				<include>cog\**\*</include>
+				<include>cog\**\force_*.cog</include>
+				<include>cog\**\kfy_*.cog</include>
+				<include>cog\**\rbot-*.cog</include>
+				<include>jkl\static.jkl</include>
 				<include>mat\**\*</include>
 				<include>misc\**\*</include>
+				<include>ui\**\*</include>
 				<include>*.tpl</include>
+				<include>test.bat</include>
 			</includes>
 			<excludes>
-				<exclude>cog\force_*.cog</exclude>
-				<exclude>cog\rbot-admin*.cog</exclude>
-				<exclude>jkl\static.jkl</exclude>
-				<exclude>misc\items.dat</exclude>
+				<exclude>cog\rbot-custom-*.cog</exclude>
+				<exclude>misc\cogstrings.uni</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

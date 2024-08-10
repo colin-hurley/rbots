@@ -6273,7 +6273,7 @@ end
 
 Section: TEMPLATES
 
-World templates 256
+World templates 254
 #Name:           Based On:        Params:
 ghostcam          none               orient=(0/0/0) type=ghost move=path puppet=cr.pup
 ghost             none               orient=(0/0/0) type=ghost move=path
@@ -6357,9 +6357,7 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +ssparks_blood    _explosion         thingflags=0x1 light=.1 timer=.8 soundclass=exp_saber_blood.snd creatething=+sspks_blood typeflags=0x12 blasttime=.699 maxlight=.3
 +smflash          _explosion         thingflags=0x1 light=.4 timer=.1 typeflags=0x0
 +rptfleshhit      _explosion         thingflags=0x1 light=.1 timer=.8 soundclass=exp_fleshy.snd creatething=+rpt_sparks typeflags=0x12 blasttime=.699 maxlight=.3
-+rbotsaberhit2    _explosion         timer=.001 soundclass=exp_saber_wall.snd typeflags=0x0
-+rbotsaber2       _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=80 damageclass=0x10 typeflags=0x200d range=.13 force=50
-+rbotsaber        _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=20 damageclass=0x10 typeflags=0x200d range=.13 force=40
++rbotsaber        _weapon            size=0.05 movesize=0.05 mass=100 explode=+ssparks_wall fleshhit=+ssparks_wall damage=1 damageclass=0x10 typeflags=0x200d range=0.15 force=40
 +punchcloud       +dustcloud         timer=.15 material=00gsmoke.mat range=.006 rate=64 maxthrust=4 elementsize=.004 count=16
 +punch_exp        _explosion         timer=.001 soundclass=exp_punch.snd creatething=+punchcloud typeflags=0x0
 +punch            _weapon            size=.001 movesize=.001 mass=50 explode=+punch_exp fleshhit=+punch_exp damage=10 damageclass=0x1 typeflags=0x200d range=.15 force=50

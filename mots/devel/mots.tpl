@@ -2356,22 +2356,9 @@ throwcrate2       _throwable         model3d=crttoss2.3do size=0.036400 movesize
 # DESC: Rbots respawn ghost
 # BBOX: 0 0 0 0 0 0
 rbot_respawn      _ghostdecor        size=0 movesize=0
-# DESC: Rbot Saber Hit1
-# DESC: Rbot Saber Hit1
-# BBOX: 0 0 0 0 0 0
-+rbotsaberhit1    _explosion         timer=.001 soundclass=exp_saber_saber.snd typeflags=0x0
-# DESC: Rbot Saber Hit2
-# BBOX: 0 0 0 0 0 0
-+rbotsaberhit2    _explosion         timer=.001 soundclass=exp_saber_wall.snd typeflags=0x0
 # DESC: Rbot Saber strike
 # BBOX: 0 0 0 0 0 0
-+rbotsaber        _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=20 damageclass=0x10 typeflags=0x200d range=.13 force=40
-# DESC: Rbot Double Saber strike
-# BBOX: 0 0 0 0 0 0
-+rbotsaber2       _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=80 damageclass=0x10 typeflags=0x200d range=.13 force=50
-# DESC: 
-# BBOX: 0 0 0 0 0 0
-+rbot_twinkles       none               orient=(0.000000/0.000000/0.000000) type=particle typeflags=0x3f material=00teleport.mat range=0.030000 rate=256.000000 maxthrust=80.000000 elementsize=0.002000 count=256
++rbotsaber        _weapon            size=0.05 movesize=0.05 mass=100 explode=+ssparks_wall fleshhit=+ssparks_wall damage=1 damageclass=0x10 typeflags=0x200d range=0.15 force=40
 # DESC: Rbot parent
 # BBOX: 0 0 0 0 0 0
 _rbotactor        _actor             type=actor thingflags=0x20000400 light=0.200000 model3d=ky.3do size=0.065000 movesize=0.065000 puppet=ky.pup soundclass=ky.snd surfdrag=3.000000 airdrag=0.500000 health=100.00 maxhealth=100.00 maxthrust=2.00 typeflags=0x1 error=0.50 fov=0.71 chance=1.00 buoyancy=0.0 aiclass=rbot-0.ai weapon=+elaser

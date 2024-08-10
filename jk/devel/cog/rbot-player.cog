@@ -83,6 +83,7 @@ thing		damager							local
 thing		killer							local
 flex		dot								local
 template	tmp_backpack=+backpack			local
+template	tmp_rbotsaber=+rbotsaber		local
 thing		item							local
 
 end
@@ -155,25 +156,36 @@ damaged:
 
 	damager = GetSourceRef(); // projectile = damager, attacker = GetThingParent(damager)
 
+	// If we are hit by a +rbotsaber, change the explosion sparks from wall hit to flesh hit.
+	// Known issue: Unfortunately, damaged: doesn't run after a thing gets the 0x200 thing flag.
+	// So shortly after death, the attack will still create wall sparks when the corpse is hit.
+	// Other than creating no wall sparks at all, is there anything we can do about this?
+	if (GetThingTemplate(damager) == tmp_rbotsaber) // saber attack from bot
+	{
+		ParseArg(damager, "explode=+ssparks_blood"); // create flesh hit sparks
+	}
+
+	if (GetActorFlags(player) & 0x2000 && ThingViewDot(player, damager) > 0.7) // can block attacks with saber
+	{
+		// The game engine does not auto-block the bot saber attack projectile
+		// Emulate blocking of bot saber attacks here
+		if (GetThingTemplate(damager) == tmp_rbotsaber) // block saber attack from bot
+		{
+			ParseArg(damager, "explode=+ssparks_saber"); // create saber sparks
+
+			// Emulate the blocked message that would normally be sent by the game engine
+			call blocked; // play saber block animations
+
+			ReturnEx(0); // take no damage when blocking
+			return;
+		}
+	}
+
 	// TODO: Allow shields, force armor, etc. to be drained; only prevent health damage from teammates
 	if (GetPlayerTeam(player) != 0 && GetThingType(GetThingParent(damager)) == 2 && GetThingUserData(GetThingParent(damager)) == GetPlayerTeam(player)) // check for damage from bot team mates
 	{
 		ReturnEx(0);
 		Return;
-	}
-
-	if (BitTest(GetParam(1), 0x10)) // saber damage
-	{
-		if (GetThingType(GetThingParent(damager)) == 2 && GetCurWeapon(player) == 10) // saber attack from bot and player has saber activated
-		{
-			dot = ThingViewDot(player, GetThingParent(damager));
-			if (dot > 0.7) // player is facing bot
-			{
-				call blocked; // play saber block animations
-				ReturnEx(0);
-				Return;
-			}
-		}
 	}
 
    ReturnEx(GetParam(0));

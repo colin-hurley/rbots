@@ -23510,7 +23510,7 @@ end
 
 Section: TEMPLATES
 
-World templates 143
+World templates 141
 #Name:           Based On:        Params:
 ghost             none               orient=(0.000000/0.000000/0.000000) type=ghost move=path
 ctf_redkey        none               orient=(0.000000/0.000000/0.000000) type=item collide=1 thingflags=0x401 light=0.750000 model3d=r-key.3do size=0.088183 movesize=0.088183 cog=ctf_keyred.cog typeflags=0x8
@@ -23579,9 +23579,7 @@ bactatank         _powerup           thingflags=0x400 model3d=bact.3do cog=pow_b
 +ssparks_blood    _explosion         thingflags=0x1 light=0.100000 timer=0.800000 soundclass=exp_saber_blood.snd creatething=+sspks_blood typeflags=0x12 blasttime=0.700000 maxlight=0.300000
 +smflash          _explosion         thingflags=0x1 light=0.400000 timer=0.100000 typeflags=0x0
 +rptfleshhit      _explosion         thingflags=0x1 light=0.100000 timer=0.800000 soundclass=exp_fleshy.snd creatething=+rpt_sparks typeflags=0x12 blasttime=0.700000 maxlight=0.300000
-+rbotsaberhit2    _explosion         timer=.001 soundclass=exp_saber_wall.snd typeflags=0x0
-+rbotsaber2       _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=80 damageclass=0x10 typeflags=0x200d range=.13 force=50
-+rbotsaber        _weapon            size=.010 movesize=.010 mass=100 explode=+rbotsaberhit2 fleshhit=+rbotsaberhit2 damage=20 damageclass=0x10 typeflags=0x200d range=.13 force=40
++rbotsaber        _weapon            size=0.05 movesize=0.05 mass=100 explode=+ssparks_wall fleshhit=+ssparks_wall damage=1 damageclass=0x10 typeflags=0x200d range=0.15 force=40
 +punchcloud       +dustcloud         timer=0.150000 material=00gsmoke.mat range=0.006000 rate=64.000000 maxthrust=4.000000 elementsize=0.004000 count=16
 +punch_exp        _explosion         timer=0.001000 soundclass=exp_punch.snd creatething=+punchcloud typeflags=0x0
 +punch            _weapon            size=0.001000 movesize=0.001000 mass=50.000000 explode=+punch_exp fleshhit=+punch_exp damage=20.000000 damageclass=0x1 typeflags=0x200d range=0.150000 force=50.000000

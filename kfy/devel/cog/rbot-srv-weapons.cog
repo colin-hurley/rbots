@@ -29,7 +29,6 @@ cog			skin=-1								local
 
 # Weapon fire projectiles
 template	projectile_weap00=+rbotsaber		local
-template	projectile_weap00a=+rbotsaber2		local
 template	projectile_weap01=+punch			local
 template	projectile_weap02=+bryarbolt		local
 template	projectile_weap03=+stlaser			local
@@ -273,6 +272,60 @@ damaged:
 	#damagetype= GetParam(1);
 	damager = GetParam(2);
 
+	// If we are hit by a +rbotsaber, change the explosion sparks from wall hit to flesh hit.
+	// Known issue: Unfortunately, damaged: doesn't run after a thing gets the 0x200 thing flag.
+	// So shortly after death, the attack will still create wall sparks when the corpse is hit.
+	// Other than creating no wall sparks at all, is there anything we can do about this?
+	if (GetThingTemplate(damager) == projectile_weap00) // saber attack from bot
+	{
+		ParseArg(damager, "explode=+ssparks_blood"); // create flesh hit sparks
+	}
+
+	// Note: It may seem a little odd to have this before the carbonite damage handling below, but that's how it is in vanilla MotS.
+	// Indeed, if you have the saber mounted while you are frozen, you will still block attacks (e.g. lightsaber damage).
+	if (GetActorFlags(rbot) & 0x2000 && ThingViewDot(rbot, damager) > 0.7) // can block attacks with saber
+	{
+		// The game engine does not auto-block the bot saber attack projectile
+		// Emulate blocking of bot saber attacks here
+		if (GetThingTemplate(damager) == projectile_weap00) // block saber attack from bot
+		{
+			ParseArg(damager, "explode=+ssparks_saber"); // create saber sparks
+
+			// Emulate deflection effects at earliest opportunity after this daamged call returns
+			// Note: If we call blocked in srv here, and then srv calls blocked in this cog, then the ReturnEx(0) below doesn't work as expected
+			// That is, srv doesn't assign the 0 to the damage variable, although all of the messages actually run and otherwise behave correctly
+			// Some kind of call depth or recursion limit maybe?
+			// In any case, call blocked in a timer handler instead to work around this issue
+			SetTimerEx(0.001, 900, -1, -1);
+
+			ReturnEx(0); // take no damage when blocking
+			return;
+		}
+
+		// In JK, actors automatically block both projectiles and saber attacks
+		// In MotS, actors will block saber attacks but not projectiles
+		// Emulate deflection of projectiles with the saber to work around this bug
+		if (GetThingType(damager) == 3 && GetWeaponFlags(damager) & 0x400) // block deflectable projectiles (e.g. energy bolts)
+		{
+			// Temporarily clear this flag so the projectile won't explode when we return here
+			// This will cause the projectile to just "bounce" off of the bot instead of exploding
+			// This must be done because the engine immediately tries to explode the projectile when damaged returns
+			// If the flag is not set, then the engine will not explode the projectile
+			// The timer below will restore the flag after the engine has performed this explode check
+			ClearWeaponFlags(damager, 0x8); // explode on thing collision
+
+			// Emulate deflection effects at earliest opportunity after this daamged call returns
+			// Note: If we call blocked in srv here, and then srv calls blocked in this cog, then the ReturnEx(0) below doesn't work as expected
+			// That is, srv doesn't assign the 0 to the damage variable, although all of the messages actually run and otherwise behave correctly
+			// Some kind of call depth or recursion limit maybe?
+			// In any case, call blocked in a timer handler instead to work around this issue
+			SetTimerEx(0.001, 900, damager, GetThingSignature(damager));
+
+			ReturnEx(0); // take no damage when blocking
+			return;
+		}
+	}
+
 	// Special case for when the bot is carbo frozen
 	if (frozenNow)
 	{
@@ -306,26 +359,6 @@ damaged:
 
 		ReturnEx(GetThingHealth(rbot) * 10);
 		return;
-	}
-
-	// In JK, actors automatically block both projectiles and saber attacks
-	// In MotS, actors will block saber attacks but not projectiles
-	// Emulate deflection of projectiles with the saber to work around this bug
-	if (curweap == 10 && !BitTest(weaponmode, 0x1)) // bot has saber and is not awaiting weapon cooldown
-	{
-		// Check for saber blocking
-		dot = ThingViewDot(rbot, damager);
-		if (GetThingType(damager) == 3 && GetWeaponFlags(damager) & 0x400 && dot > 0.7) // damaged by deflectable projectile and bot is facing it
-		{
-			damage = 0; // take no damage when blocking
-
-			// Temporarily clear this flag so the projectile won't explode when we return here
-			// This will cause the projectile to just "bounce" off of the bot instead of exploding
-			ClearWeaponFlags(damager, 0x8); // explode on thing collision
-
-			// Perform actual deflection effects at earliest opportunity after this daamged call returns
-			SetTimerEx(0.001, 900, damager, GetThingSignature(damager));
-		}
 	}
 
 	ReturnEx(damage);
@@ -408,7 +441,9 @@ timer:
 
 	if (GetSenderId() == 200) // fire projectile to simulate a saber swing
 	{
-		FireProjectile(rbot, GetParam(0), -1, -1, '0 0 0', '0 0 0', 0.0, 0x0, 0, 0);
+		damage = GetParam(0);
+		tempvector1 = VectorSet(0, GetParam(1), 0); // yaw (left/right) offset
+		FireProjectile(rbot, projectile_weap00, -1, -1, '0 0.1 0', tempvector1, damage, 0x2, 0, 0);
 		return;
 	}
 
@@ -421,7 +456,7 @@ timer:
 	if (GetSenderId() == 900) // projectile deflected by saber
 	{
 		damager = GetParam(0);
-		if (GetThingSignature(damager) == GetParam(1))
+		if (damager != -1 && GetThingSignature(damager) == GetParam(1))
 		{
 			// Restore the flag so the projectile will explode correctly again
 			SetWeaponFlags(damager, 0x8); // explode on thing collision
@@ -450,10 +485,11 @@ timer:
 
 			// Update the parent so the bot gets credit for anything the deflected projectile damages later
 			SetThingParent(damager, rbot);
-
-			// Simulate the blocked message that would normally be sent by the game
-			SendMessageEx(srv, blocked, -1, -1, -1, -1);
 		}
+
+		// Emulate the blocked message that would normally be sent by the game engine
+		SendMessageEx(srv, blocked, -1, -1, -1, -1); // play saber block animations
+
 		return;
 	}
 
@@ -1535,8 +1571,6 @@ use_weap10: // Lightsaber
 
 		ClearActorFlags(rbot, 0x2000); // lightsaber auto-blocking
 
-		// TODO: some of the attacks don't seem to apply base damage amount consistent with weap_saber.cog
-
 		if (GetMajorMode(rbot) == 5) // Underwater saber attacks
 		{
 			if (nextanim == 0)
@@ -1546,8 +1580,7 @@ use_weap10: // Lightsaber
 			nextanim = 1 - nextanim;
 			slashsound = Rand()*8;
 			PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-			SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-			SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+			SetTimerEx(0.5, 200, 50, 0); // fire damage projectile during the swing
 			weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 			SetTimerEx(1.0, 120, -1, -1); // wait for a short time before firing again
 			return;
@@ -1564,10 +1597,8 @@ use_weap10: // Lightsaber
 				{
 					PlayKey(rbot, chargeAnim, 2, 0x38);
 					PlaySoundThing(swingSoundDbl01, rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00a, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00a, -1); // fire 1st swing after 0.3 secs
-					SetTimerEx(0.6, 200, projectile_weap00a, -1); // fire 2nd swing after 0.6 secs
-					SetTimerEx(0.7, 200, projectile_weap00a, -1); // fire 2nd swing after 0.7 secs
+					SetTimerEx(0.4, 200, 160, 0); // fire damage projectile during the first swing
+					SetTimerEx(0.9, 200, 160, 0); // fire damage projectile during the second swing
 					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 					SetTimerEx(2.0, 120, -1, -1); // wait for a short time before firing again
 					return;
@@ -1581,8 +1612,7 @@ use_weap10: // Lightsaber
 					nextanim = 1 - nextanim;
 					slashsound = Rand()*8;
 					PlaySoundThing(swingSound0[slashsound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.3, 200, 50, 0); // fire damage projectile during the swing
 					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
 					return;
@@ -1591,12 +1621,11 @@ use_weap10: // Lightsaber
 				{
 					PlayKey(rbot, snapAnim0[slash], 1, 0x38);
 					PlaySoundThing(swingSound0[slash], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
 
 					// Shorter fire delay for the first two slashes
 					if (slash < 2)
 					{
+						SetTimerEx(0.2, 200, 40, 0); // fire damage projectile during the swing
 						slash = slash + 1;
 						weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 						SetTimerEx(0.25, 120, -1, -1); // wait for a short time before firing again
@@ -1604,6 +1633,7 @@ use_weap10: // Lightsaber
 					}
 
 					// Longer fire delay for the third slash
+					SetTimerEx(0.2, 200, 60, 0); // fire damage projectile during the swing
 					slash = 0;
 					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 					SetTimerEx(1.0, 120, -1, -1); // wait for a short time before firing again
@@ -1618,8 +1648,7 @@ use_weap10: // Lightsaber
 					PlayKey(rbot, fireAnimL1, 1, 0x38); // Left strafe attack = Slash to the right
 					slashSound = Rand() * 8;
 					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.3, 200, 50, -40); // fire damage projectile during the swing
 					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
 					return;
@@ -1629,8 +1658,7 @@ use_weap10: // Lightsaber
 					PlayKey(rbot, fireAnimR1, 1, 0x38); // Right strafe attack = Slash to the left
 					slashSound = Rand() * 8;
 					PlaySoundThing(swingSound0[slashSound], rbot, 1.0, -1, -1, 0x80);
-					SetTimerEx(0.2, 200, projectile_weap00, -1); // fire 1st swing after 0.2 secs
-					SetTimerEx(0.3, 200, projectile_weap00, -1); // fire 1st swing after 0.3 secs
+					SetTimerEx(0.3, 200, 50, 40); // fire damage projectile during the swing
 					weaponmode = BitSet(weaponmode, 0x1); // weapon cooldown (weapon fired)
 					SetTimerEx(0.8, 120, -1, -1); // wait for a short time before firing again
 					return;

@@ -296,30 +296,7 @@ damaged:
 			// That is, srv doesn't assign the 0 to the damage variable, although all of the messages actually run and otherwise behave correctly
 			// Some kind of call depth or recursion limit maybe?
 			// In any case, call blocked in a timer handler instead to work around this issue
-			SetTimerEx(0.001, 900, -1, -1);
-
-			ReturnEx(0); // take no damage when blocking
-			return;
-		}
-
-		// In JK, actors automatically block both projectiles and saber attacks
-		// In MotS, actors will block saber attacks but not projectiles
-		// Emulate deflection of projectiles with the saber to work around this bug
-		if (GetThingType(damager) == 3 && GetWeaponFlags(damager) & 0x400) // block deflectable projectiles (e.g. energy bolts)
-		{
-			// Temporarily clear this flag so the projectile won't explode when we return here
-			// This will cause the projectile to just "bounce" off of the bot instead of exploding
-			// This must be done because the engine immediately tries to explode the projectile when damaged returns
-			// If the flag is not set, then the engine will not explode the projectile
-			// The timer below will restore the flag after the engine has performed this explode check
-			ClearWeaponFlags(damager, 0x8); // explode on thing collision
-
-			// Emulate deflection effects at earliest opportunity after this daamged call returns
-			// Note: If we call blocked in srv here, and then srv calls blocked in this cog, then the ReturnEx(0) below doesn't work as expected
-			// That is, srv doesn't assign the 0 to the damage variable, although all of the messages actually run and otherwise behave correctly
-			// Some kind of call depth or recursion limit maybe?
-			// In any case, call blocked in a timer handler instead to work around this issue
-			SetTimerEx(0.001, 900, damager, GetThingSignature(damager));
+			SetTimerEx(0.001, 440, -1, -1);
 
 			ReturnEx(0); // take no damage when blocking
 			return;
@@ -447,49 +424,16 @@ timer:
 		return;
 	}
 
-	if (GetSenderId() == 450) // block animation complete
+	if (GetSenderId() == 440) // play saber block animation
 	{
-		blocktrack = -1;
+		// Emulate the blocked message that would normally be sent by the game engine
+		SendMessageEx(srv, blocked, -1, -1, -1, -1);
 		return;
 	}
 
-	if (GetSenderId() == 900) // projectile deflected by saber
+	if (GetSenderId() == 450) // block animation complete
 	{
-		damager = GetParam(0);
-		if (damager != -1 && GetThingSignature(damager) == GetParam(1))
-		{
-			// Restore the flag so the projectile will explode correctly again
-			SetWeaponFlags(damager, 0x8); // explode on thing collision
-
-			// Now perform the same deflection effects that the game normally would do
-
-			// Collision of projectile with bot greatly reduces its movement speed
-			// Create a temporary copy of the projectile to determine the proper movement speed
-			dummy = CreateThingLocal(GetThingTemplate(damager), damager);
-			tempflex1 = VectorLen(GetThingVel(dummy));
-			DestroyThing(dummy);
-
-			// Point the projectile in the new direction
-			tempvector1 = VectorScale(GetThingLVec(damager), -1); // turn the projectile around
-			tempvector1 = VectorAdd(tempvector1, VectorScale(GetThingRVec(damager), (Rand()-0.5)*0.6)); // add some horizontal error
-			tempvector1 = VectorAdd(tempvector1, VectorScale(GetThingUVec(damager), (Rand()-0.5)*0.6)); // add some vertical error
-			tempvector1 = VectorNorm(tempvector1);
-			SetThingLook(damager, tempvector1);
-
-			// Move the projectile in the new direction at the proper speed
-			tempvector1 = VectorScale(tempvector1, tempflex1); // move at same speed as a newly-created projectile
-			SetThingVel(damager, tempvector1);
-
-			// Play ricochet sound
-			PlaySoundClass(damager, 49); // deflected
-
-			// Update the parent so the bot gets credit for anything the deflected projectile damages later
-			SetThingParent(damager, rbot);
-		}
-
-		// Emulate the blocked message that would normally be sent by the game engine
-		SendMessageEx(srv, blocked, -1, -1, -1, -1); // play saber block animations
-
+		blocktrack = -1;
 		return;
 	}
 

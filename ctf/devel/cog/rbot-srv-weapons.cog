@@ -24,6 +24,7 @@ thing		rbot=-1								local
 int			weaponmode							local
 
 cog			system=-1							local
+cog			srv=-1								local
 cog			skin=-1								local
 
 # Weapon fire projectiles
@@ -201,7 +202,7 @@ damaged:
 			// That is, srv doesn't assign the 0 to the damage variable, although all of the messages actually run and otherwise behave correctly
 			// Some kind of call depth or recursion limit maybe?
 			// In any case, call blocked in a timer handler instead to work around this issue
-			SetTimerEx(0.001, 900, -1, -1);
+			SetTimerEx(0.001, 440, -1, -1);
 
 			ReturnEx(0); // take no damage when blocking
 			return;
@@ -232,6 +233,10 @@ trigger:
 		if (GetParam(0) == 1010) // rbot-startup.cog
 		{
 			system = GetParam(1);
+		}
+		if (GetParam(0) == 1020) // rbot-srv.cog
+		{
+			if (GetParam(2) == botid) srv = GetParam(1);
 		}
 		return;
 	}
@@ -287,6 +292,13 @@ timer:
 		damage = GetParam(0);
 		tempvector1 = VectorSet(0, GetParam(1), 0); // yaw (left/right) offset
 		FireProjectile(rbot, projectile_weap00, -1, -1, '0 0.1 0', tempvector1, damage, 0x2, 0, 0);
+		return;
+	}
+
+	if (GetSenderId() == 440) // play saber block animation
+	{
+		// Emulate the blocked message that would normally be sent by the game engine
+		SendMessageEx(srv, blocked, -1, -1, -1, -1);
 		return;
 	}
 

@@ -1,4 +1,4 @@
-# Rbot Server Cog - Primary AI
+# Rbot Server Cog - Primary AI (MotS variant)
 #
 # Server-only
 # Type ID: 1020
@@ -14,6 +14,7 @@ message		startup
 message		pulse
 message		killed
 message		damaged
+message		preblock
 message		blocked
 message		trigger
 message		timer
@@ -263,6 +264,11 @@ damaged:
 
 	// Return the modified damage value - this is how much health damage the bot will take
 	ReturnEx(damage);
+	return;
+
+// Note: Without this preblock message, actors cannot deflect projectiles in MotS
+preblock:
+	ReturnEx(1); // always allow blocking of projectiles
 	return;
 
 blocked:

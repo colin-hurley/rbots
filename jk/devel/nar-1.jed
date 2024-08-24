@@ -5054,18 +5054,18 @@ END
 
 SEC: COGS
 COGS 94
+rbot-door.cog door0:thing=2 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-ffield-nar.cog switch:surface=890 switch1:surface=939 damsurf:surface=954 damsurf2:surface=962 maxdamage:flex=10 mindamage:flex=5
 00_CONVEYOR.COG vec0:vector=(-1.000000/0.000000/0.000000) speed:flex=10 convey0:surface=222 convey1:surface=-1 convey2:surface=-1 convey3:surface=-1 convey4:surface=-1 convey5:surface=-1 convey6:surface=-1 convey7:surface=-1
 00_CONVEYOR.COG vec0:vector=(1.000000/0.000000/0.000000) speed:flex=10 convey0:surface=210 convey1:surface=-1 convey2:surface=-1 convey3:surface=-1 convey4:surface=-1 convey5:surface=-1 convey6:surface=-1 convey7:surface=-1
 00_RANDOMAMBIENT.COG wav0:sound=01SHIPFLYBY01.WAV wav1:sound=01SHIPFLYBY02.WAV wav2:sound=01SHIPFLYBY03.WAV wav3:sound=01SHIPFLYBY04.WAV numsounds:int=4 min_interval:flex=6 range_interval:flex=4 min_volume:flex=0.5 range_volume:flex=0.5
-rbot-door.cog door0:thing=2 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
-rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
-rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=970 elevator:thing=48 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
-rbot-ffield-nar.cog switch:surface=890 switch1:surface=939 damsurf:surface=954 damsurf2:surface=962 maxdamage:flex=10 mindamage:flex=5
 rbot-tdets-nar.cog switch:surface=1054 tdg1:thing=45 tdg2:thing=47 tdg3:thing=46 tdg4:thing=44 rounds:int=2 rate:flex=0.1 delay:flex=3
+rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=970 elevator:thing=48 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
 rbot-tdets-nar.cog switch:surface=1042 tdg1:thing=52 tdg2:thing=51 tdg3:thing=50 tdg4:thing=49 rounds:int=2 rate:flex=0.1 delay:flex=3
 rbot-tdets-nar.cog switch:surface=1048 tdg1:thing=53 tdg2:thing=54 tdg3:thing=55 tdg4:thing=56 rounds:int=2 rate:flex=0.1 delay:flex=3
-rbot-tdets-nar.cog switch:surface=1060 tdg1:thing=86 tdg2:thing=88 tdg3:thing=89 tdg4:thing=87 rounds:int=2 rate:flex=0.1 delay:flex=3
 rbot-turret-nar.cog switch:surface=1012 turret1:thing=57 turret2:thing=58 turret3:thing=59 turret4:thing=60 ghost1:thing=109 ghost2:thing=110 ghost3:thing=111 ghost4:thing=112 rounds:int=5 rate:flex=0.33 delay:flex=2 movespeed:flex=2 autoAimXFOV:flex=90 autoAimZFOV:flex=180
+rbot-tdets-nar.cog switch:surface=1060 tdg1:thing=86 tdg2:thing=88 tdg3:thing=89 tdg4:thing=87 rounds:int=2 rate:flex=0.1 delay:flex=3
 rbot-meddroid.cog twoonebee:thing=90
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 teambotname:int=20

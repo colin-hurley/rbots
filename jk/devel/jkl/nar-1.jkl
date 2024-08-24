@@ -10775,18 +10775,18 @@ Section: cogs
 
 World cogs 144
 #Num	Script          Symbol values
-0: 00_CONVEYOR.COG (-1.000000/0.000000/0.000000) 10 222 -1 -1 -1 -1 -1 -1 -1
-1: 00_CONVEYOR.COG (1.000000/0.000000/0.000000) 10 210 -1 -1 -1 -1 -1 -1 -1
-2: 00_RANDOMAMBIENT.COG 01SHIPFLYBY01.WAV 01SHIPFLYBY02.WAV 01SHIPFLYBY03.WAV 01SHIPFLYBY04.WAV 4 6 4 0.5 0.5
-3: rbot-door.cog 2 -1 -1 -1 8 2 0.5
-4: rbot-door.cog 4 -1 -1 -1 8 2 0.5
-5: rbot-elev-switch.cog -1 -1 -1 970 48 0.25 2 4 ACTIVATE02.WAV
-6: rbot-ffield-nar.cog 890 939 954 962 10 5
-7: rbot-tdets-nar.cog 1054 45 47 46 44 2 0.1 3
+0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
+1: rbot-door.cog 4 -1 -1 -1 8 2 0.5
+2: rbot-ffield-nar.cog 890 939 954 962 10 5
+3: 00_CONVEYOR.COG (-1.000000/0.000000/0.000000) 10 222 -1 -1 -1 -1 -1 -1 -1
+4: 00_CONVEYOR.COG (1.000000/0.000000/0.000000) 10 210 -1 -1 -1 -1 -1 -1 -1
+5: 00_RANDOMAMBIENT.COG 01SHIPFLYBY01.WAV 01SHIPFLYBY02.WAV 01SHIPFLYBY03.WAV 01SHIPFLYBY04.WAV 4 6 4 0.5 0.5
+6: rbot-tdets-nar.cog 1054 45 47 46 44 2 0.1 3
+7: rbot-elev-switch.cog -1 -1 -1 970 48 0.25 2 4 ACTIVATE02.WAV
 8: rbot-tdets-nar.cog 1042 52 51 50 49 2 0.1 3
 9: rbot-tdets-nar.cog 1048 53 54 55 56 2 0.1 3
-10: rbot-tdets-nar.cog 1060 86 88 89 87 2 0.1 3
-11: rbot-turret-nar.cog 1012 57 58 59 60 109 110 111 112 5 0.33 2 2 90 180
+10: rbot-turret-nar.cog 1012 57 58 59 60 109 110 111 112 5 0.33 2 2 90 180
+11: rbot-tdets-nar.cog 1060 86 88 89 87 2 0.1 3
 12: rbot-meddroid.cog 90
 13: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 14: rbot-srv.cog 0 0 0 20

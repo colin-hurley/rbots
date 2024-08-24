@@ -30,11 +30,8 @@
 			<excludes>
 				<exclude>3do\m10colmn.3do</exclude>
 				<exclude>cog\rbot-custom-*.cog</exclude>
-				<exclude>cog\rbot-ffield-nar.cog</exclude>
 				<exclude>cog\rbot-lightning.cog</exclude>
 				<exclude>cog\rbot-meddroid.cog</exclude>
-				<exclude>cog\rbot-tdets-nar.cog</exclude>
-				<exclude>cog\rbot-turret-nar.cog</exclude>
 				<exclude>misc\cogstrings.uni</exclude>
 			</excludes>
 		</fileSet>

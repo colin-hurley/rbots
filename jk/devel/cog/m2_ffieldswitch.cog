@@ -1,10 +1,19 @@
 # Jedi Knight Cog Script
 #
+# M2_FFieldSwitch.cog
+#
 # This script operates a forcefield surface that damages
 # the player.
 # It also sets this surface to be nomove and translucent.
 #
-# Modified for Rbots - Nar Shadaa Loading Terminal by Raynar
+# [SC]
+#
+# 8/8/97 - YB - Fixed sleep() problem by using timers.
+#
+# (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
+# ========================================================================================
 
 symbols
 
@@ -13,14 +22,13 @@ message     damaged
 message     activated
 message     touched
 message     timer
-message		trigger
 
 sound       poweroff=activate04.wav         local
 sound       poweron=activate01.wav          local
 sound       hitsurf=ForceFieldHit01.wav     local
 
-surface     switch                          linkid=1	mask=0x404
-surface     switch1                         linkid=1	mask=0x404
+surface     switch                          linkid=1
+surface     switch1                         linkid=1
 surface     damsurf                         linkid=3   mask=0x44C
 surface     damsurf2                        linkid=3   mask=0x44C
 
@@ -37,10 +45,13 @@ thing       victim                          local
 
 template    sparks=+heavysmoke              local
 
-thing	rbot	local
-flex	dist	local
-flex	dist1	local
+# Rbots support
 
+message		trigger
+
+thing		rbot								local
+flex		dist								local
+flex		dist1								local
 
 end
 
@@ -83,37 +94,6 @@ activated:
    }
    return;
 
-trigger:
-	if (getsourceref() == 11030)
-	{
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
-		dist1 = VectorDist(GetThingPos(rbot), SurfaceCenter(switch1));
-
-		if (dist < 0.5 || dist1 < 0.5) // bot is close enough to activate
-		{
-			if (GetWallCel(switch) == 0)
-			{
-				PlaySoundPos(poweroff, SurfaceCenter(switch), 1.0, -1, -1, 0 );
-				PlaySoundPos(poweroff, SurfaceCenter(switch1), 1.0, -1, -1, 0);
-				SetWallCel(switch,1);
-				SetWallCel(switch1,1);                 //off
-				SetAdjoinFlags(damsurf,2);             //move
-				SetAdjoinFlags(damsurf2,2);
-			}
-			else if (GetWallCel(switch) == 1)
-			{
-				PlaySoundPos(poweron, SurfaceCenter(switch), 1.0, -1, -1, 0 );
-				PlaySoundPos(poweron, SurfaceCenter(switch1), 1.0, -1, -1, 0);
-				SetWallCel(switch,0);
-				SetWallCel(switch1,0);                 //on
-				ClearAdjoinFlags(damsurf,2);           //no move
-				ClearAdjoinFlags(damsurf2,2);
-			}
-		}
-	}
-
-
 # ........................................................................................
 
 touched:
@@ -134,7 +114,7 @@ touched:
 damaged:
    victim = GetThingParent(GetSourceRef());
 
-   if((GetParam(1) == 1) && (GetThingType(victim) == 10))
+   if((GetParam(1) == 1) && (GetThingType(victim) == 2 || GetThingType(victim) == 10))
    {
       damage = (Rand()*(maxdamage - mindamage))+mindamage;
       DamageThing(victim, damage, 0x1, victim);
@@ -171,6 +151,37 @@ timer:
    }
 
    return;
+
+trigger:
+	if (GetSourceRef() == 11030) // "activate" trigger
+	{
+		rbot = GetParam(1);
+		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
+		dist1 = VectorDist(GetThingPos(rbot), SurfaceCenter(switch1));
+		if (dist < 0.5 || dist1 < 0.5) // if bot is close enough, activate switch
+		{
+			if (GetWallCel(switch) == 0)
+			{
+				PlaySoundPos(poweroff, SurfaceCenter(switch), 1.0, -1, -1, 0 );
+				PlaySoundPos(poweroff, SurfaceCenter(switch1), 1.0, -1, -1, 0);
+				SetWallCel(switch,1);
+				SetWallCel(switch1,1);                 //off
+				SetAdjoinFlags(damsurf,2);             //move
+				SetAdjoinFlags(damsurf2,2);
+			}
+			else if (GetWallCel(switch) == 1)
+			{
+				PlaySoundPos(poweron, SurfaceCenter(switch), 1.0, -1, -1, 0 );
+				PlaySoundPos(poweron, SurfaceCenter(switch1), 1.0, -1, -1, 0);
+				SetWallCel(switch,0);
+				SetWallCel(switch1,0);                 //on
+				ClearAdjoinFlags(damsurf,2);           //no move
+				ClearAdjoinFlags(damsurf2,2);
+			}
+		}
+		return;
+	}
+	return;
 
 end
 

@@ -10725,49 +10725,49 @@ World scripts 50
 3: 00_smoketrail.cog
 4: 00_twoonebee.cog
 5: class_sequencer.cog
-6: pow_bacta.cog
-7: pow_bryar.cog
-8: pow_concrifle.cog
-9: pow_crossbow.cog
-10: pow_darkside.cog
-11: pow_energy.cog
-12: pow_goggles.cog
-13: pow_health.cog
-14: pow_lightside.cog
-15: pow_mana.cog
-16: pow_power.cog
-17: pow_powerboost.cog
-18: pow_railcharges.cog
-19: pow_railgun.cog
-20: pow_repeater.cog
-21: pow_revive.cog
-22: pow_sequencer.cog
-23: pow_shields.cog
-24: pow_single_sequencer.cog
-25: pow_single_thermal.cog
-26: pow_strifle.cog
-27: pow_supershield.cog
-28: pow_thermal.cog
-29: pow_vest.cog
-30: rbot-arrival.cog
-31: rbot-backpack.cog
-32: rbot-door.cog
-33: rbot-elev-switch.cog
-34: rbot-ffield-nar.cog
-35: rbot-meddroid.cog
-36: rbot-nav.cog
-37: rbot-nav-special.cog
-38: rbot-path.cog
-39: rbot-player.cog
-40: rbot-skin.cog
-41: rbot-special.cog
-42: rbot-special-wallcel.cog
-43: rbot-srv.cog
-44: rbot-srv-force.cog
-45: rbot-srv-weapons.cog
-46: rbot-startup.cog
-47: rbot-tdets-nar.cog
-48: rbot-turret-nar.cog
+6: M2_DETTRAP.COG
+7: M2_FFIELDSWITCH.COG
+8: M2_TURRETTRAP.COG
+9: pow_bacta.cog
+10: pow_bryar.cog
+11: pow_concrifle.cog
+12: pow_crossbow.cog
+13: pow_darkside.cog
+14: pow_energy.cog
+15: pow_goggles.cog
+16: pow_health.cog
+17: pow_lightside.cog
+18: pow_mana.cog
+19: pow_power.cog
+20: pow_powerboost.cog
+21: pow_railcharges.cog
+22: pow_railgun.cog
+23: pow_repeater.cog
+24: pow_revive.cog
+25: pow_sequencer.cog
+26: pow_shields.cog
+27: pow_single_sequencer.cog
+28: pow_single_thermal.cog
+29: pow_strifle.cog
+30: pow_supershield.cog
+31: pow_thermal.cog
+32: pow_vest.cog
+33: rbot-arrival.cog
+34: rbot-backpack.cog
+35: rbot-door.cog
+36: rbot-elev-switch.cog
+37: rbot-meddroid.cog
+38: rbot-nav.cog
+39: rbot-nav-special.cog
+40: rbot-path.cog
+41: rbot-player.cog
+42: rbot-skin.cog
+43: rbot-special.cog
+44: rbot-special-wallcel.cog
+45: rbot-srv.cog
+46: rbot-srv-force.cog
+47: rbot-srv-weapons.cog
+48: rbot-startup.cog
 49: xtank3.cog
 end
 
@@ -10777,16 +10777,16 @@ World cogs 144
 #Num	Script          Symbol values
 0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 4 -1 -1 -1 8 2 0.5
-2: rbot-ffield-nar.cog 890 939 954 962 10 5
+2: M2_FFIELDSWITCH.COG 890 939 954 962 10 5
 3: 00_CONVEYOR.COG (-1.000000/0.000000/0.000000) 10 222 -1 -1 -1 -1 -1 -1 -1
 4: 00_CONVEYOR.COG (1.000000/0.000000/0.000000) 10 210 -1 -1 -1 -1 -1 -1 -1
 5: 00_RANDOMAMBIENT.COG 01SHIPFLYBY01.WAV 01SHIPFLYBY02.WAV 01SHIPFLYBY03.WAV 01SHIPFLYBY04.WAV 4 6 4 0.5 0.5
-6: rbot-tdets-nar.cog 1054 45 47 46 44 2 0.1 3
+6: M2_DETTRAP.COG 1054 45 47 46 44 2 0.1 3
 7: rbot-elev-switch.cog -1 -1 -1 970 48 0.25 2 4 ACTIVATE02.WAV
-8: rbot-tdets-nar.cog 1042 52 51 50 49 2 0.1 3
-9: rbot-tdets-nar.cog 1048 53 54 55 56 2 0.1 3
-10: rbot-turret-nar.cog 1012 57 58 59 60 109 110 111 112 5 0.33 2 2 90 180
-11: rbot-tdets-nar.cog 1060 86 88 89 87 2 0.1 3
+8: M2_DETTRAP.COG 1042 52 51 50 49 2 0.1 3
+9: M2_DETTRAP.COG 1048 53 54 55 56 2 0.1 3
+10: M2_TURRETTRAP.COG 1012 57 58 59 60 109 110 111 112 5 0.33 2 2 90 90
+11: M2_DETTRAP.COG 1060 86 88 89 87 2 0.1 3
 12: rbot-meddroid.cog 90
 13: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 14: rbot-srv.cog 0 0 0 20

@@ -8045,15 +8045,6 @@ END
 
 SEC: COGS
 COGS 102
-M4_REACTORTHRUST.COG vec0:vector=(0.000000/0.000000/1.000000) thrustspeed:flex=8 doorspeed:flex=2 sleeptime:flex=2 door0:thing=46 door1:thing=45 door2:thing=48 door3:thing=47 Switch:surface=1811 sector0:sector=102 sector1:sector=155 light0:thing=63 lspeed:flex=8 wav0:sound=00EXHAUSTAMB04.WAV wav1:sound=00ALARMLOOP03.WAV thing0:thing=64 fadetime:flex=4
-00_SURFANIM.COG sign:surface=1799 sign1:surface=-1 sign2:surface=-1 sign3:surface=-1 fps:flex=5
-00_FORCEFIELD.COG surf0:surface=1867 maxDamage:flex=10 minDamage:flex=5 interval:flex=0.25 minLight:flex=0.2 maxLight:flex=1 period:flex=0.5
-00_MATANIM.COG animmat:material=00T_WRE.MAT fps:flex=1
-00_SURFANIM.COG sign:surface=67 sign1:surface=71 sign2:surface=62 sign3:surface=75 fps:flex=3
-rbot-elev-switch2.cog lower_adjoin0:surface=597 lower_adjoin1:surface=555 lower_adjoin2:surface=-1 call0:surface=1684 call1:surface=1672 call2:surface=1760 call3:surface=1899 elevator:thing=5 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
-rbot-elev-switch2.cog lower_adjoin0:surface=690 lower_adjoin1:surface=475 lower_adjoin2:surface=-1 call0:surface=1690 call1:surface=1678 call2:surface=1766 call3:surface=1893 elevator:thing=6 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
-rbot-elev-switch2.cog lower_adjoin0:surface=1499 lower_adjoin1:surface=1528 lower_adjoin2:surface=-1 call0:surface=1702 call1:surface=1708 call2:surface=-1 call3:surface=-1 elevator:thing=24 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
-rbot-elev-switch2.cog lower_adjoin0:surface=1146 lower_adjoin1:surface=1175 lower_adjoin2:surface=-1 call0:surface=1696 call1:surface=1714 call2:surface=-1 call3:surface=-1 elevator:thing=18 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
 rbot-door.cog door0:thing=1 door1:thing=2 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-door.cog door0:thing=3 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
@@ -8062,8 +8053,17 @@ rbot-door.cog door0:thing=12 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSp
 rbot-door.cog door0:thing=21 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-door.cog door0:thing=22 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-door.cog door0:thing=23 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+rbot-elev-switch2.cog lower_adjoin0:surface=597 lower_adjoin1:surface=555 lower_adjoin2:surface=-1 call0:surface=1684 call1:surface=1672 call2:surface=1760 call3:surface=1899 elevator:thing=5 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=690 lower_adjoin1:surface=475 lower_adjoin2:surface=-1 call0:surface=1690 call1:surface=1678 call2:surface=1766 call3:surface=1893 elevator:thing=6 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=1499 lower_adjoin1:surface=1528 lower_adjoin2:surface=-1 call0:surface=1702 call1:surface=1708 call2:surface=-1 call3:surface=-1 elevator:thing=24 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
+rbot-elev-switch2.cog lower_adjoin0:surface=1146 lower_adjoin1:surface=1175 lower_adjoin2:surface=-1 call0:surface=1696 call1:surface=1714 call2:surface=-1 call3:surface=-1 elevator:thing=18 start_wait:flex=0.25 speed:flex=10 wav0:sound=LVRCLIK1.WAV
 rbot-door.cog door0:thing=38 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
 rbot-door.cog door0:thing=39 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=3 lightValue:flex=0.5
+M4_REACTORTHRUST.COG vec0:vector=(0.000000/0.000000/1.000000) thrustspeed:flex=8 doorspeed:flex=2 sleeptime:flex=2 door0:thing=46 door1:thing=45 door2:thing=48 door3:thing=47 Switch:surface=1811 sector0:sector=102 sector1:sector=155 light0:thing=63 lspeed:flex=8 wav0:sound=00EXHAUSTAMB04.WAV wav1:sound=00ALARMLOOP03.WAV thing0:thing=64 fadetime:flex=4
+00_SURFANIM.COG sign:surface=1799 sign1:surface=-1 sign2:surface=-1 sign3:surface=-1 fps:flex=5
+00_FORCEFIELD.COG surf0:surface=1867 maxDamage:flex=10 minDamage:flex=5 interval:flex=0.25 minLight:flex=0.2 maxLight:flex=1 period:flex=0.5
+00_MATANIM.COG animmat:material=00T_WRE.MAT fps:flex=1
+00_SURFANIM.COG sign:surface=67 sign1:surface=71 sign2:surface=62 sign3:surface=75 fps:flex=3
 rbot-startup.cog numbots:int=4 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=0 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=255

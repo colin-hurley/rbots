@@ -28116,18 +28116,18 @@ Section: cogs
 
 World cogs 217
 #Num	Script          Symbol values
-0: 00_SURFANIM.COG 143 115 -1 -1 10
-1: 00_DOORSWITCH.COG 24 -1 -1 -1 148 1686 8 12 0.5
-2: 00_SLASHGRATE.COG 2277 2368
-3: 00_SLASHGRATE.COG 2333 2345
-4: MDM12_CROW.COG 148 -1 67
-5: rbot-door.cog 7 -1 -1 -1 8 2 0.5
-6: rbot-door.cog 8 -1 -1 -1 8 2 0.5
-7: rbot-door.cog 23 -1 -1 -1 8 2 0.5
-8: rbot-door.cog 15 -1 -1 -1 8 2 0.5
-9: rbot-door.cog 22 -1 -1 -1 8 2 0.5
-10: rbot-door.cog 16 -1 -1 -1 5 4 0.5
-11: rbot-doubledoor.cog 17 18 8 6 0.5
+0: rbot-door.cog 7 -1 -1 -1 8 2 0.5
+1: rbot-door.cog 8 -1 -1 -1 8 2 0.5
+2: 00_SURFANIM.COG 143 115 -1 -1 10
+3: 00_DOORSWITCH.COG 24 -1 -1 -1 148 1686 8 12 0.5
+4: rbot-door.cog 23 -1 -1 -1 8 2 0.5
+5: rbot-door.cog 15 -1 -1 -1 8 2 0.5
+6: rbot-door.cog 22 -1 -1 -1 8 2 0.5
+7: 00_SLASHGRATE.COG 2277 2368
+8: 00_SLASHGRATE.COG 2333 2345
+9: rbot-door.cog 16 -1 -1 -1 5 4 0.5
+10: rbot-doubledoor.cog 17 18 8 6 0.5
+11: MDM12_CROW.COG 148 -1 67
 12: rbot-startup.cog 8 1 1 1 0 0 0 0 0 101 102 -1 -1
 13: rbot-srv.cog 0 9 0 20
 14: rbot-srv-force.cog 0 7695

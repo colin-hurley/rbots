@@ -7806,10 +7806,10 @@ Section: cogs
 
 World cogs 122
 #Num	Script          Symbol values
-0: 00_SLIDECEILING.COG 20 20
-1: rbot-door.cog 2 -1 -1 -1 8 2 0.5
-2: rbot-door.cog 3 -1 -1 -1 8 2 0.5
-3: rbot-elev-switch2.cog -1 -1 -1 609 615 777 -1 11 0.25 4 LVRCLIK1.WAV
+0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
+1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
+2: rbot-elev-switch2.cog -1 -1 -1 609 615 777 -1 11 0.25 4 LVRCLIK1.WAV
+3: 00_SLIDECEILING.COG 20 20
 4: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 5: rbot-srv.cog 0 0 0 20
 6: rbot-srv-force.cog 0 255

@@ -13057,18 +13057,18 @@ END
 
 SEC: COGS
 COGS 156
-00_SURFANIM.COG sign:surface=143 sign1:surface=115 sign2:surface=-1 sign3:surface=-1 fps:flex=10
-00_DOORSWITCH.COG door0:thing=24 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=148 switch1:surface=1686 movespeed:flex=8 sleeptime:flex=12 lightvalue:flex=0.5
-00_SLASHGRATE.COG grate:surface=2277 grateback:surface=2368
-00_SLASHGRATE.COG grate:surface=2333 grateback:surface=2345
-MDM12_CROW.COG button1:surface=148 button2:surface=-1 ship:thing=67
 rbot-door.cog door0:thing=7 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=8 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+00_SURFANIM.COG sign:surface=143 sign1:surface=115 sign2:surface=-1 sign3:surface=-1 fps:flex=10
+00_DOORSWITCH.COG door0:thing=24 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=148 switch1:surface=1686 movespeed:flex=8 sleeptime:flex=12 lightvalue:flex=0.5
 rbot-door.cog door0:thing=23 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=15 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=22 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+00_SLASHGRATE.COG grate:surface=2277 grateback:surface=2368
+00_SLASHGRATE.COG grate:surface=2333 grateback:surface=2345
 rbot-door.cog door0:thing=16 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=5 sleepTime:flex=4 lightValue:flex=0.5
 rbot-doubledoor.cog door0:thing=17 door1:thing=18 movespeed:flex=8 sleeptime:flex=6 lightvalue:flex=0.5
+MDM12_CROW.COG button1:surface=148 button2:surface=-1 ship:thing=67
 rbot-startup.cog numbots:int=8 allowsaber:int=1 allowguns:int=1 allowforce:int=1 respawn_mask0:int=0 respawn_mask1:int=0 respawn_mask2:int=0 respawn_mask3:int=0 respawn_mask4:int=0 teambotskinid1:int=101 teambotskinid2:int=102 teambotskinid3:int=-1 teambotskinid4:int=-1
 rbot-srv.cog botid:int=0 botname:int=9 botskinid:int=0 teambotname:int=20
 rbot-srv-force.cog botid:int=0 forceflags:int=7695

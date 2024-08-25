@@ -16665,25 +16665,25 @@ Section: cogs
 
 World cogs 148
 #Num	Script          Symbol values
-0: M4_REACTORTHRUST.COG (0.000000/0.000000/1.000000) 8 2 2 46 45 48 47 1811 102 155 63 8 00EXHAUSTAMB04.WAV 00ALARMLOOP03.WAV 64 4
-1: 00_SURFANIM.COG 1799 -1 -1 -1 5
-2: 00_FORCEFIELD.COG 1867 10 5 0.25 0.2 1 0.5
-3: 00_MATANIM.COG 00T_WRE.MAT 1
-4: 00_SURFANIM.COG 67 71 62 75 3
-5: rbot-elev-switch2.cog 597 555 -1 1684 1672 1760 1899 5 0.25 10 LVRCLIK1.WAV
-6: rbot-elev-switch2.cog 690 475 -1 1690 1678 1766 1893 6 0.25 10 LVRCLIK1.WAV
-7: rbot-elev-switch2.cog 1499 1528 -1 1702 1708 -1 -1 24 0.25 10 LVRCLIK1.WAV
-8: rbot-elev-switch2.cog 1146 1175 -1 1696 1714 -1 -1 18 0.25 10 LVRCLIK1.WAV
-9: rbot-door.cog 1 2 -1 -1 8 3 0.5
-10: rbot-door.cog 3 -1 -1 -1 8 3 0.5
-11: rbot-door.cog 4 -1 -1 -1 8 3 0.5
-12: rbot-door.cog 11 -1 -1 -1 8 3 0.5
-13: rbot-door.cog 12 -1 -1 -1 8 3 0.5
-14: rbot-door.cog 21 -1 -1 -1 8 3 0.5
-15: rbot-door.cog 22 -1 -1 -1 8 3 0.5
-16: rbot-door.cog 23 -1 -1 -1 8 3 0.5
-17: rbot-door.cog 38 -1 -1 -1 8 3 0.5
-18: rbot-door.cog 39 -1 -1 -1 8 3 0.5
+0: rbot-door.cog 1 2 -1 -1 8 3 0.5
+1: rbot-door.cog 3 -1 -1 -1 8 3 0.5
+2: rbot-door.cog 4 -1 -1 -1 8 3 0.5
+3: rbot-door.cog 11 -1 -1 -1 8 3 0.5
+4: rbot-door.cog 12 -1 -1 -1 8 3 0.5
+5: rbot-door.cog 21 -1 -1 -1 8 3 0.5
+6: rbot-door.cog 22 -1 -1 -1 8 3 0.5
+7: rbot-door.cog 23 -1 -1 -1 8 3 0.5
+8: rbot-elev-switch2.cog 597 555 -1 1684 1672 1760 1899 5 0.25 10 LVRCLIK1.WAV
+9: rbot-elev-switch2.cog 690 475 -1 1690 1678 1766 1893 6 0.25 10 LVRCLIK1.WAV
+10: rbot-elev-switch2.cog 1499 1528 -1 1702 1708 -1 -1 24 0.25 10 LVRCLIK1.WAV
+11: rbot-elev-switch2.cog 1146 1175 -1 1696 1714 -1 -1 18 0.25 10 LVRCLIK1.WAV
+12: rbot-door.cog 38 -1 -1 -1 8 3 0.5
+13: rbot-door.cog 39 -1 -1 -1 8 3 0.5
+14: M4_REACTORTHRUST.COG (0.000000/0.000000/1.000000) 8 2 2 46 45 48 47 1811 102 155 63 8 00EXHAUSTAMB04.WAV 00ALARMLOOP03.WAV 64 4
+15: 00_SURFANIM.COG 1799 -1 -1 -1 5
+16: 00_FORCEFIELD.COG 1867 10 5 0.25 0.2 1 0.5
+17: 00_MATANIM.COG 00T_WRE.MAT 1
+18: 00_SURFANIM.COG 67 71 62 75 3
 19: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
 20: rbot-srv.cog 0 0 0 20
 21: rbot-srv-force.cog 0 255

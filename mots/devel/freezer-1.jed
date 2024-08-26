@@ -8467,7 +8467,7 @@ rbot-elev-switch.cog lower_adjoin0:surface=699 lower_adjoin1:surface=708 lower_a
 rbot-door.cog door0:thing=14 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 00_SECTORTHRUST.COG vec0:vector=(0/0/1) speed:flex=5 sector0:sector=123 sector1:sector=122 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1
 rbot-elev-switch.cog lower_adjoin0:surface=1533 lower_adjoin1:surface=1542 lower_adjoin2:surface=-1 button:surface=-1 elevator:thing=16 start_wait:flex=0.25 sleeptime:flex=2 speed:flex=4 wav0:sound=ACTIVATE02.WAV
-rbot-door.cog door0:thing=17 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
+rbot-door.cog door0:thing=-1 door1:thing=17 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 00_SECTORTHRUST.COG vec0:vector=(0/0/1) speed:flex=5 sector0:sector=172 sector1:sector=171 sector2:sector=-1 sector3:sector=-1 sector4:sector=-1 sector5:sector=-1 sector6:sector=-1 sector7:sector=-1
 00_PARTICLESYSTEM.COG ghost0:thing=15 partSystem:template=+UPENERGYHI
 00_PARTICLESYSTEM.COG ghost0:thing=18 partSystem:template=+UPENERGYHI

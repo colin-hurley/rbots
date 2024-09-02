@@ -1337,11 +1337,11 @@ dodge:
 			}
 			else if (choice > 0.30)
 			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '-90 0 0'), 2.0)); // slide left
+				ApplyForce(rbot, VectorScale(GetThingRVec(rbot), -180)); // slide left
 			}
 			else
 			{
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '90 0 0'), 2.0)); // slide right
+				ApplyForce(rbot, VectorScale(GetThingRVec(rbot), 180)); // slide right
 			}
 			allowdodge = 0;
 			SetTimerEx(0.4, 400, -1, -1); // allow to dodge projectiles again in 0.4 secs

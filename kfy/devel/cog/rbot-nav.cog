@@ -82,6 +82,7 @@ flex		nodesize							local
 int			nodeflags							local
 flex		dist								local
 int			path_rank							local
+flex		weight								local
 
 int			new_path_id							local
 int			new_path_size						local
@@ -94,6 +95,7 @@ int			new_nodeflags						local
 flex		new_dist							local
 int			new_path_rank						local
 int			new_path_rundir						local
+flex		new_weight							local
 
 vector		bot_z								local
 vector		new_node_z							local
@@ -109,7 +111,7 @@ int			lastposnum							local
 int			nextposnum							local
 int			rundir								local
 int			changepath							local
-int			choices								local
+flex		total_weight						local
 int			new_path_end						local
 int			new_path_requirements				local
 int			bot_keys							local
@@ -251,6 +253,7 @@ user7:
 			pathflags = SendMessageEx(path, user7, 10701003, -1, -1, -1);
 			path_rank = SendMessageEx(path, user7, 10701004, -1, -1, -1);
 			rundir = SendMessageEx(path, user7, 10701005, -1, -1, -1); // Make sure bot is running in the path's required direction
+			weight = SendMessageEx(path, user7, 10701006, -1, -1, -1);
 			nodenum = SendMessageEx(path, user7, 10701100, node_index, -1, -1);
 
 			// Validate bot state and make corrections if needed
@@ -261,17 +264,17 @@ user7:
 				if (BitTest(botmode, 0x1000)) rundir=0; else rundir=1; // set run direction from botmode
 			}
 
-			choices = 1;
+			total_weight = weight;
 			// If we're at either end of a non-looping path, we should change paths if we can
 			if (!BitTest(pathflags, 0x2)) // Not looping
 			{
 				if (rundir == 1 && node_index >= (path_size - 1)) // At end of path and running forward
 				{
-					choices = 0; // Cannot stay on current path if there is another option
+					total_weight = 0; // Cannot stay on current path if there is another option
 				}
 				else if (rundir == 0 && node_index <= 0) // At beginning of path and running backward
 				{
-					choices = 0; // Cannot stay on current path if there is another option
+					total_weight = 0; // Cannot stay on current path if there is another option
 				}
 			}
 
@@ -289,8 +292,9 @@ user7:
 					new_pathflags = SendMessageEx(path, user7, 10701003, -1, -1, -1);
 					new_path_rank = SendMessageEx(path, user7, 10701004, -1, -1, -1);
 					new_path_rundir = SendMessageEx(path, user7, 10701005, -1, -1, -1);
+					new_weight = SendMessageEx(path, user7, 10701006, -1, -1, -1);
 
-					if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
+					if (!BitTest(new_pathflags, 0x4) && BitClear(new_path_requirements, bot_keys) == 0 && new_weight > 0) // Path is not disabled and bot has all the keys, etc. necessary to use this path
 					{
 						for (i = 0 ; i < new_path_size ; i = i + 1)
 						{
@@ -330,13 +334,16 @@ user7:
 									changepath = 0;
 									if (new_path_rank > path_rank) // New path is better than the current option - we are obligated to switch
 									{
-										choices = 1; // Reset number of choices to count only those in this path rank
+										total_weight = new_weight; // Reset total weight to include only paths in this path rank
 										changepath = 1;
 									}
 									else if (new_path_rank == path_rank) // New path is same rank as current option - change at random or if at end of current path
 									{
-										choices = choices + 1; // One more choice in the current path rank
-										if (Rand() < (1/choices)) // Each intersecting path has an equal chance of being chosen (one in N chance)
+										total_weight = total_weight + new_weight; // Add this path weight to the total
+										// Each intersecting path has a chance of being chosen according to its share of the total weight of all choices
+										// Giving a path more weight gives it a greater chance of being selected than paths with less weight
+										// If the weights of all paths at the intersection are equal, it is effectively a 1 in N chance
+										if (Rand() < (new_weight / total_weight))
 										{
 											changepath = 1;
 										}

@@ -103,6 +103,12 @@ int			pathflags=0							local
 # 0x2 / 2 = require gold CTF key
 int			requirements=0
 
+# A weight adjustment for selecting this path during navigation. Paths with more
+# weight are more likely to be chosen than paths with less weight. If all paths
+# at an intersection have the same weight, they each effectively have a 1 in N
+# chance of being selected.
+flex		weight=1.0
+
 # CTF path attributes
 
 # The rank for this path when seeking the red base
@@ -346,6 +352,7 @@ user7:
 	if (GetParam(0) == 10701003) { ReturnEx(pathflags); return; }
 	if (GetParam(0) == 10701004) { ReturnEx(rank); return; }
 	if (GetParam(0) == 10701005) { ReturnEx(rundir); return; }
+	if (GetParam(0) == 10701006) { ReturnEx(weight); return; }
 	#if (GetParam(0) == 10701050) { ReturnEx(firstpath); return; }
 	if (GetParam(0) == 10701051) { ReturnEx(nextpath); return; }
 

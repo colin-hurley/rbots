@@ -391,7 +391,7 @@ trigger:
 			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
 			{
 				// Bot is on ground or in water, jump now
-				ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // force bot to jump
+				ApplyForce(rbot, VectorScale(VectorAdd(GetThingLVec(rbot), '0 0 90'), 2.5)); // force bot to jump
 			}
 			else
 			{
@@ -1267,7 +1267,7 @@ move:
 	// If underwater, the bot will "jump" by swimming upward a bit (this is to help get around underwater obstructions)
 	if (jump && (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000))
 	{
-		ApplyForce(rbot, VectorScale(VectorSub(GetThingLVec(rbot), '0 0 -90'), 2.5)); // jump
+		ApplyForce(rbot, VectorScale(VectorAdd(GetThingLVec(rbot), '0 0 90'), 2.5)); // jump
 		jump = 0;
 	}
 

@@ -29,7 +29,6 @@
 			</includes>
 			<excludes>
 				<exclude>cog\rbot-custom-*.cog</exclude>
-				<exclude>cog\rbot-window.cog</exclude>
 				<exclude>misc\cogstrings.uni</exclude>
 			</excludes>
 		</fileSet>

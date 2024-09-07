@@ -1,3 +1,4 @@
+
 # Jedi Knight Cog Script
 #
 # MDM10_window.cog
@@ -7,9 +8,9 @@
 # [JS]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
-# ========================================================================================
 #
-# Modified to for Rbots - Raynar
+# Modified to support Rbots
+# ========================================================================================
 
 symbols
 
@@ -19,9 +20,9 @@ message	entered
 
 surface	damsurf1		mask=0x448
 surface	damsurf2		mask=0x448
-sector	sector0			mask=0x404
-sector	sector1			mask=0x404
-sector	sector2			mask=0x404
+sector	sector0	
+sector	sector1	
+sector	sector2	
 
 sound		wav0=glassbreak1.wav
 sound		wav1=00industrialamb01.wav
@@ -108,7 +109,7 @@ entered:
 # ........................................................................................
 
 reactorpull:
-	if (GetThingType(currentThing) == 10) {
+	if (GetThingType(currentThing) == 2 || GetThingType(currentThing) == 10) {
 		DetachThing(currentThing);
 		playerVec = GetThingVel(currentThing);
 		playerVec = VectorAdd(vec0, playerVec);

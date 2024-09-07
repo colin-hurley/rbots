@@ -6073,54 +6073,54 @@ World scripts 59
 8: exp_flash.cog
 9: exp_hrail.cog
 10: MDM10_PIPE.COG
-11: pow_bacta.cog
-12: pow_battery_m.cog
-13: pow_blastech_m.cog
-14: pow_bryar_m.cog
-15: pow_carbgun_m.cog
-16: pow_carbpellets_m.cog
-17: pow_concrifle_m.cog
-18: pow_crossbow_m.cog
-19: pow_darkside.cog
-20: pow_energy_m.cog
-21: pow_flashbombs_m.cog
-22: pow_health.cog
-23: pow_livethermal.cog
-24: pow_mana.cog
-25: pow_power_m.cog
-26: pow_powerboost.cog
-27: pow_railcharges_m.cog
-28: pow_railgun_m.cog
-29: pow_railseek_m.cog
-30: pow_repeater_m.cog
-31: pow_revive.cog
-32: pow_saber_m.cog
-33: pow_scope_m.cog
-34: pow_sequencer_m.cog
-35: pow_shields.cog
-36: pow_single_flashbomb_m.cog
-37: pow_single_sequencer_m.cog
-38: pow_single_thermal_m.cog
-39: pow_srailcharges_m.cog
-40: pow_strifle_m.cog
-41: pow_supershield.cog
-42: pow_thermal_m.cog
-43: pow_vest.cog
-44: rbot-arrival.cog
-45: rbot-backpack.cog
-46: rbot-door.cog
-47: rbot-elev-switch.cog
-48: rbot-nav.cog
-49: rbot-nav-special.cog
-50: rbot-path.cog
-51: rbot-player.cog
-52: rbot-skin.cog
-53: rbot-special-sector.cog
-54: rbot-srv.cog
-55: rbot-srv-force.cog
-56: rbot-srv-weapons.cog
-57: rbot-startup.cog
-58: rbot-window.cog
+11: MDM10_WINDOW.COG
+12: pow_bacta.cog
+13: pow_battery_m.cog
+14: pow_blastech_m.cog
+15: pow_bryar_m.cog
+16: pow_carbgun_m.cog
+17: pow_carbpellets_m.cog
+18: pow_concrifle_m.cog
+19: pow_crossbow_m.cog
+20: pow_darkside.cog
+21: pow_energy_m.cog
+22: pow_flashbombs_m.cog
+23: pow_health.cog
+24: pow_livethermal.cog
+25: pow_mana.cog
+26: pow_power_m.cog
+27: pow_powerboost.cog
+28: pow_railcharges_m.cog
+29: pow_railgun_m.cog
+30: pow_railseek_m.cog
+31: pow_repeater_m.cog
+32: pow_revive.cog
+33: pow_saber_m.cog
+34: pow_scope_m.cog
+35: pow_sequencer_m.cog
+36: pow_shields.cog
+37: pow_single_flashbomb_m.cog
+38: pow_single_sequencer_m.cog
+39: pow_single_thermal_m.cog
+40: pow_srailcharges_m.cog
+41: pow_strifle_m.cog
+42: pow_supershield.cog
+43: pow_thermal_m.cog
+44: pow_vest.cog
+45: rbot-arrival.cog
+46: rbot-backpack.cog
+47: rbot-door.cog
+48: rbot-elev-switch.cog
+49: rbot-nav.cog
+50: rbot-nav-special.cog
+51: rbot-path.cog
+52: rbot-player.cog
+53: rbot-skin.cog
+54: rbot-special-sector.cog
+55: rbot-srv.cog
+56: rbot-srv-force.cog
+57: rbot-srv-weapons.cog
+58: rbot-startup.cog
 end
 
 Section: cogs
@@ -6129,7 +6129,7 @@ World cogs 201
 #Num	Script          Symbol values
 0: rbot-elev-switch.cog 333 -1 -1 -1 6 0.25 2 4 BEEP1.WAV
 1: rbot-door.cog 19 -1 -1 -1 8 2 0.5
-2: rbot-window.cog 528 500 49 50 0 00INDUSTRIALAMB02.WAV 00INDUSTRIALAMB01.WAV (.696451/0/.717337) 1 4 49 64 GANTRYDAMWINDOW
+2: MDM10_WINDOW.COG 528 500 49 50 0 00INDUSTRIALAMB02.WAV 00INDUSTRIALAMB01.WAV (.696451/0/.717337) 1 4 49 64 GANTRYDAMWINDOW
 3: MDM10_PIPE.COG 65 66 GANTRYPIPE2
 4: rbot-startup.cog 3 1 1 1 0 0 0 0 0 101 102 -1 -1
 5: rbot-srv.cog 0 9 0 20

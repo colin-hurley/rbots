@@ -386,18 +386,7 @@ trigger:
 		}
 		if (mode && ((BitTest(special, 0x4) && rundir == 1) || (BitTest(special, 0x8) && rundir == 0))) // Bot needs to jump
 		{
-			if (target == -1) AiSetLookPos(rbot, newpos); // bot has no target - look at newpos
-			AiSetMovePos(rbot, VectorAdd(newpos, '0 0 0.25')); // Encourage the bot to move upward a bit so he doesn't drag/reattach to the ground
-			if (GetAttachFlags(rbot) || GetPhysicsFlags(rbot) & 0x100000 || GetThingFlags(rbot) & 0x2000000)
-			{
-				// Bot is on ground or in water, jump now
-				ApplyForce(rbot, VectorScale(VectorAdd(GetThingLVec(rbot), '0 0 90'), 2.5)); // force bot to jump
-			}
-			else
-			{
-				// Bot is airborne, set flag to jump at next opportunity
-				jump = 1;
-			}
+			jump = 1;
 		}
 		if (mode && ((BitTest(special, 0x20) && rundir == 1) || (BitTest(special, 0x40) && rundir == 0))) // Send activate to other cogs
 		{

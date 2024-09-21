@@ -262,6 +262,23 @@ trigger:
 				call use_weap8;
 			}
 		}
+		if (BitTest(special, 0x1000)) // Use lightsaber to slash open grate
+		{
+			KillTimerEx(182);
+			if (mode) // Enable effect
+			{
+				weaponmode = BitSet(weaponmode, 0x4); // slash open grate
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(3.0, 182, -1, -1); // stop trying to slash open the grate in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				weaponmode = BitClear(weaponmode, 0x4); // slash open grate
+			}
+		}
 		return;
 	}
 
@@ -284,6 +301,12 @@ timer:
 	if (GetSenderId() == 160) // Bot killed with saber lit, do saber dismount effects
 	{
 		call deselect_curweap;
+		return;
+	}
+
+	if (GetSenderId() == 182) // stop trying to slash open grate with lightwaber
+	{
+		weaponmode = BitClear(weaponmode, 0x4); // slash open grate
 		return;
 	}
 
@@ -699,6 +722,11 @@ attacktarget:
 		goto use_weap1; // fists only
 	}
 
+	if (BitTest(gamemode, 0x2) && BitTest(weaponmode, 0x4)) // trying to slash open grate
+	{
+		goto use_weap10;
+	}
+
 	// Select best weapon based on difficulty
 	if (difficulty < 3 || target == -1) // use the biggest gun on lower difficulties or if bot has no target
 	{
@@ -1083,7 +1111,7 @@ use_weap10: // Lightsaber
 		return;
 	}
 
-	if (target != -1 && disttotarg < 0.4 && HasLOS(rbot, target)) // target is in range
+	if (BitTest(weaponmode, 0x4) || (target != -1 && disttotarg < 0.4 && HasLOS(rbot, target))) // bot is trying to slash open a grate or the target is in range
 	{
 		// Bot is going to swing the saber now, so stop any active saber block animation
 		if (blocktrack != -1)
@@ -1111,7 +1139,9 @@ use_weap10: // Lightsaber
 		}
 		else // Land based saber attacks
 		{
-			dot = ThingViewDot(rbot, target);
+			dot = 1.0; // slash in front of bot by default
+			if (target != -1) dot = ThingViewDot(rbot, target); // see if the target is in front of the bot
+
 			// The bot is always trying to face its target, so the target will usually be in front of the bot
 			// As a result, the dot is >0.9 most of the time, so we can make this check pretty sensitive
 			if (dot > 0.95) // target is front of bot

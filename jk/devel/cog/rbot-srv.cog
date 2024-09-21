@@ -460,6 +460,23 @@ trigger:
 				botmode = BitClear(botmode, 0x8000000);
 			}
 		}
+		if (BitTest(special, 0x1000)) // Use lightsaber to slash open grate
+		{
+			KillTimerEx(182);
+			if (mode) // Enable effect
+			{
+				botmode = BitSet(botmode, 0x4); // slash open grate
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(3.0, 182, -1, -1); // stop trying to slash open the grate in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				botmode = BitClear(botmode, 0x4); // slash open grate
+			}
+		}
 		return;
 	}
 
@@ -572,6 +589,12 @@ timer:
 	if (GetSenderId() == 181) // enable combat roaming
 	{
 		botmode = BitClear(botmode, 0x8000000);
+		return;
+	}
+
+	if (GetSenderId() == 182) // stop trying to slash open grate with lightwaber
+	{
+		botmode = BitClear(botmode, 0x4); // slash open grate
 		return;
 	}
 
@@ -865,6 +888,8 @@ findtarget:
 	targetpriority = 0;
 	dist = 100;
 
+	if (BitTest(botmode, 0x4)) return; // slash open grate (ignore targets)
+
 	potential = FirstThingInView(rbot, 40 + 20 * (2+difficulty), 8.0, target_mask);
 	while (potential != -1)
 	{
@@ -915,6 +940,8 @@ finditem:
 	item = -1;
 	itempriority = 0;
 	dist = 100;
+
+	if (BitTest(botmode, 0x4)) return; // slash open grate (ignore items)
 
 	if (difficulty < 2 || BitTest(botmode, 0x4000000)) return; // only look if difficulty allows and item seeking is not disabled
 

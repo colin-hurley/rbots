@@ -328,11 +328,11 @@ damaged:
       if (meCarbonited)
       {
          // Instead of destroying the carbonite statue, just make it invisible.
-         // The status will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
+         // The statue will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
          // That cog has a defect where it destroys the statue thing without checking the signature first.
          // If the statue is destroyed here, it is possible for that timer to erroneously destroy other things.
          // For example, if a bot respawns and is given the thing number before the timer runs out, the timer will destroy the bot.
-         // Simply making the statue invisible here and letting that timer always destroy the status works around this defect.
+         // Simply making the statue invisible here and letting that timer always destroy the statue works around this defect.
          //DestroyThing(meCarbonited);
          SetThingFlags(meCarbonited, 0x10); // invisible
          meCarbonited = 0;
@@ -525,11 +525,11 @@ timer:
             if (meCarbonited)
             {
                // Instead of destroying the carbonite statue, just make it invisible.
-               // The status will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
+               // The statue will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
                // That cog has a defect where it destroys the statue thing without checking the signature first.
                // If the statue is destroyed here, it is possible for that timer to erroneously destroy other things.
                // For example, if a bot respawns and is given the thing number before the timer runs out, the timer will destroy the bot.
-               // Simply making the statue invisible here and letting that timer always destroy the status works around this defect.
+               // Simply making the statue invisible here and letting that timer always destroy the statue works around this defect.
                //DestroyThing(meCarbonited);
                SetThingFlags(meCarbonited, 0x10); // invisible
                meCarbonited = 0;
@@ -1369,11 +1369,11 @@ stop_powers:
       if (meCarbonited)
       {
          // Instead of destroying the carbonite statue, just make it invisible.
-         // The status will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
+         // The statue will be destroyed in a few seconds by the timer in 00_carbstatue.cog.
          // That cog has a defect where it destroys the statue thing without checking the signature first.
          // If the statue is destroyed here, it is possible for that timer to erroneously destroy other things.
          // For example, if a bot respawns and is given the thing number before the timer runs out, the timer will destroy the bot.
-         // Simply making the statue invisible here and letting that timer always destroy the status works around this defect.
+         // Simply making the statue invisible here and letting that timer always destroy the statue works around this defect.
          //DestroyThing(meCarbonited);
          SetThingFlags(meCarbonited, 0x10); // invisible
          meCarbonited = 0;

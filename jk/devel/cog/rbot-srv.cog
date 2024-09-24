@@ -157,15 +157,18 @@ startup:
 
 pulse:
 	if (IsMulti() && !IsServer()) return; // Host only
-	if (GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000) return; // bot AI disabled or frozen
-	call findtarget;
-	call finditem;
-	call checkitems;
-	call checknode;
-	call move;
-	call checkspeed;
-	call checkinventory;
+	if (!(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // bot AI is not disabled or frozen
+	{
+		call findtarget;
+		call finditem;
+		call checkitems;
+		call checknode;
+		call move;
+		call checkspeed;
+		call checkinventory;
+	}
 	SendMessageEx(srv_weapons, user7, 10233000, -1, -1, -1); // AI pulse
+	SendMessageEx(srv_force, user7, 10223000, -1, -1, -1); // AI pulse
 	SyncThingPos(rbot);
 	return;
 

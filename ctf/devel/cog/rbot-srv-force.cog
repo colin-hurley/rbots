@@ -318,6 +318,8 @@ timer:
 	}
 	if (GetSenderId() == 501) // force power attacks
 	{
+		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule next force attack
+
 		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0 && target != -1) // bot has mana & has a target
@@ -371,11 +373,12 @@ timer:
 				}
 			}
 		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule another force attack
 		return;
 	}
 	if (GetSenderId() == 502) // force power defensive/evasive
 	{
+		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule next force defense
+
 		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0) // bot has mana
@@ -418,7 +421,6 @@ timer:
 				}
 			}
 		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule another force defense
 		return;
 	}
 	if (GetSenderId() == 524) // after force pull
@@ -541,6 +543,12 @@ user7:
 	if (GetParam(0) == 10221002) { ReturnEx(forcearmor); return; }
 
 	if (GetParam(0) == 10222010) { target = GetParam(1); return; }
+
+	if (GetParam(0) == 10223000) // bot AI pulse
+	{
+		// No special behavior currently implemented
+		return;
+	}
 
 	if (GetParam(0) == 10223005) // bot respawned
 	{

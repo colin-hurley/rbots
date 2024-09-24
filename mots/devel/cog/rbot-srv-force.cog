@@ -319,10 +319,16 @@ timer:
 	}
 	if (GetSenderId() == 501) // force power attacks
 	{
+		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule next force attack
+
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, cannot use force powers now
+
 		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0 && target != -1) // bot has mana & has a target
 			{
+				if (jkGetBubbleDistance(target) <= 1.0) return; // Target in bubble, cannot use force powers now
+
 				curweap = SendMessageEx(srv, user7, 10231014, -1, -1, -1);
 				targweap = 0;
 				if (SendMessageEx(system, user7, 10103000, target, -1, -1) != -1) // target is a bot
@@ -372,11 +378,14 @@ timer:
 				}
 			}
 		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 501, -1, -1); // schedule another force attack
 		return;
 	}
 	if (GetSenderId() == 502) // force power defensive/evasive
 	{
+		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule next force defense
+
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, cannot use force powers now
+
 		if (BitTest(gamemode, 0x4) && !(GetDebugModeFlags() & 0x1 || AIGetMode(rbot) & 0x2000 || GetActorFlags(rbot) & 0x200000)) // allowed to use force powers and bot AI is not disabled or frozen
 		{
 			if (mana > 0) // bot has mana
@@ -419,7 +428,6 @@ timer:
 				}
 			}
 		}
-		SetTimerEx(3.0+rand()*(6-difficulty), 502, -1, -1); // schedule another force defense
 		return;
 	}
 	if (GetSenderId() == 524) // after force pull
@@ -465,6 +473,7 @@ skill:
 			ReturnEx(-1);
 		}
 
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, immune to pull
 		frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
 		if (frozenNow) return; // frozen in carbonite, immune to pull
 		if (BitTest(forcemode, 0x80)) return; // force absorb makes bot immume to pull
@@ -489,6 +498,7 @@ skill:
 
 	if (bin == 27) // Force Blinding
 	{
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, immune to blinding
 		frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
 		if (frozenNow) return; // frozen in carbonite, immune to blinding
 		if (BitTest(forcemode, 0x8)) return; // force seeing makes bot immume to blinding
@@ -508,6 +518,7 @@ skill:
 			return;
 		}
 
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, immune to grip
 		frozenNow = SendMessageEx(srv, user7, 10231015, -1, -1, -1);
 		if (frozenNow) return; // frozen in carbonite, immune to grip
 		if (BitTest(forcemode, 0x100)) return; // force protection makes bot immume to grip
@@ -528,6 +539,7 @@ skill:
 			return;
 		}
 
+		if (jkGetBubbleDistance(rbot) <= 1.0) return; // In bubble, immune to deadly sight
 		DamageThing(rbot, 4 * rank, 0x8, enemy);
 		CreateThingAtPosNR(smoke_tpl, GetThingSector(rbot), GetThingPos(rbot), '0 0 0'); // create smoke effects
 		ReturnEx(1);
@@ -548,6 +560,32 @@ user7:
 	if (GetParam(0) == 10221002) { ReturnEx(forcearmor); return; }
 
 	if (GetParam(0) == 10222010) { target = GetParam(1); return; }
+
+	if (GetParam(0) == 10223000) // bot AI pulse
+	{
+		if (jkGetBubbleDistance(rbot) <= 1.0) // In bubble, stop force powers and effects
+		{
+			// Stop all powers
+			call stop_force_speed;
+			call stop_force_jump;
+			call stop_force_pull;
+			call stop_force_seeing;
+			call stop_force_healing;
+			call stop_force_persuasion;
+			call stop_force_blinding;
+			call stop_force_absorb;
+			call stop_force_protection;
+			call stop_force_throw;
+			call stop_force_grip;
+			call stop_force_lightning;
+			call stop_force_destruction;
+			call stop_force_deadlysight;
+
+			// Stop effects
+			ClearActorFlags(rbot, 0x800);  // allow bot to see again
+		}
+		return;
+	}
 
 	if (GetParam(0) == 10223005) // bot respawned
 	{

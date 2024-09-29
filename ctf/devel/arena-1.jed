@@ -18563,7 +18563,7 @@ SURFS 6
 END
 
 SEC: THINGS
-THS 419 640
+THS 421 640
 C3_4X4LLIFT 1.699996 -.000006 .2 0 90 0 43 0
  THINGFLAGS=0X400449 NUMFRAMES=3 FRAME=(1.699996/-0.000006/0.200000:0.000000/90.000000/0.000000) FRAME=(1.699996/-0.000006/1.250000:0.000000/90.000000/0.000000) FRAME=(1.699996/-0.000006/1.799999:0.000000/90.000000/0.000000)
 C3_4X4LLIFT .000006 4.849996 -.399999 0 180 0 325 0
@@ -19402,6 +19402,10 @@ ghost -1.725 0 1.125 0 0 0 240 1
  size=0.25
 ghost -1.675 0 .125 0 0 0 240 1
 
+ghost 0 -1.275 -.45 0 0 0 174 1
+
+ghost 0 1.275 -.45 0 0 0 31 1
+
 END
 
 SEC: LIGHTS
@@ -19499,7 +19503,7 @@ rbot-path.cog pathid:int=6 node0:thing=305 node1:thing=329 node2:thing=330 node3
 rbot-path.cog pathid:int=7 node0:thing=278 node1:thing=277 node2:thing=276 node3:thing=275 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
 rbot-path.cog pathid:int=8 node0:thing=272 node1:thing=271 node2:thing=270 node3:thing=269 node4:thing=268 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
 rbot-path.cog pathid:int=9 node0:thing=281 node1:thing=286 node2:thing=285 node3:thing=284 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
-rbot-path.cog pathid:int=10 node0:thing=261 node1:thing=324 node2:thing=325 node3:thing=328 node4:thing=326 node5:thing=303 node6:thing=257 node7:thing=302 node8:thing=310 node9:thing=263 node10:thing=264 node11:thing=265 node12:thing=266 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
+rbot-path.cog pathid:int=10 node0:thing=261 node1:thing=324 node2:thing=325 node3:thing=328 node4:thing=326 node5:thing=303 node6:thing=420 node7:thing=257 node8:thing=419 node9:thing=302 node10:thing=310 node11:thing=263 node12:thing=264 node13:thing=265 node14:thing=266 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
 rbot-path.cog pathid:int=11 node0:thing=261 node1:thing=260 node2:thing=259 node3:thing=322 node4:thing=258 node5:thing=303 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
 rbot-path.cog pathid:int=12 node0:thing=302 node1:thing=312 node2:thing=313 node3:thing=314 node4:thing=315 node5:thing=266 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=0 goldrank:int=50 goldrundir:int=1
 rbot-path.cog pathid:int=13 node0:thing=300 node1:thing=345 node2:thing=346 node3:thing=347 node4:thing=343 node5:thing=339 node6:thing=274 node7:thing=270 node8:thing=334 node9:thing=342 node10:thing=340 node11:thing=341 node12:thing=344 node13:thing=348 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=50 redrundir:int=-1 goldrank:int=50 goldrundir:int=-1

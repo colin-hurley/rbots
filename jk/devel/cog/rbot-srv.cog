@@ -480,6 +480,23 @@ trigger:
 				botmode = BitClear(botmode, 0x4); // slash open grate
 			}
 		}
+		if (BitTest(special, 0x2000)) // Disable fall checking
+		{
+			KillTimerEx(183);
+			if (mode) // Enable effect
+			{
+				botmode = BitSet(botmode, 0x8); // disable fall checking
+
+				if (mode == 2) // Enable effect for short duration only
+				{
+					SetTimerEx(5.0, 183, -1, -1); // enable fall checking in a few seconds
+				}
+			}
+			else // Disable effect
+			{
+				botmode = BitClear(botmode, 0x8); // enable fall checking
+			}
+		}
 		return;
 	}
 
@@ -598,6 +615,12 @@ timer:
 	if (GetSenderId() == 182) // stop trying to slash open grate with lightwaber
 	{
 		botmode = BitClear(botmode, 0x4); // slash open grate
+		return;
+	}
+
+	if (GetSenderId() == 183) // allow bot to become lost after falling
+	{
+		botmode = BitClear(botmode, 0x8); // enable fall checking
 		return;
 	}
 
@@ -1135,9 +1158,9 @@ checknode:
 		tempflex2 = tempflex1 - 0.25;
 
 		// Update the fall threshold
-		if (fallcheck < tempflex2) // Bot is above the fall threshold
+		if (fallcheck < tempflex2 || BitTest(botmode, 0x8)) // Bot is above the fall threshold or fall checking is disabled
 		{
-			fallcheck = tempflex2; // Raise the fall threshold to slightly below the bot's current height
+			fallcheck = tempflex2; // Move the fall threshold to slightly below the bot's current height
 			if (fallcheck > VectorZ(newpos)) fallcheck = VectorZ(newpos); // But don't raise the threshold above the node's actual position
 		}
 

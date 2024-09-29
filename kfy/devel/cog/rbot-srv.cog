@@ -1044,6 +1044,19 @@ checkitems:
 	return;
 
 pickupitem:
+	// Consult the customizer cog, if there is one
+	if (customizer != -1)
+	{
+		// Let the customizer cog try to handle pickup of this item first
+		if (SendMessageEx(customizer, user7, 30003020, rbot, potential, -1))
+		{
+			// Item pickup was handled by the customizer cog
+			// Stop here and do not execute the usual item pickup handling code
+			// This enables the customizer to override the standard pickup behavior when needed
+			return;
+		}
+	}
+
 	if (GetThingTemplate(potential) == tmp_bacta)
 	{
 		if (inv_bacta < 5)
@@ -1119,9 +1132,6 @@ pickupitem:
 	// Give other srv cogs a chance to pickup the item
 	SendMessageEx(srv_force, user7, 10223020, potential, -1, -1);
 	SendMessageEx(srv_weapons, user7, 10233020, potential, -1, -1);
-
-	// Also consult the customizer cog, if there is one
-	if (customizer != -1) SendMessageEx(customizer, user7, 30003020, rbot, potential, -1);
 
 	return;
 

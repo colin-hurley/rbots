@@ -924,10 +924,12 @@ user7:
 
 		if (item == ysalamiri && captured != 2) // try to pick up the ysalamiri
 		{
-			goto bottouched;
+			call bottouched;
+			ReturnEx(1); // item pickup handled
+			return;
 		}
 
-		ReturnEx(0);
+		ReturnEx(0); // item pickup not handled
 		return;
 	}
 

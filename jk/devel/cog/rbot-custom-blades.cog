@@ -71,6 +71,7 @@ user7:
 					SendMessageEx(GetThingClassCog(rbot), user7, 10232505, 6, -1, -1); // add ammo
 					TakeItem(item, rbot); // bot picked up this item
 				}
+				ReturnEx(1); // item pickup handled
 				return;
 			}
 
@@ -84,11 +85,12 @@ user7:
 					SendMessageEx(GetThingClassCog(rbot), user7, 10232503, 32, -1, -1); // add ammo
 					TakeItem(item, rbot); // bot picked up this item
 				}
+				ReturnEx(1); // item pickup handled
 				return;
 			}
 		}
 
-		ReturnEx(0);
+		ReturnEx(0); // item pickup not handled
 		return;
 	}
 

@@ -114,7 +114,7 @@ user7:
 		#rbot = GetParam(1);
 		#item = GetParam(2);
 		// No item pickup customization implemented
-		ReturnEx(0);
+		ReturnEx(0); // item pickup not handled
 		return;
 	}
 

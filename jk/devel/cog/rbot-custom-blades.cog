@@ -117,7 +117,7 @@ user7:
 
 	// Report error if function ID does not match anything above
 	jkStringClear();
-	jkStringConcatFormattedInt(GetSenderRef(), "rbot-custom-throne.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-custom-blades.cog :: ERROR :: Cog %d");
 	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
 	jkStringOutput(-1, -1);
 	return;

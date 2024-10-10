@@ -58,36 +58,32 @@ user7:
 		rbot = GetParam(1);
 		item = GetParam(2);
 
-		// Bot must be in the tube sector containing the powerup
-		if (GetThingSector(rbot) == GetThingSector(item))
+		if (GetThingTemplate(item) == tmp_m5weap7)
 		{
-			if (GetThingTemplate(item) == tmp_m5weap7)
+			inv_weap7 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 7, -1, -1);
+			inv_railcharges = SendMessageEx(GetThingClassCog(rbot), user7, 10231005, -1, -1, -1);
+			if (inv_weap7 == 0 || inv_railcharges < 30)
 			{
-				inv_weap7 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 7, -1, -1);
-				inv_railcharges = SendMessageEx(GetThingClassCog(rbot), user7, 10231005, -1, -1, -1);
-				if (inv_weap7 == 0 || inv_railcharges < 30)
-				{
-					SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 7, 1, -1); // add gun
-					SendMessageEx(GetThingClassCog(rbot), user7, 10232505, 6, -1, -1); // add ammo
-					TakeItem(item, rbot); // bot picked up this item
-				}
-				ReturnEx(1); // item pickup handled
-				return;
+				SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 7, 1, -1); // add gun
+				SendMessageEx(GetThingClassCog(rbot), user7, 10232505, 6, -1, -1); // add ammo
+				TakeItem(item, rbot); // bot picked up this item
 			}
+			ReturnEx(1); // item pickup handled
+			return;
+		}
 
-			if (GetThingTemplate(item) == tmp_m5weap9)
+		if (GetThingTemplate(item) == tmp_m5weap9)
+		{
+			inv_weap9 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 9, -1, -1);
+			inv_power = SendMessageEx(GetThingClassCog(rbot), user7, 10231003, -1, -1, -1);
+			if (inv_weap9 == 0 || inv_power < 500)
 			{
-				inv_weap9 = SendMessageEx(GetThingClassCog(rbot), user7, 10231006, 9, -1, -1);
-				inv_power = SendMessageEx(GetThingClassCog(rbot), user7, 10231003, -1, -1, -1);
-				if (inv_weap9 == 0 || inv_power < 500)
-				{
-					SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 9, 1, -1); // add gun
-					SendMessageEx(GetThingClassCog(rbot), user7, 10232503, 32, -1, -1); // add ammo
-					TakeItem(item, rbot); // bot picked up this item
-				}
-				ReturnEx(1); // item pickup handled
-				return;
+				SendMessageEx(GetThingClassCog(rbot), user7, 10232506, 9, 1, -1); // add gun
+				SendMessageEx(GetThingClassCog(rbot), user7, 10232503, 32, -1, -1); // add ammo
+				TakeItem(item, rbot); // bot picked up this item
 			}
+			ReturnEx(1); // item pickup handled
+			return;
 		}
 
 		ReturnEx(0); // item pickup not handled

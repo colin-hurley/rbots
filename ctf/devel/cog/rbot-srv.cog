@@ -71,6 +71,8 @@ int			target_mask							local
 int			allowdodge							local
 int			arrival_event						local
 int			maxthings							local
+vector		pos									local
+int			losblocked							local
 
 # This symbol contains the fall threshold for the bot.  If the Z coordinate of
 # the bot's position drops below this value, then logic to check if the bot has
@@ -109,6 +111,9 @@ int			inv_bacta							local
 int			inv_keys=0							local
 
 # Transient working vars
+int			i									local
+int			j									local
+int			k									local
 vector		relpos								local
 flex		tempflex1							local
 flex		tempflex2							local
@@ -928,7 +933,9 @@ findtarget:
 		if (GetThingFlags(potential) & 0x200) targetok = 0; // target is dead
 		if (BitTest(GetSectorFlags(GetThingSector(potential)), 0x40)) targetok = 0; // target in pit
 
-		if (targetok && potential != rbot && HasLOS(rbot, potential)) // target is still ok, is not itself and bot can see it
+		pos = GetThingPos(potential);
+		call loscheckadjoins;
+		if (targetok && potential != rbot && !losblocked && HasLOS(rbot, potential)) // target is still ok, is not itself and bot can see it
 		{
 			// Work out target priority
 			priority = 3;
@@ -980,10 +987,12 @@ finditem:
 		if (spitem != -1) special = SendMessageEx(spitem, user7, 10413000, potential, -1, -1);
 
 		// Find closest takable item that bot needs
+		pos = GetThingPos(potential);
+		call loscheckadjoins;
 		tempflex1 = VectorDist(GetThingPos(rbot), GetThingPos(potential));
 		tempflex2 = VectorZ(GetThingPos(potential)) - VectorZ(GetThingPos(rbot));
 		if (tempflex2 < 0) tempflex2 = -tempflex2; // tempflex2 = abs(tempflex2)
-		if (!BitTest(special, 0x1) && HasLOS(rbot, potential) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // item is not ignored and bot can see it and is close enough and item not too high/low
+		if (!BitTest(special, 0x1) && !losblocked && HasLOS(rbot, potential) && tempflex1 <= 2.0 && tempflex2 <= 0.4) // item is not ignored and bot can see it and is close enough and item not too high/low
 		{
 			// Work out item priority
 			priority = -1;
@@ -1028,7 +1037,9 @@ checkitems:
 			// If bot is close to item and it is available and it can be touched
 			if ((VectorDist(GetThingPos(rbot), GetThingPos(potential)) < 0.3) && !(GetThingFlags(potential) & 0x80000) && GetCollideType(potential) != 0)
 			{
-				if (HasLOS(rbot, potential) || BitTest(special, 0x2)) // Bot can see item or LOS check is disabled
+				pos = GetThingPos(potential);
+				call loscheckadjoins;
+				if (!losblocked && HasLOS(rbot, potential) || BitTest(special, 0x2)) // Bot can see item or LOS check is disabled
 				{
 					call pickupitem; // bot can see item - pick it up
 				}
@@ -1503,6 +1514,65 @@ checkinventory:
 		return;
 	}
 
+	return;
+
+# Check to see if any solid adjoin is between the bot's position and the position argument
+# Input parameters:
+#   pos = the position to check
+# Output parameters:
+#   losblocked = 1 if a solid adjoin is detected, 0 otherwise
+loscheckadjoins:
+	losblocked = 0;
+
+	// Check the level for adjoins that are not passable
+	for (i = 0 ; i < GetSurfaceCount() ; i = i + 1)
+	{
+		// See if this surface is an adjoin
+		// Note: If the surface is not an adjoin, GetAdjoinFlags() returns -1
+		if (GetAdjoinFlags(i) != -1)
+		{
+			// See if the passable (0x2) flag is cleared for this adjoin
+			// This means that things are not allowed to pass through the adjoin
+			if (!(GetAdjoinFlags(i) & 0x2))
+			{
+				// See if the bot is in front of the adjoin
+				tempflex1 = VectorDot(GetSurfaceNormal(i), VectorSub(GetThingPos(rbot), GetSurfaceCenter(i)));
+				if (tempflex1 > 0)
+				{
+					// See if pos is behind the adjoin
+					tempflex2 = VectorDot(GetSurfaceNormal(i), VectorSub(pos, GetSurfaceCenter(i)));
+					if (tempflex2 < 0)
+					{
+						// The bot and the pos are on opposite sides of this adjoin
+						// See if the bot would need to cross through this adjoin to reach the pos
+						tempflex1 = tempflex1 / (tempflex1 - tempflex2);
+						tempvector1 = VectorAdd(GetThingPos(rbot), VectorScale(VectorSub(pos, GetThingPos(rbot)), tempflex1)); // point of intersection with adjoin plane
+						losblocked = 1; // assume collision with this surface until we find otherwise
+						for (j = 0 ; j < GetNumSurfaceVertices(i) ; j = j + 1)
+						{
+							// Consider each edge of the surface (using each consecutive pair of vertices)
+							k = j - 1;
+							if (k < 0) k = GetNumSurfaceVertices(i) - 1; // special case: pair of first and last vertices
+							tempvector2 = VectorScale(VectorAdd(GetSurfaceVertexPos(i, k), GetSurfaceVertexPos(i, j)), 0.5); // center of edge
+							tempflex2 = VectorDot(VectorSub(GetSurfaceCenter(i), tempvector2), VectorSub(tempvector1, tempvector2));
+							if (tempflex2 < 0)
+							{
+								// Outside this edge of the adjoin surface, no collision with this surface
+								// The point of intersection needs to be inside all edges of the surface for a collision to occur
+								losblocked = 0;
+								j = GetNumSurfaceVertices(i); // break
+							}
+						}
+						if (losblocked)
+						{
+							// This adjoin is directly in the path between the bot and the pos
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
 	return;
 
 end

@@ -1,0 +1,149 @@
+# Rbot Customizer Cog - Tree Canopy
+#
+# Server-only
+# Type ID: 3000
+#
+# Rbots originally created by Raynar
+
+flags=0x40
+
+symbols
+
+message		startup
+message		user7
+
+sector		catwalk0=-1							nolink
+sector		catwalk1=-1							nolink
+sector		catwalk2=-1							nolink
+sector		catwalk3=-1							nolink
+sector		catwalk4=-1							nolink
+sector		catwalk5=-1							nolink
+sector		catwalk6=-1							nolink
+sector		catwalk7=-1							nolink
+sector		catwalk8=-1							nolink
+sector		catwalk9=-1							nolink
+
+int			i									local
+thing		rbot								local
+thing		item								local
+thing		potential							local
+int			priority							local
+
+end
+
+code
+
+startup:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	// Allow other server-side cogs to discover this one by its type
+	SendTrigger(-1, 1852000, 3000, GetSelfCog(), -1, -1);
+
+	return;
+
+// Execute public API function for this cog
+// Param 0 = Function ID
+// The remaining params will be processed according to the requested function
+// For example, param1 might be an index into an array.
+// Returns the function-specific result of the execution
+user7:
+	if (GetParam(0) == 30003010) // get item priority
+	{
+		rbot = GetParam(1);
+		item = GetParam(2);
+		priority = GetParam(3);
+
+		if (priority != -1)
+		{
+			for (i = 0 ; i < 10 ; i = i + 1)
+			{
+				// Ignore items while bot is on the catwalks
+				if (catwalk0[i] == GetThingSector(rbot))
+				{
+					priority = -1;
+					ReturnEx(priority);
+					return;
+				}
+
+				// Ignore items that are on the catwalks
+				if (catwalk0[i] == GetThingSector(item))
+				{
+					priority = -1;
+					ReturnEx(priority);
+					return;
+				}
+			}
+		}
+
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003020) // pickup item
+	{
+		#rbot = GetParam(1);
+		#item = GetParam(2);
+		// No item pickup customization implemented
+		ReturnEx(0); // item pickup not handled
+		return;
+	}
+
+	if (GetParam(0) == 30003030) // get target priority
+	{
+		rbot = GetParam(1);
+		potential = GetParam(2);
+		priority = GetParam(3);
+
+		if (priority != -1)
+		{
+			for (i = 0 ; i < 10 ; i = i + 1)
+			{
+				// Allow attacking targets that are on the catwalks, but prefer other targets when possible
+				if (catwalk0[i] == GetThingSector(potential))
+				{
+					priority = 0;
+					ReturnEx(priority);
+					return;
+				}
+			}
+		}
+
+		ReturnEx(priority);
+		return;
+	}
+
+	if (GetParam(0) == 30003050) // decide whether to move toward target
+	{
+		rbot = GetParam(1);
+		potential = GetParam(2);
+
+		for (i = 0 ; i < 10 ; i = i + 1)
+		{
+			// Never move toward a target while bot is on the catwalks
+			if (catwalk0[i] == GetThingSector(rbot))
+			{
+				ReturnEx(0);
+				return;
+			}
+
+			// Never move toward a target that is on the catwalks
+			if (catwalk0[i] == GetThingSector(potential))
+			{
+				ReturnEx(0);
+				return;
+			}
+		}
+
+		// Allow moving toward the target in all other cases
+		ReturnEx(1);
+		return;
+	}
+
+	// Report error if function ID does not match anything above
+	jkStringClear();
+	jkStringConcatFormattedInt(GetSenderRef(), "rbot-custom-canopy.cog :: ERROR :: Cog %d");
+	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
+	jkStringOutput(-1, -1);
+	return;
+
+end

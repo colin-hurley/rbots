@@ -48,6 +48,7 @@ sound		teleportsnd=ForceThrow01.WAV		local
 
 # Special Effects
 sound		bactaSnd=BactaUse01.WAV				local
+sound		shieldHitSnd=KShieldHit01.wav		local
 
 # Misc
 int			score=0								local
@@ -216,8 +217,10 @@ damaged:
 	// dips below 50 shields, the shields become less effective and the player starts taking
 	// more health damage.  Bots, on the other hand, use up the shields completely before
 	// taking any health damage.
-	if (BitTest(damagetype, 0x10)) // saber attack damage - combined health & shields
+	if (shields > 0 && BitTest(damagetype, 0x10)) // saber attack damage - combined health & shields
 	{
+		PlaySoundThing(shieldHitSnd, rbot, 1.0, -1, -1, 128);
+
 		// Split damage between shields and health
 		damage = damage / 2;
 		if (damage > shields)
@@ -230,8 +233,10 @@ damaged:
 			shields = shields - damage;
 		}
 	}
-	if (BitTest(damagetype, 0x2) || BitTest(damagetype, 0x4)) // Damage from energy or fire
+	if (shields > 0 && (BitTest(damagetype, 0x2) || BitTest(damagetype, 0x4))) // Damage from energy or fire
 	{
+		PlaySoundThing(shieldHitSnd, rbot, 1.0, -1, -1, 128);
+
 		if (damage > shields)
 		{
 			damage = damage - shields;

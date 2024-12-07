@@ -17798,11 +17798,11 @@ World scripts 58
 46: pow_vest.cog
 47: rbot-backpack.cog
 48: rbot-item-special.cog
-49: rbot-nav.cog
-50: rbot-path.cog
-51: rbot-player.cog
-52: rbot-skin.cog
-53: rbot-special.cog
+49: rbot-jump.cog
+50: rbot-nav.cog
+51: rbot-path.cog
+52: rbot-player.cog
+53: rbot-skin.cog
 54: rbot-srv.cog
 55: rbot-srv-force.cog
 56: rbot-srv-weapons.cog
@@ -17811,7 +17811,7 @@ end
 
 Section: cogs
 
-World cogs 204
+World cogs 205
 #Num	Script          Symbol values
 0: KFY_MAIN.COG 1 0
 1: KFY_ICONSCLIENT.COG
@@ -17957,8 +17957,9 @@ World cogs 204
 141: rbot-path.cog 7 148 149 150 151 152 153 134 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1 -1 -1
 142: rbot-path.cog 8 106 107 108 109 110 111 112 113 114 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 -1 -1
 143: rbot-path.cog 9 161 162 160 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1 2 1
-144: rbot-special.cog 156 157 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 4 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-145: rbot-item-special.cog 28 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 0
+144: rbot-item-special.cog 28 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 0
+145: rbot-jump.cog 156 1 0 1
+146: rbot-jump.cog 157 0 0 1
 end
 
 Section: TEMPLATES

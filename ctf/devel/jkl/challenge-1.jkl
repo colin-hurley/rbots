@@ -81882,7 +81882,7 @@ World soundclasses 28
 end
 
 Section: cogscripts
-World scripts 69
+World scripts 70
 0: 00_BREAKINGLAMPX.COG
 1: 00_desttrail.cog
 2: 00_smoketrail.cog
@@ -81941,22 +81941,23 @@ World scripts 69
 55: rbot-arrival.cog
 56: rbot-backpack.cog
 57: rbot-item-special.cog
-58: rbot-nav.cog
-59: rbot-nav-special.cog
-60: rbot-path.cog
-61: rbot-player.cog
-62: rbot-skin.cog
-63: rbot-special.cog
-64: rbot-special-sector.cog
-65: rbot-srv.cog
-66: rbot-srv-force.cog
-67: rbot-srv-weapons.cog
-68: rbot-startup.cog
+58: rbot-jump.cog
+59: rbot-nav.cog
+60: rbot-nav-special.cog
+61: rbot-path.cog
+62: rbot-player.cog
+63: rbot-skin.cog
+64: rbot-special.cog
+65: rbot-special-sector.cog
+66: rbot-srv.cog
+67: rbot-srv-force.cog
+68: rbot-srv-weapons.cog
+69: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 206
+World cogs 210
 #Num	Script          Symbol values
 0: C3_DUALELEV.COG 4 6 1.5
 1: C3_DUALELEV.COG 3 6 1.5
@@ -82092,9 +82093,12 @@ World cogs 206
 131: rbot-path.cog 18 502 503 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1 -1 -1 -1 -1
 132: rbot-arrival.cog 384 387 458 460 505 411 500 497 480 477 1 0 1 0 0 1 0 1 0 1 4 4 28 29 22 22 21 21 9 9 1 0 0 0 0 1 0 1 0 1 0 0 0 0 1 0 0 0 0 0 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
 133: rbot-arrival.cog 464 461 459 504 -1 -1 -1 -1 -1 -1 0 1 0 1 -1 -1 -1 -1 -1 -1 3 3 30 30 -1 -1 -1 -1 -1 -1 1 0 0 1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 30 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
-134: rbot-special.cog 475 491 402 -1 -1 -1 432 453 455 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 64 32 4 0 0 0 2 4 4 0 0 0 0 0 0 0 0 0 0 0
+134: rbot-special.cog 475 491 -1 -1 -1 -1 432 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 64 32 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0
 135: rbot-special-sector.cog 91 105 142 688 700 693 512 790 793 -1 -1 -1 148 144 240 76 309 337 603 346 1024 1024 1024 1024 1024 1024 1024 1024 1024 0 0 0 1024 1024 1024 1024 1024 1024 1024 1024
 136: rbot-item-special.cog 263 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 0
+137: rbot-jump.cog 402 1 0 1
+138: rbot-jump.cog 453 1 0 1
+139: rbot-jump.cog 455 1 0 1
 end
 
 Section: TEMPLATES

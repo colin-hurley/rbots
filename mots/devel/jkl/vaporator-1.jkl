@@ -17749,7 +17749,7 @@ World soundclasses 41
 end
 
 Section: cogscripts
-World scripts 70
+World scripts 71
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_ELEVCALL.COG
@@ -17808,23 +17808,24 @@ World scripts 70
 55: rbot-elev-call.cog
 56: rbot-elev-switch.cog
 57: rbot-elev-switch2.cog
-58: rbot-nav.cog
-59: rbot-nav-special.cog
-60: rbot-path.cog
-61: rbot-player.cog
-62: rbot-skin.cog
-63: rbot-special.cog
-64: rbot-special-sector.cog
-65: rbot-special-wallcel.cog
-66: rbot-srv.cog
-67: rbot-srv-force.cog
-68: rbot-srv-weapons.cog
-69: rbot-startup.cog
+58: rbot-jump.cog
+59: rbot-nav.cog
+60: rbot-nav-special.cog
+61: rbot-path.cog
+62: rbot-player.cog
+63: rbot-skin.cog
+64: rbot-special.cog
+65: rbot-special-sector.cog
+66: rbot-special-wallcel.cog
+67: rbot-srv.cog
+68: rbot-srv-force.cog
+69: rbot-srv-weapons.cog
+70: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 260
+World cogs 264
 #Num	Script          Symbol values
 0: rbot-door.cog 4 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 0 -1 -1 -1 8 2 0.5
@@ -18012,10 +18013,13 @@ World cogs 260
 183: rbot-path.cog 17 304 305 306 307 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 184: rbot-path.cog 18 308 309 310 311 312 313 314 315 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 185: rbot-arrival.cog 293 296 297 -1 -1 -1 -1 -1 -1 -1 1 0 1 -1 -1 -1 -1 -1 -1 -1 5 5 5 -1 -1 -1 -1 -1 -1 -1 1 0 1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 10 10 10 30 30 30 30 30 30 30 32 64 32 0 0 0 0 0 0 0
-186: rbot-special.cog 252 294 295 298 299 303 305 285 309 314 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 32 32 64 4 512 8 4 3072 256 3074 0 0 0 0 0 0 0 0 0 0
+186: rbot-special.cog 252 294 295 -1 -1 -1 -1 285 309 314 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 32 32 64 0 0 0 0 3072 256 3074 0 0 0 0 0 0 0 0 0 0
 187: rbot-special-sector.cog 46 51 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 128 128 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 188: rbot-nav-special.cog 181 182 203 235 236 237 293 294 295 296 298 299 300 215 199 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
 189: rbot-special-wallcel.cog 309 -1 -1 -1 -1 -1 -1 -1 -1 -1 1400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 4096 0 0 0 0 0 0 0 0 0
+190: rbot-jump.cog 298 1 0 1.25
+191: rbot-jump.cog 303 0 0 1
+192: rbot-jump.cog 305 1 0 1
 end
 
 Section: TEMPLATES

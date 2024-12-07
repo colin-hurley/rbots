@@ -17788,11 +17788,11 @@ World scripts 56
 44: pow_vest.cog
 45: rbot-backpack.cog
 46: rbot-item-special.cog
-47: rbot-nav.cog
-48: rbot-path.cog
-49: rbot-player.cog
-50: rbot-skin.cog
-51: rbot-special.cog
+47: rbot-jump.cog
+48: rbot-nav.cog
+49: rbot-path.cog
+50: rbot-player.cog
+51: rbot-skin.cog
 52: rbot-srv.cog
 53: rbot-srv-force.cog
 54: rbot-srv-weapons.cog
@@ -17801,7 +17801,7 @@ end
 
 Section: cogs
 
-World cogs 202
+World cogs 203
 #Num	Script          Symbol values
 0: K4_PLAYAMBIENT.COG 100 101 102 -1 -1 -1 -1 -1 00WIND03.WAV 0 30 1
 1: K4_RANDOMAMBIENT.COG THUNDER1.WAV THUNDER2.WAV THUNDER1.WAV THUNDER2.WAV 2 2 20 0.2 20
@@ -17947,8 +17947,9 @@ World cogs 202
 141: rbot-path.cog 7 148 149 150 151 152 153 134 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 142: rbot-path.cog 8 106 107 108 109 110 111 112 113 114 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 143: rbot-path.cog 9 161 162 160 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-144: rbot-special.cog 156 157 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 4 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-145: rbot-item-special.cog 26 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 0
+144: rbot-item-special.cog 26 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 0
+145: rbot-jump.cog 156 1 0 1
+146: rbot-jump.cog 157 0 0 1
 end
 
 Section: TEMPLATES

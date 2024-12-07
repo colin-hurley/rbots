@@ -23382,7 +23382,7 @@ World soundclasses 27
 end
 
 Section: cogscripts
-World scripts 47
+World scripts 48
 0: 00_desttrail.cog
 1: 00_smoketrail.cog
 2: C1_AMBIENTWINDSOUND.COG
@@ -23421,20 +23421,21 @@ World scripts 47
 35: pow_thermal.cog
 36: pow_vest.cog
 37: rbot-backpack.cog
-38: rbot-nav.cog
-39: rbot-path.cog
-40: rbot-player.cog
-41: rbot-skin.cog
-42: rbot-special.cog
-43: rbot-srv.cog
-44: rbot-srv-force.cog
-45: rbot-srv-weapons.cog
-46: rbot-startup.cog
+38: rbot-jump.cog
+39: rbot-nav.cog
+40: rbot-path.cog
+41: rbot-player.cog
+42: rbot-skin.cog
+43: rbot-special.cog
+44: rbot-srv.cog
+45: rbot-srv-force.cog
+46: rbot-srv-weapons.cog
+47: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 117
+World cogs 120
 #Num	Script          Symbol values
 0: C1_SECRETELEV.COG 28 2852 8 3 2321 2283 -1 -1
 1: CTF_MAIN.COG 142 143 4 5 237 286 288 2573 2566 2562 2 39 43 40 41 42 16 19 32 33 36 34 35 37 17 18 38 3012 3017 3019 3024
@@ -23505,7 +23506,9 @@ World cogs 117
 66: rbot-path.cog 5 196 184 174 185 197 186 180 187 196 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 1 1 1 0
 67: rbot-path.cog 6 201 188 189 190 175 198 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 2 0 2 1
 68: rbot-path.cog 7 199 175 191 192 193 188 200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 2 1 2 0
-69: rbot-special.cog 169 170 197 186 180 187 196 184 174 185 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 4 4 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0
+69: rbot-special.cog -1 -1 197 186 180 187 196 184 174 185 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0
+70: rbot-jump.cog 169 1 0 1
+71: rbot-jump.cog 170 1 0 1
 end
 
 Section: TEMPLATES

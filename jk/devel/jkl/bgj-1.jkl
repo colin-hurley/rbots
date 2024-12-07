@@ -6203,7 +6203,7 @@ World soundclasses 34
 end
 
 Section: cogscripts
-World scripts 39
+World scripts 40
 0: 00_desttrail.cog
 1: 00_PLAYAMBIENT.COG
 2: 00_SLIDECEILING.COG
@@ -6234,20 +6234,21 @@ World scripts 39
 27: pow_thermal.cog
 28: pow_vest.cog
 29: rbot-backpack.cog
-30: rbot-nav.cog
-31: rbot-path.cog
-32: rbot-player.cog
-33: rbot-skin.cog
-34: rbot-special.cog
-35: rbot-srv.cog
-36: rbot-srv-force.cog
-37: rbot-srv-weapons.cog
-38: rbot-startup.cog
+30: rbot-jump.cog
+31: rbot-nav.cog
+32: rbot-path.cog
+33: rbot-player.cog
+34: rbot-skin.cog
+35: rbot-special.cog
+36: rbot-srv.cog
+37: rbot-srv-force.cog
+38: rbot-srv-weapons.cog
+39: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 116
+World cogs 120
 #Num	Script          Symbol values
 0: 00_SLIDECEILING.COG 10 10
 1: 17A_STREAM.COG (-0.958035/-0.275495/0.077513) (-0.812897/-0.573196/0.101041) (-0.990989/-0.121824/0.054463) (-0.989902/0.129252/0.056966) (-0.955814/0.282691/0.078974) (-0.993142/-0.104492/0.051297) (-0.687016/-0.718852/0.103939) (-0.996580/-0.069727/0.043344) (-0.818613/0.565036/0.100870) (0.000000/1.000000/0.000000) (-0.156374/0.985735/0.060891) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) (0.000000/1.000000/0.000000) 525 549 537 513 500 487 475 463 451 439 422 -1 -1 -1 -1 -1 2
@@ -6325,7 +6326,10 @@ World cogs 116
 73: rbot-path.cog 2 59 58 41 60 50 61 62 63 64 65 66 67 59 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 74: rbot-path.cog 3 63 68 69 70 71 72 73 74 75 76 77 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 75: rbot-path.cog 4 77 78 79 80 81 63 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-76: rbot-special.cog 83 52 71 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 4 516 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+76: rbot-special.cog -1 52 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 512 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+77: rbot-jump.cog 83 1 0 1
+78: rbot-jump.cog 52 1 0 1
+79: rbot-jump.cog 71 1 0 1
 end
 
 Section: TEMPLATES

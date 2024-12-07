@@ -25543,12 +25543,12 @@ World scripts 63
 49: pow_thermal_m.cog
 50: pow_vest.cog
 51: rbot-backpack.cog
-52: rbot-nav.cog
-53: rbot-nav-special.cog
-54: rbot-path.cog
-55: rbot-player.cog
-56: rbot-skin.cog
-57: rbot-special.cog
+52: rbot-jump.cog
+53: rbot-nav.cog
+54: rbot-nav-special.cog
+55: rbot-path.cog
+56: rbot-player.cog
+57: rbot-skin.cog
 58: rbot-special-sector.cog
 59: rbot-srv.cog
 60: rbot-srv-force.cog
@@ -25558,7 +25558,7 @@ end
 
 Section: cogs
 
-World cogs 225
+World cogs 231
 #Num	Script          Symbol values
 0: K1_LIGHTNING.COG 2 4 3 5 -1 -1 0 -1 -1 -1 4 FORCELITNING02.WAV
 1: K1_KFYROOMELEV.COG 1 6 1.5 224 231 230 228 226 227 229 232 0 0.5 1.8 2.6 0 2.2 3.1 4 20
@@ -25719,9 +25719,15 @@ World cogs 225
 156: rbot-path.cog 17 148 177 158 230 210 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 6 1
 157: rbot-path.cog 18 137 183 161 229 206 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 4 1
 158: rbot-path.cog 19 170 226 204 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1 9 1
-159: rbot-special.cog 212 215 217 219 222 198 201 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8 4 8 8 8 4 4 0 0 0 0 0 0 0 0 0 0 0 0 0
-160: rbot-special-sector.cog 97 70 83 69 67 68 41 98 28 223 235 176 -1 -1 -1 -1 -1 -1 -1 -1 1152 1152 1152 1152 1152 1152 1152 1152 1152 1024 1024 1024 0 0 0 0 0 0 0 0
-161: rbot-nav-special.cog 204 205 206 207 208 209 210 211 226 201 198 227 228 229 230 231 232 224 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0
+159: rbot-special-sector.cog 97 70 83 69 67 68 41 98 28 223 235 176 -1 -1 -1 -1 -1 -1 -1 -1 1152 1152 1152 1152 1152 1152 1152 1152 1152 1024 1024 1024 0 0 0 0 0 0 0 0
+160: rbot-nav-special.cog 204 205 206 207 208 209 210 211 226 201 198 227 228 229 230 231 232 224 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0
+161: rbot-jump.cog 212 0 0 1
+162: rbot-jump.cog 215 1 0 1
+163: rbot-jump.cog 217 0 0 1
+164: rbot-jump.cog 219 0 0 1
+165: rbot-jump.cog 222 0 0 1
+166: rbot-jump.cog 198 1 0 1
+167: rbot-jump.cog 201 1 0 1
 end
 
 Section: TEMPLATES

@@ -31495,12 +31495,12 @@ World scripts 63
 49: pow_vest.cog
 50: rbot-arrival.cog
 51: rbot-backpack.cog
-52: rbot-nav.cog
-53: rbot-nav-special.cog
-54: rbot-path.cog
-55: rbot-player.cog
-56: rbot-skin.cog
-57: rbot-special.cog
+52: rbot-jump.cog
+53: rbot-nav.cog
+54: rbot-nav-special.cog
+55: rbot-path.cog
+56: rbot-player.cog
+57: rbot-skin.cog
 58: rbot-special-surface.cog
 59: rbot-srv.cog
 60: rbot-srv-force.cog
@@ -31708,8 +31708,8 @@ World cogs 261
 193: rbot-path.cog 28 203 202 201 200 199 198 197 196 228 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 194: rbot-path.cog 29 261 262 263 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 195: rbot-arrival.cog 176 173 -1 166 -1 -1 -1 -1 -1 -1 1 0 -1 0 -1 -1 -1 -1 -1 -1 5 5 -1 0 -1 -1 -1 -1 -1 -1 0 1 -1 1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 10 10 10 10 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
-196: rbot-special.cog 231 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-197: rbot-special-surface.cog 3186 3180 3172 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 256 256 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+196: rbot-special-surface.cog 3186 3180 3172 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 256 256 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+197: rbot-jump.cog 231 1 0.5 1
 end
 
 Section: TEMPLATES

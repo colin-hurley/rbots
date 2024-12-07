@@ -11037,7 +11037,7 @@ World soundclasses 35
 end
 
 Section: cogscripts
-World scripts 60
+World scripts 61
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_ELEV_SWITCH.COG
@@ -11087,22 +11087,23 @@ World scripts 60
 46: rbot-custom-canopy.cog
 47: rbot-elev-switch.cog
 48: rbot-item-special.cog
-49: rbot-nav.cog
-50: rbot-nav-special.cog
-51: rbot-path.cog
-52: rbot-player.cog
-53: rbot-skin.cog
-54: rbot-special.cog
-55: rbot-special-surface.cog
-56: rbot-srv.cog
-57: rbot-srv-force.cog
-58: rbot-srv-weapons.cog
-59: rbot-startup.cog
+49: rbot-jump.cog
+50: rbot-nav.cog
+51: rbot-nav-special.cog
+52: rbot-path.cog
+53: rbot-player.cog
+54: rbot-skin.cog
+55: rbot-special.cog
+56: rbot-special-surface.cog
+57: rbot-srv.cog
+58: rbot-srv-force.cog
+59: rbot-srv-weapons.cog
+60: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 213
+World cogs 215
 #Num	Script          Symbol values
 0: 00_ELEV_SWITCH.COG -1 -1 -1 -1 0 0.25 2 10 ACTIVATE02.WAV
 1: rbot-elev-switch.cog 948 185 -1 180 0 0.25 2 10 ACTIVATE02.WAV
@@ -11247,7 +11248,7 @@ World cogs 213
 140: rbot-special-surface.cog 649 645 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 141: rbot-path.cog 4 194 195 196 197 163 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 142: rbot-path.cog 5 193 198 199 200 201 202 203 174 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-143: rbot-special.cog 204 216 158 181 169 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 8 16 16 16 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+143: rbot-special.cog 204 -1 158 181 169 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 0 16 16 16 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 144: rbot-path.cog 6 204 205 206 186 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 145: rbot-nav-special.cog 187 186 205 206 216 197 168 183 234 215 188 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0
 146: rbot-arrival.cog 206 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 20 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
@@ -11257,6 +11258,7 @@ World cogs 213
 150: rbot-path.cog 9 210 225 226 218 227 228 229 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 151: rbot-path.cog 10 161 230 231 232 163 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 152: rbot-path.cog 11 231 233 234 235 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
+153: rbot-jump.cog 216 0 0 1
 end
 
 Section: TEMPLATES

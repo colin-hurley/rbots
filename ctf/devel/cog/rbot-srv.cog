@@ -394,10 +394,6 @@ trigger:
 				botmode = BitClear(botmode, 0x100000);
 			}
 		}
-		if (mode && ((BitTest(special, 0x4) && rundir == 1) || (BitTest(special, 0x8) && rundir == 0))) // Bot needs to jump
-		{
-			jump = 1;
-		}
 		if (mode && ((BitTest(special, 0x20) && rundir == 1) || (BitTest(special, 0x40) && rundir == 0))) // Send activate to other cogs
 		{
 			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger

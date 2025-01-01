@@ -74,7 +74,7 @@ code
 
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
-	
+
 	if (GetSourceRef() == 11010) // Special info request from bot
 	{
 		botid = GetParam(0);   // which bot requested the info

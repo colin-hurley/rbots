@@ -134,7 +134,7 @@ code
 
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
-	
+
 	if (GetSourceRef() == 11010) // Bot arrived at node
 	{
 		botid = GetParam(0); // which bot requested the info

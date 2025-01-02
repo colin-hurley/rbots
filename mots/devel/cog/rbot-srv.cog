@@ -421,23 +421,6 @@ trigger:
 				AIClearMode(rbot, 0x40); // Restore cliff checks
 			}
 		}
-		if (BitTest(special, 0x100)) // Bot needs to crouch
-		{
-			KillTimerEx(190);
-			if (mode) // Enable effect
-			{
-				SetPhysicsFlags(rbot, 0x10000); // start crouching
-
-				if (mode == 2) // Enable effect for short duration only
-				{
-					SetTimerEx(5.0, 190, -1, -1); // stop crouching in a few seconds
-				}
-			}
-			else // Disable effect
-			{
-				ClearPhysicsFlags(rbot, 0x10000); // stop crouching
-			}
-		}
 		if (mode && BitTest(special, 0x200)) // Bot needs to run fast
 		{
 			// Add a burst of speed toward the next node
@@ -826,6 +809,28 @@ user7:
 		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
 		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
 
+		return;
+	}
+
+	if (GetParam(0) == 10203300) // crouch toggle
+	{
+		mode = GetParam(1);
+		tempflex1 = GetParam(2);
+
+		KillTimerEx(190);
+		if (mode) // Enable effect
+		{
+			SetPhysicsFlags(rbot, 0x10000); // start crouching
+
+			if (tempflex1 > 0)
+			{
+				SetTimerEx(tempflex1, 190, -1, -1); // stop crouching after timeout
+			}
+		}
+		else // Disable effect
+		{
+			ClearPhysicsFlags(rbot, 0x10000); // stop crouching
+		}
 		return;
 	}
 

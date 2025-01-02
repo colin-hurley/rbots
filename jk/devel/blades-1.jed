@@ -17676,7 +17676,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 107
+COGS 108
 M5_HEALINGSECTOR.COG healingsc:sector=263 healspeed:flex=3
 M5_HEALINGSECTOR.COG healingsc:sector=45 healspeed:flex=3
 M5_HEALINGSECTOR.COG healingsc:sector=262 healspeed:flex=3
@@ -17782,8 +17782,9 @@ rbot-path.cog pathid:int=15 node0:thing=278 node1:thing=284 node2:thing=283 node
 rbot-path.cog pathid:int=16 node0:thing=278 node1:thing=279 node2:thing=280 node3:thing=191 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-path.cog pathid:int=17 node0:thing=278 node1:thing=279 node2:thing=281 node3:thing=185 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-special.cog sp0:thing=235 sp1:thing=262 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=96 spinf1:int=96 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
-rbot-special-sector.cog sp0:sector=47 sp1:sector=58 sp2:sector=61 sp3:sector=49 sp4:sector=43 sp5:sector=48 sp6:sector=27 sp7:sector=-1 sp8:sector=-1 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=3072 spinf1:int=3072 spinf2:int=3328 spinf3:int=3072 spinf4:int=3072 spinf5:int=3072 spinf6:int=3072 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-special-sector.cog sp0:sector=47 sp1:sector=58 sp2:sector=61 sp3:sector=49 sp4:sector=43 sp5:sector=48 sp6:sector=27 sp7:sector=-1 sp8:sector=-1 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=3072 spinf1:int=3072 spinf2:int=3072 spinf3:int=3072 spinf4:int=3072 spinf5:int=3072 spinf6:int=3072 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-custom-blades.cog
+rbot-crouch-sector.cog sector0:sector=61 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1
 END
 
 SEC: LAYERS

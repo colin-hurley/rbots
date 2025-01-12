@@ -1,0 +1,107 @@
+# Rbot Drop Mine Cog
+#
+# Server-only
+#
+# This cog makes a bot drop a mine upon reaching a path node.
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		trigger
+message		timer
+
+# Activate the effect when the bot reaches this node
+thing		node=-1								nolink
+
+# Activate the effect when the bot is running in this direction
+# -1 = forward or backward
+# 0 = backward only
+# 1 = forward only
+int			rundir=-1
+
+# Activation of the effect will be delayed by this duration
+# A delay of 0 with activate the effect immediately
+flex		delay=0.0
+
+# Misc
+#int			gamemode							local
+int			difficulty							local
+
+# Transient working vars
+flex		tempflex1							local
+thing		rbot								local
+thing		rbotnode							local
+int			rbotrundir							local
+
+end
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 800) // game setup options
+	{
+		#gamemode = GetParam(0);
+		difficulty = GetParam(1);
+		return;
+	}
+
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
+		#botid = GetParam(0); // which bot requested the info
+		rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
+
+		// Bot must be at the node
+		if (rbotnode != node) return;
+
+		// Bot must be running the right direction
+		if (rbotrundir != rundir && rundir != -1) return;
+
+		// Check for delay
+		if (delay > 0)
+		{
+			SetTimerEx(delay, 1, rbot, GetThingSignature(rbot));
+			return;
+		}
+
+		goto trydropmine;
+		return;
+	}
+
+	return;
+
+timer:
+	if (GetSenderId() == 1)
+	{
+		rbot = GetParam(0);
+
+		// Make sure the bot thing reference is still valid
+		if (GetThingSignature(rbot) != GetParam(1)) return;
+
+		goto trydropmine;
+		return;
+	}
+	return;
+
+trydropmine:
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Difficulty-influenced random chance of actually placing the mine
+	// Higher difficulty increases the chance that a mine will be dropped
+	// Lowest difficulty does not drop any mines
+	tempflex1 = difficulty * 0.2;
+	if (Rand() > tempflex1) return;
+
+	// Drop a mine
+	SendMessageEx(GetThingClassCog(rbot), user7, 10233300, -1, -1, -1);
+
+	return;
+
+end

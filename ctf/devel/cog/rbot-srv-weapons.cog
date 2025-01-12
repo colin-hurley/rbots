@@ -254,15 +254,6 @@ trigger:
 	{
 		special = GetParam(1);
 		mode = GetParam(2);
-		if (mode && BitTest(special, 0x10)) // Bot can lay a mine here
-		{
-			tempflex1 = difficulty * 0.2; // greater chance of placing a mine on higher difficulty
-			if (inv_weap8 > 0 && target == -1 && Rand() < tempflex1) // The bot has ammo and not already attacking a target and random chance allows
-			{
-				// lay a mine (secondary fire)
-				call use_weap8;
-			}
-		}
 		if (BitTest(special, 0x1000)) // Use lightsaber to slash open grate
 		{
 			KillTimerEx(182);
@@ -680,6 +671,21 @@ user7:
 			return;
 		}
 		ReturnEx(1);
+		return;
+	}
+
+	if (GetParam(0) == 10233300) // Drop mine
+	{
+		if (BitTest(gamemode, 0x1) && inv_weap8 > 0 && target == -1) // Guns are allowed, bot has ammo, and not already attacking a target
+		{
+			// Drop a mine (secondary fire)
+			call use_weap8;
+			ReturnEx(1);
+			return;
+		}
+
+		// Cannot drop a mine now
+		ReturnEx(0);
 		return;
 	}
 

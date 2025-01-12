@@ -11037,7 +11037,7 @@ World soundclasses 35
 end
 
 Section: cogscripts
-World scripts 61
+World scripts 62
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_ELEV_SWITCH.COG
@@ -11085,25 +11085,26 @@ World scripts 61
 44: rbot-arrival.cog
 45: rbot-backpack.cog
 46: rbot-custom-canopy.cog
-47: rbot-elev-switch.cog
-48: rbot-item-special.cog
-49: rbot-jump.cog
-50: rbot-nav.cog
-51: rbot-nav-special.cog
-52: rbot-path.cog
-53: rbot-player.cog
-54: rbot-skin.cog
-55: rbot-special.cog
-56: rbot-special-surface.cog
-57: rbot-srv.cog
-58: rbot-srv-force.cog
-59: rbot-srv-weapons.cog
-60: rbot-startup.cog
+47: rbot-dropmine.cog
+48: rbot-elev-switch.cog
+49: rbot-item-special.cog
+50: rbot-jump.cog
+51: rbot-nav.cog
+52: rbot-nav-special.cog
+53: rbot-path.cog
+54: rbot-player.cog
+55: rbot-skin.cog
+56: rbot-special.cog
+57: rbot-special-surface.cog
+58: rbot-srv.cog
+59: rbot-srv-force.cog
+60: rbot-srv-weapons.cog
+61: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 215
+World cogs 220
 #Num	Script          Symbol values
 0: 00_ELEV_SWITCH.COG -1 -1 -1 -1 0 0.25 2 10 ACTIVATE02.WAV
 1: rbot-elev-switch.cog 948 185 -1 180 0 0.25 2 10 ACTIVATE02.WAV
@@ -11253,12 +11254,16 @@ World cogs 215
 145: rbot-path.cog 10 161 230 231 232 163 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 146: rbot-path.cog 11 231 233 234 235 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 147: rbot-arrival.cog 206 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 20 30 30 30 30 30 30 30 30 30 0 0 0 0 0 0 0 0 0 0
-148: rbot-special.cog 204 -1 158 181 169 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 0 16 16 16 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+148: rbot-special.cog 204 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 149: rbot-special-surface.cog 649 645 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 150: rbot-item-special.cog 120 121 -1 -1 -1 -1 -1 -1 -1 -1 2 1 0 0 0 0 0 0 0 0
 151: rbot-nav-special.cog 187 186 205 206 216 197 168 183 234 215 188 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0
 152: rbot-custom-canopy.cog 39 5 40 4 3 41 -1 -1 -1 -1
 153: rbot-jump.cog 216 0 0 1
+154: rbot-dropmine.cog 158 -1 0
+155: rbot-dropmine.cog 181 -1 0
+156: rbot-dropmine.cog 169 -1 0
+157: rbot-dropmine.cog 220 -1 0
 end
 
 Section: TEMPLATES

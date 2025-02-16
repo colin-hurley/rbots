@@ -7295,12 +7295,12 @@ World scripts 57
 44: rbot-backpack.cog
 45: rbot-custom-throne.cog
 46: rbot-elev-switch.cog
-47: rbot-nav.cog
-48: rbot-path.cog
-49: rbot-player.cog
-50: rbot-skin.cog
-51: rbot-special.cog
-52: rbot-special-surface.cog
+47: rbot-movespeed.cog
+48: rbot-nav.cog
+49: rbot-path.cog
+50: rbot-player.cog
+51: rbot-skin.cog
+52: rbot-special.cog
 53: rbot-srv.cog
 54: rbot-srv-force.cog
 55: rbot-srv-weapons.cog
@@ -7453,9 +7453,9 @@ World cogs 202
 139: rbot-path.cog 6 268 230 229 228 262 227 226 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 140: rbot-path.cog 7 226 236 237 238 239 240 241 242 243 244 245 246 247 235 226 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 141: rbot-arrival.cog 230 262 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 94 94 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 30 30 30 30 30 30 30 30 30 30 0 64 0 0 0 0 0 0 0 0
-142: rbot-special.cog 237 238 239 240 241 242 243 244 245 246 247 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 3074 3074 3074 3074 3074 3074 3074 3072 3072 0 0 0 0 0 0 0 0 0
-143: rbot-special-surface.cog 411 407 183 185 87 85 197 200 3 15 10 7 572 562 -1 -1 -1 -1 -1 -1 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 3074 0 0 0 0 0 0
-144: rbot-custom-throne.cog 22 17 19 18 24 9 8 30 31 32 34 33 44 -1 -1 -1 -1 -1 -1 -1 1 1 2 2 3 3 3 4 4 4 4 4 5 -1 -1 -1 -1 -1 -1 -1
+142: rbot-special.cog 237 238 239 240 241 242 243 244 245 246 247 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 3072 3072 3072 3072 3072 3072 3072 3072 3072 0 0 0 0 0 0 0 0 0
+143: rbot-custom-throne.cog 22 17 19 18 24 9 8 30 31 32 34 33 44 -1 -1 -1 -1 -1 -1 -1 1 1 2 2 3 3 3 4 4 4 4 4 5 -1 -1 -1 -1 -1 -1 -1
+144: rbot-movespeed.cog 240 244 -1 -1 -1 0.5 2 0 0.7
 end
 
 Section: TEMPLATES

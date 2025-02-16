@@ -1,0 +1,129 @@
+# Rbot Move Speed Sector Cog
+#
+# Server-only
+#
+# This cog alters a bot's movement speed while in a sector.
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		trigger
+message		entered
+message		exited
+message		timer
+
+# Activate the effect when the bot is in any of these sectors
+sector		sector0=-1							mask=0x4
+sector		sector1=-1							mask=0x4
+sector		sector2=-1							mask=0x4
+sector		sector3=-1							mask=0x4
+
+# The minimum allowed movement speed
+flex		minspeed=0.0
+
+# The maximum allowed movement speed
+flex		maxspeed=10.0
+
+cog			system=-1							local
+
+# Transient working vars
+int			botid								local
+thing		rbot								local
+#sector		rbotsector							local
+
+end
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 1852000) // Rbot cog type discovery
+	{
+		if (GetParam(0) == 1010) // rbot-startup.cog
+		{
+			system = GetParam(1);
+		}
+		return;
+	}
+	return;
+
+entered:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	rbot = GetSourceRef();
+	#rbotsector = GetSenderRef();
+
+	if (GetThingClassCog(rbot) == -1)
+	{
+		// Either this actor is not actually a bot, or it is a bot that
+		// just respawned in one of the specified sectors. In the
+		// latter case, the bot's srv cogs are still initializing and
+		// waiting for this thread to return from the CreateThing* verb
+		// that is creating the bot, so we need to delay application of
+		// special effects until after the srv cogs are fully
+		// initialized. This is accomplished by setting a timer to
+		// execute immediately after this thread returns. The class cog
+		// is checked again in the tiemr, and if the actor still has no
+		// class cog, we know it's not a bot.
+		SetTimerEx(0.001, 1, rbot, GetThingSignature(rbot));
+		return;
+	}
+
+	goto trymovespeed;
+	return;
+
+exited:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	rbot = GetSourceRef();
+	#rbotsector = GetSenderRef();
+
+	goto stopmovespeed;
+	return;
+
+timer:
+	if (GetSenderId() == 1)
+	{
+		rbot = GetParam(0);
+
+		// Make sure the bot thing reference is still valid
+		if (GetThingSignature(rbot) != GetParam(1)) return;
+
+		goto trymovespeed;
+		return;
+	}
+
+	return;
+
+trymovespeed:
+	// Make sure the actor is actually a bot
+	botid = SendMessageEx(system, user7, 10103000, rbot, -1, -1);
+	if (botid == -1) return; // Not a bot
+
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Change movement speed
+	SendMessageEx(GetThingClassCog(rbot), user7, 10203301, 1, -1, -1);
+	SendMessageEx(GetThingClassCog(rbot), user7, 10203302, minspeed, maxspeed, -1);
+
+	return;
+
+stopmovespeed:
+	// Make sure the actor is actually a bot
+	botid = SendMessageEx(system, user7, 10103000, rbot, -1, -1);
+	if (botid == -1) return; // Not a bot
+
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Reset movement speed
+	SendMessageEx(GetThingClassCog(rbot), user7, 10203301, 0, -1, -1);
+
+	return;
+
+end

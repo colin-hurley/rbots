@@ -16612,7 +16612,7 @@ World soundclasses 40
 end
 
 Section: cogscripts
-World scripts 46
+World scripts 47
 0: 00_desttrail.cog
 1: 00_FORCEFIELD.COG
 2: 00_MATANIM.COG
@@ -16648,22 +16648,23 @@ World scripts 46
 32: rbot-door.cog
 33: rbot-elev-switch2.cog
 34: rbot-jump.cog
-35: rbot-nav.cog
-36: rbot-nav-special.cog
-37: rbot-path.cog
-38: rbot-player.cog
-39: rbot-skin.cog
-40: rbot-special-sector.cog
-41: rbot-srv.cog
-42: rbot-srv-force.cog
-43: rbot-srv-weapons.cog
-44: rbot-startup.cog
-45: xtank3.cog
+35: rbot-movespeed-sector.cog
+36: rbot-nav.cog
+37: rbot-nav-special.cog
+38: rbot-path.cog
+39: rbot-player.cog
+40: rbot-skin.cog
+41: rbot-special-sector.cog
+42: rbot-srv.cog
+43: rbot-srv-force.cog
+44: rbot-srv-weapons.cog
+45: rbot-startup.cog
+46: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 149
+World cogs 151
 #Num	Script          Symbol values
 0: rbot-door.cog 1 2 -1 -1 8 2 0.5
 1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
@@ -16765,9 +16766,10 @@ World cogs 149
 97: rbot-path.cog 9 210 211 212 166 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 98: rbot-path.cog 10 213 214 215 164 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 99: rbot-arrival.cog 202 209 175 178 167 171 163 159 210 213 1 0 1 0 1 0 0 1 1 1 18 18 24 24 5 5 6 6 5 6 0 1 0 1 0 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 10 32 64 32 64 32 64 64 32 32 32
-100: rbot-special-sector.cog 45 52 155 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 2 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+100: rbot-special-sector.cog 45 52 -1 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 0 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 101: rbot-jump.cog 211 1 0 1.25
 102: rbot-jump.cog 214 1 0 1.25
+103: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
 end
 
 Section: TEMPLATES

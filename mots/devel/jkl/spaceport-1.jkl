@@ -28048,7 +28048,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 63
+World scripts 62
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_DOORSWITCH.COG
@@ -28107,16 +28107,15 @@ World scripts 63
 55: rbot-path.cog
 56: rbot-player.cog
 57: rbot-skin.cog
-58: rbot-special.cog
-59: rbot-srv.cog
-60: rbot-srv-force.cog
-61: rbot-srv-weapons.cog
-62: rbot-startup.cog
+58: rbot-srv.cog
+59: rbot-srv-force.cog
+60: rbot-srv-weapons.cog
+61: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 227
+World cogs 225
 #Num	Script          Symbol values
 0: rbot-door.cog 7 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 8 -1 -1 -1 8 2 0.5
@@ -28273,15 +28272,14 @@ World cogs 227
 152: rbot-path.cog 8 181 180 179 178 182 183 184 185 186 187 188 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 153: rbot-path.cog 9 162 189 233 236 237 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0.5
 154: rbot-path.cog 10 233 190 232 191 231 192 193 194 195 196 164 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0.5
-155: rbot-special.cog 190 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-156: rbot-item-special.cog 73 86 -1 -1 -1 -1 -1 -1 -1 -1 1 1 0 0 0 0 0 0 0 0
-157: rbot-jump.cog 190 1 0 1
-158: rbot-jump.cog 232 1 0 1
-159: rbot-jump.cog 191 1 0 1
-160: rbot-jump.cog 231 1 0 1
-161: rbot-jump.cog 192 1 0 1
-162: rbot-jump.cog 199 1 0 1
-163: rbot-jump.cog 238 1 0 1
+155: rbot-item-special.cog 73 86 -1 -1 -1 -1 -1 -1 -1 -1 1 1 0 0 0 0 0 0 0 0
+156: rbot-jump.cog 190 1 0 1
+157: rbot-jump.cog 232 1 0 1
+158: rbot-jump.cog 191 1 0 1
+159: rbot-jump.cog 231 1 0 1
+160: rbot-jump.cog 192 1 0 1
+161: rbot-jump.cog 199 1 0 1
+162: rbot-jump.cog 238 1 0 1
 end
 
 Section: TEMPLATES

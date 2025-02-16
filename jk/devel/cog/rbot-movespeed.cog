@@ -1,0 +1,113 @@
+# Rbot Move Speed Cog
+#
+# Server-only
+#
+# This cog alters a bot's movement speed upon reaching a path node.
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		trigger
+message		timer
+
+# Activate the effect when the bot reaches any of these nodes
+thing		node0=-1							nolink
+thing		node1=-1							nolink
+thing		node2=-1							nolink
+thing		node3=-1							nolink
+
+# Activate the effect when the bot is running in this direction
+# -1 = forward or backward
+# 0 = backward only
+# 1 = forward only
+int			rundir=-1
+
+# Activation of the effect will be delayed by this duration
+# A delay of 0 with activate the effect immediately
+flex		delay=0.0
+
+# Deactivate the effect after this duration
+flex		duration=5.0
+
+# The minimum allowed movement speed
+flex		minspeed=0.0
+
+# The maximum allowed movement speed
+flex		maxspeed=10.0
+
+# Transient working vars
+int			i									local
+thing		rbot								local
+thing		rbotnode							local
+int			rbotrundir							local
+
+end
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
+		#botid = GetParam(0); // which bot requested the info
+		rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
+
+		// Bot must be at one of the nodes
+		for (i = 0 ; i < 4 ; i = i + 1)
+		{
+			if (node0[i] == rbotnode)
+			{
+				// Bot must be running the right direction
+				if (rbotrundir != rundir && rundir != -1) return;
+
+				// Valid duration must be specified
+				if (duration <= 0) return;
+
+				// Check for delay
+				if (delay > 0)
+				{
+					SetTimerEx(delay, 1, rbot, GetThingSignature(rbot));
+					return;
+				}
+
+				goto trymovespeed;
+				return;
+			}
+		}
+
+		return;
+	}
+
+	return;
+
+timer:
+	if (GetSenderId() == 1)
+	{
+		rbot = GetParam(0);
+
+		// Make sure the bot thing reference is still valid
+		if (GetThingSignature(rbot) != GetParam(1)) return;
+
+		goto trymovespeed;
+		return;
+	}
+
+	return;
+
+trymovespeed:
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Change movement speed
+	SendMessageEx(GetThingClassCog(rbot), user7, 10203301, 1, duration, -1);
+	SendMessageEx(GetThingClassCog(rbot), user7, 10203302, minspeed, maxspeed, -1);
+
+	return;
+
+end

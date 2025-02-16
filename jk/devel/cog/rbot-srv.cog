@@ -73,6 +73,8 @@ int			allowdodge							local
 int			arrival_event						local
 int			maxthings							local
 int			losblocked							local
+flex		minspeed							local
+flex		maxspeed							local
 
 # This symbol contains the fall threshold for the bot.  If the Z coordinate of
 # the bot's position drops below this value, then logic to check if the bot has
@@ -377,23 +379,6 @@ trigger:
 	{
 		special = GetParam(1);
 		mode = GetParam(2);
-		if (BitTest(special, 0x2)) // Bot needs to walk instead of running
-		{
-			KillTimerEx(130);
-			if (mode) // Enable effect
-			{
-				botmode = BitSet(botmode, 0x100000);
-
-				if (mode == 2) // Enable effect for short duration only
-				{
-					SetTimerEx(3.0, 130, -1, -1); // allow bot to run at full speed again after 5 secs
-				}
-			}
-			else // Disable effect
-			{
-				botmode = BitClear(botmode, 0x100000);
-			}
-		}
 		if (mode && ((BitTest(special, 0x20) && rundir == 1) || (BitTest(special, 0x40) && rundir == 0))) // Send activate to other cogs
 		{
 			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger
@@ -414,12 +399,6 @@ trigger:
 			{
 				AIClearMode(rbot, 0x40); // Restore cliff checks
 			}
-		}
-		if (mode && BitTest(special, 0x200)) // Bot needs to run fast
-		{
-			// Add a burst of speed toward the next node
-			tempvector1 = VectorNorm(VectorSub(newpos, GetThingPos(rbot)));
-			AddThingVel(rbot, VectorScale(tempvector1, 2));
 		}
 		if (BitTest(special, 0x400)) // Disable item seeking, follow the path straight to the next node
 		{
@@ -560,9 +539,10 @@ timer:
 		return;
 	}
 
-	if (GetSenderId() == 130) // allow bot to run full speed again after slowdown
+	if (GetSenderId() == 130) // reset movement speed
 	{
-		botmode = BitClear(botmode, 0x100000);
+		minspeed = 0.0;
+		maxspeed = 10.0;
 		return;
 	}
 
@@ -828,6 +808,37 @@ user7:
 		return;
 	}
 
+	if (GetParam(0) == 10203301) // alter movement speed (part 1)
+	{
+		mode = GetParam(1);
+		tempflex1 = GetParam(2);
+
+		KillTimerEx(130);
+		if (mode) // Enable effect
+		{
+			// Note: minspeed and maxspeed are set with a separate call due to
+			// the limited number of params that can be sent in a single call
+
+			if (tempflex1 > 0)
+			{
+				SetTimerEx(tempflex1, 130, -1, -1); // reset movement speed after timeout
+			}
+		}
+		else // Disable effect
+		{
+			minspeed = 0.0;
+			maxspeed = 10.0;
+		}
+		return;
+	}
+
+	if (GetParam(0) == 10203302) // alter movement speed (part 2)
+	{
+		minspeed = GetParam(1);
+		maxspeed = GetParam(2);
+		return;
+	}
+
 	// Pass-through functions
 	// Automatically forward messages to subordinate srv cogs
 	// This is a convenience to make it look like one uber srv cog from an API perspective
@@ -892,6 +903,8 @@ respawn_bot:
 	fallcheck = 0;
 	jump = 0;
 	attacker = -1;
+	minspeed = 0.0;
+	maxspeed = 10.0;
 	shields = 100;
 	inv_bacta = 0;
 
@@ -1445,12 +1458,6 @@ checkspeed:
 		// Use the difficulty to scale the movement speed according to these values
 		// This emulates a more experienced player being able to swim faster and more efficiently
 		movespeed = 0.5 + 0.4 * (difficulty / 4); // Range: [0.5,0.9]
-
-		if (BitTest(botmode, 0x100000)) // move slowly
-		{
-			// Override for slow swim speed
-			movespeed = 0.4;
-		}
 	}
 	else // bot is on ground or in air
 	{
@@ -1469,7 +1476,7 @@ checkspeed:
 			// Reduce bot speed if crouching
 			movespeed = movespeed * 0.2;
 		}
-		else if (BitTest(botmode, 0x100000) || difficulty < 1) // move slowly or low difficulty
+		else if (difficulty < 1) // low difficulty
 		{
 			// Normal player WASD walk speed is about 0.66 JKU/s
 			// Note that the bot will still use running animations even at this speed
@@ -1502,6 +1509,9 @@ checkspeed:
 
 	// allow srv-force to adjust movement speed (e.g. force speed)
 	movespeed = SendMessageEx(srv_force, user7, 10223040, movespeed, -1, -1);
+
+	if (movespeed < minspeed) movespeed = minspeed;
+	if (movespeed > maxspeed) movespeed = maxspeed;
 
 	AiSetMoveSpeed(rbot, movespeed);
 

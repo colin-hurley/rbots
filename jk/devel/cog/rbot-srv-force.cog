@@ -666,7 +666,7 @@ user7:
 		{
 			rank = difficulty + 1; // rank for all of bot's force powers is derived from the difficulty
 			if (rank > 4) rank = 4;
-			movespeed = movespeed + (0.5 * rank / 2); // add extra speed: movespeed + [0.25,1.0]
+			movespeed = movespeed + (0.5 + rank / 2); // add extra speed: movespeed + [1.0,2.5]
 		}
 		ReturnEx(movespeed);
 		return;

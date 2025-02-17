@@ -7247,7 +7247,7 @@ World soundclasses 36
 end
 
 Section: cogscripts
-World scripts 57
+World scripts 58
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -7295,21 +7295,22 @@ World scripts 57
 44: rbot-backpack.cog
 45: rbot-custom-throne.cog
 46: rbot-elev-switch.cog
-47: rbot-movespeed.cog
-48: rbot-nav.cog
-49: rbot-path.cog
-50: rbot-player.cog
-51: rbot-skin.cog
-52: rbot-special.cog
-53: rbot-srv.cog
-54: rbot-srv-force.cog
-55: rbot-srv-weapons.cog
-56: rbot-startup.cog
+47: rbot-jump.cog
+48: rbot-movespeed.cog
+49: rbot-nav.cog
+50: rbot-path.cog
+51: rbot-player.cog
+52: rbot-skin.cog
+53: rbot-special.cog
+54: rbot-srv.cog
+55: rbot-srv-force.cog
+56: rbot-srv-weapons.cog
+57: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 202
+World cogs 209
 #Num	Script          Symbol values
 0: rbot-elev-switch.cog 577 -1 -1 571 94 0.25 2 8 ACTIVATE02.WAV
 1: rbot-startup.cog 4 1 1 1 0 0 0 0 0 101 102 -1 -1
@@ -7451,11 +7452,17 @@ World cogs 202
 137: rbot-path.cog 4 231 248 249 250 251 252 231 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 0 1
 138: rbot-path.cog 5 259 270 271 261 272 269 259 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 139: rbot-path.cog 6 268 230 229 228 262 227 226 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-140: rbot-path.cog 7 226 236 237 238 239 240 241 242 243 244 245 246 247 235 226 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
+140: rbot-path.cog 7 226 236 237 273 238 274 239 240 241 275 242 276 243 244 245 277 246 278 247 235 226 -1 -1 -1 -1 0 0 0 1
 141: rbot-arrival.cog 230 262 -1 -1 -1 -1 -1 -1 -1 -1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 94 94 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 30 30 30 30 30 30 30 30 30 30 0 64 0 0 0 0 0 0 0 0
 142: rbot-special.cog 237 238 239 240 241 242 243 244 245 246 247 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 3072 3072 3072 3072 3072 3072 3072 3072 3072 0 0 0 0 0 0 0 0 0
 143: rbot-custom-throne.cog 22 17 19 18 24 9 8 30 31 32 34 33 44 -1 -1 -1 -1 -1 -1 -1 1 1 2 2 3 3 3 4 4 4 4 4 5 -1 -1 -1 -1 -1 -1 -1
 144: rbot-movespeed.cog 240 244 -1 -1 -1 0.5 2 0 0.7
+145: rbot-jump.cog 273 0 0.1 1
+146: rbot-jump.cog 274 1 0.1 1
+147: rbot-jump.cog 275 0 0.1 1
+148: rbot-jump.cog 276 1 0.1 1
+149: rbot-jump.cog 277 0 0.1 1
+150: rbot-jump.cog 278 1 0.1 1
 end
 
 Section: TEMPLATES
@@ -7986,6 +7993,12 @@ World things 640
 270: ghost ghost 1.230945 -3.900744 -.735041 0 0 0 24 -1 size=0.15
 271: ghost ghost 1.118445 -5.138244 -.735041 0 0 0 24 -1
 272: ghost ghost -.094055 -5.138244 -.735041 0 0 0 24 -1
+273: ghost ghost 2.993445 -3.025744 .267459 0 0 0 19 -1
+274: ghost ghost 2.993445 -1.575744 .267459 0 0 0 19 -1
+275: ghost ghost 1.218445 .199256 .267459 0 0 0 30 -1
+276: ghost ghost -.231555 .199256 .267459 0 0 0 30 -1
+277: ghost ghost -2.006555 -1.575744 .267459 0 0 0 22 -1
+278: ghost ghost -2.006555 -3.025744 .267459 0 0 0 22 -1
 end
 
 Section: ARCHLIGHTING

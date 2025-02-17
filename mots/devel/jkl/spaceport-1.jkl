@@ -28274,10 +28274,10 @@ World cogs 225
 154: rbot-path.cog 10 233 190 232 191 231 192 193 194 195 196 164 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 0.5
 155: rbot-item-special.cog 73 86 -1 -1 -1 -1 -1 -1 -1 -1 1 1 0 0 0 0 0 0 0 0
 156: rbot-jump.cog 190 1 0 1
-157: rbot-jump.cog 232 1 0 1
-158: rbot-jump.cog 191 1 0 1
-159: rbot-jump.cog 231 1 0 1
-160: rbot-jump.cog 192 1 0 1
+157: rbot-jump.cog 232 1 0.2 1
+158: rbot-jump.cog 191 1 0.2 1
+159: rbot-jump.cog 231 1 0.2 1
+160: rbot-jump.cog 192 1 0.2 1
 161: rbot-jump.cog 199 1 0 1
 162: rbot-jump.cog 238 1 0 1
 end

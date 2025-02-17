@@ -930,6 +930,19 @@ respawn_bot:
 	SetTimerEx(1.0, 300, -1, -1); // start periodic check if bot has fallen into a pit
 	SetPulse(0.1);
 
+	// Scale up the maxthrust value in the bot thing template to increase the
+	// bot's maximum movement speed. The checkspeed procedure scales the
+	// computed move speed down by the same factor to ensure the bot moves at
+	// the intended speed. This is a workaround to allow the bot to run faster
+	// when requried for force speed, rbot-movespeed.cog, etc.
+	// This adjustment of the maxthrust parameter is done here, rather than in
+	// the template itself, to keep both parts of the workaround in one place
+	// (i.e. in this file) and also to provide a place for these comments to be
+	// written in order to document why the workaround is needed. It also
+	// avoids the need to rebuild all the JKLs if the workaround needs to be
+	// adjusted later (or removed in favor of a better solution).
+	ParseArg(rbot, "maxthrust=10.0");
+
 	// Notify other cogs of bot respawn
 	SendMessageEx(srv_weapons, user7, 10233005, rbot, curbotskin, -1);
 	SendMessageEx(srv_force, user7, 10223005, rbot, curbotskin, -1);
@@ -1512,6 +1525,19 @@ checkspeed:
 
 	if (movespeed < minspeed) movespeed = minspeed;
 	if (movespeed > maxspeed) movespeed = maxspeed;
+
+	// The maxthrust parameter in the bot's template is scaled up to increase
+	// the bot's maxmimum movement speed (see respawn_bot procedure). The
+	// maxthrust parameter is scaled up by a factor of 5.0 (from 2.0 to 10.0),
+	// so the movespeed value computed here must be scaled down by the same
+	// amount to ensure the bot moves at the intended speed. This is necessary
+	// because AiSetMoveSpeed apparently limits the movespeed parameter to a
+	// maximum value of 2.0. The maxthrust and movespeed values are multiplied
+	// together by the game engine, so increasing the maxthrust and reducing
+	// the movespeed has the same effect as simply giving the game engine a
+	// larger movespeed value (except that the smaller movespeed value will
+	// not be clamped by AiSetMoveSpeed).
+	movespeed = movespeed / 5;
 
 	AiSetMoveSpeed(rbot, movespeed);
 

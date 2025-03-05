@@ -17827,7 +17827,7 @@ end
 
 Section: cogs
 
-World cogs 269
+World cogs 270
 #Num	Script          Symbol values
 0: rbot-door.cog 4 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 0 -1 -1 -1 8 2 0.5
@@ -17836,7 +17836,7 @@ World cogs 269
 4: rbot-elev-call.cog 491 471 -1 2 15 0 2 183 182 -1 0 0 -1 10
 5: rbot-door-switch.cog 18 17 -1 -1 1142 1279 15 25 0.5 201 217 1 1
 6: rbot-door-switch.cog 9 -1 -1 -1 1291 896 8 2 0.5 202 -1 1 -1
-7: MDM07_DOORSWITCH.COG 32 -1 -1 -1 624 1514 10 2.5 0.5 234 239 1 1 1.2
+7: MDM07_DOORSWITCH.COG 32 -1 -1 -1 624 1514 10 2.5 0.5 234 239 1 1
 8: rbot-elev-switch.cog -1 -1 -1 587 65 0 1 15 ACTIVATE04.WAV
 9: rbot-elev-switch.cog -1 -1 -1 1353 73 0 1 25 ACTIVATE02.WAV
 10: rbot-elev-switch.cog -1 -1 -1 1086 73 0 1 25 ACTIVATE02.WAV
@@ -18025,6 +18025,7 @@ World cogs 269
 193: rbot-jump.cog 307 -1 0.75 1
 194: rbot-crouch.cog 309 -1 -1 -1 1 0 3
 195: rbot-movespeed.cog 314 -1 -1 -1 1 0 3 0 0.7
+196: rbot-movespeed.cog 234 -1 -1 -1 1 0 3 3.7 10
 end
 
 Section: TEMPLATES

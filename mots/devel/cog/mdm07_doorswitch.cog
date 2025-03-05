@@ -41,10 +41,6 @@ thing       switchnode1=-1                   nolink   //activate switch1 upon re
 int         switchrundir0=-1                          //activate switch0 while running in this direction
 int         switchrundir1=-1                          //activate switch1 while running in this direction
 
-flex        botextrasleep=0.0                         //used to give bots a little extra time to get into the room
-
-flex        extrasleep=0.0                   local
-
 # Transient working variables
 thing       node                             local
 int         rundir                           local
@@ -101,8 +97,7 @@ arrived:
    if(movestatus) return;
    if(doorstatus == numdoors)
    {                                         // all pieces are at frame 1
-      sleep(sleeptime + extrasleep);
-      extrasleep = 0;
+      sleep(sleeptime);
       call close_doors;
    }
    else if(doorstatus == 0)
@@ -169,9 +164,6 @@ trigger:
 					if (movestatus) return;
 					if (doorstatus == 0)                      // all pieces are at frame 0
 					{
-						// Extend the door open time to give bots enough time to make it into the room
-						extrasleep = botextrasleep;
-
 						PlaySoundThing(onSound, door0, 0.6, -1, -1, 0);      // play activate sound
 						setwallcel(switch0, 1);
 						if (switch1 >= 0) setwallcel(switch1, 1);

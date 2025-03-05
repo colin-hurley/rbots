@@ -7622,7 +7622,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 196
+COGS 197
 rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=0 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=1 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
@@ -7630,7 +7630,7 @@ rbot-elev-call.cog callbutton:surface=508 upbutton:surface=-1 dnbutton:surface=5
 rbot-elev-call.cog callbutton:surface=491 upbutton:surface=471 dnbutton:surface=-1 elevator:thing=2 speed:flex=15 floorlevel:flex=0 totalfloors:flex=2 callnode:thing=183 upnode:thing=182 dnnode:thing=-1 callrundir:int=0 uprundir:int=0 dnrundir:int=-1 timeout:flex=10
 rbot-door-switch.cog door0:thing=18 door1:thing=17 door2:thing=-1 door3:thing=-1 switch0:surface=1142 switch1:surface=1279 movespeed:flex=15 sleeptime:flex=25 lightvalue:flex=0.5 switchnode0:thing=201 switchnode1:thing=217 switchrundir0:int=1 switchrundir1:int=1
 rbot-door-switch.cog door0:thing=9 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=1291 switch1:surface=896 movespeed:flex=8 sleeptime:flex=2 lightvalue:flex=0.5 switchnode0:thing=202 switchnode1:thing=-1 switchrundir0:int=1 switchrundir1:int=-1
-MDM07_DOORSWITCH.COG door0:thing=32 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=624 switch1:surface=1514 movespeed:flex=10 sleeptime:flex=2.5 lightvalue:flex=0.5 switchnode0:thing=234 switchnode1:thing=239 switchrundir0:int=1 switchrundir1:int=1 botextrasleep:flex=1.2
+MDM07_DOORSWITCH.COG door0:thing=32 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=624 switch1:surface=1514 movespeed:flex=10 sleeptime:flex=2.5 lightvalue:flex=0.5 switchnode0:thing=234 switchnode1:thing=239 switchrundir0:int=1 switchrundir1:int=1
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=587 elevator:thing=65 start_wait:flex=0 sleeptime:flex=1 speed:flex=15 wav0:sound=ACTIVATE04.WAV
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=1353 elevator:thing=73 start_wait:flex=0 sleeptime:flex=1 speed:flex=25 wav0:sound=ACTIVATE02.WAV
 rbot-elev-switch.cog lower_adjoin0:surface=-1 lower_adjoin1:surface=-1 lower_adjoin2:surface=-1 button:surface=1086 elevator:thing=73 start_wait:flex=0 sleeptime:flex=1 speed:flex=25 wav0:sound=ACTIVATE02.WAV
@@ -7819,6 +7819,7 @@ rbot-jump.cog node:thing=305 rundir:int=1 delay:flex=0.5 scale:flex=1
 rbot-jump.cog node:thing=307 rundir:int=-1 delay:flex=0.75 scale:flex=1
 rbot-crouch.cog node0:thing=309 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=1 delay:flex=0 duration:flex=3
 rbot-movespeed.cog node0:thing=314 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=1 delay:flex=0 duration:flex=3 minspeed:flex=0 maxspeed:flex=0.7
+rbot-movespeed.cog node0:thing=234 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=1 delay:flex=0 duration:flex=3 minspeed:flex=3.7 maxspeed:flex=10
 END
 
 SEC: LAYERS

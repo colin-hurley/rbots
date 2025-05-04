@@ -70,7 +70,8 @@ int			lostcount							local
 int			drowning							local
 int			target_mask							local
 int			allowdodge							local
-int			arrival_event						local
+cog			arrival								local
+int			arrivalid							local
 int			maxthings							local
 int			losblocked							local
 flex		minspeed							local
@@ -340,10 +341,11 @@ trigger:
 
 	if (GetSourceRef() == 11050) // Arrival event
 	{
-		if (GetParam(0) == arrival_event)
+		if (GetParam(0) == arrival && GetParam(1) == arrivalid)
 		{
-			// This is the event we've been waiting for, so we can stop waiting now
-			arrival_event = -1;
+			// This is the arrival we've been waiting for, so we can stop waiting now
+			arrival = -1;
+			arrivalid = -1;
 
 			// Resume the normal 'bot lost' timeout
 			KillTimerEx(120);
@@ -473,25 +475,23 @@ trigger:
 
 	if (GetSourceRef() == 11040) // Wait for arrival
 	{
-		special = GetParam(1);
 		timeout = GetParam(3);
-		if (timeout > 0.0 && GetParam(2) != -1)
+		if (timeout > 0.0 && GetParam(1) != -1)
 		{
-			// Start waiting, if we're running in the right direction
-			if ((BitTest(special, 0x1) && rundir == 1) || (BitTest(special, 0x2) && rundir == 0))
-			{
-				arrival_event = GetParam(2);
-				waitpos = GetThingPos(rbot); // Wait at current position
+			// Start waiting
+			arrival = GetParam(1);
+			arrivalid = GetParam(2);
+			waitpos = GetThingPos(rbot); // Wait at current position
 
-				// Extend the 'bot lost' timeout to allow enough time for the arrival event to occur
-				KillTimerEx(120);
-				SetTimerEx(timeout, 120, -1, -1);
-			}
+			// Extend the 'bot lost' timeout to allow enough time for the arrival event to occur
+			KillTimerEx(120);
+			SetTimerEx(timeout, 120, -1, -1);
 		}
 		else
 		{
 			// Stop waiting
-			arrival_event = -1;
+			arrival = -1;
+			arrivalid = -1;
 
 			// Resume the normal 'bot lost' timeout
 			KillTimerEx(120);
@@ -529,7 +529,8 @@ timer:
 		}
 
 		// Stop awaiting any pending arrival events
-		arrival_event = -1;
+		arrival = -1;
+		arrivalid = -1;
 
 		// Reset the 'bot lost' timeout
 		KillTimerEx(120);
@@ -895,7 +896,8 @@ respawn_bot:
 	newpos = '0 0 0';
 	nextposnum = -1;
 	lastbotpos = '0 0 0';
-	arrival_event = -1;
+	arrival = -1;
+	arrivalid = -1;
 	lostcount = 0;
 	stopcount = 0;
 	drowning = 0;
@@ -1319,7 +1321,7 @@ move:
 		drowning = 0; // bot is no longer drowning
 	}
 
-	if (arrival_event != -1) // bot is waiting, don't move
+	if (arrival != -1) // bot is waiting, don't move
 	{
 		AiSetMovePos(rbot, waitpos);
 		if (VectorDist(GetThingPos(rbot), waitpos) < 0.1) obstructed = 0; // Bot is holding position while awaiting arrival

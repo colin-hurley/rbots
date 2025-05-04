@@ -116,15 +116,13 @@ int			spinf9=0
 # Misc
 int			i									local
 int			index								local
-thing		node								local
-int			rundir								local
 thing		arriver								local
 int			frame								local
 flex		timeout								local
-int			mode								local
 int			special								local
 int			botid								local
-int			event_id							local
+int			rbotnode							local
+int			rbotrundir							local
 
 end
 
@@ -137,22 +135,22 @@ trigger:
 
 	if (GetSourceRef() == 11010) // Bot arrived at node
 	{
-		botid = GetParam(0); // which bot requested the info
-		node = GetParam(2); // which node the bot arrived at
+		botid = GetParam(0); // the bot making the request
+		#rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
 
 		// work out special arrival info
 		index = -1;
-		rundir = -1;
 		arriver = -1;
 		frame = -1;
 		timeout = 0.0;
 		special = 0;
 		for (i = 0 ; i < 10 ; i = i + 1)
 		{
-			if (node0[i] == node)
+			if (node0[i] == rbotnode && (rundir0[i] == -1 || rundir0[i] == rbotrundir))
 			{
 				index = i;
-				rundir = rundir0[i];
 				arriver = arriver0[i];
 				frame = frame0[i];
 				timeout = timeout0[i];
@@ -163,21 +161,12 @@ trigger:
 		if (index == -1 || arriver == -1 || frame == -1 || timeout <= 0.0) return; // No special arrival info for this node
 		if (GetCurFrame(arriver) == frame && !IsThingMoving(arriver)) return; // Thing already at frame
 
-		// Tell the bot to wait for the thing to arrive at the frame
-		mode = 0x3; // default - await arrival when running forward or backward
-		if (rundir == 1) mode = 0x1; // await arrival when running forward
-		if (rundir == 0) mode = 0x2; // await arrival when running backward
-
-		// Generate a distinct arrival event ID from the arriver thing and frame
-		// Reserve 0-999 for custom user cogs
-		event_id = 100000 + frame*1000 + node;
-
 		// Set the waiting flag for this record so we know to send the arrival event when the thing
 		// arrives at the frame
 		waiting0[index] = 1;
 
 		// Tell bot to wait (depending on the run direction)
-		SendTrigger(-1, 11040, botid, mode, event_id, timeout);
+		SendTrigger(-1, 11040, botid, GetSelfCog(), index, timeout);
 
 		// Send special info for node, if necessary
 		if (special)
@@ -226,18 +215,12 @@ timer:
 fire_arrival_event:
 	if (waiting0[index]) // there is a bot waiting for this event
 	{
-		frame = frame0[index];
-		node = node0[index];
-
-		// Generate the same distinct arrival event ID that the bot would be waiting for
-		event_id = 100000 + frame*1000 + node;
-
 		// Clear the waiting flag for this record - no need to send another arrival event
 		// until next time a bot is waiting for one
 		waiting0[index] = 0;
 
 		// Broadcast arrival event to all bots
-		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+		SendTrigger(-1, 11050, GetSelfCog(), index, -1, -1);
 	}
 	return;
 

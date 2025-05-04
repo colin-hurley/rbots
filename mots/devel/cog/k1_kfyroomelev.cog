@@ -69,9 +69,10 @@ int      downwaiting3=0                   local
 
 int      i                                local
 int      index                            local
-thing    node                             local
 int      botid                            local
-int      event_id                         local
+thing    rbotnode                         local
+thing    rbotrundir                       local
+int      arrivalid                        local
 
 message  trigger
 message  timer
@@ -114,35 +115,33 @@ trigger:
 	if (GetSourceRef() == 11010) // Bot arrived at node
 	{
 		botid = GetParam(0); // the bot making the request
-		node = GetParam(2); // which node the bot arrived at
+		#rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
+
+		if (rbotrundir != 1) return; // bot must be running forward
 
 		for (i = 0 ; i < 4 ; i = i + 1)
 		{
-			if (upnode0[i] == node)
+			if (upnode0[i] == rbotnode)
 			{
-				// Generate a distinct arrival event ID
-				event_id = 100 + i;
+				// Generate a distinct arrival ID
+				arrivalid = 100 + i;
 
 				// Tell bot to wait until it is safe to board the elevator
-				// param 1 = 0x1 (await arrival forward)
-				// param 2 = arrival event ID to wait for
-				// param 3 = how long to wait for the event
-				SendTrigger(-1, 11040, botid, 0x1, event_id, timeout);
+				SendTrigger(-1, 11040, botid, GetSelfCog(), arrivalid, timeout);
 
 				// Set the waiting flag so we know to send the arrival event later
 				upwaiting0[i] = 1;
 			}
 
-			if (downnode0[i] == node)
+			if (downnode0[i] == rbotnode)
 			{
-				// Generate a distinct arrival event ID
-				event_id = 200 + i;
+				// Generate a distinct arrival ID
+				arrivalid = 200 + i;
 
 				// Tell bot to wait until it is safe to board the elevator
-				// param 1 = 0x1 (await arrival forward)
-				// param 2 = arrival event ID to wait for
-				// param 3 = how long to wait for the event
-				SendTrigger(-1, 11040, botid, 0x1, event_id, timeout);
+				SendTrigger(-1, 11040, botid, GetSelfCog(), arrivalid, timeout);
 
 				// Set the waiting flag so we know to send the arrival event later
 				downwaiting0[i] = 1;
@@ -211,15 +210,15 @@ queue_arrival_events:
 fire_up_arrival_event:
 	if (upwaiting0[index]) // there is a bot waiting for this event
 	{
-		// Generate the same distinct arrival event ID that the bot would be waiting for
-		event_id = 100 + index;
+		// Generate the same distinct arrival ID that the bot would be waiting for
+		arrivalid = 100 + index;
 
 		// Clear the waiting flag - no need to send another arrival event until next time
 		// a bot is waiting for one
 		upwaiting0[index] = 0;
 
 		// Broadcast arrival event to all bots
-		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+		SendTrigger(-1, 11050, GetSelfCog(), arrivalid, -1, -1);
 	}
 	return;
 
@@ -228,15 +227,15 @@ fire_up_arrival_event:
 fire_down_arrival_event:
 	if (downwaiting0[index]) // there is a bot waiting for this event
 	{
-		// Generate the same distinct arrival event ID that the bot would be waiting for
-		event_id = 200 + index;
+		// Generate the same distinct arrival ID that the bot would be waiting for
+		arrivalid = 200 + index;
 
 		// Clear the waiting flag - no need to send another arrival event until next time
 		// a bot is waiting for one
 		downwaiting0[index] = 0;
 
 		// Broadcast arrival event to all bots
-		SendTrigger(-1, 11050, event_id, -1, -1, -1);
+		SendTrigger(-1, 11050, GetSelfCog(), arrivalid, -1, -1);
 	}
 	return;
 

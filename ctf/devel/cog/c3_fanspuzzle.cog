@@ -48,9 +48,9 @@ sector      red_colormap                     desc=red_colormap
 
 # For Rbots
 thing       wait_node=-1                     nolink
-thing       node                             local
 int         botid                            local
-int         event_id=101                     local
+thing       rbotnode                         local
+int         rbotrundir                       local
 
 int         fan_is_on=1                      local
 int         fans_are_normal=1                local
@@ -105,15 +105,16 @@ trigger:
 	if (GetSourceRef() == 11010) // Bot arrived at node
 	{
 		botid = GetParam(0); // the bot making the request
-		node = GetParam(2); // which node the bot arrived at
+		#rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
 
-		if (node != wait_node) return; // Ignore requests for other nodes
+		if (rbotnode != wait_node) return; // Ignore requests for other nodes
+
+		if (rbotrundir != 1) return; // bot must be running forward
 
 		// Tell bot to wait until it is safe to go down the fan shaft
-		// param 1 = 0x1 (await arrival forward) + 0x2 (await arrival backward)
-		// param 2 = arrival event ID to wait for
-		// param 3 = how long to wait for the event
-		SendTrigger(-1, 11040, botid, 0x3, event_id, max_interval + 10.0);
+		SendTrigger(-1, 11040, botid, GetSelfCog(), 1, max_interval + 10.0);
 	}
 
 	return;
@@ -167,7 +168,7 @@ timer:
       timer_delay = fan_offtime;
 
       // Fan is off, so tell any waiting bots that they should try to go down the shaft now
-      SendTrigger(-1, 11050, event_id, -1, -1, -1);
+      SendTrigger(-1, 11050, GetSelfCog(), 1, -1, -1);
    }
    else
    {

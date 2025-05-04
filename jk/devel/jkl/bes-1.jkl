@@ -16664,7 +16664,7 @@ end
 
 Section: cogs
 
-World cogs 151
+World cogs 160
 #Num	Script          Symbol values
 0: rbot-door.cog 1 2 -1 -1 8 2 0.5
 1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
@@ -16765,11 +16765,20 @@ World cogs 151
 96: rbot-path.cog 8 183 205 216 206 207 208 165 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 97: rbot-path.cog 9 210 211 212 166 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 98: rbot-path.cog 10 213 214 215 164 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-99: rbot-arrival.cog 202 209 175 178 167 171 163 159 210 213 1 0 1 0 1 0 0 1 1 1 18 18 24 24 5 5 6 6 5 6 0 1 0 1 0 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 10 32 64 32 64 32 64 64 32 32 32
-100: rbot-special-sector.cog 45 52 155 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 3072 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-101: rbot-jump.cog 211 1 0 1.25
-102: rbot-jump.cog 214 1 0 1.25
-103: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
+99: rbot-special-sector.cog 45 52 155 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 3072 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+100: rbot-jump.cog 211 1 0 1.25
+101: rbot-jump.cog 214 1 0 1.25
+102: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
+103: rbot-arrival.cog 202 1 18 0 0 10 32
+104: rbot-arrival.cog 209 0 18 1 0 10 64
+105: rbot-arrival.cog 175 1 24 0 0 10 32
+106: rbot-arrival.cog 178 0 24 1 0 10 64
+107: rbot-arrival.cog 167 1 5 0 0 10 32
+108: rbot-arrival.cog 171 0 5 1 0 10 64
+109: rbot-arrival.cog 163 0 6 0 0 10 64
+110: rbot-arrival.cog 159 1 6 1 0 10 32
+111: rbot-arrival.cog 210 1 5 1 0 10 32
+112: rbot-arrival.cog 213 1 6 1 0 10 32
 end
 
 Section: TEMPLATES

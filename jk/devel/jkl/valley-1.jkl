@@ -7805,7 +7805,7 @@ end
 
 Section: cogs
 
-World cogs 132
+World cogs 133
 #Num	Script          Symbol values
 0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
@@ -7884,18 +7884,19 @@ World cogs 132
 74: rbot-path.cog 1 130 131 132 133 151 152 130 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 0 1
 75: rbot-path.cog 2 124 157 156 155 150 148 135 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 76: rbot-path.cog 3 135 136 137 138 139 140 141 142 143 144 145 146 147 135 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-77: rbot-arrival.cog 153 150 -1 -1 -1 -1 -1 -1 -1 -1 0 0 -1 -1 -1 -1 -1 -1 -1 -1 11 11 -1 -1 -1 -1 -1 -1 -1 -1 0 1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 10 10 30 30 30 30 30 30 30 30 64 64 0 0 0 0 0 0 0 0
-78: rbot-special.cog -1 -1 -1 -1 -1 156 157 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 64 32 0 0 0 0 0 0 0 0 0 0 0 0 0
-79: rbot-jump.cog 134 0 0 1
-80: rbot-jump.cog 125 0 0 1
-81: rbot-jump.cog 117 0 0 1
-82: rbot-jump.cog 148 0 0 1
-83: rbot-jump.cog 155 0 0 1
-84: rbot-jump.cog 143 1 0 1
-85: rbot-jump.cog 147 0 0 1
-86: rbot-jump.cog 136 1 0 1
-87: rbot-jump.cog 141 0 0 1
-88: rbot-movespeed.cog 126 -1 -1 -1 0 1 2 0 0.7
+77: rbot-special.cog -1 -1 -1 -1 -1 156 157 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 64 32 0 0 0 0 0 0 0 0 0 0 0 0 0
+78: rbot-jump.cog 134 0 0 1
+79: rbot-jump.cog 125 0 0 1
+80: rbot-jump.cog 117 0 0 1
+81: rbot-jump.cog 148 0 0 1
+82: rbot-jump.cog 155 0 0 1
+83: rbot-jump.cog 143 1 0 1
+84: rbot-jump.cog 147 0 0 1
+85: rbot-jump.cog 136 1 0 1
+86: rbot-jump.cog 141 0 0 1
+87: rbot-movespeed.cog 126 -1 -1 -1 0 1 2 0 0.7
+88: rbot-arrival.cog 153 0 11 0 0 10 64
+89: rbot-arrival.cog 150 0 11 1 0 10 64
 end
 
 Section: TEMPLATES

@@ -8046,7 +8046,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 104
+COGS 113
 rbot-door.cog door0:thing=1 door1:thing=2 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=3 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
@@ -8146,11 +8146,20 @@ rbot-path.cog pathid:int=7 node0:thing=155 node1:thing=200 node2:thing=201 node3
 rbot-path.cog pathid:int=8 node0:thing=183 node1:thing=205 node2:thing=216 node3:thing=206 node4:thing=207 node5:thing=208 node6:thing=165 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-path.cog pathid:int=9 node0:thing=210 node1:thing=211 node2:thing=212 node3:thing=166 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-path.cog pathid:int=10 node0:thing=213 node1:thing=214 node2:thing=215 node3:thing=164 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
-rbot-arrival.cog node0:thing=202 node1:thing=209 node2:thing=175 node3:thing=178 node4:thing=167 node5:thing=171 node6:thing=163 node7:thing=159 node8:thing=210 node9:thing=213 rundir0:int=1 rundir1:int=0 rundir2:int=1 rundir3:int=0 rundir4:int=1 rundir5:int=0 rundir6:int=0 rundir7:int=1 rundir8:int=1 rundir9:int=1 arriver0:thing=18 arriver1:thing=18 arriver2:thing=24 arriver3:thing=24 arriver4:thing=5 arriver5:thing=5 arriver6:thing=6 arriver7:thing=6 arriver8:thing=5 arriver9:thing=6 frame0:int=0 frame1:int=1 frame2:int=0 frame3:int=1 frame4:int=0 frame5:int=1 frame6:int=0 frame7:int=1 frame8:int=1 frame9:int=1 delay0:flex=0 delay1:flex=0 delay2:flex=0 delay3:flex=0 delay4:flex=0 delay5:flex=0 delay6:flex=0 delay7:flex=0 delay8:flex=0 delay9:flex=0 timeout0:flex=10 timeout1:flex=10 timeout2:flex=10 timeout3:flex=10 timeout4:flex=10 timeout5:flex=10 timeout6:flex=10 timeout7:flex=10 timeout8:flex=10 timeout9:flex=10 spinf0:int=32 spinf1:int=64 spinf2:int=32 spinf3:int=64 spinf4:int=32 spinf5:int=64 spinf6:int=64 spinf7:int=32 spinf8:int=32 spinf9:int=32
 rbot-special-sector.cog sp0:sector=45 sp1:sector=52 sp2:sector=155 sp3:sector=69 sp4:sector=89 sp5:sector=-1 sp6:sector=-1 sp7:sector=-1 sp8:sector=-1 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=1024 spinf1:int=1024 spinf2:int=3072 spinf3:int=1024 spinf4:int=1024 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-jump.cog node:thing=211 rundir:int=1 delay:flex=0 scale:flex=1.25
 rbot-jump.cog node:thing=214 rundir:int=1 delay:flex=0 scale:flex=1.25
 rbot-movespeed-sector.cog sector0:sector=155 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1 minspeed:flex=0 maxspeed:flex=0.7
+rbot-arrival.cog node:thing=202 rundir:int=1 arriver:thing=18 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=209 rundir:int=0 arriver:thing=18 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
+rbot-arrival.cog node:thing=175 rundir:int=1 arriver:thing=24 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=178 rundir:int=0 arriver:thing=24 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
+rbot-arrival.cog node:thing=167 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=171 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
+rbot-arrival.cog node:thing=163 rundir:int=0 arriver:thing=6 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=64
+rbot-arrival.cog node:thing=159 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=210 rundir:int=1 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=213 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
 END
 
 SEC: LAYERS

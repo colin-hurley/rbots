@@ -11037,7 +11037,7 @@ World soundclasses 35
 end
 
 Section: cogscripts
-World scripts 62
+World scripts 63
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_ELEV_SWITCH.COG
@@ -11082,29 +11082,30 @@ World scripts 62
 41: pow_supershield.cog
 42: pow_thermal_m.cog
 43: pow_vest.cog
-44: rbot-arrival.cog
-45: rbot-backpack.cog
-46: rbot-custom-canopy.cog
-47: rbot-dropmine.cog
-48: rbot-elev-switch.cog
-49: rbot-item-special.cog
-50: rbot-jump.cog
-51: rbot-nav.cog
-52: rbot-nav-special.cog
-53: rbot-path.cog
-54: rbot-player.cog
-55: rbot-skin.cog
-56: rbot-special.cog
-57: rbot-special-surface.cog
-58: rbot-srv.cog
-59: rbot-srv-force.cog
-60: rbot-srv-weapons.cog
-61: rbot-startup.cog
+44: rbot-activate.cog
+45: rbot-arrival.cog
+46: rbot-backpack.cog
+47: rbot-custom-canopy.cog
+48: rbot-dropmine.cog
+49: rbot-elev-switch.cog
+50: rbot-item-special.cog
+51: rbot-jump.cog
+52: rbot-nav.cog
+53: rbot-nav-special.cog
+54: rbot-path.cog
+55: rbot-player.cog
+56: rbot-skin.cog
+57: rbot-special.cog
+58: rbot-special-surface.cog
+59: rbot-srv.cog
+60: rbot-srv-force.cog
+61: rbot-srv-weapons.cog
+62: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 220
+World cogs 222
 #Num	Script          Symbol values
 0: 00_ELEV_SWITCH.COG -1 -1 -1 -1 0 0.25 2 10 ACTIVATE02.WAV
 1: rbot-elev-switch.cog 948 185 -1 180 0 0.25 2 10 ACTIVATE02.WAV
@@ -11253,7 +11254,7 @@ World cogs 220
 144: rbot-path.cog 9 210 225 226 218 227 228 229 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 145: rbot-path.cog 10 161 230 231 232 163 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 146: rbot-path.cog 11 231 233 234 235 220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-147: rbot-special.cog 204 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+147: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 148: rbot-special-surface.cog 649 645 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 149: rbot-item-special.cog 120 121 -1 -1 -1 -1 -1 -1 -1 -1 2 1 0 0 0 0 0 0 0 0
 150: rbot-nav-special.cog 187 186 205 206 216 197 168 183 234 215 188 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0
@@ -11263,7 +11264,8 @@ World cogs 220
 154: rbot-dropmine.cog 181 -1 0
 155: rbot-dropmine.cog 169 -1 0
 156: rbot-dropmine.cog 220 -1 0
-157: rbot-arrival.cog 206 1 0 0 0 20 0
+157: rbot-arrival.cog 206 1 0 0 0 20 -1 -1
+158: rbot-activate.cog 204 -1 0 180 -1 -1
 end
 
 Section: TEMPLATES

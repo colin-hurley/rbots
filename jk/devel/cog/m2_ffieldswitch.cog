@@ -49,9 +49,8 @@ template    sparks=+heavysmoke              local
 
 message		trigger
 
-thing		rbot								local
-flex		dist								local
-flex		dist1								local
+#thing		rbot								local
+surface		button								local
 
 end
 
@@ -153,12 +152,11 @@ timer:
    return;
 
 trigger:
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
-		dist1 = VectorDist(GetThingPos(rbot), SurfaceCenter(switch1));
-		if (dist < 0.5 || dist1 < 0.5) // if bot is close enough, activate switch
+		#rbot = GetParam(0);
+		button = GetParam(1);
+		if (switch == button || switch1 == button)
 		{
 			if (GetWallCel(switch) == 0)
 			{

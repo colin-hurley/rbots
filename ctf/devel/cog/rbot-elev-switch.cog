@@ -34,8 +34,7 @@ flex		sleeptime=2.0
 flex		speed=4.0
 sound		wav0=Activate02.wav
 
-thing		rbot					local
-flex		dist					local
+surface		buttonref				local
 
 end
 
@@ -92,13 +91,14 @@ timer:
 # ........................................................................................
 
 trigger:
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		if (GetWallCel(button) == 1) return;
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(button));
-		if (dist < 0.5) // if bot is close enough, activate call button
+		#rbot = GetParam(0);
+		buttonref = GetParam(1);
+
+		if (button != -1 && button == buttonref)
 		{
+			if (GetWallCel(button) == 1) return;
 			SetWallCel(button, 1);
 			PlaySoundPos(wav0, SurfaceCenter(button), 0.6, -1, -1, 0);
 			MoveToFrame(elevator, 1, speed);

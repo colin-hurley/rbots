@@ -34,9 +34,8 @@ flex		start_wait=0.25			desc=pause_before_moving_up
 flex		speed=4.0
 sound		wav0=lvrclik1.wav
 
-thing		rbot					local
-flex		dist					local
 surface		button					local
+surface		buttonref				local
 int			i						local
 	
 end
@@ -82,31 +81,28 @@ crossed:						// If player crosses adjoin(s)
 # ........................................................................................
 
 trigger:
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
+		#rbot = GetParam(0);
+		buttonref = GetParam(1);
+
 		if (GetWallCel(call0) == 1) return;
-		rbot = GetParam(1);
-		button = -1;
+
 		for (i = 0 ; i < 4 ; i = i + 1)
 		{
-			if (call0[i] != -1)
+			if (call0[i] != -1 && call0[i] == buttonref)
 			{
-				dist = VectorDist(GetThingPos(rbot), SurfaceCenter(call0[i]));
-				if (dist < 0.5) // if bot is close enough, activate call button
-				{
-					button = call0[i];
-				}
+				button = buttonref;
+				setwallcel(call0,1);
+				setwallcel(call1,1);
+				setwallcel(call2,1);
+				setwallcel(call3,1);
+				PlaySoundPos(wav0, SurfaceCenter(button), 1, -1, -1, 0);
+				curframe=getcurframe(elevator);
+				movetoframe(elevator, 1-curframe, speed);
+				return;
 			}
 		}
-		if (button == -1) return;
-
-		setwallcel(call0,1);
-		setwallcel(call1,1);
-		setwallcel(call2,1);
-		setwallcel(call3,1);
-		PlaySoundPos(wav0, SurfaceCenter(button), 1, -1, -1, 0);
-		curframe=getcurframe(elevator);
-		movetoframe(elevator, 1-curframe, speed);
 	}
 	return;
 

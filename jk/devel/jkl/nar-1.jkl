@@ -10718,7 +10718,7 @@ World soundclasses 39
 end
 
 Section: cogscripts
-World scripts 52
+World scripts 51
 0: 00_CONVEYOR.COG
 1: 00_desttrail.cog
 2: 00_RANDOMAMBIENT.COG
@@ -10752,30 +10752,29 @@ World scripts 52
 30: pow_supershield.cog
 31: pow_thermal.cog
 32: pow_vest.cog
-33: rbot-arrival.cog
-34: rbot-backpack.cog
-35: rbot-door.cog
-36: rbot-elev-switch.cog
-37: rbot-jump.cog
-38: rbot-meddroid.cog
-39: rbot-movespeed.cog
-40: rbot-nav.cog
-41: rbot-nav-special.cog
-42: rbot-path.cog
-43: rbot-player.cog
-44: rbot-skin.cog
-45: rbot-special.cog
-46: rbot-special-wallcel.cog
-47: rbot-srv.cog
-48: rbot-srv-force.cog
-49: rbot-srv-weapons.cog
-50: rbot-startup.cog
-51: xtank3.cog
+33: rbot-activate.cog
+34: rbot-arrival.cog
+35: rbot-backpack.cog
+36: rbot-door.cog
+37: rbot-elev-switch.cog
+38: rbot-jump.cog
+39: rbot-meddroid.cog
+40: rbot-movespeed.cog
+41: rbot-nav.cog
+42: rbot-nav-special.cog
+43: rbot-path.cog
+44: rbot-player.cog
+45: rbot-skin.cog
+46: rbot-srv.cog
+47: rbot-srv-force.cog
+48: rbot-srv-weapons.cog
+49: rbot-startup.cog
+50: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 151
+World cogs 157
 #Num	Script          Symbol values
 0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 4 -1 -1 -1 8 2 0.5
@@ -10867,15 +10866,22 @@ World cogs 151
 87: rbot-path.cog 6 184 194 205 195 196 197 198 199 200 204 202 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 88: rbot-path.cog 7 149 192 206 207 208 209 210 191 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 89: rbot-path.cog 8 211 212 213 214 215 216 210 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-90: rbot-special.cog 156 157 201 -1 -1 -1 196 197 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 32 64 64 0 0 0 32 64 0 0 0 0 0 0 0 0 0 0 0 0
-91: rbot-special-wallcel.cog 192 212 148 -1 -1 -1 -1 -1 -1 -1 890 939 890 -1 -1 -1 -1 -1 -1 -1 0 0 1 0 0 0 0 0 0 0 32 32 96 0 0 0 0 0 0 0
-92: rbot-nav-special.cog 208 207 208 209 210 192 212 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0
-93: rbot-jump.cog 194 0 0 1
-94: rbot-jump.cog 204 1 0 1
-95: rbot-jump.cog 216 1 0 1
-96: rbot-movespeed.cog 192 -1 -1 -1 1 0.5 2 0 0.7
-97: rbot-arrival.cog 179 1 48 0 0 10 0
-98: rbot-arrival.cog 162 0 48 0 0 10 0
+90: rbot-nav-special.cog 208 207 208 209 210 192 212 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+91: rbot-jump.cog 194 0 0 1
+92: rbot-jump.cog 204 1 0 1
+93: rbot-jump.cog 216 1 0 1
+94: rbot-movespeed.cog 192 -1 -1 -1 1 0.5 2 0 0.7
+95: rbot-arrival.cog 179 1 48 0 0 10 -1 -1
+96: rbot-arrival.cog 162 0 48 0 0 10 -1 -1
+97: rbot-activate.cog 156 1 0 1042 -1 -1
+98: rbot-activate.cog 157 0 0 1048 -1 -1
+99: rbot-activate.cog 201 0 0 970 -1 -1
+100: rbot-activate.cog 196 1 0 1060 -1 -1
+101: rbot-activate.cog 197 0 0 1054 -1 -1
+102: rbot-activate.cog 192 1 0 890 0 -1
+103: rbot-activate.cog 212 1 0 939 0 -1
+104: rbot-activate.cog 212 1 0.2 1012 -1 -1
+105: rbot-activate.cog 148 -1 0 890 1 -1
 end
 
 Section: TEMPLATES

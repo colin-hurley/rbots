@@ -34,8 +34,8 @@ template    proj_tpl=+grenade2               local
 sound       on_snd=set_hi2.wav               local
 sound       off_snd=lgclick1.wav             local
 
-thing       rbot                             local
-flex        dist                             local
+#thing       rbot                             local
+surface     button                           local
 
 message     activated
 message     trigger
@@ -76,11 +76,11 @@ activated:
    Return;
 
 trigger:
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
-		if (dist < 0.5) // if bot is close enough, activate trap
+		#rbot = GetParam(0);
+		button = GetParam(1);
+		if (switch == button)
 		{
 			goto activated;
 		}

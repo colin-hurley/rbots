@@ -387,10 +387,6 @@ trigger:
 	{
 		special = GetParam(1);
 		mode = GetParam(2);
-		if (mode && ((BitTest(special, 0x20) && rundir == 1) || (BitTest(special, 0x40) && rundir == 0))) // Send activate to other cogs
-		{
-			SendTrigger(-1, 11030, botid, rbot, -1, -1); // Send "activate" trigger
-		}
 		if (BitTest(special, 0x80)) // Allow bot to walk off cliffs
 		{
 			KillTimerEx(150);

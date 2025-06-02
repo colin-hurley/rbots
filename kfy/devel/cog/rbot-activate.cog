@@ -1,0 +1,126 @@
+# Rbot Activate Cog
+#
+# Server-only
+#
+# This cog makes a bot activate something upon reaching a path node.
+#
+# Rbots originally created by Raynar
+
+flags=0x240
+
+symbols
+
+message		trigger
+message		timer
+
+# Activate the effect when the bot reaches this node
+thing		node=-1								nolink
+
+# Activate the effect when the bot is running in this direction
+# -1 = forward or backward
+# 0 = backward only
+# 1 = forward only
+int			rundir=-1
+
+# Activation of the effect will be delayed by this duration
+# A delay of 0 with activate the effect immediately
+flex		delay=0.0
+
+# The button to activate
+surface		button=-1							nolink
+
+# If not -1, only activate the button if it is at this cel frame
+int			buttoncel=-1
+
+# The console to activate
+thing		console=-1							nolink
+
+# Transient working vars
+thing		rbot								local
+thing		rbotnode							local
+int			rbotrundir							local
+flex		dist								local
+
+end
+
+code
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11010) // Bot arrived at node
+	{
+		#botid = GetParam(0); // which bot requested the info
+		rbot = GetParam(1); // the bot thing
+		rbotnode = GetParam(2); // which node the bot arrived at
+		rbotrundir = GetParam(3); // which direction the bot is running
+
+		// Bot must be at the node
+		if (rbotnode != node) return;
+
+		// Bot must be running the right direction
+		if (rbotrundir != rundir && rundir != -1) return;
+
+		// Check for delay
+		if (delay > 0)
+		{
+			SetTimerEx(delay, 1, rbot, GetThingSignature(rbot));
+			return;
+		}
+
+		goto tryactivate;
+		return;
+	}
+
+	return;
+
+timer:
+	if (GetSenderId() == 1)
+	{
+		rbot = GetParam(0);
+
+		// Make sure the bot thing reference is still valid
+		if (GetThingSignature(rbot) != GetParam(1)) return;
+
+		goto tryactivate;
+		return;
+	}
+	return;
+
+tryactivate:
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Try to activate button
+	if (button != -1)
+	{
+		// Make sure the button is at the correct cel
+		// Technical note: GetWallCel will return -1 if the surface cel has not
+		// yet been changed with SetWallCel. The surface still shows cel 0 of
+		// its texture in this case. Therefore, if GetWallCel returns -1, treat
+		// it as if 0 were returned instead.
+		if (buttoncel == -1 || GetWallCel(button) == buttoncel || (buttoncel == 0 && GetWallCel(button) == -1))
+		{
+			// Make sure the bot is close enough
+			dist = VectorDist(GetThingPos(rbot), SurfaceCenter(button));
+			if (dist < 0.5)
+			{
+				SendTrigger(-1, 11031, rbot, button, -1, -1);
+			}
+		}
+	}
+
+	// Try to activate console
+	if (console != -1)
+	{
+		// Make sure the bot is close enough
+		dist = VectorDist(GetThingPos(rbot), GetThingPos(console));
+		if (dist < 0.5)
+		{
+			SendTrigger(-1, 11032, rbot, console, -1, -1);
+		}
+	}
+
+	return;
+
+end

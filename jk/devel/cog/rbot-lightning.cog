@@ -36,7 +36,8 @@ symbols
    sound    fireSound=LTSaberHit05.wav       local
    sound    butnsound=Activate04.wav         local
 
-thing	rbot	local
+#thing	rbot	local
+surface	button	local
 
 end
 
@@ -69,10 +70,12 @@ activate:
    return;
 
 trigger:
-	if (getsourceref() == 11030)
+	if (getsourceref() == 11031) // "activate" trigger
 	{
-		rbot = GetParam(1);
-		if (VectorDist(GetThingPos(rbot), SurfaceCenter(switch0)) < 0.3) call activate; // bot is close enough to activate
+		#rbot = GetParam(0);
+		button = GetParam(1);
+		if (switch0 == button) goto activate;
+		return;
 	}
 	return;
 

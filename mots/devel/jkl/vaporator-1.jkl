@@ -17749,7 +17749,7 @@ World soundclasses 41
 end
 
 Section: cogscripts
-World scripts 73
+World scripts 74
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_ELEVCALL.COG
@@ -17801,33 +17801,34 @@ World scripts 73
 48: pow_supershield.cog
 49: pow_thermal_m.cog
 50: pow_vest.cog
-51: rbot-arrival.cog
-52: rbot-backpack.cog
-53: rbot-crouch.cog
-54: rbot-door.cog
-55: rbot-door-switch.cog
-56: rbot-elev-call.cog
-57: rbot-elev-switch.cog
-58: rbot-elev-switch2.cog
-59: rbot-jump.cog
-60: rbot-movespeed.cog
-61: rbot-nav.cog
-62: rbot-nav-special.cog
-63: rbot-path.cog
-64: rbot-player.cog
-65: rbot-skin.cog
-66: rbot-special.cog
-67: rbot-special-sector.cog
-68: rbot-special-wallcel.cog
-69: rbot-srv.cog
-70: rbot-srv-force.cog
-71: rbot-srv-weapons.cog
-72: rbot-startup.cog
+51: rbot-activate.cog
+52: rbot-arrival.cog
+53: rbot-backpack.cog
+54: rbot-crouch.cog
+55: rbot-door.cog
+56: rbot-door-switch.cog
+57: rbot-elev-call.cog
+58: rbot-elev-switch.cog
+59: rbot-elev-switch2.cog
+60: rbot-jump.cog
+61: rbot-movespeed.cog
+62: rbot-nav.cog
+63: rbot-nav-special.cog
+64: rbot-path.cog
+65: rbot-player.cog
+66: rbot-skin.cog
+67: rbot-special.cog
+68: rbot-special-sector.cog
+69: rbot-special-wallcel.cog
+70: rbot-srv.cog
+71: rbot-srv-force.cog
+72: rbot-srv-weapons.cog
+73: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 272
+World cogs 276
 #Num	Script          Symbol values
 0: rbot-door.cog 4 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 0 -1 -1 -1 8 2 0.5
@@ -18014,7 +18015,7 @@ World cogs 272
 182: rbot-path.cog 16 293 303 302 301 315 231 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 183: rbot-path.cog 17 267 305 306 307 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0.5
 184: rbot-path.cog 18 308 309 310 311 312 313 314 315 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-185: rbot-special.cog 252 294 295 -1 -1 -1 -1 285 -1 314 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 32 32 64 0 0 0 0 3072 0 3072 0 0 0 0 0 0 0 0 0 0
+185: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 285 -1 314 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 3072 0 3072 0 0 0 0 0 0 0 0 0 0
 186: rbot-special-sector.cog 46 51 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 128 128 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 187: rbot-nav-special.cog 181 182 203 235 236 237 293 294 295 296 298 299 300 215 199 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
 188: rbot-special-wallcel.cog 309 -1 -1 -1 -1 -1 -1 -1 -1 -1 1400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 4096 0 0 0 0 0 0 0 0 0
@@ -18025,9 +18026,12 @@ World cogs 272
 193: rbot-crouch.cog 309 -1 -1 -1 1 0 3
 194: rbot-movespeed.cog 314 -1 -1 -1 1 0 3 0 0.7
 195: rbot-movespeed.cog 234 -1 -1 -1 1 0 3 3.7 10
-196: rbot-arrival.cog 293 1 5 1 0 10 32
-197: rbot-arrival.cog 296 0 5 0 0 10 64
-198: rbot-arrival.cog 297 1 5 1 0 10 32
+196: rbot-arrival.cog 293 1 5 1 0 10 1465 -1
+197: rbot-arrival.cog 296 0 5 0 0 10 1464 -1
+198: rbot-arrival.cog 297 1 5 1 0 10 958 -1
+199: rbot-activate.cog 252 1 0 1353 -1 -1
+200: rbot-activate.cog 294 1 0 1465 -1 -1
+201: rbot-activate.cog 295 0 0 1464 -1 -1
 end
 
 Section: TEMPLATES

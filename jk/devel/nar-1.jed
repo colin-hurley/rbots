@@ -5053,7 +5053,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 99
+COGS 106
 rbot-door.cog door0:thing=2 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 M2_FFIELDSWITCH.COG switch:surface=890 switch1:surface=939 damsurf:surface=954 damsurf2:surface=962 maxdamage:flex=10 mindamage:flex=5
@@ -5144,15 +5144,22 @@ rbot-path.cog pathid:int=5 node0:thing=170 node1:thing=193 node2:thing=191 node3
 rbot-path.cog pathid:int=6 node0:thing=184 node1:thing=194 node2:thing=205 node3:thing=195 node4:thing=196 node5:thing=197 node6:thing=198 node7:thing=199 node8:thing=200 node9:thing=204 node10:thing=202 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-path.cog pathid:int=7 node0:thing=149 node1:thing=192 node2:thing=206 node3:thing=207 node4:thing=208 node5:thing=209 node6:thing=210 node7:thing=191 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1
 rbot-path.cog pathid:int=8 node0:thing=211 node1:thing=212 node2:thing=213 node3:thing=214 node4:thing=215 node5:thing=216 node6:thing=210 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1
-rbot-special.cog sp0:thing=156 sp1:thing=157 sp2:thing=201 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=196 sp7:thing=197 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=32 spinf1:int=64 spinf2:int=64 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=32 spinf7:int=64 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
-rbot-special-wallcel.cog sp0:thing=192 sp1:thing=212 sp2:thing=148 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 wall0:surface=890 wall1:surface=939 wall2:surface=890 wall3:surface=-1 wall4:surface=-1 wall5:surface=-1 wall6:surface=-1 wall7:surface=-1 wall8:surface=-1 wall9:surface=-1 wallcel0:int=0 wallcel1:int=0 wallcel2:int=1 wallcel3:int=0 wallcel4:int=0 wallcel5:int=0 wallcel6:int=0 wallcel7:int=0 wallcel8:int=0 wallcel9:int=0 spinf0:int=32 spinf1:int=32 spinf2:int=96 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0
 rbot-nav-special.cog navsp0:thing=208 navsp1:thing=207 navsp2:thing=208 navsp3:thing=209 navsp4:thing=210 navsp5:thing=192 navsp6:thing=212 navsp7:thing=-1 navsp8:thing=-1 navsp9:thing=-1 navsp10:thing=-1 navsp11:thing=-1 navsp12:thing=-1 navsp13:thing=-1 navsp14:thing=-1 navsp15:thing=-1 navsp16:thing=-1 navsp17:thing=-1 navsp18:thing=-1 navsp19:thing=-1 navspinf0:int=1 navspinf1:int=1 navspinf2:int=1 navspinf3:int=1 navspinf4:int=1 navspinf5:int=1 navspinf6:int=1 navspinf7:int=0 navspinf8:int=0 navspinf9:int=0 navspinf10:int=0 navspinf11:int=0 navspinf12:int=0 navspinf13:int=0 navspinf14:int=0 navspinf15:int=0 navspinf16:int=0 navspinf17:int=0 navspinf18:int=0 navspinf19:int=0
 rbot-jump.cog node:thing=194 rundir:int=0 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=204 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=216 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-movespeed.cog node0:thing=192 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=1 delay:flex=0.5 duration:flex=2 minspeed:flex=0 maxspeed:flex=0.7
-rbot-arrival.cog node:thing=179 rundir:int=1 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=0
-rbot-arrival.cog node:thing=162 rundir:int=0 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=0
+rbot-arrival.cog node:thing=179 rundir:int=1 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=162 rundir:int=0 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
+rbot-activate.cog node:thing=156 rundir:int=1 delay:flex=0 button:surface=1042 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=157 rundir:int=0 delay:flex=0 button:surface=1048 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=201 rundir:int=0 delay:flex=0 button:surface=970 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=196 rundir:int=1 delay:flex=0 button:surface=1060 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=197 rundir:int=0 delay:flex=0 button:surface=1054 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=192 rundir:int=1 delay:flex=0 button:surface=890 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=212 rundir:int=1 delay:flex=0 button:surface=939 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=212 rundir:int=1 delay:flex=0.2 button:surface=1012 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=148 rundir:int=-1 delay:flex=0 button:surface=890 buttoncel:int=1 console:thing=-1
 END
 
 SEC: LAYERS

@@ -45,8 +45,8 @@ sound       fan_snd=BigFan01.wav             local
 sound       on_snd=set_hi2.wav               local
 sound       off_snd=lgclick1.wav             local
 
-thing       rbot                             local
-flex        dist                             local
+#thing       rbot                             local
+surface     button                           local
 
 cog         firstpath=-1                     local
 cog         path=-1                          local
@@ -94,19 +94,11 @@ trigger:
 		return;
 	}
 
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch1));
-		if (dist < 0.5) // if bot is close enough, activate call button
-		{
-			goto activated;
-		}
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch2));
-		if (dist < 0.5) // if bot is close enough, activate call button
-		{
-			goto activated;
-		}
+		#rbot = GetParam(0);
+		button = GetParam(1);
+		if (switch1 == button || switch2 == button) goto activated;
 		return;
 	}
 

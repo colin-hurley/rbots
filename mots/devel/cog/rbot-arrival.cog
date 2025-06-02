@@ -40,12 +40,15 @@ flex		timeout=10.0
 # This prevents sending duplicate and unnecessary triggers
 int			waiting=0							local
 
-# Special mode flags to apply to the bot when it needs to await arrival
-int			spinf=0
+# The button to activate when the thing is not at the desired frame
+surface		button=-1							nolink
+
+# The console to activate when the thing is not at the desired frame
+thing		console=-1							nolink
 
 # Transient working vars
 int			botid								local
-#thing		rbot								local
+thing		rbot								local
 thing		rbotnode							local
 int			rbotrundir							local
 
@@ -61,7 +64,7 @@ trigger:
 	if (GetSourceRef() == 11010) // Bot arrived at node
 	{
 		botid = GetParam(0); // the bot making the request
-		#rbot = GetParam(1); // the bot thing
+		rbot = GetParam(1); // the bot thing
 		rbotnode = GetParam(2); // which node the bot arrived at
 		rbotrundir = GetParam(3); // which direction the bot is running
 
@@ -81,10 +84,16 @@ trigger:
 		// Tell bot to wait
 		SendTrigger(-1, 11040, botid, GetSelfCog(), 1, timeout);
 
-		// Send special info for node, if necessary
-		if (spinf)
+		// Try to activate button
+		if (button != -1)
 		{
-			SendTrigger(-1, 11020, botid, spinf, 2, -1); // send special info to bot (mode 2 = activate for short duration)
+			SendTrigger(-1, 11031, rbot, button, -1, -1);
+		}
+
+		// Try to activate console
+		if (console != -1)
+		{
+			SendTrigger(-1, 11032, rbot, console, -1, -1);
 		}
 	}
 	return;

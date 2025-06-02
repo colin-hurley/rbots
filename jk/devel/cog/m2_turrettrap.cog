@@ -51,8 +51,8 @@ sound		off_snd=lgclick1.wav		local
 
 message		trigger
 
-thing		rbot								local
-flex		dist								local
+#thing		rbot								local
+surface		button								local
 
 end
 
@@ -96,11 +96,11 @@ activate:
 	Stop;
 
 trigger:
-	if (GetSourceRef() == 11030) // "activate" trigger
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		rbot = GetParam(1);
-		dist = VectorDist(GetThingPos(rbot), SurfaceCenter(switch));
-		if (dist < 0.5) goto activate; // if bot is close enough, activate switch
+		#rbot = GetParam(0);
+		button = GetParam(1);
+		if (switch == button) goto activate;
 		return;
 	}
 	return;

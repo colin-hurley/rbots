@@ -6699,7 +6699,7 @@ World soundclasses 34
 end
 
 Section: cogscripts
-World scripts 41
+World scripts 42
 0: 00_CONVEYOR.COG
 1: 00_desttrail.cog
 2: 00_PLAYAMBIENT.COG
@@ -6729,23 +6729,24 @@ World scripts 41
 26: pow_supershield.cog
 27: pow_thermal.cog
 28: pow_vest.cog
-29: rbot-backpack.cog
-30: rbot-jump.cog
-31: rbot-lightning.cog
-32: rbot-nav.cog
-33: rbot-path.cog
-34: rbot-player.cog
-35: rbot-skin.cog
-36: rbot-special.cog
-37: rbot-srv.cog
-38: rbot-srv-force.cog
-39: rbot-srv-weapons.cog
-40: rbot-startup.cog
+29: rbot-activate.cog
+30: rbot-backpack.cog
+31: rbot-jump.cog
+32: rbot-lightning.cog
+33: rbot-nav.cog
+34: rbot-path.cog
+35: rbot-player.cog
+36: rbot-skin.cog
+37: rbot-special.cog
+38: rbot-srv.cog
+39: rbot-srv-force.cog
+40: rbot-srv-weapons.cog
+41: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 127
+World cogs 129
 #Num	Script          Symbol values
 0: 00_SLIDECEILING.COG 40 10
 1: 00_PLAYAMBIENT.COG 5 -1 -1 -1 -1 -1 -1 -1 00WIND02.WAV -1 60 1
@@ -6830,9 +6831,10 @@ World cogs 127
 80: rbot-path.cog 6 67 117 118 119 120 105 121 122 123 124 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 81: rbot-path.cog 7 124 125 126 127 133 113 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 82: rbot-path.cog 8 128 92 129 134 72 130 131 132 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-83: rbot-special.cog 91 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+83: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 84: rbot-jump.cog 91 1 0 1
 85: rbot-jump.cog 134 0 0 1
+86: rbot-activate.cog 91 1 0 591 -1 -1
 end
 
 Section: TEMPLATES

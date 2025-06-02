@@ -7757,7 +7757,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 43
+World scripts 44
 0: 00_desttrail.cog
 1: 00_SLIDECEILING.COG
 2: 00_smoketrail.cog
@@ -7785,27 +7785,28 @@ World scripts 43
 24: pow_supershield.cog
 25: pow_thermal.cog
 26: pow_vest.cog
-27: rbot-arrival.cog
-28: rbot-backpack.cog
-29: rbot-door.cog
-30: rbot-elev-switch2.cog
-31: rbot-jump.cog
-32: rbot-movespeed.cog
-33: rbot-nav.cog
-34: rbot-nav-special.cog
-35: rbot-path.cog
-36: rbot-player.cog
-37: rbot-skin.cog
-38: rbot-special.cog
-39: rbot-srv.cog
-40: rbot-srv-force.cog
-41: rbot-srv-weapons.cog
-42: rbot-startup.cog
+27: rbot-activate.cog
+28: rbot-arrival.cog
+29: rbot-backpack.cog
+30: rbot-door.cog
+31: rbot-elev-switch2.cog
+32: rbot-jump.cog
+33: rbot-movespeed.cog
+34: rbot-nav.cog
+35: rbot-nav-special.cog
+36: rbot-path.cog
+37: rbot-player.cog
+38: rbot-skin.cog
+39: rbot-special.cog
+40: rbot-srv.cog
+41: rbot-srv-force.cog
+42: rbot-srv-weapons.cog
+43: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 133
+World cogs 136
 #Num	Script          Symbol values
 0: rbot-door.cog 2 -1 -1 -1 8 2 0.5
 1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
@@ -7884,7 +7885,7 @@ World cogs 133
 74: rbot-path.cog 1 130 131 132 133 151 152 130 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 1 0 1
 75: rbot-path.cog 2 124 157 156 155 150 148 135 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 76: rbot-path.cog 3 135 136 137 138 139 140 141 142 143 144 145 146 147 135 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
-77: rbot-special.cog -1 -1 -1 -1 -1 156 157 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 64 32 0 0 0 0 0 0 0 0 0 0 0 0 0
+77: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 78: rbot-jump.cog 134 0 0 1
 79: rbot-jump.cog 125 0 0 1
 80: rbot-jump.cog 117 0 0 1
@@ -7895,8 +7896,10 @@ World cogs 133
 85: rbot-jump.cog 136 1 0 1
 86: rbot-jump.cog 141 0 0 1
 87: rbot-movespeed.cog 126 -1 -1 -1 0 1 2 0 0.7
-88: rbot-arrival.cog 153 0 11 0 0 10 64
-89: rbot-arrival.cog 150 0 11 1 0 10 64
+88: rbot-arrival.cog 153 0 11 0 0 10 777 -1
+89: rbot-arrival.cog 150 0 11 1 0 10 609 -1
+90: rbot-activate.cog 156 0 0 615 -1 -1
+91: rbot-activate.cog 157 1 0 777 -1 -1
 end
 
 Section: TEMPLATES

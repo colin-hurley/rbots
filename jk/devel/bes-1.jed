@@ -8150,16 +8150,16 @@ rbot-special-sector.cog sp0:sector=45 sp1:sector=52 sp2:sector=155 sp3:sector=69
 rbot-jump.cog node:thing=211 rundir:int=1 delay:flex=0 scale:flex=1.25
 rbot-jump.cog node:thing=214 rundir:int=1 delay:flex=0 scale:flex=1.25
 rbot-movespeed-sector.cog sector0:sector=155 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1 minspeed:flex=0 maxspeed:flex=0.7
-rbot-arrival.cog node:thing=202 rundir:int=1 arriver:thing=18 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
-rbot-arrival.cog node:thing=209 rundir:int=0 arriver:thing=18 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
-rbot-arrival.cog node:thing=175 rundir:int=1 arriver:thing=24 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
-rbot-arrival.cog node:thing=178 rundir:int=0 arriver:thing=24 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
-rbot-arrival.cog node:thing=167 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=32
-rbot-arrival.cog node:thing=171 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=64
-rbot-arrival.cog node:thing=163 rundir:int=0 arriver:thing=6 frame:int=0 delay:flex=0 timeout:flex=10 spinf:int=64
-rbot-arrival.cog node:thing=159 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
-rbot-arrival.cog node:thing=210 rundir:int=1 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
-rbot-arrival.cog node:thing=213 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 spinf:int=32
+rbot-arrival.cog node:thing=202 rundir:int=1 arriver:thing=18 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=1696 console:thing=-1
+rbot-arrival.cog node:thing=209 rundir:int=0 arriver:thing=18 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1714 console:thing=-1
+rbot-arrival.cog node:thing=175 rundir:int=1 arriver:thing=24 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=1702 console:thing=-1
+rbot-arrival.cog node:thing=178 rundir:int=0 arriver:thing=24 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1708 console:thing=-1
+rbot-arrival.cog node:thing=167 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=1672 console:thing=-1
+rbot-arrival.cog node:thing=171 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1684 console:thing=-1
+rbot-arrival.cog node:thing=163 rundir:int=0 arriver:thing=6 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=1678 console:thing=-1
+rbot-arrival.cog node:thing=159 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1690 console:thing=-1
+rbot-arrival.cog node:thing=210 rundir:int=1 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1899 console:thing=-1
+rbot-arrival.cog node:thing=213 rundir:int=1 arriver:thing=6 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1893 console:thing=-1
 END
 
 SEC: LAYERS

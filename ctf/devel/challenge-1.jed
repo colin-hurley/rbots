@@ -38211,7 +38211,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 152
+COGS 154
 C3_DUALELEV.COG elevator:thing=4 speed:flex=6 waittime:flex=1.5
 C3_DUALELEV.COG elevator:thing=3 speed:flex=6 waittime:flex=1.5
 C3_ELEVSWITCH.COG switch:surface=2888 door:thing=11 openspeed:flex=2 opentime:flex=25 secret:sector=231 addlight:flex=0.5 switch2:surface=3385 opentime2:flex=5
@@ -38344,26 +38344,28 @@ rbot-path.cog pathid:int=15 node0:thing=415 node1:thing=416 node2:thing=417 node
 rbot-path.cog pathid:int=16 node0:thing=388 node1:thing=461 node2:thing=462 node3:thing=463 node4:thing=464 node5:thing=465 node6:thing=466 node7:thing=467 node8:thing=468 node9:thing=469 node10:thing=470 node11:thing=471 node12:thing=472 node13:thing=473 node14:thing=474 node15:thing=475 node16:thing=476 node17:thing=477 node18:thing=478 node19:thing=479 node20:thing=480 node21:thing=481 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=40 redrundir:int=0 goldrank:int=40 goldrundir:int=1
 rbot-path.cog pathid:int=17 node0:thing=481 node1:thing=482 node2:thing=483 node3:thing=484 node4:thing=485 node5:thing=486 node6:thing=487 node7:thing=488 node8:thing=489 node9:thing=490 node10:thing=491 node11:thing=492 node12:thing=493 node13:thing=494 node14:thing=495 node15:thing=496 node16:thing=497 node17:thing=498 node18:thing=499 node19:thing=500 node20:thing=414 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=0 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=40 redrundir:int=0 goldrank:int=40 goldrundir:int=1
 rbot-path.cog pathid:int=18 node0:thing=502 node1:thing=503 node2:thing=-1 node3:thing=-1 node4:thing=-1 node5:thing=-1 node6:thing=-1 node7:thing=-1 node8:thing=-1 node9:thing=-1 node10:thing=-1 node11:thing=-1 node12:thing=-1 node13:thing=-1 node14:thing=-1 node15:thing=-1 node16:thing=-1 node17:thing=-1 node18:thing=-1 node19:thing=-1 node20:thing=-1 node21:thing=-1 node22:thing=-1 node23:thing=-1 node24:thing=-1 unidirectional:int=1 nonlooping:int=0 requirements:int=0 weight:flex=1 redrank:int=-1 redrundir:int=-1 goldrank:int=-1 goldrundir:int=-1
-rbot-special.cog sp0:thing=475 sp1:thing=491 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=64 spinf1:int=32 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
+rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-special-sector.cog sp0:sector=91 sp1:sector=105 sp2:sector=142 sp3:sector=688 sp4:sector=700 sp5:sector=693 sp6:sector=512 sp7:sector=790 sp8:sector=793 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=148 sp13:sector=144 sp14:sector=240 sp15:sector=76 sp16:sector=309 sp17:sector=337 sp18:sector=603 sp19:sector=346 spinf0:int=1024 spinf1:int=1024 spinf2:int=1024 spinf3:int=1024 spinf4:int=1024 spinf5:int=1024 spinf6:int=1024 spinf7:int=1024 spinf8:int=1024 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=1024 spinf13:int=1024 spinf14:int=1024 spinf15:int=1024 spinf16:int=1024 spinf17:int=1024 spinf18:int=1024 spinf19:int=1024
 rbot-item-special.cog item0:thing=263 item1:thing=-1 item2:thing=-1 item3:thing=-1 item4:thing=-1 item5:thing=-1 item6:thing=-1 item7:thing=-1 item8:thing=-1 item9:thing=-1 spinf0:int=1 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0
 rbot-jump.cog node:thing=402 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=453 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=455 rundir:int=1 delay:flex=0 scale:flex=1
-rbot-arrival.cog node:thing=384 rundir:int=1 arriver:thing=4 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=387 rundir:int=0 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=458 rundir:int=1 arriver:thing=28 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=460 rundir:int=0 arriver:thing=29 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=505 rundir:int=0 arriver:thing=22 frame:int=0 delay:flex=1 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=411 rundir:int=1 arriver:thing=22 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=500 rundir:int=0 arriver:thing=21 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=497 rundir:int=1 arriver:thing=21 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=480 rundir:int=0 arriver:thing=9 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=477 rundir:int=1 arriver:thing=9 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=464 rundir:int=0 arriver:thing=3 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=461 rundir:int=1 arriver:thing=3 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=459 rundir:int=0 arriver:thing=30 frame:int=0 delay:flex=0 timeout:flex=30 spinf:int=0
-rbot-arrival.cog node:thing=504 rundir:int=1 arriver:thing=30 frame:int=1 delay:flex=0 timeout:flex=30 spinf:int=0
+rbot-arrival.cog node:thing=384 rundir:int=1 arriver:thing=4 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=387 rundir:int=0 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=458 rundir:int=1 arriver:thing=28 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=460 rundir:int=0 arriver:thing=29 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=505 rundir:int=0 arriver:thing=22 frame:int=0 delay:flex=1 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=411 rundir:int=1 arriver:thing=22 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=500 rundir:int=0 arriver:thing=21 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=497 rundir:int=1 arriver:thing=21 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=480 rundir:int=0 arriver:thing=9 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=477 rundir:int=1 arriver:thing=9 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=464 rundir:int=0 arriver:thing=3 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=461 rundir:int=1 arriver:thing=3 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=459 rundir:int=0 arriver:thing=30 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=504 rundir:int=1 arriver:thing=30 frame:int=1 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-activate.cog node:thing=475 rundir:int=0 delay:flex=0 button:surface=7236 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=491 rundir:int=1 delay:flex=0 button:surface=7528 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

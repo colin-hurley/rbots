@@ -7622,12 +7622,12 @@ LTS 0
 END
 
 SEC: COGS
-COGS 202
+COGS 206
 rbot-door.cog door0:thing=4 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=0 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=1 door1:thing=-1 door2:thing=-1 door3:thing=-1 moveSpeed:flex=8 sleepTime:flex=2 lightValue:flex=0.5
-rbot-elev-call.cog callbutton:surface=508 upbutton:surface=-1 dnbutton:surface=520 elevator:thing=2 speed:flex=15 floorlevel:flex=1 totalfloors:flex=2 callnode:thing=180 upnode:thing=-1 dnnode:thing=181 callrundir:int=1 uprundir:int=-1 dnrundir:int=1 timeout:flex=10
-rbot-elev-call.cog callbutton:surface=491 upbutton:surface=471 dnbutton:surface=-1 elevator:thing=2 speed:flex=15 floorlevel:flex=0 totalfloors:flex=2 callnode:thing=183 upnode:thing=182 dnnode:thing=-1 callrundir:int=0 uprundir:int=0 dnrundir:int=-1 timeout:flex=10
+rbot-elev-call.cog callbutton:surface=508 upbutton:surface=-1 dnbutton:surface=520 elevator:thing=2 speed:flex=15 floorlevel:flex=1 totalfloors:flex=2
+rbot-elev-call.cog callbutton:surface=491 upbutton:surface=471 dnbutton:surface=-1 elevator:thing=2 speed:flex=15 floorlevel:flex=0 totalfloors:flex=2
 rbot-door-switch.cog door0:thing=18 door1:thing=17 door2:thing=-1 door3:thing=-1 switch0:surface=1142 switch1:surface=1279 movespeed:flex=15 sleeptime:flex=25 lightvalue:flex=0.5 switchnode0:thing=201 switchnode1:thing=217 switchrundir0:int=1 switchrundir1:int=1
 rbot-door-switch.cog door0:thing=9 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=1291 switch1:surface=896 movespeed:flex=8 sleeptime:flex=2 lightvalue:flex=0.5 switchnode0:thing=202 switchnode1:thing=-1 switchrundir0:int=1 switchrundir1:int=-1
 MDM07_DOORSWITCH.COG door0:thing=32 door1:thing=-1 door2:thing=-1 door3:thing=-1 switch0:surface=624 switch1:surface=1514 movespeed:flex=10 sleeptime:flex=2.5 lightvalue:flex=0.5 switchnode0:thing=234 switchnode1:thing=239 switchrundir0:int=1 switchrundir1:int=1
@@ -7825,6 +7825,10 @@ rbot-arrival.cog node:thing=297 rundir:int=1 arriver:thing=5 frame:int=1 delay:f
 rbot-activate.cog node:thing=252 rundir:int=1 delay:flex=0 button:surface=1353 buttoncel:int=-1 console:thing=-1
 rbot-activate.cog node:thing=294 rundir:int=1 delay:flex=0 button:surface=1465 buttoncel:int=-1 console:thing=-1
 rbot-activate.cog node:thing=295 rundir:int=0 delay:flex=0 button:surface=1464 buttoncel:int=-1 console:thing=-1
+rbot-arrival.cog node:thing=180 rundir:int=1 arriver:thing=2 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=508 console:thing=-1
+rbot-activate.cog node:thing=181 rundir:int=1 delay:flex=0 button:surface=520 buttoncel:int=-1 console:thing=-1
+rbot-arrival.cog node:thing=183 rundir:int=0 arriver:thing=2 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=491 console:thing=-1
+rbot-activate.cog node:thing=182 rundir:int=0 delay:flex=0 button:surface=471 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

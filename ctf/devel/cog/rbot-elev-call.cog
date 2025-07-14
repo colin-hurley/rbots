@@ -10,8 +10,8 @@
 #
 # This is a customized version of 00_elevcall.cog by LucasArts that has been updated
 # to support Rbots. It can be used as a drop-in replacement for any case where the
-# original is used, although there are some additional paramters that should be
-# configured for proper operation.
+# original is used, although it may need to be combined with other scripts (such as
+# rbot-arrival.cog) for best results.
 #
 # Rbots originally created by Raynar
 
@@ -20,7 +20,6 @@ symbols
 
 message     activated
 ## message     blocked
-message     arrived
 message     trigger
 
 surface     callbutton                       //calls elevator to level
@@ -38,22 +37,9 @@ sound       updnbutt=beep1.wav      local
 int         switch                  local    //check variable for cog internal use
 int         bnosound=0              local
 
-thing       callnode=-1             nolink   //activate the callbutton upon reaching this node
-thing       upnode=-1               nolink   //activate the upnbutton upon reaching this node
-thing       dnnode=-1               nolink   //activate the dnnbutton upon reaching this node
-
-int         callrundir=-1                    //activate the callbutton while running in this direction
-int         uprundir=-1                      //activate the upnbutton while running in this direction
-int         dnrundir=-1                      //activate the dnnbutton while running in this direction
-
-flex        timeout=10.0                     //how long to wait after calling the elevator
-
-int         waiting=0               local
-
 # Transient working variables
-int         botid                   local
-thing       rbotnode                local
-int         rbotrundir              local
+#thing       rbot                    local
+surface     buttonref               local
 
 end
 
@@ -108,85 +94,33 @@ do_activated:
 
 //-------------------------------------------------------------------------------------------------
 
-arrived:
-	if (IsMulti() && !IsServer()) return; // Host only
-
-	if (IsThingMoving(elevator)) return; // Elevator is still moving and didn't stop at this floor
-
-	if (GetCurFrame(elevator) == floorlevel) // Elevator has arrived at this floor
-	{
-		if (waiting) // there may be a bot waiting for the elevator
-		{
-			// Clear the waiting flag - no need to send another arrival event
-			// until next time a bot is waiting for one
-			waiting = 0;
-
-			// Broadcast arrival event to all bots
-			SendTrigger(-1, 11050, GetSelfCog(), 1, -1, -1);
-		}
-	}
-
-	return;
-
-//-------------------------------------------------------------------------------------------------
-
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
 
-	if (GetSourceRef() == 11010) // Bot arrived at node
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		botid = GetParam(0); // the bot making the request
-		#rbot = GetParam(1); // the bot thing
-		rbotnode = GetParam(2); // which node the bot arrived at
-		rbotrundir = GetParam(3); // which direction the bot is running
+		#rbot = GetParam(0);
+		buttonref = GetParam(1);
 
-		if (rbotnode == callnode) // bot has reached the call button
+		if (callbutton != -1 && callbutton == buttonref)
 		{
-			if (callrundir == -1 || callrundir == rbotrundir) // bot is entering the elevator shaft
-			{
-				if (GetCurFrame(elevator) != floorlevel) // elevator is at another floor
-				{
-					// Tell bot to wait for the elevator
-					waiting = 1; // bot is awaiting arrival event
-					SendTrigger(-1, 11040, botid, GetSelfCog(), 1, timeout);
-
-					// Activate call button
-					switch = callbutton;
-					goto do_activated; // note: this blocks until the elevator is done moving
-				}
-			}
+			switch = callbutton;
+			goto do_activated;
+			return;
 		}
 
-		if (rbotnode == upnode) // bot has reached the up button
+		if (upbutton != -1 && upbutton == buttonref)
 		{
-			if (uprundir == -1 || uprundir == rbotrundir) // bot is trying to go up
-			{
-				if (GetCurFrame(elevator) == floorlevel) // elevator is at this floor
-				{
-					// Give the bot a moment to completely enter the elevator shaft
-					Sleep(0.5);
-
-					// Activate up button
-					switch = upbutton;
-					goto do_activated; // note: this blocks until the elevator is done moving
-				}
-			}
+			switch = upbutton;
+			goto do_activated;
+			return;
 		}
 
-		if (rbotnode == dnnode) // bot has reached the down button
+		if (dnbutton != -1 && dnbutton == buttonref)
 		{
-			if (dnrundir == -1 || dnrundir == rbotrundir) // bot is trying to go down
-			{
-				if (GetCurFrame(elevator) == floorlevel) // elevator is at this floor
-				{
-					// Give the bot a moment to completely enter the elevator shaft
-					Sleep(0.5);
-
-					// Activate down button
-					switch = dnbutton;
-					goto do_activated; // note: this blocks until the elevator is done moving
-				}
-			}
+			switch = dnbutton;
+			goto do_activated;
+			return;
 		}
 
 		return;

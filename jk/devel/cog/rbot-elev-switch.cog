@@ -7,7 +7,7 @@
 # This is a customized version of 00_elev_switch.cog by LucasArts that has been updated
 # to support Rbots. It can be used as a drop-in replacement for any case where the
 # original is used, although it may need to be combined with other scripts (such as
-# rbot-arrival.cog) for best results.
+# rbot-activate.cog and rbot-arrival.cog) for best results.
 #
 # Note: This can also be used to replace usage of 00_elev_switch3.cog, which is identical
 # to 00_elev_switch.cog except that it has a different initial value for the wav0 symbol.

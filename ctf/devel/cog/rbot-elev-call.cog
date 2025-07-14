@@ -11,7 +11,7 @@
 # This is a customized version of 00_elevcall.cog by LucasArts that has been updated
 # to support Rbots. It can be used as a drop-in replacement for any case where the
 # original is used, although it may need to be combined with other scripts (such as
-# rbot-arrival.cog) for best results.
+# rbot-activate.cog and rbot-arrival.cog) for best results.
 #
 # Rbots originally created by Raynar
 

@@ -34,16 +34,9 @@ int         movestatus=0                     local
 int         garbage=-1                       local
 int         dummy=0                          local
 
-thing       switchnode0=-1                   nolink   //activate switch0 upon reaching this node
-thing       switchnode1=-1                   nolink   //activate switch1 upon reaching this node
-
-int         switchrundir0=-1                          //activate switch0 while running in this direction
-int         switchrundir1=-1                          //activate switch1 while running in this direction
-
 # Transient working variables
-thing       node                             local
-int         rundir                           local
-int         i                                local
+#thing       rbot                             local
+surface     buttonref                        local
 
 message     startup
 message     activated
@@ -145,31 +138,25 @@ checkstatus:
 # ........................................................................................
 
 trigger:
-	if (GetSourceRef() == 11010) // Bot arrived at node
-	{
-		#botid = GetParam(0);
-		#rbot = GetParam(1);
-		node = GetParam(2);
-		rundir = GetParam(3);
+	if (IsMulti() && !IsServer()) return; // Host only
 
-		for (i = 0 ; i < 2 ; i = i + 1)
+	if (GetSourceRef() == 11031) // "activate" trigger
+	{
+		#rbot = GetParam(0);
+		buttonref = GetParam(1);
+
+		if ((switch0 != -1 && switch0 == buttonref) || (switch1 != -1 && switch1 == buttonref))
 		{
-			if (node == switchnode0[i]) // bot has reached the switch
+			// If the doors are closed, activate the switch
+			call checkstatus;
+			if (movestatus) return;
+			if (doorstatus == 0)                      // all pieces are at frame 0
 			{
-				if (switchrundir0[i] == -1 || switchrundir0[i] == rundir) // bot is approaching the door
-				{
-					// If the doors are closed, activate the switch
-					call checkstatus;
-					if (movestatus) return;
-					if (doorstatus == 0)                      // all pieces are at frame 0
-					{
-						PlaySoundThing(onSound, door0, 0.6, -1, -1, 0);      // play activate sound
-						setwallcel(switch0, 1);
-						if (switch1 >= 0) setwallcel(switch1, 1);
-						sectoradjoins(doorsector, 1);
-						call open_doors;
-					}
-				}
+				PlaySoundThing(onSound, door0, 0.6, -1, -1, 0);      // play activate sound
+				setwallcel(switch0, 1);
+				if (switch1 >= 0) setwallcel(switch1, 1);
+				sectoradjoins(doorsector, 1);
+				call open_doors;
 			}
 		}
 

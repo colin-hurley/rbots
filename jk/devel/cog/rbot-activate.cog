@@ -39,7 +39,6 @@ thing		console=-1							nolink
 thing		rbot								local
 thing		rbotnode							local
 int			rbotrundir							local
-flex		dist								local
 
 end
 
@@ -101,24 +100,14 @@ tryactivate:
 		// it as if 0 were returned instead.
 		if (buttoncel == -1 || GetWallCel(button) == buttoncel || (buttoncel == 0 && GetWallCel(button) == -1))
 		{
-			// Make sure the bot is close enough
-			dist = VectorDist(GetThingPos(rbot), SurfaceCenter(button));
-			if (dist < 0.5)
-			{
-				SendTrigger(-1, 11031, rbot, button, -1, -1);
-			}
+			SendTrigger(-1, 11031, rbot, button, -1, -1);
 		}
 	}
 
 	// Try to activate console
 	if (console != -1)
 	{
-		// Make sure the bot is close enough
-		dist = VectorDist(GetThingPos(rbot), GetThingPos(console));
-		if (dist < 0.5)
-		{
-			SendTrigger(-1, 11032, rbot, console, -1, -1);
-		}
+		SendTrigger(-1, 11032, rbot, console, -1, -1);
 	}
 
 	return;

@@ -70,6 +70,8 @@ activate:
    return;
 
 trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
 	if (getsourceref() == 11031) // "activate" trigger
 	{
 		#rbot = GetParam(0);

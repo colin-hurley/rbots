@@ -81,6 +81,8 @@ crossed:						// If player crosses adjoin(s)
 # ........................................................................................
 
 trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
 	if (GetSourceRef() == 11031) // "activate" trigger
 	{
 		#rbot = GetParam(0);

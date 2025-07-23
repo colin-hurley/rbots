@@ -26,7 +26,7 @@ thing		node3=-1							nolink
 int			rundir=-1
 
 # Activation of the effect will be delayed by this duration
-# A delay of 0 with activate the effect immediately
+# A delay of 0 will activate the effect immediately
 flex		delay=0.0
 
 # Deactivate the effect after this duration

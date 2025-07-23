@@ -7822,19 +7822,19 @@ rbot-movespeed.cog node0:thing=234 node1:thing=-1 node2:thing=-1 node3:thing=-1 
 rbot-arrival.cog node:thing=293 rundir:int=1 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=1465 console:thing=-1
 rbot-arrival.cog node:thing=296 rundir:int=0 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=1464 console:thing=-1
 rbot-arrival.cog node:thing=297 rundir:int=1 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=958 console:thing=-1
-rbot-activate.cog node:thing=252 rundir:int=1 delay:flex=0 button:surface=1353 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=294 rundir:int=1 delay:flex=0 button:surface=1465 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=295 rundir:int=0 delay:flex=0 button:surface=1464 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=252 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1353 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=294 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1465 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=295 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=1464 buttoncel:int=-1 console:thing=-1
 rbot-arrival.cog node:thing=180 rundir:int=1 arriver:thing=2 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=508 console:thing=-1
-rbot-activate.cog node:thing=181 rundir:int=1 delay:flex=0 button:surface=520 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=181 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=520 buttoncel:int=-1 console:thing=-1
 rbot-arrival.cog node:thing=183 rundir:int=0 arriver:thing=2 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=491 console:thing=-1
-rbot-activate.cog node:thing=182 rundir:int=0 delay:flex=0 button:surface=471 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=201 rundir:int=1 delay:flex=0 button:surface=1279 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=217 rundir:int=1 delay:flex=0 button:surface=1142 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=202 rundir:int=1 delay:flex=0 button:surface=1291 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=213 rundir:int=1 delay:flex=0 button:surface=1697 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=234 rundir:int=1 delay:flex=0 button:surface=624 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=239 rundir:int=1 delay:flex=0 button:surface=1514 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=182 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=471 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=201 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1279 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=217 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1142 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=202 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1291 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=213 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1697 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=234 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=624 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=239 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1514 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

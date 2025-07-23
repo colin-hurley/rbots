@@ -17785,8 +17785,8 @@ rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-
 rbot-special-sector.cog sp0:sector=47 sp1:sector=58 sp2:sector=61 sp3:sector=49 sp4:sector=43 sp5:sector=48 sp6:sector=27 sp7:sector=-1 sp8:sector=-1 sp9:sector=-1 sp10:sector=-1 sp11:sector=-1 sp12:sector=-1 sp13:sector=-1 sp14:sector=-1 sp15:sector=-1 sp16:sector=-1 sp17:sector=-1 sp18:sector=-1 sp19:sector=-1 spinf0:int=3072 spinf1:int=3072 spinf2:int=3072 spinf3:int=3072 spinf4:int=3072 spinf5:int=3072 spinf6:int=3072 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-custom-blades.cog
 rbot-crouch-sector.cog sector0:sector=61 sector1:sector=-1 sector2:sector=-1 sector3:sector=-1
-rbot-activate.cog node:thing=235 rundir:int=-1 delay:flex=0 button:surface=3345 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=262 rundir:int=-1 delay:flex=0 button:surface=3339 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=235 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=3345 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=262 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=3339 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

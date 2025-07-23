@@ -2883,7 +2883,7 @@ rbot-path.cog pathid:int=8 node0:thing=128 node1:thing=92 node2:thing=129 node3:
 rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-jump.cog node:thing=91 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=134 rundir:int=0 delay:flex=0 scale:flex=1
-rbot-activate.cog node:thing=91 rundir:int=1 delay:flex=0 button:surface=591 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=91 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=591 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

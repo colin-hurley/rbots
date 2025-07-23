@@ -4803,7 +4803,7 @@ rbot-dropmine.cog node:thing=181 rundir:int=-1 delay:flex=0
 rbot-dropmine.cog node:thing=169 rundir:int=-1 delay:flex=0
 rbot-dropmine.cog node:thing=220 rundir:int=-1 delay:flex=0
 rbot-arrival.cog node:thing=206 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-activate.cog node:thing=204 rundir:int=-1 delay:flex=0 button:surface=180 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=204 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=180 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

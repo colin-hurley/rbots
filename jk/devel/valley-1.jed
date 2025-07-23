@@ -3531,8 +3531,8 @@ rbot-jump.cog node:thing=141 rundir:int=0 delay:flex=0 scale:flex=1
 rbot-movespeed.cog node0:thing=126 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=0 delay:flex=1 duration:flex=2 minspeed:flex=0 maxspeed:flex=0.7
 rbot-arrival.cog node:thing=153 rundir:int=0 arriver:thing=11 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=777 console:thing=-1
 rbot-arrival.cog node:thing=150 rundir:int=0 arriver:thing=11 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=609 console:thing=-1
-rbot-activate.cog node:thing=156 rundir:int=0 delay:flex=0 button:surface=615 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=157 rundir:int=1 delay:flex=0 button:surface=777 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=156 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=615 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=157 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=777 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

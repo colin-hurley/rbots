@@ -6834,7 +6834,7 @@ World cogs 129
 83: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 84: rbot-jump.cog 91 1 0 1
 85: rbot-jump.cog 134 0 0 1
-86: rbot-activate.cog 91 1 0 591 -1 -1
+86: rbot-activate.cog 91 1 0 1 591 -1 -1
 end
 
 Section: TEMPLATES

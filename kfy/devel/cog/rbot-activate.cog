@@ -26,6 +26,10 @@ int			rundir=-1
 # A delay of 0 will activate the effect immediately
 flex		delay=0.0
 
+# Random chance that the effect will be activated. This can be any
+# value between 0.0 (never) and 1.0 (always).
+flex		chance=1.0
+
 # The button to activate
 surface		button=-1							nolink
 
@@ -59,6 +63,9 @@ trigger:
 
 		// Bot must be running the right direction
 		if (rbotrundir != rundir && rundir != -1) return;
+
+		// Check for random chance
+		if (chance < 1.0 && chance <= Rand()) return;
 
 		// Check for delay
 		if (delay > 0)

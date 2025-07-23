@@ -4,8 +4,8 @@
 #
 # This is a customized version of 00_doorswitch.cog by LucasArts that has been updated
 # to support Rbots. It can be used as a drop-in replacement for any case where the
-# original is used, although there are some additional paramters that should be
-# configured for proper operation.
+# original is used, although it may need to be combined with other scripts (such as
+# rbot-activate.cog) for best results.
 #
 # Rbots originally created by Raynar
 

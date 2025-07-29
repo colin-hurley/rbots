@@ -25,17 +25,9 @@ message     timer
 
 # Rbots support
 
-# The node that a bot must reach to activate the switch
-thing       switchnode=-1                    nolink
-
-# The direction the bot must run on this path to reach the tube in the center of the map
-int         tuberundir=-1
-
-int         captured                         local
-
 # Transient working variables
-thing       node                             local
-int         rundir                           local
+#thing       rbot                             local
+surface     buttonref                        local
 
 message     trigger
 
@@ -70,45 +62,17 @@ timer:
 trigger:
 	if (IsMulti() && !IsServer()) return; // Host only
 
-	if (GetSourceRef() == 11010) // Bot arrived at node
+	if (GetSourceRef() == 11031) // "activate" trigger
 	{
-		#botid = GetParam(0);
-		#rbot = GetParam(1);
-		node = GetParam(2);
-		rundir = GetParam(3);
+		#rbot = GetParam(0);
+		buttonref = GetParam(1);
 
-		if (node == switchnode) // bot has arrived at the switch node
+		if (switch != -1 && switch == buttonref)
 		{
-			if (tuberundir != -1 && rundir == tuberundir) // Bot is running toward the tube
-			{
-				if (captured == 0) // Ysalamiri is at home
-				{
-					// Bot will need to go down the tube to reach the Ysalamiri
-					// Don't activate the trap now
-					return;
-				}
-
-				// The Ysalamiri is not at home, so the bot may or may not use the tube
-				// Decide by chance whether or not to activate the trap
-				if (Rand() < 0.5)
-				{
-					// Don't activate the trap now
-					return;
-				}
-			}
-
-			// Bot is either leaving the room or is not trying to reach the Ysalamiri
-			// It is safe to activate the trap now
 			goto activated;
+			return;
 		}
 
-		return;
-	}
-
-	if (GetSourceRef() == 12220) // KFY info update
-	{
-		captured = GetParam(0);
-		#carrier = GetParam(1);
 		return;
 	}
 

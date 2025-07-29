@@ -15224,7 +15224,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 200
+COGS 202
 K2_MTRIGELEV.COG elevator:thing=0 speed:flex=8 delay:flex=3 plate0:surface=3430 plate1:surface=3451 plate2:surface=-1 plate3:surface=-1 cross0:surface=-1 cross1:surface=-1 cross2:surface=-1 cross3:surface=-1 switch1:surface=3924 switch2:surface=-1
 K2_MTRIGELEV.COG elevator:thing=5 speed:flex=8 delay:flex=3 plate0:surface=3683 plate1:surface=3702 plate2:surface=-1 plate3:surface=-1 cross0:surface=-1 cross1:surface=-1 cross2:surface=-1 cross3:surface=-1 switch1:surface=3930 switch2:surface=3936
 KFY_MAIN.COG ysalamiri:thing=11 ysalamiri_pos:thing=10
@@ -15241,7 +15241,7 @@ K2_SURFANIM.COG sign:surface=1342 sign1:surface=1287 sign2:surface=1305 sign3:su
 K2_SURFANIM.COG sign:surface=932 sign1:surface=915 sign2:surface=1332 sign3:surface=958 fps:flex=5
 K2_SURFANIM.COG sign:surface=2073 sign1:surface=951 sign2:surface=940 sign3:surface=986 fps:flex=5
 K2_SURFANIM.COG sign:surface=3079 sign1:surface=3090 sign2:surface=3057 sign3:surface=3085 fps:flex=5
-K2_THRUST.COG switch:surface=3918 switchnode:thing=260 tuberundir:int=1
+K2_THRUST.COG switch:surface=3918
 K2_THRUSTCLIENT.COG tube:sector=318 up0:sector=219 up1:sector=220 up2:sector=221 up3:sector=222 up4:sector=223
 KFY_ICONSCLIENT.COG
 K2_SURFANIM.COG sign:surface=2889 sign1:surface=2872 sign2:surface=2871 sign3:surface=2869 fps:flex=5
@@ -15425,6 +15425,8 @@ rbot-jump.cog node:thing=231 rundir:int=1 delay:flex=0.5 scale:flex=1
 rbot-arrival.cog node:thing=176 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
 rbot-arrival.cog node:thing=173 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
 rbot-arrival.cog node:thing=166 rundir:int=0 arriver:thing=0 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
+rbot-activate.cog node:thing=260 rundir:int=0 kfytaken:int=-1 delay:flex=0 chance:flex=1 button:surface=3918 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=260 rundir:int=1 kfytaken:int=1 delay:flex=0 chance:flex=0.5 button:surface=3918 buttoncel:int=-1 console:thing=-1
 END
 
 SEC: LAYERS

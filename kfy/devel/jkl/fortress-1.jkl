@@ -31450,7 +31450,7 @@ World soundclasses 35
 end
 
 Section: cogscripts
-World scripts 65
+World scripts 66
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -31503,24 +31503,25 @@ World scripts 65
 49: pow_supershield.cog
 50: pow_thermal_m.cog
 51: pow_vest.cog
-52: rbot-arrival.cog
-53: rbot-backpack.cog
-54: rbot-crouch-surface.cog
-55: rbot-jump.cog
-56: rbot-nav.cog
-57: rbot-nav-special.cog
-58: rbot-path.cog
-59: rbot-player.cog
-60: rbot-skin.cog
-61: rbot-srv.cog
-62: rbot-srv-force.cog
-63: rbot-srv-weapons.cog
-64: rbot-startup.cog
+52: rbot-activate.cog
+53: rbot-arrival.cog
+54: rbot-backpack.cog
+55: rbot-crouch-surface.cog
+56: rbot-jump.cog
+57: rbot-nav.cog
+58: rbot-nav-special.cog
+59: rbot-path.cog
+60: rbot-player.cog
+61: rbot-skin.cog
+62: rbot-srv.cog
+63: rbot-srv-force.cog
+64: rbot-srv-weapons.cog
+65: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 265
+World cogs 268
 #Num	Script          Symbol values
 0: K2_MTRIGELEV.COG 0 8 3 3430 3451 -1 -1 -1 -1 -1 -1 3924 -1
 1: K2_MTRIGELEV.COG 5 8 3 3683 3702 -1 -1 -1 -1 -1 -1 3930 3936
@@ -31538,7 +31539,7 @@ World cogs 265
 13: K2_SURFANIM.COG 932 915 1332 958 5
 14: K2_SURFANIM.COG 2073 951 940 986 5
 15: K2_SURFANIM.COG 3079 3090 3057 3085 5
-16: K2_THRUST.COG 3918 260 1
+16: K2_THRUST.COG 3918
 17: K2_THRUSTCLIENT.COG 318 219 220 221 222 223
 18: KFY_ICONSCLIENT.COG
 19: K2_SURFANIM.COG 2889 2872 2871 2869 5
@@ -31722,6 +31723,8 @@ World cogs 265
 197: rbot-arrival.cog 176 1 5 0 0 10 -1 -1
 198: rbot-arrival.cog 173 0 5 1 0 10 -1 -1
 199: rbot-arrival.cog 166 0 0 1 0 10 -1 -1
+200: rbot-activate.cog 260 0 -1 0 1 3918 -1 -1
+201: rbot-activate.cog 260 1 1 0 0.5 3918 -1 -1
 end
 
 Section: TEMPLATES

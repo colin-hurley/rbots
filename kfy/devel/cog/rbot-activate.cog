@@ -1,8 +1,11 @@
-# Rbot Activate Cog
+# Rbot Activate Cog (KFY)
 #
 # Server-only
 #
 # This cog makes a bot activate something upon reaching a path node.
+#
+# This variant of the cog supports conditional activation of the effect
+# depending on KFY game state.
 #
 # Rbots originally created by Raynar
 
@@ -22,6 +25,12 @@ thing		node=-1								nolink
 # 1 = forward only
 int			rundir=-1
 
+# Activate the effect based on the current Ysalamiri state
+# -1 = any state
+# 0 = Ysalamiri is home
+# 1 = Ysalamiri is taken (or dropped)
+int			kfytaken=-1
+
 # Activation of the effect will be delayed by this duration
 # A delay of 0 will activate the effect immediately
 flex		delay=0.0
@@ -38,6 +47,10 @@ int			buttoncel=-1
 
 # The console to activate
 thing		console=-1							nolink
+
+# KFY game state
+int			captured							local
+#thing		carrier								local
 
 # Transient working vars
 thing		rbot								local
@@ -78,6 +91,13 @@ trigger:
 		return;
 	}
 
+	if (GetSourceRef() == 12220) // KFY info update
+	{
+		captured = GetParam(0);
+		#carrier = GetParam(1);
+		return;
+	}
+
 	return;
 
 timer:
@@ -96,6 +116,10 @@ timer:
 tryactivate:
 	// Make sure the bot is still alive
 	if (GetThingHealth(rbot) <= 0) return;
+
+	// Check KFY game state
+	if (kfytaken == 0 && captured != 0) return; // Ysalamiri is not home
+	if (kfytaken == 1 && captured == 0) return; // Ysalamiri is not taken
 
 	// Try to activate button
 	if (button != -1)

@@ -37377,8 +37377,8 @@ World cogs 206
 143: rbot-arrival.cog 409 1 0 0 0 20 -1 -1
 144: rbot-arrival.cog 414 1 5 0 0 20 -1 -1
 145: rbot-arrival.cog 415 1 5 2 0 20 -1 -1
-146: rbot-activate.cog 362 -1 0 1 4010 0 -1
-147: rbot-activate.cog 361 -1 0 1 4022 0 -1
+146: rbot-activate.cog 362 -1 -1 -1 0 1 4010 0 -1
+147: rbot-activate.cog 361 -1 -1 -1 0 1 4022 0 -1
 end
 
 Section: TEMPLATES

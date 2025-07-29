@@ -1,8 +1,11 @@
-# Rbot Activate Cog
+# Rbot Activate Cog (CTF)
 #
 # Server-only
 #
 # This cog makes a bot activate something upon reaching a path node.
+#
+# This variant of the cog supports conditional activation of the effect
+# depending on CTF game state.
 #
 # Rbots originally created by Raynar
 
@@ -22,6 +25,18 @@ thing		node=-1								nolink
 # 1 = forward only
 int			rundir=-1
 
+# Activate the effect based on the current red flag state
+# -1 = any state
+# 0 = red flag is home
+# 1 = red flag is taken (or dropped)
+int			redtaken=-1
+
+# Activate the effect based on the current gold flag state
+# -1 = any state
+# 0 = gold flag is home
+# 1 = gold flag is taken (or dropped)
+int			goldtaken=-1
+
 # Activation of the effect will be delayed by this duration
 # A delay of 0 will activate the effect immediately
 flex		delay=0.0
@@ -38,6 +53,12 @@ int			buttoncel=-1
 
 # The console to activate
 thing		console=-1							nolink
+
+# CTF game state
+int			captured_red						local
+int			captured_gold						local
+#thing		red_flag_carrier					local
+#thing		gold_flag_carrier					local
 
 # Transient working vars
 thing		rbot								local
@@ -78,6 +99,15 @@ trigger:
 		return;
 	}
 
+	if (GetSourceRef() == 12220) // CTF info update
+	{
+		captured_red = GetParam(0);
+		captured_gold = GetParam(1);
+		#red_flag_carrier = GetParam(2);
+		#gold_flag_carrier = GetParam(3);
+		return;
+	}
+
 	return;
 
 timer:
@@ -96,6 +126,12 @@ timer:
 tryactivate:
 	// Make sure the bot is still alive
 	if (GetThingHealth(rbot) <= 0) return;
+
+	// Check CTF game state
+	if (redtaken == 0 && captured_red != 0) return; // Red flag is not home
+	if (redtaken == 1 && captured_red == 0) return; // Red flag is not taken
+	if (goldtaken == 0 && captured_gold != 0) return; // Gold flag is not home
+	if (goldtaken == 1 && captured_gold == 0) return; // Gold flag is not taken
 
 	// Try to activate button
 	if (button != -1)

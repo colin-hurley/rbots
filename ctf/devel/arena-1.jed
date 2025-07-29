@@ -19560,8 +19560,8 @@ rbot-arrival.cog node:thing=405 rundir:int=1 arriver:thing=0 frame:int=2 delay:f
 rbot-arrival.cog node:thing=409 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
 rbot-arrival.cog node:thing=414 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
 rbot-arrival.cog node:thing=415 rundir:int=1 arriver:thing=5 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-activate.cog node:thing=362 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=4010 buttoncel:int=0 console:thing=-1
-rbot-activate.cog node:thing=361 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=4022 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=362 rundir:int=-1 redtaken:int=-1 goldtaken:int=-1 delay:flex=0 chance:flex=1 button:surface=4010 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=361 rundir:int=-1 redtaken:int=-1 goldtaken:int=-1 delay:flex=0 chance:flex=1 button:surface=4022 buttoncel:int=0 console:thing=-1
 END
 
 SEC: LAYERS

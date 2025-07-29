@@ -31719,9 +31719,9 @@ World cogs 265
 194: rbot-path.cog 29 261 262 263 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1 1 1
 195: rbot-crouch-surface.cog 3186 3180 3172 -1
 196: rbot-jump.cog 231 1 0.5 1
-197: rbot-arrival.cog 176 1 5 0 0 10 0
-198: rbot-arrival.cog 173 0 5 1 0 10 0
-199: rbot-arrival.cog 166 0 0 1 0 10 0
+197: rbot-arrival.cog 176 1 5 0 0 10 -1 -1
+198: rbot-arrival.cog 173 0 5 1 0 10 -1 -1
+199: rbot-arrival.cog 166 0 0 1 0 10 -1 -1
 end
 
 Section: TEMPLATES

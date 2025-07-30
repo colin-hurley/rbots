@@ -18261,7 +18261,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 64
+World scripts 65
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -18312,25 +18312,26 @@ World scripts 64
 47: pow_supershield.cog
 48: pow_thermal_m.cog
 49: pow_vest.cog
-50: rbot-arrival.cog
-51: rbot-backpack.cog
-52: rbot-door.cog
-53: rbot-elev-switch.cog
-54: rbot-nav.cog
-55: rbot-nav-special.cog
-56: rbot-path.cog
-57: rbot-player.cog
-58: rbot-skin.cog
-59: rbot-special.cog
-60: rbot-srv.cog
-61: rbot-srv-force.cog
-62: rbot-srv-weapons.cog
-63: rbot-startup.cog
+50: rbot-activate.cog
+51: rbot-arrival.cog
+52: rbot-backpack.cog
+53: rbot-door.cog
+54: rbot-elev-switch.cog
+55: rbot-nav.cog
+56: rbot-nav-special.cog
+57: rbot-path.cog
+58: rbot-player.cog
+59: rbot-skin.cog
+60: rbot-special.cog
+61: rbot-srv.cog
+62: rbot-srv-force.cog
+63: rbot-srv-weapons.cog
+64: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 223
+World cogs 225
 #Num	Script          Symbol values
 0: rbot-door.cog 1 44 -1 -1 10 2 0.5
 1: rbot-door.cog 2 43 -1 -1 10 2 0.5
@@ -18491,6 +18492,7 @@ World cogs 223
 156: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 157: rbot-arrival.cog 158 0 16 0 0 30 -1 -1
 158: rbot-arrival.cog 159 0 13 0 0 30 -1 -1
+159: rbot-activate.cog 149 -1 0 0.5 -1 -1 76
 end
 
 Section: TEMPLATES

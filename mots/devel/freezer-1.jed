@@ -8458,7 +8458,7 @@ LTS 0
 END
 
 SEC: COGS
-COGS 159
+COGS 160
 rbot-door.cog door0:thing=1 door1:thing=44 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=2 door1:thing=43 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
 rbot-door.cog door0:thing=3 door1:thing=41 door2:thing=-1 door3:thing=-1 moveSpeed:flex=10 sleepTime:flex=2 lightValue:flex=0.5
@@ -8618,6 +8618,7 @@ rbot-path.cog pathid:int=2 node0:thing=148 node1:thing=149 node2:thing=157 node3
 rbot-special.cog sp0:thing=-1 sp1:thing=-1 sp2:thing=-1 sp3:thing=-1 sp4:thing=-1 sp5:thing=-1 sp6:thing=-1 sp7:thing=-1 sp8:thing=-1 sp9:thing=-1 sp10:thing=-1 sp11:thing=-1 sp12:thing=-1 sp13:thing=-1 sp14:thing=-1 sp15:thing=-1 sp16:thing=-1 sp17:thing=-1 sp18:thing=-1 sp19:thing=-1 spinf0:int=0 spinf1:int=0 spinf2:int=0 spinf3:int=0 spinf4:int=0 spinf5:int=0 spinf6:int=0 spinf7:int=0 spinf8:int=0 spinf9:int=0 spinf10:int=0 spinf11:int=0 spinf12:int=0 spinf13:int=0 spinf14:int=0 spinf15:int=0 spinf16:int=0 spinf17:int=0 spinf18:int=0 spinf19:int=0
 rbot-arrival.cog node:thing=158 rundir:int=0 arriver:thing=16 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
 rbot-arrival.cog node:thing=159 rundir:int=0 arriver:thing=13 frame:int=0 delay:flex=0 timeout:flex=30 button:surface=-1 console:thing=-1
+rbot-activate.cog node:thing=149 rundir:int=-1 delay:flex=0 chance:flex=0.5 button:surface=-1 buttoncel:int=-1 console:thing=76
 END
 
 SEC: LAYERS

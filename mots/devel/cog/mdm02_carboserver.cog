@@ -95,6 +95,25 @@ trigger:
 		#rbot = GetParam(0);
 		consoleref = GetParam(1);
 
+		if (platform != -1 && platform == consoleref)
+		{
+			if (canfreezenow)
+			{
+				canfreezenow = 0;
+				PlaySoundThing(wav0, platform, 1.5, -1, -1, 0);
+				PlaySoundThing(wav1, platform, 1.5, -1, -1, 0);
+				MoveToFrame(platform,1,2);
+				WaitForStop(platform);
+				Sleep(1.0);
+				PlaySoundThing(wav0, platform, 1.5, -1, -1, 0);
+				PlaySoundThing(wav1, platform, 1.5, -1, -1, 0);
+				MoveToFrame(platform,0,2);
+				WaitForStop(platform);
+				SetTimerEx(1.0, 1, 0, 0);
+			}
+			return;
+		}
+
 		if (console != -1 && console == consoleref)
 		{
 			if (canfreezenow)

@@ -18261,7 +18261,7 @@ World soundclasses 37
 end
 
 Section: cogscripts
-World scripts 65
+World scripts 66
 0: 00_carbstatue.cog
 1: 00_desttrail.cog
 2: 00_hraildet.cog
@@ -18315,23 +18315,24 @@ World scripts 65
 50: rbot-activate.cog
 51: rbot-arrival.cog
 52: rbot-backpack.cog
-53: rbot-door.cog
-54: rbot-elev-switch.cog
-55: rbot-nav.cog
-56: rbot-nav-special.cog
-57: rbot-path.cog
-58: rbot-player.cog
-59: rbot-skin.cog
-60: rbot-special.cog
-61: rbot-srv.cog
-62: rbot-srv-force.cog
-63: rbot-srv-weapons.cog
-64: rbot-startup.cog
+53: rbot-custom-freezer.cog
+54: rbot-door.cog
+55: rbot-elev-switch.cog
+56: rbot-nav.cog
+57: rbot-nav-special.cog
+58: rbot-path.cog
+59: rbot-player.cog
+60: rbot-skin.cog
+61: rbot-special.cog
+62: rbot-srv.cog
+63: rbot-srv-force.cog
+64: rbot-srv-weapons.cog
+65: rbot-startup.cog
 end
 
 Section: cogs
 
-World cogs 225
+World cogs 229
 #Num	Script          Symbol values
 0: rbot-door.cog 1 44 -1 -1 10 2 0.5
 1: rbot-door.cog 2 43 -1 -1 10 2 0.5
@@ -18489,10 +18490,13 @@ World cogs 225
 153: rbot-path.cog 0 109 110 111 112 113 114 115 116 125 108 109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
 154: rbot-path.cog 1 151 152 156 153 148 140 139 138 137 136 154 135 134 117 159 118 119 120 121 122 123 124 125 -1 -1 0 0 0 1
 155: rbot-path.cog 2 148 149 157 150 151 141 142 143 144 145 155 146 147 126 158 127 128 129 130 131 132 133 112 -1 -1 0 0 0 1
-156: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-157: rbot-arrival.cog 158 0 16 0 0 30 -1 -1
-158: rbot-arrival.cog 159 0 13 0 0 30 -1 -1
-159: rbot-activate.cog 149 -1 0 0.5 -1 -1 76
+156: rbot-path.cog 3 151 162 160 161 148 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0.5
+157: rbot-special.cog -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+158: rbot-custom-freezer.cog
+159: rbot-arrival.cog 158 0 16 0 0 30 -1 -1
+160: rbot-arrival.cog 159 0 13 0 0 30 -1 -1
+161: rbot-activate.cog 149 -1 0 0.5 -1 -1 76
+162: rbot-activate.cog 160 -1 0 1 -1 -1 52
 end
 
 Section: TEMPLATES
@@ -18916,6 +18920,9 @@ World things 640
 157: ghost ghost 5.11379 -.13333 1.19383 0 0 0 222 -1
 158: ghost ghost 8.648743 2.952857 -.257467 0 0 0 176 -1 size=0.15
 159: ghost ghost 1.586243 -1.797143 -.257467 0 0 0 86 -1 size=0.1
+160: ghost ghost 5.10129 .57917 .54383 0 0 0 232 -1
+161: ghost ghost 5.20129 .57917 1.14383 0 0 0 222 -1
+162: ghost ghost 5.00129 .57917 1.14383 0 0 0 222 -1
 end
 
 Section: ARCHLIGHTING

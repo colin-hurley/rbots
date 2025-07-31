@@ -16612,7 +16612,7 @@ World soundclasses 40
 end
 
 Section: cogscripts
-World scripts 47
+World scripts 48
 0: 00_desttrail.cog
 1: 00_FORCEFIELD.COG
 2: 00_MATANIM.COG
@@ -16643,28 +16643,29 @@ World scripts 47
 27: pow_supershield.cog
 28: pow_thermal.cog
 29: pow_vest.cog
-30: rbot-arrival.cog
-31: rbot-backpack.cog
-32: rbot-door.cog
-33: rbot-elev-switch2.cog
-34: rbot-jump.cog
-35: rbot-movespeed-sector.cog
-36: rbot-nav.cog
-37: rbot-nav-special.cog
-38: rbot-path.cog
-39: rbot-player.cog
-40: rbot-skin.cog
-41: rbot-special-sector.cog
-42: rbot-srv.cog
-43: rbot-srv-force.cog
-44: rbot-srv-weapons.cog
-45: rbot-startup.cog
-46: xtank3.cog
+30: rbot-activate.cog
+31: rbot-arrival.cog
+32: rbot-backpack.cog
+33: rbot-door.cog
+34: rbot-elev-switch2.cog
+35: rbot-jump.cog
+36: rbot-movespeed-sector.cog
+37: rbot-nav.cog
+38: rbot-nav-special.cog
+39: rbot-path.cog
+40: rbot-player.cog
+41: rbot-skin.cog
+42: rbot-special-sector.cog
+43: rbot-srv.cog
+44: rbot-srv-force.cog
+45: rbot-srv-weapons.cog
+46: rbot-startup.cog
+47: xtank3.cog
 end
 
 Section: cogs
 
-World cogs 160
+World cogs 163
 #Num	Script          Symbol values
 0: rbot-door.cog 1 2 -1 -1 8 2 0.5
 1: rbot-door.cog 3 -1 -1 -1 8 2 0.5
@@ -16765,20 +16766,22 @@ World cogs 160
 96: rbot-path.cog 8 183 205 216 206 207 208 165 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 97: rbot-path.cog 9 210 211 212 166 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
 98: rbot-path.cog 10 213 214 215 164 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 0 0 1
-99: rbot-special-sector.cog 45 52 155 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 3072 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-100: rbot-jump.cog 211 1 0 1.25
-101: rbot-jump.cog 214 1 0 1.25
-102: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
-103: rbot-arrival.cog 202 1 18 0 0 10 1696 -1
-104: rbot-arrival.cog 209 0 18 1 0 10 1714 -1
-105: rbot-arrival.cog 175 1 24 0 0 10 1702 -1
-106: rbot-arrival.cog 178 0 24 1 0 10 1708 -1
-107: rbot-arrival.cog 167 1 5 0 0 10 1672 -1
-108: rbot-arrival.cog 171 0 5 1 0 10 1684 -1
-109: rbot-arrival.cog 163 0 6 0 0 10 1678 -1
-110: rbot-arrival.cog 159 1 6 1 0 10 1690 -1
-111: rbot-arrival.cog 210 1 5 1 0 10 1899 -1
-112: rbot-arrival.cog 213 1 6 1 0 10 1893 -1
+99: rbot-path.cog 11 184 217 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 1
+100: rbot-special-sector.cog 45 52 155 69 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1024 1024 3072 1024 1024 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+101: rbot-jump.cog 211 1 0 1.25
+102: rbot-jump.cog 214 1 0 1.25
+103: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
+104: rbot-arrival.cog 202 1 18 0 0 10 1696 -1
+105: rbot-arrival.cog 209 0 18 1 0 10 1714 -1
+106: rbot-arrival.cog 175 1 24 0 0 10 1702 -1
+107: rbot-arrival.cog 178 0 24 1 0 10 1708 -1
+108: rbot-arrival.cog 167 1 5 0 0 10 1672 -1
+109: rbot-arrival.cog 171 0 5 1 0 10 1684 -1
+110: rbot-arrival.cog 163 0 6 0 0 10 1678 -1
+111: rbot-arrival.cog 159 1 6 1 0 10 1690 -1
+112: rbot-arrival.cog 210 1 5 1 0 10 1899 -1
+113: rbot-arrival.cog 213 1 6 1 0 10 1893 -1
+114: rbot-activate.cog 217 -1 0 1 1811 -1 -1
 end
 
 Section: TEMPLATES
@@ -17136,7 +17139,7 @@ World things 640
 181: ghost ghost 1.005215 -.482783 1.904263 0 180 0 155 size=0.15
 182: ghost ghost .655215 -.582783 1.904263 0 180 0 155 size=0.15
 183: ghost ghost .305215 -.482783 1.904263 0 180 0 155 size=0.15
-184: ghost ghost .205215 -.132783 1.904263 0 180 0 155 size=0.15
+184: ghost ghost .205215 -.140283 1.904263 0 180 0 155 size=0.15
 185: ghost ghost .305215 .217217 1.904263 0 180 0 155 size=0.15
 186: ghost ghost .655215 .317217 1.904263 0 180 0 155 size=0.15
 187: ghost ghost 1.005215 .217217 1.904263 0 180 0 155 size=0.15
@@ -17169,6 +17172,7 @@ World things 640
 214: ghost ghost .657137 2.36327 -3.919586 0 180 0 52 size=0.12
 215: ghost ghost .657137 2.36327 -3.569586 0 180 0 52 size=0.15
 216: ghost ghost .880215 .142217 .564263 0 180 0 101
+217: ghost ghost .047715 -.140283 1.871763 0 180 0 109 size=0.08
 end
 
 Section: Lights

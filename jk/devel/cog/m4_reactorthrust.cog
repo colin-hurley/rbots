@@ -10,6 +10,8 @@
 # [IS/JS]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved		
+#
+# Modified to support Rbots
 # ========================================================================================
 
 symbols
@@ -27,8 +29,8 @@ vector		playerVec			local
 vector		vec0					desc=thrust_direction
 
 float			thrustspeed=1.0	desc=thrust_speed
-float			doorspeed=2.0 		desc=speed of the doors
-float			sleeptime=2.0		desc=seconds that the doors pause
+float			doorspeed=2.0 		desc=speed_of_the_doors
+float			sleeptime=2.0		desc=seconds_that_the_doors_pause
 
 thing			door0					linkid=2
 thing			door1					nolink
@@ -37,8 +39,8 @@ thing			door3					nolink
 
 surface		Switch				linkid=1
 
-sector		sector0	
-sector		sector1	
+sector		sector0				mask=0x405
+sector		sector1				mask=0x405
 
 thing			light0				nolink
 float			lspeed=4.0			desc=light_speed
@@ -46,6 +48,19 @@ sound			wav0
 sound			wav1
 thing			thing0
 float			fadetime=4.0
+
+int			channel=-1			local
+
+# Rbots support
+
+message		trigger
+
+int			botid								local
+thing		rbot								local
+surface		buttonref							local
+flex		timeout=10.0						local
+int			waiting=0							local
+
 end
 
 # ========================================================================================
@@ -60,6 +75,9 @@ startup:
 
 activate:
 	if (GetSenderID() != 1) return;
+	rbot = -1;
+
+do_activate:
 	if (GetWallCel(switch) == 1) return; 
 
 	SetWallCel(Switch, 1);
@@ -86,6 +104,18 @@ activate:
 		call reactorpull;
 		currentThing = NextThingInSector(currentThing);
 	}	
+
+	if (rbot != -1)
+	{
+		// Set the waiting flag so we know to send the arrival event when the trap
+		// deactivates
+		waiting = 1;
+
+		// Tell bot to wait
+		botid = SendMessageEx(GetThingClassCog(rbot), user7, 10201000, -1, -1, -1);
+		SendTrigger(-1, 11040, botid, GetSelfCog(), 1, timeout);
+	}
+
 	return;
 
 # ........................................................................................
@@ -96,6 +126,16 @@ arrived:
 		PlaySoundPos(wav1, SurfaceCenter(switch), 1, -1, -1, 0);
 		SectorThrust(sector0, vec0, 0.0);
 		SectorThrust(sector1, vec0, 0.0);
+
+		if (waiting) // there is a bot waiting for this event
+		{
+			// Clear the waiting flag - no need to send another arrival event
+			// until next time a bot is waiting for one
+			waiting = 0;
+
+			// Broadcast arrival event to all bots
+			SendTrigger(-1, 11050, GetSelfCog(), 1, -1, -1);
+		}
 	} else {
 		MoveToFrame(door0, 0, doorspeed);
 		MoveToFrame(door1, 0, doorspeed);
@@ -125,11 +165,23 @@ entered:
 # ........................................................................................
 
 reactorpull:
-	if (GetThingType(currentThing) == 10) {
+	if (GetThingType(currentThing) == 2 || GetThingType(currentThing) == 10) {
 		DetachThing(currentThing);
 		playerVec = GetThingVel(currentThing);
 		playerVec = VectorAdd(vec0, playerVec);
 		SetThingVel(currentThing, playerVec);
+	}
+	return;
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11031) // "activate" trigger
+	{
+		rbot = GetParam(0);
+		buttonref = GetParam(1);
+		if (switch == buttonref) goto do_activate;
+		return;
 	}
 	return;
 

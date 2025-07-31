@@ -182,6 +182,16 @@ pulse:
 	SendMessageEx(srv_weapons, user7, 10233000, -1, -1, -1); // AI pulse
 	SendMessageEx(srv_force, user7, 10223000, -1, -1, -1); // AI pulse
 	SyncThingPos(rbot);
+
+	// Navigation updates that are triggered by threads other than the
+	// normal AI pulse must not be treated as the result of reaching a
+	// path node. This is done to mitigate edge cases where the pending
+	// arrival state may be preserved when it should not be. For
+	// example, if the bot is teleported immediately after reaching a
+	// node but before the next AI pulse clears the flag, the pending
+	// arrival state should still be cleared.
+	reachednode = 0;
+
 	return;
 
 killed:
@@ -780,6 +790,14 @@ user7:
 		fallcheck = VectorZ(GetThingPos(rbot)) - 0.25; // Slightly below bot's height
 		if (VectorZ(newpos) < fallcheck) fallcheck = VectorZ(newpos);
 
+		if (!reachednode)
+		{
+			// Bot was probably lost or teleported
+			// Stop awaiting any pending arrival events
+			arrival = -1;
+			arrivalid = -1;
+		}
+
 		return;
 	}
 
@@ -1186,7 +1204,7 @@ checknode:
 	}
 
 	// Check our progress to the current node and request new node if necessary
-	if (node != -1 && VectorDist(GetThingPos(rbot), GetThingPos(node)) < GetThingCollideSize(node))
+	if (arrival == -1 && node != -1 && VectorDist(GetThingPos(rbot), GetThingPos(node)) < GetThingCollideSize(node))
 	{
 		reachednode = 1;
 		if (node != -1) // Bot is heading for a node

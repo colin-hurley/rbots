@@ -700,6 +700,8 @@ user7:
 	if (GetParam(0) == 10201011) { ReturnEx(item); return; }
 	if (GetParam(0) == 10201012) { ReturnEx(node); return; }
 	if (GetParam(0) == 10201013) { ReturnEx(rbot); return; }
+	if (GetParam(0) == 10201014) { ReturnEx(arrival); return; }
+	if (GetParam(0) == 10201015) { ReturnEx(arrivalid); return; }
 	if (GetParam(0) == 10201021) { ReturnEx(shields); return; }
 	if (GetParam(0) == 10201024) { ReturnEx(inv_bacta); return; }
 	if (GetParam(0) == 10201028) { ReturnEx(inv_keys); return; }

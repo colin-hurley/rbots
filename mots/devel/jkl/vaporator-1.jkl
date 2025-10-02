@@ -18026,15 +18026,15 @@ World cogs 286
 193: rbot-crouch.cog 309 -1 -1 -1 1 0 3
 194: rbot-movespeed.cog 314 -1 -1 -1 1 0 3 0 0.7
 195: rbot-movespeed.cog 234 -1 -1 -1 1 0 3 3.7 10
-196: rbot-arrival.cog 293 1 5 1 0 10 1465 -1
-197: rbot-arrival.cog 296 0 5 0 0 10 1464 -1
-198: rbot-arrival.cog 297 1 5 1 0 10 958 -1
+196: rbot-arrival.cog 293 1 5 1 0 10 1465 -1 -1 2
+197: rbot-arrival.cog 296 0 5 0 0 10 1464 -1 -1 2
+198: rbot-arrival.cog 297 1 5 1 0 10 958 -1 -1 2
 199: rbot-activate.cog 252 1 0 1 1353 -1 -1
 200: rbot-activate.cog 294 1 0 1 1465 -1 -1
 201: rbot-activate.cog 295 0 0 1 1464 -1 -1
-202: rbot-arrival.cog 180 1 2 1 0 10 508 -1
+202: rbot-arrival.cog 180 1 2 1 0 10 508 -1 -1 2
 203: rbot-activate.cog 181 1 0 1 520 -1 -1
-204: rbot-arrival.cog 183 0 2 0 0 10 491 -1
+204: rbot-arrival.cog 183 0 2 0 0 10 491 -1 -1 2
 205: rbot-activate.cog 182 0 0 1 471 -1 -1
 206: rbot-activate.cog 201 1 0 1 1279 -1 -1
 207: rbot-activate.cog 217 1 0 1 1142 -1 -1

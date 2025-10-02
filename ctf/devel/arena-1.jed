@@ -19540,26 +19540,26 @@ rbot-jump.cog node:thing=388 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=402 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-jump.cog node:thing=412 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-movespeed.cog node0:thing=372 node1:thing=386 node2:thing=400 node3:thing=410 rundir:int=-1 delay:flex=0 duration:flex=3 minspeed:flex=0 maxspeed:flex=0.85
-rbot-arrival.cog node:thing=330 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=333 rundir:int=0 arriver:thing=1 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=318 rundir:int=0 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=321 rundir:int=1 arriver:thing=4 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=345 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=343 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=344 rundir:int=0 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=342 rundir:int=1 arriver:thing=0 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=371 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=380 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=381 rundir:int=1 arriver:thing=1 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=385 rundir:int=-1 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=394 rundir:int=-1 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=395 rundir:int=-1 arriver:thing=4 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=399 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=404 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=405 rundir:int=1 arriver:thing=0 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=409 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=414 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
-rbot-arrival.cog node:thing=415 rundir:int=1 arriver:thing=5 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 console:thing=-1
+rbot-arrival.cog node:thing=330 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=333 rundir:int=0 arriver:thing=1 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=318 rundir:int=0 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=321 rundir:int=1 arriver:thing=4 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=345 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=343 rundir:int=0 arriver:thing=5 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=344 rundir:int=0 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=342 rundir:int=1 arriver:thing=0 frame:int=1 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=371 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=380 rundir:int=1 arriver:thing=1 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=381 rundir:int=1 arriver:thing=1 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=385 rundir:int=-1 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=394 rundir:int=-1 arriver:thing=4 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=395 rundir:int=-1 arriver:thing=4 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=399 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=404 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=405 rundir:int=1 arriver:thing=0 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=409 rundir:int=1 arriver:thing=0 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=414 rundir:int=1 arriver:thing=5 frame:int=0 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
+rbot-arrival.cog node:thing=415 rundir:int=1 arriver:thing=5 frame:int=2 delay:flex=0 timeout:flex=20 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
 rbot-activate.cog node:thing=362 rundir:int=-1 redtaken:int=-1 goldtaken:int=-1 delay:flex=0 chance:flex=1 button:surface=4010 buttoncel:int=0 console:thing=-1
 rbot-activate.cog node:thing=361 rundir:int=-1 redtaken:int=-1 goldtaken:int=-1 delay:flex=0 chance:flex=1 button:surface=4022 buttoncel:int=0 console:thing=-1
 END

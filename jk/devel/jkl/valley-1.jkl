@@ -7896,8 +7896,8 @@ World cogs 136
 85: rbot-jump.cog 136 1 0 1
 86: rbot-jump.cog 141 0 0 1
 87: rbot-movespeed.cog 126 -1 -1 -1 0 1 2 0 0.7
-88: rbot-arrival.cog 153 0 11 0 0 10 777 -1
-89: rbot-arrival.cog 150 0 11 1 0 10 609 -1
+88: rbot-arrival.cog 153 0 11 0 0 10 777 -1 -1 2
+89: rbot-arrival.cog 150 0 11 1 0 10 609 -1 -1 2
 90: rbot-activate.cog 156 0 0 1 615 -1 -1
 91: rbot-activate.cog 157 1 0 1 777 -1 -1
 end

@@ -43,14 +43,41 @@ int			waiting=0							local
 # The button to activate when the thing is not at the desired frame
 surface		button=-1							nolink
 
+# If not -1, only activate the button if it is at this cel frame
+int			buttoncel=-1
+
 # The console to activate when the thing is not at the desired frame
 thing		console=-1							nolink
+
+# How often to retry activating the button/console after the bot reaches the
+# node. The bot will continue trying to activate the button/console until the
+# thing arrives at the desired frame or the timeout elapses. A rate of 0 will
+# disable retries.
+flex		retryrate=2.0
+
+# These variables are used by the retry timers to collect the parameters from
+# all of the timers before proceeding. Since timers only have two parameters,
+# we must use multiple timers to send more than two parameters for a single
+# operation. Once all the timers have been handled, the operation can be
+# executed. Timers from multiple operations may interleave, so care must be
+# taken to ensure that parameters are collected for only one operation at a
+# time. If a timer for another operation fires while another operation is being
+# handled, the timer is rescheduled with a short delay so it can be handled
+# again after the current operation is complete.
+int			nextretrylock=0						local
+int			retrylock=-1						local
+int			retryparamcount						local
+thing		retryrbot							local
+int			retrysignature						local
+flex		retrytimeleft						local
 
 # Transient working vars
 int			botid								local
 thing		rbot								local
 thing		rbotnode							local
 int			rbotrundir							local
+cog			rbotarrival							local
+int			rbotarrivalid						local
 
 end
 
@@ -84,17 +111,21 @@ trigger:
 		// Tell bot to wait
 		SendTrigger(-1, 11040, botid, GetSelfCog(), 1, timeout);
 
-		// Try to activate button
-		if (button != -1)
+		if (button != -1 || console != -1)
 		{
-			SendTrigger(-1, 11031, rbot, button, -1, -1);
+			call tryactivate;
+
+			// Schedule the first retry
+			if (timeout > retryrate && retryrate > 0.0)
+			{
+				SetTimerEx(retryrate, 10, nextretrylock, rbot);
+				SetTimerEx(retryrate, 11, nextretrylock, GetThingSignature(rbot));
+				SetTimerEx(retryrate, 12, nextretrylock, timeout - retryrate);
+				nextretrylock = (nextretrylock + 1) % 1000;
+			}
 		}
 
-		// Try to activate console
-		if (console != -1)
-		{
-			SendTrigger(-1, 11032, rbot, console, -1, -1);
-		}
+		return;
 	}
 	return;
 
@@ -124,14 +155,84 @@ arrived:
 timer:
 	if (GetSenderId() == 1)
 	{
-		call tryarrival;
+		goto tryarrival;
 		return;
 	}
+
+	if (GetSenderId() == 10)
+	{
+		if (retrylock == -1)
+		{
+			retrylock = GetParam(0); // acquire lock
+			retryparamcount = 3; // total number of params to collect
+		}
+		else if (retrylock != GetParam(0))
+		{
+			// Currently gathering params for another retry timer
+			// Reschedule this timer with a short delay so it can be handled
+			// again after the current retry handling is complete
+			SetTimerEx(0.01, GetSenderId(), GetParam(0), GetParam(1));
+			return;
+		}
+
+		retryrbot = GetParam(1); // save param
+		goto retryactivate;
+		return;
+	}
+
+	if (GetSenderId() == 11)
+	{
+		if (retrylock == -1)
+		{
+			retrylock = GetParam(0); // acquire lock
+			retryparamcount = 3; // total number of params to collect
+		}
+		else if (retrylock != GetParam(0))
+		{
+			// Currently gathering params for another retry timer
+			// Reschedule this timer with a short delay so it can be handled
+			// again after the current retry handling is complete
+			SetTimerEx(0.01, GetSenderId(), GetParam(0), GetParam(1));
+			return;
+		}
+
+		retrysignature = GetParam(1); // save param
+		goto retryactivate;
+		return;
+	}
+
+	if (GetSenderId() == 12)
+	{
+		if (retrylock == -1)
+		{
+			retrylock = GetParam(0); // acquire lock
+			retryparamcount = 3; // total number of params to collect
+		}
+		else if (retrylock != GetParam(0))
+		{
+			// Currently gathering params for another retry timer
+			// Reschedule this timer with a short delay so it can be handled
+			// again after the current retry handling is complete
+			SetTimerEx(0.01, GetSenderId(), GetParam(0), GetParam(1));
+			return;
+		}
+
+		retrytimeleft = GetParam(1); // save param
+		goto retryactivate;
+		return;
+	}
+
 	return;
 
 tryarrival:
 	if (waiting) // there is a bot waiting for this event
 	{
+		// Make sure all retry timers are killed
+		KillTimerEx(10);
+		KillTimerEx(11);
+		KillTimerEx(12);
+		retrylock = -1; // release lock to avoid deadlock in case of partially handled retry timers
+
 		// Clear the waiting flag - no need to send another arrival event
 		// until next time a bot is waiting for one
 		waiting = 0;
@@ -139,6 +240,65 @@ tryarrival:
 		// Broadcast arrival event to all bots
 		SendTrigger(-1, 11050, GetSelfCog(), 1, -1, -1);
 	}
+
+	return;
+
+retryactivate:
+	retryparamcount = retryparamcount - 1;
+	if (retryparamcount > 0) return; // still waiting for params from other timers
+
+	// All params have been collected, we can now try activating again
+	retrylock = -1; // release lock
+	rbot = retryrbot;
+
+	// Make sure the bot thing reference is still valid
+	if (GetThingSignature(rbot) != retrysignature) return;
+
+	// Make sure the bot is still waiting for this arrival event
+	rbotarrival = SendMessageEx(GetThingClassCog(rbot), user7, 10201014, -1, -1, -1);
+	rbotarrivalid = SendMessageEx(GetThingClassCog(rbot), user7, 10201015, -1, -1, -1);
+	if (rbotarrival != GetSelfCog() || rbotarrivalid != 1) return;
+
+	call tryactivate;
+
+	// Schedule the next retry if there is enough time left before the timeout
+	if (retrytimeleft > retryrate)
+	{
+		SetTimerEx(retryrate, 10, nextretrylock, rbot);
+		SetTimerEx(retryrate, 11, nextretrylock, GetThingSignature(rbot));
+		SetTimerEx(retryrate, 12, nextretrylock, retrytimeleft - retryrate);
+		nextretrylock = (nextretrylock + 1) % 1000;
+	}
+
+	return;
+
+tryactivate:
+	// Make sure the bot is still alive
+	if (GetThingHealth(rbot) <= 0) return;
+
+	// Make sure the thing is not already moving to the desired frame
+	if (IsThingMoving(arriver) && GetGoalFrame(arriver) == frame) return;
+
+	// Try to activate button
+	if (button != -1)
+	{
+		// Make sure the button is at the correct cel
+		// Technical note: GetWallCel will return -1 if the surface cel has not
+		// yet been changed with SetWallCel. The surface still shows cel 0 of
+		// its texture in this case. Therefore, if GetWallCel returns -1, treat
+		// it as if 0 were returned instead.
+		if (buttoncel == -1 || GetWallCel(button) == buttoncel || (buttoncel == 0 && GetWallCel(button) == -1))
+		{
+			SendTrigger(-1, 11031, rbot, button, -1, -1);
+		}
+	}
+
+	// Try to activate console
+	if (console != -1)
+	{
+		SendTrigger(-1, 11032, rbot, console, -1, -1);
+	}
+
 	return;
 
 end

@@ -11264,7 +11264,7 @@ World cogs 222
 154: rbot-dropmine.cog 181 -1 0
 155: rbot-dropmine.cog 169 -1 0
 156: rbot-dropmine.cog 220 -1 0
-157: rbot-arrival.cog 206 1 0 0 0 20 -1 -1
+157: rbot-arrival.cog 206 1 0 0 0 20 -1 -1 -1 2
 158: rbot-activate.cog 204 -1 0 1 180 -1 -1
 end
 

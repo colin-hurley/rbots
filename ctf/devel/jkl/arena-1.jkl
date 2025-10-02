@@ -37357,26 +37357,26 @@ World cogs 206
 123: rbot-jump.cog 402 1 0 1
 124: rbot-jump.cog 412 1 0 1
 125: rbot-movespeed.cog 372 386 400 410 -1 0 3 0 0.85
-126: rbot-arrival.cog 330 1 1 0 0 10 -1 -1
-127: rbot-arrival.cog 333 0 1 1 0 10 -1 -1
-128: rbot-arrival.cog 318 0 4 0 0 10 -1 -1
-129: rbot-arrival.cog 321 1 4 1 0 10 -1 -1
-130: rbot-arrival.cog 345 1 5 0 0 10 -1 -1
-131: rbot-arrival.cog 343 0 5 1 0 10 -1 -1
-132: rbot-arrival.cog 344 0 0 0 0 10 -1 -1
-133: rbot-arrival.cog 342 1 0 1 0 10 -1 -1
-134: rbot-arrival.cog 371 1 1 0 0 20 -1 -1
-135: rbot-arrival.cog 380 1 1 0 0 20 -1 -1
-136: rbot-arrival.cog 381 1 1 2 0 20 -1 -1
-137: rbot-arrival.cog 385 -1 4 0 0 20 -1 -1
-138: rbot-arrival.cog 394 -1 4 0 0 20 -1 -1
-139: rbot-arrival.cog 395 -1 4 2 0 20 -1 -1
-140: rbot-arrival.cog 399 1 5 0 0 20 -1 -1
-141: rbot-arrival.cog 404 1 0 0 0 20 -1 -1
-142: rbot-arrival.cog 405 1 0 2 0 20 -1 -1
-143: rbot-arrival.cog 409 1 0 0 0 20 -1 -1
-144: rbot-arrival.cog 414 1 5 0 0 20 -1 -1
-145: rbot-arrival.cog 415 1 5 2 0 20 -1 -1
+126: rbot-arrival.cog 330 1 1 0 0 10 -1 -1 -1 2
+127: rbot-arrival.cog 333 0 1 1 0 10 -1 -1 -1 2
+128: rbot-arrival.cog 318 0 4 0 0 10 -1 -1 -1 2
+129: rbot-arrival.cog 321 1 4 1 0 10 -1 -1 -1 2
+130: rbot-arrival.cog 345 1 5 0 0 10 -1 -1 -1 2
+131: rbot-arrival.cog 343 0 5 1 0 10 -1 -1 -1 2
+132: rbot-arrival.cog 344 0 0 0 0 10 -1 -1 -1 2
+133: rbot-arrival.cog 342 1 0 1 0 10 -1 -1 -1 2
+134: rbot-arrival.cog 371 1 1 0 0 20 -1 -1 -1 2
+135: rbot-arrival.cog 380 1 1 0 0 20 -1 -1 -1 2
+136: rbot-arrival.cog 381 1 1 2 0 20 -1 -1 -1 2
+137: rbot-arrival.cog 385 -1 4 0 0 20 -1 -1 -1 2
+138: rbot-arrival.cog 394 -1 4 0 0 20 -1 -1 -1 2
+139: rbot-arrival.cog 395 -1 4 2 0 20 -1 -1 -1 2
+140: rbot-arrival.cog 399 1 5 0 0 20 -1 -1 -1 2
+141: rbot-arrival.cog 404 1 0 0 0 20 -1 -1 -1 2
+142: rbot-arrival.cog 405 1 0 2 0 20 -1 -1 -1 2
+143: rbot-arrival.cog 409 1 0 0 0 20 -1 -1 -1 2
+144: rbot-arrival.cog 414 1 5 0 0 20 -1 -1 -1 2
+145: rbot-arrival.cog 415 1 5 2 0 20 -1 -1 -1 2
 146: rbot-activate.cog 362 -1 -1 -1 0 1 4010 0 -1
 147: rbot-activate.cog 361 -1 -1 -1 0 1 4022 0 -1
 end

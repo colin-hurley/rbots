@@ -5151,14 +5151,14 @@ rbot-jump.cog node:thing=216 rundir:int=1 delay:flex=0 scale:flex=1
 rbot-movespeed.cog node0:thing=192 node1:thing=-1 node2:thing=-1 node3:thing=-1 rundir:int=1 delay:flex=0.5 duration:flex=2 minspeed:flex=0 maxspeed:flex=0.7
 rbot-arrival.cog node:thing=179 rundir:int=1 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
 rbot-arrival.cog node:thing=162 rundir:int=0 arriver:thing=48 frame:int=0 delay:flex=0 timeout:flex=10 button:surface=-1 buttoncel:int=-1 console:thing=-1 retryrate:flex=2
-rbot-activate.cog node:thing=156 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1042 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=157 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=1048 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=201 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=970 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=196 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1060 buttoncel:int=-1 console:thing=-1
-rbot-activate.cog node:thing=197 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=1054 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=156 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1042 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=157 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=1048 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=201 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=970 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=196 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=1060 buttoncel:int=0 console:thing=-1
+rbot-activate.cog node:thing=197 rundir:int=0 delay:flex=0 chance:flex=1 button:surface=1054 buttoncel:int=0 console:thing=-1
 rbot-activate.cog node:thing=192 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=890 buttoncel:int=0 console:thing=-1
 rbot-activate.cog node:thing=212 rundir:int=1 delay:flex=0 chance:flex=1 button:surface=939 buttoncel:int=0 console:thing=-1
-rbot-activate.cog node:thing=212 rundir:int=1 delay:flex=0.2 chance:flex=1 button:surface=1012 buttoncel:int=-1 console:thing=-1
+rbot-activate.cog node:thing=212 rundir:int=1 delay:flex=0.2 chance:flex=1 button:surface=1012 buttoncel:int=0 console:thing=-1
 rbot-activate.cog node:thing=148 rundir:int=-1 delay:flex=0 chance:flex=1 button:surface=890 buttoncel:int=1 console:thing=-1
 END
 

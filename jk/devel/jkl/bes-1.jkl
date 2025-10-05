@@ -16771,17 +16771,17 @@ World cogs 163
 101: rbot-jump.cog 211 1 0 1.25
 102: rbot-jump.cog 214 1 0 1.25
 103: rbot-movespeed-sector.cog 155 -1 -1 -1 0 0.7
-104: rbot-arrival.cog 202 1 18 0 0 10 1696 -1 -1 2
-105: rbot-arrival.cog 209 0 18 1 0 10 1714 -1 -1 2
-106: rbot-arrival.cog 175 1 24 0 0 10 1702 -1 -1 2
-107: rbot-arrival.cog 178 0 24 1 0 10 1708 -1 -1 2
-108: rbot-arrival.cog 167 1 5 0 0 10 1672 -1 -1 2
-109: rbot-arrival.cog 171 0 5 1 0 10 1684 -1 -1 2
-110: rbot-arrival.cog 163 0 6 0 0 10 1678 -1 -1 2
-111: rbot-arrival.cog 159 1 6 1 0 10 1690 -1 -1 2
-112: rbot-arrival.cog 210 1 5 1 0 10 1899 -1 -1 2
-113: rbot-arrival.cog 213 1 6 1 0 10 1893 -1 -1 2
-114: rbot-activate.cog 217 -1 0 1 1811 -1 -1
+104: rbot-arrival.cog 202 1 18 0 0 10 1696 0 -1 2
+105: rbot-arrival.cog 209 0 18 1 0 10 1714 0 -1 2
+106: rbot-arrival.cog 175 1 24 0 0 10 1702 0 -1 2
+107: rbot-arrival.cog 178 0 24 1 0 10 1708 0 -1 2
+108: rbot-arrival.cog 167 1 5 0 0 10 1672 0 -1 2
+109: rbot-arrival.cog 171 0 5 1 0 10 1684 0 -1 2
+110: rbot-arrival.cog 163 0 6 0 0 10 1678 0 -1 2
+111: rbot-arrival.cog 159 1 6 1 0 10 1690 0 -1 2
+112: rbot-arrival.cog 210 1 5 1 0 10 1899 0 -1 2
+113: rbot-arrival.cog 213 1 6 1 0 10 1893 0 -1 2
+114: rbot-activate.cog 217 -1 0 1 1811 0 -1
 end
 
 Section: TEMPLATES

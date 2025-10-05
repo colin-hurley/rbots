@@ -36021,8 +36021,8 @@ World cogs 157
 105: rbot-special-sector.cog 47 58 61 49 43 48 27 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 3072 3072 3072 3072 3072 3072 3072 0 0 0 0 0 0 0 0 0 0 0 0 0
 106: rbot-custom-blades.cog
 107: rbot-crouch-sector.cog 61 -1 -1 -1
-108: rbot-activate.cog 235 -1 0 1 3345 -1 -1
-109: rbot-activate.cog 262 -1 0 1 3339 -1 -1
+108: rbot-activate.cog 235 -1 0 1 3345 0 -1
+109: rbot-activate.cog 262 -1 0 1 3339 0 -1
 end
 
 Section: TEMPLATES

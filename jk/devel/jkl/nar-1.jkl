@@ -10873,14 +10873,14 @@ World cogs 157
 94: rbot-movespeed.cog 192 -1 -1 -1 1 0.5 2 0 0.7
 95: rbot-arrival.cog 179 1 48 0 0 10 -1 -1 -1 2
 96: rbot-arrival.cog 162 0 48 0 0 10 -1 -1 -1 2
-97: rbot-activate.cog 156 1 0 1 1042 -1 -1
-98: rbot-activate.cog 157 0 0 1 1048 -1 -1
-99: rbot-activate.cog 201 0 0 1 970 -1 -1
-100: rbot-activate.cog 196 1 0 1 1060 -1 -1
-101: rbot-activate.cog 197 0 0 1 1054 -1 -1
+97: rbot-activate.cog 156 1 0 1 1042 0 -1
+98: rbot-activate.cog 157 0 0 1 1048 0 -1
+99: rbot-activate.cog 201 0 0 1 970 0 -1
+100: rbot-activate.cog 196 1 0 1 1060 0 -1
+101: rbot-activate.cog 197 0 0 1 1054 0 -1
 102: rbot-activate.cog 192 1 0 1 890 0 -1
 103: rbot-activate.cog 212 1 0 1 939 0 -1
-104: rbot-activate.cog 212 1 0.2 1 1012 -1 -1
+104: rbot-activate.cog 212 1 0.2 1 1012 0 -1
 105: rbot-activate.cog 148 -1 0 1 890 1 -1
 end
 

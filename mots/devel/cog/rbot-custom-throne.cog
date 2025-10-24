@@ -12,54 +12,39 @@ symbols
 message		startup
 message		user7
 
-sector		sec0=-1								nolink
-sector		sec1=-1								nolink
-sector		sec2=-1								nolink
-sector		sec3=-1								nolink
-sector		sec4=-1								nolink
-sector		sec5=-1								nolink
-sector		sec6=-1								nolink
-sector		sec7=-1								nolink
-sector		sec8=-1								nolink
-sector		sec9=-1								nolink
-sector		sec10=-1							nolink
-sector		sec11=-1							nolink
-sector		sec12=-1							nolink
-sector		sec13=-1							nolink
-sector		sec14=-1							nolink
-sector		sec15=-1							nolink
-sector		sec16=-1							nolink
-sector		sec17=-1							nolink
-sector		sec18=-1							nolink
-sector		sec19=-1							nolink
+surface		pit0=-1								nolink
+surface		pit1=-1								nolink
+surface		pit2=-1								nolink
+surface		pit3=-1								nolink
+surface		pit4=-1								nolink
+surface		pit5=-1								nolink
+surface		pit6=-1								nolink
+surface		pit7=-1								nolink
 
-int			zone0=-1
-int			zone1=-1
-int			zone2=-1
-int			zone3=-1
-int			zone4=-1
-int			zone5=-1
-int			zone6=-1
-int			zone7=-1
-int			zone8=-1
-int			zone9=-1
-int			zone10=-1
-int			zone11=-1
-int			zone12=-1
-int			zone13=-1
-int			zone14=-1
-int			zone15=-1
-int			zone16=-1
-int			zone17=-1
-int			zone18=-1
-int			zone19=-1
+flex		threshold=2.0						local
 
+int			losblocked							local
 int			i									local
+int			j									local
+int			k									local
+int			tempval1							local
+int			tempval2							local
+#int			tempval3							local
+flex		tempflex1							local
+flex		tempflex2							local
+vector		tempvector1							local
+vector		tempvector2							local
+vector		tempvector3							local
+vector		tempvector4							local
+vector		vxpos0								local
+vector		vxpos1								local
+vector		vxpos2								local
+vector		vxpos3								local
+
+surface		pit									local
 thing		rbot								local
 thing		item								local
 thing		potential							local
-int			zone								local
-int			pzone								local
 int			priority							local
 
 end
@@ -88,19 +73,11 @@ user7:
 
 		if (priority != -1)
 		{
-			// Determine which zones, if any, the bot and item are in
-			zone = -1;
-			pzone = -1;
-			for (i = 0 ; i < 20 ; i = i + 1)
+			potential = item;
+			call checkpit;
+			if (losblocked)
 			{
-				if (sec0[i] == GetThingSector(rbot)) zone = zone0[i];
-				if (sec0[i] == GetThingSector(item)) pzone = zone0[i];
-			}
-
-			// Compare zones
-			if (zone != -1 && pzone != -1 && zone != pzone)
-			{
-				// Bot and item are in different zones, ignore item
+				// Bot and item are on opposite sides of a pit, ignore item
 				priority = -1;
 			}
 		}
@@ -126,20 +103,11 @@ user7:
 
 		if (priority != -1)
 		{
-			// Determine which zones, if any, the bot and target are in
-			zone = -1;
-			pzone = -1;
-			for (i = 0 ; i < 20 ; i = i + 1)
+			call checkpit;
+			if (losblocked)
 			{
-				if (sec0[i] == GetThingSector(rbot)) zone = zone0[i];
-				if (sec0[i] == GetThingSector(potential)) pzone = zone0[i];
-			}
-
-			// Compare zones
-			if (zone != -1 && pzone != -1 && zone != pzone)
-			{
-				// Bot and target are in different zones, reduce priority
-				// Bot should try to attack targets in its own zone first
+				// Bot and target are on opposite sides of a pit, reduce priority
+				// Bot should try to avoid the pit and attack other targets first
 				priority = 0;
 			}
 		}
@@ -153,24 +121,15 @@ user7:
 		rbot = GetParam(1);
 		potential = GetParam(2);
 
-		// Determine which zones, if any, the bot and target are in
-		zone = -1;
-		pzone = -1;
-		for (i = 0 ; i < 20 ; i = i + 1)
+		call checkpit;
+		if (losblocked)
 		{
-			if (sec0[i] == GetThingSector(rbot)) zone = zone0[i];
-			if (sec0[i] == GetThingSector(potential)) pzone = zone0[i];
-		}
-
-		// Compare zones
-		if (zone != -1 && pzone != -1 && zone != pzone)
-		{
-			// Bot and target are in different zones, do not move toward target
+			// Bot and target are on opposite sides of a pit, do not move toward target
 			ReturnEx(0);
 			return;
 		}
 
-		// Bot is not in a zone, or bot and target are in the same zone, so allow moving toward target
+		// There is no pit between the bot and the target, so allow moving toward target
 		ReturnEx(1);
 		return;
 	}
@@ -180,6 +139,72 @@ user7:
 	jkStringConcatFormattedInt(GetSenderRef(), "rbot-custom-throne.cog :: ERROR :: Cog %d");
 	jkStringConcatFormattedInt(GetParam(0), " has requested an invalid function ID, %d");
 	jkStringOutput(-1, -1);
+	return;
+
+# Check to see if LOS from the bot to another thing passes over (or through) a pit
+# Input values:
+#   rbot = from thing
+#   potential = to thing
+# Output values:
+#   losblocked = 1 if LOS passes over a pit, 0 otherwise
+checkpit:
+	losblocked = 0;
+
+	for (i = 0 ; i < 8 ; i = i + 1)
+	{
+		pit = pit0[i];
+		if (pit != -1)
+		{
+			for (j = 0 ; j < GetNumSurfaceVertices(pit) ; j = j + 1)
+			{
+				tempval1 = j - 1;
+				if (tempval1 < 0) tempval1 = GetNumSurfaceVertices(pit) - 1; // special case: pair of first and last vertices
+				vxpos0 = GetSurfaceVertexPos(pit, tempval1);
+				vxpos1 = GetSurfaceVertexPos(pit, j);
+				tempvector1 = VectorNorm(VectorCross(VectorSub(vxpos0, vxpos1), '0 0 1')); // normal vector of pit edge vertical plane
+				tempvector2 = VectorSub(vxpos0, GetThingPos(rbot));
+				tempflex1 = VectorDot(tempvector1, tempvector2);
+				if (tempflex1 > 0) // edge plane is between the bot and the pit
+				{
+					// Compute the upper edge virtual vertices of the edge plane
+					vxpos2 = VectorAdd(vxpos1, VectorSet(0, 0, threshold));
+					vxpos3 = VectorAdd(vxpos0, VectorSet(0, 0, threshold));
+
+					tempvector2 = VectorSub(GetThingPos(potential), vxpos0);
+					tempflex2 = VectorDot(tempvector1, tempvector2);
+					if (tempflex2 > 0) // the potential is on the other side of the edge plane
+					{
+						// The things are on opposite sides of the edge plane
+						// See if the bot would need to cross over this pit edge to reach the potential
+						tempflex1 = tempflex1 / (tempflex1 + tempflex2);
+						tempvector2 = VectorAdd(GetThingPos(rbot), VectorScale(VectorSub(GetThingPos(potential), GetThingPos(rbot)), tempflex1)); // point of intersection with adjoin plane
+						losblocked = 1; // assume collision with this virtual edge plane surface until we find otherwise
+						for (k = 0 ; k < 4 ; k = k + 1)
+						{
+							tempval2 = k - 1;
+							if (tempval2 < 0) tempval2 = 3; // special case: pair of first and last vertices
+							tempvector3 = VectorCross(VectorSub(vxpos0[k], vxpos0[tempval2]), tempvector1); // edge normal (toward virtual surface)
+							tempvector4 = VectorSub(tempvector2, vxpos0[k]); // virtual surface vertex toraard edge plane intersection point
+							tempflex2 = VectorDot(tempvector3, tempvector4); // check if intersection point is within this edge
+							if (tempflex2 < 0)
+							{
+								// Outside this edge of the adjoin surface, no collision with this surface
+								// The point of intersection needs to be inside all edges of the surface for a collision to occur
+								losblocked = 0;
+								k = 4; // break
+							}
+						}
+						if (losblocked)
+						{
+							// This pit edge is directly in the path between the bot and the pos
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return;
 
 end

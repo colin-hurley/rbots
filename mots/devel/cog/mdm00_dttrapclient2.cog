@@ -8,6 +8,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 flags=0x240
 
@@ -27,6 +29,7 @@ flex     delay=3.0                           desc=delay
 
 int      cur_round=0                         local
 int      dummy                               local
+int      parent                              local
 
 template proj_tpl=+grenade2                  local
 
@@ -46,6 +49,12 @@ trigger:
    // Handle only TRIGGER_DTTRAP
    if(GetSourceRef() != 11002) Return;
 
+   // Save parent value now so the value is not lost if another trigger message
+   // runs before we finish executing the code below. Subsequent trigger
+   // messages may run during any of the sleeps. If this happens, the param
+   // values will be replaced with those of the latest message.
+   parent = GetParam(0);
+
    dummy = SetWallCel(switch, 1);
    dummy = PlaySoundPos(on_snd, SurfaceCenter(switch), 1.0, 5.0, 10.0, 0);
 
@@ -56,19 +65,19 @@ trigger:
 
       // give it the correct parent via the parent's guid passed in the trigger this
       // is essential to credit the kill to the guy who activated the switch..
-      SetThingParent(dummy, GetParam(0));
+      SetThingParent(dummy, parent);
       Sleep(rate);
       
       dummy = CreateThing(proj_tpl, tdg2);
-      SetThingParent(dummy, GetParam(0));
+      SetThingParent(dummy, parent);
       Sleep(rate);
       
       dummy = CreateThing(proj_tpl, tdg3);
-      SetThingParent(dummy, GetParam(0));
+      SetThingParent(dummy, parent);
       Sleep(rate);
       
       dummy = CreateThing(proj_tpl, tdg4);
-      SetThingParent(dummy, GetParam(0));
+      SetThingParent(dummy, parent);
       Sleep(rate);
       
       cur_round = cur_round + 1;

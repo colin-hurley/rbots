@@ -1,10 +1,13 @@
-MSGS 104
+MSGS 107
 
 #  "<key>"     <unused number>   "<string>"
 
 "CANOPY-1" 0 "Tree Canopy"
 "CANOPY-1_TEXT_00" 0 "^Rbots"
 "CANOPY-1_TEXT_01" 0 ""
+"CARGO-1" 0 "Cargo Ship"
+"CARGO-1_TEXT_00" 0 "^Rbots"
+"CARGO-1_TEXT_01" 0 ""
 "COG_01000" 0 "Yun"
 "COG_01001" 0 "Sariss"
 "COG_01002" 0 "Jerec"

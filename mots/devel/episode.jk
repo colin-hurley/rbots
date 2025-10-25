@@ -9,11 +9,12 @@ SEQ 9
 10:	0	1	LEVEL	freezer-1.jkl	0	0	20	-1
 20:	0	2	LEVEL	canopy-1.jkl	0	0	50	-1
 50:	0	3	LEVEL	throne-1.jkl	0	0	60	-1
-60:	0	4	LEVEL	vaporator-1.jkl	0	0	90	-1
-90:	0	5	LEVEL	gantry-1.jkl	0	0	100	-1
-100:	0	6	LEVEL	spaceport-1.jkl	0	0	120	-1
-120:	0	7	LEVEL	tibanna-1.jkl	0	0	130	-1
-130:	0	8	LEVEL	fortress-1.jkl	0	0	150	-1
-150:	0	9	LEVEL	temple-1.jkl	0	0	10	-1
+60:	0	4	LEVEL	vaporator-1.jkl	0	0	70	-1
+70:	0	5	LEVEL	cargo-1.jkl	0	0	90	-1
+90:	0	6	LEVEL	gantry-1.jkl	0	0	100	-1
+100:	0	7	LEVEL	spaceport-1.jkl	0	0	120	-1
+120:	0	8	LEVEL	tibanna-1.jkl	0	0	130	-1
+130:	0	9	LEVEL	fortress-1.jkl	0	0	150	-1
+150:	0	10	LEVEL	temple-1.jkl	0	0	10	-1
 
 end

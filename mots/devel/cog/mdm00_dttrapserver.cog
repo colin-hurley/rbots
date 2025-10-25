@@ -8,6 +8,8 @@
 # [YB]
 #
 # (C) 1997 LucasArts Entertainment Co. All Rights Reserved
+#
+# Modified to support Rbots
 
 
 symbols
@@ -17,8 +19,13 @@ flex     totaltime=8.0                       // 4 * rate * rounds + delay + 0.05
 
 int      active=0                            local
 
+# Transient working variables
+thing    rbot                                local
+surface  buttonref                           local
+
 message  activated
 message  timer
+message  trigger
 
 end
 
@@ -43,6 +50,34 @@ timer:
    active = 0;
 
    Return;
+
+//-------------------------------------------------------------------------------------------------
+
+trigger:
+	if (IsMulti() && !IsServer()) return; // Host only
+
+	if (GetSourceRef() == 11031) // "activate" trigger
+	{
+		rbot = GetParam(0);
+		buttonref = GetParam(1);
+
+		if (switch != -1 && switch == buttonref)
+		{
+			if(active == 1) Return;
+			active = 1;
+
+			// Send a TRIGGER_DTTRAP with its parameters
+			SendTrigger(-1, 11001, GetThingGuid(rbot), 0, 0, 0);
+
+			SetTimer(totalTime);
+
+			return;
+		}
+
+		return;
+	}
+
+	return;
 
 end
 
